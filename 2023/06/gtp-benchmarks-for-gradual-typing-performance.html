@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>GTP Benchmarks for Gradual Typing Performance</title>
-    <meta name="description" content="_Replace this with your post text. Add one or more comma-separated Tags above. The special tag `DRAFT` will prevent the post from being published._...">
+    <meta name="description" content="Sound gradual types have runtime costs. The GTP Benchmarks have helped measure these costs since 2014....">
     <meta name="author"      content="Utah PLT">
     <meta name="keywords"    content="by Ben Greenman">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
@@ -36,12 +36,48 @@
 <time datetime="2023-06-28" pubdate="true">2023-06-28</time> :: <span class="tags"><a href="/tags/by-Ben-Greenman.html">by Ben Greenman</a></span></p>
   </header>
 
-<p><em>Replace this with your post text. Add one or more comma-separated Tags above. The special tag <code>DRAFT</code> will prevent the post from being published.</em></p>
+<p>Sound gradual types have runtime costs. The GTP Benchmarks have helped measure these costs since 2014.</p>
 <!-- more-->
 
-<p>sw need to measure, how to benchmark. 1 bm exper critical 2 supoprt perf 3  4 otehr indeas 5 lessons</p>
+<hr />
 
-<p>TODO need images here!</p>
+<p>What on earth is gradual typing performance and why does it matter?</p>
+
+<p>The second question is easy to answer: performance matters because the cost of gradual types can slow a program by several <a href="https://users.cs.utah.edu/~blg/publications/publications.html#tfgnvf-popl-2016">orders of magnitude</a>. To answer the first question, we need to step back a bit&hellip;</p>
+
+<p>Normally, a type system is an ahead-of-time thing. Programs must typecheck before they can run. Afterwards, types can disappear. Compiled code can safely run full-throttle and assume that everything in its world behaves in a well-typed way.</p>
+
+<p>Gradual typing leads to an entirely different situation. It allows typed and untyped code to live together, which means that part of the codebase might rely on type assumptions that the rest of the codebase does not know about!</p>
+
+<p>Suppose we have a typed function that averages the elements in a list:</p>
+
+<div class="brush: python">
+ <pre><code>def avg(nums: list[int]):
+  ....</code></pre></div>
+
+<p>This function expects inputs that have the type <code>list[int]</code>. The typechecker will make sure that every call to <code>avg</code> in typed code match this expectation. But the typechecker will not check any calls to <code>avg</code> that appear in untyped code. How could it? Untyped code is, by definition, untyped and un-checked!</p>
+
+<p>Consequently, untyped code can ask outrageous questions when the program runs:</p>
+
+<pre><code>avg("hello")
+avg([[1, 7], "X", 0])
+avg(avg)</code></pre>
+
+<p>We clearly have a problem. Typed code might contain elegant data descriptions that untyped code does not know about. What to do?</p>
+
+<ul>
+ <li>One option is to do nothing. Let the programmer beware that gradual  types are unsound at the boundaries to untyped code.  With this mindset, types remain cost-free but give zero help for debugging.  Many languages follow this approach, including TypeScript and mypy.</li>
+ <li>Another option is to enforce type soundness with runtime checks.  Now we have reliable types (to some extent), but we also have costs  to measure and minimize.</li></ul>
+
+<p>The GTP Benchmarks are a collection of 21 programs designed to test the costs of sound gradual types. Each program comes in two forms, untyped and typed (written in Racket and Typed Racket), with the crucial property that any module-by-module mix of the two forms results in a working program. A banchmark with <code>N</code> modules generates <code>2^N</code> partially-typed programs that give a broad picture of the possibilities that gradual typing enables:</p>
+
+<p><img src="/img/gtp-lattice.png" width="50%" /></p>
+
+<p>The table below is a birds-eye view of the benchmarks. It lists their name, purpose, and characteristics: whether they were originally typed (T Init), whether they depend on untyped (U Lib) or typed (T Lib) library code, whether they define geneative datatypes (Adapt), and whether they send higher-order function (HOF), polymorphic types (Poly), recursive types (Rec), mutable data-structure types (Mut), immutable data-structure types (Imm), object types (Obj), or class types (Cls) across a boundary to untyped code.</p>
+
+<p><img src="/img/gtp-programs.png" /></p>
+
+<p>For more details, see <a href="https://users.cs.utah.edu/~blg/publications/publications.html#g-rep-2023">the paper</a>.</p>
   <footer>
   </footer>
 </article>
