@@ -68,9 +68,8 @@ Each program comes in two forms, untyped and typed
 (written in Racket and Typed Racket), with the crucial
 property that any module-by-module mix of the two forms
 results in a working program.
-A banchmark with `N` modules generates `2^N` partially-typed
-programs that give a broad picture of the possibilities
-that gradual typing enables:
+A benchmark with `N` modules generates `2^N` partially-typed
+programs that sample the space of gradual possibilities:
 
 <img src="/img/gtp-lattice.png" width="50%" />
 
@@ -79,7 +78,7 @@ It lists their name, purpose, and characteristics:
 whether they were originally typed (T Init),
 whether they depend on untyped (U Lib)
 or typed (T Lib) library code,
-whether they define geneative datatypes (Adapt),
+whether they define generative datatypes (Adapt),
 and whether they send higher-order function (HOF),
 polymorphic types (Poly),
 recursive types (Rec),
@@ -87,7 +86,7 @@ mutable data-structure types (Mut),
 immutable data-structure types (Imm),
 object types (Obj),
 or class types (Cls)
-across a boundary to untyped code:
+across any untyped boundary:
 
 <img src="/img/gtp-programs.png" />
 

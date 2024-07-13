@@ -69,11 +69,11 @@ avg(avg)</code></pre>
  <li>One option is to do nothing. Let the programmer beware that gradual  types are unsound at the boundaries to untyped code.  With this mindset, types remain cost-free but give zero help for debugging.  Many languages follow this approach, including TypeScript and mypy.</li>
  <li>Another option is to enforce type soundness with runtime checks.  Now we have reliable types (to some extent), but we also have costs  to measure and minimize.</li></ul>
 
-<p>The GTP Benchmarks are a collection of 21 programs designed to test the costs of sound gradual types. Each program comes in two forms, untyped and typed (written in Racket and Typed Racket), with the crucial property that any module-by-module mix of the two forms results in a working program. A banchmark with <code>N</code> modules generates <code>2^N</code> partially-typed programs that give a broad picture of the possibilities that gradual typing enables:</p>
+<p>The GTP Benchmarks are a collection of 21 programs designed to test the costs of sound gradual types. Each program comes in two forms, untyped and typed (written in Racket and Typed Racket), with the crucial property that any module-by-module mix of the two forms results in a working program. A benchmark with <code>N</code> modules generates <code>2^N</code> partially-typed programs that sample the space of gradual possibilities:</p>
 
 <p><img src="/img/gtp-lattice.png" width="50%" /></p>
 
-<p>The table below is a birds-eye view of the benchmarks. It lists their name, purpose, and characteristics: whether they were originally typed (T Init), whether they depend on untyped (U Lib) or typed (T Lib) library code, whether they define geneative datatypes (Adapt), and whether they send higher-order function (HOF), polymorphic types (Poly), recursive types (Rec), mutable data-structure types (Mut), immutable data-structure types (Imm), object types (Obj), or class types (Cls) across a boundary to untyped code.</p>
+<p>The table below is a birds-eye view of the benchmarks. It lists their name, purpose, and characteristics: whether they were originally typed (T Init), whether they depend on untyped (U Lib) or typed (T Lib) library code, whether they define generative datatypes (Adapt), and whether they send higher-order function (HOF), polymorphic types (Poly), recursive types (Rec), mutable data-structure types (Mut), immutable data-structure types (Imm), object types (Obj), or class types (Cls) across any untyped boundary:</p>
 
 <p><img src="/img/gtp-programs.png" /></p>
 
