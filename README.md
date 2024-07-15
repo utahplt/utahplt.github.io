@@ -84,12 +84,13 @@ To build, serve, and print the homepage URL:
 
 ```
 raco frog -bs
-    Frog 0.30
-    Your Web application is running at http://localhost:3000.
-    Stop this program at any time to terminate the Web Server.
-    ^C
-    Web Server stopped.
 ```
+
+>   Frog 0.30
+>   Your Web application is running at http://localhost:3000.
+>   Stop this program at any time to terminate the Web Server.
+>   ^C
+>   Web Server stopped.
 
 Either way, hit control-C to stop the server.
 
