@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Nice To Meet You: Synthesizing Practical MLIR Abstract Transformers</title>
+    <meta name="description" content="...">
+    <meta name="author"      content="Utah PLT">
+    <meta name="keywords"    content="">
+    <meta name="viewport"    content="width=device-width, initial-scale=1.0">
+    <link rel="icon"      href="/favicon.ico">
+    <link rel="canonical" href="https://www-old.cs.utah.edu/plt//2025/12/nice-to-meet-you-synthesizing-practical-mlir-abstract-transformers.html">
+    <link rel="next" href="/2025/06/-lightweight-diagramming-for-lightweight-formal-methods-https-blog-brownplt-org-2025-06-09-copeanddrag-html.html">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/pygments.css">
+    <link rel="stylesheet" type="text/css" href="/css/scribble.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <!-- Feeds -->
+    <link rel="alternate" type="application/atom+xml" href="/feeds/all.atom.xml" title="Atom Feed">
+    <link rel="alternate" type="application/rss+xml" href="/feeds/all.rss.xml" title="RSS Feed">
+  </head>
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <!-- Main column -->
+        <div id="content" class="col-md-9">
+          <a href="https://www-old.cs.utah.edu/plt/">
+          <H1>
+          <img src="/img/utahplt.svg" style="margin: -10px 0 -60px -40px;" width="40%" alt="[Utah PLT logo]">
+          </H1>
+          </a>
+        </div>
+        <div id="content" class="col-md-3">
+        </div>
+        <div class="col-md-3">
+          <a href="/feeds/all.rss.xml">
+            <img class="pt-3" style="height: 55px;" src="/img/rss.png" alt="rss feed">
+          </a>
+        </div>
+      </div>
+      <div class="row">
+        <div id="content" class="col-md-12">
+          <article>
+  <header>
+    <h2>Nice To Meet You: Synthesizing Practical MLIR Abstract Transformers</h2>
+    <p class='date-and-tags'>
+<time datetime="2025-12-10" pubdate="true">2025-12-10</time> :: <span class="tags"></span></p>
+  </header>
+  <!-- more-->
+
+<p>Until today, building a new static analysis inside a compiler meant writing dozens of abstract transformers by hand&mdash;one per instruction, per abstract domain.</p>
+
+<p>Weeks of engineering effort, often only to discover that the analysis doesn’t even help the optimizer.</p>
+
+<p>At POPL 2026, we introduce NiceToMeetYou, a framework that automatically synthesizes abstract transformers for entire MLIR dialects and LLVM instruction sets. No sketches, no templates, no expert tuning—just the abstract domain definitions. Everything else is fully automated and provably sound, backed by the SMT-based verifier infrastructure developed over years of LLVM/MLIR research.</p>
+
+<p>NiceToMeetYou rests on two key ideas: - Synthesize many small transformers and meet them together into a precise, sound whole. - Synthesize conditional transformers by generating precise-but-unsound candidates, then synthesizing the conditions that make them sound.</p>
+
+<p>Both strategies can be implemented efficiently using Monte Carlo search.</p>
+
+<p>And yes, sometimes NiceToMeetYou even synthesized transformers more precise than LLVM’s hand-written ones.</p>
+
+<p>Paper: <a href="https://arxiv.org/abs/2512.06442">https://arxiv.org/abs/2512.06442</a></p>
+
+<p>Original LinkedIn Post: <a href="https://www.linkedin.com/posts/loris-d-antoni-5a4b5a17_until-today-building-a-new-static-analysis-activity-7404005979824300032-Rm_H">https://www.linkedin.com/posts/loris-d-antoni-5a4b5a17_until-today-building-a-new-static-analysis-activity-7404005979824300032-Rm_H</a></p>
+  <footer>
+  </footer>
+</article>
+        </div>
+      </div>
+      <footer>
+        <hr />
+        <p>Site generated
+        by <a href="https://github.com/greghendershott/frog">Frog</a>,
+        the <strong>fr</strong>ozen bl<strong>og</strong> tool.</p>
+        <div class="col-md-12">
+          <img src="/img/logo.gif" width="10%" alt="[Utah PLT logo]"/>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
