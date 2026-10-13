@@ -5,6 +5,7 @@
 (define/contract (init)
   (-> any)
   (current-scheme/host "https://utahplt.github.io")
+  (current-uri-prefix "/blog")
   (current-title "Utah PLT")
   (current-author "Utah PLT"))
 

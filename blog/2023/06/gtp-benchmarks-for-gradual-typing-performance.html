@@ -7,18 +7,18 @@
     <meta name="author"      content="Utah PLT">
     <meta name="keywords"    content="by Ben Greenman">
     <meta name="viewport"    content="width=device-width, initial-scale=1.0">
-    <link rel="icon"      href="/favicon.ico">
-    <link rel="canonical" href="https://www-old.cs.utah.edu/plt//2023/06/gtp-benchmarks-for-gradual-typing-performance.html">
-    <link rel="next" href="/2023/06/-flowfpx-nimble-tools-for-debugging-floating-point-exceptions-https-lambdaland-org-flowfpx-nimble-tools-for-debugging-floating-point-exceptions-juliacon-2023.html">
-    <link rel="prev" href="/2023/09/-generating-programs-trivially-student-use-of-large-language-models-https-blog-brownplt-org-2023-09-19-generating-programs-trivially-html.html">
+    <link rel="icon"      href="/blog/favicon.ico">
+    <link rel="canonical" href="https://utahplt.github.io/blog/2023/06/gtp-benchmarks-for-gradual-typing-performance.html">
+    <link rel="next" href="/blog/2023/06/-flowfpx-nimble-tools-for-debugging-floating-point-exceptions-https-lambdaland-org-flowfpx-nimble-tools-for-debugging-floating-point-exceptions-juliacon-2023.html">
+    <link rel="prev" href="/blog/2023/09/-generating-programs-trivially-student-use-of-large-language-models-https-blog-brownplt-org-2023-09-19-generating-programs-trivially-html.html">
     <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/pygments.css">
-    <link rel="stylesheet" type="text/css" href="/css/scribble.css">
-    <link rel="stylesheet" type="text/css" href="/css/custom.css">
+    <link rel="stylesheet" type="text/css" href="/blog/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/blog/css/pygments.css">
+    <link rel="stylesheet" type="text/css" href="/blog/css/scribble.css">
+    <link rel="stylesheet" type="text/css" href="/blog/css/custom.css">
     <!-- Feeds -->
-    <link rel="alternate" type="application/atom+xml" href="/feeds/all.atom.xml" title="Atom Feed">
-    <link rel="alternate" type="application/rss+xml" href="/feeds/all.rss.xml" title="RSS Feed">
+    <link rel="alternate" type="application/atom+xml" href="/blog/feeds/all.atom.xml" title="Atom Feed">
+    <link rel="alternate" type="application/rss+xml" href="/blog/feeds/all.rss.xml" title="RSS Feed">
   </head>
   <body>
 
@@ -28,15 +28,15 @@
         <div id="content" class="col-md-9">
           <a href="https://www-old.cs.utah.edu/plt/">
           <H1>
-          <img src="/img/utahplt.svg" style="margin: -10px 0 -60px -40px;" width="40%" alt="[Utah PLT logo]">
+          <img src="/blog/img/utahplt.svg" style="margin: -10px 0 -60px -40px;" width="40%" alt="[Utah PLT logo]">
           </H1>
           </a>
         </div>
         <div id="content" class="col-md-3">
         </div>
         <div class="col-md-3">
-          <a href="/feeds/all.rss.xml">
-            <img class="pt-3" style="height: 55px;" src="/img/rss.png" alt="rss feed">
+          <a href="/blog/feeds/all.rss.xml">
+            <img class="pt-3" style="height: 55px;" src="/blog/img/rss.png" alt="rss feed">
           </a>
         </div>
       </div>
@@ -46,7 +46,7 @@
   <header>
     <h2>GTP Benchmarks for Gradual Typing Performance</h2>
     <p class='date-and-tags'>
-<time datetime="2023-06-28" pubdate="true">2023-06-28</time> :: <span class="tags"><a href="/tags/by-Ben-Greenman.html">by Ben Greenman</a></span></p>
+<time datetime="2023-06-28" pubdate="true">2023-06-28</time> :: <span class="tags"><a href="/blog/tags/by-Ben-Greenman.html">by Ben Greenman</a></span></p>
   </header>
 
 <p>Sound gradual types have runtime costs. The GTP Benchmarks have helped measure these costs since 2014.</p>
@@ -65,8 +65,21 @@
 <p>Suppose we have a typed function that averages the elements in a list:</p>
 
 <div class="brush: python">
- <pre><code>def avg(nums: list[int]):
-  ....</code></pre></div>
+ <div class="source">
+  <table class="sourcetable">
+   <tbody>
+    <tr>
+     <td class="linenos">
+      <div class="linenodiv">
+       <pre><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td>
+     <td class="code">
+      <div>
+       <pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">avg</span><span class="p">(</span><span class="n">nums</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+  <span class="o">....</span>
+</pre></div></td></tr></tbody></table></div>
+
+</div>
 
 <p>This function expects inputs that have the type <code>list[int]</code>. The typechecker will make sure that every call to <code>avg</code> in typed code match this expectation. But the typechecker will not check any calls to <code>avg</code> that appear in untyped code. How could it? Untyped code is, by definition, untyped and un-checked!</p>
 
@@ -102,7 +115,7 @@ avg(avg)</code></pre>
         by <a href="https://github.com/greghendershott/frog">Frog</a>,
         the <strong>fr</strong>ozen bl<strong>og</strong> tool.</p>
         <div class="col-md-12">
-          <img src="/img/logo.gif" width="10%" alt="[Utah PLT logo]"/>
+          <img src="/blog/img/logo.gif" width="10%" alt="[Utah PLT logo]"/>
         </div>
       </footer>
     </div>
