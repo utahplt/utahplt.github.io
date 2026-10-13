@@ -4,8 +4,8 @@
 ;; in frog/params.
 (define/contract (init)
   (-> any)
-  (current-scheme/host "https://www-old.cs.utah.edu/plt/")
-  (current-title "Utah PLT Blog")
+  (current-scheme/host "https://utahplt.github.io")
+  (current-title "Utah PLT")
   (current-author "Utah PLT"))
 
 ;; Called once per post and non-post page, on the contents.

@@ -1,6 +1,6 @@
 ## utahplt.github.io
 
-Our research blog:
+Research blog:
 
 <https://utahplt.github.io/>
 
