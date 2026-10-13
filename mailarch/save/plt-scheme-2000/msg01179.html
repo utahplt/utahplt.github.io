@@ -1,0 +1,192 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: PLT Scheme development directions -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 24 Dec 2000 09:25:23 &#45;0700 (MST) -->
+<!--X-Message-Id: 200012241625.JAA22147@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200011091739.KAA22500@fast.cs.utah.edu -->
+<!--X-Reference: 20001129165654V.mrs35@cam.ac.uk -->
+<!--X-Reference: 200011291718.KAA20160@fast.cs.utah.edu -->
+<!--X-Reference: 20001214015331L.mseaborn@argonet.co.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: PLT Scheme development directions</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01178.html">Date Prev</A>][<A HREF="msg01180.html">Date Next</A>][<A HREF="msg01170.html">Thread Prev</A>][<A HREF="msg01195.html">Thread Next</A>][<A HREF="maillist.html#01179">Date Index</A>][<A HREF="threads.html#01179">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: PLT Scheme development directions</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Mark Seaborn &lt;<A HREF="mailto:mseaborn@argonet.co.uk">mseaborn@argonet.co.uk</A>&gt;</LI>
+<LI><em>Subject</em>: Re: PLT Scheme development directions</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 24 Dec 2000 09:25:21 -0700 (MST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01143.html">20001214015331L.mseaborn@argonet.co.uk</A>&gt;</LI>
+<LI><em>References</em>: &lt;200011091739.KAA22500@fast.cs.utah.edu&gt;&lt;20001129165654V.mrs35@cam.ac.uk&gt;&lt;200011291718.KAA20160@fast.cs.utah.edu&gt;	&lt;<A HREF="msg01143.html">20001214015331L.mseaborn@argonet.co.uk</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Mark Seaborn:
+&gt; &gt; We have a variable to use in each of u1 and u2, but there are no
+&gt; &gt; variable definitions - the variables don't actually exist!
+&gt; &gt; 
+&gt; &gt; The `compound-unit' form could, of course, detect such cycles, assuming
+&gt; &gt; that a unit provides information about its re-exports. But the
+&gt; &gt; underlying problem would make the semantics and implementation of units
+&gt; &gt; far more complex, so we chose to avoid the problem by disallowing
+&gt; &gt; re-export.
+&gt; 
+&gt; I can see how implementing this could be tricky.
+
+I'd claim it's not really an artifact of the implementation, but of the
+fact that units to import/export locations rather than values.
+
+&gt; My implementation of units doesn't have the luxury of dealing with
+&gt; locations directly, 
+
+Neither will the unit implementation in the next release of MzScheme,
+since `unit' will be just a fancy macro. (The `invoke-unit' form will
+become a little weaker.)
+
+&gt; so, during unit invocation, when a value is bound
+&gt; (by evaluating a `define' form in the unit), the code just ensures the
+&gt; value becomes visible in units which import the variable by `set!'ting
+&gt; it in their environments.  In this model, re-export of variables is
+&gt; not a problem, because it can be done the same way as normal
+&gt; exporting.  If a cycle occurs (as in your example above), the variable
+&gt; just never gets initialised.
+
+If I understand correctly, you have in mind implementing import/export
+of values instead of locations, plus an intialization strategy that
+makes it possible to define mutually recursive procedures across
+components boundaries. I'll have to read your design details more
+closely, but it sounds plausible.
+
+&gt; There's obviously the question of why I wanted to do re-exporting of
+&gt; variables to start with.  It wasn't actually a very good reason:  I
+&gt; wanted to be able to avoid duplicating signature restrictions all over 
+&gt; the place in a compound-unit/sig form.  I thought maybe I could pass a 
+&gt; tag to a unit which just re-exported its import with a restricted
+&gt; signature, and bind the result to a new tag.  Not elegant at all, and
+&gt; it also doesn't work.
+
+That sounds like a job for compound units.
+
+&gt; But I can imagine there are good reasons for wanting to do re-export,
+&gt; such as extending a unit to export more variables.  This can be done
+&gt; with PLT units, but only at run time -- it can't be done within a
+&gt; compound-unit/sig form -- which means that you can't have unit
+&gt; invocations be shared.  The unit being extended (if it is extended
+&gt; more than once) may get invoked multiple times, which is wasteful.
+
+This sounds like the kind of thing compound-unit/sig would do, though.
+Is the problem that you imagine a kind of mixin compound that adds
+exports to an arbitrary unit (which can't be done with c-u/s)?
+
+&gt; What it all boils down to is the problem that compound-unit/sig isn't
+&gt; expressive enough.  You can't put a conditional inside it, 
+
+You can put a conditional in each expression position that determines a
+constituent unit...
+
+&gt; so if it
+&gt; contains a set of units that can be replaced by another set of units,
+&gt; these sets must be lifted out into their own compound-unit/sig forms.
+&gt; This involves lots of plumbing of imports and exports between the
+&gt; different linking statements, which is fiddly and inelegant.
+
+I'm a little lost here.
+
+&gt; The basic problem is that unit *invocations* can't be passed around at
+&gt; the Scheme level, they are confined to the unexpressive language of
+&gt; compound-unit/sig. 
+
+It's certainly true that invocations can't be passed around. This is a
+conscious and carefully maintained design choice. It forces
+library-like units to the top of the hierarchy; that can be incovenient
+to some programmers, but makes the overall program more configurable
+for other programmers.
+
+&gt; Units themselves can be passed around at the
+&gt; Scheme level, which is wonderful, but you can't really use this
+&gt; ability to link complex programs together, because unit invocations
+&gt; end up not being shared, and units can't be mutually linked at this
+&gt; level (the main advantage of units).
+
+Dynamic linking via `invoke-unit' permits sharing. It does force the
+linking structure upside-down though -- again, a conscisous design
+choice aimed at exposing the way a program is linked and where it
+should be parameterized.
+
+
+I'll have to look at your design and think more about the trade-offs of
+importing/exporting values versus locations. I havne't really thought
+about combining the former with an initialization process that makes it
+easy to express mutual recursion across units.
+
+Matthew
+
+
+_____NetZero Free Internet Access and Email______
+   <A  HREF="http://www.netzero.net/download/index.html">http://www.netzero.net/download/index.html</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01143" HREF="msg01143.html">Re: PLT Scheme development directions</A></STRONG>
+<UL><LI><EM>From:</EM> Mark Seaborn &lt;mseaborn@argonet.co.uk&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01178.html">Re: Added a class to MrEd.</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01180.html">modules and syntax</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01170.html">Re: PLT Scheme development directions</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01195.html">Re: PLT Scheme development directions</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01179"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01179"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

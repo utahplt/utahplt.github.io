@@ -1,0 +1,148 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Question on multi&#45;statement "Applying" -->
+<!--X-From-R13: Perag Thytunz <oshytunzNqrovna.bet> -->
+<!--X-Date: Mon, 1 Jan 2001 16:48:59 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010101160119.A1376@debian.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Question on multi-statement &quot;Applying&quot;</title>
+<link rev="made" href="mailto:bfulgham@debian.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00000.html">Date Prev</a>][<a href="msg00002.html">Date Next</a>][<a href="msg00000.html">Thread Prev</a>][<a href="msg00002.html">Thread Next</a>][<a href="maillist.html#00001">Date Index</a>][<a href="threads.html#00001">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Question on multi-statement &quot;Applying&quot;</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Question on multi-statement &quot;Applying&quot;</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 1 Jan 2001 16:01:19 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.12i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Consider two simple CGI scripts:
+
+(begin
+  (display &quot;Content-type: text/html&quot;)
+  (newline)
+  (newline)
+  (display &quot;&lt;HTML&gt;&lt;HEAD&gt;&quot;)
+  (display &quot;&lt;TITLE&gt;Declarative Test&lt;/TITLE&gt;&quot;)
+  (display &quot;&lt;BODY&gt;&lt;H1&gt;Test Using the (begin ...) form&lt;/H1&gt;&quot;)
+  (display &quot;This works well.  Blah blah blah.!&quot;)
+  (display &quot;&lt;B&gt;&quot;)
+  (newline)
+  (display &quot;Did I work?&quot;)
+  (display &quot;&lt;/HTML&gt;&quot;))
+
+- And -
+
+(display &quot;Content-type: text/html&quot;)
+(newline)
+(newline)
+(display &quot;&lt;HTML&gt;&lt;HEAD&gt;&quot;)
+(display &quot;&lt;TITLE&gt;Test&lt;/TITLE&gt;&quot;)
+(display &quot;&lt;BODY&gt;&lt;H1&gt;Test of a plain text format&lt;/H1&gt;&quot;)
+(display &quot;This doesn't work so well.  Blah blah blah.!&quot;)
+(display &quot;&lt;B&gt;&quot;)
+(newline)
+(display &quot;Did I work?&quot;)
+(display &quot;&lt;/HTML&gt;&quot;))
+		   
+Using the first test, I can get complete rendering of an HTML
+page in AOLserver.
+
+Using the second test, I only evaluate the first form
+(display &quot;Context-type: text/html&quot;).
+
+I'm evaluating both cases using &quot;scheme_eval_string_all&quot;,
+which it seems should treat both the same way.  Am I
+missing the point of the &quot;_all&quot; variant of eval string?
+
+Neither case works under &quot;scheme_eval_string&quot; (or more
+precisely, only the first expression of each string is
+evaluated).  I would expect test 2 to work this way, but
+test 1 should just be a single evaluation, shouldn't it?
+
+Aside:  Although the documentation for &quot;scheme_eval_string_all&quot;
+says that &quot;if 'all' is not 0, then expressions are read and
+evaluated from str until the end of the string is reached.&quot;
+But according to the code and my experimentation, it really
+only reads and evaluates multiple expressions if 'all' is
+less than zero.  0 or greater acts like zero.
+
+So, what is the proper behavior?  If I send these two scripts
+through MzScheme's REPL, (using mzscheme -f test.ss) each
+form is evaluated in turn.  This seems like the more
+intuitive behavior.
+
+What do the rest of you think?
+
+Thanks,
+
+-Brent
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00002" href="msg00002.html">Re: Question on multi-statement &quot;Applying&quot;</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00005" href="msg00005.html">(Withdrawn!): Question on multi-statement &quot;Applying&quot;</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00000.html">New Year's Singles BASH Tonight!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00002.html">Re: Question on multi-statement &quot;Applying&quot;</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00000.html">New Year's Singles BASH Tonight!</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00002.html">Re: Question on multi-statement &quot;Applying&quot;</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00001"><strong>Date</strong></a></li>
+<li><a href="threads.html#00001"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

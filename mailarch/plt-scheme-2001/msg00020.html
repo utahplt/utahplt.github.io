@@ -1,0 +1,164 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: scheme_make_class_assembly -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Thu, 4 Jan 2001 23:19:11 &#45;0700 (MST) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B91BE3D5E@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>scheme_make_class_assembly</title>
+<link rev="made" href="mailto:GregP@bsquare.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00019.html">Date Prev</a>][<a href="msg00021.html">Date Next</a>][<a href="msg00017.html">Thread Prev</a>][<a href="msg00023.html">Thread Next</a>][<a href="maillist.html#00020">Date Index</a>][<a href="threads.html#00020">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>scheme_make_class_assembly</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: scheme_make_class_assembly</li>
+<li><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 4 Jan 2001 22:18:27 -0800 </li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm trying to make a class using scheme_make_class_assembly.
+Unfortunately, I'm experiencing a crash inside GetIvar.
+
+It appears that GetIvar wants to do this:
+
+int level = mclass-&gt;cmethod_ready_level[mclass-&gt;vslot_map[vp]];
+
+but unfortunately, mclass-&gt;cmethod_ready_level = NULL
+:-(
+
+
+I've wandered through the code a bit and concluded that the best chance for
+cmethod_ready_level to ever amount to anything occurs inside
+
+scheme_DefineClass_execute
+
+unfortunately, this opportunity is missed. :-(
+In fact, I observed in several places, cmethod_ready_level appears to be
+quite deliberately set to NULL. So I suspect that perhaps I'm doing
+something wrong.
+
+Anyway, here's the class assembly that I'm passing to scheme_create_class:
+
+
+Scheme_Class_Assembly *gl_array_class_assembly  = scheme_make_class_assembly
+(&quot;gl-array%&quot;, 
+0,
+iPublicNames, psoPublicNames,
+0, NULL,
+0, NULL,
+0, NULL,
+0, 1,
+initialize_gl_array_class);
+
+
+In summary, a nice name:
+
+&quot;gl-array%&quot;
+Zero interfaces.
+iPublicNames = 1,
+
+psoPublicNames[0] = scheme_intern_symbol(&quot;dump&quot;);
+
+There are no overrides, inherits, renames.
+
+Arity is valid.
+
+initialize_gl_array_class is a nice function that never gets called thanks
+to the crash.
+
+
+Here's what my call to scheme_create_class looks like:
+
+return scheme_create_class(gl_array_class_assembly, (void *)data, NULL,
+NULL);
+
+
+The only thing that comes to mind, is that I should provide at least one for
+the number of interfaces
+(2nd param)
+to scheme_make_class_assembly
+
+Is this correct?
+Should I first make an interface for this thing using
+scheme_make_interface_assembly and then scheme_create_interface?
+
+
+Oddly enough, the code sometimes runs *without* crashing! Three scenarious:
+1. Crashes as described above.
+2. Doesn't crash, but the dump method is not there when I instantiate the
+class. i.e. error message
+says I'm crazy when I try (send o dump)
+3. Doesn't crash, dump method works. (but program is still prone to crashing
+on a subsequent call to scheme_create_class)
+
+This observation, throws my assumption that I am merely doing something
+wrong, into a cocked hat. So perhaps
+there is more...
+
+Any ideas?
+
+Thanks.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00023" href="msg00023.html">Re: scheme_make_class_assembly</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00019.html">bug in define-syntax</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00021.html">Re: Senora GC ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00017.html">Re: Question on Multithreading from C API</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00023.html">Re: scheme_make_class_assembly</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00020"><strong>Date</strong></a></li>
+<li><a href="threads.html#00020"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

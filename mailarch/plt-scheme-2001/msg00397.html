@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Looking for advice/opinions -->
+<!--X-From-R13: Sqqvr Qbeaf <rqqvrNubylebbq.rq.np.hx> -->
+<!--X-Date: Mon, 19 Mar 2001 11:22:20 &#45;0700 (MST) -->
+<!--X-Message-Id: 200103191822.SAA27216@holyrood.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Looking for advice/opinions</title>
+<link rev="made" href="mailto:eddie@holyrood.ed.ac.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00396.html">Date Prev</a>][<a href="msg00398.html">Date Next</a>][<a href="msg00396.html">Thread Prev</a>][<a href="msg00413.html">Thread Next</a>][<a href="maillist.html#00397">Date Index</a>][<a href="threads.html#00397">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Looking for advice/opinions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Looking for advice/opinions</li>
+<li><em>From</em>: Eddie Corns &lt;<A HREF="mailto:eddie@holyrood.ed.ac.uk">eddie@holyrood.ed.ac.uk</A>&gt;</li>
+<li><em>Date</em>: Mon, 19 Mar 2001 18:22:17 GMT</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi all.  For quite some time now I've been wanting to add SNMP functionality to
+scheme.  It seems like an ideal time to switch to DrScheme as well.  This may
+be over ambitious at this stage as I've only actually written about 4 scheme
+programs but I'd  like to give it a bash anyway, this way I can learn scheme
+and actually do what I'm paid for for a change - though my employers object to
+me using obscure languages :(
+
+When I say SNMP functionality I mean the complete works which means:
+a) handling SNMP requests asynchronously, including ...
+b) incoming unsolicited notifications (pka traps)
+c) conforming to the API described in RFC2271 etc.
+
+The third point really only dictates which C libraries I can use.  The async
+handling is a requirement, SNMP applications simply do not scale without it.
+
+I realise there would be a place for threads here but at the same time it seems
+like it might be expensive to invoke a thread for each individual request,
+especially as it is not uncommon to poll hundreds or even thousands of devices
+in one go.  It seems natural to me (because I've used them before probably) to
+use callbacks. So (simplifying a bit) I would attach a 2 arg procedure to the
+outgoing request (to pass back the return value and success code) to be called
+after the response arrives (detected using SIGIO).  Rather than trying to
+handle callbacks being invoked at an arbitrary time I think it might be easier
+to have a wait procedure that suspends the thread, handles all responses that
+have arrived and that continue to arrive until there's none left outstanding
+and then return.
+
+Does that make sense?, perhaps a simplified example of what I think it might
+look like would help:
+
+(define (get-router-uptimes rtrs password)
+  (let* ((res ())
+	 (got-resp (lambda (r v) (append! res (list r v))))
+	 (reqids (map
+		  (lambda (rtr) (snmp-poll rtr &quot;sysUptime.0&quot; password
+					   (lambda (v err) (got-resp rtr v))))
+		  rtrs)))
+    (snmp-wait reqids)
+    res))
+
+Where snmp-poll issues a request and snmp-wait invokes the callbacks until all
+responses have arrived then returns.
+
+Does this seem a reasonable approach or is there a more schemey one?
+
+Does anyone have pointers to anything similar I can learn from/steal?
+
+Can I achieve this without getting involved in the internals of mzscheme?
+Making it an add-on would be better.
+
+Is there a generic way of doing this that I've missed?  I guess the GUI might
+be doing something similar but I don't know anything about the GUI yet.
+
+Can I use SIGIO without affecting the normal operation of mzscheme?
+
+(Does SIGIO actually work? nobody seems keen to use it.  Actually I'm still
+investigating alternatives here such as aio.)
+
+A pragmatic issue - the leading contender for the actual SNMP library uses glib
+(the gtk/gnome C library) is anyone aware of interoperability problems with
+mzscheme? I've removed the code which depends on the glib event loop (I
+hope).  Initial experiments were encouraging.
+
+Eddie
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00413" href="msg00413.html">Re: Looking for advice/opinions</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00396.html">PLT is moving</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00398.html">SrPersist ported to v200</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00396.html">PLT is moving</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00413.html">Re: Looking for advice/opinions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00397"><strong>Date</strong></a></li>
+<li><a href="threads.html#00397"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

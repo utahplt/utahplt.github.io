@@ -1,0 +1,226 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Making MzScheme extensions using VC++ 5.0? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Fri, 4 Aug 2000 22:18:03 &#45;0600 (MDT) -->
+<!--X-Message-Id: 398B96DC.2B0E7318@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 398B1289.4DC3876A@kurtz&#45;fernhout.com -->
+<!--X-Reference: 20000804223357.VHKC10370.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Making MzScheme extensions using VC++ 5.0?</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00817.html">Date Prev</A>][<A HREF="msg00819.html">Date Next</A>][<A HREF="msg00817.html">Thread Prev</A>][<A HREF="msg00819.html">Thread Next</A>][<A HREF="maillist.html#00818">Date Index</A>][<A HREF="threads.html#00818">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Making MzScheme extensions using VC++ 5.0?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: Making MzScheme extensions using VC++ 5.0?</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 05 Aug 2000 00:23:56 -0400</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00812.html">398B1289.4DC3876A@kurtz-fernhout.com</A>&gt; &lt;<A HREF="msg00817.html">20000804223357.VHKC10370.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew -
+
+Thanks for the note. It was very helpful.
+
+In poking around some more in DejaNews and Google, it does seem this is
+a problem related to VC 6.0 changing the object file format so VC 5.0
+can't link to it. Microsoft does this all the time with Word documents,
+so I shouldn't be surprised in retrospect -- it's more or less the kind
+of behavior one can expect from Microsoft. Of course, this issue is not
+documented on their site anywhere I could find...
+
+So, I downloaded GCC for Win32, installing gcc-2_95_2-crtdll.exe from:
+  <A  HREF="http://www.xraylith.wisc.edu/~khan/software/gnu-win32/">http://www.xraylith.wisc.edu/~khan/software/gnu-win32/</A>
+which leads to:
+  <A  HREF="http://www.xraylith.wisc.edu/~khan/software/gnu-win32/gcc.html">http://www.xraylith.wisc.edu/~khan/software/gnu-win32/gcc.html</A>
+and then to:
+  <A  HREF="ftp://ftp.xraylith.wisc.edu/pub/khan/gnu-win32/mingw32/gcc-2.95.2/">ftp://ftp.xraylith.wisc.edu/pub/khan/gnu-win32/mingw32/gcc-2.95.2/</A>
+(I did not install the patch files though...)
+
+After a minor issue with setting my path in an NT User Variable ("as"
+doesn't work) instead of a System Variable ("as" works), I could compile
+a test C program (not a DLL) to make an "a.exe" which worked
+stand-alone.
+
+Thanks for the pointer to use --tool gcc. I tried this and mzc does pick
+the right compiler. And the -v flag helps out too.
+
+However, using mzc with gcc, I now get a different problem in the DLL
+link: undefined reference to `scheme_make_string'
+
+===============sample output=====================
+C:\PdfScheme\extensions&gt;c:\plt\mzc --tool gcc -v --cc Hello.c
+MzScheme compiler (mzc) version 102, Copyright (c) 1996-2000 PLT
+"Hello.c":
+compile-extension: (g:\gcc-2.95.2\bin\gcc.exe -c -O2
+-Ic:\plt\.\collects\setup\.
+.\..\collects\mzscheme\include Hello.c -o .\Hello.obj)
+ [output to ".\Hello.obj"]
+
+C:\PdfScheme\extensions&gt;c:\plt\mzc --tool gcc -v  --ld Hello.dll
+Hello.obj
+MzScheme compiler (mzc) version 102, Copyright (c) 1996-2000 PLT
+"Hello.obj":
+link-extension: (g:\gcc-2.95.2\bin\ld.exe --dll Hello.obj
+c:\plt\.\collects\setu
+p\..\..\collects\mzscheme\lib\win32\i386\gcc\mzdyn.exp
+c:\plt\.\collects\setup\.
+.\..\collects\mzscheme\lib\win32\i386\gcc\mzdyn.o
+c:\plt\.\collects\setup\..\..\
+collects\mzscheme\lib\win32\i386\gcc\init.o
+c:\plt\.\collects\setup\..\..\collec
+ts\mzscheme\lib\win32\i386\gcc\fixup.o --base-file C:\temp\tmp12.base -e
+_dll_en
+try@12 -o Hello.dll)
+Hello.obj(.text+0x1f):Hello.c: undefined reference to
+`scheme_make_string'
+link-extension: command failed
+========================================
+
+Any thoughts from anyone out there? Is everone out there building
+MzScheme extensions using a different version of GCC? Is it time to
+figure out how to patch the GCC compiler I just installed (none of the
+patches seemed to relate to DLL building that I noticed)? 
+
+I noticed you referenced Cygwin. It is my understanding if I use that,
+the related linked DLL code all falls under the GPL (not LGPL).
+ 
+<A  HREF="http://www.xraylith.wisc.edu/~khan/software/gnu-win32/x86-win32-ports.html">http://www.xraylith.wisc.edu/~khan/software/gnu-win32/x86-win32-ports.html</A>
+  <A  HREF="http://sources.redhat.com/cygwin/licensing.html">http://sources.redhat.com/cygwin/licensing.html</A>
+In turn, that means my entire program that uses the DLL will also be
+under the GPL. That is why I tried the crtdll version. 
+
+If MzScheme has dependencies on Cygwin then does this create an issue
+with having extentions under LGPL instead of GPL (unless you purchase a
+commercial license)? Ah, what a tangled licensing web we weave... For me
+a problem with the GPL is that it makes you commit to giving away source
+at the start, whereas many projects want to reserve their options till
+the finish (and then perhaps allow their users to reserve their
+options). For example, I probably would not have thought seriously about
+using MzScheme if was under the GPL (instead of LGPL, which gives me
+pause enough), even though it is likely most if not all things I do with
+it will eventually be given away with redistributable source. I
+generally prefer BSD-Revised, X/MIT, or Python style licenses, because I
+feel people people who want to contribute will do so anyway, and others
+will just find a way around any restrictions. That being said, my wife
+and I put a six-person year project (a simulation) under the GPL a few
+years back, so go figure...
+
+Sorry to be so bothersome with questions at the edge of MzScheme.
+Hopefully after this is over I can move on to making some useful
+MzScheme extensions (like truncate).
+
+I'm also still trying to digest these details on building dlls with GCC:
+  <A  HREF="http://www.geocities.com/Tokyo/Towers/6162/win32/dll/make.html">http://www.geocities.com/Tokyo/Towers/6162/win32/dll/make.html</A>
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+Matthew Flatt wrote:
+&gt; 
+&gt; I've had mostly good experience with MSVC 6, but never tried MSVC 5.
+&gt; Others have reported a similar "Internal error" message with MSVC 5. I
+&gt; wonder whether it's an incompatibility in the .obj format, since
+&gt; mzdyn.obj (as distributed) was built with MSVC 6.
+&gt; 
+&gt; Quoting Paul Fernhout:
+&gt; &gt; So, I made my own project to build an Win32 DLL.
+&gt; &gt; [...]
+&gt; &gt; Any suggestions?  It seems that the "escheme.h" header is insufficient
+&gt; &gt; for Windows. I think the alternative is to have a seperate export file,
+&gt; 
+&gt; mzc does indeed use an export file:
+&gt;   plt/collects/mzscheme/lib/win32/i386/msvc/mzdyn.exp
+&gt; 
+&gt; You can run mzc wth the -v flag to see exactly how it's calling cl.exe.
+&gt; 
+&gt; &gt; Or is it time to switch to GCC?
+&gt; 
+&gt; Yes, I expect you'll find more success with Cygwin. The Cygwin
+&gt; interface for DLLs is messy, but mzc knows how work with it.
+&gt; 
+&gt; If you have both MSVC and Cygwin installed, use "--tool gcc" to get mzc
+&gt; to use Cygwin.
+&gt; 
+&gt; Matthew
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00819" HREF="msg00819.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00820" HREF="msg00820.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00821" HREF="msg00821.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> "Gregory Lampshire" &lt;gregory_lampshire@hotmail.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00812" HREF="msg00812.html">Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00817" HREF="msg00817.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00817.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00819.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00817.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00819.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00818"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00818"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,113 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Yet another feature request for the web&#45;server -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Fri, 31 Aug 2001 12:53:36 &#45;0600 (MDT) -->
+<!--X-Message-Id: 864rqo5obe.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Yet another feature request for the web-server</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00848.html">Date Prev</a>][<a href="msg00850.html">Date Next</a>][<a href="msg00848.html">Thread Prev</a>][<a href="msg00851.html">Thread Next</a>][<a href="maillist.html#00849">Date Index</a>][<a href="threads.html#00849">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Yet another feature request for the web-server</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Yet another feature request for the web-server</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: Fri, 31 Aug 2001 13:52:37 +0000</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma deMéxico</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090004 (Oort Gnus v0.04) XEmacs/21.1 (Cuyahoga Valley)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi all,
+
+I would like to set an HTTP cookie every time a cgi is executed.
+Though, I'm having trouble figuring out which would be the Right Way
+of doing it.  On the one hand, the &quot;Set-cookie&quot; has to be issue when
+the HTTP header response is, I used to do that, simply by sending that
+string to the current-output-port, or to the fcgi:output-port when
+using the FastCGI extension, but now, the output port the web-server
+creates is not bound to any parameter I can use (either that, or I
+missed it completely while reading the code, ;-) ).
+
+Further more, since the web-server expects an Xexpr, it's close to
+impossible to send: &quot;Set-cookie: blah, blah&quot;, and `(html (head
+... blah)) to it, since that is not an Xexpr.
+
+So, the feature I'd like to see is a parameter, say:
+
+webserver-output-port
+
+with the obvious value, so that I could send extra headers to the
+client, before returning the Xexpr the webserver is waiting for.
+
+Does that make any sense?
+
+TIA,
+--Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00851" href="msg00851.html">Re: Yet another feature request for the web-server</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+<li><strong><a name="00853" href="msg00853.html">Yet another feature request for the web-server</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00848.html">199.21 for Mac released</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00850.html">Call for Papers: CLPSE'01 Workshop</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00848.html">199.21 for Mac released</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00851.html">Re: Yet another feature request for the web-server</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00849"><strong>Date</strong></a></li>
+<li><a href="threads.html#00849"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

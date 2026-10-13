@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: negative zero -->
+<!--X-From-R13: Oaqer_[_Hna_[rhyroebhpx/WF/QT/QQWNpbhageljvqr.pbz -->
+<!--X-Date: Wed, 21 Jun 2000 10:38:27 &#45;0600 (MDT) -->
+<!--X-Message-Id: OFFEBA32B9.BF321758&#45;ON88256905.005A5526@countrywide.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: negative zero</title>
+<link rev="made" href="mailto:Andre_M_Van_Meulebrouck/IT/CF/CCI@countrywide.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00333.html">Date Prev</a>][<a href="msg00335.html">Date Next</a>][<a href="msg00332.html">Thread Prev</a>][<a href="msg00333.html">Thread Next</a>][<a href="maillist.html#00334">Date Index</a>][<a href="threads.html#00334">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: negative zero</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:clements@cs.rice.edu">clements@cs.rice.edu</A></li>
+<li><em>Subject</em>: Re: negative zero</li>
+<li><em>From</em>: <A HREF="mailto:Andre_M_Van_Meulebrouck%2FIT%2FCF%2FCCI@countrywide.com">Andre_M_Van_Meulebrouck/IT/CF/CCI@countrywide.com</A></li>
+<li><em>Date</em>: Wed, 21 Jun 2000 09:38:01 -0700</li>
+<li><em>Cc</em>: <A HREF="mailto:Andre_M_Van_Meulebrouck@countrywide.com">Andre_M_Van_Meulebrouck@countrywide.com</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Ah, now that actually makes sense!
+
+I think (and I might mention this to the appropriate powers that be) that
+when design decisions are made for those reasons, they need to be noted in
+the R^nRS spec!  Otherwise, people might think the design decision was made
+because Scheme thinks it's the most ideal design rather than a purely
+pragmatic one.
+
+They noted the behavior for the round function for similar reasons, citing
+that it rounds to even integers in order to conform to IEEE floating point
+standards.
+
+I think the behavior of round is totally reprehensible and unsuitable for
+pixel rounding or doing business programming (or any other purpose I can
+even imagine) so I write my own rounding functions for those purposes; but
+I'm at least empathetic with Scheme's design decisions because at least
+they explained the rationale.
+
+I think it's quite sad that Scheme makes design decisions based on such
+pragmatic concerns.  I'd rather (for instance) have round do the right
+thing and ceiling not return negative 0; and have libraries of Scheme
+idioms available to people for doing things the wrong/pragmatic ways (call
+it the IEEE code library).
+
+The problem with deciding for the pragmatic is that when things change
+industry-wide (as they often do, despite how entrenched they appear),
+you're left with incomprehensible artifacts of a bygone age codified into
+the language as the standard.
+
+I thought Common LISP was the language committed to industry, backward
+compatibility, and the pragmatic; not Scheme!!!
+
+
+
+
+John Clements &lt;clements@cs.rice.edu&gt; on 06/20/2000 04:22:40 PM
+
+To:   Andre_M_Van_Meulebrouck@countrywide.com
+cc:   plt-scheme@fast.cs.utah.edu
+
+Subject:  Re: negative zero
+
+
+&gt;What is the purpose in returning negative zero in the first place?
+
+Negative zero is associated with IEEE numerical standards.  I just
+did a little web-research, but you can probably do as well or better
+than I did with your favorite search engine.  Suffice it to say that
+in order to conform to IEEE floating point number standards (and to
+exchange numerical data with other applications that conform to these
+standards), you need to make room in your world for negative zero.
+
+john
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00333.html">SRFI-4 Implementation</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00335.html">SRFI-4 Implementation</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00332.html">Re: negative zero</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00333.html">SRFI-4 Implementation</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00334"><strong>Date</strong></a></li>
+<li><a href="threads.html#00334"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

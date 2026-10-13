@@ -1,0 +1,230 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Implementing 2d&#45;put! and 2d&#45;get in DrScheme -->
+<!--X-From-R13: Xbua X Drvyyl <fynfuNsvatreyhfg.arg> -->
+<!--X-Date: Fri, 2 Nov 2001 09:58:23 &#45;0700 (MST) -->
+<!--X-Message-Id: B8082CC6.175C%slash@fingerlust.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200111021352.fA2Dqvt11316@sualocin.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Implementing 2d-put! and 2d-get in DrScheme</title>
+<link rev="made" href="mailto:slash@fingerlust.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01164.html">Date Prev</a>][<a href="msg01166.html">Date Next</a>][<a href="msg01164.html">Thread Prev</a>][<a href="msg01166.html">Thread Next</a>][<a href="maillist.html#01165">Date Index</a>][<a href="threads.html#01165">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Implementing 2d-put! and 2d-get in DrScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Implementing 2d-put! and 2d-get in DrScheme</li>
+<li><em>From</em>: John J Reilly &lt;<A HREF="mailto:slash@fingerlust.net">slash@fingerlust.net</A>&gt;</li>
+<li><em>Date</em>: Fri, 02 Nov 2001 10:58:15 -0600</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01164.html">200111021352.fA2Dqvt11316@sualocin.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Microsoft-Entourage/9.0.1.3108</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Try (load &quot;prop2d.scm&quot;) at the top of your definitions window. -- Matthias
+
+I tried this, however the file uses some procedures that apparently aren't
+defined in DrScheme?
+In particular, it errors saying &quot;reference to undefined identifier: declare&quot;
+
+Here's the contents of the prop2d.scm file, with the procedures 2D-put! and
+2D-get that I'm interested in:
+
+Any suggestions?
+
+Thanks again for your help,
+-John 
+-- 
+// John J Reilly
+// Work:  reil0090@umn.edu
+// Play:  john@fingerlust.net
+// Web :  <A  HREF="http://www.fingerlust.net">http://www.fingerlust.net</A>
+
+
+----------------------------------------------------------------------------
+
+#| -*-Scheme-*-
+
+$Id: prop2d.scm,v 14.3 1999/01/02 06:11:34 cph Exp $
+
+Copyright (c) 1988, 1999 Massachusetts Institute of Technology
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or (at
+your option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+|#
+
+;;;; Two Dimensional Property Tables
+;;; package: (runtime 2D-property)
+
+(declare (usual-integrations))
+
+(define (initialize-package!)
+  (set! system-properties '())
+  (set! delete-invalid-hash-numbers! (list-deletor! filter-bucket!))
+  (set! delete-invalid-y! (list-deletor! filter-entry!))
+  (add-secondary-gc-daemon! gc-system-properties!))
+
+(define system-properties)
+
+(define (2D-put! x y value)
+  (let ((x-hash (object-hash x))
+    (y-hash (object-hash y)))
+    (let ((bucket (assq x-hash system-properties)))
+      (if bucket
+      (let ((entry (assq y-hash (cdr bucket))))
+        (if entry
+        (set-cdr! entry value)
+        (set-cdr! bucket
+              (cons (cons y-hash value)
+                (cdr bucket)))))
+      (set! system-properties
+        (cons (cons x-hash
+                (cons (cons y-hash value)
+                  '()))
+              system-properties))))))
+
+(define (2D-get x y)
+  (let ((bucket (assq (object-hash x) system-properties)))
+    (and bucket
+     (let ((entry (assq (object-hash y) (cdr bucket))))
+       (and entry
+        (cdr entry))))))
+
+;;; Returns TRUE iff an entry was removed.
+;;; Removes the bucket if the entry removed was the only entry.
+
+(define (2D-remove! x y)
+  (let ((bucket (assq (object-hash x) system-properties)))
+    (and bucket
+     (begin (set-cdr! bucket
+              (del-assq! (object-hash y)
+                     (cdr bucket)))
+        (if (null? (cdr bucket))
+            (set! system-properties
+              (del-assq! (object-hash x)
+                     system-properties)))
+        true))))
+
+;;; This clever piece of code removes all invalid entries and buckets,
+;;; and also removes any buckets which [subsequently] have no entries.
+
+(define (gc-system-properties!)
+  (set! system-properties (delete-invalid-hash-numbers! system-properties)))
+
+(define (filter-bucket! bucket)
+  (or (not (valid-hash-number? (car bucket)))
+      (begin (set-cdr! bucket (delete-invalid-y! (cdr bucket)))
+         (null? (cdr bucket)))))
+
+(define (filter-entry! entry)
+  (not (valid-hash-number? (car entry))))
+
+(define delete-invalid-hash-numbers!)
+(define delete-invalid-y!)
+
+(define (2D-get-alist-x x)
+  (let ((bucket (assq (object-hash x) system-properties)))
+    (if bucket
+    (let loop ((rest (cdr bucket)))
+      (cond ((null? rest) '())
+        ((valid-hash-number? (caar rest))
+         (cons (cons (object-unhash (caar rest))
+                 (cdar rest))
+               (loop (cdr rest))))
+        (else (loop (cdr rest)))))
+    '())))
+
+(define (2D-get-alist-y y)
+  (let ((y-hash (object-hash y)))
+    (let loop ((rest system-properties))
+      (cond ((null? rest) '())
+        ((valid-hash-number? (caar rest))
+         (let ((entry (assq y-hash (cdar rest))))
+           (if entry
+           (cons (cons (object-unhash (caar rest))
+                   (cdr entry))
+             (loop (cdr rest)))
+           (loop (cdr rest)))))
+        (else (loop (cdr rest)))))))
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01166" href="msg01166.html">Re: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01167" href="msg01167.html">RE: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01164" href="msg01164.html">Re: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01164.html">Re: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01166.html">Re: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01164.html">Re: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01166.html">Re: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01165"><strong>Date</strong></a></li>
+<li><a href="threads.html#01165"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: Xbua Qyrzragf <pyrzragfNpf.evpr.rqh> -->
+<!--X-Date: Mon, 28 Feb 2000 20:11:42 &#45;0700 (MST) -->
+<!--X-Message-Id: v04220842b4e0e82325fa@[128.42.2.142] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002271846.KAA00527@balu.qualcomm.com -->
+<!--X-Reference: 20000228002410.UGQG21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 200002280226.SAA06315@balu.qualcomm.com -->
+<!--X-Reference: 200002280249.UAA08340@africa.cs.rice.edu -->
+<!--X-Reference: 200002282119.NAA20015@balu.qualcomm.com -->
+<!--X-Reference: 200002282328.RAA08737@africa.cs.rice.edu -->
+<!--X-Reference: 200002290056.QAA22414@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] HOWTO redirect a i/o-port in Unix??</TITLE>
+<LINK REV="made" HREF="mailto:clements@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00155.html">Date Prev</A>][<A HREF="msg00157.html">Date Next</A>][<A HREF="msg00155.html">Thread Prev</A>][<A HREF="msg00157.html">Thread Next</A>][<A HREF="maillist.html#00156">Date Index</A>][<A HREF="threads.html#00156">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] HOWTO redirect a i/o-port in Unix??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></LI>
+<LI><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</LI>
+<LI><em>From</em>: John Clements &lt;<A HREF="mailto:clements@cs.rice.edu">clements@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 28 Feb 2000 21:11:36 -0600</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00155.html">200002290056.QAA22414@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00145.html">200002271846.KAA00527@balu.qualcomm.com</A>&gt;&lt;<A HREF="msg00147.html">20000228002410.UGQG21637.mail.rdc1.sfba.home.com@localhost</A>&gt;&lt;<A HREF="msg00149.html">200002280226.SAA06315@balu.qualcomm.com</A>&gt;&lt;<A HREF="msg00150.html">200002280249.UAA08340@africa.cs.rice.edu</A>&gt;&lt;<A HREF="msg00153.html">200002282119.NAA20015@balu.qualcomm.com</A>&gt;&lt;<A HREF="msg00154.html">200002282328.RAA08737@africa.cs.rice.edu</A>&gt;&lt;<A HREF="msg00155.html">200002290056.QAA22414@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 4:56 PM -0800 2/28/00, Leo Razoumov wrote:
+&gt;
+&gt;     MF&gt; M own experience: I used to use the Chez Scheme debugger. 
+&gt;Once I started
+&gt;     MF&gt; following my own guidelines, I have hardly ever needed to think about
+&gt;     MF&gt; debugging. Seriously. So I have become a beliefer in my own 
+&gt;guidelines :-)
+&gt;
+&gt;A good debugger never hurts! Will DrScheme-v102 allow to step 
+&gt;through a code in
+&gt;"Full Scheme" mode??
+&gt;
+
+There are two separate pieces to the stepper; the annotater, which 
+elaborates a user's program into one which tracks its own evaluation, 
+and the reconstructor, which uses that runtime information to 
+reconstruct the source code.  The first of these is relatively 
+straightforward and has already been extended to cover most of the 
+language.  The reconstructor is much more difficult, due to the twin 
+problems of representing the store and of back-translating macros.
+
+The upshot of this is that while 102 may contain some kind of 
+debugging facility for 'Full Scheme', it will certainly not include a 
+full stepper.
+
+john "foot" clements
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00145" HREF="msg00145.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00147" HREF="msg00147.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00149" HREF="msg00149.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00150" HREF="msg00150.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00153" HREF="msg00153.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00154" HREF="msg00154.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00155" HREF="msg00155.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00155.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00157.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00155.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00157.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00156"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00156"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

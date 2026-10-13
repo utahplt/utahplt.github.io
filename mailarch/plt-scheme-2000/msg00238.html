@@ -1,0 +1,479 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Object access -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 12 Apr 2000 08:05:59 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000412140556.CABH27789.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Reference: 000001bf937e$3d82ae00$6a032a80@cs.rice.edu -->
+<!--X-Reference: 200003212225.OAA23170@balu.qualcomm.com -->
+<!--X-Reference: 38DA2B60.6C911FE@info.unicaen.fr -->
+<!--X-Reference: 20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 38DB4F28.A4A0EEDB@info.unicaen.fr -->
+<!--X-Reference: 14555.19213.467566.25039@kintore.dai.ed.ac.uk -->
+<!--X-Reference: 38EB9A40.DE8B823F@info.unicaen.fr -->
+<!--X-Reference: 200004052130.PAA21847@fast.cs.utah.edu -->
+<!--X-Reference: 38F1B692.5E320D7D@info.unicaen.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Object access</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00237.html">Date Prev</a>][<a href="msg00239.html">Date Next</a>][<a href="msg00234.html">Thread Prev</a>][<a href="msg00243.html">Thread Next</a>][<a href="maillist.html#00238">Date Index</a>][<a href="threads.html#00238">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Object access</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</li>
+<li><em>Subject</em>: Re: Object access</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 12 Apr 2000 07:05:56 -0700</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00234.html">38F1B692.5E320D7D@info.unicaen.fr</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00203.html">000001bf937e$3d82ae00$6a032a80@cs.rice.edu</a>&gt;		&lt;<a href="msg00204.html">200003212225.OAA23170@balu.qualcomm.com</a>&gt;		&lt;<a href="msg00209.html">38DA2B60.6C911FE@info.unicaen.fr</a>&gt;		&lt;<a href="msg00210.html">20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost</a>&gt;		&lt;<a href="msg00213.html">38DB4F28.A4A0EEDB@info.unicaen.fr</a>&gt; &lt;<a href="msg00214.html">14555.19213.467566.25039@kintore.dai.ed.ac.uk</a>&gt;		&lt;<a href="msg00227.html">38EB9A40.DE8B823F@info.unicaen.fr</a>&gt; &lt;<a href="msg00229.html">200004052130.PAA21847@fast.cs.utah.edu</a>&gt;	&lt;<a href="msg00234.html">38F1B692.5E320D7D@info.unicaen.fr</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Jerzy Karczmarczuk:
+&gt; The Windows distribution (sorry, but we use *that* for
+&gt; teaching...) has only tests/mzscheme directory. No mred.
+&gt; The unix source distribution neither.
+
+Ah, right. I wonder whether there's a good reason for that...
+
+classhack.c is enclosed. Let me emphasize the &quot;hack&quot; part of the name:
+classhack.c includes struture definitions *copied* from MzScheme's
+source.
+
+&gt; I have no idea whatsoever how to make snip%'s different
+&gt; from what is there: string/tab/editor/image.
+&gt; 
+&gt; [...]
+&gt; 
+&gt; Do you have somewhere some examples of non-orthodox snip%/
+&gt; editor constructs?
+
+Another enclosure: graph.ss defines a snip class for plotting a
+function.
+
+Also, I put a new collection on the develop page: `guibuilder'. It's a
+GUI for building MrEd GUIs. It isn't actively maintained, but I just
+tired running it, and it seems to work in version 101 (not 102, due to
+changes in the snip save/load interface). The guibuilder is implemented
+using a pasteboard and lots of snips classes.
+
+Matthew
+</PRE>
+<PRE>
+
+#include &quot;escheme.h&quot;
+
+
+/**************** Copied from plt/src/mzscheme/src/object.c **************/
+typedef long ClassVariable;
+
+typedef struct Scheme_Class {
+  Scheme_Type type;
+
+  ClassVariable *ivars; /* Order determines order of evaluation */
+
+  union {
+    Scheme_Closed_Prim *initf;
+    struct {
+      Scheme_Instance_Init_Proc *f;
+      void *data;
+    } insti;
+  } piu;
+  short priminit;
+
+  short pos;
+  struct Scheme_Class **heritage;
+  struct Scheme_Class *superclass; /* Redundant, but useful. */
+  Scheme_Object *super_init_name;
+  struct Scheme_Interface *equiv_intf; /* interface implied by this class */
+
+  short num_args, num_required_args, num_arg_vars;
+  short num_ivar, num_private, num_ref;
+  short num_public, num_slots; /* num_vslots == num_public */
+  Scheme_Object **public_names;
+  /* ... */
+} Scheme_Class;
+
+typedef struct Scheme_Interface {
+  Scheme_Type type;
+  short num_names, num_supers;
+  short for_class; /* 1 =&gt; impl iff subclass, 0 =&gt; normal interface */
+  Scheme_Object **names;
+  short *name_map; /* position in names =&gt; interface slot position */
+  struct Scheme_Interface **supers; /* all superinterfaces (flattened hierarchy) */
+  struct Scheme_Class *supclass;
+  short *super_offsets; /* superinterface =&gt; super's slot position offset */
+  Scheme_Object *defname;
+} Scheme_Interface;
+
+/*************************************************************************/
+
+Scheme_Object *array_to_list(int c, Scheme_Object **names)
+{
+  Scheme_Object *p = scheme_null;
+
+  while (c--)
+    p = scheme_make_pair(names[c], p);
+
+  return p;
+}
+
+Scheme_Object *arrays_to_list(int c1, Scheme_Object **ns1,
+			      int c2, Scheme_Object **ns2)
+     /* Merge arrays. Exploit the fact that they're both
+	sorted. */
+{
+  Scheme_Object **ns;
+  int c, i1, i2;
+
+  ns = (Scheme_Object **)scheme_malloc(sizeof(Scheme_Object*) * (c1 + c2));
+  c = i1 = i2 = 0;
+  while ((i1 &lt; c1) || (i2 &lt; c2)) {
+    if (i1 &gt;= c1) {
+      ns[c++] = ns2[i2++];
+    } else if (i2 &gt;= c2) {
+      ns[c++] = ns1[i1++];
+    } else {
+      Scheme_Object *n1 = ns1[i1];
+      Scheme_Object *n2 = ns2[i2];
+
+      if (n1 == n2) {
+	ns[c++] = n1;
+	i1++;
+	i2++;
+      } else if ((unsigned long)n1 &lt; (unsigned long)n2) {
+	ns[c++] = ns1[i1++];
+      } else {
+	ns[c++] = ns2[i2++];
+      }
+    }
+  }
+
+  return array_to_list(c, ns);
+}
+
+Scheme_Object *class_to_names(int argc, Scheme_Object **argv)
+{
+  Scheme_Class *class = (Scheme_Class *)argv[0];
+
+  if (!SCHEME_CLASSP(argv[0]))
+    scheme_wrong_type(&quot;class-&gt;names&quot;, &quot;class&quot;, 0, argc, argv);
+
+  return array_to_list(class-&gt;num_public, class-&gt;public_names);
+}
+
+Scheme_Object *interface_to_names(int argc, Scheme_Object **argv)
+{
+  Scheme_Interface *interface = (Scheme_Interface *)argv[0];
+
+  if (!SCHEME_INTERFACEP(argv[0]))
+    scheme_wrong_type(&quot;interface-&gt;names&quot;, &quot;interface&quot;, 0, argc, argv);
+
+  return arrays_to_list(interface-&gt;num_names, interface-&gt;names,
+			interface-&gt;supclass-&gt;num_public, interface-&gt;supclass-&gt;public_names);
+}
+
+Scheme_Object *interface_to_super_interfaces(int argc, Scheme_Object **argv)
+{
+  Scheme_Interface *interface = (Scheme_Interface *)argv[0];
+
+  if (!SCHEME_INTERFACEP(argv[0]))
+    scheme_wrong_type(&quot;interface-&gt;super-interfaces&quot;, &quot;interface&quot;, 0, argc, argv);
+
+  return array_to_list(interface-&gt;num_supers, (Scheme_Object**)interface-&gt;supers);
+}
+
+
+Scheme_Object *scheme_initialize(Scheme_Env *env)
+{
+  return scheme_reload(env);
+}
+
+Scheme_Object *scheme_reload(Scheme_Env *env)
+{
+  scheme_add_global(&quot;class-&gt;names&quot;, 
+		    scheme_make_prim_w_arity(class_to_names,
+					     &quot;class-&gt;names&quot;,
+					     1, 1),
+		    env);
+  scheme_add_global(&quot;interface-&gt;names&quot;, 
+		    scheme_make_prim_w_arity(interface_to_names,
+					     &quot;interface-&gt;names&quot;,
+					     1, 1),
+		    env);
+  scheme_add_global(&quot;interface-&gt;super-interfaces&quot;, 
+		    scheme_make_prim_w_arity(interface_to_super_interfaces,
+					     &quot;interface-&gt;super-interfaces&quot;,
+					     1, 1),
+		    env);
+
+  return scheme_void;
+}
+4                                                    </PRE>
+<PRE>
+
+; Demonstrates how to define new kinds of `snips' for drawing arbitary
+; graphic objects in editors.
+
+; The snip classes here are loaded by the &quot;editor&quot; sample program,
+; which contains &quot;Insert Plain Box&quot; and &quot;Insert Graph&quot; items in its
+; &quot;Edit&quot; menu.
+
+; NOTE: When the result of an expression in DrScheme's interactions
+; window is a snip, DrScheme copies the snip (by calling its `copy'
+; method) and inserts the copy into the interactions window. So these
+; classes can be partly tested directly in DrScheme's editor. Cut and
+; paste won't work, though, because the snip &quot;class&quot; for marshaling is
+; not in DrScheme's implementation domain, where the editor resides.
+
+(require-library &quot;string.ss&quot;) ; defines string-&gt;expr
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; A simple snip class that makes an empty square of a certain
+; size. Try (make-object draw-snip% 100 100) in DrScheme to get an
+; empty box (100 pixels x 100 pixles) as the result.
+
+(define draw-snip%
+  (class snip% (w-in h-in)
+    (inherit get-admin set-snipclass set-count)
+    (public 
+      [w w-in]
+      [h h-in])
+    (override
+     [get-extent  ; called by an editor to get the snip's size
+      (lambda (dc x y wbox hbox descentbox spacebox lspacebox rspacebox)
+	(when hbox
+	  (set-box! hbox h))
+	(when wbox
+	  (set-box! wbox w))
+	(when descentbox
+	  (set-box! descentbox 0))
+	(when spacebox
+	  (set-box! spacebox 0))
+	(when rspacebox
+	  (set-box! rspacebox 0))
+	(when lspacebox
+	  (set-box! lspacebox 0)))]
+     [draw  ; called by an editor to draw the snip
+      (lambda (dc x y . other)
+	(let* ((xw (sub1 (+ x w)))
+	       (yh (sub1 (+ y h)))
+	       (x (add1 x))
+	       (y (add1 y)))
+	  (send dc draw-line x y xw y)
+	  (send dc draw-line xw y xw yh)
+	  (send dc draw-line x yh xw yh)
+	  (send dc draw-line x y x yh)))]
+     [copy  ; clones the snip
+      (lambda ()
+	(make-object draw-snip% w h))]
+     [write  ; marshals the snip to a text stream
+      (lambda (stream)
+	(send stream &lt;&lt; w)
+	(send stream &lt;&lt; h))]
+     [resize  ; called by a pasetboard editor to resize the snip
+      (lambda (w-in h-in)
+	(set! w w-in)
+	(set! h h-in)
+	; send resize notification to the editor containing the snip
+	(let ([admin (get-admin)])
+	  (when admin
+	    (send admin resized this #t)))
+	#t)])
+    (sequence
+      (super-init)
+      ; Need to set the &quot;class&quot; for unmarshaling from text stream
+      (set-snipclass (send (get-the-snip-class-list) find &quot;emptydrawbox&quot;))
+      (set-count 1))))
+
+; The snip &quot;class&quot; is used for unmarshaling a snip from a text stream
+(define draw-snip-class
+  (make-object 
+   (class snip-class% ()
+     (inherit set-classname)
+     (override
+       [read
+	(lambda (stream)
+	  (let ([w-box (box 0)]
+		[h-box (box 0)])
+	    (send stream &gt;&gt; w-box)
+	    (send stream &gt;&gt; h-box)
+	    (make-object draw-snip% (unbox w-box) (unbox h-box))))])
+     (sequence
+       (super-init)
+       (set-classname &quot;emptydrawbox&quot;)))))
+
+; Register the snip class
+(send (get-the-snip-class-list) add  draw-snip-class)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+; A snip class derived from draw-snip% that plots a function from 0 to
+; 1. The function is specified as an S-expression to permit
+; marshaling.
+
+;  Try (make-object graph-snip% '(lambda (x) (* x x))) in DrScheme.
+
+(define graph-snip%
+  (class draw-snip% (function-expression)
+    (inherit w h set-snipclass)
+    (rename [super-draw draw])
+    (public [function (eval function-expression)]
+	    [x-start 0]
+	    [x-end 1]
+	    [y-start (function x-start)]
+	    [y-end (function x-end)]
+	    [lmargin 5] [rmargin 5]
+	    [tmargin 5] [bmargin 5])
+    (override
+      [draw
+       (lambda (dc x y . other)
+	 (super-draw dc x y)
+	 (let* ([bottom (- (+ h y) bmargin)]
+		[top (+ y tmargin)]
+		[right (- (+ x w) rmargin)]
+		[left (+ x lmargin)]
+		[graph-w (- w lmargin rmargin)]
+		[graph-h (- h tmargin bmargin)]
+		[x-scale (/ (- x-end x-start) graph-w)]
+		[dx x-scale]
+		[y-inv-scale (/ graph-h (- y-end y-start))]
+		[dy (/ y-inv-scale)]
+		[x-to-pos
+		 (lambda (x)
+		   (+ (/ (- x x-start) x-scale) left))]
+		[y-to-pos
+		 (lambda (y)
+		   (- bottom (* y-inv-scale (- y y-start))))])
+
+	   (if (&lt;= x-start 0 x-end)
+	       (let ([x-pos (x-to-pos 0)])
+		 (send dc draw-line x-pos bottom x-pos top)))
+	   (if (&lt;= y-start 0 y-end)
+	       (let ([y-pos (- bottom (* (- y-start) y-inv-scale))])
+		 (send dc draw-line left y-pos right y-pos)))
+	   (let loop ((i 0))
+	     (if (&lt; i graph-w)
+		 (let* ((x0 (+ x-start (* i x-scale)))
+			(j (y-to-pos (function x0))))
+		   (if (and (&gt; j y) (&lt; j bottom))
+			    (send dc draw-point (+ i left) j))
+		   (loop (add1 i)))))))]
+      [copy
+       (lambda ()
+	 (make-object graph-snip% function-expression))]
+      [write
+       (lambda (stream)
+	 (send stream &lt;&lt; (expr-&gt;string function-expression)))])
+    (sequence
+      (super-init 100 100)
+      (set-snipclass (send (get-the-snip-class-list) find &quot;graph&quot;))
+      (when (= y-start y-end)
+	(set! y-start (- y-start 100))
+	(set! y-end (+ y-end 100)))
+      (when (&gt; y-start y-end)
+	(let ((start y-start))
+	  (set! y-start y-end)
+	  (set! y-end start))))))
+
+(define graph-snip-class
+  (make-object 
+   (class snip-class% ()
+     (inherit set-classname)
+     (override
+       [read
+	(lambda (stream)
+	  (make-object graph-snip% 
+		       (read-from-string (send stream get-string))))])
+     (sequence
+       (super-init)
+       (set-classname &quot;graph&quot;)))))
+
+(send (get-the-snip-class-list) add graph-snip-class)
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00243" href="msg00243.html">Help on help</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00203" href="msg00203.html">Distributing PLT Scheme with RedHat</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00204" href="msg00204.html">Re: Distributing PLT Scheme with RedHat</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+<li><strong><a name="00209" href="msg00209.html">Sound</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00210" href="msg00210.html">Re: Sound</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00213" href="msg00213.html">Re: Sound</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00214" href="msg00214.html">Re: Sound &amp; Testing</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</li></ul></li>
+<li><strong><a name="00227" href="msg00227.html">What is an object?</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00229" href="msg00229.html">Re: What is an object?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00234" href="msg00234.html">Object access</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00237.html">Re: MDI Problem</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00239.html">Compilation problem ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00234.html">Object access</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00243.html">Help on help</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00238"><strong>Date</strong></a></li>
+<li><a href="threads.html#00238"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

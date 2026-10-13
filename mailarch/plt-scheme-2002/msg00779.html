@@ -1,0 +1,106 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: define&#45;macro bug? -->
+<!--X-From-R13: Wggnv Pnynona <vggnvNzey.alh.rqh> -->
+<!--X-Date: Sun, 21 Apr 2002 19:29:24 &#45;0600 (MDT) -->
+<!--X-Message-Id: 1019439200.1499.25.camel@ittai.nyc.rr.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.21.0204191713220.17863&#45;100000@famine.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>define-macro bug?</title>
+<link rev="made" href="mailto:ittai@mrl.nyu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00778.html">Date Prev</a>][<a href="msg00780.html">Date Next</a>][<a href="msg00774.html">Thread Prev</a>][<a href="msg00780.html">Thread Next</a>][<a href="maillist.html#00779">Date Index</a>][<a href="threads.html#00779">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>define-macro bug?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: define-macro bug?</li>
+<li><em>From</em>: Ittai Balaban &lt;<A HREF="mailto:ittai@mrl.nyu.edu">ittai@mrl.nyu.edu</A>&gt;</li>
+<li><em>Date</em>: 21 Apr 2002 21:33:20 -0400</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00774.html">Pine.LNX.4.21.0204191713220.17863-100000@famine.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00774.html">Pine.LNX.4.21.0204191713220.17863-100000@famine.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi.
+I've run into the following in v200 (the last beta, 12 I think):
+
+
+(require (lib &quot;defmacro.ss&quot;))
+
+&gt; (define foo (lambda args args))
+&gt; (define-macro eggroll foo)
+reference to undefined identifier: foo
+&gt; (define-macro eggroll (lambda args args))
+&gt; 
+
+
+This is a bug in the define-macro syntax, no?
+
+Ittai
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00780" href="msg00780.html">Re: define-macro bug?</a></strong>
+<ul><li><em>From:</em> Zbyszek Jurkiewicz &lt;zbyszek@duch.mimuw.edu.pl&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00774" href="msg00774.html">Scheme OpenGL bindings</a></strong>
+<ul><li><em>From:</em> Scott Owens &lt;sowens@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00778.html">ICLP02 Call for Participation</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00780.html">Re: define-macro bug?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00774.html">Scheme OpenGL bindings</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00780.html">Re: define-macro bug?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00779"><strong>Date</strong></a></li>
+<li><a href="threads.html#00779"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

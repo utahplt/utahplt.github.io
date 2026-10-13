@@ -1,0 +1,209 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: (LONG) Scheme HTML design program &#45; my idea and request for comments -->
+<!--X-From-R13: @bry Iryfu <abryjNqnv.rq.np.hx> -->
+<!--X-Date: Fri, 12 May 2000 08:53:18 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14620.4835.157443.362387@plover.dai.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200005060540.XAA13212@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>(LONG) Scheme HTML design program - my idea and request for comments</TITLE>
+<LINK REV="made" HREF="mailto:noelw@dai.ed.ac.uk">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00296.html">Date Prev</A>][<A HREF="msg00298.html">Date Next</A>][<A HREF="msg00287.html">Thread Prev</A>][<A HREF="msg00288.html">Thread Next</A>][<A HREF="maillist.html#00297">Date Index</A>][<A HREF="threads.html#00297">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>(LONG) Scheme HTML design program - my idea and request for comments</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "Patrick Giagnocavo" &lt;<A HREF="mailto:a222@redrose.net">a222@redrose.net</A>&gt;</LI>
+<LI><em>Subject</em>: (LONG) Scheme HTML design program - my idea and request for comments</LI>
+<LI><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 12 May 2000 15:53:12 +0100 (BST)</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00283.html">200005060540.XAA13212@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00283.html">200005060540.XAA13212@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Patrick Giagnocavo writes:
+[snip]
+&gt; Here is my idea:
+
+&gt; 1.  A "wptext" type,
+&gt; 
+&gt; 2.  An "outline" type, which is VERY USEFUL 
+&gt; 
+&gt; 3.  A "glossary" which is really killer.
+&gt;
+&gt; 4.  The ability to run scripts to generate the pages. 
+&gt; 
+&gt; 5.  Similar to #3 you can reference any function or object or variable
+&gt; within a wptext by using {} . 
+&gt; 
+&gt; 6.  If you pay the money for the latest commercial version you get a
+&gt; Webserver that is integrated inside the Frontier program.  This lets you
+&gt; offer up dynamic web pages.
+&gt; 
+&gt; 7.  In the future, I have this idea that dynamic pages could be "compiled"
+&gt; into scripts that run under different web server platforms
+&gt; 
+&gt; What do you guys think?  Anyone interested?
+
+As others have said, a lot of this can be implemented reasonably
+easily in Scheme. There is a system for Kawa (Scheme in Java) called
+BRL that lets one embed Scheme in HTML. See
+<A  HREF="http://brl.sourceforge.net/">http://brl.sourceforge.net/</A> However, this is only part of the way to
+what you want.
+
+Addressing the requirements you've listed above, you get 1,3 and 4
+without too much effort in Scheme. BRL and the AOLserver's ADP pages
+give you 5 and 6 to a certain extent. 7 is somewhat more complex and
+would require C hacking. I'm not entirely sure what the outline type
+does, but I suspect this is where things become more complex. As I
+understand it, Frontier's advantage is that it's not a system for
+creating web, but for creating and managing web sites. So it lets you
+see and modify the structure of your site with the graphical views, and
+stores all your stuff in its database. This is particularly important
+for those who (unfortunately) aren't programmers. If the outline type
+represents every document as a tree then that is also very powerful as
+well. Then one can define inheritance for documents. For example, if I
+have a page about racing bicycles that has the structure:
+
+Racing Bikes
+|
++---- Wheels
+|     |
+|     +-- Aluminium
+|     +-- Carbon Fibre
+|
++---- Bodies
+      |
+      +-- Alloy
+      +-- Carbon Fibre
+
+and I can define a page about Mountain Bikes that has the structure:
+
+Mountain Bikes
+|
++---- Wheels
+|     |
+|     +-- Aluminium
+|     +-- Carbon Fibre
+|
++---- Tires
+|     |
+|     +-- Knobbly
+|     +-- Kevlar
+|
++---- Bodies
+      |
+      +-- Alloy
+      +-- Aluminium
+
+and I can create this by saying "Mountain Bikes has the same layout
+and content as Racing Bikes, except it has this new section called
+Wheels, and the other sections differ in this way, and this is the new
+content", then I'd be impressed. I.e. if inheritance and overriding
+can be defined for trees.
+
+-----
+
+As part of the Javadoc-for-Scheme system I'm writing, I'm going to
+need a way to transform the information extracted from the scheme code
+(definitions and comments) into viewable form (e.g. HTML). I'd like a
+system where the user can mix code and text, because that seems to be
+the easiest way for many people to handle these documents. So somebody
+could say:
+
+&lt;html&gt;
+&lt;head...
+&lt;body&gt;
+&lt;h1&gt;[unit-name]&lt;/h1...
+
+where [unit-name] is replaced with the name of the unit that has been
+processed. So far so good - I could hack BRL to do this. However, the
+information comes in a tree, so a unit may contain many structures,
+and structures have multiple fields. I'd like to hide the details of
+the tree representation from the user, and avoid iteration over
+collections of structures, functions and the like. So I'm thinking
+that a production system approach might be a good way to go. In this
+system one specifies a bunch of rules which have preconditions and
+postconditions. The preconditions specify what type of data the rule
+fires for (e.g. a function definition), the postconditions the text
+that the rule inserts into the document. E.g:
+
+&lt;h2&gt;Functions&lt;/h2&gt;
+(define-rule (function-definition?)
+	(&lt;p&gt;&lt;strong&gt;[function-name]&lt;/strong&gt; [function-args]))
+
+Everytime a function is encountered, the rule above fires, and emits
+the HTML string. The tree-walking is implicit, and there is no
+iteration.
+
+This won't be finished for a few weeks, but it may be useful to you
+when it's done.
+
+cya,
+Noel
+-- 
+Noel Welsh
+<A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00283" HREF="msg00283.html">(LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+<UL><LI><EM>From:</EM> "Patrick Giagnocavo" &lt;a222@redrose.net&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00296.html">102/12</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00298.html">Threading Question</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00287.html">Re: (LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00288.html">RE: (LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00297"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00297"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

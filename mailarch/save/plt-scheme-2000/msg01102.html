@@ -1,0 +1,120 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Simple drawing vs. Advance Student -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Tue, 14 Nov 2000 09:36:25 &#45;0700 (MST) -->
+<!--X-Message-Id: 200011141635.LAA17284@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 004b01c04e57$8d835690$9c50c29e@inf.upol.cz -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Simple drawing vs. Advance Student</TITLE>
+<LINK REV="made" HREF="mailto:sk@cs.brown.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01101.html">Date Prev</A>][<A HREF="msg01103.html">Date Next</A>][<A HREF="msg01101.html">Thread Prev</A>][<A HREF="msg01103.html">Thread Next</A>][<A HREF="maillist.html#01102">Date Index</A>][<A HREF="threads.html#01102">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Simple drawing vs. Advance Student</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Simple drawing vs. Advance Student</LI>
+<LI><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 14 Nov 2000 11:35:51 -0500 (EST)</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01101.html">004b01c04e57$8d835690$9c50c29e@inf.upol.cz</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01101.html">004b01c04e57$8d835690$9c50c29e@inf.upol.cz</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+David Skoupil wrote:
+
+&gt; Than we asked the students to modify their programs to use internal
+&gt; definitions. Oops. Advance student language does not support internal
+&gt; definitions and draw.ss teachpack does not work under Full Scheme because
+&gt; the procedure make-posn does not exist here. Is there a way out of it? Can I
+&gt; enjoy having both a simple drawing interface and internal definitions?
+
+The simple way out of this is to use the LOCAL construct in the
+Advanced Student language.  You will find documentation on LOCAL in
+the Help Desk.  LOCAL, a PLT Scheme addition, is a superior
+alternative to internal definitions because it preserves the top-level
+definition semantics in the internal context, whereas internal defines
+do not, which can lead to some very tricky errors if the students rely
+on the top-level semantics more than they realized.
+
+As a simple illustration, if you have
+
+(define a ...)
+(define (b x) ...)
+(define-struct c (...))
+&lt;expression&gt;
+
+you can instead write
+
+(local [(define a ...)
+	(define (b x) ...)
+	(define-struct c (...))]
+  &lt;expression&gt;)
+
+ie, just wrap a pair of parens around the definitions you wish to
+localize, and add the keyword LOCAL.
+
+Cheers,
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01101" HREF="msg01101.html">Simple drawing vs. Advance Student</A></STRONG>
+<UL><LI><EM>From:</EM> "David Skoupil" &lt;skoupil@upol.cz&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01101.html">Simple drawing vs. Advance Student</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01103.html">103.5</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01101.html">Simple drawing vs. Advance Student</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01103.html">103.5</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01102"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01102"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,131 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: How can I redefine REPL -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Tue, 5 Dec 2000 23:06:33 &#45;0700 (MST) -->
+<!--X-Message-Id: 200012060605.BAA25142@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3A2E52E0.5DA1F3B5@chollian.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>How can I redefine REPL</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00772.html">Date Prev</a>][<a href="msg00774.html">Date Next</a>][<a href="msg00772.html">Thread Prev</a>][<a href="msg00774.html">Thread Next</a>][<a href="maillist.html#00773">Date Index</a>][<a href="threads.html#00773">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>How can I redefine REPL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:jkkim@chollian.net">jkkim@chollian.net</A></li>
+<li><em>Subject</em>: How can I redefine REPL</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 6 Dec 2000 01:05:58 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00772.html">3A2E52E0.5DA1F3B5@chollian.net</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00772.html">3A2E52E0.5DA1F3B5@chollian.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The simplest way would be to use the READ-EVAL-PRINT-LOOP primitive.
+You can look it up in the Help Desk.  The documentation gives a brief
+example template showing how you can use it.
+
+If you can't get this to work, please provide a description of what
+you tried and what went wrong.  You would be better off posting here
+than replying directly to me, since I am extremely busy for the next
+few days.
+
+Shriram
+
+Jong-Kyou Kim wrote:
+
+&gt; Hi.
+&gt; 
+&gt; I wanted to redefine read-eval-print-loop for providing some additional
+&gt; functions in REPL. I tried the following code. But when I make an error
+&gt; in the expression, it automatically goes back to original REPL. Is there
+&gt; any way to remain in the redefined REPL?
+&gt; 
+&gt; Thanks in advance.
+&gt; 
+&gt; Jong-Kyou Kim.
+&gt; 
+&gt; &lt;&lt;&lt;&lt;
+&gt; (define (silent-repl)
+&gt; 
+&gt;   (define get-exp
+&gt;     (lambda ()
+&gt;       (display &quot;question? &quot;)
+&gt;       (read)))
+&gt; 
+&gt;   (let repl ([exp (get-exp)])
+&gt;     (if (eof-object? exp)
+&gt;  (newline)
+&gt;  (begin
+&gt;    (newline)
+&gt;    (write (eval exp))
+&gt;    (newline)
+&gt;    (repl (get-exp))))))
+&gt; 
+&gt; (silent-repl)
+&gt; &gt;&gt;&gt;&gt;
+&gt; 
+&gt; 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00772" href="msg00772.html">How can I redefine REPL</a></strong>
+<ul><li><em>From:</em> Jong-Kyou Kim &lt;jkkim@chollian.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00772.html">How can I redefine REPL</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00774.html">programming examples</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00772.html">How can I redefine REPL</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00774.html">programming examples</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00773"><strong>Date</strong></a></li>
+<li><a href="threads.html#00773"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

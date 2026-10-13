@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Annotative forms in expand&#45;program? -->
+<!--X-From-R13: [ngg Xnqhq <zwnqhqNpf.vaqvnan.rqh> -->
+<!--X-Date: Sun, 9 Jun 2002 22:00:10 &#45;0600 (MDT) -->
+<!--X-Message-Id: Pine.GSO.4.44.0206092219050.286&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200206100256.g5A2unP05278@moose.cs.indiana.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Annotative forms in expand-program?</title>
+<link rev="made" href="mailto:mjadud@cs.indiana.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01093.html">Date Prev</a>][<a href="msg01095.html">Date Next</a>][<a href="msg01096.html">Thread Prev</a>][<a href="msg01103.html">Thread Next</a>][<a href="maillist.html#01094">Date Index</a>][<a href="threads.html#01094">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Annotative forms in expand-program?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@ccs.neu.edu">robby@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Annotative forms in expand-program?</li>
+<li><em>From</em>: Matt Jadud &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 9 Jun 2002 22:59:30 -0500 (EST)</li>
+<li><em>cc</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;200206100256.g5A2unP05278@moose.cs.indiana.edu&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+&gt; The simple answer: apply your compiler to those other modules!
+
+	I have 18K for user code and data. If I implemented a MzScheme bytecode
+interpreter for the RCX, I'd still have to run it and the user's code in 32K.
+My point is that compiling in all the run-time support for Beginning Scheme
+(plus my own syntactic extensions for motor-control primitives, etc.) is not
+going to leave a lot of real space for user code once the support code is
+compiled into the mix... besides, the checks will be absolutely meaningless on
+the RCX--especially since I have no run-time support for things like
+exceptions? I could use continuations as a way to implement exceptions,
+except... while we left ourselves room to add support for call/cc in the
+compiler, but we don't currently have it implemented. And even if I did have an
+easy road to implementing these types of things, I have rather poor mechanisms
+for communicating run-time type, arity, bounds checks to the user...
+
+	Oy. Real systems...
+
+&gt; As far as your compiler goes, I would start with the MzScheme language
+&gt; before scaling up (probably you already plan to do that).
+
+	Certainly.
+
+	Elch. I have a half-dozen questions that are all over the map related
+to tying this code in--everything from basic implementation questionns to
+extensibility to usability. I'll try and work them up into a coherent mess
+before continuing.
+
+	Again, thanks,
+	Matt
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01093.html">Re: [plt-scheme] Annotative forms in expand-program?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01095.html">Re: [plt-scheme] XML and PLT - problem is parsing instructions!</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01096.html">Re: [plt-scheme] Annotative forms in expand-program?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01103.html">[plt-scheme] mzc: giving C programs functions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01094"><strong>Date</strong></a></li>
+<li><a href="threads.html#01094"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

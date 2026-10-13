@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: 102/16 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 7 Jun 2000 18:56:37 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000608005634.IOFA22043.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>102/16</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00321.html">Date Prev</A>][<A HREF="msg00323.html">Date Next</A>][<A HREF="msg00321.html">Thread Prev</A>][<A HREF="msg00323.html">Thread Next</A>][<A HREF="maillist.html#00322">Date Index</A>][<A HREF="threads.html#00322">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>102/16</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: 102/16</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 7 Jun 2000 17:56:34 -0700</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged source for MzScheme and MrEd in the CVS repository is
+now version 102/16.
+
+The main change is that text fields, by default, react to a
+right-button release with a popup menu of edit commands (as a Windows
+user would expect).
+
+This feature turned out to be one of those seemingly simple tasks that
+exposes a chain of little gaps in the GUI toolbox. Hence the following
+changes in 102/16:
+
+ * Added `can-do-edit-operation?' method to editor&lt;%&gt; and snip%.
+
+ * Changed `append-editor-operation-menu-items' to add menu items
+   that are grayed out (on demand) when they do not apply to the
+   target editor.
+
+ * Added `popup-menu' method to editor-admin% and snip-admin%.
+
+ * Added `get-popup-target' method to popup-menu%. It returns a
+   canvas&lt;%&gt; or editor&lt;%&gt; object, depending on how the menu was popped
+   up, or #f if it isn't currently popped up.
+
+ * Added "leftbuttonseq", "middlebuttonseq", and "rightbuttonseq" to
+   the set of virtual event names recognized by keymap%'s
+   `map-function'. Whereas "leftbutton", etc. call the handler
+   procedure only for button press events, "leftbuttonseq", etc. call
+   the handler for the full sequence of button events from press to
+   release.
+
+ * Changed the default text keymap initializer to map right button
+   releases to popup an edit menu.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00321.html">Re: cgi.ss, fastcgi.scm, and environment variables</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00323.html">how to represent logical symbols</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00321.html">Re: cgi.ss, fastcgi.scm, and environment variables</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00323.html">how to represent logical symbols</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00322"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00322"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

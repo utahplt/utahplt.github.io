@@ -1,0 +1,132 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: #<byte>? -->
+<!--X-From-R13: Dvpuneq Qboor <pboorNqverpgyvax.arg> -->
+<!--X-Date: Sat, 26 Aug 2000 11:00:16 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200008261656.LAA01044@minbar.directlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 39A7EB1C.6D316210@lokigames.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: #&lt;byte&gt;?</title>
+<link rev="made" href="mailto:cobbe@directlink.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00519.html">Date Prev</a>][<a href="msg00521.html">Date Next</a>][<a href="msg00519.html">Thread Prev</a>][<a href="msg00521.html">Thread Next</a>][<a href="maillist.html#00520">Date Index</a>][<a href="threads.html#00520">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: #&lt;byte&gt;?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;John R. Hall&quot; &lt;<A HREF="mailto:overcode@lokigames.com">overcode@lokigames.com</A>&gt;</li>
+<li><em>Subject</em>: Re: #&lt;byte&gt;?</li>
+<li><em>From</em>: Richard Cobbe &lt;<A HREF="mailto:cobbe@directlink.net">cobbe@directlink.net</A>&gt;</li>
+<li><em>Date</em>: Sat, 26 Aug 2000 11:56:47 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00518.html">39A7EB1C.6D316210@lokigames.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00518.html">39A7EB1C.6D316210@lokigames.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Lo, on Saturday, 26 August, 2000, John R. Hall did write:
+
+&lt;SNIP&gt;
+
+&gt; Perhaps some operators for bit shifting and masking would also
+&gt; be helpful.
+
+These, at least, exist; search through the MzScheme docs for
+
+bitwise-{and,ior,xor,not}
+arithmetic-shift
+
+Given that, it would be pretty straightforward to implement a byte type;
+something like this should work, if you want to treat bytes as a separate
+type.
+
+(define-struct byte (value))
+
+(define integer-&gt;byte
+  (lambda (n)
+    (make-byte (bitwise-and n #xFF))))
+
+(define signed-integer-&gt;byte
+  (lambda (n)
+    (let ([sign (if (negative? n) #x80 #x00)])
+      (make-byte (bitwise-or (bitwise-and n #x7F) sign)))))
+
+(define byte-&gt;integer
+  (lambda (b)
+    (byte-value b)))
+
+(define signed-byte-&gt;integer
+  (lambda (b)
+    (let* ([value (byte-value b)]
+           [sign (if (zero? (bitwise-and value #x80))
+                     1
+                     -1)])
+      (* (bitwise-and value #x7f) sign))))
+
+(Warning: the above code was written on the spot; I haven't tested it or
+even checked it for syntactic correctness!)
+
+The only thing missing is a means to do binary I/O on these objects; I
+suspect you might have to go out to C for that.
+
+Richard
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00518" href="msg00518.html">#&lt;byte&gt;?</a></strong>
+<ul><li><em>From:</em> &quot;John R. Hall&quot; &lt;overcode@lokigames.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00519.html">Re: #&lt;byte&gt;?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00521.html">Customizing hash table printing?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00519.html">Re: #&lt;byte&gt;?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00521.html">Customizing hash table printing?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00520"><strong>Date</strong></a></li>
+<li><a href="threads.html#00520"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] eval question -->
+<!--X-From-R13: Xbua Qyrzragf <pyrzragfNoevapxreubss.bet> -->
+<!--X-Date: Thu, 6 Jun 2002 07:32:21 &#45;0600 (MDT) -->
+<!--X-Message-Id: p05111700b92512d5d233@[129.10.115.111] -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Reference: iss.5bf3.3cfe9831.ebe1a.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] eval question</title>
+<link rev="made" href="mailto:clements@brinckerhoff.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01067.html">Date Prev</a>][<a href="msg01069.html">Date Next</a>][<a href="msg01069.html">Thread Prev</a>][<a href="msg01073.html">Thread Next</a>][<a href="maillist.html#01068">Date Index</a>][<a href="threads.html#01068">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] eval question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] eval question</li>
+<li><em>From</em>: John Clements &lt;<A HREF="mailto:clements@brinckerhoff.org">clements@brinckerhoff.org</A>&gt;</li>
+<li><em>Date</em>: Thu, 6 Jun 2002 09:32:15 -0400</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01058.html">iss.5bf3.3cfe9831.ebe1a.1@hermes.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01058.html">iss.5bf3.3cfe9831.ebe1a.1@hermes.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<ADDRESS>Title: <STRONG>Re: [plt-scheme] eval question</STRONG></ADDRESS>
+
+
+<blockquote type="cite" cite>&gt; &gt;(with-input-from-file path<br>
+&gt; &gt;&nbsp;&nbsp; (lambda ()<br>
+&gt; &gt;&nbsp;&nbsp;&nbsp;&nbsp; (eval (read))))<br>
+<br>
+Of course, I'll do this with load as was promised and is much
+simpler,<br>
+but:<br>
+<br>
+&gt; Not only does this strike me as a bad idea from a<br>
+&gt; thinking-about-your-program-and-documenting-it-clearly
+standpoint,<br>
+<br>
+what, exactly, should be documented? What this little bit of code
+does</blockquote>
+<blockquote type="cite" cite>is perfectly clear from an R5RS point of
+view.</blockquote>
+<div><br></div>
+<div>What's not documented is the settings that are stored in the file
+that you're loading. I can see this causing a bunch of problems down
+the line. Let me use the first person, to make this less acerbic. I've
+written code like this before, and I always end up forgetting what
+settings were in the file, and having to go back and check it.&nbsp;
+If I have more than one such file, I'm<i> really</i> in the
+soup.</div>
+<div><br></div>
+<div>In essence, I think a solution using modules (or units, if you
+prefer them) is more robust and inherently better-documented.</div>
+<div><br></div>
+<div>You'll have to pardon my knee-jerk reaction; I've just spent a
+few weeks grading assignments for our software design class, and I've
+seen a lot of extremely non-portable, non-modular, non-documented,
+poorly designed code.</div>
+<div><br></div>
+<div>john clements</div>
+
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01073" href="msg01073.html">Re: [plt-scheme] eval question</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01058" href="msg01058.html">Re: [plt-scheme] eval question</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01067.html">Re: [plt-scheme] Arrays and scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01069.html">RE: [plt-scheme] eval question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01069.html">RE: [plt-scheme] eval question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01073.html">Re: [plt-scheme] eval question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01068"><strong>Date</strong></a></li>
+<li><a href="threads.html#01068"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

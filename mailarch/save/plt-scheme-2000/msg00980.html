@@ -1,0 +1,277 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: Adding a New "primitive" Method. -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Sat, 14 Oct 2000 14:47:18 &#45;0600 (MDT) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B912AF576@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: Adding a New "primitive" Method.</TITLE>
+<LINK REV="made" HREF="mailto:GregP@bsquare.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00979.html">Date Prev</A>][<A HREF="msg00981.html">Date Next</A>][<A HREF="msg00979.html">Thread Prev</A>][<A HREF="msg00981.html">Thread Next</A>][<A HREF="maillist.html#00980">Date Index</A>][<A HREF="threads.html#00980">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: Adding a New "primitive" Method.</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "'Matthew Flatt'" &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: RE: Adding a New "primitive" Method.</LI>
+<LI><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 14 Oct 2000 13:46:08 -0700</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+In the instructions below, Matthew said this:
+
+&gt; If you're using Windows, then in plt/src/mred/wxs
+&gt; yuo want to run
+&gt; 
+&gt;   perl ../../mzscheme/utils/xctocc -cxx wxs_cnvs.xc
+
+
+OK, I know nothing about perl. I found "ActivePerl" or something or the
+other on the web. It made me jump through an anoying hoop to install, but I
+have perl now.
+
+I type in the gunk above, and shortly following, I get this output:
+
+The name specified is not recognized as an
+internal or external command, operable program or batch file.
+Can't locate parse.pl in @INC (@INC contains: D:/Perl/lib D:/Perl/site/lib .
+) at ..\..\mzscheme\uti
+ls\xctocc line 34.
+
+
+I tracked down the "The name specified is not recognized..." garbage (When
+the asshole at MS who came up with this particular error message dies he's
+going to hell. Whenever he asks anyone why he's there, or anything else for
+that matter, they're going to tell him "The name specified is not
+recognized..." and nothing else --- that will be his eternal punishment.)
+
+Anyway, I tracked down the offending line in the script. It happens early
+on:
+
+{$0 =~ /^(.*)\/.*$/;  $my_dir = $1; 
+ if ($my_dir !~ ?^/?) {
+	 open(DIRNAME, "pwd | ");
+
+#Greg Pettyjohn					it doesn't like the
+following line:
+     $pwd = &lt;DIRNAME&gt;;
+
+
+	 close(DIRNAME);
+	 chop($pwd);
+     $my_dir = $pwd . "/" . $my_dir;}
+ if ($my_dir =~ ?/$?) {chop ($my_dir);}}
+push(@INC, $my_dir);
+
+
+With the extra whitespace my line 34 (with some context):
+...
+ if ($my_dir =~ ?/$?) {chop ($my_dir);}}
+push(@INC, $my_dir);
+
+
+
+require "parse.pl";       &lt;---- line 34
+require "common.pl";
+
+$cc_suffix = "cc";
+
+if ($ARGV[0] eq '-cxx') {
+...
+
+
+I'm guessing that $my_dir didn't have the the right value when it got
+"push"'d into @INC. Where @INC is a whatever the fuck some sort of stack or
+something? (when whoever it is that decided it was a neat idea to put @$?/#
+and other profanity into a programming language goes to hell, I'll be happy
+to find out that someone pushes a $my_dir into his @INC for eternity)
+
+
+For now I'm going to go play rampart until I've overcome my initial "perl
+syntax shock" and then I'll give the perl docs a go.(really didn't want to
+start learning perl today).
+
+
+&gt; -----Original Message-----
+&gt; From: Matthew Flatt [<A  HREF="mailto:mflatt@cs.utah.edu">mailto:mflatt@cs.utah.edu</A>]
+&gt; Sent: Tuesday, October 10, 2000 6:08 AM
+&gt; To: Greg Pettyjohn
+&gt; Cc: plt-scheme@fast.cs.utah.edu
+&gt; Subject: Re: Adding a New "primitive" Method.
+&gt; 
+&gt; 
+&gt; I've long dreaded the day that someone wants to modify MrEd
+&gt; significantly. The MrEd-MzScheme glue is one of the oldest, trickiest,
+&gt; grossest parts of the system. It's long overdue for an 
+&gt; overhaul, but we
+&gt; have a few other things to overhaul first.
+&gt; 
+&gt; Anyway, to answer the meta-questions:
+&gt; 
+&gt; &gt; # No one should write code like this. It's horrible. It's immoral.
+&gt; 
+&gt; This is the only line in the source code for xctocc that I'm happy to
+&gt; defend. :) 
+&gt; 
+&gt; Of course, if I did it over again, I'd turn MzScheme in a compentent
+&gt; scripting language before creating MrEd, instead of the other way
+&gt; around. Then there'd be no perl code in the build process.
+&gt; 
+&gt; &gt; Should I learn this xctocc thing?
+&gt; 
+&gt; No.
+&gt; 
+&gt; &gt; (Will I go to hell if I do?)
+&gt; 
+&gt; You shouldn't take any chances.
+&gt; 
+&gt; &gt; Is there an alternative way to add a method to a primitive 
+&gt; scheme class?
+&gt; 
+&gt; Not really. :(
+&gt; 
+&gt; &gt; How long is "for now"?
+&gt; 
+&gt; Probably a good while longer.
+&gt; 
+&gt; I'm gradually cleaning up the source code to make it readable, but
+&gt; currently I'm working in plt/src/mzscheme/src and the wxWindows code.
+&gt; It's a long-term project.
+&gt; 
+&gt; Meanwhile, I predict significant upheaval in the implementation of
+&gt; MzScheme and MrEd over the coming months. Nothing that will make MrEd
+&gt; easier to modify, though.
+&gt; 
+&gt; &gt; Will there eventually be a way for moral programmers to 
+&gt; modify/add to
+&gt; &gt; the MrEd source?
+&gt; 
+&gt; Eventually.
+&gt; 
+&gt; ----------------------------------------
+&gt; 
+&gt; Now, the painful answer to the main question:
+&gt; 
+&gt; Quoting Greg Pettyjohn:
+&gt; &gt; Suppose I wanted to write a program that looked like this:
+&gt; &gt; 
+&gt; &gt; [...]
+&gt; &gt; 
+&gt; &gt; 	(define rc (send canvas get-rc))
+&gt; 
+&gt; If you really want to add a method to the primitive canvas%, you have
+&gt; correctly deduced that you want to modify some .xc[i] file in
+&gt; plt/src/mred/wxs. In this case, it's wxs_cnvs.xc. Somewhere near
+&gt; 
+&gt;  @ "get-dc" : wxDC! GetDC();
+&gt; 
+&gt; add:
+&gt; 
+&gt;  @ m "get-rc" : void[]/CastToSO//spAnything GetRC();
+&gt; 
+&gt; Somewhere at the top, near
+&gt; 
+&gt;  static void FillZero(int *a, int *b) {
+&gt;    *a = *b = 0;
+&gt;  }
+&gt; 
+&gt; add:
+&gt; 
+&gt;  @MACRO CastToSO = (Scheme_Object*){x}
+&gt;  @MACRO spAnything = _
+&gt; 
+&gt;  void *GetRC(wxDC *dc) {
+&gt;     ... implement it, returning a Scheme_Object* ...
+&gt;  }
+&gt; 
+&gt; If you're using some form of Unix, wxs_cnvs.cxx will get generated by
+&gt; the make process. If you're using Windows, then in plt/src/mred/wxs
+&gt; yuo want to run
+&gt; 
+&gt;   perl ../../mzscheme/utils/xctocc -cxx wxs_cnvs.xc
+&gt; 
+&gt; But wait --- there's more! In plt/src/mred/wrap/mred.ss, you need to
+&gt; add `get-rc' to yet another wrapping layer. Look for `basic-canvas%',
+&gt; and add `get-rc' in the same way as `get-dc' is already 
+&gt; there. Then, if
+&gt; you're in Unix, go to mred/wrap in your build area and run 
+&gt; `make'. (The
+&gt; normal make won't do that unless you;ve done it once before.) Using
+&gt; Windows, run plt/src/mred/wrap/makewrap.bat.
+&gt; 
+&gt; 
+&gt; For the implementation of `rc', avoid xctocc. Some other 
+&gt; tool, like the
+&gt; one described at www.dia.uniroma3.it/~scorzell might be the right
+&gt; thing. Or see the "tree.cxx" example in plt/collects/mzscheme/example
+&gt; and figure out how to generate the glue you want.
+&gt; 
+&gt; Matthew
+&gt; 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00981" HREF="msg00981.html">RE: Adding a New "primitive" Method.</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00982" HREF="msg00982.html">RE: Adding a New "primitive" Method.</A></STRONG>
+<UL><LI><EM>From:</EM> Reini Urban &lt;rurban@xarch.tu-graz.ac.at&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00983" HREF="msg00983.html">MysterX changes exp-tagged</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00979.html">RE: Adding a New "primitive" Method.</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00981.html">RE: Adding a New "primitive" Method.</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00979.html">RE: Adding a New "primitive" Method.</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00981.html">RE: Adding a New "primitive" Method.</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00980"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00980"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: scsh in PLT Scheme? -->
+<!--X-From-R13: Pehpr Phggresvryq <onoNragevpbz.pbz> -->
+<!--X-Date: Tue, 2 Apr 2002 17:22:19 &#45;0700 (MST) -->
+<!--X-Message-Id: 3CAA4AA7.9060400@entricom.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000201c1da5b$0c45baa0$70730a81@NORTHEASDX5RFA -->
+<!--X-Reference: E16sXag&#45;0001Du&#45;00@cloaked.freeserve.co.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: scsh in PLT Scheme?</title>
+<link rev="made" href="mailto:bab@entricom.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00668.html">Date Prev</a>][<a href="msg00670.html">Date Next</a>][<a href="msg00668.html">Thread Prev</a>][<a href="msg00670.html">Thread Next</a>][<a href="maillist.html#00669">Date Index</a>][<a href="threads.html#00669">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: scsh in PLT Scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: MJ Ray &lt;<A HREF="mailto:markj@cloaked.freeserve.co.uk">markj@cloaked.freeserve.co.uk</A>&gt;</li>
+<li><em>Subject</em>: Re: scsh in PLT Scheme?</li>
+<li><em>From</em>: Bruce Butterfield &lt;<A HREF="mailto:bab@entricom.com">bab@entricom.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 02 Apr 2002 16:19:51 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>References</em>: &lt;<a href="msg00655.html">000201c1da5b$0c45baa0$70730a81@NORTHEASDX5RFA</a>&gt; &lt;<a href="msg00668.html">E16sXag-0001Du-00@cloaked.freeserve.co.uk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.9) Gecko/20020313</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+MJ Ray wrote:
+&gt; Paul Steckler:
+&gt; 
+&gt;&gt;I glanced at Oleg's code last night.  It appears to build a list out of
+&gt;&gt;an entire result set.
+&gt; 
+&gt; 
+&gt; Only if you don't tell it when to stop gathering data, I believe.
+&gt; 
+&gt; 
+&gt;&gt;SchemeQL fetches data lazily, which is what's needed when dealing with
+&gt;&gt;large datasets.
+&gt; 
+&gt; 
+&gt; Surely what is needed with large datasets is being careful not to grab a
+&gt; large subset in a single operation by mistake.  If you're doing it
+&gt; intentionally, you're probably doing something the wrong way (eg, doing
+&gt; counting in scheme instead of in the database is bad unless you absolutely
+&gt; have to).
+&gt; 
+&gt; I suspect cases selecting a large subset for transfer to scheme are a
+&gt; minority of cases.  In those cases, the normal standard database interface
+&gt; may not be optimal.  Lazy gathering is not possible in some database
+&gt; interfaces, so its existence should not be relied upon, IMO.
+
+I would argue that often it is necessary to walk through large sets of 
+query data on a row-by-row basis to do some external processing 
+(updates, inserts, reporting, whatever). This is typically done via 
+cursors which maintain a live connection to the dataset rather than 
+packaging all of the set up in a single container returned to the 
+caller. It would be nice to have an iterator (or a lazy evaluation 
+scheme) to do the same job in a robust API.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00670" href="msg00670.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+<li><strong><a name="00671" href="msg00671.html">RE: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Alex Peake&quot; &lt;apeake@comac.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00655" href="msg00655.html">RE: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00668" href="msg00668.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00668.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00670.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00668.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00670.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00669"><strong>Date</strong></a></li>
+<li><a href="threads.html#00669"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

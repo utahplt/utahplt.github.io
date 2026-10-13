@@ -1,0 +1,287 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Scheme acceptance [no flames] -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Mon, 6 Nov 2000 23:31:22 &#45;0700 (MST) -->
+<!--X-Message-Id: 200011070630.BAA21751@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200011062253.OAA20700@balu.qualcomm.com -->
+<!--X-Reference: 3A074096.3352B443@lokigames.com -->
+<!--X-Reference: 200011070112.RAA22546@balu.qualcomm.com -->
+<!--X-Reference: 14855.17563.441431.688791@mojave.cs.cornell.edu -->
+<!--X-Reference: 14855.24401.446278.54505@minbar.directlink.net -->
+<!--X-Reference: 200011070346.VAA29119@africa.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Scheme acceptance [no flames]</TITLE>
+<LINK REV="made" HREF="mailto:sk@cs.brown.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01038.html">Date Prev</A>][<A HREF="msg01040.html">Date Next</A>][<A HREF="msg01067.html">Thread Prev</A>][<A HREF="msg01042.html">Thread Next</A>][<A HREF="maillist.html#01039">Date Index</A>][<A HREF="threads.html#01039">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Scheme acceptance [no flames]</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Scheme acceptance [no flames]</LI>
+<LI><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 7 Nov 2000 01:30:49 -0500 (EST)</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01030.html">200011062253.OAA20700@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01030.html">200011062253.OAA20700@balu.qualcomm.com</A>&gt;&lt;<A HREF="msg01031.html">3A074096.3352B443@lokigames.com</A>&gt;&lt;<A HREF="msg01034.html">200011070112.RAA22546@balu.qualcomm.com</A>&gt;&lt;<A HREF="msg01032.html">14855.17563.441431.688791@mojave.cs.cornell.edu</A>&gt;&lt;<A HREF="msg01035.html">14855.24401.446278.54505@minbar.directlink.net</A>&gt;&lt;<A HREF="msg01036.html">200011070346.VAA29119@africa.cs.rice.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Leo,
+
+I think the most important thing you need to understand is that
+"Scheme" is not really a programming language.  It's a specification
+of a language for specifying computations.  That's all.  The authors
+of the RnRS Scheme reports have never made any attempt to define a
+language for actually writing programs in, much less programs that you
+can use in any realistic context.  So criticizing them is
+inappropriate, useless and irrelevant.  Sorry.
+
+The major Scheme implementations, on the other hand, are legitimate
+contenders in their own right.  Each has a world-view of what
+constitutes a robust, usable programming language.  Each comes with
+one or more extensions to core Scheme, implementors, implementations,
+and user communities.  If you leave out the phrase "extensions to core
+Scheme", they are no different from Perl, Python or Tcl.  So the
+appropriate comparison is at that level.
+
+As to why Scheme did not catch on for a long time, I think you can
+find many reasons.  For one thing, most of the work went into
+*academically* interesting problems, which are quite different from
+the grunge and grime needed to create a usable Scheme system.  Second,
+hardware and resources were far more limited; now, anytime someone
+complains about DrScheme, I can ask them whether they use a Web
+browser.  Third, software engineering culture was heavily top-down and
+monolithic.  Only in the 90s, under the guise of "scripting", has
+prototyping and prototype evolution become part of the general
+programming consciousness.  Note that this is NOT because of any
+culture change in software engineering research.  Just this past week,
+I had to survey SE texts on this topic; most are remarkably silent or
+weak on this subject.  No, it's just that individual programmers just
+*do* it.  That's what's bringing about the change.  And with that, a
+growing openness to other languages than what the Man ordered.
+
+Scheme implementations also share some of the blame.  I never used T,
+but certainly in the late 80s and early 90s, the dominant free
+implementation was MIT Scheme.  Its most prominent characteristic was
+that it was *large*.  Compare that to Perl: would you really want an
+MIT Scheme instance starting up on every CGI Web hit?  I wouldn't.  On
+the other hand, MzScheme works great in this role.  (It's not the only
+one, of course, but it's the one I know and use most.)  And which
+beginner would want to deal with the cold MIT Scheme/Emacs interface?
+DrScheme, in contrast, is breaking new ground.  Last week, an old
+die-hard MIT PhD saw DrScheme for the first time, and his mouth froze.
+He'd never considered that Scheme interfaces could look like that!
+
+As for your specific criticisms:
+
+- Syntax arguments are lame.  Sorry.  Sure, the majority of people may 
+  not prefer prefix.  But to lose that syntax would be to shed many
+  advantages inherent to Scheme.  It's a devil's bargain.
+
+  Paul Fernhout has been playing with a new Scheme syntax.  Hopefully
+  he will respond with some notification of its status.  I should
+  warn, though, that lots of people have tried to come up with a
+  better syntax for Scheme (including, blush, Matthias and I).  I've
+  never seen a success (ditto).
+
+- Scheme has plenty of beautiful iteration operators.  They're called
+  map, filter and fold.  What I think you really want is not a
+  Pascal-style for or while loop.  What you want is iterators over
+  built-in data structures.  You don't want to have to remember the
+  order of arguments to hash-table-for-each, or even know that it has
+  a different name than the list's for-each, and you probably want a
+  vector for-each as well.  Yep, I see the value in that.
+
+  The rarely-understood detail about Scheme is the beauty of the
+  tail-call.  This combined with macros is what makes Scheme the
+  perfect language for implementing many domain-specific languages
+  without fretting over underlying implementation details.  If other
+  people don't get this, what to do?  What do you suggest?  Design is
+  one of the hardest things to teach; how to build a compiler is, in
+  contrast, a stroll in the park.  And yet Scheme is all about design; 
+  it's the ultimate stylist.
+
+- Scheme's differences are precisely what make it valuable.  If it
+  were just like every other scripting language, it needn't exist at
+  all.  If + in Scheme took strings, numbers, lists, vectors, and 25
+  other built-in types, then you'd have one hell of a time trying to
+  write any sort of useful static-analysis tool (like MrSpidey).  I
+  don't want to lose a tool like MrSpidey (if profits a language
+  nothing to give its soul for the whole world, etc).
+
+&gt; Is it feasible to have a parser which translates Python code into
+&gt; Scheme code so that people write Python-like code and can convert it
+&gt; to Scheme so that Python users get all the benefits from the
+&gt; features they are just talking about?? Might be, significant share
+&gt; of the exsisting Python code would run without modifications under
+&gt; Scheme as well.
+
+I'm not sure what the value here would be.  It would simply provide a
+better implementation platform for Python; that's something Python's
+implementors should care about (and, I suspect, have considered and
+rejected).
+
+&gt; The sad point which I would like to make: if Scheme, in its present
+&gt; form, could not take off since 1976 it will never do.
+
+I think the rumors of Scheme's death have been greatly exaggerated.
+In fact, Scheme is the only language that has consistently grown in
+the educational market over all these years.  Scheme is,
+unfortunately, one of the easiest languages to mis-teach, and often
+students can't tell a good teacher from a bad one (and also can't
+distinguish the teacher from the language).  Yet things seem to be
+changing.  Kids learn it; many of them come to appreciate and even
+love it.
+
+John R. Hall wrote:
+
+&gt; Cool! If they do it right, Python might further its reputation as a good
+&gt; language for beginners. There's quite a movement to teach Python as an
+&gt; introductory programming language. Better than Visual Basic, in any case
+&gt; (I've heard that they're using VB on the Advanced Placement exams, and I
+&gt; feel personally insulted, having taken them in Pascal a few years ago).
+
+What was that you just said about hype?
+
+You might want to compare the Python-in-education movement against the
+TeachScheme! project.  Software vs vaporware; full programming
+environment vs low-level interaction; detailed curriculum vs ad hoc
+programming; intellectual depth vs shallow hacking; five years vs
+nothing but announcements.  
+
+You can guess which one is which.  And consider the harm done when
+people parrot the hype.
+
+&gt; [Leo on string processing:]
+&gt; The fact that Scheme does not do this yet has to do with its poor
+&gt; acceptance and, thus, lack of manpower to write these libraries.
+
+Not quite.  I think most Schemers simply don't care enough about
+strings.  That's the real bottom line.  Lispers have been storing data
+in parenthetical form since the Jurassic age; Schemers inherited
+this.  The few times I encounter string data -- when parsing a Web
+page or an internet protocol response -- I spent 5 minutes
+re-acquainting myself with the MzScheme regexp library.  This happens
+so rarely that it hasn't been worth the mental effort to actually
+remember the names of the library primitives.
+
+You could argue that most of the world cares about string data.  You
+would be right.  And, as Eli points out, you would also be welcome to
+fix this problem -- it shouldn't be too hard.  Maybe you could even
+copy the underlying regexp implementation from the Perl source.
+Problem is, the fix isn't going to come from someone who has managed
+to transport himself into an almost-always-parethetical world!  We can
+almost always get away with this in academia.  Someone in industry,
+who is stuck with 80-column-line nitwits in the surrounding cubicles,
+is going to have to lead.  Otherwise the design will be flawed, and
+may even be useless.
+
+&gt; Illustative example is Guile: they are stagnating but they do not
+&gt; have enough courage to admit this and switch to another more
+&gt; healthier Scheme project like MzScheme which could well double the
+&gt; community.
+
+You are dead on in your observations about the Scheme community.  So
+let me suggest something useful: instead of posting here, go post on
+the Guile list saying what you've said above (-:.
+
+&gt; Next example is Scheme Shell scsh. It is based upon yet another
+&gt; Scheme vertual machine called Scheme48 (correct me if I am
+&gt; wrong). Scheme48 is not supoported anymore and scsh version number
+&gt; is &lt; 0.5 (beta quality at best) for several years already. This kind
+&gt; of fragmentation makes no good for anyone.
+
+This is a pretty unfair criticism.  Scheme 48 predates PLT Scheme by a
+long time.  In theory, you could argue that we should have used them,
+rather than the other way around.  Indeed, had we done so, we could
+have inherited extensions such as Scsh and Kali.  As with all software 
+reuse, though, sometimes the hidden constraints are such that it's
+easier to start from scratch than to reuse.
+
+Also, it's hugely unfair to criticize Scsh based on its version
+number.  Have you actually studied or used Scsh?  If you think Olin's
+v0.5 is "beta at best", you would have to consider Python to be in
+v0.3 or so.  Don't hold Olin's modesty against him!
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01042" HREF="msg01042.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Paolo Amoroso &lt;amoroso@mclink.it&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01062" HREF="msg01062.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01095" HREF="msg01095.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01030" HREF="msg01030.html">Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01031" HREF="msg01031.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> "John R. Hall" &lt;overcode@lokigames.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01034" HREF="msg01034.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01032" HREF="msg01032.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@barzilay.org&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01035" HREF="msg01035.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Richard Cobbe &lt;cobbe@directlink.net&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01036" HREF="msg01036.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01038.html">Re: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01040.html">Re: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01067.html">Re: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01042.html">Re: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01039"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01039"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

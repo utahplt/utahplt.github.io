@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: install question -->
+<!--X-From-R13: [vpunry Pbtbzbyal <obtbNovtsbbg.pbz> -->
+<!--X-Date: Wed, 31 Jan 2001 19:41:24 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010131204115.A5887@cs.utexas.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010130153850.F28113@cs.utexas.edu -->
+<!--X-Reference: 200101311608.JAA00533@fast.cs.utah.edu -->
+<!--X-Reference: 20010131125210.A3910@cs.utexas.edu -->
+<!--X-Reference: 200101311958.MAA02145@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: install question</title>
+<link rev="made" href="mailto:bogo@bigfoot.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00177.html">Date Prev</a>][<a href="msg00179.html">Date Next</a>][<a href="msg00177.html">Thread Prev</a>][<a href="msg00180.html">Thread Next</a>][<a href="maillist.html#00178">Date Index</a>][<a href="threads.html#00178">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: install question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: install question</li>
+<li><em>From</em>: Michael Bogomolny &lt;<A HREF="mailto:bogo@bigfoot.com">bogo@bigfoot.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 31 Jan 2001 20:41:15 -0600</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00177.html">200101311958.MAA02145@fast.cs.utah.edu</a>&gt;; from mflatt@cs.utah.edu on Wed, Jan 31, 2001 at 12:58:33PM -0700</li>
+<li><em>References</em>: &lt;<a href="msg00172.html">20010130153850.F28113@cs.utexas.edu</a>&gt; &lt;<a href="msg00174.html">200101311608.JAA00533@fast.cs.utah.edu</a>&gt; &lt;<a href="msg00176.html">20010131125210.A3910@cs.utexas.edu</a>&gt; &lt;<a href="msg00177.html">200101311958.MAA02145@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.2.4i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+You're right that there is another libjpeg.a library around in that
+directory! However, that didn't fix the problem. I tried all sorts of 
+rearrangements for the options parameters in several different locations,
+often making sure that ../wxcommon/jpeg was first. Eventually, 
+I removed all reference to the /lusr/X11R6 directory, and still had the
+same problem:
+
+
+make mred
+
+c++ -L../wxxt/utils/image/src  -L../wxxt/contrib/xpm/lib  -L../mzscheme -Lwxs -Lwxme -L../wxxt/src -L../wxcommon/jpeg  -o mred mred.o mredx.o wxGC.o wxJPEG.o -lmzscheme -lgc -lwxscheme -lwxme -lwx_xt -lXpm -limage_xt -ljpeg -lSM -lICE -lXaw -lXmu -lXt -lX11 -lXext  -ldl -lm  -lsocket -lnsl -lintl   
+
+Undefined			first referenced
+ symbol  			    in file
+jpeg_destroy_decompress             wxJPEG.o
+jpeg_stdio_src                      wxJPEG.o
+jpeg_read_scanlines                 wxJPEG.o
+jpeg_finish_decompress              wxJPEG.o
+jpeg_start_decompress               wxJPEG.o
+jpeg_std_error                      wxJPEG.o
+jpeg_CreateDecompress               wxJPEG.o
+jpeg_read_header                    wxJPEG.o
+ld: fatal: Symbol referencing errors. No output written to mred
+collect2: ld returned 1 exit status
+*** Error code 1
+make: Fatal error: Command failed for target `mred'
+Current working directory /stage/public/share/src/plt/src/mred
+
+
+-bogo
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00172" href="msg00172.html">install question</a></strong>
+<ul><li><em>From:</em> Michael Bogomolny &lt;bogo@cs.utexas.edu&gt;</li></ul></li>
+<li><strong><a name="00174" href="msg00174.html">Re: install question</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00176" href="msg00176.html">Re: install question</a></strong>
+<ul><li><em>From:</em> Michael Bogomolny &lt;bogo@bigfoot.com&gt;</li></ul></li>
+<li><strong><a name="00177" href="msg00177.html">Re: install question</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00177.html">Re: install question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00179.html">RE: serial port access under win32 (win2K)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00177.html">Re: install question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00180.html">Databases &amp;/or binary data</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00178"><strong>Date</strong></a></li>
+<li><a href="threads.html#00178"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

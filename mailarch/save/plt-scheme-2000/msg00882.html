@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: #<byte>? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 26 Aug 2000 10:41:56 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000826164152.IIOC15470.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 39A7EB1C.6D316210@lokigames.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: #&lt;byte&gt;?</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00881.html">Date Prev</A>][<A HREF="msg00883.html">Date Next</A>][<A HREF="msg00881.html">Thread Prev</A>][<A HREF="msg00883.html">Thread Next</A>][<A HREF="maillist.html#00882">Date Index</A>][<A HREF="threads.html#00882">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: #&lt;byte&gt;?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "John R. Hall" &lt;<A HREF="mailto:overcode@lokigames.com">overcode@lokigames.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: #&lt;byte&gt;?</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 26 Aug 2000 09:41:52 -0700</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00881.html">39A7EB1C.6D316210@lokigames.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00881.html">39A7EB1C.6D316210@lokigames.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting "John R. Hall":
+&gt; Question: why doesn't MzScheme have a byte type?
+
+Good question. We have certainly considered this possibility.
+
+&gt; Programs generally seem to use chars (and char-&gt;integer) to deal with
+&gt; byte-oriented binary data, but this is not an ideal solution in a
+&gt; world of multi-byte character sets (such as UNICODE).
+
+Agreed.
+
+The reason we still haven't bothered to distinguish chars and bytes in
+MzScheme is essentially the same reason that MzScheme doesn't support
+Unicode: In its mission as an embeddable, extensible, C-friendly Scheme
+implementation, defining "char" to be "ASCII char" has many practical
+advantanges.
+
+More to the point, we aren't currently in a position to port MrEd (the
+one big extension of MzScheme that we maintain) to a Unicode world.
+
+Matthew
+
+
+P.S.: I'm not sure I would go so far as to distinguish bytes from exact
+integers in [0,255], but it merits further thought.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00881" HREF="msg00881.html">#&lt;byte&gt;?</A></STRONG>
+<UL><LI><EM>From:</EM> "John R. Hall" &lt;overcode@lokigames.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00881.html">#&lt;byte&gt;?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00883.html">Re: #&lt;byte&gt;?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00881.html">#&lt;byte&gt;?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00883.html">Re: #&lt;byte&gt;?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00882"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00882"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

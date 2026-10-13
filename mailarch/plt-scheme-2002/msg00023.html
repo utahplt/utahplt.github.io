@@ -1,0 +1,158 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: loading additional code -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNppf.arh.rqh> -->
+<!--X-Date: Sun, 6 Jan 2002 14:20:31 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020106212025.275BF206FC@sualocin.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020105204652.A99992@freebsd.hbz.pl -->
+<!--X-Reference: 20020106032644.ADC27206FC@sualocin.ccs.neu.edu -->
+<!--X-Reference: 20020106121650.B5027@freebsd.hbz.pl -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: loading additional code</title>
+<link rev="made" href="mailto:matthias@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00022.html">Date Prev</a>][<a href="msg00024.html">Date Next</a>][<a href="msg00014.html">Thread Prev</a>][<a href="msg00013.html">Thread Next</a>][<a href="maillist.html#00023">Date Index</a>][<a href="threads.html#00023">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: loading additional code</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:sopel@freebsd.hbz.pl">sopel@freebsd.hbz.pl</A></li>
+<li><em>Subject</em>: Re: loading additional code</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Sun,  6 Jan 2002 16:20:25 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;20020106121650.B5027@freebsd.hbz.pl&gt; (message from WojciechSobczuk on Sun, 6 Jan 2002 12:16:51 +0100)</li>
+<li><em>References</em>: &lt;<a href="msg00010.html">20020105204652.A99992@freebsd.hbz.pl</a>&gt; &lt;<a href="msg00014.html">20020106032644.ADC27206FC@sualocin.ccs.neu.edu</a>&gt; &lt;20020106121650.B5027@freebsd.hbz.pl&gt;</li>
+<li><em>Reply-To</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Hmph, please don't capitalize &quot;You&quot; in English writing. 
+I assume that you're unfamiliar with netiquette (am I
+just too old?) and I'll ignore it. 
+
+Since you're a CS student, I figure you can read papers 
+on this stuff. I recommend, in that order: 
+
+1. ICFP 99: Flatt, Findler, Krishnamurthi and Felleisen 
+   Programming Languages as Operating Systems 
+   (or, Revenge of the Son of the Lisp Machine)
+
+   explains how to build an extensible product in plt scheme. 
+
+2. ESOP 2001: Graunke, Krishnamurthi, Van der Hoeven and Felleisen
+   Programming the Web with High-Level Programming Languages
+
+   explains how to build an extensible server with servlet 
+   support using 1 (they are called cgi scripts, but ignore that)
+
+3. ASE 2001: Graunke, Findler, Krishnamurthi, Felleisen. 
+   Automatically Restructuring Programs for the Web 
+
+   explains how to make money from free software :-)
+   just kidding but ask me when you have read it what I mean 
+
+They are all available from 
+     <A  HREF="http://www.ccs.neu.edu/scheme/pubs/">http://www.ccs.neu.edu/scheme/pubs/</A>
+
+Then read the docs for the Scheme server in v200 alpha. Relative to your
+installation use 
+
+  $PLTHOME/collects/web-server/doc.txt 
+
+Alternative just look for web server in Help Desk. 
+
+To start it, cd to 
+
+  $PLTHOME/bin/
+
+and run
+  
+ $ ./web-server -p 8080 &amp;
+
+for a start. Then point your browser at <A  HREF="http://localhost:8080/">http://localhost:8080/</A>
+We are aware of problems with this configuration that will be
+eliminated for the 200 release (will remain imminent until further 
+notice :().
+
+Run some servlets as you desire. Use the xml library to get 
+stuff like JSP, call it SSP, going. I recommend the syntax 
+
+  &lt;scheme&gt;expressions ... &lt;/scheme&gt;
+
+and 
+
+ &lt;splice&gt;expressions ... &lt;/splice&gt;
+
+for now. 
+
+And since you are a CS student, considering joining PLT as a PhD student
+and make money over here. Matthew, Shriram, and I will happily entertain 
+applications. 
+
+-- Matthias
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00010" href="msg00010.html">loading additional code</a></strong>
+<ul><li><em>From:</em> Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt;</li></ul></li>
+<li><strong><a name="00014" href="msg00014.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00022.html">Re: objects, databases</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00024.html">Re: objects, databases</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00014.html">Re: loading additional code</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00013.html">LL1</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00023"><strong>Date</strong></a></li>
+<li><a href="threads.html#00023"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

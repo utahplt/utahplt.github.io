@@ -1,0 +1,137 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: focus problem &#45; what's wrong? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 31 Oct 2001 13:45:02 &#45;0700 (MST) -->
+<!--X-Message-Id: 200110312044.NAA12111@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3BB03759.9EE6FF2E@iitb.fhg.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: focus problem - what's wrong?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01151.html">Date Prev</a>][<a href="msg01153.html">Date Next</a>][<a href="msg00932.html">Thread Prev</a>][<a href="msg00933.html">Thread Next</a>][<a href="maillist.html#01152">Date Index</a>][<a href="threads.html#01152">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: focus problem - what's wrong?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: focus problem - what's wrong?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 31 Oct 2001 13:44:57 -0700 (MST)</li>
+<li><em>CC</em>: Jörg Kippe &lt;<A HREF="mailto:kip@iitb.fhg.de">kip@iitb.fhg.de</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00930.html">3BB03759.9EE6FF2E@iitb.fhg.de</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00930.html">3BB03759.9EE6FF2E@iitb.fhg.de</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+It took me a long time to notice that you're using dialog% instead of
+frame%. The difference is that `show' method of dialog% doesn't return
+until the dialog is closed.
+
+So the `(send ed1 focus)' doesn't get called until the dialog is
+closed, which isn't what you wanted. If you change dialog% to frame%,
+this small example should work as you expected.
+
+I'm not sure what you really wanted in the larger program (presuambly
+you do want dialog% instead of frame%), so it's difficult for me to
+suggest a solution. But it probably has something to do with queueing a
+function with `queue-callback'.
+
+Sorry it took so long,
+Matthew
+
+&gt; Hi all,
+&gt; I'm using DrScheme 103 and I've some problems to control the focus by
+&gt; program. From a bigger application I have extracted this short example.
+&gt; The buttons are simulating other parts which have to set the focus to
+&gt; certain input areas. All works fine with the buttons &quot;focus to second&quot;
+&gt; and &quot;focus to third&quot;, but if the window is hidden and shown again, it
+&gt; will not set the focus.
+&gt; What's wrong?
+&gt; 
+&gt; (make-object
+&gt;   (class* dialog% () initvars
+&gt;     (private (the-panel void)
+&gt;              (ed1 void)
+&gt;              (ed2 void))
+&gt;     (sequence (super-init &quot;TEST&quot; #f 200 200 200 200 null)
+&gt;               (set! the-panel (make-object vertical-panel% this '(border)))
+&gt;               (set! ed1 (make-object editor-canvas% the-panel
+&gt;                           (make-object text% 1.0 null)
+&gt;                           '(no-hscroll no-vscroll) 1))
+&gt;               (set! ed2 (make-object editor-canvas% the-panel
+&gt;                           (make-object text% 1.0 null)
+&gt;                           '(no-hscroll no-vscroll) 1))
+&gt;               (make-object button% &quot;test&quot; the-panel
+&gt;                 (lambda (x y)
+&gt;                   (send this show #f)
+&gt;                   (send this show #t)
+&gt;                   (send ed1 focus))
+&gt;                 null)
+&gt;               (make-object button% &quot;focus to third&quot; the-panel
+&gt;                 (lambda (x y) (send ed1 focus)) null)
+&gt;               (make-object button% &quot;focus to second&quot; the-panel
+&gt;                 (lambda (x y) (send ed2 focus)) null)
+&gt;               (send this show #t))))
+&gt; 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00930" href="msg00930.html">focus problem - what's wrong?</a></strong>
+<ul><li><em>From:</em> Jörg Kippe &lt;kip@iitb.fhg.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01151.html">Re: 199d6 feature creep...</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01153.html">ICLP'01 and CP'01: Final Call for Participation</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00932.html">Re: focus problem - what's wrong?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00933.html">weird bug (&amp; implementing monad transformers with units)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01152"><strong>Date</strong></a></li>
+<li><a href="threads.html#01152"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

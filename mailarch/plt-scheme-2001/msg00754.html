@@ -1,0 +1,314 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: bytecode unification for scripting languages -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Thu, 9 Aug 2001 10:44:35 &#45;0600 (MDT) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B91023B8683@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: bytecode unification for scripting languages</title>
+<link rev="made" href="mailto:GregP@bsquare.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00753.html">Date Prev</a>][<a href="msg00755.html">Date Next</a>][<a href="msg00751.html">Thread Prev</a>][<a href="msg00758.html">Thread Next</a>][<a href="maillist.html#00754">Date Index</a>][<a href="threads.html#00754">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: bytecode unification for scripting languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: RE: bytecode unification for scripting languages</li>
+<li><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 9 Aug 2001 09:43:30 -0700 </li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Ayn Rand blah blah blah...
+
+(I read sooo much Ayn Rand when I was in my late teens...)
+
+Later on in college, in my History of Technology course, the professor
+taught
+a different idea. Basically, that there are no John Galts,
+Hank Rearden's Francisco D'Anconia's, et al. The idea is that technology
+&quot;evolves&quot;.
+Every new idea is just an extension of an existing idea.
+
+I think that Microsoft has exploited this to a very great extent with
+their &quot;embrace and extend&quot;.
+
+1. Ideas are easy to come up with.
+2. Good ideas are hard to come up with.
+3. New ideas are very hard to come up with. There are simply
+too many other people coming up with things, and too many things
+already invented.
+4. New *good* ideas are harder still.
+5. New ideas are very hard to market.
+
+So take an existing idea and expand upon it. 
+1. At worst, you will have merely expanded upon something already proven.
+2. If you get lucky your expansion will actually prove useful and with a
+little
+   bullshit from the marketing department, people will see the whole thing
+as a &quot;great new idea&quot;.
+3. A lot of the marketing work is already done, because the underlying idea
+is
+   already &quot;proven&quot;.
+
+Shriram has some good reason's to use the MS VM:
+
+&gt; - a run-time system (object/value creation, GC, etc)
+&gt; - native code generation made easy
+&gt; - interoperability
+&gt; - a big run-time library
+
+I will add still another good reason:
+Lots and lots and lots and lots of people are going to be using it. If you
+run
+on the MS VM, it is that much easier to get your language into the
+mainstream.
+
+Anton has an objection to the MS VM:
+&gt; Javascript, Perl and Ruby all implement a complete closure capability;
+&gt; Python also tries (last I looked).  How well will closures from these
+&gt; languages interoperate with Scheme's, if these languages are all
+implemented
+&gt; on .NET?  They probably won't interoperate at all, but they could, and
+there
+&gt; would be benefits in their being able to do so.
+
+MS's VM is already a victory. By embracing and extending &quot;The VM&quot; they have
+simply given
+recognition that it is one of those &quot;proven&quot; ideas that is worth expanding
+on it. And by the
+time the MS, marketing department is done with it, they'll have you believe
+that
+Bill Gates himself invented it, while he and Paul Allen were talking over
+coffee about the Mariners.
+(Did you know that Paul Allen invented baseball? Or was it coffee?)
+
+One good turn deserves another, so why not embrace and extend .NET?
+
+Step 1:
+Come up with a specification for a CLR for Scheme, ML, Perl, Ruby, Python et
+al. i.e. all
+the languages that have higher level constructs in common which could
+benefit from
+having special stuff in their VM. Call this the CLVM for &quot;Closure Language
+VM&quot;.
+
+Step 2:
+The CLVM backend doesn't compile the &quot;bytecodes&quot; to machine language,
+instead it should compile
+them to MS VM &quot;bytecodes&quot;. In light of this, the CLVM should snarf as much
+as it can
+from from MS VM --- but without sacrificing the cool bits you need for the
+geek languages. Now
+call the CLVM the GLL --- &quot;Geek Language Layer&quot;.
+
+Advantages:
+1. You still run on .NET, so you get all the benefits that Shriram talked
+about.
+2. You still have a common *layer* to which the geek languages compile, so
+you can
+pick up all the benefits that Anton talked about.
+
+Looking ahead:
+Step 3:
+Once you get the programming language research community all working on the
+same thing,
+then you can start talking about focusing all the brain power on larger
+things. For example
+Shriram's suggestion:
+
+&gt; Why not take the CIL/CLR spec and build a really great implementation
+&gt; of it instead?  Here's an opportunity where Linux and the Open Source
+&gt; movement can completely embarass Microsoft.
+
+
+
+(--- Ayn Rand nonesense below, scroll down only if you care ---)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+P.S. With regards to Ayn Rand and my History of Technology professor: I've
+always wondered
+what would have happened if we could build a time machine and go back and
+assasinate Adolf
+Hitler --- and Stalin too while we're at it. While my history professor
+insisted (essentially)
+that there are no John Galts, it has always seemed obvious to me, that there
+have existed
+some really choice assholes (e.g. Hitler, Stalin), who's elimination from
+history might have
+made for a happier ending. Someone pointed out that a certain plane crash
+had only a minor
+affect on the football community. I'll wager that everyone here has a list
+of villains from
+the past that they would substitute for the athletes on the plane at the
+drop of a hat.
+And so, assuming that we all know &quot;who is Adolf Hitler&quot;, I pose what appears
+to be the
+more difficult question, who is his antithesis, &quot;who is John Galt&quot;?
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00758" href="msg00758.html">Re: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00753.html">execute* in MzScheme v199 + loading mzc-compiled files</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00755.html">Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00751.html">RE: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00758.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00754"><strong>Date</strong></a></li>
+<li><a href="threads.html#00754"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

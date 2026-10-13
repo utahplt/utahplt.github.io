@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] define&#45;structure question -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 12 Jun 2002 08:51:25 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200206121451.IAA22382@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 5.1.0.14.0.20020612102430.00a5aea8@mulga.cs.mu.oz.au -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] define-structure question</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01112.html">Date Prev</a>][<a href="msg01114.html">Date Next</a>][<a href="msg01112.html">Thread Prev</a>][<a href="msg01110.html">Thread Next</a>][<a href="maillist.html#01113">Date Index</a>][<a href="threads.html#01113">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] define-structure question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Chris Wright &lt;<A HREF="mailto:caw@cs.mu.oz.au">caw@cs.mu.oz.au</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] define-structure question</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 12 Jun 2002 08:51:16 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01109.html">5.1.0.14.0.20020612102430.00a5aea8@mulga.cs.mu.oz.au</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01109.html">5.1.0.14.0.20020612102430.00a5aea8@mulga.cs.mu.oz.au</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Wed, 12 Jun 2002 10:29:18 +1000, Chris Wright wrote:
+&gt; The help desk entry for define-structure isn't clear to me, and an example 
+&gt; would help.
+
+Well, the documentation was wrong and the implementation was broken.
+I've committed repairs to the CVS repository, including a patch to the
+test-suite hole.
+
+&gt; (define-structure (name-identifier field ...))      SYNTAX
+
+There should have been two cases:
+
+  (define-structure (name-identifier field-identifier ...))
+
+  (define-structure (name-identifier field-identifier ...)
+                    ((init-field-identifier init-expr) ...))
+
+In other words, fields with initialization expressions are declared
+between a second set of parentheses.
+
+Here's an example:
+
+ &gt; (define-structure (add left right) ([sum (+ left right)]))
+ &gt; (add-sum (make-add 3 6))
+ 9
+
+but unless you're using CVS, that won't work until v200 is released.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01109" href="msg01109.html">[plt-scheme] define-structure question</a></strong>
+<ul><li><em>From:</em> Chris Wright &lt;caw@cs.mu.oz.au&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01112.html">Re: [plt-scheme] define-structure question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01114.html">[plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01112.html">Re: [plt-scheme] define-structure question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01110.html">[plt-scheme] Suggested improvement to net/nntp-unit.ss</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01113"><strong>Date</strong></a></li>
+<li><a href="threads.html#01113"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

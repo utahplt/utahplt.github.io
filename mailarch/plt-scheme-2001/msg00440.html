@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Undocumented: reader/writer -->
+<!--X-From-R13: Pregenaq Brgvg <ryebaqNcubr.sezht.bet> -->
+<!--X-Date: Thu, 12 Apr 2001 16:13:56 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20010413000610.A4029@memo.frmug.fr.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010411063817.B92471@memo.frmug.fr.net -->
+<!--X-Reference: 200104111442.IAA06010@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Undocumented: reader/writer</title>
+<link rev="made" href="mailto:elrond@phoe.frmug.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00439.html">Date Prev</a>][<a href="msg00441.html">Date Next</a>][<a href="msg00438.html">Thread Prev</a>][<a href="msg00439.html">Thread Next</a>][<a href="maillist.html#00440">Date Index</a>][<a href="threads.html#00440">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Undocumented: reader/writer</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Undocumented: reader/writer</li>
+<li><em>From</em>: Bertrand Petit &lt;<A HREF="mailto:elrond@phoe.frmug.org">elrond@phoe.frmug.org</A>&gt;</li>
+<li><em>Date</em>: Fri, 13 Apr 2001 00:06:10 +0200</li>
+<li><em>Cc</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00438.html">200104111442.IAA06010@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Mail-Followup-To</em>: Matthew Flatt &lt;mflatt@cs.utah.edu&gt;,PLT Scheme &lt;plt-scheme@flux.cs.utah.edu&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00437.html">20010411063817.B92471@memo.frmug.fr.net</a>&gt; &lt;<a href="msg00438.html">200104111442.IAA06010@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Wed, Apr 11, 2001 at 08:42:03AM -0600, Matthew Flatt wrote:
+&gt;
+&gt; MzScheme doesn't currently provide a hook for setting a type-specific
+&gt; printer.
+
+	Being able to write any new type would be helpfull for users
+debugging code using thoses types.
+
+&gt; Reading values back in seems more tricky. Offhand, I haven't given it
+&gt; enough thought to know how it might work, but I'm open to suggestions.
+
+	How other implementations handle this? A simplistic way to
+read would be to invoke a registered reader and passing it an input
+port. The reader would be selected by the &quot;type symbol&quot; following
+`#&lt;'.  The reader would read forward as needed until it reaches `&gt;'
+and return a new object. The new type reader could also be passed a
+string build by the parent reader.
+
+-- 
+%!PS        '(#&lt;radical-libre&gt; (&quot;Bertrand Petit&quot; . &quot;elrond@phoe.frmug.org&quot;))
+297.6 420.9 translate 90 rotate 0 setgray gsave 0 1 1{pop 0 180 moveto 100
+180 170 100 170 -10 curveto 180 -9 180 -9 190 -10 curveto 190 100 100 180
+0 180 curveto fill 180 rotate}for grestore/Bookman-LightItalic findfont
+240 scalefont setfont -151.536392 -63.7998886 moveto (bp)show showpage
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00437" href="msg00437.html">Undocumented: reader/writer</a></strong>
+<ul><li><em>From:</em> Bertrand Petit &lt;plt-s@phoe.frmug.org&gt;</li></ul></li>
+<li><strong><a name="00438" href="msg00438.html">Re: Undocumented: reader/writer</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00439.html">Unit question (documentation error hopefully).</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00441.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00438.html">Re: Undocumented: reader/writer</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00439.html">Unit question (documentation error hopefully).</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00440"><strong>Date</strong></a></li>
+<li><a href="threads.html#00440"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

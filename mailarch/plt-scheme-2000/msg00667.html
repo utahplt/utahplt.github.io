@@ -1,0 +1,176 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Scheme acceptance [no flames] -->
+<!--X-From-R13: Zrb Dnmbhzbi  <yenmbhzbiNdhnypbzz.pbz> -->
+<!--X-Date: Mon, 6 Nov 2000 15:53:44 &#45;0700 (MST) -->
+<!--X-Message-Id: 200011062253.OAA20700@balu.qualcomm.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Scheme acceptance [no flames]</title>
+<link rev="made" href="mailto:lrazoumov@qualcomm.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00666.html">Date Prev</a>][<a href="msg00668.html">Date Next</a>][<a href="msg00663.html">Thread Prev</a>][<a href="msg00668.html">Thread Next</a>][<a href="maillist.html#00667">Date Index</a>][<a href="threads.html#00667">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Scheme acceptance [no flames]</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Scheme acceptance [no flames]</li>
+<li><em>From</em>: Leo Razoumov  &lt;<A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 6 Nov 2000 14:53:40 -0800 (PST)</li>
+<li><em>Reply-To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Gentlemen,
+I spent last weekend learning Python just for the sake of it. There is so much
+hype around Python these days, so I decided to see it for myself. 
+
+In short it looks as a &quot;poor man's Scheme&quot; with some nice syntax cover.
+
+Python syntax and semantics rules are convenient and emphasize code readability,
+even though syntax is rather unconventional. I cannot think of any other
+language except for Fortran-IV that is white space sensitive.
+
+I am not going to provide language comparisons here, enough to say that in
+comp.lang.python there are lots of discussions on adding Scheme features to
+Python:
+  * Lexical scoping (for real)
+  * Proper tail-recursion (project is called &quot;Stackless  Python&quot;)
+  * Continuations
+
+The only advantages IMHO Python have over Scheme are: Python provides
+dictionaries (as hash tables) and has a simple yet powerful modular system.
+Scheme R5RS does not specifies hashes among its build-in types. Of course, most
+of contemporary Scheme implementations have built-in hashes (MzScheme,
+Guile). The same goes for modular system (MzScheme has an excellent one).
+
+All in all there is not a single feature in Python (or Perl for this matter)
+which is not already available in Scheme. (Pickling was in Scheme from the day
+one -- &quot;program is data&quot;).
+
+Yet, very little fraction of programmers have ever used Scheme. 
+
+Scheme has been around since 1976 and certainly could address all the needs of
+script programming (and much more). However, every scripting language which came
+later beat Scheme hands down in market acceptance.  Examples are: Basic, Perl
+and now Python.  Well, Python is elegant and is reasonably designed. But why
+Perl gained lion mindshare in CGI and other scripting is a puzzle for me.
+
+It ought to be a reason why Scheme could not make it into main stream
+programming. Blaming everything on ignorance of an &quot;average programmer&quot; is
+non-contractive approach and it leads nowhere. Average programmers are as they
+are and there is little one can do about it. I know PLT fights a battle to teach
+programming in a right way, but good will and hard work does not guarantee a
+victory.
+
+So what are the Scheme's deficiencies:
+
+* Pure prefix syntax comes to mind first.  
+
+* Equally important is that Scheme is proud to lack iteration operators like
+  'while' and 'for' loops because they are redundant in a proper tail-recursive
+  language. It is easy to write missing operators yourself as macros but this
+  task is not for a beginner who wants simply to iterate from 1 to 10.
+
+* Scheme is so much different from your other everyday languages that people
+  simply ignore it, design their own ad hoc languages and then, much later,
+  start to reinvent the wheel by adding Scheme like features to their favorite
+  ad hoc language. At this point they realize (as it was with Perl) that it is
+  too late to make radical design changes.
+
+In the case of Python such a poor afterthought are classes. Python class members
+are all public (no information hiding) and a user can add/delete any member of a
+class instance so that class invariants go down the drain. There is no way in
+Python to enforce interface consistency in inheritance hierarchy. I can continue
+et infinitum.
+
+Uhh, sorry for being pathetic on the eve of presidential elections:-) 
+I am finaly at the constructive portion of my e-mail.  
+
+Is it feasible to have a parser which translates Python code into Scheme code so
+that people write Python-like code and can convert it to Scheme so that Python
+users get all the benefits from the features they are just talking about?? Might
+be, significant share of the exsisting Python code would run without
+modifications under Scheme as well.
+Or, can one slip the best Scheme features under the hood of a language which has
+better chances of being widely accepted??
+
+The sad point which I would like to make: if Scheme, in its present form, could
+not take off since 1976 it will never do. Something on the syntax or/and
+semantics side has to be done so that all the efforts in designing and
+implementing great language are not wasted.
+
+I apologize, for sometimes being pathetic:-)
+
+Thanks,
+-- Leo
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++  Leonid Razoumov,               +  E-mail: lrazoumov@qualcomm.com   +
++  Qualcomm Inc.,                 +  <A  HREF="http://www.qualcomm.com">http://www.qualcomm.com</A>          +
++  5775 Morehouse Drive,          +                                   +
++  San Diego, CA 92121-1714,      +  VOICE:  +1-858/651-5163          +
++        USA                      +    FAX:  +1-858/658-2113          +
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00668" href="msg00668.html">Re: Scheme acceptance [no flames]</a></strong>
+<ul><li><em>From:</em> &quot;John R. Hall&quot; &lt;overcode@lokigames.com&gt;</li></ul></li>
+<li><strong><a name="00733" href="msg00733.html">Re: Scheme acceptance [no flames]</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00666.html">Re: Swindle question &amp; bug report</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00668.html">Re: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00663.html">Re: forwarded message from greg seibel</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00668.html">Re: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00667"><strong>Date</strong></a></li>
+<li><a href="threads.html#00667"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

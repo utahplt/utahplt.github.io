@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Swig and MzScheme's _scheme_get_type_name -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 19 Dec 2000 09:00:51 &#45;0700 (MST) -->
+<!--X-Message-Id: 200012191600.JAA12370@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3A3BADAE.BD7F8FFB@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Swig and MzScheme's _scheme_get_type_name</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01161.html">Date Prev</A>][<A HREF="msg01163.html">Date Next</A>][<A HREF="msg01154.html">Thread Prev</A>][<A HREF="msg01163.html">Thread Next</A>][<A HREF="maillist.html#01162">Date Index</A>][<A HREF="threads.html#01162">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Swig and MzScheme's _scheme_get_type_name</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Swig and MzScheme's _scheme_get_type_name</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 19 Dec 2000 09:00:48 -0700 (MST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01154.html">3A3BADAE.BD7F8FFB@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01154.html">3A3BADAE.BD7F8FFB@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Paul Fernhout:
+&gt; This was because "_scheme_get_type_name" can't be found by the linker.
+&gt; Any thoughts on what I might be doing wrong?
+
+It is not exported by the MzScheme/MrEd binaries for Windows, though it
+should be. The root of the problem is that scheme_get_type_name() is
+declared in the wrong place in the source code, so that it doesn't get
+put into the list of variables to be exported from the binary.
+
+Fixing the problem requires rebuilding the binary, with
+scheme_get_type_name added to plt/src/mzscheme/include/mzwin.def.
+
+
+As an aside, I'm uneasy about the way SWIG is checking types:
+
+ void *swig_get_c_pointer(Scheme_Object *so, char *c_type) {
+    Scheme_Type st = SCHEME_TYPE(so);
+    //char *type_name = scheme_get_type_name(st);
+    //if(strcmp(type_name, c_type))
+    //scheme_signal_error("wrong type in foreign object %s", type_name);
+
+    return (void *) ((swig_proxy *) so)-&gt;object;
+ }
+
+What if an extension accidentally choose a name for a type that
+MzScheme or some other extension is already using? The type id returned
+by scheme_make_type() is guranteed to be unique, but the type name is
+not. 
+
+Maybe this is an unavoidable compromise in SWIG's design, though.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01163" HREF="msg01163.html">Re: Swig and MzScheme's _scheme_get_type_name</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01154" HREF="msg01154.html">Swig and MzScheme's _scheme_get_type_name</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01161.html">Re: Maybe a small bug?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01163.html">Re: Swig and MzScheme's _scheme_get_type_name</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01154.html">Swig and MzScheme's _scheme_get_type_name</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01163.html">Re: Swig and MzScheme's _scheme_get_type_name</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01162"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01162"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

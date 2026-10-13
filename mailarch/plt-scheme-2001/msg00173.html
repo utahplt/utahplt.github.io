@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: serial port access under win32 (win2K) -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 31 Jan 2001 09:04:12 &#45;0700 (MST) -->
+<!--X-Message-Id: 200101311604.JAA00417@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 00cb01c08a6c$eda77690$410c1eac@icu15 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: serial port access under win32 (win2K)</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00172.html">Date Prev</a>][<a href="msg00174.html">Date Next</a>][<a href="msg00171.html">Thread Prev</a>][<a href="msg00175.html">Thread Next</a>][<a href="maillist.html#00173">Date Index</a>][<a href="threads.html#00173">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: serial port access under win32 (win2K)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Chris Wright&quot; &lt;<A HREF="mailto:caw@cs.mu.oz.au">caw@cs.mu.oz.au</A>&gt;</li>
+<li><em>Subject</em>: Re: serial port access under win32 (win2K)</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 31 Jan 2001 09:04:03 -0700 (MST)</li>
+<li><em>CC</em>: &quot;plt-scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00171.html">00cb01c08a6c$eda77690$410c1eac@icu15</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00171.html">00cb01c08a6c$eda77690$410c1eac@icu15</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Chris Wright&quot;:
+&gt; Any pointers on how to access the serial ports (COM1-&gt;COM4) under win32.
+
+If you only wanted to read, or only wanted to write, you can use
+`open-input-file' or `open-output-file' on &quot;COM1&quot;, etc.
+
+More likely, you want to both read and write to the serial line.
+Unfortuately, you can't use `open-input-file' and then
+`open-output-file', because opening a COMx port in either mode locks it
+from other uses.
+
+MzScheme needs an `open-input&amp;output-file' function, which would solve
+your problem, but it's not there yet. (Soon, I hope...)
+
+
+Probably the only options for now are to use some ActiveX tool (I don't
+know what that would be) or to write a little extension in C.
+
+Maybe someone on plt-scheme already has implemented a relevant
+extension?
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00175" href="msg00175.html">RE: serial port access under win32 (win2K)</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00171" href="msg00171.html">serial port access under win32 (win2K)</a></strong>
+<ul><li><em>From:</em> &quot;Chris Wright&quot; &lt;caw@cs.mu.oz.au&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00172.html">install question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00174.html">Re: install question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00171.html">serial port access under win32 (win2K)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00175.html">RE: serial port access under win32 (win2K)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00173"><strong>Date</strong></a></li>
+<li><a href="threads.html#00173"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

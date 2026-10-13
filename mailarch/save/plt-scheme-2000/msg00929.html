@@ -1,0 +1,175 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Regexp arcana -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Thu, 28 Sep 2000 13:41:58 &#45;0600 (MDT) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B912AF51A@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Regexp arcana</TITLE>
+<LINK REV="made" HREF="mailto:GregP@bsquare.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00928.html">Date Prev</A>][<A HREF="msg00930.html">Date Next</A>][<A HREF="msg00926.html">Thread Prev</A>][<A HREF="msg00930.html">Thread Next</A>][<A HREF="maillist.html#00929">Date Index</A>][<A HREF="threads.html#00929">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Regexp arcana</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Regexp arcana</LI>
+<LI><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 28 Sep 2000 12:41:22 -0700</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+OK, this may be a little off-topic, but I'll tie it in.
+
+(define (do-s s)
+  (regexp-match "\"([^\"]*)\"(.*)" s))
+
+The regular expression was take from the implementation of imap in the net
+collection.
+That's how it's tied in. Now for the arcana :-)
+
+I'm trying to figure out what the dang thing does, so I'm running some
+experiments on it.
+
+First of all, from the docs:
+"
+...
+Atom ::= (Regexp)		Match any sub-expression Regexp
+...
+"
+
+Pardon me for being dense, but what is meant by "Match any sub-expression
+Regexp"
+
+So without knowing what the roundy parens do in the regexp, let me attempt
+to figure out what
+our expression above does:
+
+[^\"] ---&gt; Should "Match any character not in Range" So I suppose that
+anything but a quote will do.
+
+Now,
+
+[^\"]* ---&gt; the Kleene star I presume. Hence, anything but a quote, zero or
+more times. Stuff like this:
+
+		this is a sentence without a quote in it
+
+I expect it will match the whole dang thing. While
+		This has an " embedded quote
+A test shows that I get everything up to the quote:
+		This has an
+
+"\"[^\"]*\" ---&gt; like before, but the whole deal should have quotes around
+it:
+		"this is a sententce without a quote"
+
+This next sentence is interesting:
+
+		"this is " a sentence with three quotes"
+
+It will grab everything up to the second quote, but not the whole thing
+'cause quotes in the middle aren't allowed:
+
+		"this is "
+
+So what about this?:
+"\"([^\"])\""
+
+Let me try an english description: Any substring of the given string such
+that the first and last characters of the substring are quotes, but no other
+characters in the substring are quotes.
+
+So I write a little routine and try it out:
+
+(define (do-w w)
+  (regexp-match "\"([^\"]*)\"" w))
+
+&gt; (do-w "this one has no quotes")
+#f
+
+This is what I expected. No quotes and hence no match.
+
+&gt; (do-w "\"quotes around the oustside\"")
+("\"quotes around the oustside\"" "quotes around the oustside")
+
+Now I'm confused. The first match was expected, while the cadr of the list
+has no quotes! Why do I get the second match?
+
+&gt; (do-w "some stuff and then \" something with quotes around it\" then more
+stuff")
+("\" something with quotes around it\"" " something with quotes around it")
+
+Once again, I'm hip to the first match but confused by the cadr.
+
+&gt; (do-w "this one \" has three \" embedded quotes \" and more")
+("\" has three \"" " has three ")
+
+OK, I'll take the first match. But aren't there other subexpressions which
+should match? For example \" embedded quotes \" is also a substring that
+fits the regexp, why only the first one?
+
+Thanks.
+	
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00930" HREF="msg00930.html">Re: Regexp arcana</A></STRONG>
+<UL><LI><EM>From:</EM> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00928.html">Re: (sans sujet)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00930.html">Re: Regexp arcana</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00926.html">Re: Environments vs. Namespaces</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00930.html">Re: Regexp arcana</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00929"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00929"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

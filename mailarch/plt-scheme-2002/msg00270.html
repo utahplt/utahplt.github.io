@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Some doubts -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 18 Feb 2002 06:31:38 &#45;0700 (MST) -->
+<!--X-Message-Id: 200202181331.g1IDVXT23165@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87wuxbtvjl.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Some doubts</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00269.html">Date Prev</a>][<a href="msg00271.html">Date Next</a>][<a href="msg00269.html">Thread Prev</a>][<a href="msg00273.html">Thread Next</a>][<a href="maillist.html#00270">Date Index</a>][<a href="threads.html#00270">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Some doubts</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A> (Paulo J. Matos)</li>
+<li><em>Subject</em>: Re: Some doubts</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 18 Feb 2002 06:31:33 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00266.html">87wuxbtvjl.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00266.html">87wuxbtvjl.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Paulo J. Matos:
+&gt; But how about optional and key parameters?
+
+In v200, the &quot;etc.ss&quot; library defines `opt-lambda':
+
+ (require (lib &quot;etc.ss&quot;))
+ (define f
+   (opt-lambda (a [b 10])
+     (+ a b)))
+ (f 2) ; =&gt; 12
+ (f 2 3) ; =&gt; 5
+
+In v103, I think `opt-lambda' was in &quot;macro.ss&quot; --- but use v200,
+instead.
+
+&gt; 3 - How can I print a hash-table for example in a different way
+&gt; than its default way defined by implementation? (without defining
+&gt; a function to do it explicitly... I would like to overload
+&gt; something as a print-object method or something...)
+
+Currently, there's no way to do this with MzScheme's built-in printer.
+However, if you use `pretty-print, then you can set
+`pretty-print-size-hook' and `pretty-print-print-hook'. You can also
+hook pretty-print into MzScheme in various ways (e.g., `current-print',
+`port-write-handler').
+
+Search in Help Desk for more information.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00266" href="msg00266.html">Some doubts</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00269.html">Re: Some doubts</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00271.html">Re: parallel and serial port input/output</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00269.html">Re: Some doubts</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00273.html">Some doubts</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00270"><strong>Date</strong></a></li>
+<li><a href="threads.html#00270"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

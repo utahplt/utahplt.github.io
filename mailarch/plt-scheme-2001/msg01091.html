@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.26 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 24 Oct 2001 10:21:59 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110241621.KAA11806@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.26</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01090.html">Date Prev</a>][<a href="msg01092.html">Date Next</a>][<a href="msg01102.html">Thread Prev</a>][<a href="msg01097.html">Thread Next</a>][<a href="maillist.html#01091">Date Index</a>][<a href="threads.html#01091">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.26</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.26</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 24 Oct 2001 10:21:56 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged code in CVS for MzScheme and MrEd is now version 199.26.
+
+ * Changed mzc to better support module-less programs. Top-level
+   `require', `define-syntax', etc. expressions are processed
+   (executing expansion-time code) so their effects are available for
+   expanding later top-level expressions. A sequence of top-level
+   expressions can still execute differently when compiled, but
+   typical programs (especially ones using `require' or
+   `define-struct') will compile as expected.
+
+   The new &quot;toplevel.ss&quot; library in &quot;syntax&quot; provides a general-purpose
+   `eval-compile-time-part-of-top-level' procedure for mzc-like tools.
+
+ * Added `namespace-require/expansion-time', which is like
+   `namespace-require' except that only the transformer part of the
+   required module is executed. This function is used by
+   `eval-compile-time-part-of-top-level'.
+
+ * Added a .plt-creation interface to mzc.
+
+ * Removed redundant `with-input-from-file*' and
+   `with-output-to-file*' from MzLib's &quot;file.ss&quot;.
+
+ * Added a `use-paper-bbox?' initialization argument to
+   post-script-dc%. When it's #t (the default is #f), the bounding box
+   for the PostScript output is determined by the paper size (from
+   `current-ps-setup'), instead of from the history of drawing
+   commands.
+
+ * `play-sound' in Linux now uses the `play' function, and under
+   Solaris it uses the `audioplay' function. Default commands for other
+   OSes are welcome.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01090.html">Question on HtDP</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01092.html">Re: Teachpacks and Linux DrScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01102.html">Re: Question on HtDP</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01097.html">SrPersist</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01091"><strong>Date</strong></a></li>
+<li><a href="threads.html#01091"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SOS. No garbage&#45;collection on exit! -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 4 Feb 2002 10:29:52 &#45;0700 (MST) -->
+<!--X-Message-Id: 200202041729.KAA06618@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: iss.41fb.3c5eb74b.79a69.1@merkur.hrz.uni&#45;giessen.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SOS. No garbage-collection on exit!</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00197.html">Date Prev</a>][<a href="msg00199.html">Date Next</a>][<a href="msg00196.html">Thread Prev</a>][<a href="msg00199.html">Thread Next</a>][<a href="maillist.html#00198">Date Index</a>][<a href="threads.html#00198">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SOS. No garbage-collection on exit!</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Subject</em>: Re: SOS. No garbage-collection on exit!</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 4 Feb 2002 10:29:49 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00196.html">iss.41fb.3c5eb74b.79a69.1@merkur.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00196.html">iss.41fb.3c5eb74b.79a69.1@merkur.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Sebastian H Seidel:
+&gt; When MzScheme exits, I would like to clear the instances of all
+&gt; formerly globally defined variables out of the Matlab-environment and
+&gt; it would be sooo easy if there was an exit-hook! Simply calling
+&gt; (collect-garbage).
+
+I'm still a bit puzzled, because the default `exit' calls C exit(),
+which means that some process somewhere is terminated in your current
+setup.
+
+But, in any case, the hook you want exists: scheme_exit is a global
+variable in C that you can redirect to your own exit function.
+
+&gt; PS: I would like to learn about the behaviour of the
+&gt; MzScheme-garbage-collector because I'm rather unsure how to interact
+&gt; with it. Many functions that have to do with garbage-collection are
+&gt; not at all clear to me ...
+
+I'm not sure where to point you at this time other than Inside MzScheme
+(and this mailing list for specific questions).
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00199" href="msg00199.html">Re: SOS. No garbage-collection on exit!</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00196" href="msg00196.html">Re: SOS. No garbage-collection on exit!</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00197.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00199.html">Re: SOS. No garbage-collection on exit!</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00196.html">Re: SOS. No garbage-collection on exit!</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00199.html">Re: SOS. No garbage-collection on exit!</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00198"><strong>Date</strong></a></li>
+<li><a href="threads.html#00198"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

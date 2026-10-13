@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: how to link CGI scripts and PLT libraries? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 28 Aug 2001 15:54:49 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108282154.PAA29221@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 86elq0xhxu.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: how to link CGI scripts and PLT libraries?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00839.html">Date Prev</a>][<a href="msg00841.html">Date Next</a>][<a href="msg00831.html">Thread Prev</a>][<a href="msg00841.html">Thread Next</a>][<a href="maillist.html#00840">Date Index</a>][<a href="threads.html#00840">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: how to link CGI scripts and PLT libraries?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Subject</em>: Re: how to link CGI scripts and PLT libraries?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 28 Aug 2001 15:54:10 -0600 (MDT)</li>
+<li><em>CC</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00831.html">86elq0xhxu.fsf@biblio06.fciencias.unam.mx</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00831.html">86elq0xhxu.fsf@biblio06.fciencias.unam.mx</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Francisco Solsona:
+&gt; ,--------------------
+&gt; | (unit/sig ()
+&gt; |  (import cgi^ mzlib:sendmail^)
+&gt; |   
+&gt; |   ... the CGI thing using send-mail-message/port
+&gt; |  )
+&gt; `--------------------
+&gt; 
+&gt; Now, if I go to: <A  HREF="http://.../cgi-bin/foo">http://.../cgi-bin/foo</A>, it (almost) work, except that
+&gt; I cannot use send-mail-message/port, defined? returns #f on it from
+&gt; within the dispatch unit, huh?
+
+`send-mail-message/port' is bound within the unit, but not in the
+top-level namespace, so `defined?' will report #f.
+
+I don't quite understand why you can't use `send-mail-message/port',
+though. Are you using `eval' in handling the CGI request?
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00841" href="msg00841.html">Re: how to link CGI scripts and PLT libraries?</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00831" href="msg00831.html">how to link CGI scripts and PLT libraries?</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00839.html">Re: Compiling DrScheme 103p1 on Tru64...</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00841.html">Re: how to link CGI scripts and PLT libraries?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00831.html">how to link CGI scripts and PLT libraries?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00841.html">Re: how to link CGI scripts and PLT libraries?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00840"><strong>Date</strong></a></li>
+<li><a href="threads.html#00840"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

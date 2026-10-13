@@ -1,0 +1,115 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: MysterX changes for 102/11 -->
+<!--X-From-R13: "Bnhy O. Egrpxyre" <fgrpxNpf.evpr.rqh> -->
+<!--X-Date: Tue, 25 Apr 2000 14:54:52 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000401bfaef8$7b4009a0$6a032a80@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>MysterX changes for 102/11</title>
+<link rev="made" href="mailto:steck@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00255.html">Date Prev</a>][<a href="msg00257.html">Date Next</a>][<a href="msg00254.html">Thread Prev</a>][<a href="msg00257.html">Thread Next</a>][<a href="maillist.html#00256">Date Index</a>][<a href="threads.html#00256">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>MysterX changes for 102/11</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: MysterX changes for 102/11</li>
+<li><em>From</em>: &quot;Paul A. Steckler&quot; &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 25 Apr 2000 15:54:43 -0500</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I've recompiled MysterX for the 102/11 interim
+release.  It's available on the anonymous
+CVS server:
+
+	<A  HREF="http://www.cs.utah.edu/plt/anoncvs/">http://www.cs.utah.edu/plt/anoncvs/</A>
+
+Changes:  As one dedicated reader observed, the code
+to determine a COM object's coclass when
+registering a COM event handler did not always
+behave correctly.  The problem arises if
+1) a COM object does not provide the 
+IProvideClassInfo interface, and 2) the 
+type library contains more than one coclass 
+implementing the interface represented by
+the COM object.  This is pretty unusual,
+but we've found a type library where this 
+happens.
+
+The solution is to detect the ambiguity, which
+is reported as a Scheme error.  The programmer
+can use new procedures set-coclass! and 
+set-coclass-from-progid! to associate a 
+specific coclass with a COM object.  Once that's
+done, the COM event-handling procedures can 
+rely on that information.
+
+Not pretty, but this kludge should not be required
+very often.
+
+-- Paul
+ ----------------------------------------------------------------
+| Paul Steckler              |     Rice University PLT           | 
+| steck@cs.rice.edu          |     DrScheme Project              |
+| Tel:  713/348-3814         |     <A  HREF="http://www.cs.rice.edu/~steck">http://www.cs.rice.edu/~steck</A> |
+| FAX:  713/348-5930         |     *** Ad astra per hackera ***  |
+ ---------------------------------------------------------------- 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00255.html">Re: MzScheme vs MIT Scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00257.html">Lexical analyzer generators</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00254.html">MzScheme vs MIT Scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00257.html">Lexical analyzer generators</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00256"><strong>Date</strong></a></li>
+<li><a href="threads.html#00256"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

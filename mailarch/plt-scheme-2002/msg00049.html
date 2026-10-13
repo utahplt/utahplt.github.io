@@ -1,0 +1,246 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Someone else's matcher. -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 8 Jan 2002 12:17:51 &#45;0700 (MST) -->
+<!--X-Message-Id: 200201081917.MAA04510@fast.cs.utah.edu -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Reference: Pine.GSO.4.40.0201081257510.15246&#45;100000@blacktip.cs.indiana.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Someone else's matcher.</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00048.html">Date Prev</a>][<a href="msg00050.html">Date Next</a>][<a href="msg00046.html">Thread Prev</a>][<a href="msg00051.html">Thread Next</a>][<a href="maillist.html#00049">Date Index</a>][<a href="threads.html#00049">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Someone else's matcher.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matt 'LEGO Guy' Jadud&quot; &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Someone else's matcher.</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 8 Jan 2002 12:17:43 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00046.html">Pine.GSO.4.40.0201081257510.15246-100000@blacktip.cs.indiana.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00046.html">Pine.GSO.4.40.0201081257510.15246-100000@blacktip.cs.indiana.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Matt 'LEGO Guy' Jadud&quot;:
+&gt; 	This matcher runs under Chez. For various reasons, it would be
+&gt; _nicer_ for me if it ran under PLT's flavor.
+&gt; 
+&gt; <A  HREF="http://www.cs.indiana.edu/classes/b521/DCPS/match.ss">http://www.cs.indiana.edu/classes/b521/DCPS/match.ss</A>
+&gt; 
+&gt; 	Thoughts on what it would take to get it running under
+&gt; Mz/DrScheme?
+
+The annoying problems:
+
+ * PLT Scheme's #' produces syntax objects for list S-expression
+   structure, while Chez uses plain lists. So lots of `syntax-&gt;list'
+   applications have to be added.
+
+ * `define-syntax' within the body of a `define-syntax' doesn't work in
+    PLT Scheme, because there's currently nothing like
+    `require-for-syntax-in-syntax'. The nested syntax declarations have
+    to be lifted to another module.
+
+ * Chez's `...' handling in templates is more forgiving than PLT
+   Scheme's; the difference affects one template in the code.
+
+Enclosed is a start at an ugly port (in .plt format). I say &quot;start&quot;
+because I only tried it on the couple of commented-out examples in the
+file, so there are surely lots of missing `syntax-&gt;list's in code that
+didn't get executed.
+
+Matthew
+</PRE>
+<PRE>
+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
+YlfqlVr4EpSt/wX6AbrUy3EAAA==
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00051" href="msg00051.html">Re: Someone else's matcher.</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00046" href="msg00046.html">Someone else's matcher.</a></strong>
+<ul><li><em>From:</em> &quot;Matt 'LEGO Guy' Jadud&quot; &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00048.html">Windows XP</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00050.html">Re: hash table key comparisons - always eq?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00046.html">Someone else's matcher.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00051.html">Re: Someone else's matcher.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00049"><strong>Date</strong></a></li>
+<li><a href="threads.html#00049"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

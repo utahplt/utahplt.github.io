@@ -1,0 +1,237 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Beginners problem with programing -->
+<!--X-From-R13: "M?] FhZr@ M?]" <xbynxbjxNcubravk.vas.hcby.pm> -->
+<!--X-Date: Wed, 7 Nov 2001 11:28:21 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.LNX.4.21.0111071904200.2846&#45;200000@phoenix.inf.upol.cz -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Beginners problem with programing</title>
+<link rev="made" href="mailto:kolakowk@phoenix.inf.upol.cz">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01181.html">Date Prev</a>][<a href="msg01183.html">Date Next</a>][<a href="msg01181.html">Thread Prev</a>][<a href="msg01183.html">Thread Next</a>][<a href="maillist.html#01182">Date Index</a>][<a href="threads.html#01182">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Beginners problem with programing</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Scheme_mailing_list &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Beginners problem with programing</li>
+<li><em>From</em>: &quot;[?] TuLeN [?]&quot; &lt;<A HREF="mailto:kolakowk@phoenix.inf.upol.cz">kolakowk@phoenix.inf.upol.cz</A>&gt;</li>
+<li><em>Date</em>: Wed, 7 Nov 2001 19:28:20 +0100 (CET)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Im beginner in scheme and I couldn t affect with one homework.
+
+I may modify plot function to draw not only graph (like line), but also
+fill area between graph and axis.
+
+This is a program and file which is loading is in attatchment. 
+
+
+;; PROGRAM !!!
+
+(load &quot;canvas.scm&quot;)                                              
+
+(define pi (* 4 (atan 1)))                                       
+
+(define (draw-axes x y)                                          
+  (graphics-line 0 (- y) 0 y GRAY)
+  (graphics-line 0 0 x 0 GRAY))
+
+(define (plot-function x a b dx)
+  (graphics-line-to x (* (sin (* a x)) (cos (* b x))) RED)
+
+  (if (&lt; x (* 2 pi))                                             
+      (plot-function (+ x dx) a b dx)))                 
+
+(define (draw-function width height x y a b dx )
+  (graphics-init width height 0 (- y) x y)
+  (draw-axes x y)
+  (plot-function 0 a b dx)
+  (graphics-click)
+  (graphics-done))
+
+(draw-function 640 160 (* 2 pi) 1 1 1 0.005 )
+
+;; END !!!
+  
+Now Im desperate from scheme, because I m not be able to solve this
+problem.
+
+
+Thanx for help!!!
+
+TuLeN
+</PRE>
+<PRE>
+;;;;;
+;;;;;  PP1, Simple Canvas Library
+;;;;;  Written by Vilem Vychodil, &lt;vilem.vychodil@upol.cz&gt;
+;;;;;
+
+;; graficka knihovna
+(require-library &quot;graphics.ss&quot; &quot;graphics&quot;)
+
+;; nedefinovana funkce
+(define undefined-f (lambda arg (error &quot;Use init-graphics first.&quot;)))
+
+;; definice symbolu pro funkce
+(define graphics-move-to undefined-f)
+(define graphics-line-to undefined-f)
+(define graphics-line undefined-f)
+(define graphics-polyline undefined-f)
+(define graphics-done undefined-f)
+(define graphics-clear undefined-f)
+(define graphics-click undefined-f)
+
+;; definice barev
+(define BLACK (make-rgb 0 0 0))
+(define BLUE (make-rgb 0 0 0.5))
+(define GREEN (make-rgb 0 0.5 0))
+(define CYAN (make-rgb 0 0.5 0.5))
+(define RED (make-rgb 0.5 0 0))
+(define MAGENTA (make-rgb 0.5 0 0.5))
+(define YELLOW (make-rgb 0.5 0.5 0))
+(define GRAY (make-rgb 0.5 0.5 0.5))
+
+;; inicialisace grafickeho rozhrani
+(define (graphics-init width height minx miny maxx maxy)
+  (let* ((viewport #f)
+	 ; okraj
+	 (border 16)
+	 ; implicitni barva
+	 (default-color (make-rgb 0 0 0))
+	 ; vrat barvu pokud je specifikovana, nebo implicitni
+	 (get-color (lambda (color)
+		      (if (null? color)
+			  default-color
+			  (car color))))
+	 ; okenkova transformace
+	 (model-&gt;viewport (lambda (x w min max)
+			    (+ (* w (/ (- x min) (- max min))) border)))
+	 ; prvni posice
+	 (last-pos (make-posn 
+		    (model-&gt;viewport 0 width minx maxx)
+		    (model-&gt;viewport 0 height maxy miny)))
+	 ; universalni kreslici funkce
+	 (draw (lambda (x y line? color)
+		 (let ((real-last-pos last-pos))
+		   (begin
+		     (set! last-pos
+			   (make-posn (model-&gt;viewport x width minx maxx)
+				      (model-&gt;viewport y height maxy miny)))
+		     (if line? ((draw-line viewport)
+				real-last-pos last-pos (get-color color))))))))
+    (begin
+      (open-graphics)
+	 
+      ; inicialisace okna
+      (set! viewport 
+	    (open-viewport &quot;DrScheme Canvas&quot;
+			   (+ width (* 2 border)) (+ height (* 2 border))))
+       
+      ; vycisti okno
+      (set! graphics-clear
+	    (lambda ()
+	      ((clear-viewport viewport))))
+	
+      ; cekej na kliknuti
+      (set! graphics-click 
+	    (lambda () (get-mouse-click viewport)))
+
+      ; ukonci grafiku
+      (set! graphics-done
+	    (lambda () 
+	      (begin 
+		(close-viewport viewport)
+		(close-graphics)
+		(set! graphics-move-to undefined-f)
+		(set! graphics-line-to undefined-f)
+		(set! graphics-line undefined-f)
+		(set! graphics-polyline undefined-f)
+		(set! graphics-done undefined-f)
+		(set! graphics-clear undefined-f))))
+
+      ; nakresli caru od -- do
+      (set! graphics-line (lambda (x1 y1 x2 y2 . color)
+			    (begin
+			      (draw x1 y1 #f color)
+			      (draw x2 y2 #t color))))
+
+      ; nakresli lomenou caru, argumenty jsou teckove pary souradnic
+      (set! graphics-polyline 
+	    (lambda args
+	      (let* ((len (length args))
+		     (last (if (and (&gt; len 0)
+				    (not (pair? 
+					  (list-ref args (- len 1)))))
+			       (list (list-ref args (- len 1)))
+			       ())))
+		(if (and (not (null? args))
+			 (or (not (null? last))
+			     (not (null? (cdr args)))))
+		    (begin
+		      (draw (caar args) (cdar args) #f last)
+		      (for-each (lambda (pos)
+				  (draw (car pos) 
+					(cdr pos) #t last))
+				(cdr args)))))))
+       
+      ; move-to, line-to -- klasika, zelvicka
+      (set! graphics-move-to (lambda (x y . color) (draw x y #f color)))
+      (set! graphics-line-to (lambda (x y . color) (draw x y #t color))))))
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01181.html">PLI 2002-Second call for workshop proposals</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01183.html">Is it possible to have a persistent canvas background color ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01181.html">PLI 2002-Second call for workshop proposals</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01183.html">Is it possible to have a persistent canvas background color ?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01182"><strong>Date</strong></a></li>
+<li><a href="threads.html#01182"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

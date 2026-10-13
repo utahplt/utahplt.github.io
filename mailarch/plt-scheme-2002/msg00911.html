@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] scheme unit/sig (fwd) -->
+<!--X-From-R13: Fubznf Ivgmry <gubznf.jvgmryNnggov.pbz> (ol jnl bs Fubznf Ivgmry <gubznf.jvgmryNnggov.pbz>) -->
+<!--X-Date: Thu, 16 May 2002 09:50:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205161142.25304.thomas.witzel@attbi.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] scheme unit/sig (fwd)</title>
+<link rev="made" href="mailto:thomas.witzel@attbi.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00910.html">Date Prev</a>][<a href="msg00912.html">Date Next</a>][<a href="msg00904.html">Thread Prev</a>][<a href="msg00913.html">Thread Next</a>][<a href="maillist.html#00911">Date Index</a>][<a href="threads.html#00911">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] scheme unit/sig (fwd)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] scheme unit/sig (fwd)</li>
+<li><em>From</em>: Thomas Witzel &lt;<A HREF="mailto:thomas.witzel@attbi.com">thomas.witzel@attbi.com</A>&gt; (by way of Thomas Witzel &lt;<A HREF="mailto:thomas.witzel@attbi.com">thomas.witzel@attbi.com</A>&gt;)</li>
+<li><em>Date</em>: Thu, 16 May 2002 11:42:25 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello,
+No, we (I'am the mentioned partner) asked in both the list and the group.
+Prof. Felleisen gave the crucial hint in the newsgroup. We used now a factory
+to generate the views, and this factory instantiates the views and hands them
+a closure that was created in the servlet scope, so every view can use
+send/suspend. The nice thing about this is, that you can design your
+application using MVC just like any GUI application and you don't have to
+worry about the entry point and in fact you actually don't worry about being
+&quot;web based&quot; at all.
+However the unfortunate downside is the necessary resource management of the
+PLT webserver (since it can hold only a limited number of continuations)
+which has been solved by using a timeout after which the server &quot;forgets&quot; the
+continuation. This might not be useful for _all_ applications, but in general
+it is a great approach.
+I'am not sure whether this is a stupid idea, but if it was possible to still
+have send/suspend in various places in your code and the webserver would not
+store the whole continuation but just a declared state (i.e. the state of the
+controller which might be as little as a handful of variables), that would
+still allow a similar (the same?) design and be from an aspect of resources
+much cheaper.
+
+									Thomas
+
+On Thursday 16 May 2002 12:01 am, Jens Axel Søgaard wrote:
+&gt; Matthias Felleisen wrote:
+&gt; &gt; In dskippy's case, ...
+&gt;
+&gt; Didn't Skippy just forward a question from some newsgroup.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00913" href="msg00913.html">Re: [plt-scheme] scheme unit/sig (fwd)</a></strong>
+<ul><li><em>From:</em> Paul Graunke &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00910.html">Re: [plt-scheme] MrEd</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00912.html">Re: [plt-scheme] scheme unit/sig</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00904.html">Re: [plt-scheme] scheme unit/sig (fwd)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00913.html">Re: [plt-scheme] scheme unit/sig (fwd)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00911"><strong>Date</strong></a></li>
+<li><a href="threads.html#00911"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

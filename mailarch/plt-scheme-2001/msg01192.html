@@ -1,0 +1,176 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199d&#45;final -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Thu, 8 Nov 2001 21:11:58 &#45;0700 (MST) -->
+<!--X-Message-Id: 200111090411.fA94Bsj13483@amber.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199d-final</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01191.html">Date Prev</a>][<a href="msg01193.html">Date Next</a>][<a href="msg01206.html">Thread Prev</a>][<a href="msg01193.html">Thread Next</a>][<a href="maillist.html#01192">Date Index</a>][<a href="threads.html#01192">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199d-final</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199d-final</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 8 Nov 2001 23:11:54 -0500 (EST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged source (in CVS) for DrScheme is now version 199alpha1
+(with no drscheme-added number). For details on using the intermediate
+releases, see
+
+  <A  HREF="http://www.cs.utah.edu/plt/anoncvs/">http://www.cs.utah.edu/plt/anoncvs/</A>
+
+PRs: 2148
+
+THINGS STILL MISSING (and promised to be broken...)
+
+ - launchers
+ - project manager
+
+CONTROVERSIAL
+
+- The language dialog contains a full language that
+  is the combination of the graphical mred language
+  and the advanced HtDP language (each contains something
+  the other doesn't). Some people seem to think that will
+  make the language dialog too cluttered, but I think that
+  people who might use that language won't be able to find
+  it otherwise. I put it in for one iteration so people can
+  at least see it there. With strenuous complaints, I will
+  remove it.
+
+TRANSLATIONS
+
+- added `open-recent-menu-item' string constant. This is the
+  label of a menu that contains all of the recently opened
+  filenames, accessible via the file menu.
+- added `open-recent-info' string constant. It is the 
+  help string for the previous item.
+
+- removed r5rs-w/debug and changed r5rs-lang-name so
+  it match the English:
+ 
+     Standard (R5RS)
+
+- added `full-language', as the name of a new language
+  that includes all of the functionality of the
+  teaching languages plus the Graphical (MrEd) language.
+
+- added `introduction-to-language-dialog' a string
+  that appears above the language dialog when the language
+  dialog is first displayed (at the startup of drscheme).
+  It asks the user to select a language and explains that
+  many intro courses need no changes.
+
+- added `show-overview' and `hide-overview' string
+  constants. They are menu labels that show and hide the
+  new definitions window overview.
+
+LIBRARY FUNCTIONALITY CHANGES
+
+OTHER
+
+- added a code overview window that is
+  visible along the rhs of the drscheme
+  window. Use the `show' menu to make 
+  it visible.
+
+- found 3 more dialogs that didn't have
+  parents and gave them parents.
+
+- revert is disabled when the editor is locked.
+
+- keybindings menu works again.
+
+- drscheme's new version window is now a 
+  modified version of the language dialog
+
+- the language dialog is rearranged.
+
+- the language settings are now frame-specific.
+  If you change the language in one
+  window, it won't affect execute in another window;
+  the most recently set language is what is
+  used for newly created windows.
+
+- changed &quot;Bring window to front...&quot; shortcut to
+  `h' -- it used to conflict with Break.
+
+- fixed c-x;) keybinding and added something
+  to the info panel to show when a recording
+  is in progress.
+
+- when error-port isn't the original error port,
+  the fancy error display in drscheme goes away.
+
+- fixed bug for saved language preferences.
+  they are now restored.
+
+- added &quot;Open recent&quot; menu item
+
+- fixed up the teachpacks to load faster.
+
+- bug reports now go to the new bugs.plt-scheme.org
+  server (and to bugs@plt-scheme.org)
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01191.html">Re: Problems with MacOS menu handling</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01193.html">Mailing list about programing in scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01206.html">Re: Full scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01193.html">Mailing list about programing in scheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01192"><strong>Date</strong></a></li>
+<li><a href="threads.html#01192"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

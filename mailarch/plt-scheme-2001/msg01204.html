@@ -1,0 +1,142 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: embedding mzscheme into a C++ application -->
+<!--X-From-R13: Quevf Gmqnivavf <puevfNngqrfx.pbz> -->
+<!--X-Date: Wed, 14 Nov 2001 11:54:11 &#45;0700 (MST) -->
+<!--X-Message-Id: 200111141854.fAEIs8B26047@plover.atdesk.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: HIELJDHMBBPJBHNEHGIKOEEICCAA.mcandrews@larocquetrading.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: embedding mzscheme into a C++ application</title>
+<link rev="made" href="mailto:chris@atdesk.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01203.html">Date Prev</a>][<a href="msg01205.html">Date Next</a>][<a href="msg01203.html">Thread Prev</a>][<a href="msg01230.html">Thread Next</a>][<a href="maillist.html#01204">Date Index</a>][<a href="threads.html#01204">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: embedding mzscheme into a C++ application</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Brian McAndrews&quot; &lt;<A HREF="mailto:mcandrews@larocquetrading.com">mcandrews@larocquetrading.com</A>&gt;</li>
+<li><em>Subject</em>: Re: embedding mzscheme into a C++ application</li>
+<li><em>From</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 14 Nov 2001 13:54:08 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &quot;Brian McAndrews&quot;'s message of &quot;Wed, 14 Nov 2001 12:03:57 -0600&quot;</li>
+<li><em>Organization</em>: Automated Trading Desk, Inc.</li>
+<li><em>References</em>: &lt;<a href="msg01203.html">HIELJDHMBBPJBHNEHGIKOEEICCAA.mcandrews@larocquetrading.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/21.1</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&quot;Brian McAndrews&quot; &lt;mcandrews@larocquetrading.com&gt; writes:
+
+&gt; I want to use scheme as a scripting language extension to our
+&gt; application.  I've been using guile, but I am becoming frustrated
+&gt; with it (especially on a win32 platform).  I've looked at the Inside
+&gt; PLT MzScheme document and it looks promising.  2 questions: 1) is
+&gt; this the right tool for the job and 2) where can I find more
+&gt; documentation/examples on embedding mzscheme into C based
+&gt; applications?
+
+I've been playing around with this same idea, using mzScheme as a
+scripting and configuration language for a C++ application.
+
+So far it has worked very nicely.  There is one concern that I have
+regarding many embedded script languages, and that is the use of
+longjmp.  In a C++ application, if a longjmp jumps over any object
+destructor, your program is undefined.
+
+As I understand mzScheme internals (which is extremely minimal) they
+use longjmp for exceptions and for continuations.  This must be
+handled very carefully in any code that involves C++.  I don't quite
+know what to do, but the problem is visible with the following call
+chain: 
+
+ 1) scheme code ---&gt; 2) c++ code ---&gt; 3) scheme code
+
+
+Suppose scheme code in section 3 wants to long jmp to a handler in
+scheme code (1).  This would bypass the C++ code and render your
+program undefined if your C++ code has any temporary or auto (stack
+based) objects requiring destruction in scope.
+
+Basically, what needs to be done in every C++ routine that interacts
+with scheme (especially if it's reentrant from scheme, as in 1-&gt;2
+above), it needs to catch any long jumps, clean up all local objects,
+and then re-jump to wherever the original long jump was headed.
+
+But I am not sure how to do that cleanly, since mzscheme encapsulates
+the setjmp/longjmp routines, and I haven't bothered yet to look at
+what they do.
+
+However, I wouldn't deploy any application that doesn't take this into
+consideration, because it is a serious problem.  (Many embeddable
+languages use longjmp, so this is a somewhat common problem but most
+C++ programmers don't consider it, from what I can tell.)
+
+-- 
+Chris
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01230" href="msg01230.html">Re: embedding mzscheme into a C++ application</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01203" href="msg01203.html">embedding mzscheme into a C++ application</a></strong>
+<ul><li><em>From:</em> &quot;Brian McAndrews&quot; &lt;mcandrews@larocquetrading.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01203.html">embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01205.html">RE: embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01203.html">embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01230.html">Re: embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01204"><strong>Date</strong></a></li>
+<li><a href="threads.html#01204"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Question on User&#45;Defined Types (Embedding) -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Thu, 16 Nov 2000 16:26:05 &#45;0700 (MST) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C6767011E1B88@THRESHER -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Question on User-Defined Types (Embedding)</TITLE>
+<LINK REV="made" HREF="mailto:brent.fulgham@xpsystems.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01103.html">Date Prev</A>][<A HREF="msg01105.html">Date Next</A>][<A HREF="msg01103.html">Thread Prev</A>][<A HREF="msg01105.html">Thread Next</A>][<A HREF="maillist.html#01104">Date Index</A>][<A HREF="threads.html#01104">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Question on User-Defined Types (Embedding)</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: PLT-Scheme &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Question on User-Defined Types (Embedding)</LI>
+<LI><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 16 Nov 2000 15:24:31 -0800</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Let's say I have a C++ class/structure that I want to pass in and out 
+of the MzScheme runtime.
+
+For example, let's say I have a simple structure:
+
+    struct test
+    {
+        char name[10];
+        long salary;
+    };
+
+Now I might have a few C routines added to Scheme's global namespace:
+
+    proc = scheme_make_prim_w_arity(do_get_name, "get-name", 1, 1);
+    scheme_add_global("get-name", proc, loc_env);
+
+    proc = scheme_make_prim_w_arity(do_get_salary, "get-salary", 1, 1);
+    scheme_add_global("get-salary", proc, loc_env);
+
+The idea being to do something like:
+
+Scheme&gt;(define mytest (make-test "Brent" 1000))
+Scheme&gt;(get-name mytest)
+Brent
+Scheme&gt;(get-salary mytest)
+1000
+
+I would probably implement them something like this:
+
+    static Scheme_Object* do_get_name(int argc, Scheme_Object** argv)
+    {
+        struct* test = (SOME_CASTING_FOO)argv[0];
+        return scheme_make_string_value(test-&gt;name);
+    }
+
+And I'd probably have some kind of "new" function:
+
+    static Scheme_Object* do_make_test(int argc, Scheme_Object** argv)
+    {
+        char* title = SCHEME_STR_VAL(argv[0]);
+        char* name = SCHEME_STR_VAL(argv[1]);
+        long salary = SCHEME_INT_VAL(argv[2]);
+
+        struct temp;
+        temp.title = title;
+        temp.name = name;  // probably copy this actually
+        temp.salary = salary;
+
+        Scheme_Object* obj = SOMEHOW_MAKE_TYPE_FROM(temp);
+        scheme_add_global(title, obj, env);
+
+        return obj;
+    }
+
+And I'd have previously created a type:
+
+    Scheme_Type test_type;
+
+    test_type = scheme_make_type("&lt;test type&gt;");
+
+
+***
+
+So, I've gotten this far, but I am now stuck as to how to go about actually
+creating instances of a type.
+
+In my real case, I wish to pass Scheme a type representing some global
+data that *should not* be collected by Scheme.  In fact, Scheme will not
+be creating my type, but it might inspect it, or call methods that use
+it.
+
+So how do I go about casting in and out of a Scheme_Object* ?
+
+How do I convert a pointer to a C struct into something that MzScheme will
+recognize as a "&lt;test&gt;" type or similar?
+
+How should I define work-alike predicate and value-getting macros?
+
+Help!  Help!  :-)
+
+Thanks,
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01105" HREF="msg01105.html">Re: Question on User-Defined Types (Embedding)</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01103.html">103.5</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01105.html">Re: Question on User-Defined Types (Embedding)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01103.html">103.5</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01105.html">Re: Question on User-Defined Types (Embedding)</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01104"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01104"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

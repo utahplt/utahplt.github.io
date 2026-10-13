@@ -1,0 +1,171 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: 102d9 -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Sat, 20 May 2000 13:13:10 &#45;0600 (MDT) -->
+<!--X-Message-Id: 3926D5B3.E85EC1CA@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>102d9</TITLE>
+<LINK REV="made" HREF="mailto:robby@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00299.html">Date Prev</A>][<A HREF="msg00301.html">Date Next</A>][<A HREF="msg00299.html">Thread Prev</A>][<A HREF="msg00302.html">Thread Next</A>][<A HREF="maillist.html#00300">Date Index</A>][<A HREF="threads.html#00300">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>102d9</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: 102d9</LI>
+<LI><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 20 May 2000 14:13:07 -0400</LI>
+<LI><em>Organization</em>: PLT, Rice University (http://www.cs.rice.edu/CS/PLT/)</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged source (in CVS) for DrScheme is now version 102d9:
+
+  NEW DIRECTORY: plt/collects/defaults
+
+  be sure to get the new directory with:
+
+       cvs update -d plt/collects/defaults
+
+  or DrScheme will fail to start up.
+
+  WARNINGS:
+    - this release breaks the stepper.
+    - the "create launcher" menu item is
+      not yet fully functional, so use at your
+      own risk.
+
+ PRS: 1424, 1437
+
+ FUNCTIONALITY CHANGES
+
+ - drscheme-jr now supports teachpacks
+   (those that don't use GUIs, like htdp/dir.ss)
+
+ - the graphics library (sometimes known as sixlib) no longer
+   accepts any scaling arguments.
+
+ - drscheme:rep:process-text/zodiac and
+   drscheme:rep:process-text/no-zodiac
+   are now called drscheme:load-handler:process-text/zodiac and
+   drscheme:load-handler:process-text/no-zodiac.
+
+ - Windows and unix launchers can now be run from any directory.
+   They do not need to be saved in a particular place (this has been
+   true for some time, but it is officially true now.).
+
+ - the debug full scheme languages now allow loading of files
+   that contain graphics.
+
+ - the framework's preferences system now requires you to
+   set the marshall/unmarshalling functions (if any) before
+   setting the default preference.
+
+ - drscheme now supports site-specific default preferences.
+   To use, create a file prefs.ss in the defaults collection
+   that is a copy of the preferences file that you want to
+   be the defaults. Then, if the user-specific preferences file
+   doesn't exist (or the preferences in it are from an old version),
+   the contents of the prefs.ss file in the defaults collection is
+   used as the preferences.
+
+ - drscheme now wraps uses with-handlers so that if a tool
+   signals an error when it is loaded or invoked, it just
+   puts a window with the error message and continues, instead
+   of keeping drscheme from starting up.
+
+ - the .plt installer no longer automatically deletes compiled
+   files when installing a .plt file.
+
+ - setup-plt now uses the 'clean flag in info.ss to determine
+   the files to be deleted when --clean-ing a collection. It
+   defaults to the files in the "compiled" sub-collection of a
+   collection.
+
+ - setup-plt no longer automatically runs --clean when installing
+   a .plt file.
+
+ MINOR CHANGES AND BUG FIXES
+
+ - the searching dialog now has two-line find and replace editors.
+
+ - #! is treated like a comment when executing the defintions window,
+   if it is the first two characters in the definitions window.
+
+ - constructing the project manager's "collection projects" menu
+   was adding something like a 25% overhead to drscheme's startup,
+   so that menu is gone (I doubt anyone really used it anyway...)
+
+ - rarely used save menu items relegated to sub-menu.
+
+ - wrap text is now a checkable item that is checked when the editor
+   is wrapped.
+
+ - drscheme-jr now has a doc.txt file that explains its implementation.
+   The implementation was factored so that DrScheme's new launchers
+   can re-use drscheme-jr's implementation. So, if you change
+   drscheme-jr, be aware that you might affecting these launchers.
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00302" HREF="msg00302.html">Re: 102d9</A></STRONG>
+<UL><LI><EM>From:</EM> John Clements &lt;clements@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00299.html">Introducing foo-ml      (long, but you can let DrScheme read most of it)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00301.html">102/13</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00299.html">Introducing foo-ml      (long, but you can let DrScheme read most of it)</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00302.html">Re: 102d9</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00300"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00300"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,160 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Question on Multithreading from C API -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Wed, 3 Jan 2001 13:06:22 &#45;0700 (MST) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C676701493BE8@THRESHER -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Question on Multithreading from C API</title>
+<link rev="made" href="mailto:brent.fulgham@xpsystems.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00011.html">Date Prev</a>][<a href="msg00013.html">Date Next</a>][<a href="msg00007.html">Thread Prev</a>][<a href="msg00013.html">Thread Next</a>][<a href="maillist.html#00012">Date Index</a>][<a href="threads.html#00012">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Question on Multithreading from C API</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Question on Multithreading from C API</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 3 Jan 2001 12:04:58 -0800 </li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I am a bit confused by the MzScheme's Threading functions
+provided in the C API.
+
+Imagine the case of a web server with an embedded Scheme
+interpreter.  One of its jobs is to evalute S-expressions
+as they are requested by various socket connections.
+
+Currently, there is a perpetual native thread that runs
+in a loop waiting for evaluation requests.  When such
+a request is received, it then hands the s-expression
+over to MzScheme (using scheme_eval) waits for the
+response (or exception) and returns the result.
+
+This works fine, but obviously creates a single-threaded
+bottleneck in the code.  What I want to do is evaluate
+each individual s-expression in its own thread.
+
+Looking at the &quot;Inside PLT MzScheme&quot; manual, I see how to
+create a new thread to evaluate the s-expression, but I
+don't see a way to join with an MzScheme thread to get
+it's response.
+
+For example, let's say I do this:
+
+... get a request ...
+
+Scheme_Object* rval = scheme_thread( thunk, env);
+
+... return the rval ...
+
+I imagine this is just going to block until the evaulation
+is done.  This is no better than the single eval loop because
+no new requests can be processed until this evaluation completes. 
+
+On the other hand, if &quot;rval&quot; is just a value that indicates
+that the thread started successfully, how can you find the
+value of the thunk being evaluated?
+
+What I would like to do is have the request thread looping
+and periodically checking for new requests (which it does now),
+then hand them off to MzScheme to evaluate in their own
+threads, then periodically check on each thread to see if there
+was a result.
+
+Is this possible using the C API?
+
+At this point, I'm thinking the best I can do is to force the
+indvidual evaluations to notify the waiting threads (i.e., the
+clients waiting on each HTTP request) that their result is
+ready.
+
+This might be done through something like this:
+
+1.  A client hits the HTTP connection, which creates a request
+    structure around the s-expression to be evaluted.
+2.  The request structure gets stored in a request queue, sets
+    a &quot;request ready&quot; condition, and then the thread goes to 
+    sleep (waiting on a &quot;done&quot; condition&quot;).
+3.  The perpetual MzScheme server thread picks up the request,
+    removes it from the request queue, puts it in a &quot;pending&quot;
+    queue, and wraps the s-expression in a thunk (similar to
+    the one outlined in &quot;Inside PLT MzScheme&quot; to catch
+    exceptions.  This thunk contains a pointer to the condition
+    variable the HTTP client is blocked on.  The thunk evaluates
+    the s-expression, stores the result in its structure in the
+    &quot;pending queue&quot; and then fires the &quot;done&quot; condition before
+    returning (and terminating).
+4.  The blocked thread wakes up, retrieves the structure from the
+    &quot;pending&quot; queue and does whatever with the result.
+
+Is there an easier way to achieve this result?
+
+Thanks,
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00013" href="msg00013.html">Re: Question on Multithreading from C API</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00014" href="msg00014.html">Re: Question on Multithreading from C API</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00011.html">RE: Senora GC ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00013.html">Re: Question on Multithreading from C API</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00007.html">Re: Compiled S-Expressions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00013.html">Re: Question on Multithreading from C API</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00012"><strong>Date</strong></a></li>
+<li><a href="threads.html#00012"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

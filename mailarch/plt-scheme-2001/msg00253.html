@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: hash tables -->
+<!--X-From-R13: [vpunry Hnavre <zinavreNooo.pnygrpu.rqh> -->
+<!--X-Date: Thu, 8 Feb 2001 16:46:52 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010208233125.576665E0EA@sith.bbb.caltech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c09229$06850830$6a032a80@cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: hash tables</title>
+<link rev="made" href="mailto:mvanier@bbb.caltech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00252.html">Date Prev</a>][<a href="msg00254.html">Date Next</a>][<a href="msg00252.html">Thread Prev</a>][<a href="msg00254.html">Thread Next</a>][<a href="maillist.html#00253">Date Index</a>][<a href="threads.html#00253">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: hash tables</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A></li>
+<li><em>Subject</em>: Re: hash tables</li>
+<li><em>From</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Date</em>: Thu,  8 Feb 2001 15:31:25 -0800 (PST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00252.html">000001c09229$06850830$6a032a80@cs.rice.edu</a>&gt; (steck@cs.rice.edu)</li>
+<li><em>References</em>: &lt;<a href="msg00252.html">000001c09229$06850830$6a032a80@cs.rice.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; From: &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;
+&gt; Cc: &quot;Plt-Scheme@Fast. Cs. Utah. Edu&quot; &lt;plt-scheme@fast.cs.utah.edu&gt;
+&gt; Date: Thu, 8 Feb 2001 17:44:06 -0600
+&gt; Content-Type: text/plain;
+&gt; 	charset=&quot;iso-8859-1&quot;
+&gt; X-Priority: 3 (Normal)
+&gt; X-MSMail-Priority: Normal
+&gt; Importance: Normal
+&gt; X-MimeOLE: Produced By Microsoft MimeOLE V5.50.4133.2400
+&gt; 
+&gt; &gt;It appears that it is not possible to use a string as a key in mzscheme's
+&gt; &gt;hash tables.  Is this correct?  I've been able to use symbols and numbers
+&gt; &gt;as keys but not strings or immutable strings; why is that?  Also, it would
+&gt; &gt;be nice if an error was raised when an invalid key is used, as opposed to
+&gt; &gt;finding out later that there is nothing stored at that key location.
+&gt; 
+&gt; Two Scheme keys hash to the same value iff they are eq?.
+&gt; Two strings containing the same characters are not
+&gt; eq?.  The *same* string can be used as a hash key,
+&gt; but that's rarely what you want.
+&gt; 
+&gt; You can convert your strings to symbols to use them
+&gt; as hash keys.
+&gt; 
+&gt; The procedure hash-table-get does raise an exception when no value 
+&gt; is found.
+&gt; 
+&gt; -- Paul
+&gt; 
+
+OK, I get it now.  I was confused by the error message/exception system
+since I was using this interactively (my fault).  Actually, symbols *are*
+what I want, but I wanted to know the logic behind it.
+
+Thanks,
+
+Mike
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00252" href="msg00252.html">RE: hash tables</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00252.html">RE: hash tables</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00254.html">Question on HtDP Exercise</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00252.html">RE: hash tables</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00254.html">Question on HtDP Exercise</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00253"><strong>Date</strong></a></li>
+<li><a href="threads.html#00253"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

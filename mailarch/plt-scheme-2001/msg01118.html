@@ -1,0 +1,177 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Document formatting in Scheme -->
+<!--X-From-R13: "Bnhy F. Uenhaxr" <cgtNppf.arh.rqh> -->
+<!--X-Date: Fri, 26 Oct 2001 08:02:10 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20011026100204.A4874@subra.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011026132355.62580.qmail@web11202.mail.yahoo.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Document formatting in Scheme</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01117.html">Date Prev</a>][<a href="msg01119.html">Date Next</a>][<a href="msg01117.html">Thread Prev</a>][<a href="msg01119.html">Thread Next</a>][<a href="maillist.html#01118">Date Index</a>][<a href="threads.html#01118">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Document formatting in Scheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Document formatting in Scheme</li>
+<li><em>From</em>: &quot;Paul T. Graunke&quot; &lt;<A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 26 Oct 2001 10:02:04 -0400</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01117.html">20011026132355.62580.qmail@web11202.mail.yahoo.com</a>&gt;; from noelwelsh@yahoo.com on Fri, Oct 26, 2001 at 06:23:55AM -0700</li>
+<li><em>References</em>: &lt;<a href="msg01117.html">20011026132355.62580.qmail@web11202.mail.yahoo.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I would focus on the markup language.  Changes (that aren't backward
+compatable) to the markup require changes to all the documents,
+document generators, and document processors.  If the format you
+pick happens to be an x-expression, then you can convert it to XML
+using the PLT XML library.  If you prefer some other library, I bet
+it wouldn't be hard to automatically convert x-expressions to
+whatever other libraries accept.
+
+For transformations, I would consider using `match' and quasiquote.
+
+Paul
+
+On Fri, Oct 26, 2001 at 06:23:55AM -0700, Noel Welsh wrote:
+&gt; Hi all,
+&gt; 
+&gt; Schematics was created to provide the tools I felt I
+&gt; needed to create high quality packages in PLT Scheme.
+&gt; This meant two things: a testing framework, and a
+&gt; document creation system (so I can make pretty manuals
+&gt; like the ones that come with PLT Scheme). I've got the
+&gt; first done (though I need to update it to v200) but
+&gt; the second has been a long time coming. It looks like
+&gt; I'm now in a position to resume work on it.
+&gt; 
+&gt; One half of the problem is API documentation. For this
+&gt; I have half of a solution: scmdoc extracts comments
+&gt; from code and moshimoshi can be trivially modified to
+&gt; parse the human readable markup appropriate for API
+&gt; documentation.  I'm thinking of a system where
+&gt; doc-comments look something like:
+&gt; 
+&gt; ;;!
+&gt; ;; Contract: (String) -&gt; Phone-Number
+&gt; ;; (get-phone-number name) -&gt; phone-number
+&gt; ;;
+&gt; ;; Get the phone number for the given user
+&gt; 
+&gt; I.e. quite similar to HTDP comments.  For this comment
+&gt; would be output some appropriate markup which would
+&gt; eventually become a nicely formated manual.
+&gt; 
+&gt; The bits I don't have are:
+&gt;  - a markup language to write the rest of the
+&gt; documentation in
+&gt;  - a backend to convert whatever markup I use to the
+&gt; various formats people will want, starting with HTML
+&gt; and moving to LaTex, PDF etc. as the demand arises.
+&gt; 
+&gt; It should be possible to express content in a fairly
+&gt; simple markup.  E.g:
+&gt; 
+&gt; (manual	(title &quot;scmunit&quot;)
+&gt; 		(introduction &quot;scmunit is a unit-testing framework
+&gt; for...&quot;)
+&gt; 		(chapter 1 &quot;blah blah&quot;))
+&gt; 
+&gt; and transform that into elaborate HTML etc. via some
+&gt; sort of style sheet.  The technique du jour to do all
+&gt; this would be XML and XSLT but I rather eat my shoe
+&gt; than deal with that bloated mess.  I don't mind the
+&gt; external representation being XML but I don't want to
+&gt; have to see it and I certainly don't want to deal with
+&gt; XSLT.  Now there are a number of existing packages
+&gt; that do part of what I want.  The ones I aware of are:
+&gt;   - The XML library in PLT Scheme: XML representation
+&gt; as sexpr
+&gt;   - SXML: as above but includes transformations
+&gt;   - tex2page: LaTex to HTML
+&gt;   - LAML: sexpr to HTML
+&gt;   - BRL: embedding Scheme in other documents (useful
+&gt; if the author is familiar with HTML/LaTex but not
+&gt; Scheme)
+&gt; 
+&gt; So my question is: does anyone have any suggestions on
+&gt; directions to take?  Does anyone have an
+&gt; implementation I can work on?  This kind of stuff is
+&gt; generally useful for maintaining web pages and other
+&gt; documents so I'd surprised if others haven't worked on
+&gt; this.
+&gt; 
+&gt; Thanks,
+&gt; Noel
+&gt; 
+&gt; __________________________________________________
+&gt; Do You Yahoo!?
+&gt; Make a great connection at Yahoo! Personals.
+&gt; <A  HREF="http://personals.yahoo.com">http://personals.yahoo.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01119" href="msg01119.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01117" href="msg01117.html">Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01117.html">Document formatting in Scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01119.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01117.html">Document formatting in Scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01119.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01118"><strong>Date</strong></a></li>
+<li><a href="threads.html#01118"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,166 @@
+#!/bin/sh
+string=? ; exec mzscheme -g -l core.ss -r $0 "$@"
+
+(load "contents")
+
+;; --------------------------------------------------------------------------
+
+(define (make-html)
+  (printf HEADER "Workshop Program")
+  (printf TABLE-HEAD)
+  (for-each process-day schedule)
+  (printf TABLE-FOOT)
+  (printf FOOTER))
+
+(define (process-day list3)
+  (let* ((day (car list3))
+	 (morning (cadr list3))
+	 (afternoon (caddr list3))
+	 (mo-le (length morning))
+	 (af-le (length afternoon))
+	 (blanks (build-list (abs (- mo-le af-le)) (lambda (x) "  ")))
+	 (morning (if (>= mo-le af-le) morning (append morning blanks)))
+	 (afternoon (if (>= af-le mo-le) afternoon (append afternoon blanks))))
+    (printf DAY day)
+    (process-part morning day 'morning)
+    (process-part afternoon day 'afternoon)
+    (printf "</tr>~n~n")))
+
+(define (process-part sch day part)
+  (printf "<td valign=top>~n")
+  (for-each (lambda (x) (printf "  ~a<br>~n" x)) sch)
+  (printf TO-DETAILS
+          HAND:IMG (format "~a-~a.html" day part)
+          HAND:IMG (format "~a-~a-lab.html" day part))
+  (print-details day part)
+  (printf "</td>~n"))
+
+(define (print-details day part)
+  (let* ((title (format "Details for ~a ~a" day part))
+	 (lab-title (format "LAB for ~a ~a" day part))
+	 (base:str (format "~a-~a" day part))
+	 (tit:sym (string->symbol base:str))
+	 (file:str (string-append base:str ".html"))
+	 (lab:str (string-append base:str "-lab"))
+	 (lab-file (string-append lab:str ".html"))
+	 (lab:sym (string->symbol lab:str)))
+    (with-handlers ((exn? (lambda (x)
+			    ;; this catches non-existing details/labs
+			    (display (exn-message x))
+			    (newline)
+			    #t)))
+      (fprintf (remove-and-open file:str)
+	       DETAILS
+	       title (eval tit:sym) HAND:IMG lab-file DATE)
+      (fprintf (remove-and-open lab-file)
+	       LAB
+	       lab-title (eval lab:sym) DATE)
+      )))
+
+;; --------------------------------------------------------------------------
+;; CONSTANTS
+
+(define LOGO "http://www/CS/PLT/packages/drscheme/logo.gif")
+(define LOGO "icons/ts2k-small.gif")
+
+(define HEADER (format "
+<html>
+<title>~a</title>
+<body bgcolor=white>
+<table width=100%>
+<tr><td valign=top align=left>
+        <h1><img align=top 
+	         src=~a
+                 alt=\"[PLT logo]\">
+            ~a
+        </h1></td>
+   <td valign=top align=right>
+   <table>
+      <tr><td valign=top align=right><h3>~a</h3></td></tr>
+      <tr><td valign=top align=right><h3>~a</h3></td></tr>
+   </table>
+   </tr>
+</table>
+<hr>
+" TITLE LOGO TITLE WORKSHOP-DATE "~a"))
+
+(define FOOTER (format "
+<hr>
+<P>
+<cite><A HREF=http://www.cs.rice.edu/CS/PLT/Teaching/Lectures/Released/Book/>How to Design Programs</A></cite>
+<P>
+<hr>
+Generated on: ~a
+</body>
+</html>
+" DATE))
+
+(define TABLE-HEAD "
+<center>
+<table bgcolor=beige>
+<tr><th></th>
+    <th><font color=red>Morning</font></th>
+    <th><font color=red>Afternoon</font></th></tr>
+")
+
+(define TABLE-FOOT "</table></center>~n")
+
+(define DETAILS (string-append HEADER "
+<table bgcolor=beige>
+<tr><td><pre>
+~a
+<pre></td>
+<td valign=top align=right>~a <a href =~a>LAB</a></td>
+</tr>
+</table>
+<hr>
+Generated on: ~a
+<hr>
+</body>
+</html>
+"))
+
+(define LAB (string-append HEADER "
+<center>
+<table bgcolor=beige>
+<tr><td><pre>
+~a
+</pre>
+</table>
+</center>
+<hr>
+Generated on: ~a
+</html>
+"))
+
+(define DAY "<tr valign=top>~n<th valign=top><font color=red>~a:</font></th>~n")
+
+(define HAND:IMG "<img src=\"icons/hand.right.gif\" alt=[Point]>")
+
+(define TO-DETAILS "
+<table width=100%>
+<tr><td align=right>~a<a href =~a>Details</a></td></tr>
+<tr><td align=right>~a<a href =~a>LAB</a></td></tr>
+</table>")
+
+(define HAND "
+<table width=100%>
+<tr><td align=right>
+    ~a<a href =~a>Details</a>
+    </td>
+</tr>
+</table>")
+
+
+
+;; str -> port
+(define (remove-and-open file)
+  (when (file-exists? file)
+    (delete-file file))
+  (open-output-file file))
+      
+(load "contents")
+
+(current-output-port (remove-and-open "index.html"))
+
+(make-html)

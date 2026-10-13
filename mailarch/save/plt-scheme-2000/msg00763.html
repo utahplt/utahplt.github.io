@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: mzcom as an inproc dll -->
+<!--X-From-R13: "Bnhy O. Egrpxyre" <fgrpxNpf.evpr.rqh> -->
+<!--X-Date: Mon, 24 Jul 2000 09:06:00 &#45;0600 (MDT) -->
+<!--X-Message-Id: 002801bff580$aa8eaf80$6a032a80@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200007211724.LAA22334@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: mzcom as an inproc dll</TITLE>
+<LINK REV="made" HREF="mailto:steck@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00762.html">Date Prev</A>][<A HREF="msg00764.html">Date Next</A>][<A HREF="msg00760.html">Thread Prev</A>][<A HREF="msg00762.html">Thread Next</A>][<A HREF="maillist.html#00763">Date Index</A>][<A HREF="threads.html#00763">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: mzcom as an inproc dll</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "Matthew Flatt" &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;, "PJ Durai" &lt;<A HREF="mailto:duraip@extendsys.com">duraip@extendsys.com</A>&gt;</LI>
+<LI><em>Subject</em>: RE: mzcom as an inproc dll</LI>
+<LI><em>From</em>: "Paul A. Steckler" &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 24 Jul 2000 10:05:55 -0500</LI>
+<LI><em>Cc</em>: &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Importance</em>: Normal</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00760.html">200007211724.LAA22334@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;Quoting PJ Durai:
+&gt;&gt; Is there a particular reason why MzCom is implementedas an outof proc EXE
+&gt;&gt; (not an inproc dll?)
+&gt;
+&gt;I think I know the answer... If I'm wrong, Paul will have to correct me
+&gt;when he gets back.
+&gt;
+&gt;The reason was to allow multiple instances of the component in an
+&gt;application (e.g., multiple uses of MzCOM in a VB program).
+&gt;
+&gt;Multiple instances of the component in a single application means that
+&gt;there's one copy of the code, and multiple threads using it. MzScheme
+&gt;uses too many static variables to be able to be able to support
+&gt;multiple instances.
+
+Matthew's right, that's the motivation.  With an in-process DLL,
+you can't even run serialized single instances of MzCOM.  As a
+side benefit, running MzCOM remotely is much easier with an
+out-of-process executable.  You do lose performance, but that's
+usually not an issue.
+
+If you really need a DLL, you should be able to create a new VS project
+using the same source code and recompiling.
+
+-- Paul
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00760" HREF="msg00760.html">Re: mzcom as an inproc dll</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00762.html">[MZScheme] Mac shared library and RB</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00764.html">DrScheme Debugger?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00760.html">Re: mzcom as an inproc dll</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00762.html">[MZScheme] Mac shared library and RB</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00763"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00763"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

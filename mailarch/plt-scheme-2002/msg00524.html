@@ -1,0 +1,160 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Parser tools: How to make the lexer context sensitive? -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wfNitg&#45;tlz.qx> -->
+<!--X-Date: Tue, 26 Mar 2002 18:30:53 &#45;0700 (MST) -->
+<!--X-Message-Id: 68716CE1D81E5F4DA22B1354442F094B076D96@vgtgym03.VGTGYM.DK -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Parser tools: How to make the lexer context sensitive?</title>
+<link rev="made" href="mailto:js@vgt-gym.dk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00523.html">Date Prev</a>][<a href="msg00525.html">Date Next</a>][<a href="msg00518.html">Thread Prev</a>][<a href="msg00569.html">Thread Next</a>][<a href="maillist.html#00524">Date Index</a>][<a href="threads.html#00524">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Parser tools: How to make the lexer context sensitive?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Parser tools: How to make the lexer context sensitive?</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:js@vgt-gym.dk">js@vgt-gym.dk</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Mar 2002 02:30:46 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Thread-Index</em>: AcHVLo2B96pRdNAxR9yM2x48mgZM+g==</li>
+<li><em>Thread-Topic</em>: Parser tools: How to make the lexer context sensitive?</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I have spent some time translating the lex and yacc specifications
+
+    <A  HREF="http://www.lysator.liu.se/c/ANSI-C-grammar-l.html#check-type">http://www.lysator.liu.se/c/ANSI-C-grammar-l.html#check-type</A>
+
+for the C programming language into something suitable for the
+parser tools collection provided by plt-scheme.
+
+I am almost done (with respect to my goal) but have yet to
+overcome one little obstacle. 
+
+In the specification for the lexer is the following rule
+
+   {L}({L}|{D})*		{ count(); return(check_type()); }
+
+which says that a letter possibly followed by letters or digits
+is a IDENTIFIER or a TYPENAME ; since check_type() is defined as: 
+
+int check_type()
+{ /*
+  * pseudo code --- this is what it should check
+  * 
+  *	if (yytext == type_name)
+  *		return(TYPE_NAME);
+  *
+  *	return(IDENTIFIER);
+  */
+}
+
+Thus it should be possible from the lexer to determine whether
+the parser is currently parsing a 'type_name' or not.
+The lexer should return a TYPENAME during parsing of the 
+non-terminal 'type_name' and otherwise a IDENTIFIER. If I recall
+correctly from my compiler course (5 years ago?) one solution in 
+lex/yacc was to set a global flag, when entering the parsing of type_name,
+and reseting it when leaving. 
+
+How do I do this using the parser tools?
+
+The rule I use in parser is:
+
+  (type_name
+    [(specifier_qualifier_list)                     (list 'type_name $1)]
+    [(specifier_qualifier_list abstract_declarator) (list 'type_name $1 $2)])
+
+The non working rule in the lexer is
+
+   [(@ (L) (* (: (L) (D))))  (token-IDENTIFIER (get-lexeme))]
+
+which should be
+
+   [(@ (L) (* (: (L) (D))))  (if &lt;parsing a type_name?&gt;
+                                 (token-TYPENAME (get-lexeme))
+                                 (token-IDENTIFIER (get-lexeme)))]
+
+What shall I write in place of &lt;parsing a type_name?&gt; ?
+
+
+
+For the curious: I am implementing the parser in order to
+make writing extensions for MzScheme easier. Some time ago
+I wrote a tiny extension in order to use some functions
+from ImageMagick. Due to number of constants and functions
+in ImageMagick I figured it would be worth while to automate
+some of the extension writing. So far I can succesfully
+convert typedefed enumerations into association lists
+(using a little evaluator of the constant expressions).
+
+I am now working on extracting the function definitions.
+In most cases, if two functions in the API have the same type,
+I can reuse corresping functions in the extension.
+
+-- 
+Jens Axel Søgaard
+
+There is no substitute for good manners, except, perhaps, fast reflexes.
+  - fortune
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00569" href="msg00569.html">Re: Parser tools: How to make the lexer context sensitive?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00523.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00525.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00518.html">Re: Macro in a servlet</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00569.html">Re: Parser tools: How to make the lexer context sensitive?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00524"><strong>Date</strong></a></li>
+<li><a href="threads.html#00524"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

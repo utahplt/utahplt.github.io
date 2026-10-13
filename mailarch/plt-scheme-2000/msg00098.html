@@ -1,0 +1,138 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Development/Production versions (was RE: CVS) -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 18 Feb 2000 07:41:04 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000218144102.WUXF13956.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20000217201300.6891.qmail@web903.mail.yahoo.com -->
+<!--X-Reference: 200002180053.QAA10538@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Development/Production versions (was RE: CVS)</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00097.html">Date Prev</a>][<a href="msg00099.html">Date Next</a>][<a href="msg00117.html">Thread Prev</a>][<a href="msg00099.html">Thread Next</a>][<a href="maillist.html#00098">Date Index</a>][<a href="threads.html#00098">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Development/Production versions (was RE: CVS)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></li>
+<li><em>Subject</em>: Re: Development/Production versions (was RE: CVS)</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 18 Feb 2000 06:41:02 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00092.html">200002180053.QAA10538@balu.qualcomm.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00082.html">20000217201300.6891.qmail@web903.mail.yahoo.com</a>&gt;	&lt;<a href="msg00092.html">200002180053.QAA10538@balu.qualcomm.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Leo Razoumov:
+&gt; How about having the wrapper generating engine written in Scheme?
+&gt; After all don't we believe that Scheme is the best language of all:-)
+
+We do. :) That's one of the reasons that &quot;xctocc&quot; has been deprecated.
+My original little Perl script --- written before MzScheme was ready
+for such tasks --- got out of hand a long time ago.
+
+But using someone else's code may be preferable to writing new code
+(even Scheme code) if it does the right thing.
+
+
+I took a long-overdue look at SWIG. It seems like a decent starting
+point, and it looks relatively easy to go from Guile's interface to
+MzScheme's interface. (Actually, plt/src/mzscheme/guile already
+contains a mapping for of part of the Guile interface to the MzScheme
+interface.)
+
+The C++ support seems to allow creating C++ instances and calling
+methods, but not deriving a subclass from a C++ class. Adding support
+for subclassing would probably take some work, but it may not be an
+important feature anyway.
+
+
+Quoting Noel Welsh:
+&gt;  Eli Barzilay was/is working on a FFI for MzScheme that allows one to
+&gt; easily call functions in C shared objects. It hasn't made it isn't the
+&gt; PLT repository yet.
+
+Sorry for the delay - I'll get that on the web page this weekend. 
+
+If I understand correctly, Eli's code implements a different approach
+than SWIG. With SWIG, you get a .c file that needs to be compiled and
+linked with the target code. With Eli's code, you don't need a C
+compiler: it generates glue at run-time, and works with code that is
+already in the form of a dynamic library.
+
+Is the distinction important to the people who want to use a glue
+generator?
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00099" href="msg00099.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</li></ul></li>
+<li><strong><a name="00101" href="msg00101.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00082" href="msg00082.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> see signature &lt;slonika@yahoo.com&gt;</li></ul></li>
+<li><strong><a name="00092" href="msg00092.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00097.html">Re: Multithreading?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00099.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00117.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00099.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00098"><strong>Date</strong></a></li>
+<li><a href="threads.html#00098"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

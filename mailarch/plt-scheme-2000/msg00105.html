@@ -1,0 +1,125 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: More questions about writing extensions. -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 19 Feb 2000 08:28:51 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000219152848.XTHZ13956.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002180159.UAA23799@smtp7.atl.mindspring.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: More questions about writing extensions.</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00104.html">Date Prev</a>][<a href="msg00106.html">Date Next</a>][<a href="msg00096.html">Thread Prev</a>][<a href="msg00109.html">Thread Next</a>][<a href="maillist.html#00105">Date Index</a>][<a href="threads.html#00105">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: More questions about writing extensions.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:anderman@anderware.com">anderman@anderware.com</A></li>
+<li><em>Subject</em>: Re: More questions about writing extensions.</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 19 Feb 2000 07:28:48 -0800</li>
+<li><em>CC</em>: &quot;Scheme Mailing List&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00093.html">200002180159.UAA23799@smtp7.atl.mindspring.net</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00093.html">200002180159.UAA23799@smtp7.atl.mindspring.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Robert John Andersen:
+&gt;   Lets say I have 2 libraries that i want to interface to, lib1 and lib2 and
+&gt; lib2 uses lib1.  I also have an additional .module that I created for
+&gt; miscellaneous stuff that my libraries (mylib1, mylib2) will use.  When
+&gt; using my module should I create an so and if so where can I put it so that
+&gt; mylib1.so and mylib2.so can pick it up?  Does it have to be in the users
+&gt; LD_LIBRARY_PATH or users /etc/ld.so.conf or can I put it in the PLT
+&gt; directories somewhere?
+
+You can probably set LD_LIBRARY_PATH before calling `load-extension'.
+It worked for me under Linux, at least. Here's an example where b.so
+needs helper.so:
+
+  % cd /home/mflatt/tmp
+  % mzc --ld b.so b.o helper.so
+  % cd ..
+  % mzscheme
+  Welcome to MzScheme ...
+  &gt; (load-extension &quot;tmp/b.so&quot;)
+  load-extension: couldn't open &quot;/usr/home/mflatt/tmp/b.so&quot; (helper.so:
+  cannot open shared object file: No such file or directory)
+  &gt; (putenv &quot;LD_LIBRARY_PATH&quot; &quot;/home/mflatt/tmp/&quot;)
+  #t
+  &gt; (load-extension &quot;tmp/b.so&quot;)
+  -2
+
+where -2 was the expected result.
+
+&gt;   I would like to be able to write 2 shareable objects mylib1.so and
+&gt; mylib2.so and be able to load just mylib1.so or load mylib2.so and
+&gt; mylib1.so.  I was wondering if I could accomplish this with using units and
+&gt; having the files mylib1.ss and mylib2.ss?
+
+Yes. If mylib1.so and mylib2.so produce units, then mylib1.ss could
+return the mylib1.so unit, and mylib2.ss could return a compound unit
+linking the mylib1.so and mylib2.so units.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00093" href="msg00093.html">More questions about writing extensions.</a></strong>
+<ul><li><em>From:</em> Robert John Andersen &lt;anderman@anderware.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00104.html">Re: Multithreading?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00106.html">Re: build from the scratch 2</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00096.html">Re: More questions about writing extensions.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00109.html">[Q] MzScheme and multiple inheritance??</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00105"><strong>Date</strong></a></li>
+<li><a href="threads.html#00105"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

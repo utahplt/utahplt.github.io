@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] units and macros in MzScheme -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Fri, 24 Mar 2000 20:42:54 &#45;0700 (MST) -->
+<!--X-Message-Id: 200003250342.VAA24543@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200003250327.TAA22277@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] units and macros in MzScheme</TITLE>
+<LINK REV="made" HREF="mailto:matthias@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00579.html">Date Prev</A>][<A HREF="msg00581.html">Date Next</A>][<A HREF="msg00579.html">Thread Prev</A>][<A HREF="msg00581.html">Thread Next</A>][<A HREF="maillist.html#00580">Date Index</A>][<A HREF="threads.html#00580">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] units and macros in MzScheme</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></LI>
+<LI><em>Subject</em>: Re: [Q] units and macros in MzScheme</LI>
+<LI><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 24 Mar 2000 21:42:52 -0600 (CST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-reply-to</em>: &lt;<A HREF="msg00579.html">200003250327.TAA22277@balu.qualcomm.com</A>&gt; (message from LeoRazoumov on Fri, 24 Mar 2000 19:27:10 -0800 (PST))</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00579.html">200003250327.TAA22277@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+   Date: Fri, 24 Mar 2000 19:27:10 -0800 (PST)
+   X-Authentication-Warning: balu.qualcomm.com: lrazoumo set sender to lrazoumov@qualcomm.com using -f
+   From: Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;
+   Reply-To: lrazoumov@qualcomm.com
+   Content-Type: text/plain; charset=US-ASCII
+   Sender: owner-plt-scheme@fast.cs.utah.edu
+   Precedence: bulk
+
+   I apologize if I am asking a dumb question:-)
+
+   Can one define a macro inside a unit and then export/import it to another
+   unit or into the global namespace?
+
+   thanks,
+   -- Leo
+
+Good question. 
+
+Short answer: no. 
+
+Long answer: We believe that macros live at compile/parse time only. 
+ A unit, however, is a run-time value and its exports and imports 
+ are references to run-time values. 
+
+Very long answer: We have a prototype implementation of something 
+ called unit/lang. A unit/lang will have an additional form of 
+ imports: a language, roughly a "set" of macros (but there's a bit 
+ more). Then you can do what you want to do. 
+
+-- Matthias
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00581" HREF="msg00581.html">Re: [Q] units and macros in MzScheme</A></STRONG>
+<UL><LI><EM>From:</EM> "Robby Findler" &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00579" HREF="msg00579.html">[Q] units and macros in MzScheme</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00579.html">[Q] units and macros in MzScheme</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00581.html">Re: [Q] units and macros in MzScheme</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00579.html">[Q] units and macros in MzScheme</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00581.html">Re: [Q] units and macros in MzScheme</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00580"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00580"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: extending AND embedding it -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 22 Sep 2000 06:42:55 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000922124249.SQOF15470.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20000922120321.B7097@Gacchan.lugroma3.org -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: extending AND embedding it</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00917.html">Date Prev</A>][<A HREF="msg00919.html">Date Next</A>][<A HREF="msg00917.html">Thread Prev</A>][<A HREF="msg00920.html">Thread Next</A>][<A HREF="maillist.html#00918">Date Index</A>][<A HREF="threads.html#00918">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: extending AND embedding it</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:g_marzano@penguinpowered.com">g_marzano@penguinpowered.com</A></LI>
+<LI><em>Subject</em>: Re: extending AND embedding it</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 22 Sep 2000 05:42:50 -0700</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00917.html">20000922120321.B7097@Gacchan.lugroma3.org</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00917.html">20000922120321.B7097@Gacchan.lugroma3.org</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Add -rdynamic to the end of your linking command for the MzScheme
+embedding. That causes the linker to export global symbols for use by
+shared libraries (i.e., extensions).
+
+Matthew
+
+----------------------------------------
+
+Quoting Giorgio Marzano:
+&gt; If i do "(load-extension "...")" from the command line it goes ok, but i can't
+&gt; neither
+&gt; 
+&gt; scheme_load_extension("...",e);
+&gt; 
+&gt; nor 
+&gt; 
+&gt; scheme_eval("(load-extension \"...\"",e);
+&gt; 
+&gt; If i try i only get
+&gt; 
+&gt; load-extension: couldn't open
+&gt; "foobar.so" (foobar.so: undefined symbol: scheme_true)
+&gt; 
+&gt; I am using the  version "102"  of mzscheme under Linux.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00917" HREF="msg00917.html">extending AND embedding it</A></STRONG>
+<UL><LI><EM>From:</EM> Giorgio Marzano &lt;g_marzano@penguinpowered.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00917.html">extending AND embedding it</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00919.html">(sans sujet)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00917.html">extending AND embedding it</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00920.html">103d101</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00918"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00918"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

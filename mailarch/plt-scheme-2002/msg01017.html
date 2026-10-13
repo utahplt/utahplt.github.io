@@ -1,0 +1,179 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Fwd: SV: [plt&#45;scheme] XML and PLT &#45; problem is parsing instructions! -->
+<!--X-From-R13: Bnhy Uenhaxr <cgtNppf.arh.rqh> -->
+<!--X-Date: Fri, 31 May 2002 09:11:30 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020531151119.7E8DA1AAE7@amber.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020531142947.1FF1F206F6@sualocin.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Fwd: SV: [plt-scheme] XML and PLT - problem is parsing instructions!</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01016.html">Date Prev</a>][<a href="msg01018.html">Date Next</a>][<a href="msg01009.html">Thread Prev</a>][<a href="msg01095.html">Thread Next</a>][<a href="maillist.html#01017">Date Index</a>][<a href="threads.html#01017">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Fwd: SV: [plt-scheme] XML and PLT - problem is parsing instructions!</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:petter.egesund@kunnskapsforlaget.no">petter.egesund@kunnskapsforlaget.no</A></li>
+<li><em>Subject</em>: Re: Fwd: SV: [plt-scheme] XML and PLT - problem is parsing instructions!</li>
+<li><em>From</em>: Paul Graunke &lt;<A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 31 May 2002 11:11:19 -0400 (EDT)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;20020531142947.1FF1F206F6@sualocin.ccs.neu.edu&gt;</li>
+<li><em>References</em>: &lt;20020531142947.1FF1F206F6@sualocin.ccs.neu.edu&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+You did put a ? before the &gt; at the end of your processing instruction, right?
+
+This works fine for me:
+
+&gt; (read-xml (open-input-string &quot;&lt;hi&gt;&lt;?PUBLIC blah blah blah something?&gt; non-pi&lt;/hi&gt;&quot;))
+#(struct:document
+  #(struct:prolog () #f ())
+  #(struct:element
+    #(struct:location 1 1 1)
+    #(struct:location 1 52 52)
+    hi
+    ()
+    (#(struct:pi #(struct:location 1 5 5) #(struct:location 1 40 40) |PUBLIC| &quot;blah blah blah something&quot;)
+     #(struct:pcdata #(struct:location 1 40 40) #(struct:location 1 47 47) &quot; non-pi&quot;)))
+  ())
+&gt; 
+
+If you don't put in the ? before the &gt;, then the parser should read the
+entire rest of the file and complain about a premature eof.
+
+If this isn't the problem, please send me the specific processing instruction
+that's causing trouble.
+
+Thanks,
+
+Paul
+
+
+At Fri, 31 May 2002 10:29:47 -0400 (EDT), Matthias Felleisen wrote:
+&gt; ------------------------------------------------------------------------------
+&gt; 
+&gt; ------------------------------------------------------------------------------
+&gt; From: Petter Egesund &lt;petter.egesund@kunnskapsforlaget.no&gt;
+&gt; To: &quot;'Matthias Felleisen'&quot; &lt;matthias@ccs.neu.edu&gt;
+&gt; Subject: SV: [plt-scheme] XML and PLT - problem is parsing instructions!
+&gt; Date: Fri, 31 May 2002 16:24:16 +0200
+&gt; X-Mailer: Internet Mail Service (5.5.2653.19)
+&gt; 
+&gt; Sure,
+&gt; 
+&gt; try to insert a valid processing instruction like &quot;&lt;?PUB xxx&gt;&quot; in the
+&gt; xml-code (not in top), and you will see what I mean!
+&gt; 
+&gt; I was talking about the standard XML-package wich follows default with the
+&gt; package and not SSAX!
+&gt; 
+&gt; In other regards the parser is really excellent!
+&gt; 
+&gt; Cheers,
+&gt; 
+&gt; Petter Egesund
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; -----Opprinnelig melding-----
+&gt; Fra: Matthias Felleisen [<A  HREF="mailto:matthias@ccs.neu.edu">mailto:matthias@ccs.neu.edu</A>]
+&gt; Sendt: 31. mai 2002 13:59
+&gt; Til: Petter Egesund
+&gt; Kopi: 'plt-scheme@fast.cs.utah.edu'
+&gt; Emne: Re: [plt-scheme] XML and PLT - problem is parsing instructions!
+&gt; 
+&gt; 
+&gt; 
+&gt; Would you mind elaborating on these processing instructions? 
+&gt; 
+&gt; -- Matthias
+&gt; 
+&gt; 
+&gt; At Fri, 31 May 2002 11:14:38 +0200, Petter Egesund wrote:
+&gt; &gt; It seems the problem with the XML-module is that is does not handle
+&gt; &gt; processing instructions other places than in the top of the file,
+&gt; &gt; otherwise it crashes, after taking a break!
+&gt; &gt; 
+&gt; &gt; About speed; the parser seems to compete with Java, which is quite good!
+&gt; &gt; 
+&gt; &gt; Regards,
+&gt; &gt; 
+&gt; &gt; Petter Egesund
+&gt; &gt; (now happily using PLT for this project again!)
+&gt; &gt; 
+&gt; &gt; ###########################################
+&gt; &gt; 
+&gt; &gt; This message has been scanned by F-Secure Anti-Virus for Microsoft
+&gt; Exchange.
+&gt; &gt; For more information, connect to <A  HREF="http://www.F-Secure.com/">http://www.F-Secure.com/</A>
+&gt; ###########################################
+&gt; 
+&gt; This message has been scanned by F-Secure Anti-Virus for Microsoft Exchange.
+&gt; For more information, connect to <A  HREF="http://www.F-Secure.com/">http://www.F-Secure.com/</A>
+&gt; 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01095" href="msg01095.html">Re: [plt-scheme] XML and PLT - problem is parsing instructions!</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01016.html">VS: [plt-scheme] XML and PLT - problem is parsing instructions!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01018.html">Re: [plt-scheme] Adding a language</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01009.html">Re: [plt-scheme] XML and PLT - problem is parsing instructions!</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01095.html">Re: [plt-scheme] XML and PLT - problem is parsing instructions!</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01017"><strong>Date</strong></a></li>
+<li><a href="threads.html#01017"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

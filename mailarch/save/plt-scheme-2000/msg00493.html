@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Compund units in extensions -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 26 Feb 2000 20:54:46 &#45;0700 (MST) -->
+<!--X-Message-Id: 200002270354.UAA28036@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002270323.WAA09750@fb00.eng00.mindspring.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Compund units in extensions</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00492.html">Date Prev</A>][<A HREF="msg00494.html">Date Next</A>][<A HREF="msg00492.html">Thread Prev</A>][<A HREF="msg00499.html">Thread Next</A>][<A HREF="maillist.html#00493">Date Index</A>][<A HREF="threads.html#00493">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Compund units in extensions</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:anderman@anderware.com">anderman@anderware.com</A></LI>
+<LI><em>Subject</em>: Re: Compund units in extensions</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 26 Feb 2000 20:54:43 -0700 (MST)</LI>
+<LI><em>CC</em>: "Scheme Mailing List" &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00492.html">200002270323.WAA09750@fb00.eng00.mindspring.net</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00492.html">200002270323.WAA09750@fb00.eng00.mindspring.net</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Robert John Andersen:
+&gt; &gt; &gt; and the exports
+&gt; &gt; &gt; argument ((A (a1 a2) (B b1)).
+&gt; 
+&gt; So it would be ((A a1 a2)(B b1))
+
+Right, at least according to the docs. But after inspecting the code
+for scheme_assemble_compound_unit(), I see that the documentation is
+wrong. (Thanks for the example code!)
+
+For `exports', scheme_assemble_compound_unit() actually expects a list
+where every individual exported variable is represented by a separate
+item. More specifically, the exports argument should be
+
+ A list of export specifications, where each export specification is a
+ pair consisting of
+  * a tag symbol
+  * a symbol naming one export from the corresponding sub-unit
+    (used as both the name of the sub-unit export and the name
+    of the compound unit's export), or a pair of symbols where the
+    first one is the name of the sub-unit's export and the second
+    one is the name as exported from the compound unit
+
+To make try-ext.c work, change exports_unit1() to
+
+ Scheme_Object *exports_unit1() {
+   return scheme_make_pair(scheme_intern_symbol( "unit1" ),
+                           scheme_intern_symbol( "one" ));
+
+ }
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00492" HREF="msg00492.html">Re: Compund units in extensions</A></STRONG>
+<UL><LI><EM>From:</EM> Robert John Andersen &lt;anderman@anderware.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00492.html">Re: Compund units in extensions</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00494.html">exn:i/o:filesystem-detail unbound?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00492.html">Re: Compund units in extensions</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00499.html">Re: Compund units in extensions</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00493"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00493"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

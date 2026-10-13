@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.11 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 15 May 2001 16:58:00 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200105152257.QAA20769@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.11</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00480.html">Date Prev</a>][<a href="msg00482.html">Date Next</a>][<a href="msg00474.html">Thread Prev</a>][<a href="msg00483.html">Thread Next</a>][<a href="maillist.html#00481">Date Index</a>][<a href="threads.html#00481">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.11</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.11</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 15 May 2001 16:57:58 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The v200-tagged code in CVS for MzScheme and MrEd is now version 199.11.
+
+ * Changed string constants to support all ANSI C escapes, such as \n,
+   both on input and on output from `write'.  Implemented by Eli
+   Barzilay.
+
+ * Added an optional argument to `read-syntax' for setting the source
+   location offset.
+
+ * Changed `datum-&gt;syntax-object' to allow a literal location
+   specification as the last argument, instead of a syntax object
+   whose location is copied.
+
+ * Added an optional argument to `system-type'. If it's not false (the
+   default), the result is a string that contains details about the
+   operating system and the current machine (in a platform-specific
+   format).
+
+ * Added `file-stream-buffer' to control the buffering of data in
+   file-stream ports. The buffer modes are standard: 'none, 'line, and
+   'block. Under Unix, the default mode for the original error port is
+   now 'none instead of 'line.
+
+ * Fixed port line counting to treat CRLF as terminating a single line
+   (on all platforms), instead of counting the CR and LF separately.
+   Consequently, the source location information in error messages is
+   more useful under Windows.
+
+ * Fixed `file-stream-port?' for Windows.
+
+ * Fixed `system' in the &quot;process.ss&quot; MzLib library when the current
+   input, output, or error port is not a file-stream port.
+
+   The two preceding bug fixes effectively cancel each other; `system'
+   still doesn't work in Windows at the moment.
+
+ * Fixed omissions in the MzLib manual.
+
+Doc bundles updated for MzScheme, MzLib, and MrEd.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00480.html">Re: newline in string literal?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00482.html">Re: Escapes in string literals and locales</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00474.html">web tools for s-expressions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00483.html">199.12</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00481"><strong>Date</strong></a></li>
+<li><a href="threads.html#00481"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

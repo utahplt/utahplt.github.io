@@ -1,0 +1,135 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: 200alpha5 -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Thu, 20 Dec 2001 20:46:44 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112210345.WAA09893@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011221013957.94DAA172B9@denali.ccs.neu.edu -->
+<!--X-Reference: 002f01c189cf$1e4309b0$0100a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: 200alpha5</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01382.html">Date Prev</a>][<a href="msg01384.html">Date Next</a>][<a href="msg01382.html">Thread Prev</a>][<a href="msg01396.html">Thread Next</a>][<a href="maillist.html#01383">Date Index</a>][<a href="threads.html#01383">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: 200alpha5</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: 200alpha5</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 20 Dec 2001 22:45:51 -0500 (EST)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01382.html">002f01c189cf$1e4309b0$0100a8c0@femto</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01381.html">20011221013957.94DAA172B9@denali.ccs.neu.edu</a>&gt;&lt;<a href="msg01382.html">002f01c189cf$1e4309b0$0100a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Anton van Straaten wrote:
+
+&gt; Felix of Chicken (don't know his last name, so he gets to be named like
+&gt; William of Occam) 
+
+ROTFL.
+
+Okay, here's the scoop.  I don't think we've settled on anything yet.
+But the most likely resolution is going to be this.
+
+Principle 1: We will *not* mess with Scheme's reader.  MzScheme will
+read Scheme syntax, and nothing else.  This both avoids the usual
+problems that come with messing with syntax, and saves Matthew from
+endless hacking.
+
+Principle 2: We will permit other syntaxes.  However, as penalty for
+straying from Scheme, we sequester them to separate files.
+
+Principle 3: Some of the programming overhead can be dissipated by the 
+use of custom languages.
+
+We're looking at a special kind of INCLUDE -- say INCLUDE/READER --
+that permits you to specify a distinct reader for that file.  The
+reader is responsible for generating legal s-expressions when it's
+done, which get spliced into the including file for interpretation in
+the ambient language.  The file can employ literally any syntax you
+wish.
+
+JScheme's syntax is, as you point out, only one of many
+possibilities.  BRLs is another.  The beauty of this scheme is, we
+don't care!  If you prefer BRLs over JScheme's, why, you're welcome to 
+implement it.  Provide a BRL language.  Knock yourself out.  Etc.
+
+We have considered, and rejected, the possibility of providing a
+reader for a PLT Scheme MODULE itself.  Matthew points out it's bad
+enough dealing with tabbing, indentation and other editorial concerns
+raised by DrScheme for Scheme alone.  We don't want to make it worse.
+I view this as a reasonable compromise -- especially since it does
+not, down the road, preclude the more general solution, which can even 
+incorporate the work done for INCLUDE/READER now.
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01396" href="msg01396.html">reading non-Scheme (was RE: 200alpha5)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01381" href="msg01381.html">Re: 200alpha5</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01382" href="msg01382.html">RE: 200alpha5</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01382.html">RE: 200alpha5</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01384.html">Re: 200alpha5</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01382.html">RE: 200alpha5</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01396.html">reading non-Scheme (was RE: 200alpha5)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01383"><strong>Date</strong></a></li>
+<li><a href="threads.html#01383"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

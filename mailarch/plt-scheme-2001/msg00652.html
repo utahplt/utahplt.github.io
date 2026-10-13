@@ -1,0 +1,148 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: tcp&#45;connect and core dump in MrEd. -->
+<!--X-From-R13: Xbeqna Yngm <xngmNhaqreyriry.arg> -->
+<!--X-Date: Thu, 12 Jul 2001 21:27:32 &#45;0600 (MDT) -->
+<!--X-Message-Id: m3ae29o6ek.fsf@underlevel.underlevel.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>tcp-connect and core dump in MrEd.</title>
+<link rev="made" href="mailto:katz@underlevel.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00651.html">Date Prev</a>][<a href="msg00653.html">Date Next</a>][<a href="msg00726.html">Thread Prev</a>][<a href="msg00658.html">Thread Next</a>][<a href="maillist.html#00652">Date Index</a>][<a href="threads.html#00652">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>tcp-connect and core dump in MrEd.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: tcp-connect and core dump in MrEd.</li>
+<li><em>From</em>: Jordan Katz &lt;<A HREF="mailto:katz@underlevel.net">katz@underlevel.net</A>&gt;</li>
+<li><em>Date</em>: 12 Jul 2001 23:27:15 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0803 (Gnus v5.8.3) Emacs/20.4</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi,
+
+  I have the following piece of working[1] code:
+
+(define (grab-html b e)
+  (let*-values
+   (((url) (send urlbox get-value))
+    ((sin sout) (tcp-connect url 80))
+    ((html-start) (regexp &quot;Content-Type:.*&quot;))
+    ((html-src) (string)))
+   (fprintf sout &quot;GET <A  HREF="http://www.~a/">http://www.~a/</A> HTTP/1.0~n~n&quot; url)
+
+   ;; read until &quot;Content-Type...&quot; is met
+   (do ((line (read-line sin 'any) (read-line sin 'any)))
+       ((regexp-match html-start line)))
+
+   (send src set-value (let loop ((line (read-line sin 'any))
+                       (str &quot;&quot;))
+     (if (eof-object? line)
+         str
+         (loop (read-line sin 'any)
+               (string-append str line)))))))
+
+  It is part of a simple MrEd program that grabs the HTML source of a
+  given URL.  It is supposed to be the rough equivalent of this Python code:
+
+def get_src(url):
+  try:
+    url_in = urllib.urlopen(url)
+  except:
+    print 'Could not get source of %s' % (url)
+    return
+  src = url_in.readlines()
+  for line in src:
+    print line,
+
+  There are still a few differences between the Scheme and Python
+  codes that I'm trying to solve.  If I pass the url
+  <A  HREF="http://www.slashdot.org">http://www.slashdot.org</A> to the Python, for example, I get the
+  correct HTML source of slashdot.org, but if I pass it to the Scheme
+  code the following error is returned: &quot;403 Forbidden: You don't have
+  permission to access <A  HREF="http://www.slashdot.org/">http://www.slashdot.org/</A> on this server.
+  Apache/1.3.12 Server at slashdot.org Port 80.&quot;  This problem is
+  obviously rooted at the call to tcp-connect but since that is the
+  only function I can find in the MzScheme manual to connect to hosts
+  I cannot figure out a solution--how can this be fixed?
+
+  Another issue: if I pass the url <A  HREF="http://www.microsoft.com">http://www.microsoft.com</A> to both
+  scripts, they both return the correct source, but the Scheme program
+  crashes and core dumps right after yielding the source.  In my mind
+  the Scheme program's behavior is the correct one, but I have a
+  feeling it's because of my code not dealing correctly with large
+  amounts of HTML rather than as a tribute to Microsoft's products.
+  It may be relevant to add that `src' is a text-field% box in MrEd
+  into which the HTML source is inserted.
+
+Thanks a lot,
+-- 
+Jordan Katz &lt;katz@underlevel.net&gt;  |  Mind the gap
+
+[1] A highly subjective term in programming, there are still some
+issues :) 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00658" href="msg00658.html">Re: tcp-connect and core dump in MrEd.</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00664" href="msg00664.html">Re: tcp-connect and core dump in MrEd.</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00651.html">Re: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00653.html">RE: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00726.html">RE: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00658.html">Re: tcp-connect and core dump in MrEd.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00652"><strong>Date</strong></a></li>
+<li><a href="threads.html#00652"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

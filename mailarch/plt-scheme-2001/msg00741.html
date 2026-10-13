@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.19 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 2 Aug 2001 11:08:38 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108021708.f72H8ab07801@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.19</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00740.html">Date Prev</a>][<a href="msg00742.html">Date Next</a>][<a href="msg00743.html">Thread Prev</a>][<a href="msg00744.html">Thread Next</a>][<a href="maillist.html#00741">Date Index</a>][<a href="threads.html#00741">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.19</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.19</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 2 Aug 2001 11:08:36 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The v200-tagged code in CVS for MzScheme and MrEd is now version 199.19.
+
+The changes are minor (on the surface, at least):
+
+ * Removed `make-hash-table-weak', and changed `make-hash-table' to
+   accept up to two flag arguments: 'weak and/or 'equal. The 'weak
+   flag causes the hash table to use weakly-held keys, and the 'equal
+   flag causes the hash table to compare keys with `equal?' instead of
+   `eq?'.
+
+ * Added `eq-hash-code' and `equal-hash-code', which consume an
+   arbitrary value and generate numeric hash codes corresponding to
+   `eq?' and `equal?' comparisons, respectively.
+
+ * Removed the optional `get-special-proc' optional argument to
+   `make-input-port' (recently introduced), and instead changed the
+   `read-char-proc' and `peek-char-proc' arguments to allow
+   non-character results. See the documentation for details. Added
+   `peek-char-or-special' and `read-char-or-special'.
+
+ * Added `syntax-span', and changed the reader to track the span (in
+   characters) of read syntax objects. Also added a `span' field to
+   exn:read, and changed the last optional argument of
+   `datum-&gt;syntax-object' to support spans.
+
+ * Added `set!-transformer?', to go with `make-set!-transformer'.
+
+ * Added `public*', `override*', `private*', `define/public',
+   `define/override', and `define/private' to &quot;class.ss&quot;. Each form
+   expands to some combination of `public'/`override'/'private' and
+   `define'.
+
+ * Changed syntax error messages to GNU format:
+     &lt;file&gt;:&lt;line&gt;:&lt;col&gt;: &lt;message&gt;
+   If &lt;file&gt;'s path starts with the current directory, that part of
+   the path is removed.
+
+The MzScheme, MzLib, MrEd, mzc, and Inside MzScheme doc bundles have
+been updated.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00740.html">Reading characters from input</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00742.html">Re: Reading characters from input</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00743.html">Re: Reading characters from input</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00744.html">DrScheme 199d1</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00741"><strong>Date</strong></a></li>
+<li><a href="threads.html#00741"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

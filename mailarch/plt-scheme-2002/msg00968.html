@@ -1,0 +1,134 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] The same macro problem -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 24 May 2002 07:30:38 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205241329.g4ODTOf24184@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.44.0205241114010.26373&#45;100000@duch.mimuw.edu.pl -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] The same macro problem</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00967.html">Date Prev</a>][<a href="msg00969.html">Date Next</a>][<a href="msg00967.html">Thread Prev</a>][<a href="msg00970.html">Thread Next</a>][<a href="maillist.html#00968">Date Index</a>][<a href="threads.html#00968">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] The same macro problem</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Zbyszek Jurkiewicz &lt;<A HREF="mailto:zbyszek@duch.mimuw.edu.pl">zbyszek@duch.mimuw.edu.pl</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] The same macro problem</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 24 May 2002 07:29:25 -0600 (MDT)</li>
+<li><em>CC</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;, Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;,       <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00967.html">Pine.LNX.4.44.0205241114010.26373-100000@duch.mimuw.edu.pl</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00967.html">Pine.LNX.4.44.0205241114010.26373-100000@duch.mimuw.edu.pl</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Fri, 24 May 2002 11:26:45 +0200 (CEST), Zbyszek Jurkiewicz wrote:
+&gt; On Thu, 23 May 2002, Matthias Felleisen wrote:
+&gt; This said, I am on the Eli's side.  There is an approach to programming
+&gt; (which we call authoritarian) that you should only give &quot;safe&quot; tools
+&gt; to programmers.  I've seen many languages based on this, which nobody
+&gt; uses anymore.  On the other side, &quot;democratic&quot; approach says &quot;Programmers
+&gt; are intelligent, just don't put any barrier (this is how Scheme was 
+&gt; originally conceived) and they select appropriate ones for each job.
+&gt; Of course, you have to teach them first. 
+
+There are two possible ways to interpret &quot;safe&quot;:
+
+ * Safe for the programmer --- a programmer can't do unintended things
+   (whatever that might mean)
+
+ * Language safety, or safe for the programming environment --- the
+   programmer can't crash DrScheme or produce undefined results
+
+There's a small element of the former interpration in PLT Scheme's new
+macro system. `defmacro' is bad in the same way as dynamic scope. (And,
+yes, for the few cases you want dynamic scope there should be a good
+approximation. The same hoilds for `defmacro'.)
+
+But the real reason behind the new macro system is the latter
+interpretation of &quot;safe&quot;. DrScheme v103 _doesn't work_ with macro
+definitions. Many hacks make it appear to do the right thing, but there
+are lots of cases where DrScheme v103 behaves strangely. Even the
+implementors can't always predict what will happen.
+
+&gt; For me, I would like to have hygienic macros for typical tasks (I always
+&gt; try to use them first) and low level define-macro tools which allow me
+&gt; to do anything I like (even if I cheat sometimes with them) - e.g.
+&gt; as transformer procedures, which I could put in define-syntax instead
+&gt; of syntax-rules.
+
+Just to make sure we stay on the same page: Eli's issue is not about
+hygiene versus non-hygiene. It's about the phase separation between
+compilation and execution.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00970" href="msg00970.html">Re: [plt-scheme] The same macro problem</a></strong>
+<ul><li><em>From:</em> Bill Wood &lt;wtw@mathstar.com&gt;</li></ul></li>
+<li><strong><a name="00977" href="msg00977.html">Re: [plt-scheme] The same macro problem</a></strong>
+<ul><li><em>From:</em> Zbyszek Jurkiewicz &lt;zbyszek@duch.mimuw.edu.pl&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00967" href="msg00967.html">Re: [plt-scheme] The same macro problem</a></strong>
+<ul><li><em>From:</em> Zbyszek Jurkiewicz &lt;zbyszek@duch.mimuw.edu.pl&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00967.html">Re: [plt-scheme] The same macro problem</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00969.html">Re: [plt-scheme] AppleEvents found...</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00967.html">Re: [plt-scheme] The same macro problem</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00970.html">Re: [plt-scheme] The same macro problem</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00968"><strong>Date</strong></a></li>
+<li><a href="threads.html#00968"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Parser tools: How to make the lexer context sensitive? -->
+<!--X-From-R13: Epbgg Ajraf <fbjrafNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 27 Mar 2002 13:21:05 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.LNX.4.21.0203271320320.23141&#45;100000@famine.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Parser tools: How to make the lexer context sensitive?</title>
+<link rev="made" href="mailto:sowens@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00566.html">Date Prev</a>][<a href="msg00568.html">Date Next</a>][<a href="msg00537.html">Thread Prev</a>][<a href="msg00582.html">Thread Next</a>][<a href="maillist.html#00567">Date Index</a>][<a href="threads.html#00567">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Parser tools: How to make the lexer context sensitive?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: RE: Parser tools: How to make the lexer context sensitive?</li>
+<li><em>From</em>: Scott Owens &lt;<A HREF="mailto:sowens@cs.utah.edu">sowens@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Mar 2002 13:21:02 -0700 (MST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;
+&gt; Is there somewhere else, I can set the flag?
+&gt; How does one obtain information in the lexer from the parser?
+&gt; How can one tell which terminal the parser is handling?
+&gt;
+&gt; The yacc approach is to use yytext - is there an equivalent 
+&gt; in the parser tools?
+&gt;
+&gt; Any suggestions are welcome (Even the obvious ones; 
+&gt; perhaps I missed something simple).
+&gt;
+&gt;
+&gt; Yours, 
+&gt; -- 
+&gt; Jens Axel Sgaard
+
+Currently there is no way for the lexer to get useful information about
+the state of the parser.  I suggest that you use a token
+TYPENAME-OR-IDENTIFIER in all places where you would have used
+either.  The only thing that could go wrong with this solution is the
+introduction of a conflict in the parser.  In this case I suspect that
+looking into the state of the parser would not help much either.
+
+-Scott Owens
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00566.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00568.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00537.html">RE: Parser tools: How to make the lexer context sensitive?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00582.html">RE: Parser tools: How to make the lexer context sensitive?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00567"><strong>Date</strong></a></li>
+<li><a href="threads.html#00567"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Making MzScheme extensions using VC++ 5.0? (Success!) -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Sat, 5 Aug 2000 07:55:27 &#45;0600 (MDT) -->
+<!--X-Message-Id: 398C1E34.C7C47A55@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 398B1289.4DC3876A@kurtz&#45;fernhout.com -->
+<!--X-Reference: 20000804223357.VHKC10370.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 398B96DC.2B0E7318@kurtz&#45;fernhout.com -->
+<!--X-Reference: 20000805115942.WLNW10370.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Making MzScheme extensions using VC++ 5.0? (Success!)</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00458.html">Date Prev</a>][<a href="msg00460.html">Date Next</a>][<a href="msg00457.html">Thread Prev</a>][<a href="msg00458.html">Thread Next</a>][<a href="maillist.html#00459">Date Index</a>][<a href="threads.html#00459">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Making MzScheme extensions using VC++ 5.0? (Success!)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Making MzScheme extensions using VC++ 5.0? (Success!)</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Sat, 05 Aug 2000 10:01:24 -0400</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00449.html">398B1289.4DC3876A@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00454.html">20000804223357.VHKC10370.mail.rdc1.sfba.home.com@localhost</a>&gt;		&lt;<a href="msg00455.html">398B96DC.2B0E7318@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00457.html">20000805115942.WLNW10370.mail.rdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew -
+
+Thanks for the additional suggestions. 
+
+I just got it to work under VC 5.0 following something along the lines
+of your suggestion.
+
+I had noticed that &quot;mzdyn.c&quot; was included in
+C:/plt/collects/mzscheme/lib directory. (I think I have just the
+standard distribution.) 
+
+I built a VC 5.0 project using the defaults to make that a static
+library, included mzdyn.c, and then took the resulting mzdyn.obj file
+and replaced the one in:
+C:\PLT\collects\mzscheme\lib\win32\i386\msvc
+(leaving the mzdyn.exp the way it was.)
+
+I then ran mzc and after doing:
+(load-extension &quot;c:\\pdfscheme\\hello.dll&quot;)
+Success -- I got &quot;hello world&quot;.
+
+So, this appears to work. I'll have to see if other problems pop up down
+the line. (Perhaps there are special flags in &quot;mkmzdyn.bat&quot; regarding
+threading etc.?).
+
+For amusement, I used WinDiff to look at the two release object files
+(5.0 and 6.). They are identical in size. They differ in blanks only in
+the first few characters. Those Microsoft developers -- always keeping
+us on our toes.
+
+Thanks again for all your help.
+
+By the way, the header file was still &quot;escheme.h&quot; so it must be
+something else in the GCC case. I'm putting getting that to work aside
+for now. And you're correct GCC doesn't have this problem by itself.
+It's just that the runtime library of Cygwin is under the GPL, so using
+it infects your program. These links are quite clear about that:
+ 
+<A  HREF="http://www.xraylith.wisc.edu/~khan/software/gnu-win32/x86-win32-ports.html">http://www.xraylith.wisc.edu/~khan/software/gnu-win32/x86-win32-ports.html</A>
+  <A  HREF="http://sources.redhat.com/cygwin/licensing.html">http://sources.redhat.com/cygwin/licensing.html</A>
+As long as you use GCC without that runtime (and there are alternatives)
+there are no GPL issues restricting the result that I know of. If
+releases of MzScheme are ever compiled under GCC and use Cygwin you may
+wish to evaluate this, as that would put MzScheme under the GPL (which
+might limit interest in it in for some people, myself included). I'm
+presuming here the released Windows build is done with VC 6.0 and uses
+its runtime libraries? 
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+Matthew Flatt wrote:
+&gt; 
+&gt; Quoting Paul Fernhout:
+&gt; &gt; In poking around some more in DejaNews and Google, it does seem this is
+&gt; &gt; a problem related to VC 6.0 changing the object file format so VC 5.0
+&gt; &gt; can't link to it.
+&gt; 
+&gt; In that case, you might want to grab the MzScheme source distribution
+&gt; and rebuild mzdyn.o for VC 5. (The relevant script is
+&gt; plt/src/mzscheme/dynsrc/mkmzdyn.bat.)
+&gt; 
+&gt; &gt; However, using mzc with gcc, I now get a different problem in the DLL
+&gt; &gt; link: undefined reference to `scheme_make_string'
+&gt; 
+&gt; Perhaps, in the process of trying to make things work earlier, you
+&gt; changed #include &quot;escheme.h&quot; to #include &quot;scheme.h&quot; in &quot;Hello.c&quot;, or
+&gt; made some change to the headers?
+&gt; 
+&gt; I ask because `scheme_make_string' really won't be defined. It will be
+&gt; macro-mapped to `scheme_extension_table-&gt;scheme_make_string' by
+&gt; &quot;escheme.h&quot;. So whatever is going wrong, it looks like header problems
+&gt; and not linking problems.
+&gt; 
+&gt; &gt; I noticed you referenced Cygwin. It is my understanding if I use that,
+&gt; &gt; the related linked DLL code all falls under the GPL (not LGPL).
+&gt; 
+&gt; To be honest, I'm not sure. Certainly using gcc doesn't have this
+&gt; effect, but maybe there are issues with support DLLs for Cygwin.
+&gt; 
+&gt; Matthew
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00449" href="msg00449.html">Making MzScheme extensions using VC++ 5.0?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00454" href="msg00454.html">Re: Making MzScheme extensions using VC++ 5.0?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00455" href="msg00455.html">Re: Making MzScheme extensions using VC++ 5.0?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00457" href="msg00457.html">Re: Making MzScheme extensions using VC++ 5.0?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00458.html">Re: Making MzScheme extensions using VC++ 5.0?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00460.html">Re: Making MzScheme extensions using VC++ 5.0?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00457.html">Re: Making MzScheme extensions using VC++ 5.0?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00458.html">Re: Making MzScheme extensions using VC++ 5.0?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00459"><strong>Date</strong></a></li>
+<li><a href="threads.html#00459"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

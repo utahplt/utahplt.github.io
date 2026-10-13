@@ -1,0 +1,141 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to =?iso&#45;8859&#45;1?q?do=3F?= -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Mon, 25 Mar 2002 18:45:45 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203260145.UAA11415@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200203250349.WAA08682@bosch.cs.brown.edu -->
+<!--X-Reference: iss.3da.3c9f79e4.f243d.1@merkur.hrz.uni&#45;giessen.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00497.html">Date Prev</a>][<a href="msg00499.html">Date Next</a>][<a href="msg00487.html">Thread Prev</a>][<a href="msg00469.html">Thread Next</a>][<a href="maillist.html#00498">Date Index</a>][<a href="threads.html#00498">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Mar 2002 20:45:12 -0500 (EST)</li>
+<li><em>In-Reply-To</em>: &lt;iss.3da.3c9f79e4.f243d.1@merkur.hrz.uni-giessen.de&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00451.html">200203250349.WAA08682@bosch.cs.brown.edu</a>&gt;&lt;iss.3da.3c9f79e4.f243d.1@merkur.hrz.uni-giessen.de&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+One of our list correspondents wrote:
+
+&gt; For the following reasons I think this freedom is bought by a little
+&gt; performance-loss:
+
+Thanks.  Let's go over these itemwise, okay?
+
+&gt; - Allocated memory in C is guaranteed to stay in place ... so you can
+&gt; have very efficient sorting-routines, for example.
+
+The same is possible with GC.  A copying collector is required to
+update the values in registers after copying.  Therefore, a sort
+routine that used certain kinds of pointer arithmetic would function
+without difficulty.  In fact, compilers sometimes generate &quot;shadow&quot;
+pointers to the start of objects if they're going to wander off into
+the middle of them.  This is analogous to the sorting situation.
+
+&gt; - Whatever algorithm the GC uses to distinguish live from free-able
+&gt; memory-objects, it has to 'look' at every object. The more objects it
+&gt; manages the longer this will take -&gt; GC-Time is proportional to number
+&gt; of GC-managed heap-objects.
+
+That's why we have generational collectors.  I don't see what you're
+getting at.  Perhaps you could explain why you think modern
+generational collectors have the problem you attribute.
+
+&gt; - So its better to allocate memory in big parts (like the usual
+&gt; efficiency-concerned C-programmer propably does) and not
+&gt; little-by-little (like the GC eventually might be tempted to do).
+
+First of all, your &quot;So&quot; is a fallacy.  Collection is proportional not
+only to the number of objects but also to the number of references
+within the objects.  So just because you allocate a bunch of data in
+one fell swoop doesn't affect the collection time.
+
+Anyway, I don't see it.  When you allocate in a nursery, you simply
+bump up an allocation pointer.  The real cost is in initializing the
+allocated space.  This is the same price you would pay in a language
+with manual memory management.  The cost of raw allocation is the same 
+in both cases.
+
+&gt; - The more little memory-objects are chopped out of the heap
+&gt; (non-contigiously), the longer it will take a 'malloc' to find a
+&gt; sufficiently large piece of memory if it is needed.
+
+Yes, and that's not a problem collectors face.  I'm not sure how this
+is evidence *against* GC!
+
+&gt; I could imagine that in large programs a robust GC may also lead to
+&gt; faster execution because it fights leakage.
+
+There is also precious little evidence that reference counting is
+actually faster than modern, generational GC.
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00451" href="msg00451.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00497.html">Re: 200alpha15 (security guards)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00499.html">Re: 200alpha15 (security guards)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00487.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00469.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00498"><strong>Date</strong></a></li>
+<li><a href="threads.html#00498"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

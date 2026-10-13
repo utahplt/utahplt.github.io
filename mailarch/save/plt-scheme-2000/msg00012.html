@@ -1,0 +1,132 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Ideas for documentation system -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Thu, 13 Jan 2000 07:08:55 &#45;0700 (MST) -->
+<!--X-Message-Id: 200001131408.IAA13244@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14461.42035.275624.189279@kintore.dai.ed.ac.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Ideas for documentation system</TITLE>
+<LINK REV="made" HREF="mailto:matthias@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00011.html">Date Prev</A>][<A HREF="msg00013.html">Date Next</A>][<A HREF="msg00011.html">Thread Prev</A>][<A HREF="msg00016.html">Thread Next</A>][<A HREF="maillist.html#00012">Date Index</A>][<A HREF="threads.html#00012">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Ideas for documentation system</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A></LI>
+<LI><em>Subject</em>: Re: Ideas for documentation system</LI>
+<LI><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 13 Jan 2000 08:08:49 -0600 (CST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-reply-to</em>: &lt;<A HREF="msg00011.html">14461.42035.275624.189279@kintore.dai.ed.ac.uk</A>&gt; (message fromNoel Welsh on Thu, 13 Jan 2000 10:49:04 +0000 (GMT))</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00011.html">14461.42035.275624.189279@kintore.dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Some of it. To be more precise: 
+
+(1) The documentation should become accessible and browsable through
+    HelpDesk in a standardized modular manner. 
+
+(2) Pre and postconditions are stated informally. Why? For a language 
+    like Scheme, plain old pre/post conditions make little sense: 
+
+    - the language is used in a mostly functional manner so that such
+      invariants should be directly expressed as predicates on input and
+      output sets (of course, pre/post conditions are assertions that mean
+      this)
+
+    - invariants are misleading and incomplete. The problems are causes by
+      higher-order functions (what does it mean to say that an input must
+      be of type (number -&gt; number)?) and objects and first-class classes
+      and such things. 
+
+      One could respond: but I cover the most common cases.  Our response:
+      If you use Scheme properly, that's not true.  And, the goal of PLT is
+      to get away from the "I got 30% right and cover most of the cases and
+      it works" attitude of old language designs.
+
+      We are working on this issue and hope to supply an optional
+      specification system so that people can express some of these things
+      and get sound run-time system support. 
+
+      In the meantime, test MrSpidey on a few small examples. It has a
+      sound theory, a solid implementation, and a neat GUI
+      interfaces. Future type/assertion checking systems will work in a
+      similar manner. 
+
+Thanks for the offer and I'd love to see it build within the above
+constraints. 
+
+-- Matthias
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00016" HREF="msg00016.html">Re: Ideas for documentation system</A></STRONG>
+<UL><LI><EM>From:</EM> Stig Erik Sandoe &lt;stig@ii.uib.no&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00043" HREF="msg00043.html">Bang</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00011" HREF="msg00011.html">Ideas for documentation system</A></STRONG>
+<UL><LI><EM>From:</EM> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00011.html">Ideas for documentation system</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00013.html">.gz files</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00011.html">Ideas for documentation system</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00016.html">Re: Ideas for documentation system</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00012"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00012"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,106 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: XtAppAddInput and XtAppAddTimeOut -->
+<!--X-From-R13: Dba Egnabavx <fgnabavxNpbtfpv.hpfq.rqh> -->
+<!--X-Date: Tue, 5 Feb 2002 15:13:16 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.LNX.4.33.0202051241250.17068&#45;100000@cogsci.ucsd.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>XtAppAddInput and XtAppAddTimeOut</title>
+<link rev="made" href="mailto:stanonik@cogsci.ucsd.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00209.html">Date Prev</a>][<a href="msg00211.html">Date Next</a>][<a href="msg00224.html">Thread Prev</a>][<a href="msg00211.html">Thread Next</a>][<a href="maillist.html#00210">Date Index</a>][<a href="threads.html#00210">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>XtAppAddInput and XtAppAddTimeOut</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: XtAppAddInput and XtAppAddTimeOut</li>
+<li><em>From</em>: Ron Stanonik &lt;<A HREF="mailto:stanonik@cogsci.ucsd.edu">stanonik@cogsci.ucsd.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 5 Feb 2002 14:13:13 -0800 (PST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello,
+
+I'm working on linux.
+
+I'm trying to turn wish (Tcl/Tk) into a mred extension by creating a wish
+shared library and replacing its event loop, Tk_Main(), with callbacks from
+mred's event loop.  Tcl and Tk are already libraries, Tcl/Tk provides a
+mechanism for replacing its event loop with callbacks from an external event
+loop, and there is sample code to do that from an Xt event loop.  Alas, the
+callbacks I registered using XtAppAddInput and XtAppAddTimeOut (with context
+wxAPP_CONTEXT) aren't getting called back from mred.  Searching through
+mred/wxwindows I haven't found a typical Xt event loop (XtAppProcessEvent or
+XtAppNextEvent/XtDispatchEvent).  What I need are callbacks on file
+discripters and timeouts.  Should I be using something other than XtAppAdd?
+
+If you want to see my code, visit:
+
+  <A  HREF="http://hci.ucsd.edu/stanonik/mred">http://hci.ucsd.edu/stanonik/mred</A>
+
+Thanks,
+
+Ron Stanonik
+stanonik@cogsci.ucsd.edu
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00211" href="msg00211.html">Re: XtAppAddInput and XtAppAddTimeOut</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00209.html">Re: Scheme_make_namespace</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00211.html">Re: XtAppAddInput and XtAppAddTimeOut</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00224.html">Re: Saving Viewport in Bitmap or GIF?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00211.html">Re: XtAppAddInput and XtAppAddTimeOut</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00210"><strong>Date</strong></a></li>
+<li><a href="threads.html#00210"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

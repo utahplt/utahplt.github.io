@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: should definitions introduced by macros be gensymmed? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 10 Apr 2002 10:41:46 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200204101641.KAA26331@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15539.62988.911303.89702@vega.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: should definitions introduced by macros be gensymmed?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00725.html">Date Prev</a>][<a href="msg00727.html">Date Next</a>][<a href="msg00725.html">Thread Prev</a>][<a href="msg00728.html">Thread Next</a>][<a href="maillist.html#00726">Date Index</a>][<a href="threads.html#00726">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: should definitions introduced by macros be gensymmed?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: should definitions introduced by macros be gensymmed?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 10 Apr 2002 10:41:42 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00722.html">15539.62988.911303.89702@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00722.html">15539.62988.911303.89702@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;   (define-syntax define-foo
+&gt;     (syntax-rules ()
+&gt;       ((_ expr) (define foo expr))))
+&gt; 
+&gt;   (let ()
+&gt;     (define-foo (display 'f))
+&gt;     (define-foo (display 'o))
+&gt;     (define o 'o)
+&gt;     o)
+&gt; 
+&gt; When I evaluate these in MzScheme (v200alpha15), everything works fine 
+&gt; (it displays &quot;foo&quot;).  But when I evaluate these in DrScheme (language
+&gt; &quot;Textual (MzScheme)&quot;), it complains:
+&gt; 
+&gt;   def-foo.scm:3:23: letrec-values: duplicate binding name in: foo
+
+This is a bug in MzScheme. If you compose `expand' with itself and
+apply the result to the second expression, MzScheme produces the error.
+
+I'm working on it.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00728" href="msg00728.html">Scheme on the Web?</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00722" href="msg00722.html">should definitions introduced by macros be gensymmed?</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00725.html">Re: should definitions introduced by macros be gensymmed?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00727.html">need help with macros (again)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00725.html">Re: should definitions introduced by macros be gensymmed?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00728.html">Scheme on the Web?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00726"><strong>Date</strong></a></li>
+<li><a href="threads.html#00726"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

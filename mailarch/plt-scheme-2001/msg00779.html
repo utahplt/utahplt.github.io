@@ -1,0 +1,187 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Any Examples of COM (and perhaps ADO)? -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Mon, 13 Aug 2001 10:49:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: 001c01c12418$00269c70$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: NBBBLCLOKKHAGMJBNHDMEENKFGAA.apeake@comac.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Any Examples of COM (and perhaps ADO)?</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00778.html">Date Prev</a>][<a href="msg00780.html">Date Next</a>][<a href="msg00775.html">Thread Prev</a>][<a href="msg00783.html">Thread Next</a>][<a href="maillist.html#00779">Date Index</a>][<a href="threads.html#00779">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Any Examples of COM (and perhaps ADO)?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Alex Peake&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;,       &quot;PLT Scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Any Examples of COM (and perhaps ADO)?</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 13 Aug 2001 12:50:04 -0400</li>
+<li><em>Cc</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00755.html">NBBBLCLOKKHAGMJBNHDMEENKFGAA.apeake@comac.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Alex,
+
+To come back to what started this:
+
+&gt; Does anyone have any examples of COM use (with ADO would be nice).
+
+With Paul Steckler's help, I've come up with the following example which
+works, and iterates through a query using ADO.  It relies on Paul's
+workaround for the MysterX/DrScheme Execute button interaction (see prior
+list messages), plus a small modification to MysterX's com-get-property
+function to support access to the ADO fields collection.
+
+I've used a wrapper function, ado-fields, to simplify field access; more on
+this below.  Here's a sample which executes a query and iterates through the
+resultset:
+
+	(require-library &quot;mysterx.ss&quot; &quot;mysterx&quot;)
+
+	; helper function for ADO field access
+	(define (ado-fields recordset)
+	  (let [(field-coll (com-get-property rs &quot;Fields&quot;))]
+	    (com-add-ref fields) ; workaround for MysterX/DrScheme/Execute
+interaction
+	    (lambda (field-name)
+      	(com-get-property (com-get-property field-coll &quot;Item&quot; field-name)
+&quot;Value&quot;))))
+
+	(define conn (cci/progid &quot;ADODB.Connection&quot;))
+	(com-add-ref conn)   ; workaround
+
+	(com-invoke conn &quot;Open&quot; &quot;DSN=mydsn;UID=sa;PWD=###&quot;)
+
+	(define rs (com-invoke conn &quot;Execute&quot; &quot;SELECT * FROM SomeTableOrOther&quot;))
+
+	(define flds (ado-fields rs))
+
+	(do () ((com-get-property rs &quot;EOF&quot;))
+	  ; display ID and Name fields from resultset
+	  (display (list (flds &quot;ID&quot;) (flds &quot;Name&quot;)))
+	  (newline)
+	  (com-invoke rs &quot;MoveNext&quot;))
+
+	(com-invoke rs &quot;Close&quot;)
+	(com-invoke conn &quot;Close&quot;)
+
+For the above to work, a small change is required to MysterX, in the module
+mysterxe.ss.  I renamed the existing com-get-property function to
+com-get-property-chain (since it is designed to support retrieving a chain
+of properties like obj.propa.propb.propc).  I then added an alias for the
+native/C version of com-get-property, as follows:
+
+	(define com-get-property mxprims:com-get-property)
+
+This replaces the chaining version of com-get-property with the native one,
+which supports the access to indexed properties required by the ADO Fields
+collection.  Existing calls to com-get-property will continue to work,
+unless they involve multiple property names.  (I'm not suggesting that this
+should be the definitive change to MysterX - I'll leave that to Paul).
+Here's a diff for the above change:
+
+17a18
+&gt;   (define com-get-property mxprims:com-get-property)
+77c78
+&lt;   (define (com-get-property obj . path)
+---
+&gt;   (define (com-get-property-chain obj . path)
+
+In addition, if you want to be able to use the com-get-property-chain
+function, you'll need to add it to the unit signature in sigs.ss.
+
+Finally, you need to make sure the above change is compiled, or DrScheme
+will continue to use the original compiled code (I mention this because I
+made that mistake originally, not being familiar with making changes to
+DrScheme library code...)
+
+The ado-fields wrapper function above was mainly intended to simplify field
+access code such as:
+
+	(com-get-property (com-get-property field-coll &quot;Item&quot; field-name) &quot;Value&quot;))
+
+into expressions of the form: (field-coll field-name).  A few other simple
+wrappers, e.g. for the ADO Recordset object,  would make ADO quite usable
+from Scheme.  However, unless there's a specific reason to use ADO, it still
+might make more sense to use SrPersist or SchemeQL instead, although I don't
+have enough experience with any of these to know for sure.
+
+This example works in DrScheme and can be Execute-d repeatedly without
+generating errors.  However, until the garbage collection issue in MysterX
+is resolved, using DrScheme for development of such code could be a bit
+frustrating, especially since it's not clear exactly which objects need
+extra com-add-ref calls to avoid causing errors on the next Execute.
+MzScheme should work just fine, though (since it doesn't have an Execute
+button :)
+
+Anton
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00783" href="msg00783.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00755" href="msg00755.html">Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Alex Peake&quot; &lt;apeake@comac.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00778.html">Re: Unit functions in 199</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00780.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00775.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00783.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00779"><strong>Date</strong></a></li>
+<li><a href="threads.html#00779"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

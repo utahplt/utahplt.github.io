@@ -1,0 +1,127 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: What is an object? -->
+<!--X-From-R13: "Bnhy O. Egrpxyre" <fgrpxNpf.evpr.rqh> -->
+<!--X-Date: Wed, 5 Apr 2000 13:58:26 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000001bf9f39$3f875810$6a032a80@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 38EB9A40.DE8B823F@info.unicaen.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: What is an object?</title>
+<link rev="made" href="mailto:steck@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00227.html">Date Prev</a>][<a href="msg00229.html">Date Next</a>][<a href="msg00227.html">Thread Prev</a>][<a href="msg00229.html">Thread Next</a>][<a href="maillist.html#00228">Date Index</a>][<a href="threads.html#00228">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: What is an object?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Jerzy Karczmarczuk&quot; &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</li>
+<li><em>Subject</em>: RE: What is an object?</li>
+<li><em>From</em>: &quot;Paul A. Steckler&quot; &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 5 Apr 2000 14:58:01 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00227.html">38EB9A40.DE8B823F@info.unicaen.fr</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; BTW. - this is a slightly related question, but independent, and
+&gt; it isn't even a question...
+&gt; 
+&gt; The compiled, binary code of MrEd contains several dozens, perhaps
+&gt; more than a hundred occurrences of the string &quot;ivar/proc&quot;. I wonder
+&gt; why...
+
+OK, I can answer your non-question.
+
+(ivar/proc object symbol) extracts the public member in the object named  
+by the symbol.
+
+'send' is just a macro that eventually expands to a use of ivar/proc.
+Look up ivar/proc in Help Desk.
+
+Sometimes using ivar/proc directly is useful, as in the following
+example from the MysterX Dynamic HTML test suite:
+
+---
+
+(define filter-spec
+  '(glow (strength 99) (enabled #t) (color &quot;#ff00ff&quot;)))
+
+(apply (ivar/proc txt 'set-filter!) filter-spec)
+
+(let ([result (send txt filter)])
+  (if (equal? result filter-spec)
+      (printf &quot;Checking filter~n&quot;)
+      (error (format &quot;filter test: Expected ~a, got ~a~n&quot;
+                     filter-spec result))))
+
+---
+
+Using ivar/proc allows me to apply the method set-filter! to a list.
+If I'd used send, I'd have to put that information in arguments.
+By using a list, I can put that information in one place, filter-spec, 
+which is used to supply data to set-filter!, and again when 
+checking the result.
+
+-- Paul
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00227" href="msg00227.html">What is an object?</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00227.html">What is an object?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00229.html">Re: What is an object?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00227.html">What is an object?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00229.html">Re: What is an object?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00228"><strong>Date</strong></a></li>
+<li><a href="threads.html#00228"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

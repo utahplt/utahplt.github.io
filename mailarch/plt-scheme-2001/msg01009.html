@@ -1,0 +1,103 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Strings in hash tables -->
+<!--X-From-R13: [vpunryZNsebtjner.pbz -->
+<!--X-Date: Tue, 9 Oct 2001 09:30:53 &#45;0600 (MDT) -->
+<!--X-Message-Id: OF61558C1D.31792D65&#45;ON85256AE0.004E034A@frogware.com -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Strings in hash tables</title>
+<link rev="made" href="mailto:MichaelL@frogware.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01008.html">Date Prev</a>][<a href="msg01010.html">Date Next</a>][<a href="msg01019.html">Thread Prev</a>][<a href="msg01011.html">Thread Next</a>][<a href="maillist.html#01009">Date Index</a>][<a href="threads.html#01009">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Strings in hash tables</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;PLT Scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Strings in hash tables</li>
+<li><em>From</em>: <A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A></li>
+<li><em>Date</em>: Tue, 9 Oct 2001 11:37:27 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+
+<br><font size=2 face="sans-serif">Surprisingly, this displays &quot;not found&quot;:</font>
+<br>
+<br><font size=2 face="sans-serif">(let ([h (make-hash-table)])</font>
+<br><font size=2 face="sans-serif">&nbsp; (hash-table-put! h &quot;some-key&quot; #t)</font>
+<br><font size=2 face="sans-serif">&nbsp; (if (hash-table-get h &quot;some-key&quot; (lambda () #f) )</font>
+<br><font size=2 face="sans-serif">&nbsp; &nbsp; (display &quot;found&quot;)</font>
+<br><font size=2 face="sans-serif">&nbsp; &nbsp; (display &quot;not found&quot;)))</font>
+<br>
+<br><font size=2 face="sans-serif">This displays &quot;found&quot;:</font>
+<br>
+<br><font size=2 face="sans-serif">(let ([h (make-hash-table)])</font>
+<br><font size=2 face="sans-serif">&nbsp; (hash-table-put! h (string-&gt;symbol &quot;some-key&quot;) #t)</font>
+<br><font size=2 face="sans-serif">&nbsp; (if (hash-table-get h (string-&gt;symbol &quot;some-key&quot;) (lambda () #f) )</font>
+<br><font size=2 face="sans-serif">&nbsp; &nbsp; (display &quot;found&quot;)</font>
+<br><font size=2 face="sans-serif">&nbsp; &nbsp; (display &quot;not found&quot;)))</font>
+<br>
+<br><font size=2 face="sans-serif">Two questions:</font>
+<br>
+<br><font size=2 face="sans-serif">* Is this the best way to use strings as keys in a hash table?</font>
+<br><font size=2 face="sans-serif">* Isn't this a strange way for this to work, given expectations about &quot;dictionary&quot; containers?</font>
+<br>
+<br><font size=2 face="sans-serif">At the very least, given that this is different from Python, Ruby, TCL, etc., I think it's worth explicity mentioning in the docs how to use strings as hash table keys just to save some annoyance time.</font>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01011" href="msg01011.html">RE: Strings in hash tables</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01013" href="msg01013.html">Re: Strings in hash tables</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01008.html">RE: Greetings</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01010.html">Doc Bug</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01019.html">Re: Problem building a statically linked Mzscheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01011.html">RE: Strings in hash tables</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01009"><strong>Date</strong></a></li>
+<li><a href="threads.html#01009"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,149 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: embedding mzscheme into a C++ application -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 20 Nov 2001 20:55:10 &#45;0700 (MST) -->
+<!--X-Message-Id: 200111210355.fAL3t5T10336@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: HIELJDHMBBPJBHNEHGIKOEEICCAA.mcandrews@larocquetrading.com -->
+<!--X-Reference: 200111141854.fAEIs8B26047@plover.atdesk.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: embedding mzscheme into a C++ application</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01229.html">Date Prev</a>][<a href="msg01231.html">Date Next</a>][<a href="msg01204.html">Thread Prev</a>][<a href="msg01231.html">Thread Next</a>][<a href="maillist.html#01230">Date Index</a>][<a href="threads.html#01230">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: embedding mzscheme into a C++ application</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Subject</em>: Re: embedding mzscheme into a C++ application</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 20 Nov 2001 20:55:05 -0700 (MST)</li>
+<li><em>CC</em>: &quot;Brian McAndrews&quot; &lt;<A HREF="mailto:mcandrews@larocquetrading.com">mcandrews@larocquetrading.com</A>&gt;,       &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01204.html">200111141854.fAEIs8B26047@plover.atdesk.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01203.html">HIELJDHMBBPJBHNEHGIKOEEICCAA.mcandrews@larocquetrading.com</a>&gt;	&lt;<a href="msg01204.html">200111141854.fAEIs8B26047@plover.atdesk.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Sorry for the delay. (Sometimes mail gets buried.)
+
+Quoting Chris Uzdavinis:
+&gt; There is one concern that I have
+&gt; regarding many embedded script languages, and that is the use of
+&gt; longjmp.  In a C++ application, if a longjmp jumps over any object
+&gt; destructor, your program is undefined.
+&gt; [...]
+&gt; 
+&gt;  1) scheme code ---&gt; 2) c++ code ---&gt; 3) scheme code
+&gt; 
+&gt; 
+&gt; Suppose scheme code in section 3 wants to long jmp to a handler in
+&gt; scheme code (1). 
+
+One possibility is to diallow the jump.
+
+When you use the non-underscored versions of the MzScheme entry points
+(e.g., scheme_apply() instead of _scheme_apply()), full-continuation
+jumps in either direction are already disabled. That provides minimal
+sanity from the point of view of C/C++ code, which expects a single
+return from the Scheme code.
+
+To block the remaining jumps (i.e., escape continuation jumps), you can
+catch the longjump and ignore it. [This turns out not to be a special
+power of C code. Jumps can be blocked in Scheme, too, using
+`dynamic-wind'.]
+
+MrEd (implemented in C++) used to ignore escapes that way. But we've
+eliminated the need for any clean-up actions --- it helps to depend on
+GC --- so MrEd allows the jump.
+
+Now, I suppose you want to allow escaping jumps (e.g., for raising
+exceptions) and you really need destructor-based clean-up...
+
+&gt; Basically, what needs to be done in every C++ routine that interacts
+&gt; with scheme (especially if it's reentrant from scheme, as in 1-&gt;2
+&gt; above), it needs to catch any long jumps, clean up all local objects,
+&gt; and then re-jump to wherever the original long jump was headed.
+&gt; 
+&gt; But I am not sure how to do that cleanly, since mzscheme encapsulates
+&gt; the setjmp/longjmp routines, and I haven't bothered yet to look at
+&gt; what they do.
+
+I'm not up-to-date on C++: has the exception mechanism become widely
+implemented?
+
+If so, couldn't you catch the longjmp at the C++-&gt;Scheme boundary,
+raise a C++ exception, catch the exception at the Scheme-&gt;C++ entry
+point, and longjmp again?
+
+That's the only idea I have at the moment.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01231" href="msg01231.html">Re: embedding mzscheme into a C++ application</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01203" href="msg01203.html">embedding mzscheme into a C++ application</a></strong>
+<ul><li><em>From:</em> &quot;Brian McAndrews&quot; &lt;mcandrews@larocquetrading.com&gt;</li></ul></li>
+<li><strong><a name="01204" href="msg01204.html">Re: embedding mzscheme into a C++ application</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01229.html">Hello World extension in MSVC++ 6.0</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01231.html">Re: embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01204.html">Re: embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01231.html">Re: embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01230"><strong>Date</strong></a></li>
+<li><a href="threads.html#01230"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

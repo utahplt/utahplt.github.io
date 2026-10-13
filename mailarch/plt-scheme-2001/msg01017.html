@@ -1,0 +1,137 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: newline comparison? -->
+<!--X-From-R13: Quevf Gmqnivavf <puevfNngqrfx.pbz> -->
+<!--X-Date: Tue, 9 Oct 2001 19:40:49 &#45;0600 (MDT) -->
+<!--X-Message-Id: j6vghoqnkx.fsf@explicit.atdesk.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: j6elocy02n.fsf@explicit.atdesk.com -->
+<!--X-Reference: 200110092143.PAA15967@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: newline comparison?</title>
+<link rev="made" href="mailto:chris@atdesk.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01016.html">Date Prev</a>][<a href="msg01018.html">Date Next</a>][<a href="msg01015.html">Thread Prev</a>][<a href="msg01018.html">Thread Next</a>][<a href="maillist.html#01017">Date Index</a>][<a href="threads.html#01017">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: newline comparison?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: newline comparison?</li>
+<li><em>From</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Date</em>: 09 Oct 2001 21:40:46 -0400</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: Matthew Flatt's message of &quot;Tue, 9 Oct 2001 15:43:36 -0600 (MDT)&quot;</li>
+<li><em>Organization</em>: Automated Trading Desk, Inc.</li>
+<li><em>References</em>: &lt;<a href="msg01014.html">j6elocy02n.fsf@explicit.atdesk.com</a>&gt;&lt;<a href="msg01015.html">200110092143.PAA15967@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+&gt; &gt;         ([string=? line &quot;\n&quot;]  (do-something)))
+&gt; 
+&gt; What would work in version 199.X (the upcoming release, available only
+&gt; through CVS), but not 103.X.
+
+That's really an improvement!  Is 199.X stable?  Somewhat stable?  :)
+
+&gt; &gt;         ([equal? (string-ref line 0) #\newline]
+&gt; &gt;         ([eq? string-ref line 0) #\newline]  (do-something)))
+&gt; 
+&gt; Those should work.
+
+I think that these failed because it was a \r\n combination, and the
+read-line was leaving the #\return, which I mistook for a newline.  (I
+was thinking this while driving home from work, but after I posted.)
+
+&gt; But I think the problem may be here:
+&gt; 
+&gt; &gt;   (let ([line (read-line input)]) ;; assume this reads in a newline only
+&gt; 
+&gt; `read-line' strips off the newline character, so a line containing
+&gt; nothing will produce the empty string.
+
+The 'any mode would fix then, and then I could compare for an empty
+string, like this:
+
+    (string=? &quot;&quot; line)
+
+ 
+&gt; Beware of variying newline conventions. For example, when reading a
+&gt; DOS/Windows file, you'll get both #\newline and #\return from the port
+&gt; (and `read-line' will return the #\return characters) unless it's opened
+&gt; in 'text mode.
+
+Thanks.  :)  I'm guessing this was it.
+
+-- 
+Chris
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01018" href="msg01018.html">using 199.X (was Re: newline comparison?)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01014" href="msg01014.html">newline comparison?</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+<li><strong><a name="01015" href="msg01015.html">Re: newline comparison?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01016.html">Re: newline comparison?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01018.html">using 199.X (was Re: newline comparison?)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01015.html">Re: newline comparison?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01018.html">using 199.X (was Re: newline comparison?)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01017"><strong>Date</strong></a></li>
+<li><a href="threads.html#01017"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

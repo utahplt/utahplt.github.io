@@ -1,0 +1,166 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Conway's Game of Life (cellular automata) -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Sun, 23 Dec 2001 22:27:43 &#45;0700 (MST) -->
+<!--X-Message-Id: 00d601c18c3c$02ed5840$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200112240404.fBO44xh04845@poincare.math.northwestern.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Conway's Game of Life (cellular automata)</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01422.html">Date Prev</a>][<a href="msg01424.html">Date Next</a>][<a href="msg01419.html">Thread Prev</a>][<a href="msg01426.html">Thread Next</a>][<a href="maillist.html#01423">Date Index</a>][<a href="threads.html#01423">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Conway's Game of Life (cellular automata)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Bill Richter&quot; &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Conway's Game of Life (cellular automata)</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 24 Dec 2001 00:29:51 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01419.html">200112240404.fBO44xh04845@poincare.math.northwestern.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;    I'm not sure I follow you.  x &amp; y is simply a concise way to
+&gt;    specify a set of nine cells, in this case, and potentially, a
+&gt;    larger set, although you're saying that for this specific
+&gt;    application a larger set isn't needed.
+&gt;
+&gt; Maybe I'm making an OOP point.  I'm just saying that `new-cell-state'
+&gt; doesn't need the values of x &amp; y, but only the nearest cells, which in
+&gt; x/y lingo are of course are described by
+&gt;
+&gt; (x-1,y-1) (x-1,y) (x-1,y+1)
+&gt;
+&gt; (x,y-1)           (x,y+1)
+&gt;
+&gt; (x+1,y-1) (x+1,y) (x+1,y+1)
+&gt;
+&gt; Surely you agree.  And it would work just as well to describe these
+&gt; neighbors &quot;relatively&quot; instead of &quot;absolutely&quot; as I did:
+&gt;
+&gt; nw n ne
+&gt; w     e
+&gt; sw s se
+
+This seems to be a question of data representation.  x &amp; y are a way to
+refer to the necessary data; nw/n/ne/w/e/sw/s/se represent the actual data,
+rather than a reference to it (hmmm - is it that the former seems too much
+like a pointer to you?? ;o)
+
+Like any design decision, there are tradeoffs.  As we've already discussed,
+using x &amp; y gives you access to a broader context, which is potentially more
+general; if, as you say, that's never needed - and ignoring the possible
+advantages of generalized matrix-maps and matrix-sums - passing through the
+necessary values works fine.  For me, and I'll admit this may just be
+preference, the combination of only needing two values, plus the potential
+generality of the coordinate solution, tips the balance in its favor.
+However, I'm not arguing that either is intrinsically better.  I just didn't
+understand your point initially.
+
+Anyway, as I said in my first message, using x &amp; y is a weakness, because it
+detracts from the abstractness of the the program at that level.  If it
+weren't for that, the top-level program would be sufficiently abstract to
+support most reasonable implementations, including a list of lists.  That
+might be &quot;better&quot; than both of our designs.  I don't think the nw/n/ne...
+solution addresses this, because you still have to obtain those values
+somehow, preferably in an implementation-independent manner.
+
+A solution to this would be an abstraction for referring to the current
+position on the board, which relates to the OO question.  I hinted at OO
+approaches at the end of my first message.  An abstraction for a position on
+the board could contain sufficient context to eliminate the need to pass x &amp;
+y, or nw/n/ne... etc. around as discrete parameter.
+
+The question of which data representation to use would then move to the
+internal representation of the abstraction in question, where it becomes
+much less important.  It would be like asking whether the internal
+representation of a &quot;Point&quot; abstraction should use polar or cartesian
+coordinates - neither is &quot;better&quot;, they're just different ways to represent
+the same thing.
+
+However, in this example, an abstraction sufficiently general to support
+arbitrary implementations is likely to complicate the logic more than it
+helps; I'd have to try it and see.
+
+&gt; which is pretty cumbersome, and I imagine slow as well, and I don't
+&gt; see that as any improvement over your matrix approach, other than
+&gt; being functional (no mutation).
+
+The matrix approach I suggested can be fully mutation-free - as I said, all
+you would need to do is use lists to build individual vectors.  I wouldn't
+try pulling any of that icky &quot;assignment&quot; stuff on you!!
+
+As Yoda might say: Assignment leads to mutation.  Mutation leads to
+pointers.  Pointers lead to suffering!
+
+Anton
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01426" href="msg01426.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01419" href="msg01419.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01422.html">Re: sound.ss</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01424.html">Re: really, really dumb DrScheme question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01419.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01426.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01423"><strong>Date</strong></a></li>
+<li><a href="threads.html#01423"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 27 Feb 2000 17:24:13 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000228002410.UGQG21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002271846.KAA00527@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [Q] HOWTO redirect a i/o-port in Unix??</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00141.html">Date Prev</a>][<a href="msg00143.html">Date Next</a>][<a href="msg00143.html">Thread Prev</a>][<a href="msg00144.html">Thread Next</a>][<a href="maillist.html#00142">Date Index</a>][<a href="threads.html#00142">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [Q] HOWTO redirect a i/o-port in Unix??</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></li>
+<li><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 27 Feb 2000 16:24:10 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00140.html">200002271846.KAA00527@balu.qualcomm.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00140.html">200002271846.KAA00527@balu.qualcomm.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Leo Razoumov:
+&gt; GREAT!!!! When is 102 released??
+
+The current plan is late spring or early summer. Of course, 102/8 (the
+8th checkpoint before the 102 release) is available via CVS.
+
+&gt; But I still beleive it is worthwhile to have a Unix (POSIX) extension
+&gt; library which provides most handy pieces of Unix API.
+
+Agreed. The Right Thing is probably a port of Scsh, and many lesser
+solutions would be valuable. I never ported Scsh myself because I never
+wanted to program Unix; I wanted something better...
+
+\begin{rants}
+
+&gt; I am trying to promote Scheme (in particular MzScheme) here as a
+&gt; universal scripting/extension language and to drop Perl (Tk/Tcl) all
+&gt; together. My colleagues are keeping asking me &quot;nasty&quot; practical
+&gt; questions like: how do I do this-and-that in Scheme what I can do in
+&gt; Perl in the middle of a night with my eyes closed? What should I
+&gt; answer?
+
+So why *do* you use Scheme when Perl does everything already?
+
+To me, it's an aesthetic and engineering argument. I use Scheme because
+I belive the code will be more reliable, maintainable, and reusable.
+Those benefits have a lot to do with the careful design of the
+language.
+
+The same aesthetic and engineering sense leads me to design decisions
+in MzScheme that don't match the Unix way of doing things. Unix's
+stream model is great in abstract, but the details are complex. It's
+taken me *years* to really understand how things are supposed to work,
+and I still find it difficult to write (and understand!) truly general
+Unix I/O code. The key problem, I think, is that basic stream model has
+been augmented in many ad hoc ways (for non-blocking I/O, movable
+stream positions, etc.).
+
+We're looking for a more compact, consistent set of concepts, for all
+the obvious (to a Schemer) reasons. For example, you don't need
+select() and non-blocking I/O if your language has threads and a
+sensible block-interruption mechanism.
+
+MzScheme does need at least one more primitive: something like
+`read-string', but that returns immediately after reading as many bytes
+as are ready, blocking only if none are ready. Maybe other primitives
+are needed. Or maybe there's an even better set of primitives MzScheme
+could provide - we'll keep looking.
+
+&gt; Also there is another problem with &quot;copy-stream&quot; implementation of
+&gt; redirect-port: with a read/write approach it is all but impossible to
+&gt; synchronize FROM and TO stream positions. What happens if my
+&gt; subprocess &quot;myprog&quot; uses 'lseek' and repositions its output file
+&gt; position.
+
+Using lseek on stdout? That sounds pretty strange. Actually, it seems
+like a good example of where the Unix I/O model breaks down: many
+strange things are possible since *some* streams have movable positions
+tacked onto them.
+
+\end{rants}
+
+To repeat the non-rant part of my message: I agree that it would be
+great to have an extension that lets you do everything that is possible
+in Unix. I'm very much in favor of a Scsh port, or other efforts in
+that direction. I think that's what you're talking about, and we're
+with you!
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00144" href="msg00144.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00140" href="msg00140.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00141.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00143.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00143.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00144.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00142"><strong>Date</strong></a></li>
+<li><a href="threads.html#00142"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] defining macros in mzscheme 103 -->
+<!--X-From-R13: "Elyinva Prhpyre"<flyinva.orhpyre.snpNyvoreglfhes.se> -->
+<!--X-Date: Tue, 28 May 2002 11:05:16 &#45;0600 (MDT) -->
+<!--X-Message-Id: GWTZF9$8EA2368D3FA0FDD01A4AF42F8336FF4D@tiscali.fr -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] defining macros in mzscheme 103</title>
+<link rev="made" href="mailto:sylvain.beucler.fac@libertysurf.fr">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00985.html">Date Prev</a>][<a href="msg00987.html">Date Next</a>][<a href="msg01035.html">Thread Prev</a>][<a href="msg00989.html">Thread Next</a>][<a href="maillist.html#00986">Date Index</a>][<a href="threads.html#00986">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] defining macros in mzscheme 103</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] defining macros in mzscheme 103</li>
+<li><em>From</em>: &quot;Sylvain Beucler&quot;&lt;<A HREF="mailto:sylvain.beucler.fac@libertysurf.fr">sylvain.beucler.fac@libertysurf.fr</A>&gt;</li>
+<li><em>Date</em>: Tue, 28 May 2002 19:04:21 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I think you need to declare your macro this way:
+(define-macro new-core
+  (lambda () `(make-vector 4 0)))
+
+But then you may want to write it in a simplier way:
+(define (new-core)
+    (make-vector 4 0))
+
+
+&gt; ---------- Initial message -----------
+&gt; 
+&gt; Date    : Tue, 28 May 2002 05:17:33 -0400 (EDT)
+&gt; Subject : [plt-scheme] defining macros in mzscheme 103
+&gt; 
+&gt; hi all
+&gt; i am trying to define a macro like this
+&gt; (define-macro (new-core) `(make-vector 4 0))
+&gt; 	
+&gt; when i run this in mzscheme within emacs, it gives me
+&gt; the following error message:
+&gt; &quot;define-macro: not an identifier at: (new-core) in
+(define-macro 
+&gt; (new-core) (quasiquote ...)&quot;
+&gt; 
+&gt; what is wrong?
+&gt; 
+&gt; thanks,
+&gt; Deva Seetharam
+
+
+-- 
+Sylvain Beucler
+--------------
+Profitez des 2 offres exceptionnelles Tiscali !
+&quot;Internet Gratuit le Jour&quot; et &quot;Modem ADSL remboursé&quot;
+Cliquez ici, <A  HREF="http://register.tiscali.fr/forfaits_ls/">http://register.tiscali.fr/forfaits_ls/</A>
+Offres soumises à conditions.
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00985.html">Re: [plt-scheme] Binary file access</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00987.html">RE: [plt-scheme] Problems with srpersist</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01035.html">Re: [plt-scheme] upgrading to 200 from 103</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00989.html">[plt-scheme] syntax rules</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00986"><strong>Date</strong></a></li>
+<li><a href="threads.html#00986"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Shootout Stuff -->
+<!--X-From-R13: [vpunryZNsebtjner.pbz -->
+<!--X-Date: Sun, 7 Apr 2002 20:55:14 &#45;0600 (MDT) -->
+<!--X-Message-Id: OFD12F362A.43072603&#45;ON85256B95.0004079E@frogware.com -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Shootout Stuff</title>
+<link rev="made" href="mailto:MichaelL@frogware.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00698.html">Date Prev</a>][<a href="msg00700.html">Date Next</a>][<a href="msg00698.html">Thread Prev</a>][<a href="msg00700.html">Thread Next</a>][<a href="maillist.html#00699">Date Index</a>][<a href="threads.html#00699">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Shootout Stuff</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;PLT Scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Shootout Stuff</li>
+<li><em>From</em>: <A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A></li>
+<li><em>Date</em>: Sun, 7 Apr 2002 23:03:41 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+
+<br><font size=2 face="sans-serif">Sorry for coming to the party so late, but... six months ago I ported all of the Shootout tests to MzScheme. In the process, I not only made them work--I also made them more Scheme-like, at least to my eye. (For example, I replaced iteration with tail-rersion and eliminated a *lot* of assignments to variables.)</font>
+<br>
+<br><font size=2 face="sans-serif">I also placed all tests within units so that a) MzScheme could optimize whatever it could and b) MzScheme could build native-code extensions. I also built a little &quot;timing framework&quot; in Scheme so that I could run all of this stuff--together with tests for other languages--on my Windows machine.</font>
+<br>
+<br><font size=2 face="sans-serif">I offered the MzScheme code to Doug, the guy who runs the Shootout, but he declined. He said that adding MzScheme to the Shootout was on his to-do list--and that learning new languages/environments as he brought them online was the only joy he got out of the whole endeavour. Well, I could certainly appreciate that!</font>
+<br>
+<br><font size=2 face="sans-serif">Although Doug seems to have closed up shop temporarily, there is in fact a living Windows port of his whole framework at http://dada.perl.it/shootout/. (I only found out about it very recently; I haven't poked around much.) Since I have all of the code written, I could offer it to the guy who runs *that* version of the Shootout. (I still need to port the code to 200, but that should be trivial.)</font>
+<br>
+<br><font size=2 face="sans-serif">I did this work a) to give something back to the community (I thought getting a little press through the Shootout would help draw some traffic to PLT) and b) because I was of course curious to see just how well MzScheme performed.</font>
+<br>
+<br><font size=2 face="sans-serif">Well... I didn't accomplish the first goal, but I did accomplish the second. The bottom-line is that *on the Shootout tests* MzScheme is reasonably fast, but it isn't the fastest.</font>
+<br>
+<br><font size=2 face="sans-serif">In my suite I test MzScheme (interpreted and compiled), Lua, Python, and Ruby. Among the *interpreted* languages, Lua almost always wins--and quite often by a good margin. MzScheme is generally faster than Python, though not always; on the whole they're roughly the same, with a slight edge for MzScheme (native libraries aside). Ruby is pretty much always the slowest, and usually by a wide margin. (That's too bad, because Ruby is a lot of fun to code in.)</font>
+<br>
+<br><font size=2 face="sans-serif">Why is Lua so fast? It has an interesting bytecode virutal machine architecture. Lua maintains its own stack--and all values are either in that stack (Lua 4.1, which is in Alpha, adds support for multiple stacks/threads) or in one of Lua's &quot;table&quot; objects. (Lua tables are a cross between an associative hash and an array.) Writing C extensions in Lua is very much like writing assembly language. For example, if you call some Lua routine from C, it returns its values on the Lua stack, and you end up writing code that does things like check the top of the stack, push values on the stack, etc. Many of those routines are macros--and in Lua 4.1 they're moving the important vars into registers (assuming that modern compilers will accept their requests for register optimization!) and making the whole thing even faster.</font>
+<br>
+<br><font size=2 face="sans-serif">Lua's architecture thus requires relatively low overhead (I know it doesn't sound like it, but it is; if you haven't looked under the hood, you'd probably be suprised at how much MzScheme has to do to map Scheme argument lists to C arguments). Moreover, Lua's garbage collector is pretty straightforward, since as I said all Lua values *must* be in the Lua stack or in one of the allocated tables. (User data structures get wrapped, and the things that wrap them exist within the tables I was talking about. Lua's tables play roughly the role of lists in Scheme as the &quot;core data structure.&quot;)</font>
+<br>
+<br><font size=2 face="sans-serif">Anyway... it's quite fast. I have an Excel spreadsheet with a pivot table that charts all of this stuff out. If there was an effective way to distribute the info, I could pass that on to interested parties.</font>
+<br>
+<br><font size=2 face="sans-serif">Speaking of speed, many of you probably know that Perl is being re-written from the ground up. As part of that project, they're creating a new bytecode virtual machine called Parrot. Parrot is register-based (pseudo registers) rather than stack-based. That's an unusual design for a scripting langiage--but I think they've done a very nice job with it. Parrot is up and running, and they have an assembler for it so that people can use it now. The assembler takes advantage of a (currently fairly simple but at least existing) bytecode optimizer. At the back end, they also have an early JIT compiler up and running to translate bytecodes into native code on selected platforms. All in all, I think that Perl 6--if it's ever completed!--will be by far the fastest of the *popular* scripting languages. The Perl 6 team is hoping the the architecture of Parrot is general enough that other scripting languages will adopt it. (They've actually mentioned support for Scheme; we'll see.)</font>
+<br>
+<br><font size=2 face="sans-serif">Now, there are a few tests where MzScheme gets trounced by everyone. It's almost always because the other languages have better native-code libraries. For example, they have native sorting routines, more native string routines, and better read-whole-file-and-process routines.</font>
+<br>
+<br><font size=2 face="sans-serif">That's something that could be addressed. (I've written a number of native string routines for MzScheme.) The bytecode VM is something that I can't really picture anything being done about. The issue isn't just switching to a new VM; it's switching to the philosophy that makes the new VM faster. That's a massive amount of work, and I just can't see it happening.</font>
+<br>
+<br><font size=2 face="sans-serif">So: MzScheme is pretty fast, faster than most right now, but I'd say that over the next year or two it's very likely to fall behind. Does that matter much? Honestly, probably not.</font>
+<br>
+<br><font size=2 face="sans-serif">MzScheme has two very big tricks up its sleaves. First, MzScheme has a very strong concept of modularity, and performs pretty good optimizations within those module boundaries. The other scripting languages, even when they have such boundaries, don't quite &quot;protect&quot; them--and so they don't/can't make a variety of important optimizations during bytecode compilation. (MzScheme beat everyone on the &quot;method call&quot; test, even though the other languages are all natively object-based; I presume it's for this very reason.) I think that this advantage would increase with larger programs. Second, MzScheme has mzc! If you *do* find that you have a performance bottleneck, you have the option of compiling your Scheme code to native code without having to re-write it. *If* that code was heavily loop-based, you'll see some amazing improvements in performance--and for a very low cost.</font>
+<br>
+<br><font size=2 face="sans-serif">But you know what? There's one other little important item. I spent about a year looking at a number of &quot;little&quot; languages--Lua, Yindo, TCL, REBOL, Ruby, Python, Pliant, and a few others. (It was during that search that I found and learned Scheme; I'm still a newbie, really.) In the end it seemed to me that all of the other languages were all moving toward what Scheme already has. A number of those languages are quite good, they have special characteristics that make them quite handy (and sometimes even fun)--but as they evolve they all seem to evolve toward Scheme. Lua 4.1, for example, is trying to add support for &quot;full&quot; closures (they have closures now with some restrictions) and Python just added generators. Perl 6 will probably add parenthesized syntax--as an option of course. :-) Anyway, I just figured that by really taking the time to learn Scheme now, I'd be a little ahead of the curve!</font>
+<br>
+<br><font size=2 face="sans-serif">Having said that, Scheme has one down side: Scheme programs are harder to read. Other languages give you much better visual cues about the structure of the program; in Scheme you have to really work to see it. (I'm talking about big programs, not one-pagers.) That, I think, is the main reason I continue to play with (learn about) some of the languages I came across, even though I know that they don't add anything, really, to what Scheme has now. They just offer some syntactic sugar.</font>
+<br>
+<br><font size=2 face="sans-serif">But hey, who doesn't like a little sugar sprinkled on top?</font>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00700" href="msg00700.html">Re: Shootout Stuff</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00698.html">ImageMagick for MzScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00700.html">Re: Shootout Stuff</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00698.html">ImageMagick for MzScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00700.html">Re: Shootout Stuff</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00699"><strong>Date</strong></a></li>
+<li><a href="threads.html#00699"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: WX_XT -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 4 Oct 2000 14:29:42 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200010042029.OAA12875@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C6767F8BB02@THRESHER -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: WX_XT</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00946.html">Date Prev</A>][<A HREF="msg00948.html">Date Next</A>][<A HREF="msg00946.html">Thread Prev</A>][<A HREF="msg00949.html">Thread Next</A>][<A HREF="maillist.html#00947">Date Index</A>][<A HREF="threads.html#00947">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: WX_XT</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: WX_XT</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 4 Oct 2000 14:29:36 -0600 (MDT)</LI>
+<LI><em>CC</em>: PLT-Scheme &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00946.html">EDFD2A95EE7DD31187350090279C6767F8BB02@THRESHER</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00946.html">EDFD2A95EE7DD31187350090279C6767F8BB02@THRESHER</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; From what I understand, DrScheme builds against its own
+&gt; copy of Wx Windows.  
+
+Yes.
+
+&gt; I was wondering if special modifications
+&gt; to Wx Windows were required to interact with MzScheme,
+&gt; or if there just has not been time to bring DrScheme
+&gt; up-to-date with the latest version of Wx Windows.
+
+We branched long ago, then significantly revised many parts of
+wxWindows. We cut out a lot of stuff that we don't need (e.g., geometry
+management, certain kinds of GUI objects, filesystem utilities covered
+better by MzScheme), and we added some stuff that we do need (e.g., GC
+annotations, eventspace support).
+
+We tried tracking (and contributing to) the standard distribution for a
+year or so, but spent too much time coordinating unruly code. Contrary
+to any sane expectation, it turned out to be simpler to discover and
+fix all the MrEd-relevant bugs ourselves.
+
+wxWindows eventually moved on to version 2.0, which is probably much
+better code than what we started with (1.51 or so). At this point,
+though, there's really no hope of making MrEd work with the normal
+wxWindows distribution.
+
+&gt; I'm having trouble with the Debian autobuilders, because
+&gt; the Makefile's generated in configure do not properly isolate
+&gt; the build tree from the canonical include/library search
+&gt; paths, which causes MrEd to attempt to link and build
+&gt; against the wrong versions of Wx Windows.
+
+Sounds like there's something about our makefile templates that we can
+change to fix this problem. I don't know what that would be (the
+makefiles expect -I override default search paths), so let me know what
+to change.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00946" HREF="msg00946.html">WX_XT</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00946.html">WX_XT</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00948.html">Re: MzScheme in a multi-threading environment</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00946.html">WX_XT</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00949.html">DrScheme</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00947"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00947"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

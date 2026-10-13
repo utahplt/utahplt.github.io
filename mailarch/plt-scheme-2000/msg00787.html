@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: system* always returns #f on W2K -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 15 Dec 2000 07:53:48 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001215145344.EPGO16755.femail7.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87snnp6f37.fsf@prelude.vvf.fi -->
+<!--X-Reference: 87g0jp6aln.fsf@prelude.vvf.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: system* always returns #f on W2K</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00786.html">Date Prev</a>][<a href="msg00788.html">Date Next</a>][<a href="msg00786.html">Thread Prev</a>][<a href="msg00785.html">Thread Next</a>][<a href="maillist.html#00787">Date Index</a>][<a href="threads.html#00787">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: system* always returns #f on W2K</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Hannu Koivisto &lt;<A HREF="mailto:azure@iki.fi">azure@iki.fi</A>&gt;</li>
+<li><em>Subject</em>: Re: system* always returns #f on W2K</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 15 Dec 2000 06:53:44 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00786.html">87g0jp6aln.fsf@prelude.vvf.fi</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00783.html">87snnp6f37.fsf@prelude.vvf.fi</a>&gt;	&lt;<a href="msg00786.html">87g0jp6aln.fsf@prelude.vvf.fi</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Hannu Koivisto:
+&gt; So, I took a look at the source code with a colleague of mine who
+&gt; is a Windows user and after little testing and printf-debugging we
+&gt; noticed that system* doesn't even wait for the process to finish.
+&gt; This seems to be because in code...
+&gt; 
+&gt;     spawn_status = MSC_IZE(spawnv)(type, command, (const char * const *)argv);
+&gt; 
+&gt;     if (!synchonous) {
+&gt; [...]
+&gt;     } else if ((spawn_status != -1) &amp;&amp; !as_child) {
+&gt; [...]
+&gt;     }
+&gt; 
+&gt; ...from process function in port.c neither of if branches is
+&gt; entered because as_child is true (1).
+
+After looking at this, I'm fairly certain that the &quot;!as_child&quot; test
+should be &quot;as_child&quot;.
+
+BTW, Eli Barzilay has a replacement for this twisted code, which we
+plan to integrate as soon as the module system is in place.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00783" href="msg00783.html">system* always returns #f on W2K</a></strong>
+<ul><li><em>From:</em> Hannu Koivisto &lt;azure@iki.fi&gt;</li></ul></li>
+<li><strong><a name="00786" href="msg00786.html">Re: system* always returns #f on W2K</a></strong>
+<ul><li><em>From:</em> Hannu Koivisto &lt;azure@iki.fi&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00786.html">Re: system* always returns #f on W2K</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00788.html">wow</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00786.html">Re: system* always returns #f on W2K</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00785.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00787"><strong>Date</strong></a></li>
+<li><a href="threads.html#00787"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

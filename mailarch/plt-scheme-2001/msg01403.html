@@ -1,0 +1,144 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Using continuations in user&#45;interfaces -->
+<!--X-From-R13: "Xnzvr Syyvbgg" <wnzvr&#45;rNoyhrlbaqre.pb.hx> -->
+<!--X-Date: Fri, 21 Dec 2001 16:20:56 &#45;0700 (MST) -->
+<!--X-Message-Id: 002b01c18a77$a7e37e90$647ba8c0@pcupstairs -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Using continuations in user-interfaces</title>
+<link rev="made" href="mailto:jamie-e@blueyonder.co.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01402.html">Date Prev</a>][<a href="msg01404.html">Date Next</a>][<a href="msg01401.html">Thread Prev</a>][<a href="msg01405.html">Thread Next</a>][<a href="maillist.html#01403">Date Index</a>][<a href="threads.html#01403">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Using continuations in user-interfaces</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;PLT Scheme Mailing List&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Using continuations in user-interfaces</li>
+<li><em>From</em>: &quot;Jamie Elliott&quot; &lt;<A HREF="mailto:jamie-e@blueyonder.co.uk">jamie-e@blueyonder.co.uk</A>&gt;</li>
+<li><em>Date</em>: Fri, 21 Dec 2001 23:31:46 -0000</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello,
+
+I have been experimenting with the use of continuations to structure event
+driven UI applications, and I have hit a snag.
+
+Here is my program:
+
+;;; start
+
+(define no-fn (lambda (x y) ()))
+
+(define (show-window1 cont)
+  (let* ((w (make-object frame% &quot;Enter Name&quot; #f 200 200))
+         (e (make-object text-field% &quot;Name&quot; w no-fn))
+         (b (make-object button% &quot;Next&quot; w
+              (lambda (button event)
+                (send w show #f)
+                (cont (send e get-value))))))
+    (send w show #t)))
+
+(define (show-window2 cont)
+  (let* ((w (make-object frame% &quot;Enter Address&quot; #f 200 200))
+         (e (make-object text-field% &quot;Address&quot; w no-fn))
+         (b (make-object button% &quot;Next&quot; w
+              (lambda (button event)
+                (send w show #f)
+                (cont (send e get-value))))))
+    (send w show #t)))
+
+(define (wizard)
+  (display (call/cc show-window1))
+  (display (call/cc show-window2)))
+
+(wizard)
+
+;;; end
+
+What I assumed would happen is that the first window would be shown, then,
+when the &quot;next&quot; button is pressed, it would be replaced by the second
+window, and then clicking on the next button would close that window and end
+the computation.  The name and address values would be displayed after
+pressing the next buttons.
+
+What actually happens (in DrScheme) is that *both* windows are shown
+simultaneously, two &lt;void&gt; values are displayed in the interactions window,
+and pressing either of the next buttons produces the following error
+message:
+
+continuation application: attempted to cross a continuation boundary
+
+Is this call/cc thing impossible in DrScheme, or is it just that I'm barking
+up the wrong tree with this continuation technique?
+
+TIA,
+
+- jde
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01405" href="msg01405.html">Re: Using continuations in user-interfaces</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="01408" href="msg01408.html">Re: Using continuations in user-interfaces</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01402.html">Re: (problem? 'guile)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01404.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01401.html">Re: plt/install failed 200alpha5</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01405.html">Re: Using continuations in user-interfaces</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01403"><strong>Date</strong></a></li>
+<li><a href="threads.html#01403"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

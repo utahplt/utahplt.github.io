@@ -1,0 +1,113 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: modules &#38; extensions -->
+<!--X-From-R13: Pevna Uertbe <otertbeNPGBVK.oh.rqh> -->
+<!--X-Date: Mon, 1 Apr 2002 06:07:51 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.SGI.4.33.0204010755370.222060&#45;100000@buphy.bu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>modules &amp; extensions</title>
+<link rev="made" href="mailto:bgregor@BUPHY.bu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00625.html">Date Prev</a>][<a href="msg00627.html">Date Next</a>][<a href="msg00621.html">Thread Prev</a>][<a href="msg00627.html">Thread Next</a>][<a href="maillist.html#00626">Date Index</a>][<a href="threads.html#00626">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>modules &amp; extensions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: modules &amp; extensions</li>
+<li><em>From</em>: Brian Gregor &lt;<A HREF="mailto:bgregor@BUPHY.bu.edu">bgregor@BUPHY.bu.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 1 Apr 2002 08:07:48 -0500</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Using the bitmatrix.c example with 200alpha15, I tried the following:
+   compiled the extension (on Windows 2k) with mzc
+
+   wrote a little module:
+
+(module bitmatrix
+        mzscheme
+(load-extension &quot;bitmatrix.dll&quot;)
+(provide make-bit-matrix))
+
+which fails with an error saying that make-bit-matrix is not
+defined.  This naive approach is not the way to do it...
+Do I define a module in the C code and then require it
+in the Scheme module?
+
+What I'd like is to be able to define some primitives in
+C (specifically a BLAS/LAPACK/FFTW interface) and then
+use an Mzscheme module to handle all of the implementation
+details while hiding the access to the C library.  This is
+part of a little experiment in using Mzscheme for numerics.
+
+For the record, the bitmatrix.c example also causes an
+application error when loaded.  Did something change in the
+interface?
+
+
+Thanks,
+
+Brian
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00627" href="msg00627.html">Re: modules &amp; extensions</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00625.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00627.html">Re: modules &amp; extensions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00621.html">SWIG - Automatic wrapper generation for C to Scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00627.html">Re: modules &amp; extensions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00626"><strong>Date</strong></a></li>
+<li><a href="threads.html#00626"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

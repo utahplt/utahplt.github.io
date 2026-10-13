@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Threading/Process Question -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 24 Nov 2000 14:46:24 &#45;0700 (MST) -->
+<!--X-Message-Id: 200011242146.OAA09964@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C676701223F65@thresher.corp.xpsystems.com -->
+<!--X-Reference: 20001123034324.ETLJ16459.femail3.sdc1.sfba.home.com@localhost -->
+<!--X-Reference: 20001122202900.A686@earthlink.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Threading/Process Question</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00753.html">Date Prev</a>][<a href="msg00755.html">Date Next</a>][<a href="msg00751.html">Thread Prev</a>][<a href="msg00752.html">Thread Next</a>][<a href="maillist.html#00754">Date Index</a>][<a href="threads.html#00754">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Threading/Process Question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Subject</em>: Re: Threading/Process Question</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 24 Nov 2000 14:46:19 -0700 (MST)</li>
+<li><em>CC</em>: PLT-Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00751.html">20001122202900.A686@earthlink.net</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00749.html">EDFD2A95EE7DD31187350090279C676701223F65@thresher.corp.xpsystems.com</a>&gt; &lt;<a href="msg00750.html">20001123034324.ETLJ16459.femail3.sdc1.sfba.home.com@localhost</a>&gt;	&lt;<a href="msg00751.html">20001122202900.A686@earthlink.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; Must the new procedure be long-lived?
+
+No.
+
+&gt; E.g., can it be something
+&gt; as trivial as (+ 1 2)?
+
+Yes, the body of the procedure could be just &quot;(+ 1 2)&quot;. But the thread
+will terminate as soon as that expression is evaluated.
+
+Which raises an interesting undocumented point --- calling
+scheme_swap_thread on a terminated thread will crash.
+
+In general, I recommend usesing scheme_process_block(0.0), and letting
+the scheduler pick a thread, instead of swapping to a specific other
+thread.
+
+&gt; I am actually making use of the exception-catching thunk code
+&gt; form the Inside MzScheme document.
+&gt; 
+&gt; In that code, I pass a text string that is my Scheme code to
+&gt; be evaluated:
+&gt; 
+&gt; value = _apply_thunk_catch_exceptions(scheme_make_closed_prim(do_eval,
+&gt;            (char*)cmd), &amp;exn);
+&gt; 
+&gt; Which in turn calls evals internally:
+&gt; 
+&gt; v = _scheme_apply(exn_catchin_apply, 1, &amp;f);
+&gt; 
+&gt; Where in this chain of calls is it best to do the thread switching?
+
+You need to create the thread first, and in that thread go to the code
+that sets up exception catching. The reason is that every thread has
+its own exception handler.
+
+&gt; Could it be a simple as just passing MzScheme
+&gt; a dummy &quot;(+ 1 2)&quot; thunk earlier to create the thread, and leave
+&gt; the rest as-is?
+
+A dummy thunk containing the body &quot;(+ 1 2)&quot; isn't going to help.
+Whatever the thunk used to create the thread, it needs to eventually
+set up exception catching and then evaluate the useful expressions that
+you actually want to evaluate.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00749" href="msg00749.html">Threading/Process Question</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+<li><strong><a name="00750" href="msg00750.html">Re: Threading/Process Question</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00751" href="msg00751.html">Re: Threading/Process Question</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00753.html">MzScheme Strings</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00755.html">Re: MzScheme Strings</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00751.html">Re: Threading/Process Question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00752.html">Re: Threading/Process Question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00754"><strong>Date</strong></a></li>
+<li><a href="threads.html#00754"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

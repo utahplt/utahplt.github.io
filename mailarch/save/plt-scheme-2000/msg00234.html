@@ -1,0 +1,151 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: What is an object? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 5 Apr 2000 15:30:57 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200004052130.PAA21847@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001bf937e$3d82ae00$6a032a80@cs.rice.edu -->
+<!--X-Reference: 200003212225.OAA23170@balu.qualcomm.com -->
+<!--X-Reference: 38DA2B60.6C911FE@info.unicaen.fr -->
+<!--X-Reference: 20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 38DB4F28.A4A0EEDB@info.unicaen.fr -->
+<!--X-Reference: 14555.19213.467566.25039@kintore.dai.ed.ac.uk -->
+<!--X-Reference: 38EB9A40.DE8B823F@info.unicaen.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: What is an object?</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00233.html">Date Prev</A>][<A HREF="msg00235.html">Date Next</A>][<A HREF="msg00233.html">Thread Prev</A>][<A HREF="msg00239.html">Thread Next</A>][<A HREF="maillist.html#00234">Date Index</A>][<A HREF="threads.html#00234">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: What is an object?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</LI>
+<LI><em>Subject</em>: Re: What is an object?</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 5 Apr 2000 15:30:44 -0600 (MDT)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00232.html">38EB9A40.DE8B823F@info.unicaen.fr</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00208.html">000001bf937e$3d82ae00$6a032a80@cs.rice.edu</A>&gt;	&lt;<A HREF="msg00209.html">200003212225.OAA23170@balu.qualcomm.com</A>&gt;	&lt;<A HREF="msg00214.html">38DA2B60.6C911FE@info.unicaen.fr</A>&gt;	&lt;<A HREF="msg00215.html">20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost</A>&gt;	&lt;<A HREF="msg00218.html">38DB4F28.A4A0EEDB@info.unicaen.fr</A>&gt; &lt;<A HREF="msg00219.html">14555.19213.467566.25039@kintore.dai.ed.ac.uk</A>&gt;	&lt;<A HREF="msg00232.html">38EB9A40.DE8B823F@info.unicaen.fr</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Jerzy Karczmarczuk:
+&gt; Is there a way to extract from an instance of a class 
+&gt; *all* its IVARs: names, and related values? 
+&gt; 
+&gt; Some kind of association table should exist somewhere.
+&gt; 
+&gt; I might consider looking into the implementation (object.c ??), 
+&gt; but perhaps there is a hidden access to it directly from Scheme?
+
+There's not currently a way to access this information from Scheme.
+(Also, MzScheme doesn't have any hidden features - only hidden bugs!)
+
+Note, however, that in the source distribution's plt/tests/mred, you
+can find a file called "classhack.c". It defines an extension to return
+all of the ivar names in a class.
+
+I wish I could remember why I was previously opposed to adding this
+function to MzScheme. At the moment, I see no reason not to add
+`interface-&gt;ivar-names' for 102. (Combined with `class-&gt;interface', you
+could get all the names from a class.)
+
+I worry that there might have been a good reason to leave the function
+out, but maybe the reason has gone away. I'll keep thinking about it,
+just in case, but it's hard to imagine that `ivar-in-interface?' would
+be ok while `interface-&gt;ivar-names' would be bad.
+
+&gt; The compiled, binary code of MrEd contains several dozens, perhaps
+&gt; more than a hundred occurrences of the string "ivar/proc". I wonder
+&gt; why...
+
+Paul explained what `ivar/proc' is. The reason it shows up so much in
+the binary is:
+
+  1) The binary contains embedded bytecodes to implement parts of the
+     GUI classes.
+
+  2) I broke an optimization in the bytecode compiler in version 101.
+     The optimization replaces names symbols (such as `#%ivar/proc')
+     with indices. This has been fixed for version 102.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00239" HREF="msg00239.html">Object access</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00208" HREF="msg00208.html">Distributing PLT Scheme with RedHat</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00209" HREF="msg00209.html">Re: Distributing PLT Scheme with RedHat</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00214" HREF="msg00214.html">Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00215" HREF="msg00215.html">Re: Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00218" HREF="msg00218.html">Re: Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00219" HREF="msg00219.html">Re: Sound &amp; Testing</A></STRONG>
+<UL><LI><EM>From:</EM> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00232" HREF="msg00232.html">What is an object?</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00233.html">RE: What is an object?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00235.html">RPM's</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00233.html">RE: What is an object?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00239.html">Object access</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00234"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00234"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

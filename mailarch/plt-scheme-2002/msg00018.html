@@ -1,0 +1,195 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: loading additional code -->
+<!--X-From-R13: qnivqjNqrqnflf.pbz (Rnivq @. Irygba) -->
+<!--X-Date: Sun, 6 Jan 2002 05:35:36 &#45;0700 (MST) -->
+<!--X-Message-Id: 87wuyvy7uz.fsf@dedasys.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020106000441.A1480@freebsd.hbz.pl -->
+<!--X-Reference: Pine.LNX.4.21.0201060319100.1153&#45;100000@elm -->
+<!--X-Reference: 20020106115537.A5027@freebsd.hbz.pl -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: loading additional code</title>
+<link rev="made" href="mailto:davidw@dedasys.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00017.html">Date Prev</a>][<a href="msg00019.html">Date Next</a>][<a href="msg00017.html">Thread Prev</a>][<a href="msg00019.html">Thread Next</a>][<a href="maillist.html#00018">Date Index</a>][<a href="threads.html#00018">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: loading additional code</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Wojciech Sobczuk &lt;<A HREF="mailto:sopel@freebsd.hbz.pl">sopel@freebsd.hbz.pl</A>&gt;</li>
+<li><em>Subject</em>: Re: loading additional code</li>
+<li><em>From</em>: <A HREF="mailto:davidw@dedasys.com">davidw@dedasys.com</A> (David N. Welton)</li>
+<li><em>Date</em>: 06 Jan 2002 13:36:04 +0100</li>
+<li><em>Cc</em>: Kirill Lisovsky &lt;<A HREF="mailto:lisovsky@acm.org">lisovsky@acm.org</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00017.html">20020106115537.A5027@freebsd.hbz.pl</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00012.html">20020106000441.A1480@freebsd.hbz.pl</a>&gt;&lt;<a href="msg00016.html">Pine.LNX.4.21.0201060319100.1153-100000@elm</a>&gt;&lt;<a href="msg00017.html">20020106115537.A5027@freebsd.hbz.pl</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0808 (Gnus v5.8.8) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt; writes:
+
+&gt; well, the main reason is to learn programming Scheme while doing
+&gt; something interesting.
+
+Sounds like a good reason:-) Sooner or later I need to find a project
+like that myself.
+
+&gt; ...
+
+&gt; *AND* i need a nice environment to complete two large web projects
+&gt; (and i also need to convince others that it's better than PHP which
+&gt; 'everyone knows')..
+
+If the group here will pardon some slightly off topic comments, I
+think you need to look at what people like about PHP - to wit, that
+it's easy to get aquainted with and start using, especially for people
+who don't have a lot of programming experience, or for those who have
+seen a little bit of this and that and want to get started quickly.
+
+It also has a lot of powerful libraries at this point in time,
+although that's not something you can do a lot about.
+
+Furthermore, it's available for systems like Apache and Internet
+Explorer, which most people are likely to have available.
+
+&gt; &gt; Documents containing &lt;( ... )&gt; or &lt;% ... %&gt; are not weel-formed
+&gt; &gt; XML document, while &lt;?mzwebscheme s-expr ?&gt; is proper XML PI
+&gt; &gt; (prod. 16 of W3C XML Rec.).  Which makes it possible to use
+&gt; &gt; XML/XHTML processing/editing tools on the documents containing &lt;?
+&gt; &gt; but not &lt;( or &lt;% . So, this formalism gives something.  Shorter
+&gt; &gt; PITarget (say, 'mz' instead of 'mzwebscheme') may be more
+&gt; &gt; developer friendly.
+
+Exactly... you can edit &lt;? ?&gt; with emacs, for example, and it won't
+mess up psgml mode.
+
+&gt; i'm tired of excessively formalized systems like J2EE in which one
+&gt; spends more time writing up the formal documents/classes than doing
+&gt; the actual programming.
+
+There does seem to be a couple of groupings of web systems, which
+gravitate towards the quick and easy camp (PHP, mod_dtcl) and the
+clean but pain-in-the-neck camp (java, zope).  I personally think it's
+easier to go from the first and impose a bit of discipline, than to go
+the route of many in the second, and start implementing &quot;little
+languages&quot; (see things like velocity, or your $ substitution mentioned
+below).
+
+&gt; &gt; Using XML element abd dedicated namespace may be a solution also.
+&gt; &gt; &lt;mz:scm&gt; S-expr &lt;/mz:scm&gt;
+
+Elegant, but slightly less immediate for &quot;hey, let's add a bit of
+dynamic information to the web page, boss&quot; type of applications.
+
+&gt; &gt; I do agree that one-liner
+&gt; &gt; &lt;h1&gt;&lt;(+ 2 2)&gt;&lt;/h1&gt;
+
+&gt; &gt; is looking more pleasant than 
+&gt; &gt; &lt;h1&gt;&lt;?mzwebscheme (+ 2 2)?&gt;&lt;/h1&gt;
+&gt; &gt; or
+&gt; &gt; &lt;mz:scm&gt;(+ 2 2)&lt;/mz:scm&gt;
+
+You would output it automatically, ommitting the (display ....) ?
+
+&gt; so.. i don't really know where should we place the border between
+&gt; html and scheme - to make it both usable, to some extent, by html
+&gt; people and place as little code as possible in the html document
+&gt; itself.
+
+Right, this is the way to go.  I wonder if it's possible to severely
+limit the scheme commands that you have access to in the web page?  Or
+would that be too ugly?  On the other hand, one of the things people
+like about PHP is that they can start simply and work their way up,
+because you're giving them a real language, and not just a few toy
+constructs.
+
+&gt; 	&lt;mz:printtag &quot;abc&quot; &quot;def&quot;&gt;
+
+&gt; (define printtag
+&gt;   (lambda (args)
+&gt;     (for-each (lambda (arg) (request-parameter arg)) args)))
+
+&gt; so the above html code would be compiled into:
+&gt; (printtag &quot;abc&quot; &quot;def&quot;)
+&gt; and nicely executed.
+
+&gt; the problem here is that we're not standards compliant (no tag
+&gt; parameter names - but there must be a simple, and standards
+&gt; compliant, way to represent a list inside a HTML tag??
+
+I don't like things like this, they tend to impose too much structure,
+require you to learn a 'little language' in any case, and don't give
+you the real language you are using.
+
+Ciao,
+-- 
+David N. Welton
+   Consulting: <A  HREF="http://www.dedasys.com/">http://www.dedasys.com/</A>
+Free Software: <A  HREF="http://people.debian.org/~davidw/">http://people.debian.org/~davidw/</A>
+   Apache Tcl: <A  HREF="http://tcl.apache.org/">http://tcl.apache.org/</A>
+     Personal: <A  HREF="http://www.efn.org/~davidw/">http://www.efn.org/~davidw/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00012" href="msg00012.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt;</li></ul></li>
+<li><strong><a name="00016" href="msg00016.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Kirill Lisovsky &lt;lisovsky@acm.org&gt;</li></ul></li>
+<li><strong><a name="00017" href="msg00017.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00017.html">Re: loading additional code</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00019.html">SXML (was: Re: loading additional code)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00017.html">Re: loading additional code</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00019.html">SXML (was: Re: loading additional code)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00018"><strong>Date</strong></a></li>
+<li><a href="threads.html#00018"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

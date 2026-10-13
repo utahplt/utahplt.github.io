@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Exceptional question -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 1 Apr 2001 08:01:37 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200104011401.f31E10912044@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010401054958.A18899@memo.frmug.fr.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Exceptional question</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00416.html">Date Prev</a>][<a href="msg00418.html">Date Next</a>][<a href="msg00416.html">Thread Prev</a>][<a href="msg00421.html">Thread Next</a>][<a href="maillist.html#00417">Date Index</a>][<a href="threads.html#00417">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Exceptional question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Bertrand Petit &lt;<A HREF="mailto:plt-s@phoe.frmug.org">plt-s@phoe.frmug.org</A>&gt;</li>
+<li><em>Subject</em>: Re: Exceptional question</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 1 Apr 2001 08:01:01 -0600 (MDT)</li>
+<li><em>CC</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00416.html">20010401054958.A18899@memo.frmug.fr.net</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00416.html">20010401054958.A18899@memo.frmug.fr.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Bertrand Petit:
+&gt; 	It seems from the schexn.h header that exception that could be
+&gt; raised from extension libraries are fixed at interpreter
+&gt; compile-time. Is there other ways to define new expections (and raise
+&gt; them) from C extension libraries?
+
+It's true that scheme_raise_exn() works only with a fixed set of
+exceptions. But you can use the more general `raise' that takes an
+arbitrary value (usually an instance of a struct type derived from
+`struct:exn').
+
+The C form of `raise', a scheme_raise() function, exists within
+MzScheme but wasn't made accessible to extensions in 103.X. (Actually,
+if you're in Linux, Solaris, or FreeBSD, scheme_raise() is accessible
+butq not prototyped.) In 199.X the scheme_raise() function is exported
+to extensions.
+
+Meanwhile, you can lookup the global binding of `#%raise' and call it
+with scheme_apply().
+
+To define a new exception type, lookup the global binding of
+`#%struct:exn' and use scheme_make_struct_type(), etc.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00416" href="msg00416.html">Exceptional question</a></strong>
+<ul><li><em>From:</em> Bertrand Petit &lt;plt-s@phoe.frmug.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00416.html">Exceptional question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00418.html">RE: PLT's intent to support SRFI's?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00416.html">Exceptional question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00421.html">Loading a picture from a file</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00417"><strong>Date</strong></a></li>
+<li><a href="threads.html#00417"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

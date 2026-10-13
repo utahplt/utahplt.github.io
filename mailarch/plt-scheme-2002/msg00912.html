@@ -1,0 +1,138 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] scheme unit/sig -->
+<!--X-From-R13: "[vxr F. [npurael" <qfxvcclNppf.arh.rqh> -->
+<!--X-Date: Thu, 16 May 2002 10:53:24 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020516165319.GB12886@kaus&#45;borealis.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] scheme unit/sig</title>
+<link rev="made" href="mailto:dskippy@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00911.html">Date Prev</a>][<a href="msg00913.html">Date Next</a>][<a href="msg00909.html">Thread Prev</a>][<a href="msg00914.html">Thread Next</a>][<a href="maillist.html#00912">Date Index</a>][<a href="threads.html#00912">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] scheme unit/sig</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] scheme unit/sig</li>
+<li><em>From</em>: &quot;Mike T. Machenry&quot; &lt;<A HREF="mailto:dskippy@ccs.neu.edu">dskippy@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 16 May 2002 12:53:19 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.25i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Wed, May 15, 2002 at 06:12:00PM -0400, Matthias Felleisen wrote:
+&gt; 
+&gt; In dskippy's case, it isn't so much a question of sticking to MVC. 
+&gt; It's a question of moving a conventional GUI program to the Web, and
+&gt; if you have MVC you can do this quickly, if you don't, you're in 
+&gt; deep trouble. -- Matthias, his professor :)
+
+  well the scheme servlets and MVC is a something that alot of people
+on this mailing list can relate to so i used it as an example. my actual
+question was about units however. my question was in short but not an 
+exact quote
+  
+  &gt; if servlets are units that import servlet^, then is it possible
+  &gt; for me to make a unit derived from one that imports servlet^
+  &gt; the creates my MVC view class and then use that unit to be
+  &gt; my servlet.
+
+  currently to do this i've been instantiating model, view, and controller
+in the main program. i am wondering what other people do to solve this
+problems. 
+
+  matthias and paul did correctly pick up on the fact that i'm doing this
+for matthias's class. i hope i didn't offend people with a &quot;homework&quot;
+question as in my opinion it was more a question about units which i'm
+having a bit of trouble understanding.
+
+ my partner tom's responce pushes my question off into yet another 
+tangent about timeouts and such. this is an interesting matter that we've
+discussed together. mostly revolving around the fact that session data
+is store on the server side and not the client side like with traditional
+methods like get and hidden fields. these allow the users to bookmark and
+return after a *very long time period (longer than the server timeout)
+if anyone has insight on how to over come these issues i'd be happy to
+hear them but it is my current thoughts that send/suspend is good for
+a certain set of web programing and for other things traditional top
+level arguments from a get are nice. an example
+
+  i make a servlet to index an indefinate number of magic the gathering
+(card game) decks. the main page lets you click on one and see the listing
+of cards that are in the deck. my friend that i made it for chooses to 
+use it on a strategy gamming website that uses the script in two very 
+different ways. one being the originally foreseen use as a place where users
+can go look at all of the decks that members of the club play with. the
+other being referencing indevidual decks in the meetings minutes as
+who is playing which deck. this required me to use get method links
+so one could reference (a ((href &quot;deck-listing.ss?deck=mikes-deck&quot;)) Mike)
+i also used get method on the index because it was desired to have
+anchor links instead of form posts for the user to select a deck. i have
+been looking around for HTML tricks to make an anchor link submit a form
+with a name value pair but i'm not sure it's possible. i talked to paul
+and he offered the suggestion of making a library that turns forms to 
+links (not this would still require get) currently i do
+
+  (send/suspend
+    (lambda (k-url)
+      `(html ...
+         (a ((href ,(string-append k-url &quot;?deck=mikes-deck&quot;))) Mike))))
+
+  thank you
+  -mike
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00911.html">Re: [plt-scheme] scheme unit/sig (fwd)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00913.html">Re: [plt-scheme] scheme unit/sig (fwd)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00909.html">AW: [plt-scheme] MrEd</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00914.html">[plt-scheme] Subject: Scheme Workshop 2002 -- submission deadline extended</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00912"><strong>Date</strong></a></li>
+<li><a href="threads.html#00912"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

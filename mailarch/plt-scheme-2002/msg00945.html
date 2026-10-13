@@ -1,0 +1,125 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] schemeunit and require&#45;library -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 20 May 2002 13:22:23 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205201922.NAA21209@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: iss.4896.3ce92721.8923e.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] schemeunit and require-library</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00944.html">Date Prev</a>][<a href="msg00946.html">Date Next</a>][<a href="msg00942.html">Thread Prev</a>][<a href="msg00937.html">Thread Next</a>][<a href="maillist.html#00945">Date Index</a>][<a href="threads.html#00945">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] schemeunit and require-library</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] schemeunit and require-library</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 20 May 2002 13:22:19 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00942.html">iss.4896.3ce92721.8923e.1@hermes.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00942.html">iss.4896.3ce92721.8923e.1@hermes.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Mon, 20 May 2002 18:41:03 +0200, Sebastian H Seidel wrote:
+&gt; - How can I uninstall a collection automatically?
+
+Not supported, yet. (On my list, along with versioning.)
+
+&gt; - What's the highlevel-installing-command, since 'run-installer'
+&gt; doesn't load:
+&gt;     (require (lib &quot;plt-installer.ss&quot; &quot;setup&quot;))
+&gt;     =&gt; dynamic-require: unknown module: #%mred-kernel
+
+I'll fix the documentation to clarify that &quot;plt-installer.ss&quot; depends
+on MrEd. I'll look into adding a non-GUI version, too.
+
+Meanwhile, one possibility is to run Setup PLT via &quot;setup-unit.ss&quot;, and
+give it the archive names via `current-command-line-arguments'.
+
+&gt; - When installing a .plt-file: How can I setup a procedure that is
+&gt; invoked after all files are moved to their correct locations? The
+&gt; procedure shall do further installation-work (compiling an extension).
+
+Include an &quot;info.ss&quot; in the collection that defines
+`install-collection'. Search for &quot;install-collection&quot; in Help Desk for
+more info.
+
+I'll add something about this to the &quot;creating distribution archives&quot;
+section in the mzc manual.
+
+&gt; - How can I check the contents of a .plt-file and install part
+&gt; of it into arbitrary directories?
+
+Tricky. The .plt format is completely defined in
+plt/collects/setup/doc.txt, so anything's possible. But nothing makes
+this easy right now.
+
+If you're interested in trying to extend the current unpacker, start
+with plt/collects/setup/unpack.ss.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00942" href="msg00942.html">Re: [plt-scheme] schemeunit and require-library</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00944.html">Re: [plt-scheme] Chez/MzScheme difference?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00946.html">[plt-scheme] 200alpha19</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00942.html">Re: [plt-scheme] schemeunit and require-library</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00937.html">[plt-scheme] A Parameterizable version of Oleg's SXPath library</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00945"><strong>Date</strong></a></li>
+<li><a href="threads.html#00945"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

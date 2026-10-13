@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Defines/Enums/Flags in extensions -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 8 Feb 2000 20:30:21 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000209032949.KPJL18125.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002010001.TAA14097@smtp6.mindspring.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Defines/Enums/Flags in extensions</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00053.html">Date Prev</a>][<a href="msg00055.html">Date Next</a>][<a href="msg00037.html">Thread Prev</a>][<a href="msg00039.html">Thread Next</a>][<a href="maillist.html#00054">Date Index</a>][<a href="threads.html#00054">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Defines/Enums/Flags in extensions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Robert John Andersen &lt;<A HREF="mailto:anderman@anderware.com">anderman@anderware.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Defines/Enums/Flags in extensions</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 8 Feb 2000 19:29:49 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00037.html">200002010001.TAA14097@smtp6.mindspring.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00037.html">200002010001.TAA14097@smtp6.mindspring.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Robert John Andersen:
+&gt; The code that I'm writing the extension for uses defines, enums, and
+&gt; flags.
+&gt;
+&gt; [...]
+&gt;
+&gt; What have other people done, what do you think is the best way?
+
+Here's the MrEd experience...
+
+For the wxWindows bindings in MrEd 53 and earlier versions, we went
+with integers for enums and flags, flag combinations via `bitwise-ior',
+and top-level Scheme names bound to integer constants (such as
+wx:const-align-bottom).
+
+The code was difficult to read, and we'd get unhelpful error messages
+when we confused numerical and flag arguments. The problems were
+especially common in the editor toolbox's interface, where methods
+often take a mixture of number and flag arguments. Also, I never liked
+having so many little top-level bindings (or module imports,
+depending).
+
+For version 100, we switched to symbols (for enums) and lists of
+symbols (for flags). I think it's been a significant improvement.
+
+I can imagine tighter enum and flag mechanisms based on special opaque
+values instead of symbols, but symbols are especially convenient, and
+they've worked well enough so far for MrEd.
+
+Sounds like you're already doing the right thing, IMO.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00037" href="msg00037.html">Defines/Enums/Flags in extensions</a></strong>
+<ul><li><em>From:</em> Robert John Andersen &lt;anderman@anderware.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00053.html">RE: mzc problems with RH 6.1</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00055.html">Uncompressing</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00037.html">Defines/Enums/Flags in extensions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00039.html">indenting variant-case in DrScheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00054"><strong>Date</strong></a></li>
+<li><a href="threads.html#00054"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

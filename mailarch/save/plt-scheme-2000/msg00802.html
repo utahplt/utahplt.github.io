@@ -1,0 +1,198 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: AOP/Fast matrices/Type hinting -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Wed, 2 Aug 2000 05:51:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39880C86.DB1C2487@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14726.42132.123747.888972@kintore.dai.ed.ac.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: AOP/Fast matrices/Type hinting</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00801.html">Date Prev</A>][<A HREF="msg00803.html">Date Next</A>][<A HREF="msg00800.html">Thread Prev</A>][<A HREF="msg00803.html">Thread Next</A>][<A HREF="maillist.html#00802">Date Index</A>][<A HREF="threads.html#00802">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: AOP/Fast matrices/Type hinting</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: AOP/Fast matrices/Type hinting</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 02 Aug 2000 07:56:54 -0400</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00800.html">14726.42132.123747.888972@kintore.dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Noel-
+
+Thanks for the pointers to AOP, type hinting and the suggestion
+regarding
+pattern matching. 
+
+Thanks for the mention of Zodiac. I was trying to figure out what it
+did. I though at first from a few references it was some sort of visual
+programming or GUI building system.
+
+The pattern matching should help a lot if I tried to move the translator
+beyond a "toy" translator implementation -- where presumably the match
+syntax will be much more concise than the simplistic approach I took
+there. 
+
+Nice idea to wrap the hints using a special form. It is true that I'm
+just as happy to have a "special hacks" list to apply for the
+transformation process if it works (which is how Squeak does
+translation). However, the special form you mention is much more
+modular, and I like the idea of it in theory knowing enough about the
+translation process to complain early on to the developer if the
+function does not meet the assumptions needed for easy numerical
+translation (like use of car/cdr or numerous other functions implying a
+more complex runtime, or use of tail recursion or other unusual
+constructs that are more difficult to translate.) This sort of special
+form would make it much easier for others (i.e. students) to do this
+sort of optimization because they might have immediate feedback in
+DrScheme when the violate a translation assumption. 
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+Noel Welsh wrote:
+&gt; 
+&gt; Here are the links to the AOP research that describes the `loop
+&gt; collapsing':
+&gt; 
+&gt; <A  HREF="http://www.stanford.edu/~amitp/Java/amgoyal/aop.html">http://www.stanford.edu/~amitp/Java/amgoyal/aop.html</A>
+&gt; <A  HREF="http://www.parc.xerox.com/csl/groups/sda/publications/papers/Kiczales-ECOOP97/for-web.pdf">http://www.parc.xerox.com/csl/groups/sda/publications/papers/Kiczales-ECOOP97/for-web.pdf</A>
+&gt; 
+&gt; There is a package called SERIES for Common Lisp that appears to do
+&gt; the same sort of thing:
+&gt; 
+&gt; <A  HREF="http://series.sourceforge.net/">http://series.sourceforge.net/</A>
+&gt; 
+&gt; All of the above is Lisp so should be eminently stealable and
+&gt; hackable. It is possible that doing this kind of smart programming
+&gt; would get back the losses from a rather simple minded
+&gt; compiler. Anything that is better than Matlab will get my attention!
+&gt; 
+&gt; -------
+&gt; 
+&gt; Type hinting:
+&gt; 
+&gt; The way Gambit does type hinting (which I think is the same as Common
+&gt; Lisp) is with the declare special form.
+&gt; 
+&gt; <A  HREF="http://www.iro.umontreal.ca/~gambit/doc/gambit-c.html">http://www.iro.umontreal.ca/~gambit/doc/gambit-c.html</A>
+&gt; 
+&gt; "special form: declare declaration...
+&gt; 
+&gt; This form introduces declarations to be used by the compiler(currently
+&gt; the interpreter ignores the declarations). This form can only appear
+&gt; where a define form is acceptable. Declarations are lexically scoped
+&gt; in the same way as macros. The following declarations are accepted by
+&gt; the compiler:
+&gt; 
+&gt; [snip]
+&gt; 
+&gt; (number-type primitive...)
+&gt;             Numeric arguments and result of the specified primitives
+&gt; are known to be of the given type (all primitives if none
+&gt; specified). number-type can be: `generic', `fixnum', or `flonum'."
+&gt; 
+&gt; -------
+&gt; 
+&gt; Re Paul's simple translation program:
+&gt; 
+&gt; Take a look at the pattern matching system in MzLib (match.ss). I find
+&gt; it makes this sort of code a lot easier.
+&gt; 
+&gt; E.g.
+&gt; 
+&gt; (define (print-infix-call-arg arg)
+&gt;   (if (list? arg)
+&gt;       (print-call arg)
+&gt;       (print arg)))
+&gt; 
+&gt; can be written as
+&gt; 
+&gt; (require-library "match.ss" "mzlib")
+&gt; 
+&gt; (define print-infix-call-arg
+&gt;   (match-lambda
+&gt;     [(arg . rest) (print-call arg)]
+&gt;     [arg (print arg)]))
+&gt; 
+&gt; Note square brackets [] are equivalent to parentheses ()
+&gt; 
+&gt; DrScheme comes with a parser system called Zodiac, described best in
+&gt; the DrScheme Extension Manual. I suspect its is over-kill if you only
+&gt; want to compile a limited subset of Scheme to C (but maybe the
+&gt; vocabularies will help?)
+&gt; 
+&gt; cya,
+&gt; Noel
+&gt; --
+&gt; Noel Welsh
+&gt; <A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00800" HREF="msg00800.html">AOP/Fast matrices/Type hinting</A></STRONG>
+<UL><LI><EM>From:</EM> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00801.html">RE: About Embedding MzScheme</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00803.html">MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00800.html">AOP/Fast matrices/Type hinting</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00803.html">MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00802"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00802"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

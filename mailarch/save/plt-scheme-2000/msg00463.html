@@ -1,0 +1,134 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Development/Production versions (was RE: CVS) -->
+<!--X-From-R13: Drvav Geona <eheonaNk&#45;enl.ng> -->
+<!--X-Date: Fri, 18 Feb 2000 11:56:19 &#45;0700 (MST) -->
+<!--X-Message-Id: 38ADA3B9.5599@x&#45;ray.at -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20000217201300.6891.qmail@web903.mail.yahoo.com -->
+<!--X-Reference: 200002180053.QAA10538@balu.qualcomm.com -->
+<!--X-Reference: 20000218144102.WUXF13956.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 14509.31172.982496.2800@kintore.dai.ed.ac.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Development/Production versions (was RE: CVS)</TITLE>
+<LINK REV="made" HREF="mailto:rurban@x-ray.at">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00462.html">Date Prev</A>][<A HREF="msg00464.html">Date Next</A>][<A HREF="msg00462.html">Thread Prev</A>][<A HREF="msg00464.html">Thread Next</A>][<A HREF="maillist.html#00463">Date Index</A>][<A HREF="threads.html#00463">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Development/Production versions (was RE: CVS)</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: Development/Production versions (was RE: CVS)</LI>
+<LI><em>From</em>: Reini Urban &lt;<A HREF="mailto:rurban@x%2Dray.at">rurban@x-ray.at</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 18 Feb 2000 19:55:37 +0000</LI>
+<LI><em>Organization</em>: x-ray &amp; http://xarch.tu-graz.ac.at/</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00445.html">20000217201300.6891.qmail@web903.mail.yahoo.com</A>&gt;	&lt;<A HREF="msg00455.html">200002180053.QAA10538@balu.qualcomm.com</A>&gt;	&lt;<A HREF="msg00461.html">20000218144102.WUXF13956.mail.rdc1.sfba.home.com@localhost</A>&gt; &lt;<A HREF="msg00462.html">14509.31172.982496.2800@kintore.dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Noel Welsh wrote:
+&gt; &gt; Is the distinction important to the people who want to use a glue
+&gt; &gt; generator?
+&gt; 
+&gt; As I understand it, the most important difference is that SWIG allows
+&gt; one to connect to C++ code, whereas Eli's method will only allow calls
+&gt; to C shared objects (or C++ shared objects if you know the name
+&gt; mangling scheme in use, which I certainly don't). Eli's method is a
+&gt; great solution for C libraries, but falls down for 1) things that
+&gt; aren't libraries and 2) C++ code; which is where SWIG is handy.
+
+ad 2) "C++ code":
+I wouldn't see the various name mangling schemes a major hindrance for 
+a C++ FFI.
+
+First, if you have the sources you could generate a def file with all 
+exported functions and either call these weird names then or otherwise 
+enum or alias them if you don't like the mangling scheme. 
+recompile with your new numbers or aliases and it is under your control.
+
+secondly, if you have only the binary you can look into the 
+exports section and also export a def file automatically.
+but then you'll have to stay with the mangled names.
+most compilers also have a demangler, if you really don't know for 
+what kind of parameters this method is for.
+
+In my AutoLISP FFI I only call C++ functions (from AutoCAD) from a set 
+of ~5000. By name it is sligthly portable (it changed from msvc5 to 6), 
+by enum also quite portable (newer funcs should go behind but they rarely do), 
+of course by alias it always work.
+
+ad 1) "things that aren't libraries":
+A FFI to an external process (an EXE) is my next research topic. 
+It really should be doable somehow. The AIX dynaloading scheme is a good 
+starting point, examining the exe header for exports and scanning these.
+I actually know some people which call and even hook functions in EXE's which 
+are not exported. This is an commercial app.
+-- 
+Reini Urban    
+<A  HREF="http://xarch.tu-graz.ac.at/autocad/lisp/ffis.html">http://xarch.tu-graz.ac.at/autocad/lisp/ffis.html</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00445" HREF="msg00445.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> see signature &lt;slonika@yahoo.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00455" HREF="msg00455.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00461" HREF="msg00461.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00462" HREF="msg00462.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00462.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00464.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00462.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00464.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00463"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00463"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

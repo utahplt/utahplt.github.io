@@ -1,0 +1,139 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Divisions -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Sat, 1 Jun 2002 11:48:43 &#45;0600 (MDT) -->
+<!--X-Message-Id: 045101c20994$64ffa300$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 873cw7j535.fsf@localhost.localdomain -->
+<!--X-Reference: p05111701b91e6d6ee1a1@[10.0.1.5] -->
+<!--X-Reference: 037801c20974$b8e580e0$0500000a@Lr30JS -->
+<!--X-Reference: 87r8jrgf3n.fsf@localhost.localdomain -->
+<!--X-Reference: 043501c2098c$7a0bcba0$0500000a@Lr30JS -->
+<!--X-Reference: 87it52ewmg.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Divisions</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01026.html">Date Prev</a>][<a href="msg01028.html">Date Next</a>][<a href="msg01026.html">Thread Prev</a>][<a href="msg01028.html">Thread Next</a>][<a href="maillist.html#01027">Date Index</a>][<a href="threads.html#01027">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Divisions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Paulo J. Matos&quot; &lt;<A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Divisions</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Sat, 1 Jun 2002 19:47:26 +0200</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;, &quot;Paulo J. Matos&quot; &lt;<A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01020.html">873cw7j535.fsf@localhost.localdomain</a>&gt;&lt;<a href="msg01021.html">p05111701b91e6d6ee1a1@[10.0.1.5]</a>&gt;&lt;<a href="msg01022.html">037801c20974$b8e580e0$0500000a@Lr30JS</a>&gt;&lt;<a href="msg01023.html">87r8jrgf3n.fsf@localhost.localdomain</a>&gt;&lt;<a href="msg01025.html">043501c2098c$7a0bcba0$0500000a@Lr30JS</a>&gt; &lt;<a href="msg01026.html">87it52ewmg.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Paulo J. Matos wrote:
+&gt; Anyway, do you think that calling from source GCD-
+&gt; Extended from GMP will give us better results?
+
+I was just coming to that :-)
+
+You are using the standard Euclidean algorithm to
+find the coeffecients. Now, I remembered that
+Knuth mentioned that Stein in 1961 (Ok - I couldn't
+remember the year) conceived the binary gcd algorithm,
+which is 20% faster in average.
+
+Finding my notes I tried to figure out a way to use this method
+to find the coeffecients, but had troubles in the case
+where  the numbers had different parity. I gave up and looked
+in Knuth. It turns out that he mentions yet another gcd algorithm
+namely the Lehmer algorithm. For very large numbers it works
+only on the leading digits and can therefore replace som
+multiprecision operations with some single precisíon brothers.
+
+Checking the GMP manual, it turns out that GMP uses the
+Lehmer algorithm also for the extended gcd algorithm.
+I therefore believe that the GMP version will be faster,
+but proably only noticeably on large [whatever that means]
+numbers.
+
+Now after the Lehmer algorithm Knuth mentions that using the same
+trick the binary algorithm can also be improved - and that it'll
+be faster than Lehmers. However, he leaves these improved
+algoriths to two exercices. Undoubtly the reason that they are
+not implemented in GMP :-)
+
+Yours,
+Jens Axel Søgaard
+
+Denmark 2 - 1 Uruguay
+<A  HREF="http://fifaworldcup.yahoo.com/en/020601/2/obk.html">http://fifaworldcup.yahoo.com/en/020601/2/obk.html</A>
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01020" href="msg01020.html">[plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+<li><strong><a name="01021" href="msg01021.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+<li><strong><a name="01022" href="msg01022.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+<li><strong><a name="01023" href="msg01023.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+<li><strong><a name="01025" href="msg01025.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+<li><strong><a name="01026" href="msg01026.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01026.html">Re: [plt-scheme] Divisions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01028.html">[plt-scheme] where to put extensions?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01026.html">Re: [plt-scheme] Divisions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01028.html">[plt-scheme] where to put extensions?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01027"><strong>Date</strong></a></li>
+<li><a href="threads.html#01027"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

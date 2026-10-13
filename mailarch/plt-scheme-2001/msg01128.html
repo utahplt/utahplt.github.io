@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Error context info -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Fri, 26 Oct 2001 12:39:23 &#45;0600 (MDT) -->
+<!--X-Message-Id: E15xBt2&#45;000534&#45;00@swan.prod.itd.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E4C0D8267DAA6141B77F1A4EAAEB2B91023B87D5@seapriv1 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Error context info</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01127.html">Date Prev</a>][<a href="msg01129.html">Date Next</a>][<a href="msg01126.html">Thread Prev</a>][<a href="msg01129.html">Thread Next</a>][<a href="maillist.html#01128">Date Index</a>][<a href="threads.html#01128">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Error context info</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Error context info</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 26 Oct 2001 11:39:20 -0700</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01126.html">E4C0D8267DAA6141B77F1A4EAAEB2B91023B87D5@seapriv1</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01126.html">E4C0D8267DAA6141B77F1A4EAAEB2B91023B87D5@seapriv1</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I rewrote the program (below) in one way to produce better error
+messages by manually propogating source information from the original
+program thru the validate macro to the validate-b macro. Another
+approach is to combine all of the checking into the `validate' macro
+itself and then the more natural approach, with nested syntax-cases,
+would probably work out and you wouldn't have to propogate that
+information around manually.
+
+Also, FWIW, often one does want the source location that MzScheme
+provides in this case, since the `validate' macro was passing along
+arguments to other macros without checking that they met the other
+macro's specs. If, for example, the `validate' and `validate-b' were
+written by two different programmers, the error message that mz
+returned might have been considered correct.
+
+Hope that helps.
+
+Robby
+
+(define-struct a (b-exprs))
+(define-struct b (c-exprs))
+(define-struct c (c-field))
+
+(define-syntax validate
+  (lambda (stx)
+    (syntax-case stx (a)
+      [(_ (a x ...)) 
+       (with-syntax ([(lst-args ...)
+                      (map 
+                       (lambda (x-stx)
+                         (datum-&gt;syntax-object
+                          stx
+                          `(validate-b ,x-stx))
+                         x-stx)
+                       (syntax-&gt;list (syntax (x ...))))])
+         (syntax (make-a (list lst-args ...))))]))) ; &lt;-- expression on this line is highlighted
+
+(define-syntax validate-b
+  (lambda (stx)
+    (syntax-case stx (b)
+      [(_ (b x ...)) (syntax (make-b (list (validate-c x) ...)))])))
+
+(define-syntax validate-c
+  (lambda (stx)
+    (syntax-case stx (c)
+      [(_ (c c-field))
+       (if (string? (syntax-object-&gt;datum (syntax c-field)))
+           (syntax (make-c c-field))
+           (raise-syntax-error 
+            #f
+            (format &quot;expected string, given: ~a ~a&quot; c-f (syntax-line (syntax c-field)))
+            stx))])))
+
+(validate (a (b (c &quot;foo&quot;)
+                (c &quot;bar&quot;)) ;&lt;--- misplaced paren here causes error
+                (c &quot;baz&quot;)
+             (b (c &quot;this&quot;)
+                (c &quot;is&quot;)
+                (c &quot;a&quot;)
+                (c &quot;test&quot;))))
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01126" href="msg01126.html">Error context info</a></strong>
+<ul><li><em>From:</em> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01127.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01129.html">Re: Error context info</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01126.html">Error context info</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01129.html">Re: Error context info</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01128"><strong>Date</strong></a></li>
+<li><a href="threads.html#01128"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

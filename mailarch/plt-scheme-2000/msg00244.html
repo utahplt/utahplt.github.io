@@ -1,0 +1,148 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Help on help -->
+<!--X-From-R13: ebool <eboolNpf.evpr.rqh> -->
+<!--X-Date: Fri, 14 Apr 2000 10:14:46 &#45;0600 (MDT) -->
+<!--X-Message-Id: v04220801b51ce7d49431@[128.42.2.124] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001bf937e$3d82ae00$6a032a80@cs.rice.edu -->
+<!--X-Reference: 200003212225.OAA23170@balu.qualcomm.com -->
+<!--X-Reference: 38DA2B60.6C911FE@info.unicaen.fr -->
+<!--X-Reference: 20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 38DB4F28.A4A0EEDB@info.unicaen.fr -->
+<!--X-Reference: 14555.19213.467566.25039@kintore.dai.ed.ac.uk -->
+<!--X-Reference: 38EB9A40.DE8B823F@info.unicaen.fr -->
+<!--X-Reference: 200004052130.PAA21847@fast.cs.utah.edu -->
+<!--X-Reference: 38F1B692.5E320D7D@info.unicaen.fr -->
+<!--X-Reference: 20000412140556.CABH27789.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 38F58D78.23B27052@info.unicaen.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Help on help</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00243.html">Date Prev</a>][<a href="msg00245.html">Date Next</a>][<a href="msg00243.html">Thread Prev</a>][<a href="msg00205.html">Thread Next</a>][<a href="maillist.html#00244">Date Index</a>][<a href="threads.html#00244">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Help on help</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</li>
+<li><em>Subject</em>: Re: Help on help</li>
+<li><em>From</em>: robby &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 14 Apr 2000 11:13:39 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00243.html">38F58D78.23B27052@info.unicaen.fr</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00203.html">000001bf937e$3d82ae00$6a032a80@cs.rice.edu</a>&gt;			&lt;<a href="msg00204.html">200003212225.OAA23170@balu.qualcomm.com</a>&gt;			&lt;<a href="msg00209.html">38DA2B60.6C911FE@info.unicaen.fr</a>&gt;			&lt;<a href="msg00210.html">20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost</a>&gt;			&lt;<a href="msg00213.html">38DB4F28.A4A0EEDB@info.unicaen.fr</a>&gt;&lt;<a href="msg00214.html">14555.19213.467566.25039@kintore.dai.ed.ac.uk</a>&gt;			&lt;<a href="msg00227.html">38EB9A40.DE8B823F@info.unicaen.fr</a>&gt;&lt;<a href="msg00229.html">200004052130.PAA21847@fast.cs.utah.edu</a>&gt;		&lt;<a href="msg00234.html">38F1B692.5E320D7D@info.unicaen.fr</a>&gt;&lt;<a href="msg00238.html">20000412140556.CABH27789.mail.rdc1.sfba.home.com@localhost</a>&gt;&lt;<a href="msg00243.html">38F58D78.23B27052@info.unicaen.fr</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Sorry it took me so long to reply...
+
+Instead of using start-help-desk.ss, you probably want to use 
+helpr.ss and helps.ss, like this:
+
+
+(require-library &quot;framework.ss&quot; &quot;framework&quot;)
+(require-library &quot;url.ss&quot; &quot;net&quot;)
+(require-library &quot;sig.ss&quot; &quot;help&quot;)
+
+(define (frame-mixin x) x)
+
+(define-values/invoke-unit/sig help:help^
+   (require-library &quot;helpr.ss&quot; &quot;help&quot;)
+   #f
+   mzlib:function^
+   mzlib:string^
+   mzlib:file^
+   mzlib:url^
+   mred^
+   framework^
+   (frame-mixin)
+   )
+
+(new-help-frame &quot;<A  HREF="http://www.cs.rice.edu/CS/PLT/packages/drscheme&quot">http://www.cs.rice.edu/CS/PLT/packages/drscheme&quot</A>;)
+
+Hope that helps!
+
+Robby
+
+PS: this is in 101. Let me know if you have problems adapting it to 
+102 (if you are using 102...)
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00203" href="msg00203.html">Distributing PLT Scheme with RedHat</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00204" href="msg00204.html">Re: Distributing PLT Scheme with RedHat</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+<li><strong><a name="00209" href="msg00209.html">Sound</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00210" href="msg00210.html">Re: Sound</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00213" href="msg00213.html">Re: Sound</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00214" href="msg00214.html">Re: Sound &amp; Testing</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</li></ul></li>
+<li><strong><a name="00227" href="msg00227.html">What is an object?</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00229" href="msg00229.html">Re: What is an object?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00234" href="msg00234.html">Object access</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00238" href="msg00238.html">Re: Object access</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00243" href="msg00243.html">Help on help</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00243.html">Help on help</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00245.html">Weak pointers</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00243.html">Help on help</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00205.html">Re: Distributing PLT Scheme with RedHat</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00244"><strong>Date</strong></a></li>
+<li><a href="threads.html#00244"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

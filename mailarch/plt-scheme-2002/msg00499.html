@@ -1,0 +1,125 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: 200alpha15 (security guards) -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 25 Mar 2002 19:46:13 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203260246.g2Q2k7L05563@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200203251626.JAA15614@fast.cs.utah.edu -->
+<!--X-Reference: 15519.40278.895598.134006@winona.neilvandyke.org -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: 200alpha15 (security guards)</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00498.html">Date Prev</a>][<a href="msg00500.html">Date Next</a>][<a href="msg00497.html">Thread Prev</a>][<a href="msg00485.html">Thread Next</a>][<a href="maillist.html#00499">Date Index</a>][<a href="threads.html#00499">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: 200alpha15 (security guards)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Neil W. Van Dyke&quot; &lt;<A HREF="mailto:nwv@neilvandyke.org">nwv@neilvandyke.org</A>&gt;</li>
+<li><em>Subject</em>: Re: 200alpha15 (security guards)</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Mar 2002 19:46:08 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00497.html">15519.40278.895598.134006@winona.neilvandyke.org</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00481.html">200203251626.JAA15614@fast.cs.utah.edu</a>&gt;	&lt;<a href="msg00497.html">15519.40278.895598.134006@winona.neilvandyke.org</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Mon, 25 Mar 2002 16:57:42 -0500, &quot;Neil W. Van Dyke&quot; wrote:
+&gt; 1. Complementing the ability to restrict access to file and network
+&gt;    resources would be the ability to limit access to memory and CPU
+&gt;    resources. 
+
+Limiting CPU use is easy, though not yet implemented.
+
+Limiting memory use is difficult, but we're experimenting with an
+initial implementation.
+
+&gt; 2. It seems that, for a lot of situations in which we'd have untrusted
+&gt;    code running in a thread, there would be other code in the same
+&gt;    &quot;mzscheme&quot;/&quot;mred&quot;/etc. process from which we'd want to restrict
+&gt;    references.
+
+This pretty much works, already, through lexical scope and carefully
+designed APIs (supported by procedures like `call-in-nested-thread').
+
+Programs running in DrScheme, for example, cannot get access to any
+part of the DrScheme implementation, even though they're running on the
+same Scheme machine.
+
+As you know, we've been sloppy with the protocol for executing code
+embedded in web pages (so it's disabled for web-based pages). That's
+probably worth revisiting after we gain some confidence using security
+guards.
+
+&gt; 3. I haven't looked into how the the installable &quot;.plt&quot; add-on
+&gt;    collection packages work, but a few simple safeguards there would be
+&gt;    helpful.
+
+Agreed, and your suggestions seem like a good start.
+
+Thanks,
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00481" href="msg00481.html">200alpha15 (security guards)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00497" href="msg00497.html">Re: 200alpha15 (security guards)</a></strong>
+<ul><li><em>From:</em> &quot;Neil W. Van Dyke&quot; &lt;nwv@neilvandyke.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00498.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00500.html">Announce: SchemeQL v.0.03 released!</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00497.html">Re: 200alpha15 (security guards)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00485.html">C++ extension and garbage collection</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00499"><strong>Date</strong></a></li>
+<li><a href="threads.html#00499"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Reasons, why Miss Scheme should collect her garbage before shutdown. -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 10 Feb 2002 12:58:37 &#45;0700 (MST) -->
+<!--X-Message-Id: 200202101958.g1AJwRD25663@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: iss.a4b.3c66557b.5ab99.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00232.html">Date Prev</a>][<a href="msg00234.html">Date Next</a>][<a href="msg00232.html">Thread Prev</a>][<a href="msg00235.html">Thread Next</a>][<a href="maillist.html#00233">Date Index</a>][<a href="threads.html#00233">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Subject</em>: Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 10 Feb 2002 12:58:27 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00232.html">iss.a4b.3c66557b.5ab99.1@hermes.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00232.html">iss.a4b.3c66557b.5ab99.1@hermes.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Sebastian H Seidel:
+&gt; Thus, I'd like to try out the
+&gt; more precise GC that goes by the name of &quot;3m&quot;. Does it include a
+&gt; copying facility to avoid fragmentation of the heap? 
+
+Yes.
+
+&gt; Maybe it's not
+&gt; yet ported to Windows anyway? 
+
+MzScheme3m should work in Windows. (Actually, I haven't tried it in a
+couiple of months. I'll have to double-check that nothing's broken.)
+MrEd3m doesn't, yet.
+
+&gt; If I'd program an extension using &quot;3m&quot;:
+&gt; would the interface to the GC remain the same? Does it interact well
+&gt; with embedding and extending C-programs?
+
+This is the main problem with 3m in its current form; the interface for
+extensions is not even documented, because it's too difficult to use.
+
+I plan to re-arrange the interface sometime in the next few months, and
+the result will look much like the Scheme48 interface, where all C
+pointer variables (glocal and local) must be registered explicitly with
+the collector. But the allocation and finalization interface stays the
+same.
+
+In any case, 3m will never be as convenient as the conservative version
+for embedding or extension, so I imagine a future with both.
+
+&gt; Maybe 3m&quot; will even be the
+&gt; default GC of PLT-Scheme in the future?
+
+Yes. It's difficult to say how far in the future, but I'd
+optimisitically guess one or two years from now.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00235" href="msg00235.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00232" href="msg00232.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00232.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00234.html">ICLP02 FINAL CALL FOR PAPERS</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00232.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00235.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00233"><strong>Date</strong></a></li>
+<li><a href="threads.html#00233"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

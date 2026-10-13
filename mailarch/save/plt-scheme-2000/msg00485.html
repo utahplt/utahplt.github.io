@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Scaling bitmaps? -->
+<!--X-From-R13: Syv Pnemvynl <ryvNQE.Qbearyy.SRG> -->
+<!--X-Date: Thu, 24 Feb 2000 15:30:29 &#45;0700 (MST) -->
+<!--X-Message-Id: 14517.45313.657769.777955@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14517.800.626404.576951@mojave.cs.cornell.edu -->
+<!--X-Reference: 20000224133648.KTXK13956.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Scaling bitmaps?</TITLE>
+<LINK REV="made" HREF="mailto:eli@CS.Cornell.EDU">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00484.html">Date Prev</A>][<A HREF="msg00486.html">Date Next</A>][<A HREF="msg00483.html">Thread Prev</A>][<A HREF="msg00486.html">Thread Next</A>][<A HREF="maillist.html#00485">Date Index</A>][<A HREF="threads.html#00485">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Scaling bitmaps?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Scaling bitmaps?</LI>
+<LI><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 24 Feb 2000 17:30:25 -0500 (EST)</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00482.html">20000224133648.KTXK13956.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00481.html">14517.800.626404.576951@mojave.cs.cornell.edu</A>&gt;&lt;<A HREF="msg00482.html">20000224133648.KTXK13956.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Feb 24, Matthew Flatt wrote:
+&gt; Not currently. The reason is that it isn't simple to implement under
+&gt; X, as least as far as I can tell. (It's trivial under Windows and
+&gt; MacOS, and easy to support for PostScript output.)
+
+This is the reason I figured for not having this...
+
+&gt; Am I overlooking something in the X library? Or perhaps someone
+&gt; knows of publically-available code --- in a reasonably compact form
+&gt; --- that scales bitmaps in X?
+
+What about something simple in the case of X that will get the
+parameters and just copy the pixels manually, and do the normal thing
+on Windows/Mac/PS?  That should be easy to write, and I think it will
+be sufficient - drawing on an actual window is probably going to take
+too long on X (I guess it'll send the pixels one by one which will be
+extremely slow) but usually you draw on some buffer bitmap anyway so
+the whole thing takes place in memory...  How does this sound?
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+         <A  HREF="http://www.cs.cornell.edu/eli/meaning.html">http://www.cs.cornell.edu/eli/meaning.html</A>        Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00481" HREF="msg00481.html">Scaling bitmaps?</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00482" HREF="msg00482.html">Re: Scaling bitmaps?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00484.html">RE: build from the scratch 2</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00486.html">compile-file</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00483.html">Re: Scaling bitmaps?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00486.html">compile-file</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00485"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00485"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

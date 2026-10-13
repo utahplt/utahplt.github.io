@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Src question -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Mon, 23 Oct 2000 20:00:40 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200010240200.TAA19376@gull.prod.itd.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 0101e53422317a0FE5@mail5.nc.rr.com -->
+<!--X-Reference: 200010240111.TAA20178@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Src question</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00634.html">Date Prev</a>][<a href="msg00636.html">Date Next</a>][<a href="msg00643.html">Thread Prev</a>][<a href="msg00638.html">Thread Next</a>][<a href="maillist.html#00635">Date Index</a>][<a href="threads.html#00635">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Src question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Src question</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 23 Oct 2000 19:00:32 -0700 (PDT)</li>
+<li><em>CC</em>: &quot;Scheme Mailing List&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00632.html">200010240111.TAA20178@fast.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00631.html">0101e53422317a0FE5@mail5.nc.rr.com</a>&gt;	&lt;<a href="msg00632.html">200010240111.TAA20178@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Matthew Flatt:
+&gt; For those who want a longer explanation:
+&gt; 
+&gt; MzScheme &quot;inlines&quot; references of the elements of a vector in the base
+&gt; record (which contains the type tag and vector size), instead of
+&gt; allocating a separate array of references.
+
+So does that mean that a vector assignment can potentially involve a
+copy of the vector? Perhaps you &quot;deinline&quot; on an assignment sometimes?
+
+So, does that mean that this implementation of build-vector:
+
+   ;; build-vector : int (int -&gt; X) -&gt; (vectorof X)
+   ;; purpose: to construct a vector of size i,
+   ;; filled with tha values of (f j) for 0 &lt;= j &lt;= i-1
+   (define (build-vector i f)
+     (let ([v (make-vector i #f)])
+       ... iterate, filling the vector ...
+       v))
+
+is worse than this one:
+
+   ;; build-vector : int (int -&gt; X) -&gt; (vectorof X)
+   ;; purpose: to construct a vector of size i,
+   ;; filled with tha values of (f j) for 0 &lt;= j &lt;= i-1
+   (define (build-vector i f)
+     (let ([lst (... create a list of the elemnts ...)])
+       (apply vector lst)))
+
+?
+
+Note: The MzLib collection actually contains the first, not the second.
+
+Robby
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00638" href="msg00638.html">Re: Src question</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00631" href="msg00631.html">Src question</a></strong>
+<ul><li><em>From:</em> Robert John Andersen &lt;anderman@anderware.com&gt;</li></ul></li>
+<li><strong><a name="00632" href="msg00632.html">Re: Src question</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00634.html">Re: Src question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00636.html">Outdated doc for turtle in 1.03?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00643.html">Re: Re: Re: Src question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00638.html">Re: Src question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00635"><strong>Date</strong></a></li>
+<li><a href="threads.html#00635"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

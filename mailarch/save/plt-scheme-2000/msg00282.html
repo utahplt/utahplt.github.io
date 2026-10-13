@@ -1,0 +1,121 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: MzScheme for Embedding -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 5 May 2000 21:14:41 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000506031430.IJZX25138.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C67677E9A63@THRESHER -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: MzScheme for Embedding</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00281.html">Date Prev</A>][<A HREF="msg00283.html">Date Next</A>][<A HREF="msg00279.html">Thread Prev</A>][<A HREF="msg00286.html">Thread Next</A>][<A HREF="maillist.html#00282">Date Index</A>][<A HREF="threads.html#00282">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: MzScheme for Embedding</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</LI>
+<LI><em>Subject</em>: RE: MzScheme for Embedding</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 5 May 2000 20:14:30 -0700</LI>
+<LI><em>CC</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A>, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00279.html">EDFD2A95EE7DD31187350090279C67677E9A63@THRESHER</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00279.html">EDFD2A95EE7DD31187350090279C67677E9A63@THRESHER</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; &gt;   (B) MzScheme seems like it has a fairly large memory footprint.
+&gt; &gt; 
+&gt; &gt; Yes, it does. Matthew is working on a version that will use 
+&gt; &gt; generational copy collection in addition to Hans's "non-cooperative" 
+&gt; &gt; collector. We're testing it now. 
+&gt; &gt;
+&gt; Fantastic.  Any ideas on what kind of improvement this might yield?
+
+In this case, Matthias blames conservative ("non-cooperative") GC a bit
+too much. Precise GC might make MzScheme's initial footprint 10%
+smaller, or it might be 10% bigger; it mostly depends on how the
+collector is tuned.
+
+The reason I'm working on precise GC is long-term performance and
+predictability, rather than short-term effects. Actually, my experience
+with precise GC so far confirms that conservative GC works remarkably
+well in the short term. Of course, the longer a program runs,
+conservative GC's little approximations take their toll, magnified by
+an inability to compact the heap.
+
+----------------------------------------
+
+To go back to the original question: I've never been comfortable with
+the size of MzScheme's initial footprint. Despite occasional attempts,
+I haven't been able to shrink it significantly. But the footprint
+hasn't grown significantly, either, at least in the last two years.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00286" HREF="msg00286.html">Re: MzScheme for Embedding</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00279" HREF="msg00279.html">RE: MzScheme for Embedding</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00281.html">Re: MzScheme for Embedding</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00283.html">(LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00279.html">RE: MzScheme for Embedding</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00286.html">Re: MzScheme for Embedding</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00282"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00282"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

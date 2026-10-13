@@ -1,0 +1,167 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Timing Problems with DrScheme and Mac OS -->
+<!--X-From-R13: fgrsna.fpunqjvaxryNf2000.gh&#45;purzavgm.qr -->
+<!--X-Date: Thu, 20 Sep 2001 01:27:20 &#45;0600 (MDT) -->
+<!--X-Message-Id: 1000970836.3ba99a54e7aa3@mail.tu&#45;chemnitz.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Timing Problems with DrScheme and Mac OS</title>
+<link rev="made" href="mailto:stefan.schadwinkel@s2000.tu-chemnitz.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00908.html">Date Prev</a>][<a href="msg00910.html">Date Next</a>][<a href="msg01073.html">Thread Prev</a>][<a href="msg00910.html">Thread Next</a>][<a href="maillist.html#00909">Date Index</a>][<a href="threads.html#00909">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Timing Problems with DrScheme and Mac OS</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Timing Problems with DrScheme and Mac OS</li>
+<li><em>From</em>: <A HREF="mailto:stefan.schadwinkel@s2000.tu-chemnitz.de">stefan.schadwinkel@s2000.tu-chemnitz.de</A></li>
+<li><em>Date</em>: Thu, 20 Sep 2001 09:27:16 +0200 (MEST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMP/PHP IMAP webmail program 2.2.6</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi People,
+
+I've got a problem with doing some timing under Mac OS 9 and especially the &quot;current-milliseconds&quot; and &quot;time-apply&quot; functions...
+
+I've already asked someone else so here is a copy of my old message..
+
+I really hope, some of you can help..
+
+thank you,
+Stefan Schadwinkel
+
+
+&gt; Hello,
+&gt; 
+&gt; i'm studying computer science in Germany, and i'm currently developing
+software for some psychologists at our university. The development is done on my
+own Linux-system, but the final version will be used on portable iMacs.
+&gt; 
+&gt; The problem we're facing is quite simple, we want an accurate time messurement
+of the users keystrokes. (We show a word, the individual should hit a key and i
+want to take the time between showing the word and the keystroke)
+&gt; 
+&gt; I have written two versions of this program, one using &quot;current-milliseconds&quot;
+in some pseudocode:
+&gt; 
+&gt; time_before = current-milliseconds
+&gt; read key
+&gt; time = current-milliseconds - time_before
+&gt; 
+&gt; the second version uses &quot;time-apply&quot; and some tricky stuff to use this
+function while getting the keystroke through mred-events .. 
+&gt; 
+&gt; I hope you're still listening, here's the problem:
+&gt; the results are most always divisible by 100, meaning, I get times like 600,
+1100 and so on instead of expected values like 624, 1163. 
+&gt; 
+&gt; I can't track this problem further down, but it is definatly platform-specific
+as both versions are working fine on my own system, using either Windows or
+Linux.
+&gt; 
+&gt; Maybe there is some bug in the timing handlers of Mac-version of DrScheme.
+&gt; Also, trying to use a compiled version, disabling debuging, using mred without
+drscheme, all have those silly problem.
+&gt; 
+&gt; I should say, that running &quot;current-milliseconds&quot; 6 times and displaying its
+results shows something like this:
+&gt; 
+&gt; 387850
+&gt; 387850
+&gt; 387850
+&gt; 387850
+&gt; 387866
+&gt; 387866
+&gt; 
+&gt; mostly, the numbers are ending on 33, 66, 50..
+&gt; 
+&gt; well, this is much too inaccurate for our purposes, and I personally can't
+believe that an iMac is not able to do millisecond measurements. 
+&gt; 
+&gt; Now I ask, if you got some hints or ideas to get accurate millisecond values..
+I don't about care small inaccurancies, but it should be better than this one
+tenth of second.
+&gt; 
+&gt; I am thinking about using &quot;send-event&quot; to get the milliseconds from an
+AppleEvent, but since I don't know anything about Macs this is not so easy to
+do.
+&gt; 
+&gt; Any help would be very very nice,
+&gt; thank you in advance,
+&gt; Stefan Schadwinkel
+&gt; 
+&gt;  
+&gt;  
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt;  
+&gt; 
+
+----- Ende der weitergeleiteten Nachricht -----
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00910" href="msg00910.html">Re: Timing Problems with DrScheme and Mac OS</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00908.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00910.html">Re: Timing Problems with DrScheme and Mac OS</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01073.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00910.html">Re: Timing Problems with DrScheme and Mac OS</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00909"><strong>Date</strong></a></li>
+<li><a href="threads.html#00909"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,65 @@
+<pre>
+(define Basic-Shapes
+  (unit (import) 
+        (export Shape Rectangle Circle Translated)
+
+    (define Shape (interface () draw))
+    
+    (define Rectangle
+      (class* null (Shape) (width height)
+	(public
+	  [draw (lambda (dc x y)
+		  (send dc draw-rectangle x y width height))])))
+    
+    (define Circle
+      (class* null (Shape) (radius)
+	(public
+	  [draw (lambda (dc x y)
+		  (send dc draw-ellipse
+			(- x radius)
+			(- y radius)
+			(* 2 radius)
+			(* 2 radius)))])))
+    
+    (define Translated
+      (class* null (Shape) (orig-shape dx dy)
+	(public
+	  [draw (lambda (dc x y)
+		  (send orig-shape draw 
+			dc (+ x dx) (+ y dy)))])))))
+
+
+(define Gui
+  (unit (import Shape mred:canvas% mred:frame% mred:vertical-panel%)
+        (export display-shape)
+    
+    (define shape-canvas%
+      (class mred:canvas% (panel shape)
+	(inherit get-dc)
+	(public
+	  [on-paint
+	   (lambda ()
+	     (send shape draw (get-dc) 0 0))])
+	(sequence (super-init panel))))
+    
+    (define display-shape
+      (lambda (shape)
+	(unless (is-a? shape Shape)
+	  (error 'display-shape "expected a Shape, got: ~e" shape))
+	(let* ([frame (make-object mred:frame% null "Shapes" 0 0 150 150)]
+	       [panel (make-object mred:vertical-panel% frame)]
+	       [canvas (make-object shape-canvas% panel shape)])
+	  (send frame show #t))))))
+
+(define Picture 
+  (unit (import Rectangle Circle Translated display-shape) 
+        (export shape1 shape2)
+
+    (define shape1 (make-object Rectangle 40 30))
+    (define shape2 (make-object Translated 
+		     (make-object Circle 20)
+		     30 30))
+
+    (display-shape shape1)
+    (display-shape shape2)))
+</pre>

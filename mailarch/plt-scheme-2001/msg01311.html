@@ -1,0 +1,128 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Unhygienic macros -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Mon, 10 Dec 2001 00:22:56 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112100722.CAA08351@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011209191636.GA649@la.iki.fi -->
+<!--X-Reference: 200112100347.WAA08047@bosch.cs.brown.edu -->
+<!--X-Reference: 20011210064350.GB855@la.iki.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Unhygienic macros</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01310.html">Date Prev</a>][<a href="msg01312.html">Date Next</a>][<a href="msg01309.html">Thread Prev</a>][<a href="msg01313.html">Thread Next</a>][<a href="maillist.html#01311">Date Index</a>][<a href="threads.html#01311">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Unhygienic macros</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Unhygienic macros</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 10 Dec 2001 02:22:15 -0500 (EST)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01309.html">20011210064350.GB855@la.iki.fi</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01298.html">20011209191636.GA649@la.iki.fi</a>&gt;&lt;<a href="msg01306.html">200112100347.WAA08047@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg01309.html">20011210064350.GB855@la.iki.fi</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Given ARC-IF from my previous message, consider ARC-COND:
+
+  (define-syntax (arc-cond expr)
+    (syntax-case expr ()
+      [(_)
+       (syntax (void))]
+      [(_ q0 a0 rest ...)
+       (syntax (arc-if q0
+                       a0
+                       (arc-cond rest ...)))]))
+
+With this, I can write
+
+  (arc-cond 1 2) ==&gt; 2
+  (arc-cond #f 2
+             3 4) ==&gt; 4
+  (arc-cond (+ 1 2) it  ;; IT captured by ARC-IF in exp'n of ARC-COND
+            #f      4) ==&gt; 3
+
+For the IT capture to work correctly for ARC-COND, you need (syntax
+test) rather than (syntax _) in the definition of ARC-IF.  (You
+typically won't notice this difference from testing ARC-IF alone.)
+
+By the way, I really don't like the use of the term &quot;unhygienic macro&quot;
+in *this* context.  Even the very first paper on hygienic macros
+observed the need for eluding the hygiene mechanism.  They provided a
+fairly clunky first cut at defining such macros; Dybvig and others
+have since greatly refined the mechanism.  But explicit capture is a
+different concept entirely from truly unhygienic macros, which offer
+no hygiene facility at all.  Let's keep the two separate.
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01313" href="msg01313.html">Re: Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01298" href="msg01298.html">Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+<li><strong><a name="01306" href="msg01306.html">Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="01309" href="msg01309.html">Re: Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01310.html">modifying the scheme reader in DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01312.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01309.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01313.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01311"><strong>Date</strong></a></li>
+<li><a href="threads.html#01311"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: A Conclusion Re: SchemeQL -->
+<!--X-From-R13: [X Dnl <znexwNpybnxrq.serrfreir.pb.hx> -->
+<!--X-Date: Thu, 12 Jul 2001 09:44:51 &#45;0600 (MDT) -->
+<!--X-Message-Id: 874rsi88dl.fsf@cloaked.freeserve.co.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010712141247.98951.qmail@web11201.mail.yahoo.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: A Conclusion Re: SchemeQL</title>
+<link rev="made" href="mailto:markj@cloaked.freeserve.co.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00644.html">Date Prev</a>][<a href="msg00647.html">Date Next</a>][<a href="msg00642.html">Thread Prev</a>][<a href="msg00647.html">Thread Next</a>][<a href="maillist.html#00646">Date Index</a>][<a href="threads.html#00646">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: A Conclusion Re: SchemeQL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Subject</em>: Re: A Conclusion Re: SchemeQL</li>
+<li><em>From</em>: MJ Ray &lt;<A HREF="mailto:markj@cloaked.freeserve.co.uk">markj@cloaked.freeserve.co.uk</A>&gt;</li>
+<li><em>Date</em>: 12 Jul 2001 16:39:02 +0100</li>
+<li><em>Cc</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: Noel Welsh's message of &quot;Thu, 12 Jul 2001 07:12:47 -0700 (PDT)&quot;</li>
+<li><em>Organization</em>: Cat-killingly bad</li>
+<li><em>References</em>: &lt;<a href="msg00640.html">20010712141247.98951.qmail@web11201.mail.yahoo.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0803 (Gnus v5.8.3) XEmacs/21.1 (Capitol Reef)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Noel Welsh &lt;noelwelsh@yahoo.com&gt; writes:
+
+&gt; When code = data, SSI is very easy.  
+
+It's more a case of using include virtual directives to put certain
+objects (such as talk-backs or votes) on pages which are designed in
+the wide range of other tools and platforms used by the section teams
+to produce their sites.  After a number of attempts to change that and
+failing to find a single development platform that they all are happy
+with, I'm almost resigned to it.
+
+&gt; Since I don't know what you're doing I can't offer advice (and heck,
+&gt; I haven't done much web dev anyway!)
+
+The site is tsw.org.uk but things are under heavy review.  Please
+don't imagine that the half-broken shell currently there is in any way
+representative of what it once was or what it will be.
+
+&gt; However the PLT team have indicated a desire to postion PLT Scheme
+&gt; as a web dev scripting language in the same domain as Perl &amp; Python
+
+Great!  This world needs good systems backing up the web and PLT
+Scheme is definitely a good platform.  I think, long-term, running
+something persistent to handle a subdirectory on the web site, or on
+another port, is the way to go.  If that can be a scheme server sat
+behind apache's forwarding and caching, then I'll be well happy.  I
+know that the paper says that it's as fast as apache, but I think we
+still need apache's feature set for such a large and organic site,
+really.
+
+&gt; so I'd imagine they'd be quite supportive of your efforts.  
+
+I'm likely to test their support to the limit.  And that of the very
+helpful people on this list.
+
+&gt; More power to you if you want to start a project along the lines of
+&gt; OpenACS in Scheme.  I imagine there would be others interested in
+&gt; such a project.
+
+Well, &quot;web-site-engine&quot; is registered on <A  HREF="http://savannah.gnu.org/">http://savannah.gnu.org/</A> at
+the moment, but there's no code to speak of yet.  In fact, the only
+piece of code which I'm really happy with yet is the following:
+
+(define <A  HREF="nntp:head">nntp:head</A> ; server num -&gt; list-strings
+  (let ((cache '()))
+    (lambda (serv num)
+      (if (not (assoc num cache))
+	  (set! cache (append cache 
+			      (list (cons num (<A  HREF="nntp:head-of-message">nntp:head-of-message</A> serv num))))))
+      (cdr (assoc num cache)))))
+
+I'm sure someone will now put holes through that for me, but I don't
+know many languages where I can achieve that in so little programming.
+Of course, it needs restructuring to run inside a persistent process
+without consuming memory endlessly.  Sucks to be me.
+
+I must say that I'm amazed.  I think I've just seen my first post ever
+where Shriram is posting something I vehemently and violently disagree
+with.  Expecting templates to be written in scheme is totally
+wrong-headed.  The designers just won't go for it.  Mostly you get
+HTML from them, or XSLT if you're very lucky.  You will never get that
+sort of mark-up from them, because they have no tools to develop it.
+What is needed is some way to turn nice neat scheme trees into output
+formatted according to their templates.  The world does not need
+another mark-up language, even if it is a more beautiful one than that
+used.
+
+And now if *that* doesn't get shot down in flames, nothing will.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00647" href="msg00647.html">Re: A Conclusion Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+<li><strong><a name="00648" href="msg00648.html">Re: A Conclusion Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00667" href="msg00667.html">Re: A Conclusion Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00640" href="msg00640.html">Re: A Conclusion Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00644.html">Re: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00647.html">Re: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00642.html">Re: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00647.html">Re: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00646"><strong>Date</strong></a></li>
+<li><a href="threads.html#00646"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

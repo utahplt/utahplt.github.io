@@ -1,0 +1,165 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: good books on scheme? -->
+<!--X-From-R13: [nk Vnvycreva <znkNtnp.rqh> -->
+<!--X-Date: Tue, 6 Feb 2001 10:26:48 &#45;0700 (MST) -->
+<!--X-Message-Id: 200102061727.LAA29119@max.mcs.gac.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C676701683A96@thresher.corp.xpsystems.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: good books on scheme?</title>
+<link rev="made" href="mailto:max@gac.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00225.html">Date Prev</a>][<a href="msg00227.html">Date Next</a>][<a href="msg00225.html">Thread Prev</a>][<a href="msg00227.html">Thread Next</a>][<a href="maillist.html#00226">Date Index</a>][<a href="threads.html#00226">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: good books on scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: good books on scheme?</li>
+<li><em>From</em>: Max Hailperin &lt;<A HREF="mailto:max@gac.edu">max@gac.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 6 Feb 2001 11:27:09 -0600</li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00225.html">EDFD2A95EE7DD31187350090279C676701683A96@thresher.corp.xpsystems.com</a>&gt;(brent.fulgham@xpsystems.com)</li>
+<li><em>References</em>: &lt;<a href="msg00225.html">EDFD2A95EE7DD31187350090279C676701683A96@thresher.corp.xpsystems.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   From: Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;
+   Date: Tue, 6 Feb 2001 09:19:14 -0800 
+
+   I think one final problem is that SICP makes the point that there
+   are conflicting definitions of &quot;closure&quot;.  Some of the books missing
+   the term &quot;closure&quot; from the index might have used a different term
+   so as not to confuse it with the &quot;mathematical&quot; definition, ...
+
+That is a pretty good reason to leave &quot;closure&quot; out, but in the case
+of at least one textbook -- the one I co-authored -- it isn't the
+actual reason that motivated us.  I explained that in a privately
+emailed reply a moment ago to &quot;bogo.&quot;  Since this off-topic thread
+seems to be be continuing with or without my provocation, I herewith
+include it for the rest of you:
+
+   Date: Tue, 6 Feb 2001 09:55:39 -0600
+   From: Michael Bogomolny &lt;bogo@bigfoot.com&gt;
+  ...
+   From a teaching perspective, Concrete Abstractions (Hailperin, Kaiser,
+   Knight; Brooks/Cole Publishing Company) and Simply Scheme (Harvey and
+   Wright; MIT Press) are both good books. However, they both fail the
+   &quot;closure test&quot;. ...
+
+Thanks for the endorsement.  I probably shouldn't take our failure on
+the &quot;closure test&quot; as something to feel defensive about (after all, we
+are in good company), but I thought I'd offer some perspective on
+*why* we didn't include this vocabulary term.  Instead, we simply use
+&quot;procedure&quot;.
+
+The reason is that &quot;closure&quot; only makes sense in a particular
+historical context, where procedures had previously been left &quot;open&quot;,
+that is with free variables not associated with any particular
+binding.  This was the case in various pre-Scheme Lisps, and lead to
+what was known as the &quot;funarg problem,&quot; short for &quot;functional
+argument&quot;, though it also was manifested when procedures were used in
+other first-class ways than as arguments, for example, as return
+values, where it was confusingly called the &quot;upward funarg problem&quot;
+(by contrast to the &quot;downward funarg problem,&quot; where the arg was
+genuinely an arg).  The &quot;funarg problem&quot; is what logicians had been
+calling &quot;capture of free variables,&quot; which occurs in the lambda
+calculus if you do plain substitution, without renaming, in place of
+proper beta-reduction.
+
+So anyhow, an evolutionary milestone in the development of the Lisp
+family of languages was the realizations that procedures should be
+&quot;closed&quot;, that is, converted into a form where all the variables are
+bound rather than free.  (The way this is normally done, as others
+have written in this thread, is by associating the procedure text,
+which still has free variables, with a binding environment that
+provides the bindings.)
+
+Because this was such a big deal in terms of the languages' evolution,
+Lisp hackers took to using the word &quot;closure&quot; rather than just
+&quot;procedure&quot; to emphasize that they were talking about this great new
+lexically scoped kind of procedure.
+
+As with so many words, it stuck, and people continued using it long
+after the distinction it was making ceased to be relevant.  (When was
+the last time you saw a procedure that hadn't been closed?)
+
+I find this kind of anachronism endearing, just like I grinned a bit
+when I recently caught myself calling my compilers textbook the &quot;red
+dragon book&quot; -- a name that distinguishes it from the &quot;green dragon
+book,&quot; which has been extinct for a decade and a half.  But I would
+never consciously teach a new student to say &quot;red dragon book&quot; rather
+than just &quot;dragon book.&quot;  And I would never consciously teach a new
+student to say &quot;closure&quot; rather than just &quot;procedure.&quot;
+
+So that's the reason we left it out of our book -- it is a name that
+makes a distinction no longer relevant, and which would require
+historical context to explain that would distract from the main issues
+at hand.  (Of course, the distinction may be relevant in other
+contexts, like a programming languages course where you are learning
+about how languages work, and how else they could work.  So in EOPL it
+may make perfect sense.) -max
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00227" href="msg00227.html">Re: good books on scheme?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00225" href="msg00225.html">RE: good books on scheme?</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00225.html">RE: good books on scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00227.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00225.html">RE: good books on scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00227.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00226"><strong>Date</strong></a></li>
+<li><a href="threads.html#00226"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

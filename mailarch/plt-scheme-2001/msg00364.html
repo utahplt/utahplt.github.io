@@ -1,0 +1,190 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: "scheme_setjmp" under Windows DLL? -->
+<!--X-From-R13: Drvav Geona <eheonaNknepu.gh&#45;tenm.np.ng> -->
+<!--X-Date: Thu, 8 Mar 2001 07:12:43 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.LNX.4.10.10103081511420.18399&#45;100000@xarch.tu&#45;graz.ac.at -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 5.0.0.25.0.20010308090727.00a7ddd8@mpop.netlink.co.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: &quot;scheme_setjmp&quot; under Windows DLL?</title>
+<link rev="made" href="mailto:rurban@xarch.tu-graz.ac.at">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00363.html">Date Prev</a>][<a href="msg00365.html">Date Next</a>][<a href="msg00363.html">Thread Prev</a>][<a href="msg00365.html">Thread Next</a>][<a href="maillist.html#00364">Date Index</a>][<a href="threads.html#00364">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: &quot;scheme_setjmp&quot; under Windows DLL?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Scorzelli Giorgio &lt;<A HREF="mailto:scr.giorgio@cogesic.it">scr.giorgio@cogesic.it</A>&gt;</li>
+<li><em>Subject</em>: Re: &quot;scheme_setjmp&quot; under Windows DLL?</li>
+<li><em>From</em>: Reini Urban &lt;<A HREF="mailto:rurban@xarch.tu-graz.ac.at">rurban@xarch.tu-graz.ac.at</A>&gt;</li>
+<li><em>Date</em>: Thu, 8 Mar 2001 15:12:25 +0100 (CET)</li>
+<li><em>cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>, <A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00363.html">5.0.0.25.0.20010308090727.00a7ddd8@mpop.netlink.co.uk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+this is only in the debug built of msvc. msvc inserts the esp check in every
+function call. in release it should work. at least for me.
+
+On Thu, 8 Mar 2001, Scorzelli Giorgio wrote:
+
+&gt; Hi,
+&gt; 
+&gt; I'm trying to isolate the MzScheme problem about &quot;scheme_setjmp&quot; 
+&gt; instruction which seems not to save correctly the return address if it is 
+&gt; invoked in a windows DLL.
+&gt; 
+&gt; I created a simple DLL library with the following two files (VisualC 
+&gt; 6.0/New/DLL/Empty Dll):
+&gt; 
+&gt; *** DLL.h ***
+&gt; --------------------------------------------
+&gt;          #ifndef _DLL_H__
+&gt;          #define _DLL_H__
+&gt; 
+&gt;          #ifdef DLL_EXPORTS
+&gt;          #define MYEXPORT __declspec(dllexport)
+&gt;          #else
+&gt;          #define MYEXPORT __declspec(dllimport)
+&gt;          #endif
+&gt; 
+&gt;          MYEXPORT void init();
+&gt;          MYEXPORT void eval ();
+&gt; 
+&gt;          #endif //_DLL_H__
+&gt; --------------------------------------------
+&gt; 
+&gt; 
+&gt; 
+&gt; *** DLL.cpp ***
+&gt; --------------------------------------------
+&gt; 
+&gt;          #include &lt;scheme.h&gt;
+&gt; 
+&gt;          #define DLL_EXPORTS
+&gt;          #include &quot;dll.h&quot;
+&gt; 
+&gt;          static Scheme_Env* mySchemeEnv;
+&gt; 
+&gt; 
+&gt;          MYEXPORT void init(){
+&gt;                  mySchemeEnv=scheme_basic_env();
+&gt;          }
+&gt; 
+&gt;          MYEXPORT void eval (){
+&gt;                  if (scheme_setjmp(scheme_error_buf)){
+&gt;                          return;//ERROR!!! HERE IS THE PROBLEM
+&gt;                  }else {
+&gt;                          Scheme_Object 
+&gt; *v=scheme_eval_string(&quot;(i-want-error)&quot;, mySchemeEnv);
+&gt;                  }
+&gt;          }
+&gt; --------------------------------------------
+&gt; 
+&gt; 
+&gt; and a simple application (Visual C6.0/New/Console application - Make it 
+&gt; dependant on the previous DLL):
+&gt; 
+&gt; *** MAIN.CPP ***
+&gt; --------------------------------------------
+&gt;          #include &quot;dll.h&quot;
+&gt; 
+&gt;          int main()
+&gt;          {
+&gt;                  init();
+&gt;                  eval();
+&gt;                  return 0;
+&gt;          }
+&gt; --------------------------------------------
+&gt; 
+&gt; When I run it it crashes (on DLL &quot;eval&quot; return instruction).
+&gt; The debugger warns me about a strange stack condition with the following 
+&gt; message:
+&gt; 
+&gt; --------------------------------------------
+&gt; Debug Error!
+&gt; Program F:\dll\main.exe
+&gt; Module:
+&gt; File i386\chkesp.c
+&gt; Line: 42
+&gt; 
+&gt; The value of ESP was not properly saved across a function call.
+&gt; This is usually a result of calling a function
+&gt; declared with one calling convention with a function pointer declared
+&gt; with a different calling convention
+&gt; -----------------------------------
+&gt; 
+&gt; Can someone help me?
+&gt; 
+&gt; *************************************
+&gt; Giorgio Scorzelli
+&gt; scr.giorgio@cogesic.it
+&gt; <A  HREF="http://dia.uniroma3.it/~scorzell">http://dia.uniroma3.it/~scorzell</A>
+&gt; *************************************
+&gt; 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00365" href="msg00365.html">Re: &quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+<ul><li><em>From:</em> Scorzelli Giorgio &lt;scr.giorgio@cogesic.it&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00363" href="msg00363.html">&quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+<ul><li><em>From:</em> Scorzelli Giorgio &lt;scr.giorgio@cogesic.it&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00363.html">&quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00365.html">Re: &quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00363.html">&quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00365.html">Re: &quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00364"><strong>Date</strong></a></li>
+<li><a href="threads.html#00364"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

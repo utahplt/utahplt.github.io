@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Web server questons -->
+<!--X-From-R13: Bnhy Uenhaxr <cgtNppf.arh.rqh> -->
+<!--X-Date: Thu, 25 Apr 2002 16:15:18 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020425221459.511971AAA0@amber.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.33.0204260050120.1861&#45;100000@elm -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Web server questons</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00792.html">Date Prev</a>][<a href="msg00794.html">Date Next</a>][<a href="msg00792.html">Thread Prev</a>][<a href="msg00794.html">Thread Next</a>][<a href="maillist.html#00793">Date Index</a>][<a href="threads.html#00793">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Web server questons</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Kirill Lisovsky &lt;<A HREF="mailto:lisovsky@acm.org">lisovsky@acm.org</A>&gt;</li>
+<li><em>Subject</em>: Re: Web server questons </li>
+<li><em>From</em>: Paul Graunke &lt;<A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 25 Apr 2002 18:14:59 -0400 (EDT)</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00792.html">Pine.LNX.4.33.0204260050120.1861-100000@elm</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00792.html">Pine.LNX.4.33.0204260050120.1861-100000@elm</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Fri, 26 Apr 2002 01:36:14 +0400 (MSD), Kirill Lisovsky wrote:
+&gt; Hello!
+&gt; 
+&gt; 
+&gt; On Thu, 25 Apr 2002, Paul Graunke wrote:
+&gt; 
+&gt; &gt; At Thu, 25 Apr 2002 23:26:41 +0400 (MSD), Kirill Lisovsky wrote:
+&gt; &gt; &gt; 1. What it the best way to use byte-compiled servlets?
+&gt; &gt; 
+&gt; &gt; You can use mzc to byte compile any .ss file.  If (most of) the code is
+&gt; &gt; in a collection, you can create an info.ss file, so setup-plt will compile
+&gt; &gt; the collection.  Check help-desk for mzc and for info.ss.
+&gt; &gt; &gt; 
+&gt; Is it possible to load .zo _servlet_ if it is available and .ss otherwise?
+&gt; (As load/use-compiled does it for regular files?)
+&gt; 
+
+You're right.  I changed load to load/use-compiled in the server and
+checked it in.  It will load .zo files now, too.
+
+&gt; It seems that web server always use some-servlet.ss instead of 
+&gt; compiled/some-servlet.zo which is ignored by web server, isn't it?
+&gt; 
+&gt; &gt; &gt; 3.                  ... to load a bulk of Scheme data in RAM and access it
+&gt; &gt; &gt;  from multiple servlets?   
+&gt; &gt; &gt;   Is it possible to save it before server shutdown?
+&gt; &gt; &gt; 
+&gt; &gt; Same as 2.  Functions are data, too :-)
+&gt; &gt; 
+&gt; The point is: how to save _modified_ data on server _shutdown_ (it may be a common
+&gt; situation for a particular server) rather than on data update operation invoked
+&gt; by a servlet?
+&gt; 
+There's not a callback that runs on shutdown currently.  I'm not sure how
+to add one reliably anyway since someone could kill -9 the server process.
+
+You could write a &quot;sync to disk&quot; servlet and always remember to call it, or
+you could checkpoint the data every N seconds.
+
+If you have a better idea, please let us know!
+
+&gt; Thank you for the fast reply!
+&gt; 
+&gt; Best regards, 
+&gt;          Kirill.
+&gt; 
+
+Thanks,
+
+Paul
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00792" href="msg00792.html">Re: Web server questons</a></strong>
+<ul><li><em>From:</em> Kirill Lisovsky &lt;lisovsky@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00792.html">Re: Web server questons</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00794.html">Re: Web server questons</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00792.html">Re: Web server questons</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00794.html">Re: Web server questons</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00793"><strong>Date</strong></a></li>
+<li><a href="threads.html#00793"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

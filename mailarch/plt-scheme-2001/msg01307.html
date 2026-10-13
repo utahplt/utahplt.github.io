@@ -1,0 +1,281 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Scheme OpenGL API -->
+<!--X-From-R13: [betna [pUhver <zbetna3qNlnubb.pbz> -->
+<!--X-Date: Sun, 9 Dec 2001 21:45:53 &#45;0700 (MST) -->
+<!--X-Message-Id: 20011210044550.84820.qmail@web14004.mail.yahoo.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Scheme OpenGL API</title>
+<link rev="made" href="mailto:morgan3d@yahoo.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01306.html">Date Prev</a>][<a href="msg01308.html">Date Next</a>][<a href="msg01318.html">Thread Prev</a>][<a href="msg01308.html">Thread Next</a>][<a href="maillist.html#01307">Date Index</a>][<a href="threads.html#01307">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Scheme OpenGL API</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:r.l.kooima@home.com">r.l.kooima@home.com</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>, <A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A></li>
+<li><em>Subject</em>: Scheme OpenGL API</li>
+<li><em>From</em>: Morgan McGuire &lt;<A HREF="mailto:morgan3d@yahoo.com">morgan3d@yahoo.com</A>&gt;</li>
+<li><em>Date</em>: Sun, 9 Dec 2001 20:45:50 -0800 (PST)</li>
+<li><em>Reply-To</em>: <A HREF="mailto:matrix@alum.mit.edu">matrix@alum.mit.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; &quot;Robert Kooima&quot; writes:
+&gt;For the past few weeks I've been investigating the possibility of
+&gt;adding OpenGL bindings as an extension to MzScheme.  This is not a
+&gt;small task, and I'm aware of a few previous aborted attempts.
+
+I'm not on this list, but Shriram forwarded the message to me and
+asked my opinion.  I've implemented a number of OpenGL programs in C++
+and Java and have designed many graphics API's, including the
+OpenGL bindings and high level 2D/3D API for Curl
+(<A  HREF="http://www.curl.com">http://www.curl.com</A>).  So, I'm very familiar with the design choices
+you are facing.  I wish I could say I also know the right answers;
+instead all I can do is offer some opinions born of my own experience
+and mistakes I've tried to learn from.
+
+&gt; (gl-matrix-mode gl-projection)
+
+You've Scheme-ified the API.  For those not familiar with OpenGL, in
+C this would look like:
+
+  glMatrixMode(GL_PROJECTION);
+
+I suggest you consider using syntax that looks as much like the C
+spec as possible.  There are two reasons for this:
+
+1. People already familiar with OpenGL will have an easier time using
+   it within Scheme.  For those not familiar with OpenGL, provide a
+   higher level API that maps more naturally to Scheme.
+
+2. It makes the conversion process mechanical.  Adopting an existing
+   standard in its entirety avoids all of the places where people can
+   disagree.  You'll see wider acceptance and spend less time worrying
+   about the correct punctuation.  In general, don't try to improve GL
+   in any way while mapping it into Scheme... that job is for a Scheme
+   specific library built on top of your OpenGL bindings.
+
+3. It makes it easier to compare Scheme and C code.  There is an awful
+   lot of OpenGL code on the web and it is nice to be able to look at
+   and borrow from it without performing excessive syntax gymnastics.
+
+
+&gt;	 (define (on-paint)
+&gt;	   (send this with-gl-context (lambda () (draw)))
+&gt;	   (send this swap-gl-buffers))
+
+Very nice.
+
+&gt;	     (gl-frustum (- a) a -1.0 1.0 2.0 100.0)
+
+Don't forget to port GLU... a lot of handy functions (like glViewport)
+are in there and are inconvenient to work without.  I'd skip GLUT
+entirely; Scheme already has GUI stuff. 
+
+While you're at it, I've found that porting a subset of OpenGL is a
+good way to lose friends.  People start using your bindings then find
+out you haven't implemented some particular function they depended
+on... consider supporting the full OpenGL 1.3 spec.  You should be able
+to machine generate almost all of it by running over a set of GL
+headers, anyway.
+
+&gt; This takes a very C-like view of GL usage.  As GL hides its state, GL
+&gt; code ends up being somewhat un-scheme-like lists of gl-do-something
+&gt; invocations.
+
+That's ok... GL is a state-machine API; trying to make it more
+functional would just make it harder to use.  Again, a high-level
+wrapper built on top of your bindings is the place to make a real
+Scheme 3D API.
+
+&gt; The on-char handler calls the draw function directly, rather than
+&gt; invoking refresh on the window in order to generate a paint event.
+&gt; This is because the on-paint handler clears the window to its
+&gt; background color before doing the rendering, resulting in serious
+&gt; flickering.
+
+With regard to the canvasses... you will lose huge amounts of
+performance if extra page copies start happening.  I'm not sure if
+you're doing it optimally, but make sure that the page flipping is
+working correctly (i.e. not clearing the background extra times or
+switching contexts unnecessarily).  There is no reason your
+performance should not be the same as C for rendering a few hundred
+thousand polygons.
+
+In order to use certain pieces of functionality, it is really
+important to let the user control how the context is instantiated.
+Color, alpha, depth, stencil bit depth and antialiasing have to be
+specified on initialization, so make sure there's a way of doing that.
+
+
+&gt; GL makes heavy use of blocks of data for things such as vertex arrays
+&gt; and textures.  It will be necessary to create vector types for each
+of
+&gt; the GL types: gl-float-vec, gl-uint-vec, gl-ubyte-vec, etc.  These
+&gt; would support make-, -length, -ref, and -set! vector operations, and
+&gt; would hopefully be as unsurprising as possible.
+
+I think that is the right approach.  Most of these are accessed via
+dynamically loaded extensions.  It is *essential* to have a solid
+extension loading mechanism.  There is no standard for this, so you
+can be slick about it, using macros to make the syntax nice.  
+
+Since there is a lot of interest in
+
+&gt; Given that many modern GL applications are bus-bound,
+transform-bound,
+&gt; or fill-bound, the ability to define vertex arrays using such vectors
+&gt; would allow for scheme GL code that performs every bit as well as the
+&gt; equivalent C code.
+
+Agreed.  I find that fill-bound is the problem for most applications
+now, since interesting effects take multiple rendering passes and high
+resolutions require ridiculous amounts of fill rate.  Processors sit
+around waiting on graphics cards in my experience.
+
+&gt; I'm considering creating a few wrappers.  For instance, there are a
+&gt; wide variety of vertex commands for different argument types and
+&gt; counts: gl-vertex-3f, gl-vertex-4f, gl-vertex-2i, etc.  It might be
+&gt; convenient to have a gl-vertex function that counts the arguments and
+&gt; chooses which gl-vertex-* to call, possibly converting all arguments
+&gt; up to a consistent type.  While this would hurt performance in
+&gt; immediate mode, any overhead would magically disappear when using
+&gt; display lists.
+
+Good idea.  I suggest sending args over as floats since that's the
+precision most cards use anyway and doubles just waste bandwidth (my
+fill-rate argument notwithstanding).
+
+
+&gt; Similarly, I'm of the opinion that this is fairly ugly:
+&gt;
+&gt;        (gl-begin gl-triangles)
+&gt;  	(gl-vertex-2i 0 0)
+&gt;	(gl-vertex-2i 1 0)
+&gt;	(gl-vertex-2i 0 1)
+&gt;	(gl-end)
+&gt;
+&gt; Something like this is a little less ugly:
+&gt;
+&gt;	 (gl-begin-triangles
+&gt;	   (gl-vertex-2i 0 0)
+&gt;	   (gl-vertex-2i 1 0)
+&gt;	   (gl-vertex-2i 0 1))
+&gt;
+
+This is where I think you're designing too far ahead.  Your instincts
+are dead on-- the GL API is full of (sometimes dangerous) warts like
+this, and you want to remove them.  I've found that this is a bad
+place to tweak API's, however.  You're taking on the constraints of
+trying to make the API safe and elegant while still bearing the
+constraints of trying to follow the GL spec.  
+
+Follow GL faithfully, then make a high level API on top of these
+bindings that is much cleaner.  This divides up the constraints as
+well as the APIs and the development process... divide and conquer is
+a strategy for design/implementation success.
+
+&gt; How can the use of a GL extension be made more scheme-ish?  SHOULD
+the
+&gt; use of a GL extension be more scheme-ish?
+
+No.
+
+&gt; The C functions all return scheme_void (with the exception of some
+&gt; unimplemented state queries).  Does this make sense?
+
+Yes.
+
+
+&gt; A very large majority of GL functions have side effects.  So, naming
+&gt; the procedures as gl-do-something! might be in order.  However, the
+&gt; state being changed is external to the environment.  A ! on every GL
+&gt; call begins to look cluttered anyway.  Thoughts on this?
+
+Don't bother.  We don't make a DISPLAY! function for printing, so 
+why make 3D side effects different from text side effects?
+
+&gt; Should the GL extension be packed into a unit somehow?
+
+Yes.
+
+&gt; An alternative implementation would have the C functions assume their
+&gt; arguments are perfect.  Scheme wrappers would check type and count.
+&gt; Is there any advantage or disadvantage to this approach?
+
+It is safer to have everything check arguments, but slower.  Also, you
+want as little C code as possible.  I think having the C code make 
+assumptions is reasonable (if you write some unit tests).
+
+&gt; How's the naming?  Would a different choice of symbols be better?
+&gt; It would seem that gl-vertex-3f is more scheme-ish than glVertex3f.
+
+Use glVertex3f.
+
+-morgan
+
+__________________________________________________
+Do You Yahoo!?
+Send your FREE holiday greetings online!
+<A  HREF="http://greetings.yahoo.com">http://greetings.yahoo.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01308" href="msg01308.html">Scheme OpenGL API</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01306.html">Unhygienic macros</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01308.html">Scheme OpenGL API</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01318.html">RE: RFC - GL in scheme (long, with code)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01308.html">Scheme OpenGL API</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01307"><strong>Date</strong></a></li>
+<li><a href="threads.html#01307"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

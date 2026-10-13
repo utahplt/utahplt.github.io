@@ -1,0 +1,160 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] Re: Ah. I understand. -->
+<!--X-From-R13: [ngg Xnqhq <zwnqhqNpf.vaqvnan.rqh> -->
+<!--X-Date: Sat, 8 Jun 2002 12:54:15 &#45;0600 (MDT) -->
+<!--X-Message-Id: Pine.GSO.4.44.0206081323550.24146&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E17Gjp9&#45;0006vF&#45;00@pintail.mail.pas.earthlink.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] Re: Ah. I understand.</title>
+<link rev="made" href="mailto:mjadud@cs.indiana.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01087.html">Date Prev</a>][<a href="msg01089.html">Date Next</a>][<a href="msg01084.html">Thread Prev</a>][<a href="msg01089.html">Thread Next</a>][<a href="maillist.html#01088">Date Index</a>][<a href="threads.html#01088">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] Re: Ah. I understand.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@ccs.neu.edu">robby@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: [plt-scheme] Re: Ah. I understand.</li>
+<li><em>From</em>: Matt Jadud &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 8 Jun 2002 13:53:42 -0500 (EST)</li>
+<li><em>cc</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;E17Gjp9-0006vF-00@pintail.mail.pas.earthlink.net&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+On Sat, 8 Jun 2002, Robert Bruce Findler wrote:
+&gt; You got it!
+&gt;
+&gt; (Do you mind re-sending that message to the list? I've just moved our
+&gt; conversation back to the list with my last reply. I shouldn't have
+&gt; taken it off)
+
+	With a bit of cleanup, my &quot;Aha!&quot; was why implementing my Scheme-&gt;Forth
+compiler for the Mindstorm as a button as opposed to a language was a good
+thing.
+
+	I already have a subset of Scheme I'm working with; because the
+compiler was developed outside of the greater DrScheme environment, my initial
+reaction to drscheme:eval:expand-program was that I'd have to do more work to
+get it down to the s-expression-based syntax of my compiler; a bit more
+thought, and some experimentation made me realize a very cool side effect of
+working with the primitive Scheme syntax.
+
+**
+	Any language implemented as a lang&lt;%&gt; is compiled down to the primitive
+Scheme language described in the MzScheme manual.
+**
+	It's as simple as that.
+
+	By working with this, I can compile (transform, whatever) primitive
+Scheme into a syntax usable by my compiler--really, a straight-forward
+transformation in this case. The benefits of this, though, are huge,
+considering the applications I had in the back of my mind.
+
+	First, I'd like to use this with students. I can easily extend Beginner
+Scheme with primitives for the Mindstorm (a module that imports Beginning
+Scheme, and exports all of Beginning Scheme with a few more primitives). This
+leverages all the excelent error messages, etc., in Beginner Scheme--meaning I
+don't have to recreate this effort for use with beginning students. Cool.
+
+	It also means that I can save myself swapping firmware on the RCX.
+For people who like NQC (Not Quite C---which requires but is limited by the
+native firmware that ships with the LEGO), I can reimplement NQC as a new
+language in DrScheme (just like Algol60), and my button to compile the
+window to Forth will _still_ work, because the NQC-lang&lt;%&gt; will handle
+compilation to primitive Scheme, and my code will step in to take that to
+Forth.
+
+	Perhaps just as crazy, I can extend the Algol60 language to include
+primitives for motor control, etc., and then you can program the LEGO Mindstorm
+with Algol60. Granted, Algol60-&gt;Scheme-&gt;Forth is a long way around the block,
+but processors are continuing to get faster every day... :)
+
+	And if/when someone implements a LISP lang&lt;%&gt;, or Prolog, or Java, or
+Haskell, or ... It wasn't until I was stumbling around trying to integrate this
+into the environment that I realized how nice the abstraction layers were in
+the language hierarchy.
+
+	That's the expanded &quot;Aha!&quot; that Robby asked me to send to the list.
+
+	Thanks,
+	Matt
+
+	PS - For those interested, I'm targeting Ralph Hempel's pbForth, an ANS
+compliant Forth for the LEGO Mindstorm:
+
+<A  HREF="http://www.hempeldesigngroup.com/lego/pbForth/homePage.html">http://www.hempeldesigngroup.com/lego/pbForth/homePage.html</A>
+
+The compiler is written in collaboration with my colleague, Brooke Chenoweth.
+After various things are cleaned up, some code belonging to others is properly
+credited, it will hopefully move to Sourceforge in the Schematics project.
+
+Targeting Forth is a stopgap until such time as I can implement a runtime for
+the Mindstorm natively, and compile directly to the metal. The end goal is to
+have a top-to-bottom environment where students can explore the design and
+implementation of programming languages for small systems; that, at least, is
+my current goal.
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01089" href="msg01089.html">Re: [plt-scheme] Re: Ah. I understand.</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01087.html">Re: [plt-scheme] Adding a language</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01089.html">Re: [plt-scheme] Re: Ah. I understand.</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01084.html">[plt-scheme] Simple class macro wrappers for MzScheme v200?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01089.html">Re: [plt-scheme] Re: Ah. I understand.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01088"><strong>Date</strong></a></li>
+<li><a href="threads.html#01088"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

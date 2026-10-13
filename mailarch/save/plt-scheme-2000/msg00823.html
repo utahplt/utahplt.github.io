@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Making MzScheme extensions using VC++ 5.0? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Sat, 5 Aug 2000 08:27:06 &#45;0600 (MDT) -->
+<!--X-Message-Id: 398C259F.B4D6F4D3@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 398B1289.4DC3876A@kurtz&#45;fernhout.com -->
+<!--X-Reference: 20000804223357.VHKC10370.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 398B96DC.2B0E7318@kurtz&#45;fernhout.com -->
+<!--X-Reference: 200008050427.XAA11683@africa.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Making MzScheme extensions using VC++ 5.0?</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00822.html">Date Prev</A>][<A HREF="msg00824.html">Date Next</A>][<A HREF="msg00819.html">Thread Prev</A>][<A HREF="msg00820.html">Thread Next</A>][<A HREF="maillist.html#00823">Date Index</A>][<A HREF="threads.html#00823">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Making MzScheme extensions using VC++ 5.0?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: Making MzScheme extensions using VC++ 5.0?</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 05 Aug 2000 10:33:03 -0400</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00812.html">398B1289.4DC3876A@kurtz-fernhout.com</A>&gt; &lt;<A HREF="msg00817.html">20000804223357.VHKC10370.mail.rdc1.sfba.home.com@localhost</A>&gt; &lt;<A HREF="msg00818.html">398B96DC.2B0E7318@kurtz-fernhout.com</A>&gt; &lt;<A HREF="msg00819.html">200008050427.XAA11683@africa.cs.rice.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthias Felleisen wrote:
+&gt; 
+&gt; Why don't you build the software first and then worry about the licensing
+&gt; deal? If you really dislike one, I bet there is a way to re-build the
+&gt; software in a slightly different context. -- Matthias
+
+Good point. Its certainly a way to move forward quickly and that has a
+lot of merit.
+
+However, in general, I still like to get the licensing issues out of the
+way at the start since porting often does take time -- if for no other
+reason than because of all the retesting that is required. However,
+often as not there are also subtle differences that can be
+time-consuming to resolve. Deals are also usually worse when you are
+already committed to something. Also, for copyright reasons, I also like
+to minimize "contamination" (in the legal copyright infringement sense)
+by avoiding even looking at source code if I don't want to deal with its
+license. (While it is true you cannot copyright an idea or algorithm,
+there are other aspects of the code, such as organization that the
+copyright also extends to.)
+
+That's also one thing I like about Scheme itself. Since there are so
+many implementations (several fairly unencumbered of licensing
+restrictions like Elk), one can develop under one and with reasonable
+effort port it to another system with a different license if desired. Or
+as SIOD shows (Scheme in one day / defun) one can make a limited Scheme
+oneself with a reasonable effort.
+Obviously, something with the sophistication and stability of MrEd for
+example is going to take a lot more effort than that.
+
+In regards to MzScheme and LGPL, I still might decide I don't like the
+LGPL restriction of also shipping separate object files so an end user
+can relink against the library (or other related licensing issues in
+section 6.). I have no problem with submitting changes made to the core
+-- it's this specific issue that creates an extra awkwardness on
+deployment. So for example, under the LGPL, if I use the technique
+Matthew Flatt explains in "new stand-alone executeable trick":
+  <A  HREF="http://www.cs.utah.edu/plt/mailarch/plt-scheme-2000/msg00661.html">http://www.cs.utah.edu/plt/mailarch/plt-scheme-2000/msg00661.html</A>
+I believe I would still need to make available seperately the *.zo files
+for each module to end users. I can probably live with this, but I find
+it awkward. Some libraries work differently -- for example, the
+wxWindows 2 licence is essentially the L-GPL (Library General Public
+Licence), with an exception stating that derived works in binary form
+may be distributed on the user's own terms.
+  <A  HREF="http://www.wxwindows.org/newlicen.htm">http://www.wxwindows.org/newlicen.htm</A>
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00812" HREF="msg00812.html">Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00817" HREF="msg00817.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00818" HREF="msg00818.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00819" HREF="msg00819.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00822.html">Re: Making MzScheme extensions using VC++ 5.0? (Success!)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00824.html">Top window garbage collected in standalone?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00819.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00820.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00823"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00823"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

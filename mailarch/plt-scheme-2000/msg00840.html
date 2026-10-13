@@ -1,0 +1,232 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: GC Errors in Embedded Program -->
+<!--X-From-R13: Perag Thytunz <oshytunzNqrovna.bet> -->
+<!--X-Date: Fri, 29 Dec 2000 22:41:49 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001229215409.A9655@debian.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20001227085419.A6666@earthlink.net -->
+<!--X-Reference: 20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost -->
+<!--X-Reference: 20001228000310.A2102@earthlink.net -->
+<!--X-Reference: 20001229134410.MWBQ29808.femail5.sdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: GC Errors in Embedded Program</title>
+<link rev="made" href="mailto:bfulgham@debian.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00839.html">Date Prev</a>][<a href="msg00841.html">Date Next</a>][<a href="msg00839.html">Thread Prev</a>][<a href="msg00834.html">Thread Next</a>][<a href="maillist.html#00840">Date Index</a>][<a href="threads.html#00840">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: GC Errors in Embedded Program</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: GC Errors in Embedded Program</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Date</em>: Fri, 29 Dec 2000 21:54:09 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00836.html">20001229134410.MWBQ29808.femail5.sdc1.sfba.home.com@localhost</a>&gt;; from mflatt@cs.utah.edu on Fri, Dec 29, 2000 at 05:44:10AM -0800</li>
+<li><em>References</em>: &lt;<a href="msg00823.html">20001227085419.A6666@earthlink.net</a>&gt; &lt;<a href="msg00824.html">20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost</a>&gt; &lt;<a href="msg00833.html">20001228000310.A2102@earthlink.net</a>&gt; &lt;<a href="msg00836.html">20001229134410.MWBQ29808.femail5.sdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.12i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Fri, Dec 29, 2000 at 05:44:10AM -0800, Matthew Flatt wrote:
+&gt; With the GC upgrade (version 103.4), I see that the stack-base routine
+&gt; changed for x86 Linux. Now it will always find the base of the main
+&gt; thread's stack.
+&gt; 
+&gt; If the Boehm GC supports threads for your platform, then you might be
+&gt; able to fix the problem by turning on an appropriate compilation flag.
+&gt; (For Linux, it's either -DLINUX_THREADS or -DGC_LINUX_THREADS,
+&gt; depending on which version of the GC you have.)
+&gt; 
+
+Bah!
+
+Unfortunately, this doesn't seem to help much either:
+
+[29/Dec/2000:21:38:22][9636.1024][-main-] Notice: nsmain: AOLserver/3.2 running
+[29/Dec/2000:21:38:22][9636.1024][-main-] Notice: nsmain: security info: uid=103, euid=103, gid=33, egid=33
+[29/Dec/2000:21:38:22][9636.2051][-sched-] Notice: sched: starting
+[29/Dec/2000:21:38:22][9636.3076][-socks-] Notice: sockcallback: thread starting
+[29/Dec/2000:21:38:22][9636.4101][-nssock-] Notice: nssock: starting
+[29/Dec/2000:21:38:22][9636.4101][-nssock-] Notice: nssock: listening on <A  HREF="http://hopper">http://hopper</A> (127.0.0.1:80)
+[29/Dec/2000:21:38:22][9636.4101][-nssock-] Notice: nssock: accepting connections
+
+Program received signal SIGINT, Interrupt.
+[Switching to Thread 1024 (LWP 9636)]
+0x4008624a in sigsuspend () from /lib/libc.so.6
+(gdb) info thread
+  6 Thread 4101 (LWP 9643)  0x4011b7de in select () from /lib/libc.so.6
+  5 Thread 3076 (LWP 9642)  0x4011b7de in select () from /lib/libc.so.6
+  4 Thread 2051 (LWP 9641)  0x400fc0c1 in nanosleep () from /lib/libc.so.6
+  3 Thread 1026 (LWP 9640)  0x4011b7de in select () from /lib/libc.so.6
+  2 Thread 2049 (LWP 9639)  0x40119cb0 in poll () from /lib/libc.so.6
+* 1 Thread 1024 (LWP 9636)  0x4008624a in sigsuspend () from /lib/libc.so.6
+(gdb) break MV_InterpreterPool::Eval
+Breakpoint 1 at 0x4031d678: file ns_interps.cc, line 265.
+(gdb) c
+Continuing.
+[New Thread 5126 (LWP 9650)]
+[29/Dec/2000:21:38:46][9636.5126][-conn0-] Debug: serv: starting: waiting for connections
+[29/Dec/2000:21:38:46][9636.5126][-conn0-] Debug: MV_PageGet: url /test.ss
+[Switching to Thread 5126 (LWP 9650)]
+
+Breakpoint 1, MV_InterpreterPool::Eval (this=0x815c5f8, conn=0x81dbc38, 
+	      s=0x4037a203 &quot;(+ 1 2)&quot;) at ns_interps.cc:265
+265         MV_request* req = new MV_request(eEvalCharCurrent language:  auto; currently c++
+(gdb) n
+266        Ns_Log(Notice, &quot;MachV:  Handle a request...&quot;);
+(gdb) p *reg
+$1 = {rxpos (int, int *)} 0x403551c8 &lt;reg&gt;
+(gdb) p eEvalCharStr
+$2 = eEvalCharStr
+(gdb) p s
+$3 = 0x4037a203 &quot;(+ 1 2)&quot;
+(gdb) n
+[29/Dec/2000:21:39:15][9636.5126][-conn0-] Notice: MachV:  Handle a request...
+267         Scheme_Object* exn = NULL; 
+(gdb) n
+268         Scheme_Object* curerr = scheme_get_param(scheme_config, MZCONFIG_ERROR_PORT);
+(gdb) step
+0x40350ed2 in scheme_pthread_get_current_process () at ./process.c:3703
+3703      return (Scheme_Process *)pthread_getspecific(cp_key);
+Current language:  auto; currently c
+(gdb) p cp_key
+$4 = 2
+(gdb) step
+
+Program received signal SIGSEGV, Segmentation fault.
+0x4031d6d2 in MV_InterpreterPool::Eval (this=0x815c5f8, conn=0x81dbc38, 
+       s=0x4037a203 &quot;(+ 1 2)&quot;) at ns_interps.cc:268
+268         Scheme_Object* curerr = scheme_get_param(scheme_config, MZCONFIG_ERROR_PORT);
+
+===================================================================
+
+So, I don't know.  I'm kind of at a loss for what else to do at
+this point.  It looks like MzScheme may only work if it stays
+under the control of &quot;-main-&quot;.  It seems to really *hate* being
+a subservient thread.  Even under Linux with LINUX_THREADS and
+REENTRANT.
+
+On that subject, I had to make a few modifications to the CVS sources
+to get a compile with todays CVS:
+
+diff -war portfun.c.old portfun.c 
+725c725
+&lt; static do_unlock_mutx(void *m)
+---
+&gt; static do_unlock_mutex(void *m)
+
+
+I'm not sure on this section -- this seems more in keeping with the
+way this was coded in all the other source files (plus it allows it
+to compile...):
+
+diff -war stxobj.c.old stxobj.c
+1148c1148
+&lt; # ifndef MZ_REAL_THREADS
+---
+&gt; # ifdef MZ_REAL_THREADS
+1469c1469
+&lt; # ifndef MZ_REAL_THREADS
+---
+&gt; # ifdef MZ_REAL_THREADS
+
+In gc/linux_threads.c there are some missing &quot;extern&quot; function
+declarations, as well as a &quot;fully_initialized&quot; variable that
+never gets set if &quot;THREAD_LOCAL_ALLOC&quot; is unset (which is the
+case according to configure on my Linux system).
+
+diff -war linux_threads.c.old linux_threads.c
+69a70,73
+&gt; extern GC_bool GC_collection_in_progress();
+&gt; extern void GC_free_inner(GC_PTR p);
+&gt; static GC_bool fully_initialized = FALSE;
+&gt; 
+214,215d217
+&lt; 
+&lt; static GC_bool fully_initialized = FALSE;
+
+Finally, the Makefile has to be changed so that the &quot;threadlibs&quot; utility
+is built properly (i.e., with -DLINUX_THREADS or whatnot):
+diff -war Makefile.old Makefile
+27c27
+&lt; CFLAGS= $(BASEFLAGS) $(OPTIONS) -DNO_EXECUTE_PERMISSION -DSILENT -DOLD_BLOCK_ALLOC -DLARGE_CONFIG
+---
+&gt; CFLAGS= -g $(BASEFLAGS) $(OPTIONS) -DNO_EXECUTE_PERMISSION -DSILENT -DOLD_BLOCK_ALLOC -DLARGE_CONFIG
+34c34
+&lt; HOSTCFLAGS=$(BASEFLAGS)
+---
+&gt; HOSTCFLAGS=$(BASEFLAGS) $(OPTIONS)
+
+So, hopefully this is helpful.  I'm going to try the Senora GC one more
+time for fun, and see how it goes.
+
+Thanks,
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00823" href="msg00823.html">GC Errors in Embedded Program</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+<li><strong><a name="00824" href="msg00824.html">Re: GC Errors in Embedded Program</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00833" href="msg00833.html">Re: GC Errors in Embedded Program</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+<li><strong><a name="00836" href="msg00836.html">Re: GC Errors in Embedded Program</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00839.html">Re: GC Errors in Embedded Program</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00841.html">Re: GC Errors in Embedded Program (Final for tonight -- Honest)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00839.html">Re: GC Errors in Embedded Program</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00834.html">More GC Errors (New, Improved, In Senora GC!)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00840"><strong>Date</strong></a></li>
+<li><a href="threads.html#00840"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

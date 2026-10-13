@@ -1,0 +1,174 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: GNU and MzScheme's Internal design -->
+<!--X-From-R13: [vpunry Hnavre <zinavreNooo.pnygrpu.rqh> -->
+<!--X-Date: Sun, 18 Feb 2001 03:35:37 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010218101937.0765B5E0EA@sith.bbb.caltech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.21.0102160401001.28449&#45;100000@info.numeric&#45;quest.com -->
+<!--X-Reference: 006401c09856$aeb76d80$5d0c1cac@redmond.corp.microsoft.com -->
+<!--X-Reference: 000d01c0986d$cd9a69c0$0100007f@cradle -->
+<!--X-Reference: 200102170049.TAA05420@bosch.cs.brown.edu -->
+<!--X-Reference: 004b01c0991a$4e039170$0100007f@cradle -->
+<!--X-Reference: 200102180451.XAA13072@bosch.cs.brown.edu -->
+<!--X-Reference: 001c01c09991$8be87970$0100007f@cradle -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: GNU and MzScheme's Internal design</title>
+<link rev="made" href="mailto:mvanier@bbb.caltech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00304.html">Date Prev</a>][<a href="msg00306.html">Date Next</a>][<a href="msg00304.html">Thread Prev</a>][<a href="msg00308.html">Thread Next</a>][<a href="maillist.html#00305">Date Index</a>][<a href="threads.html#00305">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: GNU and MzScheme's Internal design</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:virtualcyber@erols.com">virtualcyber@erols.com</A></li>
+<li><em>Subject</em>: Re: GNU and MzScheme's Internal design</li>
+<li><em>From</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 18 Feb 2001 02:19:37 -0800 (PST)</li>
+<li><em>Cc</em>: <A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00304.html">001c01c09991$8be87970$0100007f@cradle</a>&gt; (virtualcyber@erols.com)</li>
+<li><em>References</em>: &lt;<a href="msg00280.html">Pine.LNX.4.21.0102160401001.28449-100000@info.numeric-quest.com</a>&gt;&lt;<a href="msg00285.html">006401c09856$aeb76d80$5d0c1cac@redmond.corp.microsoft.com</a>&gt;&lt;<a href="msg00287.html">000d01c0986d$cd9a69c0$0100007f@cradle</a>&gt;&lt;<a href="msg00288.html">200102170049.TAA05420@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg00293.html">004b01c0991a$4e039170$0100007f@cradle</a>&gt; &lt;<a href="msg00302.html">200102180451.XAA13072@bosch.cs.brown.edu</a>&gt; &lt;<a href="msg00304.html">001c01c09991$8be87970$0100007f@cradle</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+&gt; From: &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;
+&gt; 
+&gt;     I needed something on a server to respond reasonably fast
+&gt; to a scripting request (XML processing request) from a client 
+&gt; application.  I suppose I could have implemented a Fortran interpreter
+&gt; (just a compiler would not have worked) for this --
+&gt; but I have not seen a working one, and it would have been 
+&gt; pain in the neck for me to find or write such a thing.
+&gt; On the other hand, Scheme interpreter was easy to write.
+&gt; 
+&gt;     I would have loved to use MzScheme (it certainly
+&gt; performed well enough), but I couldn't, for two reasons:
+&gt; 
+&gt; (1)  GNU licensing scheme -- as I was not sure if the 
+&gt; my app was to be a  GNU too, I could not really take that
+&gt; chance. 
+
+PLT software uses the LGPL, which is considerably less restrictive than the
+GPL.  Among other things, it doesn't prevent you from building a commercial
+closed-source application which uses the LGPL'd code.  Therefore, I'm not
+sure what you mean by &quot;taking a chance&quot;.  Could you clarify?
+
+&gt; 
+&gt; (2) insufficient number of easily accessible 
+&gt; documentation of its internal designs and ideas
+&gt; (I am not putting MzScheme down, as this is
+&gt; standard practice with most open source libs)
+&gt;
+&gt;     When one incorporates other people's library,
+&gt; unless that library is well understood, the borrower
+&gt; ends up treating that library like a plutonium, because one cannot
+&gt; modify the borrowed source code with confidence,
+&gt; for the fear of introducing new bugs and problems.
+&gt;
+
+Quite true, but I assume you've seen &quot;Inside PLT Mzscheme&quot; at
+
+<A  HREF="http://www.cs.rice.edu/CS/PLT/packages/doc/insidemz/index.htm">http://www.cs.rice.edu/CS/PLT/packages/doc/insidemz/index.htm</A>
+
+I'm personally extremely impressed with the quality of the PLT documentation.
+
+&gt;     If I were to use MzScheme for a serious programming
+&gt; project, I need to understand its subcomponents 
+&gt; thoroughly -- that basically means I have to single 
+&gt; step through most of its functions and understand exactly
+&gt; what it is doing.  That could take a while without
+&gt; somewhat detailed design documentation -- 
+&gt; which I could not find.
+&gt; 
+&gt;     It is actually easier to just write a simple Scheme
+&gt; interpreter that approximates MzScheme's performance.
+&gt; 
+
+Well, good luck :-)  Brent Fulgham is building a version of AOLServer that
+uses mzscheme as a scripting language, so you might want to ask him what
+the status of that is.
+
+Mike
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00308" href="msg00308.html">Re: GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00309" href="msg00309.html">Re: GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00311" href="msg00311.html">Re: GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00280" href="msg00280.html">Re: Just for your fun and horror</a></strong>
+<ul><li><em>From:</em> Jan Skibinski &lt;jans@numeric-quest.com&gt;</li></ul></li>
+<li><strong><a name="00285" href="msg00285.html">Re: Just for your fun and horror</a></strong>
+<ul><li><em>From:</em> &quot;Erik Meijer&quot; &lt;erik@meijcrosoft.com&gt;</li></ul></li>
+<li><strong><a name="00287" href="msg00287.html">MzScheme and SML</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00288" href="msg00288.html">MzScheme and SML</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00293" href="msg00293.html">Re: MzScheme and SML</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00302" href="msg00302.html">Re: MzScheme and SML</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00304" href="msg00304.html">GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00304.html">GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00306.html">Re: You just found a wand of polymorphism (+2, cursed)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00304.html">GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00308.html">Re: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00305"><strong>Date</strong></a></li>
+<li><a href="threads.html#00305"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

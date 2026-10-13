@@ -1,0 +1,109 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: hash tables -->
+<!--X-From-R13: "Bnhy O. Egrpxyre" <fgrpxNpf.evpr.rqh> -->
+<!--X-Date: Thu, 8 Feb 2001 16:44:19 &#45;0700 (MST) -->
+<!--X-Message-Id: 000001c09229$06850830$6a032a80@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010208231950.A623B5E0EA@sith.bbb.caltech.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: hash tables</title>
+<link rev="made" href="mailto:steck@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00251.html">Date Prev</a>][<a href="msg00253.html">Date Next</a>][<a href="msg00251.html">Thread Prev</a>][<a href="msg00253.html">Thread Next</a>][<a href="maillist.html#00252">Date Index</a>][<a href="threads.html#00252">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: hash tables</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Michael Vanier&quot; &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: hash tables</li>
+<li><em>From</em>: &quot;Paul A. Steckler&quot; &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 8 Feb 2001 17:44:06 -0600</li>
+<li><em>Cc</em>: &quot;<A HREF="mailto:Plt-Scheme@Fast.">Plt-Scheme@Fast.</A> Cs. Utah. Edu&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00251.html">20010208231950.A623B5E0EA@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;It appears that it is not possible to use a string as a key in mzscheme's
+&gt;hash tables.  Is this correct?  I've been able to use symbols and numbers
+&gt;as keys but not strings or immutable strings; why is that?  Also, it would
+&gt;be nice if an error was raised when an invalid key is used, as opposed to
+&gt;finding out later that there is nothing stored at that key location.
+
+Two Scheme keys hash to the same value iff they are eq?.
+Two strings containing the same characters are not
+eq?.  The *same* string can be used as a hash key,
+but that's rarely what you want.
+
+You can convert your strings to symbols to use them
+as hash keys.
+
+The procedure hash-table-get does raise an exception when no value 
+is found.
+
+-- Paul
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00253" href="msg00253.html">Re: hash tables</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00251" href="msg00251.html">hash tables</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00251.html">hash tables</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00253.html">Re: hash tables</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00251.html">hash tables</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00253.html">Re: hash tables</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00252"><strong>Date</strong></a></li>
+<li><a href="threads.html#00252"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

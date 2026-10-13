@@ -1,0 +1,171 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Get&#45;pure&#45;port aborts giving  error 10054 -->
+<!--X-From-R13: "Bnhy Egrpxyre" <fgrpxNppf.arh.rqh> -->
+<!--X-Date: Mon, 15 Apr 2002 13:20:42 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000501c1e4b2$a01dbe60$70730a81@NORTHEASDX5RFA -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: OFCFE382CA.F35AE3EA&#45;ON85256B9C.00545D96@frogware.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Get-pure-port aborts giving  error 10054</title>
+<link rev="made" href="mailto:steck@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00759.html">Date Prev</a>][<a href="msg00761.html">Date Next</a>][<a href="msg00758.html">Thread Prev</a>][<a href="msg00761.html">Thread Next</a>][<a href="maillist.html#00760">Date Index</a>][<a href="threads.html#00760">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Get-pure-port aborts giving  error 10054</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A>&gt;, &quot;'Matthew Flatt'&quot; &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Get-pure-port aborts giving  error 10054</li>
+<li><em>From</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 15 Apr 2002 15:20:38 -0400</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00758.html">OFCFE382CA.F35AE3EA-ON85256B9C.00545D96@frogware.com</a>&gt;</li>
+<li><em>Reply-To</em>: &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Try inserting 
+
+   ,(make-string 200 #\return)
+
+into your Web page, and see if it finishes loading.
+
+
+-- Paul
+
+
+&gt; -----Original Message-----
+&gt; From: owner-plt-scheme@fast.cs.utah.edu [<A  HREF="mailto:owner-plt-">mailto:owner-plt-</A>
+&gt; scheme@fast.cs.utah.edu] On Behalf Of MichaelL@frogware.com
+&gt; Sent: Monday, April 15, 2002 11:36 AM
+&gt; To: Matthew Flatt
+&gt; Cc: plt-scheme@fast.cs.utah.edu
+&gt; Subject: Re: Get-pure-port aborts giving error 10054
+&gt; 
+&gt; 
+&gt; FYI, I noticed that on my W2K machine using IE 5.5 against the PLT web
+&gt; server and the sample web pages, some pages take a *long* time to
+&gt; &quot;complete&quot; downloading. Really, they don't complete--IE just times
+&gt; out.
+&gt; (The web page is loaded, but the icon keeps dancing for a while.) The
+&gt; dev
+&gt; branch had the same problem.
+&gt; 
+&gt; Netscape 4.7 and Opera don't have this problem. They also don't have
+&gt; the
+&gt; market share. :-)
+&gt; 
+&gt; This fix didn't patch *that* problem... but it looks like a similar
+&gt; kind of
+&gt; protocol issue. (I don't remember seeing this kind of thing with any
+&gt; of the
+&gt; other web servers on this machine.)
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt;                     Matthew Flatt
+&gt;                     &lt;mflatt@cs.utah.edu&gt;          To:     Jens Axel
+&gt; Søgaard &lt;jensaxel@soegaard.net&gt;
+&gt;                     Sent by:                      cc:     &lt;plt-
+&gt; scheme@fast.cs.utah.edu&gt;
+&gt;                     owner-plt-scheme@fast.c       Subject:     Re:
+&gt; Get-pure-port aborts giving  error 10054
+&gt;                     s.utah.edu
+&gt; 
+&gt; 
+&gt;                     04/15/2002 10:30 AM
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; At Sun, 14 Apr 2002 10:53:19 +0200, Jens_Axel_Søgaard wrote:
+&gt; &gt; The following expression aborts my program.
+&gt; &gt;
+&gt; &gt; &gt; (get-pure-port (string-&gt;url
+&gt; &quot;<A  HREF="http://www.tedgoff.com/mb/images/today.gif">http://www.tedgoff.com/mb/images/today.gif</A>
+&gt; &quot;))
+&gt; &gt; tcp-read: error reading (Unknown error; errno=10054)
+&gt; 
+&gt; Looks like the URL library's HTTP client protocol has always been
+&gt; broken. It's using #\newline for end-of-line in the HTTP request
+&gt; header, instead of a #\return #\newline sequence. (Apparently, most
+&gt; HTTP servers are forgiving, but not the one at www.tedgeoff.com.)
+&gt; 
+&gt; Fixed and exp-tagged in CVS.
+&gt; 
+&gt; To repair 200alpha12, go to plt/collects/net/url-unit.ss and replace
+&gt; each of the two instances of
+&gt;     (newline client-&gt;server)
+&gt; with
+&gt;     (display &quot;\r\n&quot; client-&gt;server)
+&gt; 
+&gt; Matthew
+&gt; 
+&gt; 
+&gt; 
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00758" href="msg00758.html">Re: Get-pure-port aborts giving  error 10054</a></strong>
+<ul><li><em>From:</em> MichaelL@frogware.com</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00759.html">Re: Dynamic updating</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00761.html">RE: Get-pure-port aborts giving  error 10054</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00758.html">Re: Get-pure-port aborts giving  error 10054</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00761.html">RE: Get-pure-port aborts giving  error 10054</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00760"><strong>Date</strong></a></li>
+<li><a href="threads.html#00760"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: structures at expansion time -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 18 Jan 2002 07:51:08 &#45;0700 (MST) -->
+<!--X-Message-Id: 200201181451.g0IEp5T08742@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020117070633.53235.qmail@web14307.mail.yahoo.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: structures at expansion time</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00110.html">Date Prev</a>][<a href="msg00112.html">Date Next</a>][<a href="msg00099.html">Thread Prev</a>][<a href="msg00112.html">Thread Next</a>][<a href="maillist.html#00111">Date Index</a>][<a href="threads.html#00111">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: structures at expansion time</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Ryan Culpepper &lt;<A HREF="mailto:ryan_sml@yahoo.com">ryan_sml@yahoo.com</A>&gt;</li>
+<li><em>Subject</em>: Re: structures at expansion time</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 18 Jan 2002 07:51:05 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00099.html">20020117070633.53235.qmail@web14307.mail.yahoo.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00099.html">20020117070633.53235.qmail@web14307.mail.yahoo.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Ryan Culpepper:
+&gt; I'm trying to write a library which stores expansion-time information
+&gt; in identifiers (like signatures contain a vector of symbols) for
+&gt; access by several different modules. There is one core module which
+&gt; provides syntax for building information. The core module is required
+&gt; by several others which use this syntax. Since the information is
+&gt; somewhat complex, I was trying to store it in structures. The
+&gt; structure definitions are in another module require-for-syntax'd by
+&gt; the core module.
+
+You might mean either of two things:
+
+ 1. your macro generates in instance of the structure, or
+
+ 2. your macro generates an expression that instantiates the structure.
+
+#1 doesn't work. #2 does.
+
+Here's a program to illustrate #1:
+
+--------------------
+(module d mzscheme
+  (provide (struct d (x)))
+
+  (define-struct d (x)))
+
+(module s mzscheme
+  (provide s)
+  (require-for-syntax d)
+
+  (define-syntax (s stx)
+    (syntax-case stx ()
+      [(_ var)
+       (with-syntax ([val (make-d 10)])
+	 (syntax (define-syntax var val)))])))
+
+(module a mzscheme
+  (require s)
+  (provide instance)
+
+  (s instance))
+
+(module b mzscheme
+  (require a)
+  (require-for-syntax d)
+
+  (t instance)
+
+  (define-syntax (t stx)
+    (syntax-case stx ()
+      [(_ var)
+       (let ([val (syntax-local-value (syntax var))])
+	 (printf &quot;instance?: ~a~n&quot; (d? val))
+	 #'(void))])))
+
+--------------------
+
+The above program prints &quot;instance?: #f&quot;.
+
+But by changing line 13 to
+
+       (with-syntax ([val (syntax (make-d 10))])
+                          ^^^^^^^            ^
+
+we get &quot;instance?: #t&quot;.
+
+I'm guessing that you have a program like the original one, and you want
+a program like the revised one.
+
+The difference is that the original program produces &quot;three
+dimensional&quot; code; a use of `s' expands to something with no textual
+analogue:
+
+  (define instance #&lt;stuct:d&gt;)
+
+The revised code expands instead to
+
+  (define instance (make-d 10))
+
+and that's essentially why it works.
+
+A good argument could be made for signalling an error when a program
+attempts to produce 3-D syntax objects. But PLT Scheme doesn't signal
+an error because 3-D syntax can be handy on occassion. (For example,
+errortrace performs a 3-D transformation on syntax.)
+
+&gt; However, it seems that the structure definitions are re-evaluated
+&gt; every time the core module is required, so information built in one
+&gt; module cannot be accessed by another (because the accessors don't
+&gt; match the right structure type).
+
+It's not every time the module is required; but a required-for-syntax
+module is invoked every time is is used to expand a different module.
+
+Thus, in the example above, `s' is invoked once to expand `a', and
+again to expand `b'. The revised example works because the
+expansion-time portion of `a' is also executed afresh when `b' is
+expanded (so the `make-d' call happens again as `b' as expanded, not
+just once as `a' is compiled).
+
+&gt; While I think I understand why the module system works this way (to
+&gt; make separate compilation consistant?),
+
+Right. It's all designed to make you post to plt-scheme now, instead of
+much later when you're trying to push the code through mzc. :)
+
+(The plt-scheme post, in turn, helps me figure out how to better
+explain and document things.)
+
+&gt; it seems to imply that
+&gt; expansion-time information (to be accessed by syntax-local-value)
+&gt; cannot usefully contain anything but built-in data types.
+&gt; [...]
+&gt; Is there any way to get this to work, or do I need to take a
+&gt; different approach?
+
+If I'm guessing correctly, you'll probably be able to fix your code
+easily.
+
+`define-signature' and `unit/sig' rely on a structure for signature
+information. The same is true of EoPL's `define-datatype', which
+cooperates with `cases'.
+
+In fact, even `syntax-case' and `syntax' are implemented as macros, and
+there's a private struct type for pattern-varable bindings. A
+`syntax-case' expression
+
+  (syntax-case stx ()
+    [a (syntax a)])
+
+expands to something like
+
+ (let ([gensymed1 stx])
+  (let-syntax ([a (make-pattern-var #'gensymed1)])
+     (syntax a)))
+
+where the `syntax' macro detects that `a' is bound at expansion time to
+an instance of `pattern-var', and the `pattern-var' instance indicates
+that the run-time value for `a' will be stored in `gensymed1'.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00112" href="msg00112.html">Re: structures at expansion time</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+<li><strong><a name="00115" href="msg00115.html">Re: structures at expansion time</a></strong>
+<ul><li><em>From:</em> Ryan Culpepper &lt;ryan_sml@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00099" href="msg00099.html">structures at expansion time</a></strong>
+<ul><li><em>From:</em> Ryan Culpepper &lt;ryan_sml@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00110.html">SSAX for v.200 ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00112.html">Re: structures at expansion time</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00099.html">structures at expansion time</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00112.html">Re: structures at expansion time</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00111"><strong>Date</strong></a></li>
+<li><a href="threads.html#00111"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

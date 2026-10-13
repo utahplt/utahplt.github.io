@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: OOP with units and mixins -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Mon, 4 Sep 2000 14:34:38 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39B40747.556B6763@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 39A1F7DD.EC874F3@sympatico.ca -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: OOP with units and mixins</TITLE>
+<LINK REV="made" HREF="mailto:robby@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00899.html">Date Prev</A>][<A HREF="msg00901.html">Date Next</A>][<A HREF="msg00870.html">Thread Prev</A>][<A HREF="msg00871.html">Thread Next</A>][<A HREF="maillist.html#00900">Date Index</A>][<A HREF="threads.html#00900">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: OOP with units and mixins</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Hassoun &lt;<A HREF="mailto:hassoun@sympatico.ca">hassoun@sympatico.ca</A>&gt;</LI>
+<LI><em>Subject</em>: Re: OOP with units and mixins</LI>
+<LI><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 04 Sep 2000 15:34:15 -0500</LI>
+<LI><em>CC</em>: "<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>" &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00870.html">39A1F7DD.EC874F3@sympatico.ca</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Sorry for the long delay in response.
+
+The code in that paper was written for version 53. A major changed
+occurred between 53 and 100 so that code was all broken.
+
+I have fixed it up and made sure that it runs in 103 (due in the next
+few days). It should also be fine in 102.
+
+Robby
+
+Hassoun wrote:
+&gt; 
+&gt; i am trying to learn Modular Object-Oriented Programming with Units and
+&gt; Mixins, according to the excellent paper by R.B Findler and M. Flatt.
+&gt; 
+&gt; i am using DrScheme v102 and i would like to implement the code in
+&gt; graphical full scheme.
+&gt; 
+&gt; any hints about the necessary changes to apply on the following code
+&gt; (taken from the paper's source):
+&gt; 
+&gt; ;; special mumbo-jumbo to load in the MrEd library.
+&gt; (require-library "debug.ss" "system")
+&gt; (require-library "sig.ss" "mred")
+&gt; (require-library "wxs.ss" "system")
+&gt; (define MrEd-Toolkit
+&gt;   (unit/sig-&gt;unit
+&gt;    (compound-unit/sig
+&gt;        (import)
+&gt;      (link [C : mzlib:core^ ((require-library "corer.ss"))]
+&gt;            [M : mred^ ((require-library "link.ss" "mred") C)])
+&gt;      (export
+&gt;       (var (M wx:pen%))
+&gt;       (var (M wx:brush%))
+&gt;       (var (M wx:const-solid))
+&gt;       (var (M canvas%) mred:canvas%)
+&gt;       (var (M frame%) mred:frame%)
+&gt;       (var (M vertical-panel%) mred:vertical-panel%)))))
+&gt; 
+&gt; your help would be greatly appreciated
+&gt; --
+&gt; Hassoun Karam
+&gt; hassoun@sympatico.ca
+&gt; --------------------------
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00870" HREF="msg00870.html">OOP with units and mixins</A></STRONG>
+<UL><LI><EM>From:</EM> Hassoun &lt;hassoun@sympatico.ca&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00899.html">A Unix question (off-topic)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00901.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00870.html">OOP with units and mixins</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00871.html">Scheme 2000: Call for Participation</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00900"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00900"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

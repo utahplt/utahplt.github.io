@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Reasons, why Miss Scheme should collect her garbage before shutdown. -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Sun, 10 Feb 2002 04:12:16 &#45;0700 (MST) -->
+<!--X-Message-Id: iss.a4b.3c66557b.5ab99.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200202071551.g17FpbD29292@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00231.html">Date Prev</a>][<a href="msg00233.html">Date Next</a>][<a href="msg00218.html">Thread Prev</a>][<a href="msg00233.html">Thread Next</a>][<a href="maillist.html#00232">Date Index</a>][<a href="threads.html#00232">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matthew Flatt&quot; &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Sun, 10 Feb 2002 12:11:51 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00218.html">200202071551.g17FpbD29292@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+thank you very much for the in depth explanation of all problems that
+would result from GC on exit. Now, I understand that calling
+finalisers before exit could possibly corrupt the reliability of the
+termination-mechanism of MzScheme which is to be prevented at any
+expense. For the very same reason you'll propably not provide an
+exit-hook to extension-programmers either. 
+Maybe tossing a line into the &quot;Inside PLT Scheme&quot;-Manual that tells
+about the limitations of finalisers would prevent others from falling
+into the same pit as I did.
+Speaking of reliability: Good long-term-performance is critical to the
+programs I want to build using MzScheme. Thus, I'd like to try out the
+more precise GC that goes by the name of &quot;3m&quot;. Does it include a
+copying facility to avoid fragmentation of the heap? Maybe it's not
+yet ported to Windows anyway? If I'd program an extension using &quot;3m&quot;:
+would the interface to the GC remain the same? Does it interact well
+with embedding and extending C-programs? Maybe 3m&quot; will even be the
+default GC of PLT-Scheme in the future?
+
+Sebastian
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00233" href="msg00233.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00240" href="msg00240.html">mzc on NetBSD</a></strong>
+<ul><li><em>From:</em> Brian Gregor &lt;bgregor@BUPHY.bu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00218" href="msg00218.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00231.html">In the Olympic spirit</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00233.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00218.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00233.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00232"><strong>Date</strong></a></li>
+<li><a href="threads.html#00232"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

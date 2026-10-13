@@ -1,0 +1,184 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: problem with anon cvs -->
+<!--X-From-R13: ebool <eboolNpf.evpr.rqh> -->
+<!--X-Date: Fri, 2 Jun 2000 08:33:51 &#45;0600 (MDT) -->
+<!--X-Message-Id: v04220806b55d748c3ce1@[128.42.2.124] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 51AD12FD97CDD3118E9900508B8BEFF416F219@BALDRICK -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: problem with anon cvs</TITLE>
+<LINK REV="made" HREF="mailto:robby@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00313.html">Date Prev</A>][<A HREF="msg00315.html">Date Next</A>][<A HREF="msg00313.html">Thread Prev</A>][<A HREF="msg00315.html">Thread Next</A>][<A HREF="maillist.html#00314">Date Index</A>][<A HREF="threads.html#00314">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: problem with anon cvs</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: PJ Durai &lt;<A HREF="mailto:duraip@extendsys.com">duraip@extendsys.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: problem with anon cvs</LI>
+<LI><em>From</em>: robby &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 2 Jun 2000 09:33:41 -0500</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>, <A HREF="mailto:clements@cs.rice.edu">clements@cs.rice.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00313.html">51AD12FD97CDD3118E9900508B8BEFF416F219@BALDRICK</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00313.html">51AD12FD97CDD3118E9900508B8BEFF416F219@BALDRICK</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Your CVS client is getting confused because we have wierd names in 
+our CVS archive. We will change that.
+
+Unless you are compiling for the macintosh, you can just skip the 
+a-list subdirectory of the plt/src tree (for those of use that are 
+compiling on the mac, use "MacCVS" which should work fine). This 
+means that you will have to selectively checkout all of the other 
+directories. Here are the directories at the top-level:
+
+plt/bin/
+plt/collects/
+plt/man/
+plt/notes/
+plt/teachpack/
+plt/tests/
+
+In addition, you will need to check out the other directories in the 
+src/ subtree -- here they are:
+
+src/drjava/
+src/mac/
+src/mred/
+src/mysterx/
+src/mzcom/
+src/mzscheme/
+src/srpersist/
+plt/src/worksp/
+plt/src/wxcommon/
+plt/src/wxmac/
+plt/src/wxwindow/
+plt/src/wxxt/
+
+So, for example, you will need to run:
+
+   cvs checkout -r exp plt/bin
+   ...
+   cvs checkout -r exp plt/src/drjava
+   ...
+
+Hope that helps! Sorry for the trouble.
+
+Robby
+
+
+&gt;Greetings,
+&gt;
+&gt;I am trying to get the latest tagged version of PLT.
+&gt;But the cvs breaks with the following error after awhile.
+&gt;
+&gt;This is the command i used:
+&gt;cvs -d :pserver:anoncvs@sun.cs.rice.edu:/home/scheme/Archives/AnonCVS
+&gt;checkout -r exp plt
+&gt;
+&gt;These are the final few lines of the output.
+&gt;
+&gt;
+&gt;U plt/src/a-list/A List 1.1.9/QDDrawingState.c
+&gt;U plt/src/a-list/A List 1.1.9/ScrollBars.h
+&gt;cvs server: Updating plt/src/a-list/C&amp;C++ Headers
+&gt;U plt/src/a-list/C&amp;C++ Headers/AListOptimizations.h
+&gt;U plt/src/a-list/C&amp;C++ Headers/LongCoords.h
+&gt;U plt/src/a-list/C&amp;C++ Headers/QDDrawingState.h
+&gt;U plt/src/a-list/C&amp;C++ Headers/TheAList.h
+&gt;cvs [checkout aborted]: could not chdir to plt/src/a-list/C&amp;C++ Headers/For
+&gt;Univ
+&gt;ersal Headers &lt; v3.0: Invalid argument
+&gt;$
+&gt;
+&gt;Any ideas?
+&gt;
+&gt;Appreciate your time.
+&gt;pj
+&gt;
+&gt;
+&gt;
+&gt;System
+&gt;=======
+&gt;
+&gt;Windows NT SP5
+&gt;
+&gt;$ cvs --version
+&gt;
+&gt;Concurrent Versions System (CVS) 1.10.8 (client)
+&gt;
+&gt;Copyright (c) 1989-1998 Brian Berliner, david d `zoo' zuhn,
+&gt;                         Jeff Polk, and other authors
+&gt;
+&gt;CVS may be copied only under the terms of the GNU General Public License,
+&gt;a copy of which can be found with the CVS distribution kit.
+&gt;
+&gt;Specify the --help option for further information about CVS
+&gt;$
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00315" HREF="msg00315.html">Re: problem with anon cvs</A></STRONG>
+<UL><LI><EM>From:</EM> robby &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00313" HREF="msg00313.html">problem with anon cvs</A></STRONG>
+<UL><LI><EM>From:</EM> PJ Durai &lt;duraip@extendsys.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00313.html">problem with anon cvs</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00315.html">Re: problem with anon cvs</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00313.html">problem with anon cvs</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00315.html">Re: problem with anon cvs</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00314"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00314"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

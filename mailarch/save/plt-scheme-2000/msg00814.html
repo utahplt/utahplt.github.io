@@ -1,0 +1,180 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: MzScheme Special Form &#45;> Native Numerical Code? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Fri, 4 Aug 2000 15:35:57 &#45;0600 (MDT) -->
+<!--X-Message-Id: 398B389C.8CFCC9B5@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001bffe51$f85be000$6a032a80@cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: MzScheme Special Form -&gt; Native Numerical Code?</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00813.html">Date Prev</A>][<A HREF="msg00815.html">Date Next</A>][<A HREF="msg00813.html">Thread Prev</A>][<A HREF="msg00816.html">Thread Next</A>][<A HREF="maillist.html#00814">Date Index</A>][<A HREF="threads.html#00814">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: MzScheme Special Form -&gt; Native Numerical Code?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: MzScheme Special Form -&gt; Native Numerical Code?</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 04 Aug 2000 17:41:48 -0400</LI>
+<LI><em>CC</em>: "Paul A. Steckler" &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00813.html">000001bffe51$f85be000$6a032a80@cs.rice.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+"Paul A. Steckler" wrote:
+&gt; 
+&gt; &gt;Also, once MzScheme can run dynamically loaded machine code, I could
+&gt; &gt;more easily extend the system under Windows. There is an issue with
+&gt; &gt;using Windows DLLs in that all users of a DLL share the same global
+&gt; &gt;variable space, and so a user runs two MrEd-type sessions using the same
+&gt; &gt;DLL, there is a potential for conflict (if a global variable is say set
+&gt; &gt;with a pointer to a VM). For what I've seen of doing MzScheme
+&gt; &gt;extensions, it appears this may be a problem in the MzScheme case
+&gt; &gt;(because a VM isn't passed in as a function parameter.) I don't believe
+&gt; &gt;this is an issue under Unix or the Mac, which I think both load
+&gt; &gt;extensions into the executeables address space.
+&gt; 
+&gt; Are you sure that all users of a DLL share global variables?
+&gt; I believe that is true *within* a process, but untrue *between*
+&gt; processes.
+&gt; 
+&gt; -- Paul
+
+Well, I always might be wrong... 
+It looks like you are totally correct.
+Thanks for pointing this out.
+
+I've reviewed some of the related documentation. Here is a clear
+statement supporting your point:
+<A  HREF="http://www.inprise.com/techpubs/delphi/delphi5/oplg/dllpackg.html">http://www.inprise.com/techpubs/delphi/delphi5/oplg/dllpackg.html</A>
+And also:
+<A  HREF="http://x71.deja.com/getdoc.xp?AN=591987366&amp;CONTEXT=965423663.1557921816&amp;hitnum=1">http://x71.deja.com/getdoc.xp?AN=591987366&amp;CONTEXT=965423663.1557921816&amp;hitnum=1</A>
+
+It appears my information is out of date. What I said was true for
+Win16, and I probably read in it a Windows 3.1 development book many
+years ago now that I think back. It is not true as the default for
+Win32. See, for example:
+<A  HREF="http://x71.deja.com/getdoc.xp?AN=603379772&amp;search=thread&amp;CONTEXT=965423799.1558052884&amp;HIT_CONTEXT=965423663.1557921816&amp;HIT_NUM=6&amp;hitnum=13">http://x71.deja.com/getdoc.xp?AN=603379772&amp;search=thread&amp;CONTEXT=965423799.1558052884&amp;HIT_CONTEXT=965423663.1557921816&amp;HIT_NUM=6&amp;hitnum=13</A>
+
+General reference:
+<A  HREF="http://msdn.microsoft.com/library/default.asp?URL=/library/psdk/winbase/dll_512r.htm">http://msdn.microsoft.com/library/default.asp?URL=/library/psdk/winbase/dll_512r.htm</A>
+Specifically:
+  <A  HREF="http://msdn.microsoft.com/library/psdk/winbase/dll_512r.htm">http://msdn.microsoft.com/library/psdk/winbase/dll_512r.htm</A>
+  <A  HREF="http://msdn.microsoft.com/library/psdk/winbase/dll_1tpv.htm">http://msdn.microsoft.com/library/psdk/winbase/dll_1tpv.htm</A>
+Also:
+  <A  HREF="http://www.geocities.com/Tokyo/Towers/6162/win32/dll/make.html">http://www.geocities.com/Tokyo/Towers/6162/win32/dll/make.html</A>
+Especially:
+  <A  HREF="http://msdn.microsoft.com/library/psdk/winbase/dll_9khl.htm">http://msdn.microsoft.com/library/psdk/winbase/dll_9khl.htm</A>
+
+In this last it says: "Note that the shared memory can be mapped to a
+different address in each process. For this reason, each process has its
+own instance of the lpvMem parameter, which is declared as a global
+variable so that it is available to all DLL functions. The example
+assumes that the DLL global data is not shared, so each process that
+loads the DLL has its own instance of lpvMem."  
+
+This also seems to substantiate what you are saying, if "the DLL global
+data is not shared". I don't know how to specify this, assuming it is
+not the default. Actually, it appears from this that it is the default
+and you have to go out of your way to cause the globals to be shared:
+<A  HREF="http://x71.deja.com/getdoc.xp?AN=603175542&amp;search=thread&amp;CONTEXT=965423799.1558052884&amp;HIT_CONTEXT=965423663.1557921816&amp;HIT_NUM=6&amp;hitnum=12">http://x71.deja.com/getdoc.xp?AN=603175542&amp;search=thread&amp;CONTEXT=965423799.1558052884&amp;HIT_CONTEXT=965423663.1557921816&amp;HIT_NUM=6&amp;hitnum=12</A>
+
+It had been my (apparent incorrect in the Win32 default case!)
+understanding that all users of a Windows DLLs share the globals defined
+in the DLL. However, each caller of the DLL is using its own stack
+space. What I had thought this meant in practice is that you are safe in
+writing a DLL likely to be used by two applications at once if you
+always pass in any data you need for each function call. As soon as you
+start storing data in globals, I had thought you risked problems if that
+data is stepped on (or even used) by another application. It turns out
+this is only the default case in Win16, not Win32, which is what
+MzScheme is running under. However it is still the case that since each
+application may have its own address space, pointers put in explicitely
+shared globals by one application may not be meaningful from another
+application's point of view (unless the pointer has been created as a
+shared memory pointer). However, that problem won't arise unless you
+explicitely share the variable.
+
+Thanks for setting me straight. What knowledgeable people are on this
+list!
+If I hang out here, maybe I'll become one of them. :-) Sorry for
+spreading misinformation regarding Win32.
+
+By the way, an interesting Microsoft article on DLLs (and especially
+Windows 2000 changes) is here:
+  <A  HREF="http://msdn.microsoft.com/library/techart/dlldanger1.htm">http://msdn.microsoft.com/library/techart/dlldanger1.htm</A>
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00816" HREF="msg00816.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00813" HREF="msg00813.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00813.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00815.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00813.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00816.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00814"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00814"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

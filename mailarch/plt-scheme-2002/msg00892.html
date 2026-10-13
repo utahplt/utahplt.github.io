@@ -1,0 +1,181 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] make collection -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Mon, 13 May 2002 19:47:04 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205140147.TAA01341@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87r8kmffxr.fsf@acm.org -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] make collection</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00891.html">Date Prev</a>][<a href="msg00893.html">Date Next</a>][<a href="msg00874.html">Thread Prev</a>][<a href="msg00876.html">Thread Next</a>][<a href="maillist.html#00892">Date Index</a>][<a href="threads.html#00892">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] make collection</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Jose A. Ortega Ruiz&quot; &lt;<A HREF="mailto:jaortega@acm.org">jaortega@acm.org</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] make collection</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 13 May 2002 19:47:02 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00874.html">87r8kmffxr.fsf@acm.org</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00874.html">87r8kmffxr.fsf@acm.org</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The make collection's syntax is intended to simulate regular unix make
+in Scheme and the docs assume that you are already familiar with how
+those both work. If you haven't worked with the regular unix make
+much or Scheme much, the docs can be quite confusing.
+
+The idea is to explain how to generate some project you have from a
+collection of source files that go through several stages of
+processing. 
+
+For example, lets say that you are writing soem project that has three
+input files (that you create and maintain) called a.input, b.input, and
+c.input. Further, there are two stages of processing -- first you run a
+particular tool &quot;make-output&quot; that takes an input file and produces and
+output file, and second you combine the input files into a single file
+using &quot;output&quot;.
+
+Using make, you might write this:
+
+a.output: a.input
+	make-output a.input a.output
+
+b.output: b.input
+	make-output b.input b.output
+
+c.output: c.input
+	make-output c.input c.output
+
+total: a.output b.output c.output
+	combine a.output b.output c.output
+
+Once you've put those above lines in a file called &quot;Makefile&quot;, you can
+issue the command:
+
+  make total
+
+that builds your entire project. 
+
+The Makefile consists of several lines that tell `make' how to create
+each piece. The first two lines say that a.output depends on a.input
+and the command for making a.output from a.input is &quot;make-output
+a.input a.ouput&quot;.
+
+The whole point of this exercise is that the `make' utility looks at
+the file creation dates of the various files and only re-builds what is
+necessary.
+
+Make is based on building things with shell programs. If, on the other
+hand, you want to build similar things with various Scheme programs,
+you can use the make collection. Here's the equivalent Scheme program:
+
+(require (lib &quot;make.ss&quot; &quot;make&quot;))
+
+(define (make-output in out)
+   ...)
+
+(define (combine-total . args)
+  ...)
+
+(make
+  ((&quot;a.ouput&quot; (&quot;a.input&quot;) (make-output &quot;a.output&quot; &quot;a.input&quot;))
+   (&quot;b.ouput&quot; (&quot;b.input&quot;) (make-output &quot;b.output&quot; &quot;b.input&quot;))
+   (&quot;c.ouput&quot; (&quot;c.input&quot;) (make-output &quot;c.output&quot; &quot;c.input&quot;))
+   (&quot;total&quot; (&quot;a.output&quot; &quot;b.output&quot; &quot;c.output&quot;) 
+            (combine-total &quot;a.output&quot; &quot;b.output&quot; &quot;c.output&quot;)))
+
+If you were to fill in the ellipses above with calls to `system', you'd
+have the exact same thing as the original Makefile.
+
+In addition, if you use `make/proc', you can abstract over the various
+make lines (for example, the a.output, b.output, and c.output lines are
+very similar and it would be good to write a program to generate those
+lines).
+
+Hope that helps!
+
+Robby
+
+
+At 09 May 2002 00:11:28 +0200, &quot;Jose A. Ortega Ruiz&quot; wrote:
+&gt; 
+&gt; hi,
+&gt; 
+&gt; i'm new to plt scheme, and have just begun a project using mzscheme,
+&gt; version 200alpha12, on linux. to build the project (i use noweb), i'm
+&gt; using the usual Makefile processed by GNU Make. but, browsing with
+&gt; HelpDesk, i've come across the make collection. my understanding is
+&gt; that it is a make replacement written in scheme. unfortunately, i
+&gt; haven't been able to fully understand how it works from the
+&gt; documentation in HelpDesk... so, i would really appreciate some usage
+&gt; samples, or a pointer to further information.
+&gt; 
+&gt; thanks for your help,
+&gt; 
+&gt; jao
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00874" href="msg00874.html">[plt-scheme] make collection</a></strong>
+<ul><li><em>From:</em> &quot;Jose A. Ortega Ruiz&quot; &lt;jaortega@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00891.html">[plt-scheme] scheme unit/sig (fwd)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00893.html">Re: [plt-scheme] Slow scheme_basic_env on Win2000</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00874.html">[plt-scheme] make collection</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00876.html">[plt-scheme] extension case senstivity</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00892"><strong>Date</strong></a></li>
+<li><a href="threads.html#00892"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

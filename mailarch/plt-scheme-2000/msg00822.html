@@ -1,0 +1,215 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Simple gl&#45;canvas% prototype -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Tue, 26 Dec 2000 20:43:37 &#45;0700 (MST) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B91BE3D2D@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Simple gl-canvas% prototype</title>
+<link rev="made" href="mailto:GregP@bsquare.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00821.html">Date Prev</a>][<a href="msg00823.html">Date Next</a>][<a href="msg00821.html">Thread Prev</a>][<a href="msg00823.html">Thread Next</a>][<a href="maillist.html#00822">Date Index</a>][<a href="threads.html#00822">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Simple gl-canvas% prototype</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Simple gl-canvas% prototype</li>
+<li><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 26 Dec 2000 19:42:53 -0800</li>
+<li><em>Cc</em>: Steven Metke &lt;<A HREF="mailto:StevenM@bsquare.com">StevenM@bsquare.com</A>&gt;,       Michael Adcock &lt;<A HREF="mailto:MichaelA@bsquare.com">MichaelA@bsquare.com</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Well folks,
+
+I implemented a simple gl-canvas% class for MrEd.
+
+Befor anyone gets excited, it is *very* simple.
+It has four methods beyond what a normal canvas does:
+
+gl-init:
+	glShadeModel(GL_SMOOTH);
+// Enable Smooth Shading
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				//
+Black Background
+	glClearDepth(1.0f);
+// Depth Buffer Setup
+	glEnable(GL_DEPTH_TEST);
+// Enables Depth Testing
+	glDepthFunc(GL_LEQUAL);
+// The Type Of Depth Testing To Do
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really
+Nice Perspective Calculations
+
+gl-swap-buffers --- swaps buffers for double buffering
+
+gl-draw-scene:
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear
+Screen And Depth Buffer
+	glLoadIdentity();
+// Reset The Current Modelview Matrix
+	glTranslatef(-1.5f,0.0f,-6.0f);
+// Move Left 1.5 Units And Into The Screen 6.0
+	glBegin(GL_TRIANGLES);
+// Drawing Using Triangles
+		glVertex3f( 0.0f, 1.0f, 0.0f);
+// Top
+		glVertex3f(-1.0f,-1.0f, 0.0f);
+// Bottom Left
+		glVertex3f( 1.0f,-1.0f, 0.0f);
+// Bottom Right
+	glEnd();
+// Finished Drawing The Triangle
+	glTranslatef(3.0f,0.0f,0.0f);
+// Move Right 3 Units
+	glBegin(GL_QUADS);
+// Draw A Quad
+		glVertex3f(-1.0f, 1.0f, 0.0f);
+// Top Left
+		glVertex3f( 1.0f, 1.0f, 0.0f);
+// Top Right
+		glVertex3f( 1.0f,-1.0f, 0.0f);
+// Bottom Right
+		glVertex3f(-1.0f,-1.0f, 0.0f);
+// Bottom Left
+	glEnd();
+// Done Drawing The Quad
+
+gl-resize:
+	glViewport(0,0,width,height);					//
+Reset The Current Viewport
+
+	glMatrixMode(GL_PROJECTION);
+// Select The Projection Matrix
+	glLoadIdentity();
+// Reset The Projection Matrix
+
+	// Calculate The Aspect Ratio Of The Window
+	gluPerspective(45.0f,(GLfloat)width/(GLfloat)height,0.1f,100.0f);
+
+	glMatrixMode(GL_MODELVIEW);
+// Select The Modelview Matrix
+	glLoadIdentity();
+// Reset The Modelview Matrix
+
+
+
+The point of writing this was to test the feasibility of rendering to a MrEd
+window. I can say now, yes it is
+feasible. The new gl-canvas% works like a regular canvas% as far as geometry
+management goes. So you can have
+buttons, scrollbars and other widgets that coexist peacfully in the same
+frame as a gl-canvas%
+
+Here is an example test program:
+
+(define test-canvas%
+  (class gl-canvas% (pf . args)
+    (inherit gl-init gl-swap-buffers gl-draw-scene gl-resize)
+    (sequence
+      (apply super-init (cons pf args))
+      (gl-init))
+    (rename [super-on-paint on-paint]
+            [super-on-size on-size]
+            [super-on-event on-event])
+    (override
+      [on-paint
+       (lambda ()
+         (gl-draw-scene)
+         (gl-swap-buffers)
+         (super-on-paint))]
+      [on-size
+       (lambda (w h)
+         (gl-resize w h)
+         (super-on-size w h))]
+      [on-char
+       (lambda (ch)
+         (display (send ch get-key-code)))]
+      [on-event
+       (lambda (evt)
+         (printf &quot;~n~n~n-----mouse-----~a~a~a~a~a&quot;
+                 (format &quot;~nenter: ~a&quot; (send evt entering?))
+                 (format &quot;~nleave: ~a&quot; (send evt leaving?))
+                 (format &quot;~nleft-down: ~a&quot; (send evt get-left-down))
+                 (format &quot;~nright-down: ~a&quot; (send evt get-right-down))
+                 (format &quot;~nmotion: ~a~n&quot; (send evt moving?)))
+         (if (send evt moving?)
+             (printf &quot;x: ~a     y: ~a~n&quot; (send evt get-x) (send evt get-y)))
+         (super-on-event evt))])))
+
+(define my-frame (make-object frame% &quot;My Frame&quot; #f 300 300))
+(define h-panel (make-object horizontal-panel% my-frame))
+(define my-canvas (make-object test-canvas% h-panel '(border vscroll
+hscroll)))
+(send my-frame show #t)
+
+(make-object button% &quot;dummy button&quot; my-frame (lambda x (void)))
+(make-object button% &quot;dummy button&quot; h-panel (lambda x (void)))
+
+
+When exectuted, it puts a white triangle next to a white square on a black
+background.
+When you resize the window, the OpenGL scene is resized as expected. The
+buttons, scrollbars
+and border don't seem to interfere with the gl-canvas%. Events still come in
+as expected.
+
+I'm on the verge of having a lot of fun with this.
+
+Cheers!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00821.html">Re: modules and syntax</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00823.html">GC Errors in Embedded Program</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00821.html">Re: modules and syntax</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00823.html">GC Errors in Embedded Program</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00822"><strong>Date</strong></a></li>
+<li><a href="threads.html#00822"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

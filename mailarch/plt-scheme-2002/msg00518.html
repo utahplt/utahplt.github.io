@@ -1,0 +1,120 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Macro in a servlet -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 26 Mar 2002 14:25:55 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203262125.OAA25432@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.40.0203261556300.4816&#45;100000@blacktip.cs.indiana.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Macro in a servlet</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00517.html">Date Prev</a>][<a href="msg00519.html">Date Next</a>][<a href="msg00516.html">Thread Prev</a>][<a href="msg00524.html">Thread Next</a>][<a href="maillist.html#00518">Date Index</a>][<a href="threads.html#00518">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Macro in a servlet</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matt 'LEGO Guy' Jadud&quot; &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Macro in a servlet</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 26 Mar 2002 14:25:48 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00516.html">Pine.GSO.4.40.0203261556300.4816-100000@blacktip.cs.indiana.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00516.html">Pine.GSO.4.40.0203261556300.4816-100000@blacktip.cs.indiana.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Tue, 26 Mar 2002 16:13:12 -0500 (EST), &quot;Matt 'LEGO Guy' Jadud&quot; wrote:
+&gt; However, I currently find
+&gt; myself passing the 'initial-request' to the macro, while I'd rather it was
+&gt; pulled from the environment of the servlet.
+&gt; 
+&gt; 	Currently, I'm doing something like
+&gt; 
+&gt; 	(define-sytax (foo stx)
+&gt; 	  (syntax-case stx ()
+&gt; 	   [(_ ir blah blah)
+&gt; 	    ;; ^ my 'initial-request' variable
+&gt; 	    (syntax
+&gt; 	     (more ((blah blah)
+&gt; 		    (ho hum))
+&gt; 		.... (do-stuff-with ir) ....))])))
+
+Probably you want something like
+
+        (define-sytax (foo stx)
+          (syntax-case stx ()
+           [(_foo blah blah)
+            (with-syntax ([initial-request (datum-&gt;syntax-object
+                                            (syntax _foo)
+                                            'initial-request))])
+              (syntax
+                (more ((blah blah)
+                       (ho hum))
+                  .... (do-stuff-with initial-request) ....)))])))
+
+But beware: such &quot;unhygienic&quot; macros often lead to confusion,
+especially if you ever write a macro that expands to a use of `foo'.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00516" href="msg00516.html">Macro in a servlet</a></strong>
+<ul><li><em>From:</em> &quot;Matt 'LEGO Guy' Jadud&quot; &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00517.html">Re: C++ extension and garbage collection</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00519.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00516.html">Macro in a servlet</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00524.html">Parser tools: How to make the lexer context sensitive?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00518"><strong>Date</strong></a></li>
+<li><a href="threads.html#00518"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

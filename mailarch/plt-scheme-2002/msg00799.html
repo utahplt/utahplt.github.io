@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: module: How to specify indirect exports =?iso&#45;8859&#45;1?q?positively=3F?= -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Fri, 26 Apr 2002 06:16:54 &#45;0600 (MDT) -->
+<!--X-Message-Id: iss.1df3.3cc94521.411d6.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200204231815.MAA09084@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: module: How to specify indirect exports positively?</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00798.html">Date Prev</a>][<a href="msg00800.html">Date Next</a>][<a href="msg00787.html">Thread Prev</a>][<a href="msg00806.html">Thread Next</a>][<a href="maillist.html#00799">Date Index</a>][<a href="threads.html#00799">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: module: How to specify indirect exports positively?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matthew Flatt&quot; &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: module: How to specify indirect exports positively?</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Fri, 26 Apr 2002 14:16:30 +0200</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00787.html">200204231815.MAA09084@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Thank you for the swift response!
+Unfortunately, I failed trying to define a macro with said
+functionality.It simply won't work, since I can't figure out how to
+build the prefixed-identifier out of a concatenation of prefix and
+identifier.
+
+I tried using 'string-append' like in this example, which is intented
+to import identifier 'var' from module 'A' and assign the name
+'prefix.var' to the imported identifier:
+
+(module A mzscheme
+  (provide var)
+  (define var 1))
+
+(require
+ (rename A
+         (string-&gt;symbol 
+          (string-append 
+           (symbol-&gt;string (quote prefix.))
+           (symbol-&gt;string (quote var))))
+         var))
+       
+==&gt; require: bad syntax (internal name is not an identifier)
+
+I also experimented with 'namespace-symbol-&gt;identifier' and 
+'datum-&gt;syntax-object' but couldn't get it right.
+
+How should I do this? How does mzscheme-require do this?
+
+Or is there a way to prefix an identifier without using 
+'string-append'?
+
+Sebastian
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00806" href="msg00806.html">Re: module: How to specify indirect exports positively?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00787" href="msg00787.html">Re: module: How to specify indirect exports positively?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00798.html">Re: Web server questons</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00800.html">constructor printing</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00787.html">Re: module: How to specify indirect exports positively?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00806.html">Re: module: How to specify indirect exports positively?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00799"><strong>Date</strong></a></li>
+<li><a href="threads.html#00799"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

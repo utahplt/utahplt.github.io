@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] The same macro problem -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Thu, 23 May 2002 20:36:30 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15597.42794.286521.126839@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15597.12641.422275.357806@mojave.cs.cornell.edu -->
+<!--X-Reference: 200205240138.BAA09254@linux1778.easyspace.com -->
+<!--X-Reference: 200205240136.BAA13823@linux1185.easyspace.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] The same macro problem</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00963.html">Date Prev</a>][<a href="msg00965.html">Date Next</a>][<a href="msg00977.html">Thread Prev</a>][<a href="msg00962.html">Thread Next</a>][<a href="maillist.html#00964">Date Index</a>][<a href="threads.html#00964">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] The same macro problem</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] The same macro problem</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Thu, 23 May 2002 22:36:26 -0400</li>
+<li><em>In-Reply-To</em>: &lt;200205240136.BAA13823@linux1185.easyspace.com&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00960.html">15597.12641.422275.357806@mojave.cs.cornell.edu</a>&gt;&lt;200205240138.BAA09254@linux1778.easyspace.com&gt;&lt;200205240136.BAA13823@linux1185.easyspace.com&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On May 24, Matthias Felleisen wrote:
+&gt; [...]
+On May 24, Robert Bruce Findler wrote:
+&gt; [...]
+
+I thought at some point that I should send another message that I
+already discussed this with Matthew.  The problem I was encountering
+was not during a Swindle revision (this is something I'm still
+delaying until I feel more comfortable with all the new toys) but just
+encountering loosely similar problems and expecting more &quot;Swindle&quot;
+problems in the future.
+
+So, I should just point out one quick conclusion: I was trying to get
+to two things: a more dynamic syntax-expansion environment, and
+sharing of (run-time) information between it and the normal
+enviornment.  It turns out that even after about 4 times I went
+through the macros chapter since 200 came out, I didn't get the way
+syntax values should be used, and after talking to Matthew I learned
+how to do it with `syntax-local-value'.  There is still no sharing of
+information between the levels, so I realized that the information
+which is kept in such syntax bindings should be only syntactical.
+
+I now need more time to try to use this and get to any conclusions,
+the best case would be that in the end I would be able to do
+everything I did before that with the new system and the result would
+probably be some insight on how all this should be explained so for
+the rare cases where it is needed, it is known how to cope with it.
+As I told Matthew, this should be very similar to the hygiene problem:
+the environment is better in that it makes life generally easier but
+leaves a back door for situations where you want un-hygienic macros.
+With the dynamism, if you can get away with making the syntactic
+environment manipulate only syntactic information and not share it
+with the normal level, then that would be great (and just hard enough
+to make people think twice before they want to try anything like
+that).  The worst case scenario is if there is some problem that can
+easily be solved with the old way, but is impossible/very-difficult/
+very-unelegant with the new way.  Of course, I'm aware of the
+advantages this separation gets and (im)patiently wait for the time
+when MzScheme would beat Allegro CL...
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00960" href="msg00960.html">[plt-scheme] The same macro problem</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00963.html">Re: [plt-scheme] The same macro problem</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00965.html">[plt-scheme] Apple Events and Mz?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00977.html">Re: [plt-scheme] The same macro problem</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00962.html">[plt-scheme] Weird Interaction with X-Windows Font Server?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00964"><strong>Date</strong></a></li>
+<li><a href="threads.html#00964"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

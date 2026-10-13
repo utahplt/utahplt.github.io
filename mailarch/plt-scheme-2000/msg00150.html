@@ -1,0 +1,168 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: Zrb Dnmbhzbi  <yenmbhzbiNdhnypbzz.pbz> -->
+<!--X-Date: Mon, 28 Feb 2000 17:56:11 &#45;0700 (MST) -->
+<!--X-Message-Id: 200002290056.QAA22414@balu.qualcomm.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002271846.KAA00527@balu.qualcomm.com -->
+<!--X-Reference: 20000228002410.UGQG21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 200002280226.SAA06315@balu.qualcomm.com -->
+<!--X-Reference: 200002280249.UAA08340@africa.cs.rice.edu -->
+<!--X-Reference: 200002282119.NAA20015@balu.qualcomm.com -->
+<!--X-Reference: 200002282328.RAA08737@africa.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [Q] HOWTO redirect a i/o-port in Unix??</title>
+<link rev="made" href="mailto:lrazoumov@qualcomm.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00149.html">Date Prev</a>][<a href="msg00151.html">Date Next</a>][<a href="msg00149.html">Thread Prev</a>][<a href="msg00151.html">Thread Next</a>][<a href="maillist.html#00150">Date Index</a>][<a href="threads.html#00150">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [Q] HOWTO redirect a i/o-port in Unix??</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></li>
+<li><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</li>
+<li><em>From</em>: Leo Razoumov  &lt;<A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 28 Feb 2000 16:56:07 -0800 (PST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00149.html">200002282328.RAA08737@africa.cs.rice.edu</a>&gt; (message from MatthiasFelleisen on Mon, 28 Feb 2000 17:28:30 -0600 (CST))</li>
+<li><em>References</em>: &lt;<a href="msg00140.html">200002271846.KAA00527@balu.qualcomm.com</a>&gt; &lt;<a href="msg00142.html">20000228002410.UGQG21637.mail.rdc1.sfba.home.com@localhost</a>&gt; &lt;<a href="msg00144.html">200002280226.SAA06315@balu.qualcomm.com</a>&gt; &lt;<a href="msg00145.html">200002280249.UAA08340@africa.cs.rice.edu</a>&gt; &lt;<a href="msg00148.html">200002282119.NAA20015@balu.qualcomm.com</a>&gt; &lt;<a href="msg00149.html">200002282328.RAA08737@africa.cs.rice.edu</a>&gt;</li>
+<li><em>Reply-To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi Matthias,
+thank you very much for sharing your insights into software process. I really
+appreciate your time and comments on these matters.
+
+&gt;&gt;&gt;&gt;&gt; &quot;MF&quot; == Matthias Felleisen &lt;matthias@cs.rice.edu&gt; writes:
+    MF&gt; For history: I used to oppose all comments in code and suggest that if a
+    MF&gt; program is worth writing, you write a &quot;paper&quot; on it -- i.e. internal docs
+    MF&gt; are models plus papers. Code should be so easy to read that you don't need
+    MF&gt; this &quot;here I increase x by 1&quot; stuff you get in many other things. (Been in 
+    MF&gt; industry and seen this.)
+
+The problem with this approach is that it is pretty hard to keep code and
+separate documentation in sync. One powerful improvement would be to have
+documentation-file and source-code-file use hypertext links to cross-referenced
+each other, thus making browsing, updating and synchronization much easier
+*without* cluttering source code with comments and documentation with lengthy
+code pieces.
+
+    MF&gt; I changed my mind when I started teaching lower level courses and when I
+    MF&gt; started conducting code walks. Why? While many of us are really really good
+    MF&gt; at keeping code properties in our heads and/or deriving them from code,
+    MF&gt; most people are not. And the idea of them maintaining my code or me taking
+    MF&gt; over their code was a horror. So HtDP developed as a reaction. 
+
+    MF&gt; Did I insist with the people who write code here? Keep poking around and
+    MF&gt; you will see that some of the code is written that way. 
+
+In my 7+ years of writing industry software I have gotton some strong (might be
+arguable and very subjective) views, one of them being &quot;code is written by a
+human for a human&quot;. Thinking this way your requirements sound very natural and
+do not constitute &quot;limitations of programmer's freedom&quot;:-). 
+Seriously, well thought comments (which do not repeat code) are very valuable!
+
+Once Don Knuth explained why it is so hard to find good code with good
+documentation: There is only a small fraction of world's population which can
+write good code, there is another (almost uncorrelated with the first group)
+small fraction of world's population which is capable of writing good
+documentation -- the joint probability of both is even smaller!
+
+
+    MF&gt; M own experience: I used to use the Chez Scheme debugger. Once I started
+    MF&gt; following my own guidelines, I have hardly ever needed to think about
+    MF&gt; debugging. Seriously. So I have become a beliefer in my own guidelines :-)
+
+A good debugger never hurts! Will DrScheme-v102 allow to step through a code in
+&quot;Full Scheme&quot; mode??
+
+Thank you once again for your time and very interesting discussion.
+-- Leo
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++  Leonid Razoumov,               +  E-mail: lrazoumov@qualcomm.com   +
++  Qualcomm Inc.,                 +  <A  HREF="http://www.qualcomm.com">http://www.qualcomm.com</A>          +
++  5775 Morehouse Drive,          +                                   +
++  San Diego, CA 92121-1714,      +  VOICE:  +1-858/651-5163          +
++        USA                      +    FAX:  +1-858/658-2113          +
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00151" href="msg00151.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00152" href="msg00152.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00153" href="msg00153.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Paolo Amoroso &lt;amoroso@mclink.it&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00140" href="msg00140.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+<li><strong><a name="00142" href="msg00142.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00144" href="msg00144.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+<li><strong><a name="00145" href="msg00145.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00148" href="msg00148.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+<li><strong><a name="00149" href="msg00149.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00149.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00151.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00149.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00151.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00150"><strong>Date</strong></a></li>
+<li><a href="threads.html#00150"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

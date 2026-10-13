@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Document formatting in Scheme -->
+<!--X-From-R13: Dvxh.EnvxxbaraNuhg.sv (Dvxh Envxxbara) -->
+<!--X-Date: Sat, 27 Oct 2001 14:13:32 &#45;0600 (MDT) -->
+<!--X-Message-Id: 87itd0q1st.fsf@lambda.cs.hut.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.21.0110261629030.1749&#45;100000@elm -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Document formatting in Scheme</title>
+<link rev="made" href="mailto:Riku.Saikkonen@hut.fi">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01133.html">Date Prev</a>][<a href="msg01135.html">Date Next</a>][<a href="msg01131.html">Thread Prev</a>][<a href="msg01139.html">Thread Next</a>][<a href="maillist.html#01134">Date Index</a>][<a href="threads.html#01134">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Document formatting in Scheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Document formatting in Scheme</li>
+<li><em>From</em>: <A HREF="mailto:Riku.Saikkonen@hut.fi">Riku.Saikkonen@hut.fi</A> (Riku Saikkonen)</li>
+<li><em>Date</em>: 27 Oct 2001 23:13:22 +0300</li>
+<li><em>In-Reply-To</em>: lisovsky@acm.org's message of &quot;Fri, 26 Oct 2001 17:15:03 +0400 (MSD)&quot;</li>
+<li><em>References</em>: &lt;<a href="msg01131.html">Pine.LNX.4.21.0110261629030.1749-100000@elm</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+lisovsky@acm.org writes:
+&gt;TeX and HTML are examples of &quot;presentation&quot; markup which describe a
+&gt;layout of resulting document. Of course, TeX-&gt;HTML converters may be
+&gt;used, and so on, but (IMHO) &quot;structural&quot; markup is more useful in
+&gt;this context.
+
+I think you need both. I think TeX is a pretty good solution for the
+more low-level stuff (like tables or math formulas), but it still
+needs a more high-level interface for specifying structure that is
+specific to code. I think this is doable, because it's quite easy to
+create new abstractions for structural markup in (La)TeX - I create
+small ones in most of the LaTeX documents I write.
+
+To produce good-quality output, it's not enough just to have a
+converter to TeX from something else: The source language also needs
+to have all the features of TeX - representations for all the
+thousands of mathematical symbols and typographical features (no-break
+space, different lengths of dashes, \@, hyphenation hints, etc.) and
+so forth. Otherwise the output quality isn't as good as it would be
+with a markup that uses a form of TeX as the source language.
+
+(The TeXinfo language has yet another approach to this: you can
+provide different versions of markup for different output formats. For
+example, you can include TeX source for a mathematical formula and a
+hand-made ASCII drawing of it in the same source document. The main
+drawbacks of this, I think, are that you need to write some things
+multiple times and to learn multiple languages, and it's difficult to
+extend to new output formats.)
+
+Perhaps it's possible to create a better documentation format than
+(La)TeX that has all of TeX's features, including the pretty layout.
+That would be a nice thing to have...
+
+I guess the main thing I'm trying to say is that I wouldn't like to
+have to learn a new language for documenting Scheme code, while
+knowing that I can't use it to produce the good-quality output that
+I'm used to... So it would be better to add new abstractions on top of
+an existing markup language than to create a new one from scratch -
+and (La)TeX is perhaps the only existing language that defines all the
+details needed to produce really good-quality output.
+
+&gt;If the source code markup highlights its semantic structure when it
+&gt;is possible to use a number (relatively) independent stylesheets for
+&gt;generation of output documents, the situation here is the same as
+&gt;with HTML vs. XML.
+
+Yes, and this applies to abstraced TeX source too. (A small example is
+the various document classes that come with LaTeX - a \section can be
+displayed in different ways.)
+
+-- 
+-=- Rjs -=- Riku.Saikkonen@hut.fi
+&quot;From cavern pale the moist moon eyes / the white mists that from earth arise /
+to hide the morrow's sun and drip / all the grey day from each twig's tip.&quot;
+    -- J. R. R. Tolkien
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01139" href="msg01139.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> Kirill Lisovsky &lt;lisovsky@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01131" href="msg01131.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> lisovsky@acm.org</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01133.html">Memory usage</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01135.html">Re: Memory usage</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01131.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01139.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01134"><strong>Date</strong></a></li>
+<li><a href="threads.html#01134"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

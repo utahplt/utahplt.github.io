@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.15 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 18 Jun 2001 20:21:39 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200106190221.f5J2LaT23586@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.15</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00553.html">Date Prev</a>][<a href="msg00555.html">Date Next</a>][<a href="msg00553.html">Thread Prev</a>][<a href="msg00555.html">Thread Next</a>][<a href="maillist.html#00554">Date Index</a>][<a href="threads.html#00554">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.15</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.15</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 18 Jun 2001 20:21:36 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The v200-tagged code in CVS for MzScheme and MrEd is now version 199.15.
+
+The changes are relatively minor:
+
+ * Added `error-print-source-location', which controls whether error
+   messages include source information (e.g., line and column, actual
+   expression). Turning off source info in the message text provides
+   less cluttered error messages for tools, like DrScheme, that
+   inspect the exception record anyway.
+
+ * Added `current-command-line-arguments', which contains a vector of
+   argument strings. (The `argv' variable is still defined, too.)
+
+ * Fixed syntax expansion so that graph structure under `quote' is
+   preserved. Cyclic graph structure is not supported within `syntax'
+   or `quote-syntax' (i.e., those forms loop forever when expanding or
+   compiling with cyclic arguments).
+
+ * Fixed a bug in `module' expansion in the case that a body
+   expression expands to `letrec-syntaxes'.
+
+ * Added a `with-method' form to class.ss. The new form binds
+   identifiers for application-style method invocation.
+
+ * Added initialization arguments for all fields of all event%
+   subclasses.
+
+ * Added a `demand-callback' initialization argument to all
+   menu-item-conatainer&lt;%&gt; and labelled-menu-item&lt;%&gt; classes.
+
+The MzScheme, MzLib, and MrEd document bundles have been updated.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00555" href="msg00555.html">Re: 199.15</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00553.html">[Forwarded message from Matthew Flatt] Re: forwarded message fromJacques Herry (fwd)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00555.html">Re: 199.15</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00553.html">[Forwarded message from Matthew Flatt] Re: forwarded message fromJacques Herry (fwd)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00555.html">Re: 199.15</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00554"><strong>Date</strong></a></li>
+<li><a href="threads.html#00554"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

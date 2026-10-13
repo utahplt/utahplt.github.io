@@ -1,0 +1,20 @@
+#lang scribble/base
+@(require scribble/core)
+@(define yellow (style #f (list (background-color-property "yellow"))))
+
+@title[#:style 'no-toc]{Submodules in Racket - DRAFT}
+
+@elem[#:style yellow]{@bold{This version is old}}
+and replaced by @hyperlink["../submod3/"]{version 3}.
+
+@itemlist[
+
+ @item{Draft: @hyperlink["submodules.pdf"]{PDF}}
+
+ @item{Model typeset: @hyperlink["full-model.pdf"]{PDF}}
+
+ @item{Model implementation: @hyperlink["model.zip"]{zip archive}}
+
+ @item{Paper implementation: @hyperlink["submod-src.zip"]{zip archive}}
+
+]

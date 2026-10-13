@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: cgi.ss, fastcgi.scm, and environment variables -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Wed, 7 Jun 2000 11:37:04 &#45;0600 (MDT) -->
+<!--X-Message-Id: m1og5dshhb.fsf@biblio08.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>cgi.ss, fastcgi.scm, and environment variables</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00312.html">Date Prev</a>][<a href="msg00314.html">Date Next</a>][<a href="msg00321.html">Thread Prev</a>][<a href="msg00314.html">Thread Next</a>][<a href="maillist.html#00313">Date Index</a>][<a href="threads.html#00313">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>cgi.ss, fastcgi.scm, and environment variables</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: cgi.ss, fastcgi.scm, and environment variables</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: 07 Jun 2000 09:17:36 -0500</li>
+<li><em>Mail-Copies-To</em>: never</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma de México</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) XEmacs/21.1 (Bryce Canyon)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+        Dear all,
+
+        I'm using fastcgi.ss in conjunction with some of the libraries
+in the `net' collection (cgi for instance). And I noticed a problem
+with `getenv', which is used in `get-bindings/get':
+
+,--------------------
+| (define get-bindings/get
+|     (lambda ()
+|       (let ((p (open-input-string
+|        (getenv &quot;QUERY_STRING&quot;))))
+|    ...
+`--------------------
+
+because &quot;QUERY_STRING&quot; is defined but in the request environment
+returned by some of the fastcgi procedures, say
+`fcgi:accept-request-as-responder'. So I ended up doing something
+like:
+
+,--------------------
+| (define request-environment (make-parameter '()))
+|    
+| (define request-getenv
+|   (lambda (name)
+|     (let ((p (assoc name (request-environment))))
+|       (and p (cdr p)))))
+|    
+| ...
+|    
+|         (putenv &quot;QUERY_STRING&quot; (request-getenv &quot;QUERY_STRING&quot;))
+| ...
+`--------------------
+
+from here on `get-bindings/get' works just fine, since it finds
+QUERY_STRING on the environment. Is this the Right Way(TM) of solving
+the problem? It works for me, but I feel it's awkward.
+
+        And if I would've wanted to use `get-bindings' then I
+should have `putenv'ed not only QUERY_STRING but also REQUEST_METHOD. 
+
+        How are you guys solving this? Or isn't anybody else using
+both: fastcgi and cgi libraries? :-)
+
+TIA,
+Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00314" href="msg00314.html">cgi.ss, fastcgi.scm, and environment variables</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00312.html">SchemeQL beta version 0.01</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00314.html">cgi.ss, fastcgi.scm, and environment variables</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00321.html">Re: SchemeQL beta version 0.01</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00314.html">cgi.ss, fastcgi.scm, and environment variables</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00313"><strong>Date</strong></a></li>
+<li><a href="threads.html#00313"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

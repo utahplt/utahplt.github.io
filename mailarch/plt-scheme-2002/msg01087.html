@@ -1,0 +1,155 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Adding a language -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNppf.arh.rqh> -->
+<!--X-Date: Sat, 8 Jun 2002 11:15:20 &#45;0600 (MDT) -->
+<!--X-Message-Id: E17Gjo2&#45;0000wQ&#45;00@snipe.mail.pas.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.44.0206080920520.23431&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Adding a language</title>
+<link rev="made" href="mailto:robby@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01086.html">Date Prev</a>][<a href="msg01088.html">Date Next</a>][<a href="msg01086.html">Thread Prev</a>][<a href="msg01016.html">Thread Next</a>][<a href="maillist.html#01087">Date Index</a>][<a href="threads.html#01087">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Adding a language</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matt Jadud &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Adding a language</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@ccs.neu.edu">robby@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 08 Jun 2002 10:15:14 -0700</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;Pine.GSO.4.44.0206080920520.23431-100000@velvetbelly.cs.indiana.edu&gt;</li>
+<li><em>References</em>: &lt;Pine.GSO.4.44.0206080920520.23431-100000@velvetbelly.cs.indiana.edu&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+[ I mistakenly took this off the list -- to sumarize the missing
+  conversation for the list, Matt and I agreed that he doesn't want to
+  add a language. Instead, he should call methods of the languages that
+  are already in DrScheme. Those methods will transform the code in the
+  definitions window into Core MzScheme (search for `expand' in Help
+  Desk). He will then apply his compiler to Core MzScheme and get, in
+  effect, a compiler for every language we have in DrScheme, including
+  Algol 60. --robby ]
+
+At Sat, 8 Jun 2002 09:40:20 -0500 (EST), Matt Jadud wrote:
+&gt; Robby wrote:
+&gt; &gt; Keep in mind that if your compiler can work on the expanded form of
+&gt; &gt; programs (see the docs on `expand' in mzscheme and on
+&gt; &gt; `kernel-syntax-case') it will work for Algol 60, beginner thru advanced
+&gt; &gt; scheme, module, and whatever wierd languages we add in the future (like
+&gt; &gt; Java ;)
+&gt; 
+&gt;
+&gt;    I see what you mean; I just opened the Algo60 language, and used my
+&gt; button to see what the expanded code was--and shure enough, if was
+&gt; the language of Primitive Syntax(TM).
+&gt;
+&gt;
+&gt;    So my strategy question is this: if, for now, I implement this subset
+&gt; of the primitive syntax:
+&gt;
+&gt; general-top-level-expr is one of
+&gt;   expr
+&gt;   (define-values (variable ...) expr)
+&gt;   (define-syntaxes (variable ...) expr)
+&gt;   (begin top-level-expr ...)
+&gt; 
+&gt; expr is one of
+&gt;   variable
+&gt;   (lambda formals expr ···1)
+&gt;   (if expr expr)
+&gt;   (if expr expr expr)
+&gt;   (begin expr ···1)
+&gt;   (begin0 expr expr ···)
+&gt;   (let-values (((variable ···) expr) ···) expr ···1)
+&gt;   (letrec-values (((variable ···) expr) ···) expr ···1)
+&gt;   (set! variable expr)
+&gt;   (quote datum)
+&gt;   (#%app expr ···)
+&gt;   (#%datum . datum)
+&gt;   (#%top . variable)
+&gt; 
+&gt; do you think I would hit enough programs that it would be useful? 
+
+Absolutely.
+
+&gt; Or, is
+&gt; 
+&gt;   (case-lambda (formals expr ···1) ···1)
+&gt;   (quote-syntax datum)
+
+quote-syntax is just a constant, like quote. Probably easy for your
+compiler to handle.
+
+&gt;   (with-continuation-mark expr expr expr)
+&gt; 
+&gt; and the module bits too important to leave out (initially)?
+
+Certainly not.
+
+FWIW, I know that there is some overhead with `module', but there are
+lots of tools for manipulating them that will make your job easier in
+the end. For example, in a module, you know when `cons' is `cons', but
+at the top-level, you don't know if `cons' was rebound.
+
+But, you certainly don't have to do anything like that to get started
+-- it would probably be a mistake to start with them, in fact.
+
+Robby
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01086.html">Re: [plt-scheme] Adding a language</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01088.html">[plt-scheme] Re: Ah. I understand.</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01086.html">Re: [plt-scheme] Adding a language</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01016.html">VS: [plt-scheme] XML and PLT - problem is parsing instructions!</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01087"><strong>Date</strong></a></li>
+<li><a href="threads.html#01087"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

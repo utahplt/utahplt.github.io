@@ -1,0 +1,254 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: reading external representation -->
+<!--X-From-R13: Vnffbha Ynenz <unffbha.xnenz.1Nntben.hyniny.pn> -->
+<!--X-Date: Mon, 19 Feb 2001 10:27:28 &#45;0700 (MST) -->
+<!--X-Message-Id: 3A91561A.2090808@agora.ulaval.ca -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3A8EEE37.3090801@agora.ulaval.ca -->
+<!--X-Reference: 200102181448.f1IEmfn02749@wrath.cs.utah.edu -->
+<!--X-Reference: 14992.40584.665583.914656@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: reading external representation</title>
+<link rev="made" href="mailto:hassoun.karam.1@agora.ulaval.ca">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00321.html">Date Prev</a>][<a href="msg00323.html">Date Next</a>][<a href="msg00316.html">Thread Prev</a>][<a href="msg00303.html">Thread Next</a>][<a href="maillist.html#00322">Date Index</a>][<a href="threads.html#00322">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: reading external representation</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: reading external representation</li>
+<li><em>From</em>: Hassoun Karam &lt;<A HREF="mailto:hassoun.karam.1@agora.ulaval.ca">hassoun.karam.1@agora.ulaval.ca</A>&gt;</li>
+<li><em>Date</em>: Mon, 19 Feb 2001 12:21:30 -0500</li>
+<li><em>References</em>: &lt;<a href="msg00297.html">3A8EEE37.3090801@agora.ulaval.ca</a>&gt;	&lt;<a href="msg00307.html">200102181448.f1IEmfn02749@wrath.cs.utah.edu</a>&gt; &lt;<a href="msg00316.html">14992.40584.665583.914656@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mozilla/5.0 (Windows; U; WinNT4.0; en-US; m18) Gecko/20010131 Netscape6/6.01</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+thanks Eli
+
+i will try this and give a feedback.
+Hassoun
+
+Eli Barzilay wrote:
+
+&gt; On Feb 18, Matthew Flatt wrote:
+&gt; 
+&gt;&gt; You'll have to manually marshal and unmarshal the objects.
+&gt;&gt; (General-purpose automatic object marhsaling would be difficult or
+&gt;&gt; impossible to add to MzScheme, due to first-class classes.)
+&gt; 
+&gt; 
+&gt; Here's some code I had lying around...  It converts any structure of
+&gt; objects to an array that can be written to a file -- as long as you
+&gt; specify a way for all included object types to construct an object of
+&gt; the same type, a way to pull out its components and a way to set them.
+&gt; (So it doesn't cover functions and classes/instances (I have a similar
+&gt; thing for Swindle, of course...))  (A nice thing I used this for is a
+&gt; list of global values that are made persistent with a file.)
+&gt; 
+&gt; -------------------------------------------------------------------------------
+&gt; #!/bin/sh
+&gt; #|
+&gt; exec mzscheme -mf &quot;$0&quot;
+&gt; |#
+&gt; 
+&gt; ;;=============================================================================
+&gt; ;; Get a value and return a value that can be printed and also used to
+&gt; ;; reconstruct this value back.  The return value is a vector of entries, each
+&gt; ;; one is a list of a symbol that will construct a value of the desired type
+&gt; ;; given some arguments, and the arguments follow - either simple values, or a
+&gt; ;; list with a single integer index that stands for an entry in this vector.
+&gt; ;;
+&gt; ;; The whole thing is controlled by a table with entries for a predicate for
+&gt; ;; these values, a deconstructor and a constructor:
+&gt; ;;   predicate:   returns #t for values of this entry's type (tested in order
+&gt; ;;                of defined predicates);
+&gt; ;;   destructor:  gets this value and returns a list of values which can be
+&gt; ;;                used to compose an `equal?' value;
+&gt; ;;   constructor: a function of one argument that returns a value of the wanted
+&gt; ;;                type, the argument is the number of subvalues given;
+&gt; ;;   setter:      gets the constructed value and a list of values as returned
+&gt; ;;                by the destructor and reconstruct the object.
+&gt; ;;  If the destructor is #f, then there is no way to destruct the value which
+&gt; ;;  means that it is primitive.  If it is #t, then again it is primitive, but
+&gt; ;;  the identity of this primitive should be preserved (e.g., strings).
+&gt; 
+&gt; (define marshall-info (make-hash-table))
+&gt; (define marshall-predicates '())
+&gt; (define (set-marshall-info! name predicate destructor . constructor+setter)
+&gt;   (define constructor
+&gt;     (and (not (null? constructor+setter))
+&gt;          (car constructor+setter)))
+&gt;   (define setter
+&gt;     (and constructor (not (null? (cdr constructor+setter)))
+&gt;          (cadr constructor+setter)))
+&gt;   (hash-table-put! marshall-info name
+&gt;                    (list name predicate destructor constructor setter))
+&gt;   (let ((p (assq name marshall-predicates)))
+&gt;     (if p
+&gt;       (set-cdr! p predicate)
+&gt;       ;; add to the end so common cases come first
+&gt;       (set! marshall-predicates
+&gt;             (append! marshall-predicates (list (cons predicate name)))))))
+&gt; 
+&gt; (define (value-&gt;marshall value)
+&gt;   (define table  (make-hash-table))
+&gt;   (define output '())
+&gt;   (define count! (let ((c -1)) (lambda () (set! c (add1 c)) c)))
+&gt;   (define (get-info x)
+&gt;     (let ((info (ormap (lambda (p)
+&gt;                          (and ((car p) x)
+&gt;                               (hash-table-get marshall-info (cdr p))))
+&gt;                        marshall-predicates)))
+&gt;       (or info (error 'marshall-value &quot;got a bad value: ~e.&quot; x))))
+&gt;   (define (scan! x)
+&gt;     (let* ((info (get-info x))
+&gt;            (tag  (car info))
+&gt;            (dest (caddr info)))
+&gt;       (if dest
+&gt;         ;; composed value, or value with identity
+&gt;         (list (car (hash-table-get
+&gt;                     table x
+&gt;                     (lambda ()
+&gt;                       (let ((entry (list (count!) tag)))
+&gt;                         ;; must make sure that x is in before recursing
+&gt;                         (hash-table-put! table x entry)
+&gt;                         (set! output (cons entry output))
+&gt;                         ;; primitive values with identity do not recurse
+&gt;                         (set-cdr! (cdr entry)
+&gt;                                   (if (procedure? dest)
+&gt;                                     (map scan! (dest x))
+&gt;                                     (list x)))
+&gt;                         entry)))))
+&gt;         ;; primitive values
+&gt;         x)))
+&gt;   (scan! value)
+&gt;   (if (null? output)
+&gt;     (vector (list value)) ; got a top-level atomic value
+&gt;     (list-&gt;vector (map cdr (reverse! output)))))
+&gt; 
+&gt; (define (marshall-&gt;value marshall)
+&gt;   (define len (vector-length marshall))
+&gt;   (do ((i 0 (add1 i))) ((= i len))
+&gt;     (let* ((entry  (vector-ref marshall i))
+&gt;            (tag    (car entry))
+&gt;            (info   (hash-table-get marshall-info tag))
+&gt;            (const  (cadddr info))
+&gt;            (setter (car (cddddr info))))
+&gt;       (set-car! entry
+&gt;                 (cons (if const (const (length (cdr entry))) (cadr entry))
+&gt;                       setter))))
+&gt;   (do ((i 0 (add1 i))) ((= i len))
+&gt;     (let* ((entry  (vector-ref marshall i))
+&gt;            (obj    (caar entry))
+&gt;            (setter (cdar entry)))
+&gt;       (when setter
+&gt;         (apply setter obj
+&gt;                (map (lambda (v)
+&gt;                       (if (pair? v) (caar (vector-ref marshall (car v))) v))
+&gt;                     (cdr entry))))))
+&gt;   (caar (vector-ref marshall 0)))
+&gt; 
+&gt; ;; Set some primitive cases
+&gt; (set-marshall-info! 'num  number?  #f)
+&gt; (set-marshall-info! 'sym  symbol?  #f)
+&gt; (set-marshall-info! 'bool boolean? #f)
+&gt; (set-marshall-info! 'char char?    #f)
+&gt; (set-marshall-info! 'null null?    #f)
+&gt; (set-marshall-info! 'str  string?  #t)
+&gt; (set-marshall-info! 'pair pair?
+&gt;                     (lambda (x) (list (car x) (cdr x)))
+&gt;                     (lambda (n) (cons #f #f))
+&gt;                     (lambda (p x y) (set-car! p x) (set-cdr! p y)))
+&gt; (set-marshall-info! 'vec vector?
+&gt;                     (lambda (x) (vector-&gt;list x))
+&gt;                     (lambda (n) (make-vector n #f))
+&gt;                     (lambda (v . args)
+&gt;                       (do ((i 0 (add1 i)) (args args (cdr args)))
+&gt;                           ((null? args))
+&gt;                         (vector-set! v i (car args)))))
+&gt; (set-marshall-info! 'void void? (lambda (v) '()) void void)
+&gt; (set-marshall-info! 'box box?
+&gt;                     (lambda (b) (list (unbox b)))
+&gt;                     (lambda (n) (box #f))
+&gt;                     (lambda (b x) (set-box! b x)))
+&gt; 
+&gt; (let ((x (vector (box 1) #f)))
+&gt;   (vector-set! x 1 x)
+&gt;   (printf &quot;&gt;&gt;&gt; Before: ~s~%&gt;&gt;&gt; After: ~s~%&quot;
+&gt;           x
+&gt;           (marshall-&gt;value (value-&gt;marshall x))))
+&gt; (exit)
+&gt; -------------------------------------------------------------------------------
+&gt; 
+
+-- 
+Hassoun Karam
+hassoun.karam.1@agora.ulaval.ca
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00297" href="msg00297.html">reading external representation</a></strong>
+<ul><li><em>From:</em> Hassoun Karam &lt;hassoun.karam.1@agora.ulaval.ca&gt;</li></ul></li>
+<li><strong><a name="00307" href="msg00307.html">Re: reading external representation</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00316" href="msg00316.html">Re: reading external representation</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00321.html">RE: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00323.html">I'm long, and off-topic [was Re: GNU and MzScheme's Internal design]</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00316.html">Re: reading external representation</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00303.html">You just found a wand of polymorphism (+2, cursed)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00322"><strong>Date</strong></a></li>
+<li><a href="threads.html#00322"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

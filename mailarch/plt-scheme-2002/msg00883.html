@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Printf and display -->
+<!--X-From-R13: Rba Pynurgn <qcoNpf.oebja.rqh> -->
+<!--X-Date: Sat, 11 May 2002 13:35:08 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020511193434.GA949@vanyel.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 877kmbwno5.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Printf and display</title>
+<link rev="made" href="mailto:dpb@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00882.html">Date Prev</a>][<a href="msg00884.html">Date Next</a>][<a href="msg00882.html">Thread Prev</a>][<a href="msg00884.html">Thread Next</a>][<a href="maillist.html#00883">Date Index</a>][<a href="threads.html#00883">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Printf and display</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Paulo J. Matos&quot; &lt;<A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Printf and display</li>
+<li><em>From</em>: Don Blaheta &lt;<A HREF="mailto:dpb@cs.brown.edu">dpb@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 11 May 2002 15:34:34 -0400</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00882.html">877kmbwno5.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00882.html">877kmbwno5.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.27i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoth Paulo J. Matos:
+&gt; What's the difference between:
+&gt; (printf &quot;x&quot;)
+&gt; (display &quot;x&quot;)
+&gt; 
+&gt; It's because of:
+&gt; ~a or ~A displays the next argument among the vs
+&gt; ~v or ~V prints the next argument among the vs
+&gt; 
+&gt; what's the big difference?
+
+The short answer: when you are just outputting simple text (as in your
+example), there is no difference.
+
+The long answer:
+printf is short for &quot;print formatted&quot;, and is so named because there
+is a well-known C function of the same name with vaguely similar
+semantics.  The idea of printf is that you give it a &quot;format string&quot;,
+which is a mixture of plain text and formatting commands, and a series
+of expressions to be printed.  Each formatting command in the format
+string corresponds to exactly one expression to be printed, and
+specifies how said printing is done.  A formatting command is a tilde
+(~) followed by a letter (aside: C uses % for this purpose).
+
+Example: (printf &quot;~a foo ~a&quot; 3 (+ 2 4)) would print &quot;3 foo 6&quot;.
+
+There are a few different simple output commands in mzscheme:
+display, print, and write.  With some arguments (e.g. numbers) they
+output the same things, while with others (e.g. strings) their output is
+different.  I'll let you read the manual and experiment to see the exact
+differences.
+
+The three formatting commands for printf (~a, ~s, ~v) each correspond
+to one of these simple output commands.  For arguments where the
+commands do the same thing (e.g. numbers), it doesn't matter which you
+use.  (printf &quot;~a&quot; 3) and (printf &quot;~s&quot; 3) do the same thing.  For other
+arguments it does matter: the difference between (printf &quot;~a&quot; &quot;foo&quot;) and
+(printf &quot;~s&quot; &quot;foo&quot;) is that the latter will have the word &quot;foo&quot;
+surrounded by double quotes, and the former will output it without the
+double quotes.
+
+So, to finally answer your question, (display &quot;x&quot;) corresponds more
+directly to (printf &quot;~a&quot; &quot;x&quot;); the difference comes to bear in practice
+when you are dealing with arguments other than literal strings.
+
+-- 
+-=-Don Blaheta-=-=-dpb@cs.brown.edu-=-=-&lt;<A  HREF="http://www.cs.brown.edu/~dpb/">http://www.cs.brown.edu/~dpb/</A>&gt;-=-
+&quot;FOR THE LOVE OF ST ISIDORE WHEN WILL TEMPLATES FINALLY WORK?&quot;
+							--Scott Swanson
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00882" href="msg00882.html">[plt-scheme] Printf and display</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00882.html">[plt-scheme] Printf and display</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00884.html">[plt-scheme] assertions and the learning of macro-fu</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00882.html">[plt-scheme] Printf and display</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00884.html">[plt-scheme] assertions and the learning of macro-fu</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00883"><strong>Date</strong></a></li>
+<li><a href="threads.html#00883"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

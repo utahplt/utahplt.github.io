@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Java JNI &#38;&#38; MzScheme? -->
+<!--X-From-R13: Uvbetvb Epbemryyv <fpe.tvbetvbNpbtrfvp.vg> -->
+<!--X-Date: Tue, 27 Feb 2001 10:59:38 &#45;0700 (MST) -->
+<!--X-Message-Id: 5.0.2.1.0.20010227183324.00a6f798@195.102.60.43 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Java JNI &amp;&amp; MzScheme?</title>
+<link rev="made" href="mailto:scr.giorgio@cogesic.it">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00349.html">Date Prev</a>][<a href="msg00351.html">Date Next</a>][<a href="msg00337.html">Thread Prev</a>][<a href="msg00414.html">Thread Next</a>][<a href="maillist.html#00350">Date Index</a>][<a href="threads.html#00350">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Java JNI &amp;&amp; MzScheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Java JNI &amp;&amp; MzScheme?</li>
+<li><em>From</em>: Giorgio Scorzelli &lt;<A HREF="mailto:scr.giorgio@cogesic.it">scr.giorgio@cogesic.it</A>&gt;</li>
+<li><em>Date</em>: Tue, 27 Feb 2001 19:00:11 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hy all,
+
+I'm trying to create a Windows DLL that implements a NATIVE method of a Java class (see JNI documentation) and which should embed inside the well-known MzScheme interpreter. 
+
+I execute in my DLL the following action :
+
+JNIEXPORT jstring JNICALL Java_PlasmServer_Eval(JNIEnv *env, jclass obj, jstring cmd)
+{
+	Scheme_Env* env=scheme_basic_env();//PROBLEM HERE!!!
+	[...]
+}
+
+it causes an &quot;violation error&quot; during the evauluation of &quot;scheme_add_embedded_builtins&quot; function:
+
+	void scheme_add_embedded_builtins(Scheme_Env *env)
+	{
+		#define EVAL_ONE_STR(str) scheme_eval_string(str, env)
+		#define EVAL_ONE_SIZED_STR(str, len) scheme_eval_compiled_sized_string(str, len, env)
+		#define JUST_DEFINED(name) primitive_syntax_through_scheme(#name, env)
+		#define JUST_DEFINED_FUNC(name) primitive_function_through_scheme(#name, env)
+		#define JUST_DEFINED_KEY(name) primitive_syntax_through_scheme(#name, env)
+		#define JUST_DEFINED_COND(name) primitive_cond_through_scheme(#name, env)
+		#define JUST_DEFINED_QQ(name) JUST_DEFINED_KEY(name)
+
+		#if USE_COMPILED_MACROS
+		# include &quot;cmacro.inc&quot;
+		#else
+		# include &quot;macro.inc&quot;
+		#endif
+	}
+
+
+executing the EVAL_ONE_STR(str) of cmacro.inc file  (the same for macro.inc file if I define MZSCHEME_SOMETHING_OMITTED to avoid the use of precompiled macros). In particular it blocks on  ìthe first expression:
+
+	EVAL_ONE_STR(...); 
+	JUST_DEFINED_QQ(quasiquote);
+
+The strange thing is that this error seems to depend on which is the main process I'm executing (I mean the executable that links my DLL).
+If I create a simple application all is ok. If the same DLL is used (say linked and executed) by the Java Virtual Machine I get an error.
+
+A request of help to all PLT... 
+
+Thank you.
+Giorgio Scorzelli.
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00414" href="msg00414.html">Re: Java JNI &amp;&amp; MzScheme?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00349.html">Re: Two questions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00351.html">Re: select/3 call equivalent in mzscheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00337.html">Re: Downloadable HTML documentation?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00414.html">Re: Java JNI &amp;&amp; MzScheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00350"><strong>Date</strong></a></li>
+<li><a href="threads.html#00350"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

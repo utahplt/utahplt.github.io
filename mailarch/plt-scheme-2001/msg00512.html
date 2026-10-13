@@ -1,0 +1,151 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: pre&#45;200 MzScheme compatibility package -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Thu, 31 May 2001 07:02:14 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20010531130211.280E71810@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15123.44362.133543.549363@david.jet.msk.su -->
+<!--X-Reference: 20010529150001.9E4FE17FE@cs.rice.edu -->
+<!--X-Reference: 200105292056.f4TKuC504833@wrath.cs.utah.edu -->
+<!--X-Reference: 15126.6591.927959.767507@david.jet.msk.su -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: pre-200 MzScheme compatibility package</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00511.html">Date Prev</a>][<a href="msg00513.html">Date Next</a>][<a href="msg00510.html">Thread Prev</a>][<a href="msg00523.html">Thread Next</a>][<a href="maillist.html#00512">Date Index</a>][<a href="threads.html#00512">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: pre-200 MzScheme compatibility package</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Alexey Mahotkin &lt;<A HREF="mailto:alexm@jet.msk.su">alexm@jet.msk.su</A>&gt;</li>
+<li><em>Subject</em>: Re: pre-200 MzScheme compatibility package</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 31 May 2001 08:02:11 -0500 (CDT)</li>
+<li><em>Cc</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00510.html">15126.6591.927959.767507@david.jet.msk.su</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00499.html">15123.44362.133543.549363@david.jet.msk.su</a>&gt;&lt;<a href="msg00500.html">20010529150001.9E4FE17FE@cs.rice.edu</a>&gt;&lt;<a href="msg00501.html">200105292056.f4TKuC504833@wrath.cs.utah.edu</a>&gt;	&lt;<a href="msg00510.html">15126.6591.927959.767507@david.jet.msk.su</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+`require' has a different semantics than `require-library'. `require'
+expects the file to contain a module and `require-library' didn't. So,
+your definition of the `require-library' macro should probably expand
+to load (and with some caching, like require-library used to do).
+
+It is going to be quite tricky to maintain a single set of sources that
+work in 103 and 199. I'm not sure how sucessful you are going to be, to
+do that.
+
+Robby
+
+Quoting Alexey Mahotkin:
+&gt; &gt;&gt;&gt;&gt;&gt; &quot;MF&quot; == Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+&gt; 
+&gt;     &gt;&gt; Matthew Flatt may have prepared a guide for the 100-&gt;199
+&gt;     &gt;&gt; transition that he wants to share, I'm not sure.
+&gt; 
+&gt;     MF&gt; plt/notes/mzscheme/MzScheme_200.txt contains (still growing)
+&gt;     MF&gt; conversion notes.
+&gt; 
+&gt; 
+&gt; Ok, I've started writing compat.scm myself (is there a sense to
+&gt; publish it when it matures for inclusion into stock MzScheme?).
+&gt; 
+&gt; A question:  I've reimplemented `require-library' via 
+&gt; 
+&gt; 	(define-syntax require-library
+&gt; 	  (syntax-rules ()
+&gt; 			((require-library &lt;library&gt; &lt;collection&gt;)
+&gt; 			 ;;=&gt;
+&gt; 			 (require (lib &lt;library&gt; &lt;collection&gt;)))))
+&gt; 
+&gt; 	(provide require-library)
+&gt; 
+&gt; 
+&gt; It works, but `(require-library &quot;calendar.scm&quot; &quot;local&quot;)' gives:
+&gt; 
+&gt;   require: unknown module in: |,/usr/local/opt/local/bin/collects/local/calendar|
+&gt; 
+&gt; Yes, `calendar.scm' does not contain any module/unit stuff in it and
+&gt; is simply a sequence of `(define ...)'.
+&gt; 
+&gt; If I wrap that into (module ... ), it works, but I do not want to edit
+&gt; the files as we will use then with older MzScheme for some time yet.
+&gt; How could I implement `require' functionality with plain .scm files?
+&gt; 
+&gt; 
+&gt; Thank you, 
+&gt; 
+&gt; --alexm
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00523" href="msg00523.html">Re: pre-200 MzScheme compatibility package</a></strong>
+<ul><li><em>From:</em> Alexey Mahotkin &lt;alexm@jet.msk.su&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00499" href="msg00499.html">pre-200 MzScheme compatibility package</a></strong>
+<ul><li><em>From:</em> Alexey Mahotkin &lt;alexm@jet.msk.su&gt;</li></ul></li>
+<li><strong><a name="00500" href="msg00500.html">Re: pre-200 MzScheme compatibility package</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00501" href="msg00501.html">Re: pre-200 MzScheme compatibility package</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00510" href="msg00510.html">Re: pre-200 MzScheme compatibility package</a></strong>
+<ul><li><em>From:</em> Alexey Mahotkin &lt;alexm@jet.msk.su&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00511.html">Re: documentation for MzScheme pre-releases</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00513.html">Re: documentation for MzScheme pre-releases</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00510.html">Re: pre-200 MzScheme compatibility package</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00523.html">Re: pre-200 MzScheme compatibility package</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00512"><strong>Date</strong></a></li>
+<li><a href="threads.html#00512"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: 199.14 -->
+<!--X-From-R13: Oyrkrl [nubgxva <nyrkzNwrg.zfx.fh> -->
+<!--X-Date: Wed, 13 Jun 2001 02:43:38 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15143.10151.67750.189655@david.jet.msk.su -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200106121736.LAA28518@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: 199.14</title>
+<link rev="made" href="mailto:alexm@jet.msk.su">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00534.html">Date Prev</a>][<a href="msg00536.html">Date Next</a>][<a href="msg00534.html">Thread Prev</a>][<a href="msg00536.html">Thread Next</a>][<a href="maillist.html#00535">Date Index</a>][<a href="threads.html#00535">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: 199.14</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: 199.14</li>
+<li><em>From</em>: Alexey Mahotkin &lt;<A HREF="mailto:alexm@jet.msk.su">alexm@jet.msk.su</A>&gt;</li>
+<li><em>Date</em>: Wed, 13 Jun 2001 12:43:19 +0400 (MSD)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00534.html">200106121736.LAA28518@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Organization</em>: http://www.jet.msk.su/</li>
+<li><em>References</em>: &lt;<a href="msg00534.html">200106121736.LAA28518@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;&gt;&gt;&gt;&gt; &quot;MF&quot; == Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+Hello,
+
+    MF&gt;  * Fixed syntax bugs introduced in 199.13.
+
+There are still couple of bugs with &quot;illegal use of define-values&quot;
+that prevent successful completion of ./bin/setup-plt:
+
+setup-plt: Error during Making .zos for mzc (/var/tmp/alexm/plt-linux-build/collects/compiler)
+setup-plt:   make: Failed to make compiled/ldr.zo; define-values: illegal use (not at top-level) in ldr.ss:12.2: (define-values (compiler:bad-chars) (string-&gt;list &quot;#+-.*/&lt;=&gt;!?:$%_&amp;~^@;^()[]{}|\\,~\&quot;`' &quot;))
+setup-plt: Error during Making .zos for HTML (/var/tmp/alexm/plt-linux-build/collects/html)
+setup-plt:   make: Failed to make compiled/dtdr.zo; define-values: illegal use (not at top-level) in dtdr.ss:10.3: (define-values (read-sgml-dtd) (lambda (in) (parameterize ((read-case-sensitive #t)) (let ((in (f...
+
+
+Also, please do the following very obvious corrections :)
+
+Thank you,
+
+
+Index: mzlib/class-old.ss
+===================================================================
+RCS file: /home/scheme/Archives/AnonCVS/plt/collects/mzlib/class-old.ss,v
+retrieving revision 1.4
+diff -u -r1.4 class-old.ss
+--- class-old.ss	2001/04/27 16:05:07	1.4
++++ class-old.ss	2001/06/13 08:18:54
+@@ -4,7 +4,7 @@
+ ;; This was a fairly simple implementation until it was extended to
+ ;;  handle primitive classes (e.g., for MrEd). Now it's a mess.
+ 
+-(module class mzscheme
++(module class-old mzscheme
+   (require-for-syntax (lib &quot;stx.ss&quot;&quot;syntax&quot;))
+ 
+   (define insp (current-inspector))
+Index: help/help.proj
+===================================================================
+RCS file: /home/scheme/Archives/AnonCVS/plt/collects/help/help.proj,v
+retrieving revision 1.6
+diff -u -r1.6 help.proj
+--- help.proj	2001/01/09 16:49:00	1.6
++++ help.proj	2001/06/13 08:18:54
+@@ -5,5 +5,5 @@
+ 
+ ; load elaboration files
+ ; load main files
+-(require-library &quot;sig.ss&quot; &quot;help&quot;)
+-(require-library &quot;help.ss&quot; &quot;help&quot;)
++(require (lib &quot;sig.ss&quot; &quot;help&quot;))
++(require (lib &quot;help.ss&quot; &quot;help&quot;))
+Index: help/private/helpwin.ss
+===================================================================
+RCS file: /home/scheme/Archives/AnonCVS/plt/collects/help/private/helpwin.ss,v
+retrieving revision 1.6
+diff -u -r1.6 helpwin.ss
+--- helpwin.ss	2001/04/23 00:42:44	1.6
++++ helpwin.ss	2001/06/13 08:18:54
+@@ -452,7 +452,7 @@
+                                                        (let ([m (regexp-match re:mzlib-notes s)])
+                                                          (and m
+                                                               (format
+-                                                               &quot;Mz/Mr: load with (require-library \&quot;~a.ss\&quot;)&quot;
++                                                               &quot;Mz/Mr: load with (require \&quot;~a.ss\&quot;)&quot;
+                                                                (cadr m)))))
+                                                      l)])
+                                            (if lib
+
+
+--alexm
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00534" href="msg00534.html">199.14</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00534.html">199.14</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00536.html">Re: 199.14</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00534.html">199.14</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00536.html">Re: 199.14</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00535"><strong>Date</strong></a></li>
+<li><a href="threads.html#00535"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

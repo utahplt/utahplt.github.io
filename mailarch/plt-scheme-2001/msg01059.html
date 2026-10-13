@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Bitmaps and the Mac. -->
+<!--X-From-R13: Xbua Qyrzragf <pyrzragfNoevapxreubss.bet> -->
+<!--X-Date: Mon, 15 Oct 2001 09:04:03 &#45;0600 (MDT) -->
+<!--X-Message-Id: p05101000b7f0a5c809fa@[129.10.115.111] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: a05100300b7f06f6da798@[128.243.31.196] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Bitmaps and the Mac.</title>
+<link rev="made" href="mailto:clements@brinckerhoff.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01058.html">Date Prev</a>][<a href="msg01060.html">Date Next</a>][<a href="msg01057.html">Thread Prev</a>][<a href="msg01060.html">Thread Next</a>][<a href="maillist.html#01059">Date Index</a>][<a href="threads.html#01059">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Bitmaps and the Mac.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Peter Lane &lt;<A HREF="mailto:pcl@psychology.nottingham.ac.uk">pcl@psychology.nottingham.ac.uk</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Bitmaps and the Mac.</li>
+<li><em>From</em>: John Clements &lt;<A HREF="mailto:clements@brinckerhoff.org">clements@brinckerhoff.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 15 Oct 2001 11:08:40 -0400</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01057.html">a05100300b7f06f6da798@[128.243.31.196]</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01057.html">a05100300b7f06f6da798@[128.243.31.196]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 12:29 PM +0100 10/15/01, Peter Lane wrote:
+&gt;Problem 1:  I am having memory problems with creating a bitmap. 
+&gt;e.g. If I create a large bitmap, say 5000 x 5000, Scheme fails to 
+&gt;create a bitmap, giving error
+&gt;
+&gt;	set-bitmap in memory-dc%: bad bitmap: #&lt;object:bitmap%&gt;
+
+Okay, this is not so surprising.  Since a bitmap uses 4 bytes/pixel, 
+you're talking about (5000 * 5000 * 4) = ~100 Megabytes of memory. 
+That's a very big dynamically allocated object.
+
+&gt;More alarming, if I use a smaller size, 2500x2500, I get the error 
+&gt;message on every other attempt to execute the code. i.e. Execute -&gt; 
+&gt;works, Execute -&gt; fails, Execute -&gt; works, ...
+&gt;
+&gt;How much space do I need for bitmaps?  I am allowing 100Mb to the 
+&gt;MrEd PPC program.
+&gt;
+&gt;(I haven't tried the larger sizes on my PC, which has a third the 
+&gt;RAM of my Mac, but uncovered the memory problem with the small size 
+&gt;of 500x500).
+
+This is probably related to a memory-allocation problem in MrEd, 
+whereby collections are not triggered by certain kinds of allocation. 
+This should be fixed in the next version of DrScheme (200).
+
+&gt;Problem 2: The reason I'm creating a bitmap in my program is merely 
+&gt;so as to save it, i.e. with a (send face-bitmap save-file 
+&gt;&quot;file-name&quot; 'pict) command.
+&gt;
+&gt;This works fine on the PC, but refuses to do anything but return #f on the Mac
+&gt;(&quot;file-name&quot; is selected using the put-file dialog, and has correct 
+&gt;path, etc).
+&gt;
+&gt;Any suggestions?  Is there a better way to save the contents of a canvas?
+
+Yep, but you might not like it.  Try saving with the 'xpm or the 'xbm 
+flag.  Of course, then you have to convert the image to a PICT using 
+some other tool (GraphicConverter?)
+
+This seems rather a distressing state of affairs; perhaps I'll try to 
+add PICT saving for v200.
+
+
+john clements
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01057" href="msg01057.html">Bitmaps and the Mac.</a></strong>
+<ul><li><em>From:</em> Peter Lane &lt;pcl@psychology.nottingham.ac.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01058.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01060.html">macro syntax</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01057.html">Bitmaps and the Mac.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01060.html">macro syntax</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01059"><strong>Date</strong></a></li>
+<li><a href="threads.html#01059"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

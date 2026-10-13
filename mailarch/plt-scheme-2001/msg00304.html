@@ -1,0 +1,148 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: GNU and MzScheme's Internal design -->
+<!--X-From-R13: "Xv&#45;Kbat R. Quhat" <iveghnyploreNrebyf.pbz> -->
+<!--X-Date: Sun, 18 Feb 2001 02:58:16 &#45;0700 (MST) -->
+<!--X-Message-Id: 001c01c09991$8be87970$0100007f@cradle -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.21.0102160401001.28449&#45;100000@info.numeric&#45;quest.com -->
+<!--X-Reference: 006401c09856$aeb76d80$5d0c1cac@redmond.corp.microsoft.com -->
+<!--X-Reference: 000d01c0986d$cd9a69c0$0100007f@cradle -->
+<!--X-Reference: 200102170049.TAA05420@bosch.cs.brown.edu -->
+<!--X-Reference: 004b01c0991a$4e039170$0100007f@cradle -->
+<!--X-Reference: 200102180451.XAA13072@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>GNU and MzScheme's Internal design</title>
+<link rev="made" href="mailto:virtualcyber@erols.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00303.html">Date Prev</a>][<a href="msg00305.html">Date Next</a>][<a href="msg00302.html">Thread Prev</a>][<a href="msg00305.html">Thread Next</a>][<a href="maillist.html#00304">Date Index</a>][<a href="threads.html#00304">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>GNU and MzScheme's Internal design</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Shriram Krishnamurthi&quot; &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: GNU and MzScheme's Internal design</li>
+<li><em>From</em>: &quot;Ji-Yong D. Chung&quot; &lt;<A HREF="mailto:virtualcyber@erols.com">virtualcyber@erols.com</A>&gt;</li>
+<li><em>Date</em>: Sun, 18 Feb 2001 04:59:55 -0500</li>
+<li><em>References</em>: &lt;<a href="msg00280.html">Pine.LNX.4.21.0102160401001.28449-100000@info.numeric-quest.com</a>&gt;&lt;<a href="msg00285.html">006401c09856$aeb76d80$5d0c1cac@redmond.corp.microsoft.com</a>&gt;&lt;<a href="msg00287.html">000d01c0986d$cd9a69c0$0100007f@cradle</a>&gt;&lt;<a href="msg00288.html">200102170049.TAA05420@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg00293.html">004b01c0991a$4e039170$0100007f@cradle</a>&gt; &lt;<a href="msg00302.html">200102180451.XAA13072@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi, you wrote:
+
+&gt; Too bad you hadn't heard of Fortran.  Of all the languages I have
+&gt; seen, it seems to be the one easiest to compile for serious speed.
+
+    I needed something on a server to respond reasonably fast
+to a scripting request (XML processing request) from a client 
+application.  I suppose I could have implemented a Fortran interpreter
+(just a compiler would not have worked) for this --
+but I have not seen a working one, and it would have been 
+pain in the neck for me to find or write such a thing.
+On the other hand, Scheme interpreter was easy to write.
+
+    I would have loved to use MzScheme (it certainly
+performed well enough), but I couldn't, for two reasons:
+
+(1)  GNU licensing scheme -- as I was not sure if the 
+my app was to be a  GNU too, I could not really take that
+chance.  
+
+(2) insufficient number of easily accessible 
+documentation of its internal designs and ideas
+(I am not putting MzScheme down, as this is
+standard practice with most open source libs)
+
+    When one incorporates other people's library,
+unless that library is well understood, the borrower
+ends up treating that library like a plutonium, because one cannot
+modify the borrowed source code with confidence,
+for the fear of introducing new bugs and problems.
+    
+    If I were to use MzScheme for a serious programming
+project, I need to understand its subcomponents 
+thoroughly -- that basically means I have to single 
+step through most of its functions and understand exactly
+what it is doing.  That could take a while without
+somewhat detailed design documentation -- 
+which I could not find.
+
+    It is actually easier to just write a simple Scheme
+interpreter that approximates MzScheme's performance.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00305" href="msg00305.html">Re: GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="00310" href="msg00310.html">GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00280" href="msg00280.html">Re: Just for your fun and horror</a></strong>
+<ul><li><em>From:</em> Jan Skibinski &lt;jans@numeric-quest.com&gt;</li></ul></li>
+<li><strong><a name="00285" href="msg00285.html">Re: Just for your fun and horror</a></strong>
+<ul><li><em>From:</em> &quot;Erik Meijer&quot; &lt;erik@meijcrosoft.com&gt;</li></ul></li>
+<li><strong><a name="00287" href="msg00287.html">MzScheme and SML</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00288" href="msg00288.html">MzScheme and SML</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00293" href="msg00293.html">Re: MzScheme and SML</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00302" href="msg00302.html">Re: MzScheme and SML</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00303.html">You just found a wand of polymorphism (+2, cursed)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00305.html">Re: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00302.html">Re: MzScheme and SML</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00305.html">Re: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00304"><strong>Date</strong></a></li>
+<li><a href="threads.html#00304"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

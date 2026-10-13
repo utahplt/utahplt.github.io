@@ -1,0 +1,139 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: new stand&#45;alone executable trick -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 20 May 2000 16:36:45 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000520223642.WAUI22234.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>new stand-alone executable trick</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00297.html">Date Prev</a>][<a href="msg00299.html">Date Next</a>][<a href="msg00296.html">Thread Prev</a>][<a href="msg00299.html">Thread Next</a>][<a href="maillist.html#00298">Date Index</a>][<a href="threads.html#00298">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>new stand-alone executable trick</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: new stand-alone executable trick</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 20 May 2000 15:36:42 -0700</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+ [Note: Since my 102/13 message, I had to update and exp-tag a few
+ MzScheme files to make the following trick work. The change is the
+ addition of `provide-library'.]
+
+mzc (the current exp-tagged version in CVS) can now embed Scheme code
+into a copy of the MzScheme or MrEd executable. This trick makes it
+easy to create a stand-alone executable for environments where big
+executables are ok, but multi-file apps are not.
+
+The new flags for mzc are --exe and --gui-exe:
+
+  mzc --exe demo.exe demo.scm
+     Creates an executable that is equivalent to 
+     `mzscheme -mvqf- demo.scm'
+
+  mzc --gui-exe guidemo.exe guidemo.scm
+     Creates an executable that is equivalent to 
+     `mred -mvqf- guidemo.scm'
+
+Any number of files can be specified in the place of demo.ss. The files
+can be Scheme source (.scm) or byte code (.zo).
+
+If a Scheme program uses `require-library', then the corresponding
+library collections should also go into in the executable. The
+++collect flag embeds a whole collection:
+
+  mzc --exe demo.exe ++collect mzlib demo.scm
+     where demo.scm uses `require-library' to get MzLib functionality
+
+The ++collect flag can be used multiple times.
+
+----------------------------------------
+
+How it works:
+
+The MzScheme and MrEd 102/13 executables contain a static string to be
+parsed as extra command-line arguments. In a copy of MzScheme or MrEd,
+mzc modifies this static string to -k &lt;n&gt; &lt;m&gt;, where -k is roughly like
+-l, except that it loads from the current executable at file positions
+&lt;n&gt; through &lt;m&gt;.
+
+mzc writes an &lt;n&gt; corresponding to the original end-of-file for the
+executable. It then appends the provided source code onto the
+executable, and computes &lt;m&gt; as the new end-of-file.
+
+Library code is appended first, wrapped as follows:
+
+  (provide-library 
+   (lambda ()
+     (let ([p (open-input-string &lt;LIBRARY-FILE-CONTENT&gt;)])
+       ... read and evaluate from p...))
+   &lt;LIBRARY&gt; &lt;COLLECTION&gt;)
+
+where the new `provide-library' procedure lets a programmer install an
+arbitrary library-loading thunk for a library (assuming the library is
+not already loaded).
+
+Is it always ok to toss extra bytes onto the end of an executable file?
+I don't know, but it's worked on all the platforms I've tried so far.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00297.html">Re: 102d9</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00299.html">Remote COM servers</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00296.html">102/13</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00299.html">Remote COM servers</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00298"><strong>Date</strong></a></li>
+<li><a href="threads.html#00298"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

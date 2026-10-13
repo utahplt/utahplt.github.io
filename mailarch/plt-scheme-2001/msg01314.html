@@ -1,0 +1,138 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: modifying the scheme reader in DrScheme -->
+<!--X-From-R13: Xbua Qyrzragf <pyrzragfNoevapxreubss.bet> -->
+<!--X-Date: Mon, 10 Dec 2001 09:06:34 &#45;0700 (MST) -->
+<!--X-Message-Id: p05101000b83a8bfcaaf8@[129.10.115.111] -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Reference: 20011210065642.D4A585E0ED@sith.bbb.caltech.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: modifying the scheme reader in DrScheme</title>
+<link rev="made" href="mailto:clements@brinckerhoff.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01313.html">Date Prev</a>][<a href="msg01315.html">Date Next</a>][<a href="msg01310.html">Thread Prev</a>][<a href="msg01315.html">Thread Next</a>][<a href="maillist.html#01314">Date Index</a>][<a href="threads.html#01314">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: modifying the scheme reader in DrScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: modifying the scheme reader in DrScheme</li>
+<li><em>From</em>: John Clements &lt;<A HREF="mailto:clements@brinckerhoff.org">clements@brinckerhoff.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 10 Dec 2001 11:06:02 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01310.html">20011210065642.D4A585E0ED@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01310.html">20011210065642.D4A585E0ED@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<ADDRESS>Title: <STRONG>Re: modifying the scheme reader in
+DrScheme</STRONG></ADDRESS>
+
+
+<div>At 10:56 PM -0800 12/9/01, Michael Vanier wrote:</div>
+<blockquote type="cite" cite>I have this idea for a minor syntactic
+extension to the scheme reader that<br>
+would allow me to use end tags in s-expressions e.g.<br>
+<br>
+(define (bar x y)<br>
+&nbsp; (if (&lt; x y)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (* 2 x)<br>
+<x-tab>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </x-tab>&nbsp; (* 2 y)<br>
+&nbsp; .if) ; end tag for if<br>
+.define) ; end tag for define<br>
+<br>
+The reader checks that the end tags match, and then discards them.<br>
+<br>
+Is there any way to do something like this in DrScheme?&nbsp; The
+support for<br>
+scheme dialects leads me to think that this should be possible, but
+I<br>
+suspect it's wizard-level programming.<br>
+<br>
+Mike</blockquote>
+<div><br></div>
+<div>Why do you need a reader macro for this?&nbsp; Why not implement
+this as a simple macro that looks for these tags and discards them if
+found, ignores them if they're not there, and complains if they're
+wrong?</div>
+<div><br></div>
+<div>So, do a little dance to prevent your if from colliding with the
+native one, and do something like this:</div>
+<div><br></div>
+<div>(syntax-case stx (if .if)</div>
+<div>&nbsp; [(if test then else .if) (syntax real-if then else)]</div>
+<div>&nbsp; [(if test then else) (syntax real-if then else)])</div>
+<div><br></div>
+<div>The only disadvantage I can see is that .if is not a magic
+identifier, and can be used elsewhere as the programmer pleases,
+leading to some potentially unreadable code.</div>
+<div><br></div>
+<div>At the level of individual taste, I wouldn't much want to program
+this way.&nbsp; But I tell you what I<i> would</i> be interested in.&nbsp;
+Often, when I change a piece of code I mess up the parens in some way
+(most often forgetting a right-paren in an inserted-code situation.&nbsp;
+What I would really go for is an editor binding that would check to
+see whether drscheme's indenter wants to change the indentation for
+any of the surrounding lines (that's a fuzzy measure, I know).&nbsp;
+If the editor flags any lines as being improperly indented, it
+probably means that I messed up the parens.</div>
+<div><br></div>
+<div>Just a thought.</div>
+<div><br></div>
+<div>john</div>
+
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01310" href="msg01310.html">modifying the scheme reader in DrScheme</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01313.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01315.html">Webserver in shared UNIX environment</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01310.html">modifying the scheme reader in DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01315.html">Webserver in shared UNIX environment</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01314"><strong>Date</strong></a></li>
+<li><a href="threads.html#01314"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,211 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Reasons, why Miss Scheme should collect her garbage before shutdown. -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Wed, 6 Feb 2002 03:31:09 &#45;0700 (MST) -->
+<!--X-Message-Id: iss.265f.3c6105d9.4be95.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Reasons, why Miss Scheme should collect her garbage before shutdown.</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00211.html">Date Prev</a>][<a href="msg00213.html">Date Next</a>][<a href="msg00211.html">Thread Prev</a>][<a href="msg00218.html">Thread Next</a>][<a href="maillist.html#00212">Date Index</a>][<a href="threads.html#00212">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Reasons, why Miss Scheme should collect her garbage before shutdown.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Reasons, why Miss Scheme should collect her garbage before shutdown.</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Wed, 06 Feb 2002 11:30:45 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Dear developers of MzScheme, dear extension-programmers,
+========================================================
+
+in an earlier message I wondered why no garbage collection is done
+before MzScheme exits. No special reason was given.
+Because of this ill-defined behaviour of MzScheme some otherwise easy
+to program tasks can only be done with the help of dirty hacks as will
+be shown below.
+
+
+Something that works
+====================
+
+- Often it is useful to bind the lifetime of an external object to a
+lexical scope inside the Scheme-Environment, like so:
+
+(let ((obj (make-external-object args)))
+   (operation-on-external-object obj)
+   ...)
+
+For example: 
+- a buffer could be created which in the end must be written to a file
+or
+- some kind of communication could be started which in the end must be
+terminated by special commands or 
+- data-objects could be created in a foreign process that in the end
+must be freed again.
+
+Finalizers are both a very useful and versatile means to put a
+controlled end to each object, because they are invoked before an
+object is garbage-collected and you can use them to perform any action
+on the object, like:
+- write the buffer to a file
+- close communications with special commands
+- clear data out of a foreign process
+
+
+Something that should work and why it fails
+===========================================
+
+Consider the following example:
+
+(define obj (make-external-object args))
+
+Here, one might expect that the lifetime of the external object is
+limited to that of the MzScheme-Process.
+Noodles! This is not at all the case because no garbage-collection
+ever happens before MzScheme is shutdown. So no finalizer will be
+evoked and:
+- the content of the buffer will vanish into nirvana and not at all be
+written to any file
+- the communication will not be ended correctly
+- the foreign data will clutter the other processes namespace and
+memory
+
+
+What could be done?
+===================
+
+Best solution
+-------------
+MzScheme is changed so that she does collect her garbage before
+exiting.
+Well ... no well-behaved woman would leave her house in a mess before
+going on holiday, would she?
+
+Second best solution
+--------------------
+A proper exit-hook is provided that enables extension-programmers to
+force a garbage-collection before shutdown.
+
+Third best solution
+-------------------
+In MzScheme-v200 there is a function scheme_add_atexit_closer() which
+is designed to operate on custodian-registered objects and might be
+used to emulate an exit-hook.
+
+Clearly not a solution
+----------------------
+scheme_exit is a pointer that can be set to a c-function which will be
+called before MzScheme-shutdown. It is reserved for embedding programs
+and if several extensions would set it - each one to its own
+exit-procedure, of course - it would surely mess things up royally.
+
+
+Why not go for the best and most clean solution?
+
+
+Others did see the same problem
+===============================
+
+I searched the archives and discovered that - indeed - I'm not the
+only person suffering from this ill-defined MzScheme-behaviour.
+
+Following are some excerpts of a message that was sent to this
+mail-list in 2000-08-08 by Mr. Fernout:
+
+...
+&gt; I think the correct way to make an object with a protected resource
+&gt; (like a file handle) in MzScheme is to use both a finalizer and a
+&gt; custodian.
+&gt; My understanding, which may be incomplete or wrong, is:
+&gt; * When an object is garbage collected, a finalizer if any is called.
+&gt; * When Scheme shuts down, objects are not garbage collected.
+&gt; * Thus, you also need a custodian who will close the resource for 
+&gt; you.
+...
+&gt; This approach seems like it would work, but is
+&gt; to me a little inelegant. Somehow I'd like to make just
+&gt; one call to MzScheme to protect a resource, rather
+&gt; than a couple which require defining a couple of functions.
+
+
+Yes, messing with custodians only because there is no final
+garbage-collection is not only 'inelegant' but painful and
+superfluous.
+
+
+One final plead
+===============
+
+Here is my plead to those who are actively developing MzScheme: please
+make MzScheme collect garbage before exit!
+
+
+---------------
+Sincerely yours and thank you for reading till the very end,
+Sebastian
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00218" href="msg00218.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00211.html">Re: XtAppAddInput and XtAppAddTimeOut</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00213.html">Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00211.html">Re: XtAppAddInput and XtAppAddTimeOut</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00218.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00212"><strong>Date</strong></a></li>
+<li><a href="threads.html#00212"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

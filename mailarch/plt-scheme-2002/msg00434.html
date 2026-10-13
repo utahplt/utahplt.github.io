@@ -1,0 +1,154 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: =?iso&#45;8859&#45;1?q?=3F?= -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Sun, 24 Mar 2002 11:26:56 &#45;0700 (MST) -->
+<!--X-Message-Id: iss.1984.3c9e1a52.4b787.1@merkur.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: F4fF4lWZvfwj7MZHXNY0000fd23@hotmail.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: ?</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00433.html">Date Prev</a>][<a href="msg00435.html">Date Next</a>][<a href="msg00433.html">Thread Prev</a>][<a href="msg00435.html">Thread Next</a>][<a href="maillist.html#00434">Date Index</a>][<a href="threads.html#00434">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: ?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;ME ElasMario&quot; &lt;<A HREF="mailto:samasmar@hotmail.com">samasmar@hotmail.com</A>&gt;</li>
+<li><em>Subject</em>: Re: ?</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Sun, 24 Mar 2002 19:26:24 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00433.html">F4fF4lWZvfwj7MZHXNY0000fd23@hotmail.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi Sam,
+
+this is my simple solution ... propably neither efficient nor
+exceptionally elegant but R5RS-compliant and it seems to work. 
+
+Sebastian
+
+PS: Greetings to your teachers.
+
+
+(define eat-spaces
+  (lambda (str)
+    (let* ((str str)
+           (len (string-length str)))
+      (let F ((i 0))
+        (cond ((= i len) &quot;&quot;)
+              ((char-whitespace? (string-ref str i)) (F (+ i 1)))
+              (#t (substring str i len)))))))
+
+(define next-word
+  (lambda (str)
+    (let* ((str (eat-spaces str))
+           (len (string-length str)))
+      (let F ((i 0))
+        (cond ((= i len) (list str &quot;&quot;))
+              ((char-whitespace? (string-ref str i)) 
+               (list (substring str 0 i)
+                     (substring str (+ i 1) len)))
+              (#t (F (+ i 1))))))))
+
+(define string-&gt;word-list
+  (lambda (str)
+    (let* ((x (next-word str))
+           (word (car x))
+           (rest (cadr x)))
+      (cond
+       ((= (string-length word) 0) '() )
+       ((= (string-length rest) 0) (list word))
+       (#t (cons word (string-&gt;word-list rest)))))))
+
+(string-&gt;word-list
+   &quot;in the past few weeks I've been investigating&quot;)
+=&gt;
+(&quot;in&quot; &quot;the&quot; &quot;past&quot; &quot;few&quot; &quot;weeks&quot; &quot;I've&quot; &quot;been&quot; &quot;investigating&quot;)
+
+
+
+
+
+
+-------------------
+&gt; hello
+&gt; 
+&gt; i'm trying to writing a fonction with scheme that can convertir a
+string 
+&gt; like
+&gt; &quot;in the past few weeks I've been investigating&quot;
+&gt; to a list containing :
+&gt; (&quot;in&quot; &quot;the&quot; &quot;past&quot; &quot;few&quot; &quot;weeks&quot; &quot;i've&quot; &quot;been&quot; &quot;investigating&quot;)
+&gt; 
+&gt; so i will be thinkfull if somebody have the solution.
+&gt; 
+&gt; sam
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00435" href="msg00435.html">RE: ?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00433" href="msg00433.html">No Subject</a></strong>
+<ul><li><em>From:</em> &quot;ME ElasMario&quot; &lt;samasmar@hotmail.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00433.html">No Subject</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00435.html">RE: ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00433.html">No Subject</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00435.html">RE: ?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00434"><strong>Date</strong></a></li>
+<li><a href="threads.html#00434"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SrPersist and sql&#45;c&#45;char question -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Mon, 12 Mar 2001 08:38:30 &#45;0700 (MST) -->
+<!--X-Message-Id: 86n1artjkw.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: NBBBLCLOKKHAGMJBNHDMCEDFFEAA.apeake@comac.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SrPersist and sql-c-char question</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00369.html">Date Prev</a>][<a href="msg00371.html">Date Next</a>][<a href="msg00368.html">Thread Prev</a>][<a href="msg00373.html">Thread Next</a>][<a href="maillist.html#00370">Date Index</a>][<a href="threads.html#00370">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SrPersist and sql-c-char question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: SrPersist and sql-c-char question</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: 12 Mar 2001 09:36:31 +0000</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00367.html">NBBBLCLOKKHAGMJBNHDMCEDFFEAA.apeake@comac.com</a>&gt; (&quot;Alex Peake&quot;'s message of &quot;Fri, 9 Mar 2001 14:31:15 -0800&quot;)</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma de México</li>
+<li><em>References</em>: &lt;<a href="msg00367.html">NBBBLCLOKKHAGMJBNHDMCEDFFEAA.apeake@comac.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090001 (Oort Gnus v0.01) XEmacs/21.1 (Cuyahoga Valley)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&quot;Alex Peake&quot; &lt;apeake@comac.com&gt; writes:
+
+&gt; In learning about SrPersist, I tried the following test. It all works except
+&gt; for the strange display of the strings (from the buffers). Each string is 80
+&gt; characters long, filled with (apparently) null characters, or the contenets
+&gt; of the previous buffer after the first null. Is there some way to &quot;convert
+&gt; to scheme strings&quot; so the display properly?
+
+You may use the following procedure:
+
+,--------------------
+|    ;; This procedure adjusts BUFF keeping everything up to the first null
+|    ;; char #\^@, as those stored by bind-table into buffers.
+|    (define schemeql-trim                     
+|      (lambda (buff)                          
+|        (let ((len (string-length buff)))     
+|          (let loop ((idx 0))                 
+|            (cond ((= idx len) buff)          
+|                  ((char=? (string-ref buff idx) #\null)
+|                   (substring buff 0 idx))    
+|                  (else (loop (+ idx 1))))))))
+`--------------------
+
+substitute string-copy by schemeql-trim in:
+
+[...]
+
+&gt;               (set! result (append (list (string-copy (read-buffer
+&gt; lookup-buffer))
+&gt;                                          (string-copy (read-buffer
+&gt; display-buffer)))
+&gt;                                    result))
+
+Finally, I believe it is a feature (not a bug) that SrPersist behaves
+like this, because usually one expect to have &quot;fixed&quot; length buffers
+returning from the ODBC layer.  And cleaning those buffers before
+returning them would be a major overhead, I guess.
+
+Of course, you can always use SchemeQL without bothering about these
+kind of problems. :-)  You can get the latest version at:
+
+<A  HREF="ftp://wish.com.mx/pub/scheme/schemeql-0.05-2.plt">ftp://wish.com.mx/pub/scheme/schemeql-0.05-2.plt</A>
+
+I corrected some bugs since version 0.03 (the one published at &quot;PLT
+Scheme Libraries and Extensions&quot; web page). Hopefully this new version
+will be there soon.  There are quite a few extensions I'd like to add
+to SchemeQL yet (union, intersection, interactive support for
+`driver-connect', etc.) but I haven't had much time lately.  Anyway,
+the SQL Minimum Grammar, and some extensions are included, and may
+be useful for basic database interaction.  For one, your `test-odbc'
+procedure would become:
+
+,--------------------
+| (define test-odbc                    
+|   (lambda ()                         
+|     (let* ((cursor (find '(ClientProperty)
+|                          '(PropertyName PropertyValue))))
+|       (finite-cursor-&gt;list cursor))))
+`--------------------
+
+HTH,
+--Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00373" href="msg00373.html">RE: SrPersist and sql-c-char question</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00367" href="msg00367.html">SrPersist and sql-c-char question</a></strong>
+<ul><li><em>From:</em> &quot;Alex Peake&quot; &lt;apeake@comac.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00369.html">FREE Biotech Stock Info!    758</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00371.html">199.3</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00368.html">RE: SrPersist and sql-c-char question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00373.html">RE: SrPersist and sql-c-char question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00370"><strong>Date</strong></a></li>
+<li><a href="threads.html#00370"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

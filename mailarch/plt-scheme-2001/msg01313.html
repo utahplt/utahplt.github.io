@@ -1,0 +1,223 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Unhygienic macros -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Mon, 10 Dec 2001 03:07:46 &#45;0700 (MST) -->
+<!--X-Message-Id: 15380.35180.735886.28279@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011209191636.GA649@la.iki.fi -->
+<!--X-Reference: 200112100347.WAA08047@bosch.cs.brown.edu -->
+<!--X-Reference: 20011210064350.GB855@la.iki.fi -->
+<!--X-Reference: 200112100722.CAA08351@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Unhygienic macros</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01312.html">Date Prev</a>][<a href="msg01314.html">Date Next</a>][<a href="msg01311.html">Thread Prev</a>][<a href="msg01312.html">Thread Next</a>][<a href="maillist.html#01313">Date Index</a>][<a href="threads.html#01313">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Unhygienic macros</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Unhygienic macros</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 10 Dec 2001 05:07:40 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01311.html">200112100722.CAA08351@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01298.html">20011209191636.GA649@la.iki.fi</a>&gt;&lt;<a href="msg01306.html">200112100347.WAA08047@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg01309.html">20011210064350.GB855@la.iki.fi</a>&gt;&lt;<a href="msg01311.html">200112100722.CAA08351@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+[Apologies for the verboseness...]
+
+On Dec 10, Shriram Krishnamurthi wrote:
+&gt; Given ARC-IF from my previous message, consider ARC-COND:
+&gt; 
+&gt;   (define-syntax (arc-cond expr)
+&gt;     (syntax-case expr ()
+&gt;       [(_)
+&gt;        (syntax (void))]
+&gt;       [(_ q0 a0 rest ...)
+&gt;        (syntax (arc-if q0
+&gt;                        a0
+&gt;                        (arc-cond rest ...)))]))
+
+I tried it with `arc-and' which I think is a bit more useful
+(unrelated to if it exists in Arc or not)...
+
+| (define-syntax (arc-and expr)
+|   (syntax-case expr ()
+|     [(_) (syntax #t)]
+|     [(_ e) (syntax e)]
+|     [(_ e rest ...)
+|      (syntax (arc-if e (arc-and rest ...) #f))]))
+
+Anyway, I couldn't figure out why this using the bogus definition of
+`arc-if' failed.  To catch the problem I expanded things manually, and
+then it is easy to see that a standalone (arc-if 1 it #f) works fine,
+but the expansion of the two `arc-and's in (arc-and 1 it) gives you
+(arc-if 1 it #f) but because this whole thing binds `it', then the
+literal `it' there must be something different which can be verified
+by trying (let ((it 2)) (arc-and 1 it)).
+
+Now the real question is how can anyone internalize this information
+to be able to catch such a bug...  Another thing that I thought would
+be good to try out is the `define-macro' compatibility thing that
+Lauri wrote recently, and that is already in &quot;defmacro.ss&quot;:
+
+  (define-syntax (define-macro stx)
+    (syntax-case stx ()
+     ((_ (macro . args) . body)
+      (syntax (define-macro macro (lambda args . body))))
+     ((_ macro transformer)
+      (syntax
+       (define-syntax (macro stx2)
+         (let ((v (syntax-object-&gt;datum stx2)))
+           (datum-&gt;syntax-object
+            stx2
+            (apply transformer (cdr v)))))))))
+
+Using this,
+
+  (define-macro (arc-if test true false)
+    (let ((x (gensym)))
+      `(let ((it ,test))
+         (if it ,true ,false))))
+  (define-macro (arc-and . args)
+    (cond ((null? args) #t)
+          ((null? (cdr args)) (car args))
+          (else `(arc-if ,(car args) (arc-and ,@(cdr args)) #f))))
+
+seems to be working fine.  But if `stx2' is replaced with `_' in the
+`datum-&gt;syntax-object' call, then the result is &quot;reference to
+undefined identifier: define-macro&quot;, and if `(quote-syntax here)' is
+used, then the result is a &quot;reference to undefined identifier: it&quot;.
+Now, I think I can swallow the second error -- all expansions have the
+same binding position which forces using a different `it' every time.
+But the first mistake is beyond me -- shouldn't there be a single
+`define-macro' in any case, even if there is a new identifier bound by
+it?
+
+
+Something related -- I had another shot at the `unsyntax' thing.  The
+first thing I tried was to see if I can create a context that renames
+macros.  The following seems to be working fine:
+
+| (define-syntax (hack stx)
+|   (syntax-case stx ()
+|     ((_ x) (syntax (fluid-let-syntax
+|                        ((quote (lambda (stx)
+|                                  (syntax-case stx ()
+|                                    ((_ y) (syntax (+ y 1)))))))
+|                      x)))))
+
+But again, I'm worried about that `fluid-let-syntax' -- if it works by
+some side-effect, wouldn't there be a problem when some code involves
+calling `eval' on parallel threads?  I've tried this:
+
+  (thread (lambda () (printf &quot;--&gt; ~s~%&quot; (eval '(hack '1)))))
+
+with a `sleep' inside the `fluid-let-syntax' and it looks like while
+the thread is running things are working OK, but I'm not completely
+convinced it is ok, probably not until I'll know how the temporary
+change is done...
+
+
+Anyway, the next step is to see if I can write a 2nd-level macro.
+Doing this I ran into a problem that I couldn't figure out what causes
+it:
+
+  (module syntax-hack mzscheme
+    (define-syntax (q stx)
+      (syntax-case stx ()
+        ((_ x) (syntax (syntax x)))))
+    (provide q))
+  (require-for-syntax syntax-hack)
+  (define-syntax (foo stx)
+    (syntax-case stx ()
+      ((_ x) (q (+ x 1)))))
+  (printf &quot;--&gt; ~s~%&quot; (foo 12))
+
+works fine -- `q' behaves like `syntax'.  But when I try to
+destructure the input:
+
+  (module syntax-hack mzscheme
+    (define-syntax (q stx)
+      (syntax-case stx ()
+        ((_ (x ...)) (syntax (syntax (x ...))))))
+    (provide q))
+
+I get:
+
+  ./foo.ss:101:20: compile: bad syntax; function application is not
+  allowed, because no #%app syntax transformer is bound in: (+ 12 1)
+
+What am I doing wrong?
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01298" href="msg01298.html">Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+<li><strong><a name="01306" href="msg01306.html">Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="01309" href="msg01309.html">Re: Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+<li><strong><a name="01311" href="msg01311.html">Re: Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01312.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01314.html">Re: modifying the scheme reader in DrScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01311.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01312.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01313"><strong>Date</strong></a></li>
+<li><a href="threads.html#01313"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

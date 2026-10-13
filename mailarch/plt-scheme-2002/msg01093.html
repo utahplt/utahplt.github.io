@@ -1,0 +1,109 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Annotative forms in expand&#45;program? -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNppf.arh.rqh> -->
+<!--X-Date: Sun, 9 Jun 2002 20:57:18 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200206100257.UAA13990@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.44.0206091325580.28722&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Annotative forms in expand-program?</title>
+<link rev="made" href="mailto:robby@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01092.html">Date Prev</a>][<a href="msg01094.html">Date Next</a>][<a href="msg01092.html">Thread Prev</a>][<a href="msg01096.html">Thread Next</a>][<a href="maillist.html#01093">Date Index</a>][<a href="threads.html#01093">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Annotative forms in expand-program?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matt Jadud &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Annotative forms in expand-program?</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@ccs.neu.edu">robby@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 9 Jun 2002 20:57:16 -0600 (MDT)</li>
+<li><em>CC</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01092.html">Pine.GSO.4.44.0206091325580.28722-100000@velvetbelly.cs.indiana.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01092.html">Pine.GSO.4.44.0206091325580.28722-100000@velvetbelly.cs.indiana.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The simple answer: apply your compiler to those other modules! 
+
+Compiling a (n expanded) module is actually not too complex. They are
+just basically a big letrec, since your compiler only accepts fully
+expanded programs -- even though there may be syntax definitions in the
+compiled modules, but they are only used when expanding other modules
+(which your compiler doesn't need to do anyways).
+
+There is some complexity in finding the compiled versions of your
+modules (ie, reimplementing `require'). You might want to consider what
+Setup PLT does. It creates &quot;compiled&quot; subdirectories of each collection
+and stores the compiled version of the files there.
+
+As far as your compiler goes, I would start with the MzScheme language
+before scaling up (probably you already plan to do that).
+
+Jacob Matthews, Luke Hoban and I were wrestling with these same
+problems last summer when building a cgi compiler and we will probably
+return to that at some point in the future. I had hoped that you could
+avoid them, but maybe you cannot, if you plan to use the teaching
+languages (their implementations are actually pretty sophisticated).
+
+Robby
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01092" href="msg01092.html">[plt-scheme] Annotative forms in expand-program?</a></strong>
+<ul><li><em>From:</em> Matt Jadud &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01092.html">[plt-scheme] Annotative forms in expand-program?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01094.html">Re: [plt-scheme] Annotative forms in expand-program?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01092.html">[plt-scheme] Annotative forms in expand-program?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01096.html">Re: [plt-scheme] Annotative forms in expand-program?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01093"><strong>Date</strong></a></li>
+<li><a href="threads.html#01093"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

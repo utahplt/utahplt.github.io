@@ -1,0 +1,107 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Sat, 26 Feb 2000 21:57:35 &#45;0700 (MST) -->
+<!--X-Message-Id: 200002270457.WAA08093@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002270435.UAA20217@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] HOWTO redirect a i/o-port in Unix??</TITLE>
+<LINK REV="made" HREF="mailto:matthias@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00138.html">Date Prev</A>][<A HREF="msg00140.html">Date Next</A>][<A HREF="msg00138.html">Thread Prev</A>][<A HREF="msg00142.html">Thread Next</A>][<A HREF="maillist.html#00139">Date Index</A>][<A HREF="threads.html#00139">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] HOWTO redirect a i/o-port in Unix??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></LI>
+<LI><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</LI>
+<LI><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 26 Feb 2000 22:57:31 -0600 (CST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-reply-to</em>: &lt;<A HREF="msg00138.html">200002270435.UAA20217@balu.qualcomm.com</A>&gt; (message from LeoRazoumov on Sat, 26 Feb 2000 20:35:16 -0800 (PST))</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00138.html">200002270435.UAA20217@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Here is a (stupid) trick that I used in my Web page building scripts: 
+
+(with-output-to-file "date.txt" 
+  (lambda () 
+    (display (read-line (car (process "date"))))))
+
+This copies text from the process port to the file "date.txt". 
+
+There are better ways to hook up ports but your reference to (process
+"myprog") reminded me of this. -- Matthias
+
+[*] I call this trick stupid because I am too lazy to use our date library
+for this case. Copied code ... and the draw of the luck that I hardly ever
+program under Windows. 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00142" HREF="msg00142.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00138" HREF="msg00138.html">[Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00138.html">[Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00140.html">Re: exn:i/o:filesystem-detail unbound?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00138.html">[Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00142.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00139"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00139"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

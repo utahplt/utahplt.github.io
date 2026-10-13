@@ -1,0 +1,149 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: FFI...  (any C hackers around?) -->
+<!--X-From-R13: Syv Pnemvynl <ryvNQE.Qbearyy.SRG> -->
+<!--X-Date: Mon, 24 Jan 2000 03:40:01 &#45;0700 (MST) -->
+<!--X-Message-Id: 14476.11261.231141.760675@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>FFI...  (any C hackers around?)</TITLE>
+<LINK REV="made" HREF="mailto:eli@CS.Cornell.EDU">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00033.html">Date Prev</A>][<A HREF="msg00035.html">Date Next</A>][<A HREF="msg00033.html">Thread Prev</A>][<A HREF="msg00035.html">Thread Next</A>][<A HREF="maillist.html#00034">Date Index</A>][<A HREF="threads.html#00034">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>FFI...  (any C hackers around?)</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: FFI...  (any C hackers around?)</LI>
+<LI><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 24 Jan 2000 05:39:57 -0500 (EST)</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+This is a bit too long, but the result of the story (marked with a
+"***") looks like something that can be useful...
+
+So, I just discovered IBM's ViaVoice Outloud, and since I was always
+fascinated by speech synthesizers I began playing with it, and it
+wasn't long before the standard sample executables were too limited
+for what I wanted - connecting it with my MzScheme's mail script and
+have the computer tell me when I have new mail in a better way than my
+current "Whoop! ping ping ping boom boom" etc...
+
+Anyway, the first step is to open a process and keep feeding it input,
+but I wanted better API access, so the next step was writing a small C
+program - since I wanted it to handle simple text, I started making it
+understand my own "commands" to change parameters etc, and soon enough
+I realized that the whole thing will look much better if it gets
+embedded in Scheme.
+
+So, the next step is to have a small eci.so file written in C, which
+can be loaded into MzScheme.  Now, when this is made, you continuously
+have to decide what functionality you want to implement in the C level
+and what do you leave for Scheme.  As I love Scheme enough to be
+registered on this list, I decided to have the thinnest layer -
+basically just getting Scheme_Object*'s, checking types, calling the
+API function and convert the result back to some Scheme_Object*.
+
+There is definitely an enjoyable side effect for doing this, as you
+have more and more functionality available from Scheme, but around the
+5th function it get unavoidable to question the intelligence involved,
+since the whole thing is pretty mechanical.
+
+***
+
+So, I started writing something that will do things automatically, and
+it started getting closer and closer to Allegro's FFI - you can open a
+shared library and pull out a function as easily as:
+
+  (define eci:add-text
+    (dyn-function "libibmeci50.so" "AddText" '(eci string) 'boolean))
+
+...and this sounds much more attractive than writing that thin
+extension.
+
+So, right now it works enough to provide some cute functionality,
+except there are two things I don't know how to do:
+
+1. Passing a variable number of arguments to a function, with varying
+   sizes - now I have a big &amp; ugly case statement with only 32bit
+   types.
+
+2. Missing any way of making a C closure that is callable from C -
+   something that can be passed on to some C function that will call
+   the Scheme function.  A crude solution will be to rely on such
+   callbacks to have a data pointer and play with that...
+
+It should probably be very simple to make it work on other OS's as
+well, since only the shared library openning and getting a symbol's
+address are the OS-dependent parts, and that is pretty similar to the
+MzScheme source.
+
+So, any interest?
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+         <A  HREF="http://www.cs.cornell.edu/eli/meaning.html">http://www.cs.cornell.edu/eli/meaning.html</A>        Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00035" HREF="msg00035.html">Re: FFI...  (any C hackers around?)</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00037" HREF="msg00037.html">Re: FFI...  (any C hackers around?)</A></STRONG>
+<UL><LI><EM>From:</EM> Reini Urban &lt;rurban@x-ray.at&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00033.html">smart-extension --- a signed unit with meta data</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00035.html">Re: FFI...  (any C hackers around?)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00033.html">smart-extension --- a signed unit with meta data</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00035.html">Re: FFI...  (any C hackers around?)</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00034"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00034"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

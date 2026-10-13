@@ -1,0 +1,168 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] TCP/IP simple server in MZScheme &#45; how to? (Plt 1.3p1 release) -->
+<!--X-From-R13: Sevpu.DnfgNg&#45;bayvar.qr (Sevpu Dnfg) -->
+<!--X-Date: Wed, 22 May 2002 11:51:49 &#45;0600 (MDT) -->
+<!--X-Message-Id: a05100300b91186b93509@[217.224.208.162] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] TCP/IP simple server in MZScheme - how to? (Plt 1.3p1 relea</title>
+<link rev="made" href="mailto:Erich.Rast@t-online.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00953.html">Date Prev</a>][<a href="msg00955.html">Date Next</a>][<a href="msg00953.html">Thread Prev</a>][<a href="msg00955.html">Thread Next</a>][<a href="maillist.html#00954">Date Index</a>][<a href="threads.html#00954">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] TCP/IP simple server in MZScheme - how to? (Plt 1.3p1 release)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: [plt-scheme] TCP/IP simple server in MZScheme - how to? (Plt 1.3p1 release)</li>
+<li><em>From</em>: <A HREF="mailto:Erich.Rast@t-online.de">Erich.Rast@t-online.de</A> (Erich Rast)</li>
+<li><em>Date</em>: Wed, 22 May 2002 19:51:32 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello,
+
+I'm not very familiar with MzScheme yet and tried to create a simple 
+server class to interface to a front end via TCP/IP. However, on Mac 
+OS 9 in DrScheme and when I connect via telnet, the code below does 
+display &quot;connection&quot; but only reads a few (5-6) list expressions and 
+then the IDE quits with a low on memory message. Something in the 
+methods start-listen-thread or data-available must be totally wrong.
+
+Does anyone spot an obvious mistake in the code below? -- defclass* 
+is just a simple wrapper macro to some (define name (class* ...)) and 
+none of the other custom functions does anything unusual.
+
+Is there some TCP/IP server sample for MZScheme?
+
+Thanks in advance for any help and advices,
+
+Erich
+
+
+
+(define-struct client (in out))
+
+(definterface wp:Interface&lt;%&gt; ()
+  received-command
+  send-command)
+
+(defclass* wp:Interface% wp:Object% (wp:Interface&lt;%&gt;)()
+            (private
+              [listener]
+              [clients ()]
+
+              [start-listen-thread
+               (lambda ()
+                 (thread
+                  (let loop ()
+                    (when (tcp-accept-ready? listener)
+                      (begin
+                        (set! clients
+                              (cons (call-with-values
+                                     (lambda ()
+                                       (tcp-accept listener))
+                                     (lambda (in out)
+                                       (make-client in out)))
+                                    clients))
+                        (display &quot;connection&quot;)(newline))) ;debug
+                    ; second loop part read data from clients
+                    (for-each
+                     (lambda (client)
+                       (data-available client (read (client-in client))))
+                     clients)
+                    (sleep 0.1)
+                    (loop))
+                  ))]
+
+              [data-available
+               (lambda (client data)
+                 (thread
+                  (lambda ()
+                    (cond ((list? data)
+                           (display data) ;debug
+                           (let ((cmd (make-object wp:Command%)))
+                             (send cmd set-by-raw-data! data)
+                             (received-command client cmd)))
+                          (else (display &quot;Unknown command: &quot;)
+                                (display data)
+                                (newline))))))]
+              )
+           (public
+             [listen
+              (lambda ()
+                (set! listener (tcp-listen (get-pref 'default-port)))
+                (start-listen-thread))]
+             [received-command
+              (lambda (client cmd)
+                (display (text 'debug-received-command
+                               (send cmd debug-string))))]
+             [send-command
+              (lambda () (display (text 'debug-send-command)))]
+             ))
+
+(define a (make-object wp:Interface%))
+(send a listen)
+-- 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00955" href="msg00955.html">[plt-scheme] TCP/IP simple server in MZScheme - how to? (Plt 1.3p1 release)</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00957" href="msg00957.html">Re: [plt-scheme] TCP/IP simple server in MZScheme - how to? (Plt 1.3p1 release)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00953.html">RE: [plt-scheme] dynamic method-name for send, in v200</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00955.html">[plt-scheme] TCP/IP simple server in MZScheme - how to? (Plt 1.3p1 release)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00953.html">RE: [plt-scheme] dynamic method-name for send, in v200</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00955.html">[plt-scheme] TCP/IP simple server in MZScheme - how to? (Plt 1.3p1 release)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00954"><strong>Date</strong></a></li>
+<li><a href="threads.html#00954"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

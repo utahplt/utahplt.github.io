@@ -1,0 +1,241 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Conway's Game of Life (cellular automata) -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.abegujrfgrea.rqh> -->
+<!--X-Date: Thu, 20 Dec 2001 21:55:04 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112210454.fBL4sQt25270@poincare.math.northwestern.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Conway's Game of Life (cellular automata)</title>
+<link rev="made" href="mailto:richter@math.northwestern.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01384.html">Date Prev</a>][<a href="msg01386.html">Date Next</a>][<a href="msg01407.html">Thread Prev</a>][<a href="msg01386.html">Thread Next</a>][<a href="maillist.html#01385">Date Index</a>][<a href="threads.html#01385">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Conway's Game of Life (cellular automata)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Conway's Game of Life (cellular automata)</li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 20 Dec 2001 22:54:26 -0600</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I wrote Conway's Game of Life in what I thought was good TLS style,
+but I wondered if HTDP would recommend something different.  There's
+some talk of object-oriented design in HTDP which I didn't
+follow. This seems like a good thing for HTDP; it's fun &amp; easy.
+
+In more detail, Ian Stewart's book &quot;The Collapse of Chaos&quot; describes
+Conway's Game of Life and claims that a &quot;glider gun&quot; is periodic with
+period 30, with the additional feature that the &quot;glider gun&quot; shoots
+out a stream of pulses diagonally (down &amp; to the right).  I was
+intrigued by this &amp; code it up below, and indeed it's 30-periodic!
+The basic cellular automata rule is very simple:
+
+   If a cell is white, and exactly 3 of it's neighbors are black, then
+   the cell becomes black.  Otherwise the cell remains white.
+
+   If a cell is black, and either 2 or 3 of it's neighbors are black,
+   then the cell remains black; otherwise the cell becomes white.
+
+This is easy in C, represent a game by a matrix of 1s &amp; 0s, copy the
+matrix and mutate the copy.  Writing it as a functional program was a
+challenge for me, but I don't believe it was hard.  But I wondered if
+HTDP doesn't recommend an OOP approach: think of each cell as an
+object, and pass messages between the nearest neighbors...
+
+-Bill
+
+(define glider-gun 
+  (map string-&gt;list 
+       (list
+        &quot;                                                                  &quot;
+        &quot;                                      x                           &quot;
+        &quot;                                   xxxx                           &quot;
+        &quot;                          x       xxxx         xx                 &quot;
+        &quot;                         x x      x  x         xx                 &quot;
+        &quot;             xx         x   xx    xxxx     x                      &quot;
+        &quot;             xx         x   xx     xxxx    x                      &quot;
+        &quot;                        x   xx        x                           &quot;
+        &quot;                         x x                                      &quot;
+        &quot;                          x                                       &quot;
+        &quot;                                                                  &quot;
+        &quot;                                                                  &quot;
+        &quot;                                                                  &quot;
+        &quot;                                                                  &quot;
+        &quot;                                                                  &quot;
+        &quot;                                                                  &quot;
+        &quot;                                                                  &quot;
+        &quot;                                                                  &quot;
+        &quot;                                                                  &quot;
+        &quot;                                                                  &quot;
+        &quot;                                                                  &quot;)))
+
+(define (iterate-life game)
+  ;; takes a Conway game of life and produces the next iteration,
+  ;; by the following rule:
+  ;; If a cell is white (#\space), and exactly 3 of it's neighbors are black (#\x),
+  ;; then the cell becomes black.  
+  ;; If a cell is black, and either 2 or 3 of it's neighbors are black, then
+  ;; the cell remains black; otherwise the cell becomes white.
+  ;;
+  ;; A game is normally represented as a matrix of 0s and 1s.   
+  ;; We use  a  list (rows) of lists (columns) of characters, so each &quot;matrix entry&quot; 
+  ;; is either #\space or #\x. 
+  ;;
+  ;; We first pad the game with #\space on all sides, then call 
+  ;; iterate-life-real, which does the real work.
+  (let ((padded-game (make-padded-game game)))
+    (iterate-life-real padded-game)))
+
+
+(define (make-padded-game game)
+  (letrec ((make-blank-list 
+    ;; returns a list full of spaces of same length as list 
+            (lambda (list) 
+              (if (null? list) 
+                  `()
+                  (cons #\space 
+                        (make-blank-list (cdr list)))))))
+    (let* ((make-padded-row (lambda (row) 
+                              (cons #\space 
+                                    (append row 
+                                            (list #\space)))))
+           (game-padded-by-rows 
+            ;; the game with each row padded by a SPC on both ends
+            (map make-padded-row game))
+           (padded-blank-row (make-blank-list (car game-padded-by-rows))))
+      (cons padded-blank-row 
+            (append game-padded-by-rows 
+                    (list padded-blank-row))))))
+
+
+(define (iterate-life-real padded-game)
+  ;; Returns the next iteration of Conway game of life on the middle,
+  ;; so returns a game missing the padded frame of SPCs.
+  (if (null? (cddr padded-game))
+      `()
+      (cons (fix-middle-row (car padded-game)
+                            (cadr padded-game)
+                            (caddr padded-game))
+            (iterate-life-real (cdr padded-game)))))
+
+
+(define (fix-middle-row top row bot)
+  ;; take 3 lists (rows) of the same length and play Life on the middle row, 
+  ;; minus the 1st &amp; last elements, which initially are padded SPCs.
+  (if (null? (cddr row))
+      '()
+      (cons (Conway (car top) (cadr top) (caddr top)
+                    (car row) (cadr row) (caddr row)
+                    (car bot) (cadr bot) (caddr bot))
+            (fix-middle-row (cdr top) 
+                            (cdr row) 
+                            (cdr bot)))))
+
+
+(define (Conway nw n ne
+                w here e
+                sw s se)
+  ;; performs the Conway iteration on the cell whose value is `here'.
+  ;; If here is white (#\space), and exactly 3 of it's neighbors are black (#\x),
+  ;; we return black.  
+  ;; If here is black, and if the number of black neighbors is not 2 or 3, 
+  ;; we return white (#\space).
+  ;; Otherwise, the cell is unchanged, so we return here.
+      (let* ((black-&gt;1 (lambda (cell)
+                         (if (char=? cell #\x)
+                             1
+                             0)))
+             (numblack (apply + (map black-&gt;1 (list nw n ne
+                                                    w    e
+                                                    sw s se)))))        
+        (cond ((and (char=? here #\space) 
+                    (= numblack 3)) 
+               #\x)
+              ((and (char=? here #\x)
+                    (not (or (= numblack 2)
+                             (= numblack 3)))) 
+               #\space)
+              (else here))))
+
+
+(define 60-iterations-of-glider-gun 
+  (do ((i 0 (+ i 1))
+       (picturelist '() (cons (map list-&gt;string picture) 
+                              (cons i picturelist)))
+       (picture glider-gun (iterate-life picture)))
+    ((&gt; i 60) (reverse picturelist))))
+
+60-iterations-of-glider-gun 
+
+
+;; Code below has the feature that after selecting the output with
+;; Meta-a and pasting it into a file and deleting the top lines, you
+;; can `lpr' the file printing 3 iterations per page.    
+
+;; Still need to implement error checking:  if we ever get 3
+;; consecutive black cells on the bounding frame (an outer row or
+;; column), then the grid is too small, and must be enlarged. 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01386" href="msg01386.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Michael Bogomolny &lt;bogo@cs.utexas.edu&gt;</li></ul></li>
+<li><strong><a name="01412" href="msg01412.html">RE: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01384.html">Re: 200alpha5</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01386.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01407.html">RE: Server downtime</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01386.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01385"><strong>Date</strong></a></li>
+<li><a href="threads.html#01385"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

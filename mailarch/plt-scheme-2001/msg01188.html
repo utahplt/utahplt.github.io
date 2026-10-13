@@ -1,0 +1,143 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Problems with MacOS menu handling -->
+<!--X-From-R13: Brgre Znar <cpyNcflpubybtl.abggvatunz.np.hx> -->
+<!--X-Date: Thu, 8 Nov 2001 03:57:45 &#45;0700 (MST) -->
+<!--X-Message-Id: a05100301b81004037ddc@[128.243.31.196] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Problems with MacOS menu handling</title>
+<link rev="made" href="mailto:pcl@psychology.nottingham.ac.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01187.html">Date Prev</a>][<a href="msg01189.html">Date Next</a>][<a href="msg01198.html">Thread Prev</a>][<a href="msg01191.html">Thread Next</a>][<a href="maillist.html#01188">Date Index</a>][<a href="threads.html#01188">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Problems with MacOS menu handling</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Problems with MacOS menu handling</li>
+<li><em>From</em>: Peter Lane &lt;<A HREF="mailto:pcl@psychology.nottingham.ac.uk">pcl@psychology.nottingham.ac.uk</A>&gt;</li>
+<li><em>Date</em>: Thu, 8 Nov 2001 10:57:41 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Dear list,
+
+I have some code for displaying a popup menu when the user 
+right-clicks within a canvas object.  This popup menu contains simple 
+selection choices ('save', 'close') and also a check box and submenu. 
+Although working as intended on the PC, the more complex menu items 
+don't transfer to the MacOS.  There are two problems.
+
+The first is with the checkable menu -- although the callback 
+procedure is called, the checkable item state is not changed by the 
+system.  Hence, the line (send e check ...) in the sample below:
+
+;; check item to determine whether the stages are displayed
+(make-object checkable-menu-item% &quot;Show stages&quot; my-popup
+    (lambda (e v)
+       ;; explicit change required on Mac only
+       (send e check (not (send e is-checked?)))
+       (set-show-stages! (send e is-checked?)) #f #f))
+
+Note, this problem also occurs if the checkable item is part of a 
+menu on the menu-bar.
+
+The second problem is with the submenu -- although appearing on the 
+popup, the submenu does not appear.  The code I used is as below.
+
+;; create a sub-menu on popup for selecting type of automatic peaks
+(let ((peaks-menu (make-object menu% &quot;Show peaks&quot; my-popup #f)))
+    (make-object menu-item% &quot;No peaks&quot; peaks-menu
+       (lambda (e v) (clear-my-peaks)) #f #f)
+    (make-object menu-item% &quot;&gt;= 2 seconds&quot; peaks-menu
+       (lambda (e v) (set-my-peaks! (get-large-values (graph-points)))) #f #f)
+    (make-object menu-item% &quot;Local maxima&quot; peaks-menu
+       (lambda (e v) (set-my-peaks! (get-local-maxima (graph-points)))) #f #f))
+
+This problem is not present if the submenu is part of a menu on the menu-bar.
+
+I cannot see anything in the documentation specific to problems with 
+the MacOS interface to these functions.  Is this a bug, or do I need 
+to add something extra to the sub-menu code, like with the 
+checkable-menu-item?  I would guess the code handling selection of 
+these widgets is not being called on the Mac, although the callback 
+is -- the simple menu items work happily enough.
+
+	thanks for any help,
+
+		Peter.
+
+-- 
+---------------------------------------------------------------
+Dr. Peter Lane
+ESRC Centre for Research in Development,
+Instruction and Training (CREDIT)
+School of Psychology, University of Nottingham
+NOTTINGHAM  NG7 2RD, England
+
+Email: pcl@psychology.nottingham.ac.uk
+Tel:   + 44 (0) 115 951 5310
+Fax:   + 44 (0) 115 951 5324
+URL:   <A  HREF="http://www.psychology.nottingham.ac.uk/staff/Peter.Lane">http://www.psychology.nottingham.ac.uk/staff/Peter.Lane</A>
+---------------------------------------------------------------
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01191" href="msg01191.html">Re: Problems with MacOS menu handling</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01187.html">RE: Building scheme on Linux</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01189.html">RE: Building scheme on Linux</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01198.html">Re: Is it possible to have a persistent canvas background color ?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01191.html">Re: Problems with MacOS menu handling</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01188"><strong>Date</strong></a></li>
+<li><a href="threads.html#01188"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

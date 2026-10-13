@@ -1,0 +1,118 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: mzscheme extension problems -->
+<!--X-From-R13: Egrcunar Zrgm <yrgmNtenzr.se> -->
+<!--X-Date: Mon, 23 Jul 2001 04:23:56 &#45;0600 (MDT) -->
+<!--X-Message-Id: v03007803b781a9277bfd@[194.5.49.5] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>mzscheme extension problems</title>
+<link rev="made" href="mailto:letz@grame.fr">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00712.html">Date Prev</a>][<a href="msg00714.html">Date Next</a>][<a href="msg00712.html">Thread Prev</a>][<a href="msg00714.html">Thread Next</a>][<a href="maillist.html#00713">Date Index</a>][<a href="threads.html#00713">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>mzscheme extension problems</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: mzscheme extension problems</li>
+<li><em>From</em>: Stephane Letz &lt;<A HREF="mailto:letz@grame.fr">letz@grame.fr</A>&gt;</li>
+<li><em>Date</em>: Mon, 23 Jul 2001 12:25:48 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi,
+
+We have some problems in developing an extension that use threads.
+
+First i compiled and load successfully the extension in Drscheme. Some
+functions worked, but because the external code open OS threads, i've got
+several segmentation fault.
+
+Using the 103 distribution, I compiled the system with OS threads, but had
+to hack the linux_thread.c file to make it compile (Linux kernel 2.4.3
+Mandrake 8.0 distribution)
+
+I tried to load again the extension but now get the error :  &quot;undefined
+symbol : scheme_current_process&quot;
+
+I tried also to link the mzdyn.o file into my .so extension but get the error :
+&quot;multiple definition : scheme-initialiez-internal&quot;
+
+I tried the CVS version but can not compile because of errors when
+compiling the linux_thread.c file.
+
+Any ideas?
+
+Thanks
+
+Stephane Letz
+
+
+Grame: Centre National de creation musicale
+9, Rue du Garet
+69001 Lyon
+Tel: 04-72-07-37-00
+Fax: 04-72-07-37-01
+Web: www.grame.fr
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00714" href="msg00714.html">Re: mzscheme extension problems</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00712.html">Contract Programmer Seeks Work</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00714.html">Re: mzscheme extension problems</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00712.html">Contract Programmer Seeks Work</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00714.html">Re: mzscheme extension problems</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00713"><strong>Date</strong></a></li>
+<li><a href="threads.html#00713"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Regexp arcana -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Thu, 28 Sep 2000 13:41:58 &#45;0600 (MDT) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B912AF51A@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Regexp arcana</title>
+<link rev="made" href="mailto:GregP@bsquare.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00565.html">Date Prev</a>][<a href="msg00567.html">Date Next</a>][<a href="msg00563.html">Thread Prev</a>][<a href="msg00567.html">Thread Next</a>][<a href="maillist.html#00566">Date Index</a>][<a href="threads.html#00566">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Regexp arcana</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Regexp arcana</li>
+<li><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 28 Sep 2000 12:41:22 -0700</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+OK, this may be a little off-topic, but I'll tie it in.
+
+(define (do-s s)
+  (regexp-match &quot;\&quot;([^\&quot;]*)\&quot;(.*)&quot; s))
+
+The regular expression was take from the implementation of imap in the net
+collection.
+That's how it's tied in. Now for the arcana :-)
+
+I'm trying to figure out what the dang thing does, so I'm running some
+experiments on it.
+
+First of all, from the docs:
+&quot;
+...
+Atom ::= (Regexp)		Match any sub-expression Regexp
+...
+&quot;
+
+Pardon me for being dense, but what is meant by &quot;Match any sub-expression
+Regexp&quot;
+
+So without knowing what the roundy parens do in the regexp, let me attempt
+to figure out what
+our expression above does:
+
+[^\&quot;] ---&gt; Should &quot;Match any character not in Range&quot; So I suppose that
+anything but a quote will do.
+
+Now,
+
+[^\&quot;]* ---&gt; the Kleene star I presume. Hence, anything but a quote, zero or
+more times. Stuff like this:
+
+		this is a sentence without a quote in it
+
+I expect it will match the whole dang thing. While
+		This has an &quot; embedded quote
+A test shows that I get everything up to the quote:
+		This has an
+
+&quot;\&quot;[^\&quot;]*\&quot; ---&gt; like before, but the whole deal should have quotes around
+it:
+		&quot;this is a sententce without a quote&quot;
+
+This next sentence is interesting:
+
+		&quot;this is &quot; a sentence with three quotes&quot;
+
+It will grab everything up to the second quote, but not the whole thing
+'cause quotes in the middle aren't allowed:
+
+		&quot;this is &quot;
+
+So what about this?:
+&quot;\&quot;([^\&quot;])\&quot;&quot;
+
+Let me try an english description: Any substring of the given string such
+that the first and last characters of the substring are quotes, but no other
+characters in the substring are quotes.
+
+So I write a little routine and try it out:
+
+(define (do-w w)
+  (regexp-match &quot;\&quot;([^\&quot;]*)\&quot;&quot; w))
+
+&gt; (do-w &quot;this one has no quotes&quot;)
+#f
+
+This is what I expected. No quotes and hence no match.
+
+&gt; (do-w &quot;\&quot;quotes around the oustside\&quot;&quot;)
+(&quot;\&quot;quotes around the oustside\&quot;&quot; &quot;quotes around the oustside&quot;)
+
+Now I'm confused. The first match was expected, while the cadr of the list
+has no quotes! Why do I get the second match?
+
+&gt; (do-w &quot;some stuff and then \&quot; something with quotes around it\&quot; then more
+stuff&quot;)
+(&quot;\&quot; something with quotes around it\&quot;&quot; &quot; something with quotes around it&quot;)
+
+Once again, I'm hip to the first match but confused by the cadr.
+
+&gt; (do-w &quot;this one \&quot; has three \&quot; embedded quotes \&quot; and more&quot;)
+(&quot;\&quot; has three \&quot;&quot; &quot; has three &quot;)
+
+OK, I'll take the first match. But aren't there other subexpressions which
+should match? For example \&quot; embedded quotes \&quot; is also a substring that
+fits the regexp, why only the first one?
+
+Thanks.
+	
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00567" href="msg00567.html">Re: Regexp arcana</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00565.html">Re: (sans sujet)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00567.html">Re: Regexp arcana</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00563.html">Re: Environments vs. Namespaces</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00567.html">Re: Regexp arcana</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00566"><strong>Date</strong></a></li>
+<li><a href="threads.html#00566"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

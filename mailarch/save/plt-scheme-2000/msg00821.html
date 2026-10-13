@@ -1,0 +1,127 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Making MzScheme extensions using VC++ 5.0? -->
+<!--X-From-R13: "Uertbel Znzcfuver" <tertbel_ynzcfuverNubgznvy.pbz> -->
+<!--X-Date: Sat, 5 Aug 2000 07:44:11 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000805134333.75681.qmail@hotmail.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 398B1289.4DC3876A@kurtz&#45;fernhout.com -->
+<!--X-Reference: 20000804223357.VHKC10370.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 398B96DC.2B0E7318@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Making MzScheme extensions using VC++ 5.0?</TITLE>
+<LINK REV="made" HREF="mailto:gregory_lampshire@hotmail.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00820.html">Date Prev</A>][<A HREF="msg00822.html">Date Next</A>][<A HREF="msg00822.html">Thread Prev</A>][<A HREF="msg00839.html">Thread Next</A>][<A HREF="maillist.html#00821">Date Index</A>][<A HREF="threads.html#00821">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Making MzScheme extensions using VC++ 5.0?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Making MzScheme extensions using VC++ 5.0?</LI>
+<LI><em>From</em>: "Gregory Lampshire" &lt;<A HREF="mailto:gregory_lampshire@hotmail.com">gregory_lampshire@hotmail.com</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 5 Aug 2000 09:40:45 -0400</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00812.html">398B1289.4DC3876A@kurtz-fernhout.com</A>&gt; &lt;<A HREF="msg00817.html">20000804223357.VHKC10370.mail.rdc1.sfba.home.com@localhost</A>&gt; &lt;<A HREF="msg00818.html">398B96DC.2B0E7318@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+$0.02
+
+I have used GCC with mzscheme but almost exclusively under the embedding
+scenario.  While I have no doubts that extensions can be compiled and loaded
+into the PLT distributed image (which I think was complied with MS tools),
+you may want to be careful about relying on this approach for larger
+applications.  For more complicated code that accesses different parts of
+the system through your extension code, you may run into compiler, library
+load and compatibility issues.  Due to trouble with issues like this, for a
+small, embedded project that I hack on occasionally, I rebuilt the mzscheme
+distribution using the compiler that I chose for the entire project.  This
+greatly reduced conflicts and core dumps.  Of course, since I used gcc and
+gcc cannot be used to build the entire distribution, I lost the MrEd
+interface (which was not an important part since this component was the
+kernel of the application).  If you stick to extensions that are mostly
+self-contained, you will be okay and I have got the extensions with gcc to
+compile and load correctly (under a different version though).  I found
+system-level IO calls in extensions to be the most troublesome.
+
+
+
+
+&gt;
+&gt; Any thoughts from anyone out there? Is everone out there building
+&gt; MzScheme extensions using a different version of GCC? Is it time to
+&gt; figure out how to patch the GCC compiler I just installed (none of the
+&gt; patches seemed to relate to DLL building that I noticed)?
+&gt;
+&gt; I noticed you referenced Cygwin. It is my understanding if I use that,
+&gt; the related linked DLL code all falls under the GPL (not LGPL).
+&gt;
+&gt; <A  HREF="http://www.xraylith.wisc.edu/~khan/software/gnu-win32/x86-win32-ports.html">http://www.xraylith.wisc.edu/~khan/software/gnu-win32/x86-win32-ports.html</A>
+&gt;   <A  HREF="http://sources.redhat.com/cygwin/licensing.html">http://sources.redhat.com/cygwin/licensing.html</A>
+&gt; In turn, that means my entire program that uses the DLL will also be
+&gt; under the GPL. That is why I tried the crtdll version.
+&gt;
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00812" HREF="msg00812.html">Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00817" HREF="msg00817.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00818" HREF="msg00818.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00820.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00822.html">Re: Making MzScheme extensions using VC++ 5.0? (Success!)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00822.html">Re: Making MzScheme extensions using VC++ 5.0? (Success!)</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00839.html">Any Other Lists?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00821"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00821"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

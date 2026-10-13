@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Hello World extension in MSVC++ 6.0 -->
+<!--X-From-R13: "Zrba Vryyre" <yrba_uryyreNubgznvy.pbz> -->
+<!--X-Date: Tue, 20 Nov 2001 17:30:24 &#45;0700 (MST) -->
+<!--X-Message-Id: F199DgYuJhedQxKQDGh00006228@hotmail.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Hello World extension in MSVC++ 6.0</title>
+<link rev="made" href="mailto:leon_heller@hotmail.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01228.html">Date Prev</a>][<a href="msg01230.html">Date Next</a>][<a href="msg01228.html">Thread Prev</a>][<a href="msg01233.html">Thread Next</a>][<a href="maillist.html#01229">Date Index</a>][<a href="threads.html#01229">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Hello World extension in MSVC++ 6.0</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Hello World extension in MSVC++ 6.0</li>
+<li><em>From</em>: &quot;Leon Heller&quot; &lt;<A HREF="mailto:leon_heller@hotmail.com">leon_heller@hotmail.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 21 Nov 2001 00:29:51 +0000</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Thanks to Paul Steckler and Matthew Flatt, I eventually got the Hello World 
+extension program working with MSVC++ 6.0. I've written a few notes to help 
+anyone else doing this.
+
+1. Create the following source file and call it hello.c:
+
+
+	#include &quot;escheme.h&quot;
+
+
+	// 'Hello World' code from 'Writing MzScheme Extensions'
+
+
+	Scheme_Object *scheme_initialize(Scheme_Env *env)
+	{
+		return scheme_make_string(&quot;Hello World!&quot;);
+	}
+
+	Scheme_Object *scheme_reload(Scheme_Env *env)
+	{
+		return scheme_initialize(env);	// Nothing special for reload
+	}
+
+
+2. Get a Windoze DOS prompt.
+
+3. Go into directory ~\Microsoft Visual Studio\VC98\bin and type
+
+	VCVARS32
+
+This executes a batch file that sets up the MSVC++ environment, etc.
+
+4. Go to where your extension source file is saved and type
+
+	mzc --cc hello.c
+
+to compile your program. Object file hello.obj is generated.
+
+5. Type
+
+	mzx --ld hello.dll hello.obj
+
+to link the object file. File hello.dll is generated.
+
+6. Start MzScheme and enter
+
+	(load-extension &quot;~\\hello.dll&quot;) in the upper window.
+
+You'll need to insert the full path to your extension file.
+
+7. Click on the 'Execute' button. You should see 'Hello World!'
+displayed in the lower window.
+
+
+Leon
+--
+Leon Heller, G1HSM Tel: +44 1327 359058 Email:leon_heller@hotmail.com
+My web page: <A  HREF="http://www.geocities.com/leon_heller">http://www.geocities.com/leon_heller</A>
+My low-cost Altera Flex design kit: <A  HREF="http://www.leonheller.com">http://www.leonheller.com</A>
+
+
+_________________________________________________________________
+Get your FREE download of MSN Explorer at <A  HREF="http://explorer.msn.com/intl.asp">http://explorer.msn.com/intl.asp</A>
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01233" href="msg01233.html">Re: Hello World extension in MSVC++ 6.0</a></strong>
+<ul><li><em>From:</em> &quot;Leon Heller&quot; &lt;leon_heller@hotmail.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01228.html">Re: Problem with extension for MzScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01230.html">Re: embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01228.html">Re: Problem with extension for MzScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01233.html">Re: Hello World extension in MSVC++ 6.0</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01229"><strong>Date</strong></a></li>
+<li><a href="threads.html#01229"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

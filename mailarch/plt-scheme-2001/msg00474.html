@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: web tools for s&#45;expressions -->
+<!--X-From-R13: [vpunry Pbtbzbyal <obtbNpf.hgrknf.rqh> -->
+<!--X-Date: Sat, 12 May 2001 15:11:41 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20010512161137.B2159@cs.utexas.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>web tools for s-expressions</title>
+<link rev="made" href="mailto:bogo@cs.utexas.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00473.html">Date Prev</a>][<a href="msg00475.html">Date Next</a>][<a href="msg00473.html">Thread Prev</a>][<a href="msg00481.html">Thread Next</a>][<a href="maillist.html#00474">Date Index</a>][<a href="threads.html#00474">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>web tools for s-expressions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: web tools for s-expressions</li>
+<li><em>From</em>: Michael Bogomolny &lt;<A HREF="mailto:bogo@cs.utexas.edu">bogo@cs.utexas.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 12 May 2001 16:11:37 -0500</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.2.4i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+It would appear that html does not support nested tags.
+I thought maybe someone in this group might have encountered the same
+problem and might have some ideas on how to deal with this limitation.
+
+What I'm trying to build is a tutoring system to teach people how to
+use theorem provers. Most theorem provers do an awful lot of term
+rewriting, and I would like a graphical way to take someone through a
+series of term rewrites.
+
+so, for example, if I'm trying to prove that
+(app x (app y z)) = (app (app x y) z)
+where app is the function append, then
+the standard method is to prove it by induction: 
+break it up into two cases
+  1) x is an atom
+  2) x is a pair
+and us the recursive definition of app to rewrite each case.
+
+all trivial so far. 
+
+Now, what I'd like to do is have an interface so that if the user
+places their mouse over the first &quot;app&quot; in &quot;(app x (app y z))&quot; the
+entire s-expression highlights, or if they place it over the second
+&quot;app&quot; the sub-s-expression &quot;(app y z)&quot; highlights. When the mouse is
+pressed, different events will get fired depending on which region is
+active. I'm finding this immensely difficult in html, but perhaps I'm
+going about it the wrong way. (I'm trying to make each s-expression a
+separate link, but can't do that easily since you can't nest links.)
+
+Please look at
+<A  HREF="http://austin-ultimate.org/~bogo/mockup4.html">http://austin-ultimate.org/~bogo/mockup4.html</A> 
+and
+<A  HREF="http://austin-ultimate.org/~bogo/mockup15.html">http://austin-ultimate.org/~bogo/mockup15.html</A> 
+to see my best attempts so far. 
+(There are problems with both of them, however.) 
+
+Does anyone have a suggestion, either along the lines of
+1) why don't you try such-and-such-a-method of doing this, or
+2) why don't you use &lt;tool x&gt; instead of trying to do it in html?
+
+thanks,
+bogo
+
+Michael Bogomolny
+Assistant Instructor
+University of Texas at Austin
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00473.html">Re: reading, escapism, and astrology</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00475.html">Re: newline in string literal?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00473.html">Re: reading, escapism, and astrology</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00481.html">199.11</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00474"><strong>Date</strong></a></li>
+<li><a href="threads.html#00474"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

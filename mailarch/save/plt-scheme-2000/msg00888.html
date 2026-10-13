@@ -1,0 +1,127 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Re: Customizing hash table printing? -->
+<!--X-From-R13: Dboreg Xbua Oaqrefra <eboreg_naqrefraNoevqtr&#45;cbvag.pbz> -->
+<!--X-Date: Tue, 29 Aug 2000 07:23:05 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39AAA05F000582E9@mail0.mailsender.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87itslxv01.fsf@senstation.vvf.fi -->
+<!--X-Reference: 200008281623.KAA01867@fast.cs.utah.edu -->
+<!--X-Reference: 87lmxgwjyj.fsf@senstation.vvf.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Re: Customizing hash table printing?</TITLE>
+<LINK REV="made" HREF="mailto:robert_andersen@bridge-point.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00887.html">Date Prev</A>][<A HREF="msg00889.html">Date Next</A>][<A HREF="msg00887.html">Thread Prev</A>][<A HREF="msg00889.html">Thread Next</A>][<A HREF="maillist.html#00888">Date Index</A>][<A HREF="threads.html#00888">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Re: Customizing hash table printing?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: Re: Customizing hash table printing?</LI>
+<LI><em>From</em>: Robert John Andersen &lt;<A HREF="mailto:robert_andersen@bridge%2Dpoint.com">robert_andersen@bridge-point.com</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 29 Aug 2000 09:24:47 -0400</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00887.html">87lmxgwjyj.fsf@senstation.vvf.fi</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00884.html">87itslxv01.fsf@senstation.vvf.fi</A>&gt; &lt;<A HREF="msg00885.html">200008281623.KAA01867@fast.cs.utah.edu</A>&gt; &lt;<A HREF="msg00887.html">87lmxgwjyj.fsf@senstation.vvf.fi</A>&gt;</LI>
+<LI><em>Reply-To</em>: <A HREF="mailto:robert_andersen@bridge%2Dpoint.com">robert_andersen@bridge-point.com</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On 29 Aug 2000, Hannu Koivisto wrote:
+&gt; I saw those sections and even tried that approach but because I
+&gt; couldn't get it to work and as the documentation suggests by not
+&gt; telling any other protocol, I assumed that one needs to replace the
+&gt; whole printer at once and cannot call the original one trusting
+&gt; that it will call my version to recursively print, for example,
+&gt; list elements.  As an example:
+&gt; 
+&gt; (let ((hieno (global-port-print-handler)))
+&gt;   (parameterize ((global-port-print-handler
+&gt;                   (lambda (x port)
+&gt;                     (when (hash-table? x) (hieno "hash!" port))
+&gt;                     (hieno x port))))
+&gt;     (print (list 1 2 3 (make-hash-table)))))
+&gt; =&gt; (1 2 3 #&lt;hash-table&gt;)
+&gt; 
+&gt; (let ((hieno (global-port-print-handler)))
+&gt;   (parameterize ((global-port-print-handler
+&gt;                   (lambda (x port)
+&gt;                     (when (hash-table? x) (hieno "hash!" port))
+&gt;                     (hieno x port))))
+&gt;     (print (make-hash-table))))
+&gt; =&gt; "hash!"#&lt;hash-table&gt;
+&gt; 
+&gt; So my version is not called in the first case to print the hash
+&gt; table in the list.  Or am I just missing something obvious?
+
+The problem is that for things like list and vector their is a special
+print routine called and it doesn't use the default print handling for the
+elements.  You could check list in your handler and loop through the
+elements calling the default handler which would then call yours.
+
+-- 
+Spruce: boldly goes where no client has gone before!
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00884" HREF="msg00884.html">Customizing hash table printing?</A></STRONG>
+<UL><LI><EM>From:</EM> Hannu Koivisto &lt;azure@iki.fi&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00885" HREF="msg00885.html">Re: Customizing hash table printing?</A></STRONG>
+<UL><LI><EM>From:</EM> Robert John Andersen &lt;robert_andersen@bridge-point.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00887" HREF="msg00887.html">Re: Customizing hash table printing?</A></STRONG>
+<UL><LI><EM>From:</EM> Hannu Koivisto &lt;azure@iki.fi&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00887.html">Re: Customizing hash table printing?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00889.html">Re: Customizing hash table printing?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00887.html">Re: Customizing hash table printing?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00889.html">Re: Customizing hash table printing?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00888"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00888"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

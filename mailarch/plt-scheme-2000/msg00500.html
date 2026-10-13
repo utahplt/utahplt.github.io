@@ -1,0 +1,187 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Wed, 16 Aug 2000 17:59:58 &#45;0600 (MDT) -->
+<!--X-Message-Id: 399B2C59.8570E356@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: 14738.52293.108392.678928@sun.cs.rice.edu -->
+<!--X-Reference: 3999D17B.8B30BA66@kurtz&#45;fernhout.com -->
+<!--X-Reference: p04320409b5c073ea0057@[128.42.2.124] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Specialized input parsing for code/REPL in DrScheme?</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00499.html">Date Prev</a>][<a href="msg00501.html">Date Next</a>][<a href="msg00499.html">Thread Prev</a>][<a href="msg00501.html">Thread Next</a>][<a href="maillist.html#00500">Date Index</a>][<a href="threads.html#00500">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Specialized input parsing for code/REPL in DrScheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 16 Aug 2000 20:05:45 -0400</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>, <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A></li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00471.html">399207D9.5F451CC@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00475.html">14738.52293.108392.678928@sun.cs.rice.edu</a>&gt; &lt;<a href="msg00498.html">3999D17B.8B30BA66@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00499.html">p04320409b5c073ea0057@[128.42.2.124]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Robby-
+
+Fantastic! Thanks a bunch.
+
+In the meanwhile, I had figured out as a novelty that I could use some
+self-referential code to get an ugly approximation of the desired
+behavior. 
+
+As a kludge, I just added some lines of Scheme at the top of a file to
+act as a &quot;loader&quot; for the rest of the file. That is, when you press the
+evaluate button, the Scheme code opens up the file it is at the start of
+and evaluates it (skipping the loader code). Of course, I couldn't
+figure out a way to halt the code cleanly -- as I didn't want to (exit)
+from Scheme -- just stop the evaluation.  Also, the file name has to be
+correct, you need to count and set the proper number of header lines to
+skip, and you have to save the code first before evaluating, and the
+parsing error messages refer to another file. The code called to do the
+evaluation was a slightly modified version of the IndentReader code I
+posted earlier.
+
+Example loader code put at the top of &quot;C:/pdfscheme/FileViewer.sci&quot;:
+  
+  ; The next lines run this file through the IndentReader.scm
+  ; The &quot;eval-indented-file&quot; skips the first eight lines on reading)
+  ; Note that Scheme will then error out on the define with:
+  ; &quot;reference to undefined identifier:
+fail-at-end-of-loader-not-defined&quot;
+  ; that is expected. It would be nice to have a better termination
+  (load &quot;IndentReader.scm&quot;)
+  (eval-indented-file &quot;C:/pdfscheme/FileViewer.sci&quot; 8)
+  (fail-at-end-of-loader-not-defined)
+
+By the way, the viewer code above is a modification of the
+&quot;FileViewer.scm&quot; I previous posted to the list. (Perhaps *.sci for
+&quot;Scheme indented&quot;?) This version of the viewer is written in
+indentational syntax (thus requiring the loader), and has an extra
+button that lets me convert the file viewed into indentational syntax
+(no &quot;save&quot; yet for safety!). It calls a modified version of the
+IndentWriter.scm code I posted; this one takes a port to write to as an
+argument for all printing functions. I think the hardest part was
+getting a fixed width font set when I loaded in new text to the edit
+widget. I was using that FileViewer to try to understand the syntax
+checker tool (in an indented form). 
+
+Eventually I plan to package those improved modules up and put them on
+my web site. I don't want to drag the list down in too many big emails.
+Sorry about that last one.
+
+Of course, I'd rather use something clean like your approach (through
+the tools interface). I'm just slowly beginning to understand how
+extensible DrScheme is through that interface, and how to use it. Nice
+job on the extensible architecture! 
+
+Now that it is easy to change the parser, I could also experiment with
+adding the Python triple quote (&quot;&quot;&quot;), so as to easily intermingle
+snippets of C within a  Scheme program to generate code for native DLLs
+and so on (easily = without the need to escape C quotes). 
+
+Thanks again for the &quot;jump start&quot; to using the tools interface. I'll let
+you know how it turns out.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+Robert Bruce Findler wrote:
+&gt; 
+&gt; Okay, I went ahead and wrote the tool that lets you substitute in
+&gt; your own reader for DrScheme's. It turns out that the tool is awkward
+&gt; with the current tools interface. So, I extended the tools interface
+&gt; with two new parameter procedures:
+&gt; 
+&gt;    drscheme:basis:raw-reader
+&gt; 
+&gt; and
+&gt; 
+&gt;    drscheme:basis:zodiac-reader
+&gt; 
+&gt; DrScheme (the version released to CVS) now uses the values of these
+&gt; parameters as the readers. You can set them to your own reader. I am
+&gt; including two files with this post, good-unit.ss that uses the new
+&gt; DrScheme interface and sets the reader and bad-unit.ss that uses the
+&gt; old DrScheme interface to set the reader (probably works with 102).
+&gt; The documentation has been rebuilt, too. See
+&gt; <A  HREF="http://www.cs.utah.edu/plt/anoncvs/">http://www.cs.utah.edu/plt/anoncvs/</A> for instructions on downloading
+&gt; it.
+&gt; 
+&gt; Hope that helps,
+&gt; Robby
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00471" href="msg00471.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00475" href="msg00475.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00498" href="msg00498.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00499" href="msg00499.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00499.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00501.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00499.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00501.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00500"><strong>Date</strong></a></li>
+<li><a href="threads.html#00500"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

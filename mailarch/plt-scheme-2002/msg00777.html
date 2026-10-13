@@ -1,0 +1,115 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 200alpha17 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 21 Apr 2002 10:45:20 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200204211645.g3LGjH516580@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>200alpha17</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00776.html">Date Prev</a>][<a href="msg00778.html">Date Next</a>][<a href="msg00776.html">Thread Prev</a>][<a href="msg00778.html">Thread Next</a>][<a href="maillist.html#00777">Date Index</a>][<a href="threads.html#00777">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>200alpha17</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 200alpha17</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 21 Apr 2002 10:45:18 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged code in CVS for MzScheme and MrEd is now version
+200alpha17.
+
+This version changes `make-input-port' and `make-output-port', as
+promised. The new procedures are called `make-custom-input-port' and
+`make-custom-output-port' (mainly to help identify code that needs to
+be comverted).
+
+The new interface for `make-custom-input-port' and
+`make-custom-output-port' is roughly what I posted last week. See the
+MzScheme manual for lots of details.
+
+Other changes:
+
+ * `object-wait-multiple' works on all input and output ports.
+
+ * Added `read-string-avail!*' and `write-string-avail*', which are
+   completely non-blocking versions of the starless routines. The new
+   procedures are useful only to programs that want to schedule their
+   own tasks instead of using MzScheme threads.
+
+ * Added `peek-string', `peek-string-avail!', `peek-string-avail!*',
+   and `peek-string-avail!/enable-break'. Compared to the reading
+   counterparts, each of these takes a skip count, so you can skip over
+   N characters and then peek at M characters.
+
+ * Added `shell-execute', which is a poor-Windows-man's analogue to
+  `send-event'. It works in Windows, only.
+
+ * Inside MzScheme: changed scheme_make_input_port, scheme_make_output_port,
+   added scheme_get_string, scheme_put_string.
+
+Beware: The port changes required significant restructing in the
+underlying code. I've tested the changes thoroughly, but there's a
+greater-than-usual likelihood of new I/O bugs in this release.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00776.html">How do I write a procedure to a file?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00778.html">ICLP02 Call for Participation</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00776.html">How do I write a procedure to a file?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00778.html">ICLP02 Call for Participation</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00777"><strong>Date</strong></a></li>
+<li><a href="threads.html#00777"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

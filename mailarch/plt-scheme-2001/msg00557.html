@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: troubles with .zo and macro -->
+<!--X-From-R13: "byvivre [SDWUA@" <b.zrevtbaNyvoreglfhes.se> -->
+<!--X-Date: Tue, 19 Jun 2001 12:04:19 &#45;0600 (MDT) -->
+<!--X-Message-Id: 001601c0f8eb$616cd7e0$d4e6fea9@fr.libertysurf.fr -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>troubles with .zo and macro</title>
+<link rev="made" href="mailto:o.merigon@libertysurf.fr">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00556.html">Date Prev</a>][<a href="msg00558.html">Date Next</a>][<a href="msg00555.html">Thread Prev</a>][<a href="msg00558.html">Thread Next</a>][<a href="maillist.html#00557">Date Index</a>][<a href="threads.html#00557">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>troubles with .zo and macro</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: troubles with .zo and macro</li>
+<li><em>From</em>: &quot;olivier MERIGON&quot; &lt;<A HREF="mailto:o.merigon@libertysurf.fr">o.merigon@libertysurf.fr</A>&gt;</li>
+<li><em>Date</em>: Tue, 19 Jun 2001 20:12:18 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<table width="100%"><tr><td bgcolor="#ffffff" style="background-color: #ffffff; ">
+
+
+<DIV><FONT face=Arial size=2>I've made an application that works, then&nbsp;I 
+wanted to compile it <BR>into byte code and&nbsp;I have got  some 
+troubles.</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT face=Arial size=2>This is the main file:<BR>; load 
+commands<BR>(load/use-compiled (build-path "param.scm"))<BR>(load/use-compiled 
+(build-path "matrix4.scm"))<BR>(load/use-compiled (build-path 
+"coord-3d.scm"))<BR>(load/use-compiled (build-path 
+"object.scm"))<BR>(load/use-compiled (build-path 
+"camera.scm"))<BR>(load/use-compiled (build-path 
+"light.scm"))<BR>(load/use-compiled (build-path 
+"dialog.scm"))<BR>(load/use-compiled (build-path 
+"graphics.scm"))<BR>(load/use-compiled (build-path 
+"quicksort.scm"))<BR>(load/use-compiled (build-path "main.scm"))</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT face=Arial size=2>It works perfectly with not-compiled files, but 
+using .zo I've <BR>this error when loading "matrix4.zo":<BR>--&gt;"reference to 
+undefined identifier: set-matrix4"</FONT></DIV>
+<DIV><FONT face=Arial size=2><BR>set-matix4 is a macro defined like 
+this:</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT face=Arial size=2>(define-syntax set-matrix4<BR>&nbsp; 
+(syntax-rules([ 
+])<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+((set-matrix4 mat[i][j] val) (vector-set! (vector-ref mat j) i 
+val))))</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT face=Arial size=2>Help will be useful...</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT face=Arial size=2><BR>-------The batch file&nbsp;I use to 
+compile<BR>C:\Progra~1\PLT\Mzc.exe -z param.scm <BR>C:\Progra~1\PLT\Mzc.exe -z 
+matrix4.scm <BR>C:\Progra~1\PLT\Mzc.exe -z coord-3d.scm 
+<BR>C:\Progra~1\PLT\Mzc.exe -z object.scm <BR>C:\Progra~1\PLT\Mzc.exe -z 
+camera.scm <BR>C:\Progra~1\PLT\Mzc.exe -z light.scm <BR>C:\Progra~1\PLT\Mzc.exe 
+-z dialog.scm <BR>C:\Progra~1\PLT\Mzc.exe -z graphics.scm 
+<BR>C:\Progra~1\PLT\Mzc.exe -z quicksort.scm <BR>C:\Progra~1\PLT\Mzc.exe -z 
+main.scm<BR>copy *.zo .\compiled<BR>del *.zo</FONT></DIV>
+</td></tr></table>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00558" href="msg00558.html">Re: troubles with .zo and macro</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00556.html">Re: OS-implemented threads</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00558.html">Re: troubles with .zo and macro</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00555.html">Re: 199.15</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00558.html">Re: troubles with .zo and macro</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00557"><strong>Date</strong></a></li>
+<li><a href="threads.html#00557"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,754 @@
+#| TODO: 
+   one line for break 
+|#
+
+(define TITLE "TeachScheme! 2000")
+(define DATE  (read-line (car (process "date"))))
+(define WORKSHOP-DATE "July 10-14, 2000")
+
+(define schedule 
+  '((Monday 
+      (
+       "Welcome to TeachScheme!"
+       "What's Computer Science about? Programming and computing"
+       "Expressions, Functions & Creative Algebra"
+       "The Design Recipe"
+       "The Guideline"
+       )
+      (
+        "Conditionals"
+	"Designing Conditional Programs"
+	""
+	"Compound Data 1: Using posn Structures"
+	"Designing Structural Programs"
+       )
+      )
+    (Tuesday
+      (
+        "Compound Data: Define Your Own Structures"
+	""
+	"Mixed Data: Mixing several structures"
+       )
+      (
+        "Compound Data 2: Lists"
+	"Data of Arbitrary Size: Lists"
+	"Design Recipe for Recursion"
+       )
+      )
+    ( Wednesday
+       (
+	"Producing Lists"
+	""
+	"Structures in Lists"
+	)
+       (
+	"More Data of Arbitrary Size:"
+	"- Structures in Structures"
+	""
+	"- Lists in Lists"
+	)
+       )
+    (Thursday
+      (
+       "Mutually-referential Data Definitions [show only]"
+       "Note: Generalizing the Design Recipe"
+       ""
+       "Iterative Refinement: File Systems [show only]"
+       )
+    
+      (
+        "Classroom Experience with TeachScheme!"
+	"Introduction to Scheme evaluation"
+       )
+      )
+    (Friday
+      (
+       "Evaluating Scheme"
+       )
+      (
+       "Perspective & Outlook"
+       "Generative Recursion"
+       "Functional Abstraction"
+       ))))
+
+(define Monday-morning
+" [Matthias's lecture]
+
+  Computer Science should not just be tolerated in high school.
+  It should be a core course like English or Algebra. To get there,
+  we need to understand what it really is about.
+
+  How we can make it one -- the goals of TeachScheme!
+
+  Computer Science is not about computers. Just like astronomy is
+  not about telescopes, biology is not about microscopes, etc.  
+
+  The discipline is about about computation and programming, solving
+  problems by applying systematic, computational thinking. It's --
+  creative mathematics. Instead of beging given functions, you come
+  up with functions. If math is for everyone, then 
+
+       computing and programming is useful for everyone.
+
+  It's just more fun and brings home the point better. But to do so, we
+  need curricula, languages, and tools that help everyone, not just the
+  annoited few who know how to cope with myriads of grammar rules. 
+
+-------------------------------------------------------------------
+
+  Examples:  
+    * right angle: 3-4-5 rule
+
+    * mid-point between two points 
+
+    * conversion of temperature
+
+  Demo two different versions on overhead 
+
+  What's the essence of this program: the conversion rule
+
+      - consumes degrees according to Celsius 
+      - produces degrees according to Fahrenheit
+      - when we apply it to 0C, we get 32F: that's a computation
+  
+  We should be able to do just that w/o the peripheral stuff (GUIs, repl,
+  files) 
+
+
+  Points: 
+
+  PROGRAM is a mechanism that consumes some class of information
+  and produces a class of information in response, \"big\" examples
+
+  COMPUTATION is the process when a program consumes a particular
+  piece of information, works with it, and produces some
+  information in response
+
+  INFORMATION: some knowledge about the world
+
+-------------------------------------------------------------------
+
+  Time to learn programming with Scheme and see how simple it is: 
+
+  Simple expressions 
+   arithmetic		Scheme expressions
+   nested exp		...
+
+   temp conversion	... 
+   more			... 
+
+   name rules		Scheme definitions
+
+  Computation   
+   Scheme arithmetic => number
+   nested exp        => nested reductions
+   function app	     => replace and substitute
+
+  Emphasize values, expressions, reduction rules.
+
+  More Examples: 
+
+    - celsius -> kelvin 
+
+  NO REUSE                           REUSE 
+
+    - area of disk:                  Scheme + calculation
+    - area of ring (disk with hole): Scheme + calculation 
+
+  NO REUSE                           REUSE 
+
+-------------------------------------------------------------------
+
+  THE BASIC RECIPE (p21): specify, make examples, define, test
+
+-------------------------------------------------------------------
+
+  THE PRINCIPLE: compose functions 
+  the movie theater example -- in class, show both 
+")
+
+(define Monday-morning-lab "
+  No Recap
+
+  Pragmatics: some syntax errors, some run-time errors
+
+  Assignments: 2.2.1, p11 (how teachpacks work and demonstrate points)
+               2.2.4 
+    	       2.3.2, p13
+    	       2.3.3
+    	       3.3.4, p28
+    	       3.3.1 (only if time left)
+
+  Show grammar and reduction rules for language so far, show how stepper
+  implements those rules.
+")
+	
+(define Monday-afternoon "
+
+- demo ping-pong.  
+
+  Ping-pong requires:
+  -- dealing with conditional situations
+  -- dealing with compound data
+  -- dealing with graphics (we don't teach this though, since it's
+     not portable learning -- use lib instead)
+
+- claims and conditionals
+
+  Claims are true or false: 
+    given any x on numberline, only one of 
+    -- x = 0
+    -- x < 0
+    -- x > 0 
+    holds; examples!
+
+  Scheme syntax: [show contracts!]
+    -- (= x 0) 
+    -- (< x 0)
+    -- (> x 0)
+
+  Computation: Booleans! [note: not 0 or 1.  booleans are a distinct
+                          kind of value]
+
+  Consider interval on number line: 
+    all numbers between 0 and 5. 
+  To describe it, we need compound claims: 
+    (and (< 0 x) (< x 5))
+
+  Computation: reduce one to true, than the next one, etc. 
+    [hand eval on a couple of examples: x = 3, x=-2]
+
+  If have boolean values, should be able to create functions that
+  return booleans.
+
+  Boolean-value functions: 
+    -- Is the ball inside some box?         if not, game's over
+    -- Is the ball inside of some interval? if yes, it hit paddle
+
+  Example: ;in_interval : num num num -> boolean
+           ;true if n between lo and hi, inclusive
+           (define (in-interval n low hi) ...)
+
+  Conditional functions: 
+
+    Sometimes the method for computing results differs depending
+    on what the input is. We need CONDITIONAL EXPRESSIONS: shape
+    (question-answer); use; evaluation.
+
+  Example: 
+    -- in which interval did the ball land? 
+    -- how much is your pay-back rate? 
+    -- ;sign : num -> symbol
+       ;returns 'positive, 'negative, or 'zero based on sign of input
+       (define (sign n) ...)
+    -- ;pepper-scale : num[>=5000] -> symbol
+       ;returns pepper name based on scoville-index
+       (define (pepper-scale n)
+         (cond [(and (>= n 5000) (< n 30000)) 'serrano]
+               [(and (>= n 30000) (< n 50000)) 'cayenne]
+               [(and (>= n 50000) (< n 100000)) 'thai]
+               [(>= n 100000) 'habenero]))
+       [note: the scoville-organoleptic test measures the heat of
+        peppers by mixing pepper extract with a sugar-water solution
+        such that the tongue experiences no sensation when tasting the
+        mixture. The scoville-rating indicates the ratio of sugar
+        solution to pepper needed for this test.]
+
+  Extend grammar and reduction rules.
+
+  >> DESIGN RECIPE << for conditionals
+    draw intervals, 
+    choose interior, boundary points as examples
+    write conditional with conditions
+    write down answers, case by case 
+
+-------------------------------------------------------------------  
+
+  Structures: 
+
+  positions of a ball: x and y coordinate 
+  lots of balls flying around in a game - better keep the x and y
+  coordinates together
+ 
+  posn structure 
+  (make-posn 3 4)   - box diagram
+  distance-to-O: oops doesn't work, need selectors : posn-x posn-y.
+
+  do contracts for posn-x, posn-y, show examples of use.
+
+  [The confusion over values will likely arise here, as subsequent
+   examples appear to \"create\" the same value twice.
+
+   Emphasize that \"(make-posn 1 2)\" is just the name of a position,
+   like \"7\" is the name of a number. We can write \"7\" on the twice,
+   but it's the same number.]
+
+  Extend grammar. Note that (make-posn val val) shows up in the grammar
+  for values. (make-posn expr expr) also shows up in the grammar for
+  expressions, though.
+
+  Example: ;shift-posn : posn num num -> posn
+           ;moves a posn by the given x and y deltas
+           (define (shift-posn a-posn delta-x delta-y) ...)
+
+  >> DESIGN RECIPE (p69) <<
+
+")
+
+(define Monday-afternoon-lab "
+  Recap: conditional expression syntax
+
+  Recap: designing conditions (p43):
+                boundary points (in some cases)
+	        focus on one case at a time
+	        design tests to hit all cases
+
+  Practice together: pick largest of three numbers: x, y, z
+
+  Assignments:	4.2.1, p33 [some! practice cond] 
+		4.3.1, p38
+		4.4.2, p44
+		5.1.2, p48
+		5.1.3 [if time]
+		5.1.4 [if time]
+
+  [Utah lab didn't get to the following part at all.
+   Strangely, it didn't seem to matter later on.]
+
+  Recap:    posn
+
+  Pragmatics: place (start w h) at end of buffer
+
+  Assignments:   section 6.1 & 6.2 
+		6.1.1, p53
+                6.2.1 
+		6.2.2
+		6.2.3
+		6.2.4 [if time]
+		6.2.5 [if time]
+")
+
+;; -------------------------------------------------------------------------
+
+(define Tuesday-morning
+"
+  Finished yesterday working with posns, compound data.  Compound data
+  arises in many contexts:
+  -- phone books
+  -- library catalogs
+  -- store inventory
+  -- periodic table
+  How can we make our own forms of compound data (structures)?
+
+  Example: zoo animals
+  -- (define-struct boa (name weight food))
+     (make-boa 'Slinky 30 'pets)
+     (make-boa 'Slim 50 'bushes)
+
+     ; portable? : boa num -> boolean
+     ; determine whether boa no heavier than given weight limit
+
+     Re-motivate need for selectors
+
+  What does define-struct provide?
+  -- make-boa : symbol num symbol -> boa
+  -- boa-name : boa -> symbol
+  -- boa-weight : boa -> num
+  -- boa-food : boa -> food
+
+  make-boa is the [constrictor] constructor
+  the others are selectors
+  show box diagram; emphasize the label (\"boa\", not \"posn\")
+
+  -- (define-struct armadillo (weight dead?))
+     [\"In Texas, there a'int nothin' in the middle of the road 'cept a
+       yellow line and a dead armadilla\"]
+
+     ; portable? : armadillo num -> boolean
+
+     ; run-over-by-car : armadillo -> armadillo
+
+  >> DATA DEFINITIONS FOR MIXED DATA <<
+
+  -- An animal is either
+       - a boa, or
+       - an armadillo
+
+  ; portable? : animal num -> boolean
+
+   --> define-struct also introduces predicates
+   CONDITIONAL, each line in the conditional: selectors
+
+  -- Add (define-struct tiger (name sells weight))
+     (make-tiger 'Tony 'cereal 150)
+
+   show how this affects template and `portable?'
+
+  >> DESIGN RECIPE (p88) <<
+  specify, make examples, define, test
+
+  Second example:
+    A geometric shape is either
+     - square  (define-struct square (posn side))
+     - circle  (define-struct square (posn r))
+
+   ;; area : shape -> number 
+
+  ** Add new variant: 
+    - rectangle ++ add a clause 
+
+  ** Change variant's part: 
+    - circle r => radius ++ change the clause for circle 
+")
+
+(define Tuesday-morning-lab "
+
+  Recap:  (define-struct ...) and what it produces 
+
+  Pragmatics: place (start w h) at end of buffer
+
+  Assignments: 6.6.1, p72
+               6.6.2
+               6.6.4
+               6.6.5 [Utah lab mostly got to here]
+               6.6.6
+
+  We'll provide on-line solutions to:
+               6.6.7 - 6.6.12
+
+  -------------------------------------------------------------------
+
+  [Utah lab didn't get this far.]
+
+  Recap: design recipe for mixtures of structures
+            
+  Recap: don't forget to reuse programs (i.e., solutions from above)
+
+  Assignments: 7.4.1, p92
+               7.4.2
+               7.4.3
+               7.4.4
+               7.4.5 [if time]
+               
+")
+
+(define Tuesday-afternoon
+"
+  Structures let us glue related information together
+  
+  Consider a whole zoo of animals: data to glue together?
+  -- what about a shopping list?
+
+  How to define a shopping list?  Structs fixed size, bad design
+  We need some way to create data that is _arbitrarily large_.
+  How can we define a class of such data?
+
+  Lets' try just list-of-symbol.
+
+  Instead of using a struct with a field for each item, use a struct
+  with a field for for just one item, plus another list:
+    (define-struct bigger-list (first rest))
+  where `first' is a symbol and `rest' is another list. Also,
+  we need `empty' for lists with no items.
+
+   empty
+   (make-bigger-list 'apple empty)
+   (make-bigger-list 'milk (make-bigger-list 'apple empty))
+   (make-bigger-list 'pie (make-bigger-list 'apple empty))
+
+   (bigger-list-first (make-bigger-list 'apple empty)) = 'apple
+   (bigger-list-rest (make-bigger-list 'milk (make-bigger-list 'apple empty)))
+     = (make-bigger-list 'apple empty)
+
+  [Nested cups, box picture on page 115.]
+
+  As it turns out, the `bigger-list' structure is so useful that
+  typing `make-bigger-list' and `bigger-list-first' is a waste of energy.
+  We abbreviate with `cons', `first', and `rest':
+
+   (make-bigger-list 'pie (make-bigger-list 'apple empty))
+      = (cons 'pie (cons 'apple empty))
+
+   [DrScheme only knows the abbreviation!]
+
+  >> HOW CAN WE DESCRIBE THE **CLASS** OF ALL LISTS? <<
+  The design recipe asks for this description!  
+
+  Data Def: A list of symbols is
+   - empty
+   - (cons symbols los) where los is a list of symbols.
+
+  Self-reference in data definition.
+    discuss need for empty clause
+    [stress that empty is a constant]
+  Show how to derive examples from the data definition. 
+
+  -- how to get to 'apple in (cons 'pie (cons 'apple empty))?
+  -- what is (rest (rest (cons 'pie (cons 'apple empty))))?
+  -- what is (rest (rest (cons 'apple empty)))?
+
+  ; contains-tea? : list-of-symbols -> boolean
+
+  [Show evaluation in the Stepper]
+
+  >> DESIGN RECIPE FOR RECURSIVE DATA (p128) <<
+
+  Do data defn for list-of-number, do sum
+
+")
+
+(define Tuesday-afternoon-lab "
+
+  No Recap
+
+  Assignments: 9.5.2, p132
+               9.5.3
+               9.5.4
+               9.5.5
+               9.5.7 [Utah: had talked about in class]
+
+  If Time: [Utah: discussed this in class, too]
+
+  ;; largest-of : non-empty-list-of-numbers -> number 
+  ;; to determine the largest of the numbers on anelon
+  Note: We must first develop what it means to be non-empty
+
+  If More Time: develop checked-largest-of
+  
+")
+
+;; -------------------------------------------------------------------------
+
+(define Wednesday-morning
+" RECAP: Discuss need to think about reuse and breaking up
+   problems *before* selecting a recipe. `check-guess-for-list',
+   for example, treats its argument list as an atomic entity
+   passed to `convert'.
+
+  WARM UP: 
+   given a list of temperatures in C, 
+   determine whether they are all between 0 and 100
+
+  LIST		  QUOTE
+  [Demo in DrScheme's intermediate language]
+
+  PROBLEM: 
+   given a list of temperatures in C, 
+   produce list of equivalent F temperatures
+
+  the program produces a list, it doesn't just consume one 
+
+  ; convert-temps : list-of-num -> list-of-num
+  ; consume list of Celsius temps, produce list of equivalent Fahr
+  ;    temps
+  [Note: they wrote C->F in class on Monday]
+   
+  SORT: 
+   given a list of numbers,
+   produce a list of numbers with the exact same numbers, 
+    but sorted in descending order
+   
+  DON'T FORGET: compose functions/make up helpers!!!
+
+  AUXILIARY PROGRAMS: 
+   (1) cond expressions are in-line
+   (2) auxiliary programs: if they encapsulate domain knowledge
+   (3) auxiliary programs: if they are required -- process arb-large data
+ 
+  -------------------------------------------------------------------
+
+  Structures in Lists: celestial bodies
+
+  ;; a celestial-body is a structure
+  ;;  (make-celbody name relwgt photo)
+  ;; where name is a symbol, relwgt is a num, photo is a picture
+  ;;  [leave picture undefined]
+
+  define list-of-celbody
+
+  set up template for program over celbody.  
+  -- two data definitions, two templates
+  -- show arrow between data definitions
+
+  PROBLEM: LOOKUP picture of planet 
+   (What happens if the lookup fails? We went with errors, but
+    false would have probably been better.)
+")
+
+(define Wednesday-morning-lab "
+  No Recap
+
+  Assignments: 10.1.4, p136
+               10.1.5,
+               10.2.1, p141
+               10.2.2    <- very popular
+
+  [No one had done enough with shapes to make the shape exercises
+   work.]
+")
+
+(define Wednesday-afternoon
+" Develop family trees: see pages 183-186
+  [Popular topic in Utah. :)]
+
+  from information in the world to Scheme data
+
+  principle: one data definition per structure definition 
+
+  DATA DEFINITION -- FIRST
+
+  develop template -- FIRST
+
+  now show how easily we can write functions on this:
+
+  ;; is-in? : symbol family-tree -> boolean
+
+  ;; count : family-tree -> number 
+  
+  ;; women-names : family-tree -> list-of-symbols
+
+  and others 
+
+
+  Web pages (lists of symbols and web pages)
+")
+
+(define Wednesday-afternoon-lab "
+  Assignments: have them develop a three-layer piece of 
+               their ancestoral family trees
+
+  Assignments: 14.1.4, p192
+               14.1.5 
+               14.2.1, p194 [No one got here, but some skipped to 14.3.1.]
+               14.2.2
+
+
+  If Time:     [Few in utah lab got here.]
+
+   work thru simulated Web pages:
+    14.3.1
+    14.3.2
+    14.3.3
+    14.3.4
+
+")
+
+;; -------------------------------------------------------------------------
+
+(define Thursday-morning
+" descendant family tree -- from information to Scheme data
+  pages 203-205
+
+  PROBLEM: 
+   represent descendant tree 
+   ;; is-mike-descendant-of : desc-ft -> boolean
+
+  mutually-referential data definitions 
+   
+  DESIGN RECIPE: adjust 
+ 
+-------------------------------------------------------------------
+
+  PROBLEM
+   File Hierarchy: folders and files 
+  
+   find-a-file with name
+   disk-usage of some portion 
+
+   Go back and add a size to directories. How does du change?
+   (Prepares them for extending the evaluator with new expression forms.)
+")
+
+(define Thursday-morning-lab "
+  Assignment: have them transform their own ancestor tree into a
+               descendant tree
+
+  Assignments: 15.1.3, p209
+               15.1.4, p209
+
+  catch up from Wednesday, if necessary 
+
+  Options:
+
+   [Utah lab didn't use this option]
+   work thru rest of Binary Search tree
+    14.2.3
+    14.2.4
+    14.2.5 
+
+   [Utah lab used this option for a few people]
+   work thru simulated Web pages: 
+    14.3.1
+    14.3.2
+    14.3.3
+    14.3.4
+")
+
+(define Thursday-afternoon
+" Introduction to the Scheme evaluator project: 
+
+  What is the core of DrScheme? (relate to views of data from Monday)
+
+  Why need a model for expressions?
+  -- why can't they write eval and use as (eval (+ 5 9))?
+
+  Work through data defn for arithmetic exps + symbols
+
+  Do examples of eval on examples of data defn
+
+  [send to lab without doing template -- they can handle the template
+   by this point]   
+")
+
+(define Thursday-afternoon-lab "
+
+  Evaluate Scheme 
+   -- first expressions <font color=red>section x.y</font>
+")
+
+;; -------------------------------------------------------------------------
+
+(define Friday-morning
+" Lab first, then:
+
+  How to use TeachScheme! in a class (book, software, supoort, etc.)
+")
+
+(define Friday-morning-lab
+" Scheme evaluation
+   -- then definitions, p240
+
+  [No one got further than defns.]
+
+  give (cond [Q1 A1]
+             [else A2])
+   to those who finish interp-with-defs; encourage to interpret
+   factorial with their evaluator
+")
+
+(define Friday-afternoon
+" [Used modified version of Shriram's notes.
+   See friday.{tex,ps}.]
+
+  Generative Recursion: Quick Sort 
+
+  The Recipe: Guidance for Creative Steps
+  Contrast: Structural Recursion vs Generative Recursion 
+
+-------------------------------------------------------------------
+
+  Abstraction: Similarities and Abstraction 
+  filter: up and down 
+
+  QuickSort with filter from Scheme
+  Design Recipe 
+
+")
+
+(define Friday-afternoon-lab
+" Finish evaluator
+  [Utah lab: a few stayed. Matthew had to leave early for airport.]
+")
+
+;; -------------------------------------------------------------------------
+

@@ -1,0 +1,88 @@
+#include <escheme.h>
+
+static Scheme_Object *compound_unit;
+
+Scheme_Object *one(int argc, Scheme_Object *argv[]) {
+  return scheme_make_string( "one" );
+}
+
+Scheme_Object *unit_init1(Scheme_Object **boxes,Scheme_Object **anchors,
+			  Scheme_Unit *m,void *debug_request) {
+  SCHEME_ENVBOX_VAL( boxes[0] ) = scheme_make_prim_w_arity( one, "one", 0, 0 );
+  anchors[0] = boxes[0];
+  
+  return scheme_void;
+}
+
+Scheme_Object *make_unit1() {
+  Scheme_Unit *unit;
+
+  unit = (Scheme_Unit *) scheme_malloc( sizeof( Scheme_Unit ) );
+  unit->type = scheme_unit_type;
+  unit->num_imports = 0;
+  unit->export_debug_names = NULL;
+  unit->num_exports = 1;
+  unit->init_func = unit_init1;
+
+  unit->exports = (Scheme_Object **) scheme_malloc( sizeof( Scheme_Object * ) );
+  unit->exports[0] = scheme_intern_symbol( "one" );
+
+  return (Scheme_Object *) unit;
+}
+
+Scheme_Object *exports_unit1() {
+  Scheme_Object **exports;
+
+  exports = (Scheme_Object **) scheme_malloc( sizeof( Scheme_Object * ) * 2 );
+  exports[0] = scheme_intern_symbol( "unit1" );
+  exports[1] = scheme_intern_symbol( "one" );
+
+  return scheme_build_list( 2, exports );
+}
+
+Scheme_Object *exports() {
+  Scheme_Object **exports;
+
+  exports = (Scheme_Object **) scheme_malloc( sizeof( Scheme_Object * ) );
+  exports[0] = exports_unit1();
+
+  return scheme_build_list( 1, exports );
+}
+
+Scheme_Object *links_unit1() {
+  Scheme_Object **links;
+
+  links = (Scheme_Object **) scheme_malloc( sizeof( Scheme_Object * ) );
+  links[0] = scheme_intern_symbol( "unit1" );
+
+  return scheme_build_list( 1, links );
+}
+
+Scheme_Object *links() {
+  Scheme_Object **links;
+
+  links = (Scheme_Object **) scheme_malloc( sizeof( Scheme_Object * ) );
+  links[0] = links_unit1();
+
+  return scheme_build_list( 1, links );
+}
+
+Scheme_Object *scheme_reload(Scheme_Env *env) {
+  return compound_unit;
+}
+
+Scheme_Object *scheme_initialize(Scheme_Env *env) {
+  Scheme_Object **units;
+  Scheme_Object *assembly;
+
+  units = (Scheme_Object **) scheme_malloc( sizeof( Scheme_Object * ) );
+  units[0] = make_unit1();
+
+  assembly = scheme_assemble_compound_unit( scheme_null,
+					    links(),
+					    exports() );
+
+  compound_unit = scheme_make_compound_unit( assembly, units );
+
+  return compound_unit;
+}  

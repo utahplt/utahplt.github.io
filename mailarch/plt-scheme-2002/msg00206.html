@@ -1,0 +1,189 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Introductory material on hygienic macros in dr scheme -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Pernaaq=S1a =R3 @hnyy=S1va?= <obaNvyyp.hin.ay> -->
+<!--X-Date: Tue, 5 Feb 2002 09:07:54 &#45;0700 (MST) -->
+<!--X-Message-Id: s16pu3jdiaz.fsf@sat.science.uva.nl -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 030001c1a879$3b61aa10$450c1eac@icu19 -->
+<!--X-Reference: 009801c1a8c9$c7d4f600$02fed8d4@c1p4e3 -->
+<!--X-Reference: 200201291509.g0TF9SX17388@wrath.cs.utah.edu -->
+<!--X-Reference: s16665dlcu7.fsf@sat.science.uva.nl -->
+<!--X-Reference: 200202041721.KAA06344@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Introductory material on hygienic macros in dr scheme</title>
+<link rev="made" href="mailto:bon@illc.uva.nl">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00205.html">Date Prev</a>][<a href="msg00207.html">Date Next</a>][<a href="msg00197.html">Thread Prev</a>][<a href="msg00165.html">Thread Next</a>][<a href="maillist.html#00206">Date Index</a>][<a href="threads.html#00206">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Introductory material on hygienic macros in dr scheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Introductory material on hygienic macros in dr scheme</li>
+<li><em>From</em>: Breanndán Ó Nualláin &lt;<A HREF="mailto:bon@illc.uva.nl">bon@illc.uva.nl</A>&gt;</li>
+<li><em>Date</em>: 05 Feb 2002 17:06:44 +0100</li>
+<li><em>In-Reply-To</em>: Matthew Flatt's message of &quot;Mon, 4 Feb 2002 10:21:43 -0700 (MST)&quot;</li>
+<li><em>References</em>: &lt;<a href="msg00159.html">030001c1a879$3b61aa10$450c1eac@icu19</a>&gt;&lt;<a href="msg00163.html">009801c1a8c9$c7d4f600$02fed8d4@c1p4e3</a>&gt;&lt;<a href="msg00166.html">200201291509.g0TF9SX17388@wrath.cs.utah.edu</a>&gt;&lt;<a href="msg00194.html">s16665dlcu7.fsf@sat.science.uva.nl</a>&gt;&lt;<a href="msg00197.html">200202041721.KAA06344@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;&gt;&gt;&gt;&gt; &quot;Matthew&quot; == Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+    Matthew&gt; Quoting =?iso-8859-1?Q?Breannd=E1n =D3 Nuall=E1in?=:
+    &gt;&gt; &gt;&gt; &gt; (let-syntax ((foo (syntax-rules () ((_ x) (bar x)))))
+    &gt;&gt;        (define x 33))
+    &gt;&gt; 
+    Matthew&gt; In the &quot;internal definitions&quot; section:
+    Matthew&gt; Definitions may occur at the beginning of a &lt;body&gt; (that
+    Matthew&gt; is, the body of a lambda, let, let*, letrec, let-syntax,
+    Matthew&gt; or letrec-syntax expression or that of a definition of an
+    Matthew&gt; appropriate form). Such definitions are known as internal
+    Matthew&gt; definitions as opposed to the top level definitions
+    Matthew&gt; described above.
+    &gt;&gt; 
+    &gt;&gt; But surely the above `define' should not be treated as
+    &gt;&gt; internal?
+
+    Matthew&gt; Are we reading the above paragraph from R5RS differently,
+    Matthew&gt; or are you suggesting that this part of R5RS is wrong? (I
+    Matthew&gt; don't consider R5RS sacred, of course.)
+
+As a matter of fact we are.  At least, AFAICT we are.  
+
+My (incorrect) reading of R5RS was that the top-level expression
+
+    (let-syntax ((foo (syntax-rules () ((_ x) (bar x)))))
+      (define x 33))
+
+becomes transformed to the top-level expression
+
+    (define x 33)
+
+which is thus a top-level `define'.
+
+I'm guessing that your (correct) reading of R5RS is that, in the
+top-level expression,
+
+    (let-syntax ((foo (syntax-rules () ((_ x) (bar x)))))
+      (define x 33))
+
+a `define' occurs within a `let-syntax' and so must be an internal
+definition (at the start of a &lt;body&gt; as licensed by R5RS 5.2.2).  In
+that case it should transform to something like
+
+    (letrec ((x 33))
+      )
+
+or
+
+    (let ()
+      (define x 33))
+
+which are both illegal because of the empty bodies.
+
+A legal case of your (correct) reading of R5RS would be something like
+
+    (let-syntax ((double (syntax-rules () ((_ n) (* 2 n)))))
+      (define x (double 3))
+      (+ x 4))
+
+which should return 10.  The binding for `x' should be local to the
+body of the `let-syntax'.
+
+This is where my reading about R5RS was wrong.  I assumed that the
+above form transformed into 
+
+    (define x 6)
+    (+ x 4)
+
+and that these forms were then placed at top-level.
+
+Interestingly, Chez explicitly disagrees with R5RS:
+
+  &quot;...let-syntax and letrec-syntax do not introduce local scopes as
+  they are specified to do in the Revised5 Report.  This effect can
+  easily be achieved by inserting a let around the let-syntax or
+  letrec-syntax body.&quot; [Chez Scheme Users Guide, Section 4.1]
+
+To be honest, I can't say whether I was misreading R5RS because I
+never actually gave it much thought or whether the remnants of having
+read CSUG a long time ago were still hanging around in my head.
+
+Anyhow, I favour the Chez way.  It allows one to use a local piece of
+syntax to generate top-level forms.  I can't think of a way to do that
+with R5RS.  So, in answer to your question, I guess I don't consider
+R5RS sacred either.
+
+I'm afraid I still don't get your point about the partial-expansion
+mechanism of mzscheme though.
+
+Breanndán
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00159" href="msg00159.html">Introductory material on hygienic macros in dr scheme</a></strong>
+<ul><li><em>From:</em> &quot;Chris Wright&quot; &lt;caw@cs.mu.oz.au&gt;</li></ul></li>
+<li><strong><a name="00163" href="msg00163.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+<ul><li><em>From:</em> &quot;Pierpaolo BERNARDI&quot; &lt;bernardp@CLI.DI.Unipi.IT&gt;</li></ul></li>
+<li><strong><a name="00166" href="msg00166.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00194" href="msg00194.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+<ul><li><em>From:</em> Breanndán Ó Nualláin &lt;bon@illc.uva.nl&gt;</li></ul></li>
+<li><strong><a name="00197" href="msg00197.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00205.html">Re: Scheme_make_namespace</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00207.html">Re: Scheme_make_namespace</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00197.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00165.html">Embedding Scheme in C</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00206"><strong>Date</strong></a></li>
+<li><a href="threads.html#00206"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

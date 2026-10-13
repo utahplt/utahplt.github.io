@@ -1,0 +1,161 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Bitmaps and the Mac. -->
+<!--X-From-R13: Brgre Znar <cpyNcflpubybtl.abggvatunz.np.hx> -->
+<!--X-Date: Mon, 15 Oct 2001 05:29:50 &#45;0600 (MDT) -->
+<!--X-Message-Id: a05100300b7f06f6da798@[128.243.31.196] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Bitmaps and the Mac.</title>
+<link rev="made" href="mailto:pcl@psychology.nottingham.ac.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01056.html">Date Prev</a>][<a href="msg01058.html">Date Next</a>][<a href="msg01067.html">Thread Prev</a>][<a href="msg01059.html">Thread Next</a>][<a href="maillist.html#01057">Date Index</a>][<a href="threads.html#01057">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Bitmaps and the Mac.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Bitmaps and the Mac.</li>
+<li><em>From</em>: Peter Lane &lt;<A HREF="mailto:pcl@psychology.nottingham.ac.uk">pcl@psychology.nottingham.ac.uk</A>&gt;</li>
+<li><em>Date</em>: Mon, 15 Oct 2001 12:29:38 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi all,
+
+I am attempting to develop a system in the DrScheme environment which 
+will be portable across PC and Mac computers.  However, I'm having a 
+few problems with the Mac version, and wondered if there are any 
+other Mac users out there with similar problems / suggestions.
+
+Firstly, I should say I'm writing code on both a PC (under Windows 
+ME) and the Mac (a G4, with OS 9.1).  The PC environment is very 
+usable, and I am attempting to port working code to the Mac.  I've 
+uncovered problems with bitmaps, their creation and saving to file.
+
+As an example, I use the 'face' drawing routine from the help files 
+(under Drawing Toolbox Overview).  The relevant part is as follows:
+
+   ; Create a 300  x  300 bitmap
+   (define face-bitmap (make-object bitmap% 300 300))
+   ; Create a drawing context for the bitmap
+   (define bm-dc (make-object bitmap-dc%))
+   ; Direct the drawing context to the bitmap
+   (send bm-dc set-bitmap face-bitmap)
+   ; A new bitmap's initial content is undefined, so clear it before drawing
+   (send bm-dc clear)
+
+   ; Draw the face into the bitmap
+   (draw-face bm-dc)
+
+
+Problem 1:  I am having memory problems with creating a bitmap.  e.g. 
+If I create a large bitmap, say 5000 x 5000, Scheme fails to create a 
+bitmap, giving error
+
+	set-bitmap in memory-dc%: bad bitmap: #&lt;object:bitmap%&gt;
+
+More alarming, if I use a smaller size, 2500x2500, I get the error 
+message on every other attempt to execute the code. i.e. Execute -&gt; 
+works, Execute -&gt; fails, Execute -&gt; works, ...
+
+How much space do I need for bitmaps?  I am allowing 100Mb to the 
+MrEd PPC program.
+
+(I haven't tried the larger sizes on my PC, which has a third the RAM 
+of my Mac, but uncovered the memory problem with the small size of 
+500x500).
+
+
+
+Problem 2: The reason I'm creating a bitmap in my program is merely 
+so as to save it, i.e. with a (send face-bitmap save-file &quot;file-name&quot; 
+'pict) command.
+
+This works fine on the PC, but refuses to do anything but return #f on the Mac
+(&quot;file-name&quot; is selected using the put-file dialog, and has correct path, etc).
+
+Any suggestions?  Is there a better way to save the contents of a canvas?
+
+
+Finally, I find that launchers must be created in the plt directory, 
+and only aliases can be located elsewhere, such as the Desktop.  Is 
+that a problem with my setup as, again, I don't have that on the PC?
+
+
+	Thanks in advance for any help.
+
+		Peter.
+
+-- 
+---------------------------------------------------------------
+Dr. Peter Lane
+ESRC Centre for Research in Development,
+Instruction and Training (CREDIT)
+School of Psychology, University of Nottingham
+NOTTINGHAM  NG7 2RD, England
+
+Email: pcl@psychology.nottingham.ac.uk
+Tel:   + 44 (0) 115 951 5310
+Fax:   + 44 (0) 115 951 5324
+URL:   <A  HREF="http://www.psychology.nottingham.ac.uk/staff/Peter.Lane">http://www.psychology.nottingham.ac.uk/staff/Peter.Lane</A>
+---------------------------------------------------------------
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01059" href="msg01059.html">Re: Bitmaps and the Mac.</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01056.html">Error when starting DrScheme ...</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01058.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01067.html">Re: Check Syntax Question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01059.html">Re: Bitmaps and the Mac.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01057"><strong>Date</strong></a></li>
+<li><a href="threads.html#01057"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Compund units in extensions -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 26 Feb 2000 12:57:42 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000226195740.UYFN21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002260139.UAA16244@smtp7.atl.mindspring.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Compund units in extensions</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00125.html">Date Prev</a>][<a href="msg00127.html">Date Next</a>][<a href="msg00124.html">Thread Prev</a>][<a href="msg00129.html">Thread Next</a>][<a href="maillist.html#00126">Date Index</a>][<a href="threads.html#00126">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Compund units in extensions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:anderman@anderware.com">anderman@anderware.com</A></li>
+<li><em>Subject</em>: Re: Compund units in extensions</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 26 Feb 2000 11:57:40 -0800</li>
+<li><em>CC</em>: &quot;Scheme Mailing List&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00124.html">200002260139.UAA16244@smtp7.atl.mindspring.net</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00124.html">200002260139.UAA16244@smtp7.atl.mindspring.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Robert John Andersen:
+&gt; In assembling the compound unit does the tag in the link
+&gt; specification match the tag in the exports argument?
+
+Yes.
+
+&gt; So if I have a compound unit composed of
+&gt; the 2 following units:
+&gt; 
+&gt;   A: no imports, exports a1 and a2
+&gt;   B: no imports, exports b1
+&gt; 
+&gt; would the links specification be (A ((A a1 a2) (B b1))) 
+
+You don't have to specify anything about the exports of each unit (just
+like the `link' clause in a `compound-unit' expression). Only the
+imports. Since there are no imports for either A or B, the links
+specification is just ((A) (B)).
+
+Suppose that B imported A's a1. Then the links specification would be
+((A) (B (A a1)).
+
+&gt; and the exports
+&gt; argument ((A (a1 a2) (B b1)).
+               ^
+
+Right, but without the extra open parenthesis before a1.
+
+&gt; Also, how do the units specified in make_compound_unit match up with
+&gt; the information in the assembly?
+
+Good question. The subs array should be in parallel to the tags in the
+assembly's links specification. So in the above example, the subs array
+should contain the A unit then the B unit. (I'll patch the docs.)
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00124" href="msg00124.html">Compund units in extensions</a></strong>
+<ul><li><em>From:</em> Robert John Andersen &lt;anderman@anderware.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00125.html">Re: compile-file</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00127.html">scheme_make_enunvbox</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00124.html">Compund units in extensions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00129.html">Re: Compund units in extensions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00126"><strong>Date</strong></a></li>
+<li><a href="threads.html#00126"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

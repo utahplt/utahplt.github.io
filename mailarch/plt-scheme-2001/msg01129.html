@@ -1,0 +1,117 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Error context info -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 26 Oct 2001 12:41:11 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110261841.MAA13024@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E4C0D8267DAA6141B77F1A4EAAEB2B91023B87D5@seapriv1 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Error context info</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01128.html">Date Prev</a>][<a href="msg01130.html">Date Next</a>][<a href="msg01128.html">Thread Prev</a>][<a href="msg01132.html">Thread Next</a>][<a href="maillist.html#01129">Date Index</a>][<a href="threads.html#01129">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Error context info</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Error context info</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 26 Oct 2001 12:41:08 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01126.html">E4C0D8267DAA6141B77F1A4EAAEB2B91023B87D5@seapriv1</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01126.html">E4C0D8267DAA6141B77F1A4EAAEB2B91023B87D5@seapriv1</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Greg Pettyjohn:
+&gt; I tried doing a ... (syntax/loc stx (make-a ...))...  but in this case, no
+&gt; line was highlighted.
+
+`syntax/loc' only assigns a location to the top-most syntax object. In
+this case, I think you really want to put more specific error handling
+in `validate-b':
+
+ (define-syntax validate-b
+  (lambda (stx)
+    (syntax-case stx (b)
+      [(_ (b x ...)) (syntax (make-b (list (validate-c x) ...)))]
+      [(_ bad) (raise-syntax-error #f &quot;not a b&quot; (syntax bad))])))
+
+Another possibility would be to give each `(validate-b x)' the location
+of its `x'. The following `validate' does that:
+
+ (define-syntax validate
+   (lambda (stx)
+     (syntax-case stx (a)
+       [(_ (a x ...)) 
+        (with-syntax ([(valid-x ...)
+                       (map
+                        (lambda (var)
+                          (with-syntax ([x var])
+                            (syntax/loc var (validate-b x))))
+                        (syntax-&gt;list (syntax (x ...))))])
+          (syntax/loc stx (make-a (list valid-x ...))))])))
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01126" href="msg01126.html">Error context info</a></strong>
+<ul><li><em>From:</em> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01128.html">Re: Error context info</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01130.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01128.html">Re: Error context info</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01132.html">Re: Document formatting in Scheme (fwd)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01129"><strong>Date</strong></a></li>
+<li><a href="threads.html#01129"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

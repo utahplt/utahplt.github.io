@@ -1,0 +1,149 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Adding a language -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNppf.arh.rqh> -->
+<!--X-Date: Fri, 31 May 2002 09:22:06 &#45;0600 (MDT) -->
+<!--X-Message-Id: E17DnSe&#45;0002ae&#45;00@scaup.prod.itd.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.44.0205310814570.15069&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Adding a language</title>
+<link rev="made" href="mailto:robby@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01017.html">Date Prev</a>][<a href="msg01019.html">Date Next</a>][<a href="msg01014.html">Thread Prev</a>][<a href="msg01024.html">Thread Next</a>][<a href="maillist.html#01018">Date Index</a>][<a href="threads.html#01018">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Adding a language</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matt Jadud &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Adding a language</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@ccs.neu.edu">robby@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 31 May 2002 07:33:00 -0700</li>
+<li><em>CC</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01014.html">Pine.GSO.4.44.0205310814570.15069-100000@velvetbelly.cs.indiana.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01014.html">Pine.GSO.4.44.0205310814570.15069-100000@velvetbelly.cs.indiana.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I think that you could do a very nice job of this and even support
+languages other than Scheme -- (eg Algol 60).
+
+Here's what I would do:
+
+  - add a &quot;Compile to Forth&quot; button/menu to DrScheme via the
+    tools interface.
+
+  - have this button get the current drscheme:language:language&lt;%&gt; 
+    (this tells you how to compile the program in the definitions
+     window into Scheme) and use the front-end method to
+    get Scheme code out. 
+
+  - invoke the Scheme -&gt; Forth compiler on that code and somehow
+    hook that up to the LEGO Mindstorm.
+
+Let me know how it goes!
+
+Robby
+
+At Fri, 31 May 2002 08:48:23 -0500 (EST), Matt Jadud wrote:
+&gt; 
+&gt; Hello,
+&gt; 
+&gt; 	I have, with a colleague, completed a Scheme-&gt;Forth compiler for a
+&gt; subset of Scheme (lambda, letrec, let, begin, if, and a handfull of primitives,
+&gt; off the top of my head). This is mostly useless, except a small Forth
+&gt; implementation exists for the LEGO Mindstorm, and it saves me implementing
+&gt; a Scheme runtime for the RCX at this moment.
+&gt; 
+&gt; 	What would be the &quot;right&quot; way to tie this into DrScheme?
+&gt; 
+&gt;  * Is it an extention of one of the languages built in to DrScheme? If so, I
+&gt; need to expand the syntactic forms in those languages to my core language
+&gt; before compilation, and add some primitives to the language for things like
+&gt; turning on motors, etc.
+&gt;  * Is it a new language? If so, what should I use as my model for
+&gt; implementation? The Algol60 implementation? Given that my language is,
+&gt; by-and-large, Scheme, this seems like the wrong model. The teaching languages
+&gt; seem closer, but again I'd want to leverage the &quot;provide-and-document&quot; work
+&gt; that has already be done, and I would need to replace the &quot;back-end&quot; of these
+&gt; languages.
+&gt;  * Is it a teachpack?
+&gt;  * Is it a tool?
+&gt; 
+&gt; 	I can also envision several solutions for getting the code to the RCX,
+&gt; but will deal with that after the front-end has been implemented.
+&gt; 
+&gt; 	Thanks,
+&gt; 	Matt
+&gt; 
+&gt; ________________________________________________________________________
+&gt; Matt Jadud                            <A  HREF="http://www.cs.indiana.edu/~mjadud/">http://www.cs.indiana.edu/~mjadud/</A>
+&gt; Current Temperature Outside Lindley Hall                 70.0 F / 21.1 C
+&gt; Canterbury Weather: High 60 F / 16 C, Low 46 F / 8 C, Sunny (Day)
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01024" href="msg01024.html">Re: [plt-scheme] Adding a language</a></strong>
+<ul><li><em>From:</em> Matt Jadud &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+<li><strong><a name="01081" href="msg01081.html">Re: [plt-scheme] Adding a language</a></strong>
+<ul><li><em>From:</em> Matt Jadud &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01014" href="msg01014.html">[plt-scheme] Adding a language</a></strong>
+<ul><li><em>From:</em> Matt Jadud &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01017.html">Re: Fwd: SV: [plt-scheme] XML and PLT - problem is parsing instructions!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01019.html">[plt-scheme] Version number in add-ons</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01014.html">[plt-scheme] Adding a language</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01024.html">Re: [plt-scheme] Adding a language</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01018"><strong>Date</strong></a></li>
+<li><a href="threads.html#01018"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

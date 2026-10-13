@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: Scheme acceptance [no flames] -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Wed, 8 Nov 2000 18:23:22 &#45;0700 (MST) -->
+<!--X-Message-Id: 14857.64647.262384.228046@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C67670117941D@THRESHER -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: Scheme acceptance [no flames]</TITLE>
+<LINK REV="made" HREF="mailto:eli@barzilay.org">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01078.html">Date Prev</A>][<A HREF="msg01080.html">Date Next</A>][<A HREF="msg01078.html">Thread Prev</A>][<A HREF="msg01080.html">Thread Next</A>][<A HREF="maillist.html#01079">Date Index</A>][<A HREF="threads.html#01079">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: Scheme acceptance [no flames]</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: RE: Scheme acceptance [no flames]</LI>
+<LI><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 8 Nov 2000 20:23:19 -0500</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01078.html">EDFD2A95EE7DD31187350090279C67670117941D@THRESHER</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01078.html">EDFD2A95EE7DD31187350090279C67670117941D@THRESHER</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Nov  8, Brent Fulgham wrote:
+&gt; ...
+&gt; A side note -- Matthias has written to me off-list regarding
+&gt; MzScheme's existing regexp handling, which seems to provide most of
+&gt; the features one would ever need.
+
+I think that this is the main point here - since the internal regexp
+can do anything you want than you can have your implementation that
+will parse these specification strings and then you can suffer these
+awful strings only if you want to...
+
+BTW, one thing that I think is really helpful is a pattern-matcher
+that handles regexp results, one thing that I added to Swindle
+recently is the ability to do this, so you can write cute code like:
+
+=&gt; (try-match "5/12/99"
+     ((regexp "^(..?)/(..?)/(...?.?)$" x d m y) (add m "-" d "-" y))
+     (else '?))
+"12-5-99"
+
+This can be made with only regexps and this is very useful.
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01078" HREF="msg01078.html">RE: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01078.html">RE: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01080.html">Re: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01078.html">RE: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01080.html">Re: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01079"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01079"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

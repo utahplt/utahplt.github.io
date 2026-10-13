@@ -1,0 +1,132 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Src question -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Mon, 23 Oct 2000 19:52:25 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200010240152.UAA13401@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 0101e53422317a0FE5@mail5.nc.rr.com -->
+<!--X-Reference: 200010240111.TAA20178@fast.cs.utah.edu -->
+<!--X-Reference: 08dcd46260118a0FE4@mail4.nc.rr.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Src question</TITLE>
+<LINK REV="made" HREF="mailto:matthias@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00996.html">Date Prev</A>][<A HREF="msg00998.html">Date Next</A>][<A HREF="msg00996.html">Thread Prev</A>][<A HREF="msg01002.html">Thread Next</A>][<A HREF="maillist.html#00997">Date Index</A>][<A HREF="threads.html#00997">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Src question</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:anderman@anderware.com">anderman@anderware.com</A></LI>
+<LI><em>Subject</em>: Re: Src question</LI>
+<LI><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 23 Oct 2000 20:52:26 -0500 (CDT)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-reply-to</em>: &lt;<A HREF="msg00996.html">08dcd46260118a0FE4@mail4.nc.rr.com</A>&gt; (message from Robert JohnAndersen on Mon, 23 Oct 2000 21:20:24 -0400)</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00994.html">0101e53422317a0FE5@mail5.nc.rr.com</A>&gt; &lt;<A HREF="msg00995.html">200010240111.TAA20178@fast.cs.utah.edu</A>&gt; &lt;<A HREF="msg00996.html">08dcd46260118a0FE4@mail4.nc.rr.com</A>&gt;</LI>
+<LI><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+   X-Authentication-Warning: fast.cs.utah.edu: majordom set sender to owner-plt-scheme@flux.cs.utah.edu using -f
+   Date: Mon, 23 Oct 2000 21:20:24 -0400
+   From: Robert John Andersen &lt;anderman@anderware.com&gt;
+   Reply-To: anderman@anderware.com
+   Content-Type: text/plain; charset="iso-8859-1"
+   Sender: owner-plt-scheme@fast.cs.utah.edu
+   Precedence: bulk
+
+
+
+   On Mon, 23 Oct 2000, Matthew Flatt wrote:
+   &gt;
+   &gt; I think you're overlooking the "*" in "sizeof(Scheme_Object *)".
+   &gt; 
+
+   Yep, I totally missed that last *, thanks for the kick in the head :)
+
+   Ever think about having a function like scheme_make_vector that doesn't
+   take a fill?  I know for my cases that I am going to have to refill the
+   vector with specific values and doing it twice doesn't buy me anything. 
+   Unless I'm totally off the ball and missing something like the previous
+   error :)
+
+   RJA
+
+That would make Scheme unsafe because someone could accidentally
+dereference the vector before putting something in. 
+
+I have heard of algorithms that use uninitialized vectors in
+applied math and OR. But these things are rare and require
+careful coding. What do you want to use it for? 
+
+-- Matthias
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01002" HREF="msg01002.html">Re: Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00994" HREF="msg00994.html">Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Robert John Andersen &lt;anderman@anderware.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00995" HREF="msg00995.html">Re: Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00996" HREF="msg00996.html">Re: Re: Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Robert John Andersen &lt;anderman@anderware.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00996.html">Re: Re: Src question</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00998.html">Re: Src question</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00996.html">Re: Re: Src question</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01002.html">Re: Src question</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00997"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00997"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

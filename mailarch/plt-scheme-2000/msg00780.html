@@ -1,0 +1,243 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: PLT Scheme development directions -->
+<!--X-From-R13: [nex Ernobea <zfrnobeaNnetbarg.pb.hx> -->
+<!--X-Date: Thu, 14 Dec 2000 07:16:45 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001214015331L.mseaborn@argonet.co.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200011091739.KAA22500@fast.cs.utah.edu -->
+<!--X-Reference: 20001129165654V.mrs35@cam.ac.uk -->
+<!--X-Reference: 200011291718.KAA20160@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: PLT Scheme development directions</title>
+<link rev="made" href="mailto:mseaborn@argonet.co.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00779.html">Date Prev</a>][<a href="msg00781.html">Date Next</a>][<a href="msg00690.html">Thread Prev</a>][<a href="msg00807.html">Thread Next</a>][<a href="maillist.html#00780">Date Index</a>][<a href="threads.html#00780">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: PLT Scheme development directions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: PLT Scheme development directions</li>
+<li><em>From</em>: Mark Seaborn &lt;<A HREF="mailto:mseaborn@argonet.co.uk">mseaborn@argonet.co.uk</A>&gt;</li>
+<li><em>Date</em>: Thu, 14 Dec 2000 01:53:31 GMT</li>
+<li><em>In-Reply-To</em>: &lt;200011291718.KAA20160@fast.cs.utah.edu&gt;</li>
+<li><em>References</em>: &lt;200011091739.KAA22500@fast.cs.utah.edu&gt;&lt;20001129165654V.mrs35@cam.ac.uk&gt;&lt;200011291718.KAA20160@fast.cs.utah.edu&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt &lt;mflatt@cs.utah.edu&gt; wrote:
+
+&gt; &gt; Would the plt-scheme mailing list be a better place for discussing
+&gt; &gt; such things?  (I notice that it doesn't have much discussion on
+&gt; &gt; the design of PLT Scheme.)
+&gt; 
+&gt; Probably that would be the best place.
+
+Okay, I am following up to the mailing list.
+
+
+&gt; &gt; For instance, I am starting to find the restriction that imported
+&gt; &gt; variables may not be re-exported to be a problem.
+&gt; 
+&gt; There's a specific reason for this restriction. Suppose we had the
+&gt; following program:
+&gt; 
+&gt;  (define u1 (unit (import x) (export x) (printf &quot;~a~n&quot; x)))
+&gt;  (define u2 (unit (import y) (export y) (printf &quot;~a~n&quot; y)))
+&gt; 
+&gt;  (define cpd
+&gt;    (compound-unit
+&gt;     (import)
+&gt;     (link [ONE (u1 (TWO y))]
+&gt;           [TWO (u2 (ONE x))])
+&gt;     (export)))
+&gt; 
+&gt; We have a variable to use in each of u1 and u2, but there are no
+&gt; variable definitions - the variables don't actually exist!
+&gt; 
+&gt; The `compound-unit' form could, of course, detect such cycles, assuming
+&gt; that a unit provides information about its re-exports. But the
+&gt; underlying problem would make the semantics and implementation of units
+&gt; far more complex, so we chose to avoid the problem by disallowing
+&gt; re-export.
+
+I can see how implementing this could be tricky.  First I must admit
+that I haven't actually looked at how units are implemented in
+MzScheme, though I can guess.  I presume MzScheme only ever allocates
+one location per variable.
+
+My implementation of units doesn't have the luxury of dealing with
+locations directly, so, during unit invocation, when a value is bound
+(by evaluating a `define' form in the unit), the code just ensures the
+value becomes visible in units which import the variable by `set!'ting
+it in their environments.  In this model, re-export of variables is
+not a problem, because it can be done the same way as normal
+exporting.  If a cycle occurs (as in your example above), the variable
+just never gets initialised.
+
+So you could implement re-export in MzScheme a similar way, by copying 
+imported variables to export, giving more than one location per
+variable.  This is by-the-by, however, because I think there are
+better ways of doing things (that avoid having to use more than one
+location per variable at all).
+
+There's obviously the question of why I wanted to do re-exporting of
+variables to start with.  It wasn't actually a very good reason:  I
+wanted to be able to avoid duplicating signature restrictions all over 
+the place in a compound-unit/sig form.  I thought maybe I could pass a 
+tag to a unit which just re-exported its import with a restricted
+signature, and bind the result to a new tag.  Not elegant at all, and
+it also doesn't work.
+
+But I can imagine there are good reasons for wanting to do re-export,
+such as extending a unit to export more variables.  This can be done
+with PLT units, but only at run time -- it can't be done within a
+compound-unit/sig form -- which means that you can't have unit
+invocations be shared.  The unit being extended (if it is extended
+more than once) may get invoked multiple times, which is wasteful.
+
+What it all boils down to is the problem that compound-unit/sig isn't
+expressive enough.  You can't put a conditional inside it, so if it
+contains a set of units that can be replaced by another set of units,
+these sets must be lifted out into their own compound-unit/sig forms.
+This involves lots of plumbing of imports and exports between the
+different linking statements, which is fiddly and inelegant.
+
+The basic problem is that unit *invocations* can't be passed around at
+the Scheme level, they are confined to the unexpressive language of
+compound-unit/sig.  Units themselves can be passed around at the
+Scheme level, which is wonderful, but you can't really use this
+ability to link complex programs together, because unit invocations
+end up not being shared, and units can't be mutually linked at this
+level (the main advantage of units).
+
+(BTW, I hope you follow me when I use the term `unit invocation',
+because I don't think you use it in your papers on units.  Consider
+the analogy:
+
+(define (f)
+  (let ((x 0))
+    (lambda ()
+      ... ; code whose return value depends on x, and modifies it
+    )))
+
+f is a constant (analagous to a unit), but the function it returns
+(analagous to a unit invocation) will be different each time.)
+
+
+My solution to this problem is to manipulate unit linking descriptions 
+at the Scheme level, and to use unification to make it easy to
+describe mutual dependence and partially-linked units.  I'll describe
+it briefly.
+
+There is a collection of `variables', each of which may be bound to a
+unit invocation (or not).  Each is associated either with a signature, 
+or with a set of signatures that must be satisfied.
+
+Variables can:
+ * Be created, with (%let-vars (X Y ...) ...)
+ * Be unified, with (%unify X Y)
+ * Be bound to a unit invocation, with (%link unit@ in V), where
+   `unit@' is a unit, `in' is a list of variables giving unit
+   invocations to import, and `V' is the variable to bind the
+   invocation to.
+ * Be bound via signature restrictions, with (%restrict sig IN OUT).
+
+This is nice because you get re-export for free, if you want it.
+compound-unit/sig forms can be re-written as procedures which take
+variables as arguments, and an input can be passed through just by
+unifying it with the output variable.  The circularity problem of
+re-exporting variables disappears, because unbound variables are
+easily detected.  Also, imports and exports become symmetric, which is
+elegant.  Sub-units are no longer necessary, because they can be
+achieved by passing around alists of variables (or more complicated
+structures).
+
+I've implemented this; my code generates a compound-unit/sig form
+which it passes to `eval'.  I'll release some code in a couple of days 
+which should make this terse description clearer.
+
+An obvious generalisation is to have unification variables bound to
+actual variables (uh oh, clash of terminology here) rather than to
+signed unit invocations, and have signatures provided by a library of
+functions (rather than a syntax library, as in PLT units).
+
+I was going to leave trying this generalisation until later.  However,
+I've decided I need to re-write my implementation of core units
+(expanding the compound-unit form takes O(n^2) time instead of O(n)
+because I was lazy when I wrote that code), and I realised, when I
+started rewriting it, that using the unification approach would be a
+lot simpler.  So I will try this in the next day or two and then
+release some code.
+
+
+So, the obvious question now is, what do you think of these ideas?
+
+-- 
+         Mark Seaborn
+   - mseaborn@bigfoot.com - <A  HREF="http://members.xoom.com/mseaborn/">http://members.xoom.com/mseaborn/</A> -
+
+  ``Water boils at a lower temperature at high altitude, which partly
+     accounts for the nasty taste of coffee on the summit of Mauna Kea''
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00807" href="msg00807.html">Re: PLT Scheme development directions</a></strong>
+<ul><li><em>From:</em> Mark Seaborn &lt;mrs35@cam.ac.uk&gt;</li></ul></li>
+<li><strong><a name="00816" href="msg00816.html">Re: PLT Scheme development directions</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00779.html">Bug in get-file-list</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00781.html">MzScheme in kernel form</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00690.html">Re: PLT Scheme development directions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00807.html">Re: PLT Scheme development directions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00780"><strong>Date</strong></a></li>
+<li><a href="threads.html#00780"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

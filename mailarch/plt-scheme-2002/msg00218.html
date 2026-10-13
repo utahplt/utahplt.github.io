@@ -1,0 +1,173 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Reasons, why Miss Scheme should collect her garbage before shutdown. -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 7 Feb 2002 08:51:42 &#45;0700 (MST) -->
+<!--X-Message-Id: 200202071551.g17FpbD29292@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: iss.265f.3c6105d9.4be95.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00217.html">Date Prev</a>][<a href="msg00219.html">Date Next</a>][<a href="msg00212.html">Thread Prev</a>][<a href="msg00232.html">Thread Next</a>][<a href="maillist.html#00218">Date Index</a>][<a href="threads.html#00218">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Subject</em>: Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 7 Feb 2002 08:51:37 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00212.html">iss.265f.3c6105d9.4be95.1@hermes.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00212.html">iss.265f.3c6105d9.4be95.1@hermes.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Sebastian H Seidel:
+&gt; - Often it is useful to bind the lifetime of an external object to a
+&gt; lexical scope inside the Scheme-Environment, like so:
+&gt; 
+&gt; (let ((obj (make-external-object args)))
+&gt;    (operation-on-external-object obj)
+&gt;    ...)
+
+Probably we agree that `make-external-object' should register the
+external object with the current custodian. Then, when the user clicks
+&quot;Execute&quot; in DrScheme, the external object is cleaned up immediately.
+
+With scheme_add_atexit_closer(), custodians solve the problem
+completely. There's no need to go into the murky waters of GC
+behavior...
+
+&gt; - a buffer could be created which in the end must be written to a file
+&gt; or
+&gt; - some kind of communication could be started which in the end must be
+&gt; terminated by special commands or 
+
+These jobs should *not* belong to finalizers or custodian-shutdown
+procedures. Sending an end command or flushing a buffer involves
+considerable work that potentially blocks the process, and such work
+shouldn't be buried in GC or in the termination mechanism.
+
+&gt; Finalizers are both a very useful and versatile means to put a
+&gt; controlled end to each object,
+
+But with lots of problems.
+
+How many GCs are you willing to perform before exiting? It's easy to
+create a long chain of objects where only one finalization can occur
+after a GC.
+
+Simply running all finalizers won't work, because some finalizers may
+need to use objects that themselves have finalizers. Picking an order
+to run the finalizers amounts to GC.
+
+And if you don't order the finalizations at all --- in other words,
+don't tie it to GC? That's a custodian-shutdown procedure.
+
+&gt; Best solution
+&gt; -------------
+&gt; MzScheme is changed so that she does collect her garbage before
+&gt; exiting.
+&gt; [...]
+&gt; 
+&gt; Why not go for the best and most clean solution?
+
+Even ignoring the inherent problems of finalizers, it's prohibitively
+difficult to define garbage collection precisely enough in MzScheme
+that it could be used for general resource management.
+
+To put it another way: garbage collection works because we have lots of
+memory to work with, and the imprecion is invisible (in the absence of
+finalizers!); if we squander a bit of memory, it's usually no tragedy.
+File descriptors and other resources are far more precious, and the
+imprecision tends to be visible (e.g., to the other end of the
+descriptor).
+
+Arguably, the problem is with MzScheme's implementation, not the idea
+of garbage collection (at least if we suspend disbelief about the value
+of finalizers). But the more I look at the problem, I'm actually not so
+sure. Although we've wrestled with memory problems in DrScheme that
+would be problems with any Scheme+GC implementation, custodians are
+especially easy to use. For managing precious resources in a large
+application, you want to make the programmer's reasoning job easy, and
+I don't see that ease-of-reasoning in GC.
+
+--------------------
+
+So, will MzScheme perform a GC on exit in the future? No, because it
+isn't reliably useful.
+
+I'm less certain about scheme_add_atexit_closer(). Maybe a programmer
+shouldn't have to do extra work to request a custodian-based shutdown
+on exit. Instead, all custodians would be shut down on exit. But that's
+lots of unnecessary work in most settings.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00232" href="msg00232.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00212" href="msg00212.html">Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00217.html">Re: Error with latest CVS Update</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00219.html">Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00212.html">Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00232.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00218"><strong>Date</strong></a></li>
+<li><a href="threads.html#00218"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

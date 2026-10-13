@@ -1,0 +1,151 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: 3 questions (portable HTTP server, GUI toolkit, HTML generation) -->
+<!--X-From-R13: "Bngevpx Uvntabpnib" <n222Nerqebfr.arg> -->
+<!--X-Date: Thu, 4 May 2000 11:09:13 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200005041709.LAA22772@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: 3 questions (portable HTTP server, GUI toolkit, HTML generation)</TITLE>
+<LINK REV="made" HREF="mailto:a222@redrose.net">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00630.html">Date Prev</A>][<A HREF="msg00632.html">Date Next</A>][<A HREF="msg00630.html">Thread Prev</A>][<A HREF="msg00632.html">Thread Next</A>][<A HREF="maillist.html#00631">Date Index</A>][<A HREF="threads.html#00631">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: 3 questions (portable HTTP server, GUI toolkit, HTML generation)</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>Subject</em>: Re: 3 questions (portable HTTP server, GUI toolkit, HTML generation)</LI>
+<LI><em>From</em>: "Patrick Giagnocavo" &lt;<A HREF="mailto:a222@redrose.net">a222@redrose.net</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 04 May 2000 13:06:44 -0400</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Patrick Giagnocavo wrote:
+&gt; 
+&gt;&gt; 1.  Is there a scheme-only HTTP server for DrScheme?
+&gt;
+&gt; Yes.  It has been deployed for testing, and will be deployed at Rice
+&gt; shortly.  It won't make it out on this release, but ought to in
+&gt; future.  I would be delighted if others would pick it up and make it
+&gt; more full-featured (right now it's pretty basic ...).  Perhaps someone
+&gt; who understands the innards of Olin Shivers's Scsh Web server could
+&gt; port some of its better features over.
+
+Hello,
+
+Thank you Shriram for your answers.
+
+I look forward to the scheme-only HTTP server becoming available.
+
+Maybe I should just dump my whole idea onto this list, and see if anyone
+else has some ideas.  I will do so in a separate email.
+
+&gt;&gt;       If so, does it allow
+&gt;&gt; for a scheme procedure to be registered at a particular URL and to have a
+&gt;&gt; procedure run when that URL is accessed?
+&gt;
+&gt; That's effectively what's going to happen.  I just came across some
+&gt; even cooler stuff that I'm looking into incorporating but, since it's
+&gt; unpublished research work, I can't really discuss it, nor add it for a
+&gt; little while.
+
+OK, that sounds good.  Worry about performance later; I would point out that
+there are at least 3 ways to increase performance of any scheme HTTP server:
+
+1) Use Squid or similar web cache in front of the Web server
+2) use "memoization" to cache values inside Scheme process (or write to a
+"cache directory" and expire the pages every 3 minutes or so)
+3) "render" all or most pages to static HTML pages, to be served by Apache
+or other, faster Web server.  You could use the "wget" program for instance
+to do this.
+
+
+&gt; I think you mean LAML.  There are lots of such efforts.  We use our
+&gt; own XML library, which has a few flags to make it more HTML
+&gt; compatible.  So you can write, for instance,
+&gt;
+&gt;   `(p ()
+&gt;       "This is a paragraph that contains "
+&gt;       (em () "emphasized")
+&gt;       " text.")
+&gt;
+&gt; and so on, using (quasi)quote to build up expressions.  Then you ship
+&gt; this off to a Scheme procedure, and get its XML equivalent.
+
+OK, I am downloading the PDF files for LAML right now, I will read them
+soon.
+
+I also came across Eli Bazrahily's (spelling?) pages, that has some simple
+HTML generation code in it too. I have not had a chance to really dig into
+it yet.
+
+Ideally I would like something that non-programmers can use to mark up
+simple pages that then flow through a template, while still having full
+programmability for those who want it.
+
+More info in a later email.
+
+Cordially
+
+Patrick Giagnocavo
+a222@redrose.net
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00632" HREF="msg00632.html">Re: 3 questions (portable HTTP server, GUI toolkit, HTML generation)</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00630.html">Re: 3 questions (portable HTTP server, GUI toolkit, HTML generation)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00632.html">Re: 3 questions (portable HTTP server, GUI toolkit, HTML generation)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00630.html">Re: 3 questions (portable HTTP server, GUI toolkit, HTML generation)</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00632.html">Re: 3 questions (portable HTTP server, GUI toolkit, HTML generation)</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00631"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00631"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

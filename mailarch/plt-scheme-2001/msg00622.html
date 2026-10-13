@@ -1,0 +1,141 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SchemeQL -->
+<!--X-From-R13: [X Dnl <znexwNpybnxrq.serrfreir.pb.hx> -->
+<!--X-Date: Tue, 10 Jul 2001 08:52:54 &#45;0600 (MDT) -->
+<!--X-Message-Id: 87d778rg8e.fsf@cloaked.freeserve.co.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87bsmthtxt.fsf@cloaked.freeserve.co.uk -->
+<!--X-Reference: 86zoad86tw.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SchemeQL</title>
+<link rev="made" href="mailto:markj@cloaked.freeserve.co.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00621.html">Date Prev</a>][<a href="msg00623.html">Date Next</a>][<a href="msg00620.html">Thread Prev</a>][<a href="msg00623.html">Thread Next</a>][<a href="maillist.html#00622">Date Index</a>][<a href="threads.html#00622">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SchemeQL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: SchemeQL</li>
+<li><em>From</em>: MJ Ray &lt;<A HREF="mailto:markj@cloaked.freeserve.co.uk">markj@cloaked.freeserve.co.uk</A>&gt;</li>
+<li><em>Date</em>: 10 Jul 2001 15:49:53 +0100</li>
+<li><em>In-Reply-To</em>: Francisco Solsona's message of &quot;Tue, 10 Jul 2001 09:35:39 +0000&quot;</li>
+<li><em>Organization</em>: Cat-killingly bad</li>
+<li><em>References</em>: &lt;<a href="msg00615.html">87bsmthtxt.fsf@cloaked.freeserve.co.uk</a>&gt; &lt;<a href="msg00620.html">86zoad86tw.fsf@biblio06.fciencias.unam.mx</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0803 (Gnus v5.8.3) XEmacs/21.1 (Capitol Reef)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Francisco Solsona &lt;solsona@acm.org&gt; writes:
+
+&gt; Do this shows something useful,
+&gt; (with-handlers
+&gt;  ([general-sql-error? (lambda (x)
+&gt; 			(printf &quot;~a~n&quot; (general-sql-error-diagnostics x)))])
+&gt;  (connect-to-database dbms login passwd))
+&gt; 
+&gt; ? What DBMS are you using? MySQL? PostgreSQL?  the problem might be
+&gt; an odbc-version compatibility:
+
+PostgreSQL, set to ODBC version 2.5.
+
+Your code (with appropriate changes) gives me
+
+((IM002 0 [unixODBC][Driver Manager]Data source name not found, and no default driver specified))
+
+OK, this looks more like an ODBC installation problem, doesn't it?
+
+&gt; works just fine.  I haven't used unixODBC in a long time, but maybe it
+&gt; has a test program or something (iodbc has one: odbctest), and it
+&gt; would be a good idea to make sure is working correctly.
+
+There's isql, but I can't figure out what is my DSN (dbms parameter in
+the schemeql) really.  Niether the database name nor the host name
+work, though.
+
+&gt; [...] Having the ODBC driver running is 90% of the job, the other
+&gt; 10% is compiling SrPersist, but I take it you have already done
+&gt; this, right?
+
+As far as I can tell... make and then copying it to the right place
+(as there is no archsys command here).  It loads happily.
+
+&gt; MyODBC also requires an &quot;odbc.ini&quot; file with information about the
+&gt; driver, host, port, etc., and it usually goes in /etc, or /usr/local/etc.
+
+I've cribbed one from the unixodbc site, but maybe that's the problem.
+
+Thanks to all for the prompt helpful replies so far.
+-- 
+MJR
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00623" href="msg00623.html">RE: SchemeQL</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;psteckler@earthlink.net&gt;</li></ul></li>
+<li><strong><a name="00624" href="msg00624.html">Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+<li><strong><a name="00630" href="msg00630.html">Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> Bertrand Petit &lt;plt-s@phoe.frmug.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00615" href="msg00615.html">SchemeQL</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+<li><strong><a name="00620" href="msg00620.html">Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00621.html">BE A MILLIONAIRE WITHIN A YEAR!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00623.html">RE: SchemeQL</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00620.html">Re: SchemeQL</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00623.html">RE: SchemeQL</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00622"><strong>Date</strong></a></li>
+<li><a href="threads.html#00622"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

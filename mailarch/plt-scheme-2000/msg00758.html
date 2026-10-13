@@ -1,0 +1,117 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Newbie Mr.Ed question -->
+<!--X-From-R13: Xba Qenira <wpenirNcb&#45;obk.zptvyy.pn> -->
+<!--X-Date: Wed, 29 Nov 2000 16:37:57 &#45;0700 (MST) -->
+<!--X-Message-Id: 3A25BE8B.19468ED@po&#45;box.mcgill.ca -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Newbie Mr.Ed question</title>
+<link rev="made" href="mailto:jcrave@po-box.mcgill.ca">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00757.html">Date Prev</a>][<a href="msg00759.html">Date Next</a>][<a href="msg00757.html">Thread Prev</a>][<a href="msg00759.html">Thread Next</a>][<a href="maillist.html#00758">Date Index</a>][<a href="threads.html#00758">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Newbie Mr.Ed question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Newbie Mr.Ed question</li>
+<li><em>From</em>: Jon Craven &lt;<A HREF="mailto:jcrave@po-box.mcgill.ca">jcrave@po-box.mcgill.ca</A>&gt;</li>
+<li><em>Date</em>: Wed, 29 Nov 2000 18:42:19 -0800</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Greetings,
+	I have been working on my first GUI project to familiarise myself with
+Mr. Ed.  Everything was going along nicely, until I switched OS from
+Windows to Linux.  Under Linux I am experiencing problems with the
+following code:
+
+(define right-answer
+  (lambda ()
+    (begin
+      (send message1 set-label &quot;You're right!&quot;) ;message% object
+      (sleep 2)
+      (send message1 next-question))))
+
+Under Windows this does what I want it to do (says &quot;You're right&quot; for
+two seconds then puts up the string stored in next-question.)  But in
+Linux (Corel Linux 2.0 with KDE) it (version 103) pauses two seconds,
+then goes straight on to next-question.  It does this no matter what I
+try, viz.:
+
+(begin
+  (send message1 show #f)
+  (send message1 set-label &quot;You're right&quot;)
+  (send message1 show #t)
+  (send message1 refresh)
+  (sleep 2)
+  (send message1 next-question)
+
+Which STILL doesn't work (nor any combination thereof).  Is this a
+problem with Mr. Ed, a problem with X Windows/KDE's redrawing behaviour,
+or a problem with my inept code? (And if so what am I doing wrong?)
+
+	Thanks,
+	Jon.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00759" href="msg00759.html">Re: Newbie Mr.Ed question</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00760" href="msg00760.html">Re: Newbie Mr.Ed question</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00757.html">RE:  Scheme/Vim Interface [was:  A message from the Scheme Underground]</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00759.html">Re: Newbie Mr.Ed question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00757.html">RE:  Scheme/Vim Interface [was:  A message from the Scheme Underground]</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00759.html">Re: Newbie Mr.Ed question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00758"><strong>Date</strong></a></li>
+<li><a href="threads.html#00758"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: Oagba ina Egenngra <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Wed, 20 Mar 2002 20:01:40 &#45;0700 (MST) -->
+<!--X-Message-Id: 3C994D05.80002@appsolutions.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: BE6EE24E3C118B4CAF54769CDA66F3617FA688@ivory.corp.xpsystems.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00383.html">Date Prev</a>][<a href="msg00385.html">Date Next</a>][<a href="msg00383.html">Thread Prev</a>][<a href="msg00396.html">Thread Next</a>][<a href="maillist.html#00384">Date Index</a>][<a href="threads.html#00384">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Anton van Straaten &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 20 Mar 2002 22:01:25 -0500</li>
+<li><em>CC</em>: PLT-Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00372.html">BE6EE24E3C118B4CAF54769CDA66F3617FA688@ivory.corp.xpsystems.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.8) Gecko/20020207</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Brent Fulgham wrote:
+&gt; I'm hoping the readers on this list can offer soothing words 
+&gt; that will help me end this internal struggle and allow me to 
+&gt; make rational language selection choices.
+
+I'll offer a narrow answer to the question - too narrow to be very soothing, I'm sure.  In some circumstances, I think it's possible to get the benefit of both approaches, exploiting the strengths of each.  The cases I'm thinking of involve domain-specific languages and/or data-driven systems.  I'm a big fan of that general approach, since the goal of a good programmer should be to come up with a concise and comprehensible description of the task to be performed, and the more high-level that description, the better.  To come up with really concise and high-level descriptions, you need to invent some kind of language, which often - in programs which lend themselves to this approach - end up as metadata represented as s-expressions, XML, or whatever.
+
+Given such metadata, you need a program to translate that metadata into action.  Scheme and some of the other dynamic languages are enormously well-suited to this kind of thing, because... well, they're dynamic, they have macros, etc. etc.  Doing meta-things in statically typed languages is much more time-consuming to write, and less &quot;natural&quot; (subjective I suppose - but hopefully I'm preaching to the choir).
+
+But despite the benefits of dynamic languages for interpreting metadata, it's often useful to &quot;compile&quot; the metadata into some other language form.  Here's where there's an opportunity for the static languages.  It can make a lot of sense to have a program written in a dynamic language translate that metadata into a static language.
+
+The driving factor for me to do this on a few occasions has simply been that the rest of a system is in a static language (esp. Java), and so there really isn't much choice.  But other reasons are possible.  One of them might simply be that you want to be able to &quot;prove&quot; the type behavior of the resulting system, to satisfy yourself or others about its correctness in that respect.  Another reason could be to achieve better performance than you might get from interpreting metadata directly in the final program.
+
+Compiling a program through an ordinary Scheme compiler to machine code or even C or Java doesn't address this.  A compiled Scheme program knows nothing special about the types in your system, except at runtime.  However, if you're generating your own statically-typed code from your metadata, the resulting generated program *does* contain static type information, which will be appropriately checked by whatever statically-typed language compiler you're using.
+
+Now you can deliver a statically-typed program, secure in the knowledge that it's as typesafe as anything can be (without running a PLT soft typing analysis on it, that is :)  The benefit is that you didn't have to laboriously key in all the extra keywords, template-ish repetition, and other cruft that goes along with conventional static languages.  
+
+A canonical example of this approach is a system that generates database persistence code from a schema specification. In the Java world and elsewhere, this is quite a common approach.  Of course, mostly the code to do this is written in Java itself, and it works just fine.  But as a personal preference, I'd much rather write such code in Scheme, which is born to do such things. The Scheme version will be perhaps 10 times smaller than the equivalent Java code, more fun to write, and easier to maintain.
+
+Anton
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00372" href="msg00372.html">Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> &quot;Brent Fulgham&quot; &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00383.html">Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00385.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00383.html">Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00396.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00384"><strong>Date</strong></a></li>
+<li><a href="threads.html#00384"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

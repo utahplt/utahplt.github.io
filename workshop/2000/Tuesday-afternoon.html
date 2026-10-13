@@ -1,0 +1,94 @@
+
+<html>
+<title>TeachScheme! 2000</title>
+<body bgcolor=white>
+<table width=100%>
+<tr><td valign=top align=left>
+        <h1><img align=top 
+	         src=icons/ts2k-small.gif
+                 alt="[PLT logo]">
+            TeachScheme! 2000
+        </h1></td>
+   <td valign=top align=right>
+   <table>
+      <tr><td valign=top align=right><h3>July 10-14, 2000</h3></td></tr>
+      <tr><td valign=top align=right><h3>Details for Tuesday afternoon</h3></td></tr>
+   </table>
+   </tr>
+</table>
+<hr>
+
+<table bgcolor=beige>
+<tr><td><pre>
+
+  Structures let us glue related information together
+  
+  Consider a whole zoo of animals: data to glue together?
+  -- what about a shopping list?
+
+  How to define a shopping list?  Structs fixed size, bad design
+  We need some way to create data that is _arbitrarily large_.
+  How can we define a class of such data?
+
+  Lets' try just list-of-symbol.
+
+  Instead of using a struct with a field for each item, use a struct
+  with a field for for just one item, plus another list:
+    (define-struct bigger-list (first rest))
+  where `first' is a symbol and `rest' is another list. Also,
+  we need `empty' for lists with no items.
+
+   empty
+   (make-bigger-list 'apple empty)
+   (make-bigger-list 'milk (make-bigger-list 'apple empty))
+   (make-bigger-list 'pie (make-bigger-list 'apple empty))
+
+   (bigger-list-first (make-bigger-list 'apple empty)) = 'apple
+   (bigger-list-rest (make-bigger-list 'milk (make-bigger-list 'apple empty)))
+     = (make-bigger-list 'apple empty)
+
+  [Nested cups, box picture on page 115.]
+
+  As it turns out, the `bigger-list' structure is so useful that
+  typing `make-bigger-list' and `bigger-list-first' is a waste of energy.
+  We abbreviate with `cons', `first', and `rest':
+
+   (make-bigger-list 'pie (make-bigger-list 'apple empty))
+      = (cons 'pie (cons 'apple empty))
+
+   [DrScheme only knows the abbreviation!]
+
+  >> HOW CAN WE DESCRIBE THE **CLASS** OF ALL LISTS? <<
+  The design recipe asks for this description!  
+
+  Data Def: A list of symbols is
+   - empty
+   - (cons symbols los) where los is a list of symbols.
+
+  Self-reference in data definition.
+    discuss need for empty clause
+    [stress that empty is a constant]
+  Show how to derive examples from the data definition. 
+
+  -- how to get to 'apple in (cons 'pie (cons 'apple empty))?
+  -- what is (rest (rest (cons 'pie (cons 'apple empty))))?
+  -- what is (rest (rest (cons 'apple empty)))?
+
+  ; contains-tea? : list-of-symbols -> boolean
+
+  [Show evaluation in the Stepper]
+
+  >> DESIGN RECIPE FOR RECURSIVE DATA (p128) <<
+
+  Do data defn for list-of-number, do sum
+
+
+<pre></td>
+<td valign=top align=right><img src="icons/hand.right.gif" alt=[Point]> <a href =Tuesday-afternoon-lab.html>LAB</a></td>
+</tr>
+</table>
+<hr>
+Generated on: Tue Jul 18 11:20:37 MDT 2000
+<hr>
+</body>
+</html>

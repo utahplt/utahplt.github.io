@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: preserving quotes in output -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Thu, 6 Dec 2001 12:01:29 &#45;0700 (MST) -->
+<!--X-Message-Id: E16C3lq&#45;0005cD&#45;00@falcon.prod.itd.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200112061858.fB6IwsZ31446@plover.atdesk.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: preserving quotes in output</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01290.html">Date Prev</a>][<a href="msg01292.html">Date Next</a>][<a href="msg01290.html">Thread Prev</a>][<a href="msg01292.html">Thread Next</a>][<a href="maillist.html#01291">Date Index</a>][<a href="threads.html#01291">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: preserving quotes in output</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Subject</em>: Re: preserving quotes in output</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 06 Dec 2001 11:01:22 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01290.html">200112061858.fB6IwsZ31446@plover.atdesk.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01290.html">200112061858.fB6IwsZ31446@plover.atdesk.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Probably you want to use `write' instead of `display':
+
+&gt; (define (f x) (write x))
+&gt; (define c '(&quot;hello&quot;))
+&gt; (f c)
+(&quot;hello&quot;)
+
+Hope that helps,
+Robby
+
+Quoting Chris Uzdavinis:
+&gt; 
+&gt; (I'm using 103p1)
+&gt; 
+&gt; Is there a way to preserve quotes around strings when I'm writing out
+&gt; the expression in which the strings are found?  For example, my
+&gt; program is creating some Scheme code at runtime, and when it writes it
+&gt; to disk quoted-strings in the code lose their quotes.
+&gt; 
+&gt; A simple reduction of this problem can be seen here:
+&gt; 
+&gt; (define (f x) (display x))
+&gt; (define c '(&quot;hello&quot;))
+&gt; (f c)
+&gt; 
+&gt; Results in:
+&gt; 
+&gt;  (hello)
+&gt; 
+&gt; But I'd like it to result in:
+&gt; 
+&gt;  (&quot;hello&quot;)
+&gt; 
+&gt; 
+&gt; When I fprintf my s-expression, the same thing happens in my disk
+&gt; file.
+&gt; 
+&gt; Thanks again for your help.
+&gt; 
+&gt; --
+&gt; Chris
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01292" href="msg01292.html">Re: preserving quotes in output</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01290" href="msg01290.html">preserving quotes in output</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01290.html">preserving quotes in output</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01292.html">Re: preserving quotes in output</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01290.html">preserving quotes in output</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01292.html">Re: preserving quotes in output</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01291"><strong>Date</strong></a></li>
+<li><a href="threads.html#01291"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

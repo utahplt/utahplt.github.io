@@ -1,0 +1,180 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: More GC Errors (New, Improved, In Senora GC!) -->
+<!--X-From-R13: Perag Thytunz <oshytunzNqrovna.bet> -->
+<!--X-Date: Thu, 28 Dec 2000 19:36:29 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001228184846.A5897@debian.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20001227085419.A6666@earthlink.net -->
+<!--X-Reference: 20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>More GC Errors (New, Improved, In Senora GC!)</title>
+<link rev="made" href="mailto:bfulgham@debian.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00833.html">Date Prev</a>][<a href="msg00835.html">Date Next</a>][<a href="msg00840.html">Thread Prev</a>][<a href="msg00835.html">Thread Next</a>][<a href="maillist.html#00834">Date Index</a>][<a href="threads.html#00834">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>More GC Errors (New, Improved, In Senora GC!)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: More GC Errors (New, Improved, In Senora GC!)</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Date</em>: Thu, 28 Dec 2000 18:48:46 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00824.html">20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost</a>&gt;; from mflatt@cs.utah.edu on Wed, Dec 27, 2000 at 08:47:09AM -0800</li>
+<li><em>References</em>: &lt;<a href="msg00823.html">20001227085419.A6666@earthlink.net</a>&gt; &lt;<a href="msg00824.html">20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.12i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Trying a different approach, I compiled my libmzscheme.a/libgc.a against
+the SenoraGC to see if anything different would happen.
+
+Now I see this:
+
+[28/Dec/2000:18:27:20][5880.5126][-nssock-] Notice: nssock: listening on <A  HREF="http://hopper">http://hopper</A> (127.0.0.1:80)
+[28/Dec/2000:18:27:20][5880.5126][-nssock-] Notice: nssock: accepting connections
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 4101 (LWP 5887)]
+
+do_malloc (set_no=0, size=1075175752, common=0x4037b580, othersptr=0x4037b980, 
+    flags=0) at ./sgc.c:2442
+    2442          *p = 0;
+(gdb) list
+2437    
+2438      if (!(flags &amp; do_malloc_ATOMIC)) {
+2439        void **p = (void **)s;
+2440        unsigned long sz = size &gt;&gt; LOG_PTR_SIZE;
+2441        for (; sz--; p++)
+2442          *p = 0;
+2443      }
+2444    
+2445    #if CHECK_WATCH_FOR_PTR_ALLOC
+2446      if (s == UNHIDE_WATCH(GC_watch_for_ptr)) {
+(gdb) p s
+$3 = (void *) 0x4037d028
+(gdb) p size
+$4 = 1075175752
+(gdb) p size &gt;&gt; 2
+$5 = 268793938
+(gdb) p sz
+$6 = 263054427
+(gdb) p (size &gt;&gt; 2) - sz
+$7 = 5739511
+(gdb) p p
+$8 = (void **) 0x41962000
+(gdb) p s+sz
+$9 = (void *) 0x4fe5b483
+(gdb) bt
+#0  do_malloc (set_no=0, size=1075175752, common=0x4037b580, 
+    othersptr=0x4037b980, flags=0) at ./sgc.c:2442
+#1  0x40360bbb in GC_malloc (size=28) at ./sgc.c:2523
+#2  0x4034c92e in add_finalizer (v=0x81d1038, 
+    f=0x40343f6c &lt;adjust_manager_family&gt;, data=0x0, prim=1, ext=0, 
+    ext_oldf=0x0, ext_olddata=0x0, _fns=0x0, _fn=0x0, no_dup=0)
+    at ./salloc.c:472
+#3  0x4034cad9 in scheme_add_finalizer (p=0x81d1038, 
+    f=0x40343f6c &lt;adjust_manager_family&gt;, data=0x0) at ./salloc.c:571
+#4  0x403440ec in scheme_make_manager (parent=0x0) at ./process.c:752
+#5  0x403464b4 in make_initial_config () at ./process.c:2749
+#6  0x4034450a in make_process (after=0x0, config=0x0, mgr=0x0)
+    at ./process.c:1033
+#7  0x40344774 in scheme_make_process () at ./process.c:1164
+#8  0x40316b62 in scheme_basic_env () at ./env.c:256
+#9  0x40316274 in Run (arg=0x8193d68) at ns_interps.cc:161
+#10 0x81190bb in NsThreadMain (arg=0x81a45d0) at thread.c:241
+#11 0x4002dcb5 in pthread_start_thread () from /lib/libpthread.so.0
+#12 0x4002dcfd in pthread_start_thread_event () from /lib/libpthread.so.0
+			
+Frankly, I'm not sure what this routine is trying to do.  Based on
+the logging messages I'm getting, it's happening when the new 
+&quot;Scheme Server&quot; thread starts up and creates its environment.
+
+If I run in the debugger, you get what I list above.  If I run it
+under the OS, I get an &quot;out of memory&quot; error when &quot;scheme_basic_env&quot;
+is called.  This isn't exactly surprising, since according to the
+debugger it's attempting to allocate close to 1 Gig of memory,
+and I doubt I have enough RAM and swap to accommodate that.
+
+So, it looks like I'm stuck.  Do I have to set up an entirely separate
+server *process* to handle any scheme activities, and communicate
+via IPC of some kind between the webserver and MzScheme?  If true,
+this is a bit of a bad limitation in MzScheme's embedibility.  :-)
+
+Let me know if there's anywhere I can look to help you guys out.
+I'm wondering if I'm running into a similar problem to Guile's
+need for it to hold the &quot;main&quot; thread, while running the &quot;main&quot;
+program in some subservient thread...
+
+Any ideas?
+
+-Brent
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00835" href="msg00835.html">Re: More GC Errors (New, Improved, In Senora GC!)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00823" href="msg00823.html">GC Errors in Embedded Program</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+<li><strong><a name="00824" href="msg00824.html">Re: GC Errors in Embedded Program</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00833.html">Re: GC Errors in Embedded Program</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00835.html">Re: More GC Errors (New, Improved, In Senora GC!)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00840.html">Re: GC Errors in Embedded Program</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00835.html">Re: More GC Errors (New, Improved, In Senora GC!)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00834"><strong>Date</strong></a></li>
+<li><a href="threads.html#00834"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

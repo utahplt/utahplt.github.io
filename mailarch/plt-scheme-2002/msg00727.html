@@ -1,0 +1,208 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: need help with macros (again) -->
+<!--X-From-R13: Rbht Aeyrnaf <qbhtbNppf.arh.rqh> -->
+<!--X-Date: Wed, 10 Apr 2002 16:18:37 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15540.47672.289970.400949@vega.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>need help with macros (again)</title>
+<link rev="made" href="mailto:dougo@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00726.html">Date Prev</a>][<a href="msg00728.html">Date Next</a>][<a href="msg00724.html">Thread Prev</a>][<a href="msg00732.html">Thread Next</a>][<a href="maillist.html#00727">Date Index</a>][<a href="threads.html#00727">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>need help with macros (again)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: need help with macros (again)</li>
+<li><em>From</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 10 Apr 2002 18:18:32 -0400 (EDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm trying to make a little reflection system for procedures-- you can
+get the source expression for a procedure definition, and you get the
+lexical environment of the procedure, which you can query to find the
+current values of the free variables in the procedure expression.  I'm
+implementing this as two modules, one to build the environment syntax,
+and one to store the exp and env for each lambda:
+
+  (module env mzscheme
+    (provide make-environment-syntax environment-value)
+
+    ;; An &quot;environment&quot; that can be queried for the current bindings of
+    ;; the free variables of the expression in stx.
+    (define (make-environment-syntax stx)
+      (let ((fv (free-variables-syntax stx)))
+	(with-syntax (((var ...) fv))
+	  (syntax (lambda (msg)
+		    (case msg
+		      ((var) var)
+		      ...
+		      ))))))
+
+    (define (environment-value env var)
+      (env var))
+
+    ;; The free variables in a syntax object.
+    ;; FIXME: handle other binding constructs besides lambda.
+    (define (free-variables-syntax stx)
+      (let loop ((stx stx) (b '()))
+	(let ((e (syntax-e stx)))
+	  (cond ((pair? e)
+		 (if (memq (syntax-e (car e)) '(lambda))
+		     (let* ((l (syntax-&gt;list stx))
+			    (formals (cadr l))
+			    (body (cddr l))
+			    (b (union (formal-bindings
+				       (syntax-object-&gt;datum formals))
+				      b)))
+		       (mappend (lambda (stx) (loop stx b)) body))
+		     (union (loop (car e) b)
+			    (mappend (lambda (stx) (loop stx b)) (cdr e)))))
+		((and (symbol? e) (not (memq e b))) (list stx))
+		(else '())))))
+
+    ;; The list of symbols bound by a formal parameter list.
+    (define (formal-bindings f)
+      (cond ((null? f) '())
+	    ((symbol? f) (list f))
+	    (else (cons (car f) (formal-bindings (cdr f))))))
+
+    (define (mappend f l) (apply append (map f l)))
+
+    (define (union s1 s2)
+      (if (null? s1)
+	  s2
+	  (union (cdr s1) (adjoin (car s1) s2))))
+
+    (define (adjoin x s)
+      (if (memq x s)
+	  s
+	  (cons x s)))
+
+  )
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Keep the source code around for procedure definitions.
+  ;; Adapted from a post to the plt-scheme mailing list by Matthew Flatt.
+
+  (module keep-source mzscheme
+    (require-for-syntax env)
+
+    (define *info* (make-hash-table 'weak))
+    (define (set-procedure-info! proc exp env)
+      (hash-table-put! *info* proc (cons exp env))
+      proc)
+    (define (get-procedure-info proc)
+      (hash-table-get *info* proc
+	(lambda () (error 'procedure-info &quot;primitive procedure: ~a&quot; proc))))
+
+    (define (procedure-expression proc) (car (get-procedure-info proc)))
+    (define (procedure-environment proc) (cdr (get-procedure-info proc)))
+
+    (define-syntax (wrapper-lambda stx)
+      (syntax-case stx ()
+	((_ . rest)
+	 (with-syntax ((env (make-environment-syntax (syntax (lambda . rest)))))
+	   (syntax (set-procedure-info! (lambda . rest) '(lambda . rest) env))))))
+
+    (provide procedure-expression
+	     procedure-environment
+	     (rename wrapper-lambda lambda))
+  )
+
+(Feel free to comment on my coding style... I'm sure
+free-variables-syntax could be written more elegantly somehow.)
+
+Okay, so the env module seems to work okay:
+
+  Welcome to MzScheme version 200alpha15, Copyright (c) 1995-2002 PLT
+  &gt; (load &quot;proc-info.scm&quot;)
+  &gt; (require-for-syntax env)
+  &gt; (require env)
+  &gt; (define foo (eval (with-syntax ((env (make-environment-syntax
+					   (syntax (lambda (y) (+ x y))))))
+			 (syntax (let ((x 3)) (cons (lambda (y) (+ x y)) env))))))
+  &gt; foo
+  (#&lt;procedure:STDIN::200&gt; . #&lt;procedure:...ed/proc-info.scm:9:9&gt;)
+  &gt; ((car foo) 4)
+  7
+  &gt; (environment-value (cdr foo) 'x)
+  3
+
+But the keep-source module produces an error that I can't explain:
+
+  &gt; (require keep-source)
+  &gt; (define foo (let ((x 3)) (lambda (y) (+ x y))))
+  proc-info.scm:9:9: compile: bad syntax; function application is not allowed, because no #%app syntax transformer is bound in: (lambda (msg) (case msg ((+) +) ((x) x)))
+
+What's going on here?  What am I doing wrong?  The expansion of lambda 
+seems to be what I want it to be:
+
+  &gt; (syntax-object-&gt;datum (expand-once '(lambda (y) (+ x y))))
+  (set-procedure-info! (lambda (y) (+ x y)) (quote (lambda (y) (+ x y))) (lambda (msg) (case msg ((+) +) ((x) x))))
+
+I'm puzzled...
+
+--dougo@ccs.neu.edu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00732" href="msg00732.html">Re: need help with macros (again)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00726.html">Re: should definitions introduced by macros be gensymmed?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00728.html">Scheme on the Web?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00724.html">change to `make-input-port' and `make-output-port'</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00732.html">Re: need help with macros (again)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00727"><strong>Date</strong></a></li>
+<li><a href="threads.html#00727"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

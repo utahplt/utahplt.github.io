@@ -1,0 +1,100 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: GC&#45;related question -->
+<!--X-From-R13: "Xbua D. Vnyy" <birepbqrNybxvtnzrf.pbz> -->
+<!--X-Date: Fri, 25 Aug 2000 21:12:55 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39A73518.F1C13739@lokigames.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>GC-related question</TITLE>
+<LINK REV="made" HREF="mailto:overcode@lokigames.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00875.html">Date Prev</A>][<A HREF="msg00877.html">Date Next</A>][<A HREF="msg00873.html">Thread Prev</A>][<A HREF="msg00880.html">Thread Next</A>][<A HREF="maillist.html#00876">Date Index</A>][<A HREF="threads.html#00876">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>GC-related question</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: GC-related question</LI>
+<LI><em>From</em>: "John R. Hall" &lt;<A HREF="mailto:overcode@lokigames.com">overcode@lokigames.com</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 25 Aug 2000 22:10:16 -0500</LI>
+<LI><em>Organization</em>: Loki Entertainment Software</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm trying to write an MzScheme extension that provides bindings to an
+external library, but I don't quite understand how to deal with the
+garbage collector. This library uses normal C malloc()'s for its
+allocation, and it would be Bad to lose the pointers to the structures
+it creates (since they're rather expensive to allocate). I'll be adding
+a new Scheme type to represent these structures.
+
+I want the Scheme representations of these structures to be GC'ed
+normally (so that the bindings can be conveniently used in
+functional-style programs), but I need to be able to free the data they
+represent before they are lost. How can I do this?
+
+The scheme_register_finalizer function looks something like what I need,
+but I'm not sure.
+
+Thanks!
+-John
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00880" HREF="msg00880.html">Re: GC-related question</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00875.html">Re: Scheme 2000: Call for Participation</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00877.html">(sans sujet)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00873.html">Re: Possible fix for tcp-connect under Linux 2.4</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00880.html">Re: GC-related question</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00876"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00876"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

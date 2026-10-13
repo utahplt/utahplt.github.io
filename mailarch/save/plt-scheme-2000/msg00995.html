@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Src question -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 23 Oct 2000 19:11:48 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200010240111.TAA20178@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 0101e53422317a0FE5@mail5.nc.rr.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Src question</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00994.html">Date Prev</A>][<A HREF="msg00996.html">Date Next</A>][<A HREF="msg00994.html">Thread Prev</A>][<A HREF="msg00996.html">Thread Next</A>][<A HREF="maillist.html#00995">Date Index</A>][<A HREF="threads.html#00995">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Src question</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "Scheme Mailing List" &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Src question</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 23 Oct 2000 19:11:45 -0600 (MDT)</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00994.html">0101e53422317a0FE5@mail5.nc.rr.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00994.html">0101e53422317a0FE5@mail5.nc.rr.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Robert John Andersen:
+&gt; I was poking around the vector code and noticed a reference to
+&gt; zero_length_vector which gets created in scheme_init_vector.  I was
+&gt; wondering what the following allocation line was supposed to accomplish
+&gt; since the size seems to say allocate 0 bytes:
+&gt; 
+&gt; zero_length_vector =  (Scheme_Object
+&gt; *)scheme_malloc_tagged(sizeof(Scheme_Vector) - sizeof(Scheme_Object *));
+
+I think you're overlooking the "*" in "sizeof(Scheme_Object *)".
+
+
+For those who want a longer explanation:
+
+MzScheme "inlines" references of the elements of a vector in the base
+record (which contains the type tag and vector size), instead of
+allocating a separate array of references.
+
+In particular, Scheme_Vector is defined as
+
+ typedef struct Scheme_Vector {
+   Scheme_Type type;
+   int size;
+   Scheme_Object *els[1];
+ } Scheme_Vector;
+
+The `els' vector isn't really of length 1. Each Scheme_Vector record is
+allocated so that `els' is as long as the number of items in the
+vector. But we have to put some positive number for `els' in the
+definition of Scheme_Vector.
+
+The formula for the actual size (in bytes) of the record for a vector
+of N elements is
+
+  sizeof(Scheme_Vector) + ((N - 1) * sizeof(Scheme_Object*))
+
+In the case that N=0, it's the expression you see for
+zero_length_vector.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00996" HREF="msg00996.html">Re: Re: Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Robert John Andersen &lt;anderman@anderware.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00998" HREF="msg00998.html">Re: Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00994" HREF="msg00994.html">Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Robert John Andersen &lt;anderman@anderware.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00994.html">Src question</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00996.html">Re: Re: Src question</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00994.html">Src question</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00996.html">Re: Re: Src question</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00995"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00995"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

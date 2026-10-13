@@ -1,0 +1,131 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Bug &#38; co -->
+<!--X-From-R13: Znhev Oynaxb <ynNvxv.sv> -->
+<!--X-Date: Wed, 12 Dec 2001 08:15:49 &#45;0700 (MST) -->
+<!--X-Message-Id: 20011212151538.GA692@la.iki.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: qs3d71kd124.fsf@yoko.inria.fr -->
+<!--X-Reference: 1008165153.3c1761210a7d5@imp.free.fr -->
+<!--X-Reference: 3C1765B1.2E8B4871@info.unicaen.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Bug &amp; co</title>
+<link rev="made" href="mailto:la@iki.fi">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01329.html">Date Prev</a>][<a href="msg01331.html">Date Next</a>][<a href="msg01327.html">Thread Prev</a>][<a href="msg01331.html">Thread Next</a>][<a href="maillist.html#01330">Date Index</a>][<a href="threads.html#01330">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Bug &amp; co</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Bug &amp; co</li>
+<li><em>From</em>: Lauri Alanko &lt;<A HREF="mailto:la@iki.fi">la@iki.fi</A>&gt;</li>
+<li><em>Date</em>: Wed, 12 Dec 2001 17:15:38 +0200</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01327.html">3C1765B1.2E8B4871@info.unicaen.fr</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01324.html">qs3d71kd124.fsf@yoko.inria.fr</a>&gt; &lt;<a href="msg01326.html">1008165153.3c1761210a7d5@imp.free.fr</a>&gt; &lt;<a href="msg01327.html">3C1765B1.2E8B4871@info.unicaen.fr</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.24i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Wed, Dec 12, 2001 at 03:12:01PM +0100, Jerzy Karczmarczuk wrote:
+&gt; How, for goodness' sake, l can guess what happened to the data it points to?
+&gt; It continues to point to the *same cell*.
+&gt; 
+&gt; This is - sorry to appear harsh - an *elementary* fact belonging to what we
+&gt; call &quot;call by value&quot; (here: dereferenced argument).
+
+The semantics of reverse! are not _completely_ obvious, especially not
+to someone who's used to, say, arrays. For example, the original poster
+_might_ have expected reverse! to simple rearrange the _elements_ in the
+list without modifying the structure, like this:
+
+(define (reverse! l)
+  (define (aux curr)
+    (if (null? curr)
+        l
+        (let ((my (aux (cdr curr))))
+          (and my
+               (not (eq? my curr))
+               (not (eq? my (cdr curr)))
+               (let ((tmp (car my)))
+                 (set-car! my (car curr))
+                 (set-car! curr tmp)
+                 (cdr my))))))
+  (aux l)
+  l)
+
+Of course this is inefficient and generally a bad idea, but still, it's
+not &quot;elementary&quot;, and certainly not obvious from the description &quot;list
+is destructively reversed&quot;.
+
+
+Lauri Alanko
+la@iki.fi
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01331" href="msg01331.html">Re: Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01324" href="msg01324.html">Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Manuel Giraud &lt;giraud@tif.inria.fr&gt;</li></ul></li>
+<li><strong><a name="01326" href="msg01326.html">Re: Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Yannis BRES &lt;Yannis.BRES@cma.inria.fr&gt;</li></ul></li>
+<li><strong><a name="01327" href="msg01327.html">Re: Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01329.html">Re: Bug &amp; co</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01331.html">Re: Bug &amp; co</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01327.html">Re: Bug &amp; co</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01331.html">Re: Bug &amp; co</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01330"><strong>Date</strong></a></li>
+<li><a href="threads.html#01330"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

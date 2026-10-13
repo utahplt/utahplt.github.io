@@ -1,0 +1,244 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: streams -->
+<!--X-From-R13: "Ivyy Tvgmtrenyq" <svgmtrenyqNvargzv.pbz> -->
+<!--X-Date: Thu, 26 Oct 2000 10:47:33 &#45;0600 (MDT) -->
+<!--X-Message-Id: KPELIDPNOGGPCLGOMDLFGEJKCDAA.fitzgerald@inetmi.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 39F86298.D5DAEBC0@bu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: streams</title>
+<link rev="made" href="mailto:fitzgerald@inetmi.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00649.html">Date Prev</a>][<a href="msg00651.html">Date Next</a>][<a href="msg00649.html">Thread Prev</a>][<a href="msg00651.html">Thread Next</a>][<a href="maillist.html#00650">Date Index</a>][<a href="threads.html#00650">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: streams</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: streams</li>
+<li><em>From</em>: &quot;Will Fitzgerald&quot; &lt;<A HREF="mailto:fitzgerald@inetmi.com">fitzgerald@inetmi.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 26 Oct 2000 12:47:53 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00649.html">39F86298.D5DAEBC0@bu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Here's an implementation of streams in MzScheme. It's a bit wierd because I
+wanted it to run (a) in a Common Lisp compatibility package I wrote, and (b)
+it was like some other code we'd originally written in CL (based on Peter
+Novig's code). I *think* it implements a superset of the SICP stream
+procedures. It it formats badly in email, I'll send a text file directly on
+request.
+
+
+(define the-empty-stream '())
+(define stream-null? null?)
+
+(define-macro stream-delay
+  (lambda (computation)
+    `(lambda () ,computation)))
+
+;; we don't use DELAY for CL compatibility...
+(define-macro cons-stream
+  (lambda (the-car the-cdr)
+    `(cons ,the-car (stream-delay ,the-cdr))))
+
+(define (stream-car stream) (car stream))
+
+;; unlike sicp, but like Norvig, we change the stream on stream-cdr
+(define (stream-cdr stream)
+  (let ((theCdr (cdr stream)))
+    (when (procedure?  theCdr)
+      (set-cdr! stream (theCdr)))
+    (cdr stream)))
+
+(define (stream-ref s n)
+  (if (&lt; n 0)
+    (error &quot;Invaid STREAM-REF index:&quot; n)
+    (if (= n 0)
+      (stream-car s)
+      (stream-ref (stream-cdr s) (- n 1)))))
+
+(define (stream-enumerate-interval low high)
+  (if (&gt; low high)
+    the-empty-stream
+    (cons-stream low
+                 (stream-enumerate-interval (+ low 1) high))))
+
+(define (stream-filter pred stream)
+  (cond ((stream-null? stream) the-empty-stream)
+        ((pred (stream-car stream))
+         (cons-stream (stream-car stream)
+                      (stream-filter pred (stream-cdr stream))))
+        (else (stream-filter pred (stream-cdr stream)))))
+
+(define (stream-filtering pred stream)
+  &quot;runs pred, keeps if non-#f&quot;
+  (if (stream-null? stream) the-empty-stream
+      (let ((val (pred (stream-car stream))))
+        (if val (cons-stream val (stream-filtering pred (stream-cdr
+stream)))
+        (stream-filtering pred (stream-cdr stream))))))
+
+
+(define (stream-map proc stream)
+  (cond ((stream-null? stream) the-empty-stream)
+        (else (cons-stream (proc (stream-car stream))
+                           (stream-map proc (stream-cdr stream))))))
+
+(define (stream-append stream1 stream2)
+  (if (stream-null? stream1) stream2
+      (cons-stream (stream-car stream1)
+                   (stream-append (stream-cdr stream1) stream2))))
+
+(define (stream-append-filtering pred stream)
+  &quot;Map pred over stream, delaying all but the first pred call,
+   appending results, filtering along the way&quot;
+  (if (stream-null? stream)
+    the-empty-stream
+    (let* ((head (stream-car stream))
+           (tail (stream-cdr stream))
+           (result (pred head)) )
+      (if (not (stream-null? result))
+        (cons-stream (stream-car result)
+                   (stream-append (stream-cdr result)
+                                 (stream-append-filtering pred tail)))
+        (stream-append-filtering pred tail)))))
+
+(define (stream-for-each proc stream)
+  (cond ((stream-null? stream) (values))
+        (else (proc (stream-car stream))
+              (stream-for-each proc (stream-cdr stream)))))
+
+(define (stream-force stream)
+  (stream-for-each (lambda (i) i) stream)
+  stream)
+
+; take the first (upto) n items from stream.
+(define (stream-take stream count)
+  (if (or (&lt;= count 0) (stream-null? stream))
+    '()
+      (cons (stream-car stream)
+            (stream-take (stream-cdr stream) (- count 1)))))
+
+;; some useful streams
+
+(define (integers-starting-from n)
+  (cons-stream n (integers-starting-from (+ n 1))))
+
+(define integers (integers-starting-from 1))
+
+
+&gt; -----Original Message-----
+&gt; From: owner-plt-scheme@fast.cs.utah.edu
+&gt; [<A  HREF="mailto:owner-plt-scheme@fast.cs.utah.edu]On">mailto:owner-plt-scheme@fast.cs.utah.edu]On</A> Behalf Of ktpr
+&gt; Sent: Thursday, October 26, 2000 12:58 PM
+&gt; To: Shriram Krishnamurthi
+&gt; Cc: plt-scheme@fast.cs.utah.edu
+&gt; Subject: Re: streams
+&gt;
+&gt;
+&gt;
+&gt;
+&gt; Shriram Krishnamurthi wrote:
+&gt; &gt;
+&gt; &gt; You can easily add streams with a few instructions.  Maybe your
+&gt; &gt; instuctor already has these handy?  (Are you taking a course at BU?
+&gt; &gt; If so, can you send me your course home page URL?  Thanks!)
+&gt;
+&gt;
+&gt; Thank you both for you quick reply. I was afraid that the list was dead
+&gt; or something and I would get no support.
+&gt;
+&gt; 	My course's home page is at
+&gt; <A  HREF="http://www.cs.bu.edu/faculty/kfoury/CS320-Fall00/home.html">http://www.cs.bu.edu/faculty/kfoury/CS320-Fall00/home.html</A>
+&gt; My teacher has not provided any implementation for Dr. Scheme and
+&gt; probably does not intend to. He uses MIT scheme, whose win32 package is
+&gt; pretty ugly.
+&gt;
+&gt; 	To implement streams I would need an implementation of head
+&gt; and tail. I
+&gt; understand that a thunk would be used in the implementation of tail. I
+&gt; would have to use &quot;promise&quot; in tail to allow for lazy evaluation. I am
+&gt; sure the implementation isn't has simple as
+&gt;
+&gt; [rough pseudo]
+&gt; 	(cond ((stream-car) (car lst))
+&gt; 	     ((stream-cdr) (display cadr lst &quot;promise&quot;))
+&gt; 	     (else display &quot;error&quot;))
+&gt;
+&gt; 	And i suspect it goes a little more low level than i have
+&gt; time for to
+&gt; do this assignment involving streams. Since this is not a homework
+&gt; problem in itself, this request for an implementation is not cheating
+&gt; (at least in my view). (Alternatively, I could just use the MIT win32
+&gt; version of Scheme.) So here it is: Could someone be so kind as to
+&gt; provide me with a stream implementation or direct me to a library that
+&gt; already has one.
+&gt;
+&gt; 	In any case, any help would be appreciated.
+&gt;
+&gt; thank you for your time,
+&gt; ktpr
+&gt;
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00649" href="msg00649.html">Re: streams</a></strong>
+<ul><li><em>From:</em> ktpr &lt;ktpr@bu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00649.html">Re: streams</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00651.html">Re: streams</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00649.html">Re: streams</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00651.html">Re: streams</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00650"><strong>Date</strong></a></li>
+<li><a href="threads.html#00650"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

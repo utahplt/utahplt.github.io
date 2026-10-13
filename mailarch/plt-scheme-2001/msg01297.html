@@ -1,0 +1,151 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Redefining define -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 8 Dec 2001 10:14:09 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112081714.fB8HE2r20579@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011208105348.GA748@la.iki.fi -->
+<!--X-Reference: 200112081336.fB8DaIr11719@wrath.cs.utah.edu -->
+<!--X-Reference: 20011208154106.GA602@la.iki.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Redefining define</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01296.html">Date Prev</a>][<a href="msg01298.html">Date Next</a>][<a href="msg01296.html">Thread Prev</a>][<a href="msg01298.html">Thread Next</a>][<a href="maillist.html#01297">Date Index</a>][<a href="threads.html#01297">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Redefining define</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Lauri Alanko &lt;<A HREF="mailto:la@iki.fi">la@iki.fi</A>&gt;</li>
+<li><em>Subject</em>: Re: Redefining define</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 8 Dec 2001 10:14:02 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01296.html">20011208154106.GA602@la.iki.fi</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01294.html">20011208105348.GA748@la.iki.fi</a>&gt; &lt;<a href="msg01295.html">200112081336.fB8DaIr11719@wrath.cs.utah.edu</a>&gt;	&lt;<a href="msg01296.html">20011208154106.GA602@la.iki.fi</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Lauri Alanko:
+&gt; On Sat, Dec 08, 2001 at 06:36:18AM -0700, Matthew Flatt wrote:
+&gt; &gt;  (module util mzscheme
+&gt; &gt;     (define-syntax util-define ...)
+&gt; &gt; 
+&gt; &gt;     (provide (rename util-define define)
+&gt; &gt;              (all-from-except mzscheme define)))
+&gt; 
+&gt; But this requires that util is used as the initial import instead of
+&gt; mzscheme? 
+
+Yes, because I thought you were trying to define a new language in that
+sense. 
+
+If you just want to provide just `define', that's fine, too:
+
+ (module util mzscheme
+    (define-syntax util-define ...)
+
+    (provide (rename util-define define)))
+
+But naming the export `define' isn't likely to be that useful, since
+(as you point out), a module in the `mzscheme' language won't be able
+to import `util' (without a prefix or renaming).
+
+&gt; This is kind of icky, since then you can't use multiple
+&gt; modules with these sorts of redefinitions simultaneously, except of
+&gt; course by combining the needed modules into yet another module to use as
+&gt; the initial import.
+
+Most modules provide forms that extend Scheme. Those modules tend to be
+composable in an obvious way, because they all extend Scheme.
+
+Other modules are meant to define a Scheme-like language where certain
+forms are &quot;overidden&quot;. In other words, they change Scheme. Those
+modules aren't composable in any obvious way by their nature. By
+writing a new module to use as the initial import (as you suggest), a
+programmer can effectively tell the module system how to compose the
+languages.
+
+&gt; I can understand that disallowing _any_ overlap between names in scope,
+&gt; even between the initial and required modules, is conceptually elegant,
+&gt; but it seems to have impractical consequences.
+
+I think that the impractical consequences of allowing overlap are far
+worse than those of disallowing it. I often accidentally import/define
+a name twice; it's almost always a typo, and the other times it's a
+design problem that must be resolved carefully.
+
+I know --- annecdotes along are not compelling. But my view of
+disallowing overlap is based on the way it fits into the larger design,
+which makes it difficult to argue in favor of one particular decision.
+
+&gt; Perhaps I'll just stick to another name. :)
+
+That's probably the right thing.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01294" href="msg01294.html">Redefining define</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+<li><strong><a name="01295" href="msg01295.html">Re: Redefining define</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="01296" href="msg01296.html">Re: Redefining define</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01296.html">Re: Redefining define</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01298.html">Unhygienic macros</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01296.html">Re: Redefining define</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01298.html">Unhygienic macros</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01297"><strong>Date</strong></a></li>
+<li><a href="threads.html#01297"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

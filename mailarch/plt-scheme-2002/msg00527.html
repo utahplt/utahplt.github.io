@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: scsh in PLT Scheme? -->
+<!--X-From-R13: Dvpuneq Qboor <pboorNnveznvy.arg> -->
+<!--X-Date: Tue, 26 Mar 2002 19:39:01 &#45;0700 (MST) -->
+<!--X-Message-Id: 15521.12395.685507.497608@weatherwax.home.rcc -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c1d507$aee69940$70730a81@NORTHEASDX5RFA -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: scsh in PLT Scheme?</title>
+<link rev="made" href="mailto:cobbe@airmail.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00526.html">Date Prev</a>][<a href="msg00528.html">Date Next</a>][<a href="msg00662.html">Thread Prev</a>][<a href="msg00528.html">Thread Next</a>][<a href="maillist.html#00527">Date Index</a>][<a href="threads.html#00527">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: scsh in PLT Scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: scsh in PLT Scheme?</li>
+<li><em>From</em>: Richard Cobbe &lt;<A HREF="mailto:cobbe@airmail.net">cobbe@airmail.net</A>&gt;</li>
+<li><em>Date</em>: Tue, 26 Mar 2002 20:37:31 -0600 (CST)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00514.html">000001c1d507$aee69940$70730a81@NORTHEASDX5RFA</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00514.html">000001c1d507$aee69940$70730a81@NORTHEASDX5RFA</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Lo, on Tuesday, March 26, Paul Steckler did write:
+
+(I should point out that I haven't really seriously used PLT scheme in
+quite some time, so I'm basically evaluating scsh by comparing it to PLT
+scheme 102 or thereabouts.)
+
+&gt;   - do you currently use scsh?	
+
+&gt;From time to time; see below.
+
+&gt;   - what features of scsh do you use?
+
+Mostly the POSIX and networking bindings---the equivalents of sections 2
+and 3 of the standard Unix manual.
+
+The s-expression notation for regular expressions is also pretty cool,
+and I like some of the functions which operate on regexps: regexp-fold
+and regexp-fold-right are quite cool, in particular.
+
+I don't use the process notation or the awk stuff that often.
+
+&gt;   - would you use a PLT scsh-oid that implemented some, but not all of
+&gt; scsh?
+
+I'd certainly consider it; it depends rather heavily on exactly which
+subset of scsh it supports.
+
+&gt; Because scsh is a moving target, ported C code would raise significant
+&gt; maintenance issues.
+
+This is unfortunate, but I completely understand your reluctance to
+attack such a problem.
+
+&lt;SNIP&gt;
+
+&gt; Here's what would be missing:
+&gt; 
+&gt;  - low-level socket stuff (Ch. 4)
+
+How low level is `low-level'?  The one time I used scsh instead of PLT,
+I did so because I needed to perform reverse DNS lookups.  At the time,
+PLT didn't support this operation, even in the networking collection.
+Sure, I could have written a C extension, but I decided it wasn't worth
+the headache of dealing with the FFI.
+
+This is probably off-topic, but I will mention one thing that I really
+like about scsh, or rather Scheme48: some of the features of the module
+system make unit-testing much easier.  In particular, at the REPL you
+can `switch your perspective,' if you will, into a particular module.
+Once you've done this, you have access to *all* of the module's
+definitions, including those that are not exported.  This is obviously
+not something you want to do in a running program, but it does make
+unit-testing the module easier, as you can test the module-private
+functions directly.
+
+Richard
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00528" href="msg00528.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00514" href="msg00514.html">scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00526.html">Building PLTs</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00528.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00662.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00528.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00527"><strong>Date</strong></a></li>
+<li><a href="threads.html#00527"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

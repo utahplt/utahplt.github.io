@@ -1,0 +1,128 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Bug &#38; co -->
+<!--X-From-R13: Xreml Ynepmznepmhx <xnepmznNvasb.havpnra.se> -->
+<!--X-Date: Thu, 13 Dec 2001 01:23:13 &#45;0700 (MST) -->
+<!--X-Message-Id: 3C1865A1.B92AF3A5@info.unicaen.fr -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: qs3d71kd124.fsf@yoko.inria.fr -->
+<!--X-Reference: 1008165153.3c1761210a7d5@imp.free.fr -->
+<!--X-Reference: 3C1765B1.2E8B4871@info.unicaen.fr -->
+<!--X-Reference: 20011212151538.GA692@la.iki.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Bug &amp; co</title>
+<link rev="made" href="mailto:karczma@info.unicaen.fr">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01330.html">Date Prev</a>][<a href="msg01332.html">Date Next</a>][<a href="msg01330.html">Thread Prev</a>][<a href="msg01332.html">Thread Next</a>][<a href="maillist.html#01331">Date Index</a>][<a href="threads.html#01331">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Bug &amp; co</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Bug &amp; co</li>
+<li><em>From</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</li>
+<li><em>Date</em>: Thu, 13 Dec 2001 09:24:01 +0100</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: Université de Caen, France</li>
+<li><em>References</em>: &lt;<a href="msg01324.html">qs3d71kd124.fsf@yoko.inria.fr</a>&gt; &lt;<a href="msg01326.html">1008165153.3c1761210a7d5@imp.free.fr</a>&gt; &lt;<a href="msg01327.html">3C1765B1.2E8B4871@info.unicaen.fr</a>&gt; &lt;<a href="msg01330.html">20011212151538.GA692@la.iki.fi</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Lauri Alanko:
+
+&gt; The semantics of reverse! are not _completely_ obvious, especially not
+&gt; to someone who's used to, say, arrays. For example, the original poster
+&gt; _might_ have expected reverse! to simple rearrange the _elements_ in the
+&gt; list without modifying the structure, like this:
+&gt; 
+&gt; (define (reverse! l)
+&gt;   (define (aux curr)
+   ... etc. : a 1-level deep copy.
+
+&gt; Of course this is inefficient and generally a bad idea, but still, it's
+&gt; not &quot;elementary&quot;, and certainly not obvious from the description &quot;list
+&gt; is destructively reversed&quot;.
+
+RRight. It *might* work differently. I protested as I did for two reasons:
+
+1. Manuel Giraud didn't ask *why*, he said that this is a *bug*, and it was
+   followed by a reasoning which was not addressing this problem. But this
+   is a standard cliché, covered by textbooks for at least 30 years. 
+   So I was surprised, but I sincerely regret having reacted theatrically.
+
+2. &quot;Elementary&quot; is the fact that when you have update'able data structures,
+   and call by value protocol, the variable which points to this structure
+   may, and usually will have everything invalidated, so you cannot draw a
+   conclusion that a massacre of l constitutes a bug, or anything. In fact
+   you have no right to assume anything, and if I were an implementor of
+   a Scheme-like language, I would try - if possible - to put at the address
+   containing a structure which gets masticated a kind of special-undefined-
+   object-which-will-scream-bloody-murder-and-prevent-you-from-doing-anything-
+   with.
+
+
+Jerzy Karczmarczuk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01324" href="msg01324.html">Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Manuel Giraud &lt;giraud@tif.inria.fr&gt;</li></ul></li>
+<li><strong><a name="01326" href="msg01326.html">Re: Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Yannis BRES &lt;Yannis.BRES@cma.inria.fr&gt;</li></ul></li>
+<li><strong><a name="01327" href="msg01327.html">Re: Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="01330" href="msg01330.html">Re: Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01330.html">Re: Bug &amp; co</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01332.html">lexer?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01330.html">Re: Bug &amp; co</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01332.html">lexer?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01331"><strong>Date</strong></a></li>
+<li><a href="threads.html#01331"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: changing display methods for structures, etc? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 28 Dec 1999 11:33:53 &#45;0700 (MST) -->
+<!--X-Message-Id: 199912281833.LAA28881@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000e01bf5160$758d5490$11969fd0@fitzgerald_nt -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: changing display methods for structures, etc?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00009.html">Date Prev</a>][<a href="msg00011.html">Date Next</a>][<a href="msg00009.html">Thread Prev</a>][<a href="msg00011.html">Thread Next</a>][<a href="maillist.html#00010">Date Index</a>][<a href="threads.html#00010">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: changing display methods for structures, etc?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:fitzgerald@neodesic.com">fitzgerald@neodesic.com</A>&gt;</li>
+<li><em>Subject</em>: Re: changing display methods for structures, etc?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 28 Dec 1999 11:33:41 -0700 (MST)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00009.html">000e01bf5160$758d5490$11969fd0@fitzgerald_nt</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00009.html">000e01bf5160$758d5490$11969fd0@fitzgerald_nt</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Will Fitzgerald&quot;:
+&gt; Is there a method for defining a print method (like Common Lisp's
+&gt; PRINT-OBJECT) that would allow me print out the fields of the structure
+&gt; as well as the 'unique id' of the structure? This would help greatly in
+&gt; debugging.
+&gt; 
+&gt; For example:
+&gt; 
+&gt; #&lt;struct:task 32323 :name my-task :priority 100&gt;
+
+(print-struct #t) is probably most of want you want for debugging:
+
+ &gt; (print-struct #t)
+ &gt; (seconds-&gt;date (current-seconds))
+ #(struct:date 33 30 11 28 12 1999 2 361 #f -25200)
+
+But there's currently no way to customize MzScheme's built-in printer,
+other than the various parameters. `pretty-print' (in the pretty.ss
+library) is configurable.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00009" href="msg00009.html">changing display methods for structures, etc?</a></strong>
+<ul><li><em>From:</em> &quot;Will Fitzgerald&quot; &lt;fitzgerald@neodesic.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00009.html">changing display methods for structures, etc?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00011.html">Re: changing display methods for structures, etc?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00009.html">changing display methods for structures, etc?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00011.html">Re: changing display methods for structures, etc?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00010"><strong>Date</strong></a></li>
+<li><a href="threads.html#00010"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

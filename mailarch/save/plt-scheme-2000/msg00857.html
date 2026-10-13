@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: tcp&#45;connect error -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 14 Aug 2000 08:19:36 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200008141419.HAA20849@hawk.prod.itd.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 39977AF6.5C87679B@lokigames.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: tcp-connect error</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00856.html">Date Prev</A>][<A HREF="msg00858.html">Date Next</A>][<A HREF="msg00854.html">Thread Prev</A>][<A HREF="msg00858.html">Thread Next</A>][<A HREF="maillist.html#00857">Date Index</A>][<A HREF="threads.html#00857">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: tcp-connect error</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "John R. Hall" &lt;<A HREF="mailto:overcode@lokigames.com">overcode@lokigames.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: tcp-connect error</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 14 Aug 2000 07:19:31 -0700 (PDT)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00854.html">39977AF6.5C87679B@lokigames.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00854.html">39977AF6.5C87679B@lokigames.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting "John R. Hall":
+&gt; I developed some nifty networking code on a Windows box with MzScheme.
+&gt; It puts a nice OO wrapper around Internet connections established with
+&gt; tcp-connect. Unfortunately, the same code does not work on my Linux box
+&gt; (SuSE 6.3, kernel 2.4.0test6). It seems that tcp-connect is encountering
+&gt; problems.
+
+This seems to be due to a recent change in Linux, and one that I don't
+yet understand. If anyone can help, I'd greatly appreciate it.
+
+Here's what I think I know: connect() is returning EAGAIN. EAGAIN is
+not an allowed result status according to older Linux man pages;
+according to the newest one:
+
+ EAGAIN 
+  No more free local ports or insufficient entries in the routing
+  cache. For PF_INET see the net.ipv4.ip_local_port_range sysctl in ip
+  (7) on how to increase the number of local ports.
+
+My conclusion before was that there's really nothing MzScheme can do
+about this result. But John seems to be running out of "local ports or
+entries in the routing cache" awfully quickly.
+
+Any ideas?
+
+Thanks,
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00854" HREF="msg00854.html">tcp-connect error</A></STRONG>
+<UL><LI><EM>From:</EM> "John R. Hall" &lt;overcode@lokigames.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00856.html">Icon problem</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00858.html">Re: tcp-connect error</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00854.html">tcp-connect error</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00858.html">Re: tcp-connect error</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00857"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00857"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

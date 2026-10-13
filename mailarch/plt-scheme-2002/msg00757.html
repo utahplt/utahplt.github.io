@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: creating scheme class instance inside a C++ extension -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 15 Apr 2002 09:02:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200204151501.JAA25815@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.44.0204121157580.13132&#45;100000@cogsci.ucsd.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: creating scheme class instance inside a C++ extension</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00756.html">Date Prev</a>][<a href="msg00758.html">Date Next</a>][<a href="msg00741.html">Thread Prev</a>][<a href="msg00742.html">Thread Next</a>][<a href="maillist.html#00757">Date Index</a>][<a href="threads.html#00757">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: creating scheme class instance inside a C++ extension</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Ron Stanonik &lt;<A HREF="mailto:stanonik@cogsci.ucsd.edu">stanonik@cogsci.ucsd.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: creating scheme class instance inside a C++ extension</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 15 Apr 2002 09:01:14 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00741.html">Pine.LNX.4.44.0204121157580.13132-100000@cogsci.ucsd.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00741.html">Pine.LNX.4.44.0204121157580.13132-100000@cogsci.ucsd.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Fri, 12 Apr 2002 12:37:46 -0700 (PDT), Ron Stanonik wrote:
+&gt; From inside a C++ extension, how do I make an instance of a scheme class?
+
+The answer depends on whether you mean a class that has been extended
+from Scheme, or a &quot;primtive&quot; class like `tree%' in the MzScheme
+example.
+
+In the former case, it's essentially the same as in Scheme. The
+extension will need to get `make-object' from the &quot;class.ss&quot; library,
+get the class value, and them combined them (with initialization
+arguments) using _scheme_apply().
+
+In the latter case, you can instantiate the underlying C++ class and
+then do something like MarshallTree() in the tree.cxx example.
+
+&gt; One solution might be to pass an event instance when registering
+&gt; the callback.  When an event occurred the extension would fill in
+&gt; the instance and return it.  For example
+&gt; 
+&gt;   (define event (make-object padevent%))
+&gt;   (send rect bind &quot;&lt;Enter&gt;&quot; callback event)
+&gt; 
+&gt; Would that work?  Call by reference?
+
+I'd advise against mutating event records this way, because there are
+so many situations where you want re-entrant event handlers.
+
+&gt; Also, how do I access a class's fields from within an extension?
+&gt; The class is really a struct and the C API includes functions ref
+&gt; and set.  So, I'd need to figure out the relationship between field
+&gt; names and fields indexes?
+
+Here again, I recommend doing essentially the same thing as in Scheme:
+get a field accessor via `class-field-accessor' and use it on an object
+with _scheme_apply().
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00741" href="msg00741.html">creating scheme class instance inside a C++ extension</a></strong>
+<ul><li><em>From:</em> Ron Stanonik &lt;stanonik@cogsci.ucsd.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00756.html">Re: Get-pure-port aborts giving  error 10054</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00758.html">Re: Get-pure-port aborts giving  error 10054</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00741.html">creating scheme class instance inside a C++ extension</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00742.html">Dynamic updating</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00757"><strong>Date</strong></a></li>
+<li><a href="threads.html#00757"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

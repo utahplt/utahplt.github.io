@@ -1,0 +1,30 @@
+<pre>
+(define Basic-Shapes
+  (unit (import) 
+        (export Shape Rectangle Circle Translated)
+
+    (define Shape (interface () draw))
+    
+    (define Rectangle
+      (class* null (Shape) (width height)
+	(public
+	  [draw (lambda (dc x y)
+		  (send dc draw-rectangle x y width height))])))
+    
+    (define Circle
+      (class* null (Shape) (radius)
+	(public
+	  [draw (lambda (dc x y)
+		  (send dc draw-ellipse
+			(- x radius)
+			(- y radius)
+			(* 2 radius)
+			(* 2 radius)))])))
+    
+    (define Translated
+      (class* null (Shape) (orig-shape dx dy)
+	(public
+	  [draw (lambda (dc x y)
+		  (send orig-shape draw 
+			dc (+ x dx) (+ y dy)))])))))
+</pre>

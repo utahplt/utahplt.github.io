@@ -1,0 +1,118 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SchemeQL -->
+<!--X-From-R13: [vpunryZNsebtjner.pbz -->
+<!--X-Date: Mon, 29 Oct 2001 15:36:45 &#45;0700 (MST) -->
+<!--X-Message-Id: OF08A2ADA0.010857EB&#45;ON85256AF4.0052480E@frogware.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SchemeQL</title>
+<link rev="made" href="mailto:MichaelL@frogware.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01144.html">Date Prev</a>][<a href="msg01146.html">Date Next</a>][<a href="msg01112.html">Thread Prev</a>][<a href="msg00616.html">Thread Next</a>][<a href="maillist.html#01145">Date Index</a>][<a href="threads.html#01145">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SchemeQL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Subject</em>: Re: SchemeQL</li>
+<li><em>From</em>: <A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A></li>
+<li><em>Date</em>: Mon, 29 Oct 2001 17:32:01 -0500</li>
+<li><em>Cc</em>: &quot;PLT Scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+For what it's worth, on Friday I confirmed that there is in fact a
+*general* linkage problem in SchemeQL; at this point, however, I think the
+actual defect may be inside MzScheme itself. Given the movement away from
+units, however, I'm not so sure that the PLT Scheme team will be interested
+in tracking down the root cause... And, what's more, I think it would be up
+to us to do a better job of describing the problem. That may take more time
+than anyone is willing to put in.
+
+What I discovered is this: if in schemeqlr.ss you comment out all of the
+&quot;cond&quot; clauses for odbc-version &lt; 3.0, you get different behaviour; not
+correct behaviour, but different--you no longer get the &quot;get-diag-rec not
+defined&quot;  message, you now get &quot;uncaught exception.&quot; However, all I did was
+to comment out &quot;cond&quot; clauses that shouldn't have even been executed! So I
+think there's actually a problem with the way the &quot;unit/sig&quot; form works--or
+something like that.
+
+The other thing I discovered is that no matter what odbc-version you
+declare, you actually only get srpersist 1.0! The reason you don't notice
+that is that the only difference between srpersist 1.0 and 2.0 is two new
+primitives--and those two primitives aren't, as far as I could tell, used
+by SchemeQL. Good thing, 'cause they aren't available. (The right branch of
+all code gets executed; it's just that only the 1.0 primitives are
+available.)
+
+There are three possible culprits: SrPersist, SchemeQL, and MzScheme.
+
+I think the first step would be to verify that you can in fact use
+SrPersist as a unit within a compound unit--getting the correct version
+along the way. (Because of its ODBC versioning issues, SrPersist does
+things I haven't seen any other collection do.) If that works, presumably
+the next step would be simplifying the way that SchemeQL calls SrPersist; I
+achieved that by separating the elements of schemeqlr.ss into separate
+files, one for each version. And if that doesn't work, maybe the issue is
+in MzScheme... Though the real reasons I suspect MzScheme is the example I
+gave above, where commenting out unused &quot;cond&quot; clauses changed the output
+of the unit.
+
+As I said, I don't know if anyone wants to put in that kind of time though!
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01144.html">Re: 199.27</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01146.html">Re: 199.27</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01112.html">Re: SchemeQL</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00616.html">sound and mzscheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01145"><strong>Date</strong></a></li>
+<li><a href="threads.html#01145"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

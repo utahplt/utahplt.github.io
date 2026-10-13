@@ -1,0 +1,163 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: scsh in PLT Scheme? -->
+<!--X-From-R13: "Oyrk Brnxr" <ncrnxrNpbznp.pbz> -->
+<!--X-Date: Tue, 26 Mar 2002 18:17:18 &#45;0700 (MST) -->
+<!--X-Message-Id: NBBBLCLOKKHAGMJBNHDMIEHMFKAA.apeake@comac.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c1d507$aee69940$70730a81@NORTHEASDX5RFA -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: scsh in PLT Scheme?</title>
+<link rev="made" href="mailto:apeake@comac.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00522.html">Date Prev</a>][<a href="msg00524.html">Date Next</a>][<a href="msg00521.html">Thread Prev</a>][<a href="msg00525.html">Thread Next</a>][<a href="maillist.html#00523">Date Index</a>][<a href="threads.html#00523">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: scsh in PLT Scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: scsh in PLT Scheme?</li>
+<li><em>From</em>: &quot;Alex Peake&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 26 Mar 2002 17:16:40 -0800</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00514.html">000001c1d507$aee69940$70730a81@NORTHEASDX5RFA</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I am just an application developer, but IMHO:
+
+1) This sounds like a lot of work
+2) Is it the best thing for you all to be spending your time on?
+3) Have you considered working with (Microsoft) .NET?
+4) Have you considered a Java interface?
+
+Alex
+
+
+-----Original Message-----
+From: owner-plt-scheme@fast.cs.utah.edu
+[<A  HREF="mailto:owner-plt-scheme@fast.cs.utah.edu]On">mailto:owner-plt-scheme@fast.cs.utah.edu]On</A> Behalf Of Paul Steckler
+Sent: Tuesday, March 26, 2002 12:49 PM
+To: plt-scheme@fast.cs.utah.edu
+Subject: scsh in PLT Scheme?
+
+
+The scsh FAQ
+(<A  HREF="http://www-internal.alphanet.ch/~schinz/scsh-faq/scsh-faq.html">http://www-internal.alphanet.ch/~schinz/scsh-faq/scsh-faq.html</A>)
+suggests that PLT Scheme (MzScheme) would be a suitable target for a
+scsh port.  It also suggests that such a task would be &quot;certainly hard.&quot;
+After scanning the scsh sources, I agree that it would be difficult to
+do.
+
+So before we embark on that course, let me poll the PLT audience: 
+
+  - do you currently use scsh?	
+  - what features of scsh do you use?
+  - what features of scsh do you consider indispensable?
+  - what features of scsh do you consider peripheral?
+  - would you find scsh-under-PLT-Scheme useful?
+  - would you use a PLT scsh-oid that implemented some, but not all of
+scsh?
+
+On this last topic: it would be nice if a PLT scsh-oid used only
+existing MzScheme features, so that the whole thing could be done in
+Scheme. There is a large chunk of C code in scsh that otherwise would
+have to be modified to work with PLT Scheme's FFI.  Because scsh is a
+moving target, ported C code would raise significant maintenance issues.
+
+Bypassing the scsh C code would mean that low-level Unix features would
+not be available.  For instance, the terminal support in scsh would 
+be missing in such a port.
+
+Here's what I think we could build in Scheme alone:
+
+ - extended process forms with redirections (scsh Manual, Ch. 2)
+ - most of the system calls in Ch. 3, but not tty's or pty's
+ - string manipulations (Ch. 5)
+ - regexps (Ch. 6)
+ - AWK-in-Scheme (Ch. 8)
+
+Some of the scsh code for these features is just R5RS, and there's
+no porting to do (knock on silicon).  Most of the work would be in
+forcing the PLT Scheme process API to emulate the scsh process stuff.
+
+Here's what would be missing:
+
+ - low-level socket stuff (Ch. 4)
+ - Scheme 48 threads, Unix signals  (Ch. 9)
+ - system log stuff (Ch. 10)
+
+MzScheme already has its own thread system, and makes sockets available
+as Scheme ports via a high-level API.
+
+How would you feel about this kind of (semi-)port of scsh?
+
+-- Paul
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00525" href="msg00525.html">RE: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Matt 'LEGO Guy' Jadud&quot; &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00514" href="msg00514.html">scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00522.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00524.html">Parser tools: How to make the lexer context sensitive?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00521.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00525.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00523"><strong>Date</strong></a></li>
+<li><a href="threads.html#00523"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

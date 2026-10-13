@@ -1,0 +1,166 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: looking for web&#45;server information -->
+<!--X-From-R13: cgtNppf.arh.rqh (Bnhy F. Uenhaxr) -->
+<!--X-Date: Thu, 28 Mar 2002 20:17:36 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020329031725.D530810DEC@subra.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 876B227DD7765D488AADB547E2680EF156DB9D@valencia.orangeimagineering.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: looking for web-server information</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00600.html">Date Prev</a>][<a href="msg00602.html">Date Next</a>][<a href="msg00597.html">Thread Prev</a>][<a href="msg00604.html">Thread Next</a>][<a href="maillist.html#00601">Date Index</a>][<a href="threads.html#00601">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: looking for web-server information</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:Steve@OrangeImagineering.com">Steve@OrangeImagineering.com</A> (Steve Strassmann)</li>
+<li><em>Subject</em>: Re: looking for web-server information</li>
+<li><em>From</em>: <A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A> (Paul T. Graunke)</li>
+<li><em>Date</em>: Thu, 28 Mar 2002 22:17:25 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00597.html">876B227DD7765D488AADB547E2680EF156DB9D@valencia.orangeimagineering.com</a>&gt; from &quot;Steve Strassmann&quot; at Mar 28, 2002 07:28:28 PM</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Hi, I'm trying to find some documentation about the web-server in PLT,
+&gt; but haven't been able to find much.
+&gt; 
+&gt; I hoped there would be something at <A  HREF="http://download.plt-scheme.org/doc/">http://download.plt-scheme.org/doc/</A>
+&gt; perhaps in the libraries manual, but no dice. I've read
+&gt; collects/web-server/doc.txt
+&gt; and also dug up the paper at
+&gt; <A  HREF="http://www.cs.rice.edu/CS/PLT/Publications/#esop2001-gkvf">http://www.cs.rice.edu/CS/PLT/Publications/#esop2001-gkvf</A>
+&gt; (&quot;Programming the Web with High-Level Programming Languages&quot;).
+
+You already found most of the documentation.  The server also serves
+documentation, which mostly just repeats the doc.txt.
+
+&gt; Could you please cite this paper and any other helpful documentation in
+&gt; the doc.txt?
+
+Good idea.  Done for the next release.
+
+&gt; I'm using PLT 200alpha12. I'm pretty new to plt-scheme and I have
+&gt; a bunch of questions. Is there anything like meta-point (find
+&gt; definition)
+&gt; in DrScheme?
+
+Click on the little rectangle that says (define ...).
+
+&gt; Is there any other documentation for the PLT web server?
+Just the documentation it serves.
+
+&gt; How are web-server URLs decoded?
+I'm not sure what you're refering to exactly.  The paper you found describes
+the funny URLs for interactive servlets, though they aren't necessary to
+understand to use the server.  The doc.txt documents two &quot;Special URLs&quot; under
+the section with that name.  Any URL whose path starts with &quot;servlets&quot;
+refers to a servlet in the servlets directory instead of refering to a
+served-verbatum file.  All other URLs refer to a document in the htdocs
+directory.
+
+&gt; What are all the magic directories?
+I kind of answered this above.  Starting the server and clicking on
+the configuration link will bring up forms to see and edit where special
+directories go.
+
+&gt; I can't seem to find any log file anywhere, so debugging my servlets is
+&gt; very difficult. Where is it supposed to be created? I found
+&gt; (log-file-path &quot;.web-log&quot;)
+&gt; in configuration-table, but I can't seem to find any file with a name
+&gt; like that
+&gt; anywhere in my web-server directory.
+
+Yes, this was confusing, so the log file will (again) reside with the
+rest of the configuration files.  I moved it to the user's home directory
+by default so it would always be writable, even if the user running the server
+differs from the user who installed the server.
+
+&gt; The example servlets are working ok for me. But I've tried running the
+&gt; example
+&gt; servlets in DrScheme with the web-server teachpack loaded, but they
+&gt; don't
+&gt; seem to work there at all.
+
+Yes, the teachpack documentation is under construction.  There is a brief
+section in the current doc.txt explaining that the teachpack provides 
+top level definitions that match the unit imports that servlets receive.
+
+&gt; I'm still a bit confused - why does it return
+&gt; 
+&gt; SHARED and -6- in the following?
+&gt; =20
+&gt; (shared ((-6- &quot;Hello, Web!&quot;))...
+&gt; =20
+&gt; thanks
+&gt;  -steve
+&gt; =20
+
+I'm not sure what &quot;it&quot; is here.
+
+I've updated the doc.txt to include clarifications from this email.
+
+Thanks,
+
+Paul Graunke
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00597" href="msg00597.html">looking for web-server information</a></strong>
+<ul><li><em>From:</em> &quot;Steve Strassmann&quot; &lt;Steve@OrangeImagineering.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00600.html">[ShootOut] Hash2.scm</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00602.html">a new port of oleg's ssax xml parser to plt</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00597.html">looking for web-server information</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00604.html">Re: looking for web-server information</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00601"><strong>Date</strong></a></li>
+<li><a href="threads.html#00601"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

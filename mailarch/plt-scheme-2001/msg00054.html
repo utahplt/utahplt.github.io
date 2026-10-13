@@ -1,0 +1,128 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Questions about "mzstkchk.h" -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 21 Jan 2001 09:53:46 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010121165314.YYNC10244.femail2.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010120213118.A4672@debian.org -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Questions about &quot;mzstkchk.h&quot;</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00053.html">Date Prev</a>][<a href="msg00055.html">Date Next</a>][<a href="msg00052.html">Thread Prev</a>][<a href="msg00056.html">Thread Next</a>][<a href="maillist.html#00054">Date Index</a>][<a href="threads.html#00054">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Questions about &quot;mzstkchk.h&quot;</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Subject</em>: Re: Questions about &quot;mzstkchk.h&quot;</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 21 Jan 2001 08:53:14 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00052.html">20010120213118.A4672@debian.org</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00052.html">20010120213118.A4672@debian.org</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; When I invoke a multi-threaded piece of scheme code in my
+&gt; embedded MzScheme I get a segfault is is_stack_too_shallow_2().
+
+Sorry that I haven't replied to your earlier messages sooner. I haven't
+had time to look into it and figure out a useful question.
+
+But with the new information, I think I can ask some useful
+questions...
+
+&gt; This happens even though I have pared things down to the bare
+
+&gt; I believe STK_COMP expands to:
+&gt;    define STK_COMP(a,b) (scheme_stack_grows_up == ((a) &gt; (b)))
+&gt; and SCHEME_STACK_BOUNDARY expands to:
+&gt;    scheme_stack_boundary
+&gt; 
+&gt; (gdb) p scheme_stack_grows_up
+&gt; $7 = 0
+&gt; (gdb) p scheme_stack_boundary
+&gt; $8 = 3204501008
+&gt; (gdb) p _stk_pos
+&gt; $9 = 3206543056
+
+scheme_stack_boundary should be close to _stk_pos (much closer than the
+above numbers). It looks like the registered stack base is for a
+different (OS-level) thread than the current one.
+
+scheme_stack_boundary *should* have the same value as the one supplied
+to GC_set_stack_base(). Can you check that it does?
+
+Also, just to make sure: GC_set_stack_base() is called with the address
+of a stack variable (i.e.: not static) in the same OS-level thread as
+the one that crashes?
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00056" href="msg00056.html">Re: Questions about &quot;mzstkchk.h&quot;</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00052" href="msg00052.html">Questions about &quot;mzstkchk.h&quot;</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00053.html">tail calls [was: Vanishing MrEd]</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00055.html">IT SCHOLARSHIPS</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00052.html">Questions about &quot;mzstkchk.h&quot;</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00056.html">Re: Questions about &quot;mzstkchk.h&quot;</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00054"><strong>Date</strong></a></li>
+<li><a href="threads.html#00054"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

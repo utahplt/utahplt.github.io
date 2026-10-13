@@ -1,0 +1,139 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: GC Errors in Embedded Program -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 29 Dec 2000 06:44:14 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001229134410.MWBQ29808.femail5.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20001227085419.A6666@earthlink.net -->
+<!--X-Reference: 20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost -->
+<!--X-Reference: 20001228000310.A2102@earthlink.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: GC Errors in Embedded Program</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01198.html">Date Prev</A>][<A HREF="msg01200.html">Date Next</A>][<A HREF="msg01196.html">Thread Prev</A>][<A HREF="msg01202.html">Thread Next</A>][<A HREF="maillist.html#01199">Date Index</A>][<A HREF="threads.html#01199">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: GC Errors in Embedded Program</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</LI>
+<LI><em>Subject</em>: Re: GC Errors in Embedded Program</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 29 Dec 2000 05:44:10 -0800</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01196.html">20001228000310.A2102@earthlink.net</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01186.html">20001227085419.A6666@earthlink.net</A>&gt; &lt;<A HREF="msg01187.html">20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost</A>&gt;	&lt;<A HREF="msg01196.html">20001228000310.A2102@earthlink.net</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; Looking back at the earlier stack dump, it looks like
+&gt; MzScheme is really only happy if it get's called by the main
+&gt; thread created by the OS when the program starts.
+
+Now that you mention it, I can see how the GC might require the main
+thread on certain platforms. It depends on how the GC finds the stack
+base. For version 103, it worked for Windows and x86 Linux, but...
+
+With the GC upgrade (version 103.4), I see that the stack-base routine
+changed for x86 Linux. Now it will always find the base of the main
+thread's stack.
+
+If the Boehm GC supports threads for your platform, then you might be
+able to fix the problem by turning on an appropriate compilation flag.
+(For Linux, it's either -DLINUX_THREADS or -DGC_LINUX_THREADS,
+depending on which version of the GC you have.)
+
+&gt; Could this problem be resolved using the SGC collector instead?
+
+Yes --- provided that you can get SGC to work. 
+
+The reason SGC might work is that it expects some cooperation from the
+allocating program:
+
+ * The allocating program must tell SGC where the stack starts by
+   calling GC_set_stack_base(). See plt/src/mzscheme/main.c for an
+   example call.
+
+ * SGC generally does not find static variables automatically. They
+   must be registered explicitly. The MZ_REGISTER_STATIC() macro
+   (defined in scheme.h) can be applied to a static variable to
+   register it. Register a variable only once, and before any GCable
+   pointer is stored in it.
+
+Also, I just noticed that PAD_BOUNDARY_BYTES was left on in sgc.c.
+You'll want to turn that off.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01202" HREF="msg01202.html">Re: GC Errors in Embedded Program</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;bfulgham@debian.org&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01203" HREF="msg01203.html">Re: GC Errors in Embedded Program</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;bfulgham@debian.org&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01186" HREF="msg01186.html">GC Errors in Embedded Program</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;bfulgham@debian.org&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01187" HREF="msg01187.html">Re: GC Errors in Embedded Program</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01196" HREF="msg01196.html">Re: GC Errors in Embedded Program</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;bfulgham@debian.org&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01198.html">Re: More GC Errors (New, Improved, In Senora GC!)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01200.html">invoke-unit</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01196.html">Re: GC Errors in Embedded Program</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01202.html">Re: GC Errors in Embedded Program</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01199"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01199"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

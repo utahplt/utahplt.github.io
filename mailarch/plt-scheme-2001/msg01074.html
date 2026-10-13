@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: is too an application -->
+<!--X-From-R13: "Uert Brgglwbua" <ctert14Ndjrfg.arg> -->
+<!--X-Date: Sun, 21 Oct 2001 10:55:09 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000e01c15a51$bcc32140$6500a8c0@gregpwin2k -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110102329.f9ANTnH19850@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>is too an application</title>
+<link rev="made" href="mailto:pgreg14@qwest.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01073.html">Date Prev</a>][<a href="msg01075.html">Date Next</a>][<a href="msg01047.html">Thread Prev</a>][<a href="msg01075.html">Thread Next</a>][<a href="maillist.html#01074">Date Index</a>][<a href="threads.html#01074">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>is too an application</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: is too an application</li>
+<li><em>From</em>: &quot;Greg Pettyjohn&quot; &lt;<A HREF="mailto:pgreg14@qwest.net">pgreg14@qwest.net</A>&gt;</li>
+<li><em>Date</em>: Sun, 21 Oct 2001 09:59:24 -0700</li>
+<li><em>Delivered-To</em>: fixup-plt-scheme@fast.cs.utah.edu@fixme</li>
+<li><em>References</em>: &lt;<a href="msg01024.html">200110102329.f9ANTnH19850@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Suppose I want to save a call to an inherited method into a hash table.
+The procedure (another method) that does this is called &quot;add-method&quot;
+The problem is that the inherited method takes zero or more args
+and so I end up with an expression like this:
+
+(define test-client%
+  (class (make-client test%)
+    (inherit add-method test1 test2)
+    (super-instantiate ())
+
+    (add-method 'test1 (lambda x (apply test1 x)))
+    (add-method 'test2 (lambda x (apply test2 x)))))
+
+and an error like this:
+
+#&lt;struct:object:derived-from-definitions-text%&gt;:109:41: class: misuse of
+method (not in application) in: test1
+
+Why is (apply test1 x) any less an application than (test1 x)?
+
+The former is semantically correct since x is a list of args but is rejected
+syntactically, the later would not work semantically, but is syntactically
+accepted by the object system.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01075" href="msg01075.html">Re: is too an application</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01024" href="msg01024.html">199.25</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01073.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01075.html">Re: is too an application</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01047.html">RE: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01075.html">Re: is too an application</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01074"><strong>Date</strong></a></li>
+<li><a href="threads.html#01074"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

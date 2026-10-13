@@ -1,0 +1,159 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: ISAPI Extension -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 4 Mar 2000 06:22:55 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000304132253.BTJL19251.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 75514FC5ECC8D2118C8D00A0C9ED54DB566C59@OBCMAIL1 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: ISAPI Extension</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00518.html">Date Prev</A>][<A HREF="msg00520.html">Date Next</A>][<A HREF="msg00517.html">Thread Prev</A>][<A HREF="msg00530.html">Thread Next</A>][<A HREF="maillist.html#00519">Date Index</A>][<A HREF="threads.html#00519">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: ISAPI Extension</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: ISAPI Extension</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 4 Mar 2000 05:22:53 -0800</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00517.html">75514FC5ECC8D2118C8D00A0C9ED54DB566C59@OBCMAIL1</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00517.html">75514FC5ECC8D2118C8D00A0C9ED54DB566C59@OBCMAIL1</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Greg Pettyjohn:
+&gt; 2. Whenever Scheme has an error, the error is reported to the log
+&gt; file *and* Apache crashes. msdev did catch this one it's in eval.c
+
+You need to wrap your top-level call to eval/apply to catch error
+escapes. Based on the snippet, you want:
+
+ if (!scheme_setjmp(scheme_error_buf)) {
+   scheme_apply(scheme_load("MzISAPI.ss"), 1, (Scheme_Object **)&amp;xcb);
+ }
+
+&gt; BOOL WINAPI DllMain( HINSTANCE hinst, DWORD reason, LPVOID ptr ){return
+&gt; TRUE;}
+&gt; // end snippet
+&gt; 
+&gt; I'm not sure where I should put the Scheme init stuff. 
+&gt; I originally had it in the HttpExtensionProc but I thought that it might get
+&gt; called more than once,
+&gt; (which I suppose is a bad thing) so I stuck it in the GetExtensionVersion
+&gt; hoping that that my cure
+&gt; some of my pains. Is there a better place to put it? Might Windows honor
+&gt; some standard export that gets
+&gt; called only when the *any* dll is initially loaded? (Don't know too much
+&gt; about dlls)
+
+I think you want to put it in DllMain, when it's called with
+DLL_PROCESS_ATTACH as the `reason'. Not sure, though.
+
+&gt; 4. Direct your attention to "Exhibit A" in the above code. Here I have it
+&gt; hardcoded to load a file called
+&gt; "MzISAPI.ss" The result of which should be a scheme proc that gets applied
+&gt; to an extension control block.
+&gt; The catch is that if you don't have MzISAPI.ss in the right directory, you
+&gt; get a scheme error and a subsequent
+&gt; crash. Bummer. This is seems like a bad way to do it. Anyone got a better
+&gt; idea?
+
+You could catch the MzScheme exception and inspect (or propagate) the
+error message. _Inside MzScheme_ provides code to do that in the
+"Temporarily Catching Error Escapes" section.
+
+&gt; 5. My little ISAPI extension is *intermittently* crashing. I suppose I'll
+&gt; just have to sweat it out and find out why.
+&gt; Anyone wanna help?
+
+I worry that it's the GC, since it sounds like there is more than one
+thread: Apache's thread and the MzScheme thread.
+
+Quoting an earlier message:
+
+ The Windows GC problem: even if MzScheme functions are only used in a
+ single OS thread, the conservative garbage collector can get tripped
+ up by threads under Windows. The collector finds static variables by
+ scanning all mapped memory pages. If one thread unmaps a page while
+ another one is running the collector, the collector can segfault. To
+ solve this problem, the collector needs to be compiled for multiple
+ threads and as a DLL. Then, the collector can see all threads ever
+ created, and it can stop them while collecting.
+
+but when MzScheme is loaded as a DLL into a different process, I don't
+think compiling GC for threads and as a DLL solves the problem.
+
+There must be a solution to this problem. I'll work on it in the very
+near future.
+
+&gt; 6. Everytime I use this thing, I get the following error in the Log file:
+&gt; [Fri Mar 03 20:55:13 2000] [error] [client 10.0.1.191] (2)No such file or
+&gt; directory: ISA sent invalid headers
+
+I don't know enough about Apache to offer much help here.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00517" HREF="msg00517.html">ISAPI Extension</A></STRONG>
+<UL><LI><EM>From:</EM> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00518.html">Gtk Extension</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00520.html">102/9</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00517.html">ISAPI Extension</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00530.html">RE: ISAPI Extension</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00519"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00519"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

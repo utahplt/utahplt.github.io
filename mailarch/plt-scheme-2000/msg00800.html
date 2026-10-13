@@ -1,0 +1,189 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Swig and MzScheme's _scheme_get_type_name -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Tue, 19 Dec 2000 18:56:10 &#45;0700 (MST) -->
+<!--X-Message-Id: 3A40127C.C88CAB4@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3A3BADAE.BD7F8FFB@kurtz&#45;fernhout.com -->
+<!--X-Reference: 200012191600.JAA12370@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Swig and MzScheme's _scheme_get_type_name</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00799.html">Date Prev</a>][<a href="msg00801.html">Date Next</a>][<a href="msg00799.html">Thread Prev</a>][<a href="msg00801.html">Thread Next</a>][<a href="maillist.html#00800">Date Index</a>][<a href="threads.html#00800">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Swig and MzScheme's _scheme_get_type_name</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Swig and MzScheme's _scheme_get_type_name</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 19 Dec 2000 20:59:24 -0500</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00791.html">3A3BADAE.BD7F8FFB@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00799.html">200012191600.JAA12370@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt wrote:
+&gt; 
+&gt; Quoting Paul Fernhout:
+&gt; &gt; This was because &quot;_scheme_get_type_name&quot; can't be found by the linker.
+&gt; &gt; Any thoughts on what I might be doing wrong?
+&gt; 
+&gt; It is not exported by the MzScheme/MrEd binaries for Windows, though it
+&gt; should be. 
+
+Thanks for looking into this.
+
+&gt; As an aside, I'm uneasy about the way SWIG is checking types:
+&gt; 
+&gt;  void *swig_get_c_pointer(Scheme_Object *so, char *c_type) {
+&gt;     Scheme_Type st = SCHEME_TYPE(so);
+&gt;     //char *type_name = scheme_get_type_name(st);
+&gt;     //if(strcmp(type_name, c_type))
+&gt;     //scheme_signal_error(&quot;wrong type in foreign object %s&quot;, type_name);
+&gt; 
+&gt;     return (void *) ((swig_proxy *) so)-&gt;object;
+&gt;  }
+&gt; 
+&gt; What if an extension accidentally choose a name for a type that
+&gt; MzScheme or some other extension is already using? The type id returned
+&gt; by scheme_make_type() is guranteed to be unique, but the type name is
+&gt; not.
+&gt; 
+&gt; Maybe this is an unavoidable compromise in SWIG's design, though.
+
+As usual, your insight is very helpful.
+
+Based on that, I made this patch which I use to replace the two
+functions which puts back in type checking. I apply it by hand for now.
+Also, it relies on the fact I only have one new type defined in my
+Swigged file. I tested it and it seems to work (it assumes of
+Scheme_Type of 0 is invalid...)
+
+======================================================
+Scheme_Type pointrel_type = 0;
+
+// NEXT FUNCTION IS ACTUALLY BROKEN, SEE BELOW
+Scheme_Object *swig_make_c_pointer(void *c_pointer, char *type_name) {
+    swig_proxy *new_proxy;
+    new_proxy = (swig_proxy *) scheme_malloc(sizeof(swig_proxy));
+    new_proxy-&gt;type = scheme_make_type(type_name);
+    if (0 == pointrel_type) pointrel_type = new_proxy-&gt;type; 
+    new_proxy-&gt;object = (void *) c_pointer;
+
+    return (Scheme_Object *) new_proxy;
+}
+
+void *swig_get_c_pointer(Scheme_Object *so, char *c_type) {
+    Scheme_Type st = SCHEME_TYPE(so);
+     if (pointrel_type != st)
+      scheme_signal_error(&quot;wrong type in foreign object expecting %s&quot;,
+c_type);
+
+    return (void *) ((swig_proxy *) so)-&gt;object;
+}
+======================================================
+
+I don't see any obvious reason why Swig could not do something like
+this, although it might require storing each type in a variable in some
+sort of registration step, and passing in the stored type index instead
+of the name in calls to swig_get_c_pointer.
+
+Actually, as I write this I think Swig is actually abusing
+&quot;scheme_make_type&quot; in that it calls &quot;swig_make_c_pointer&quot; and thus
+&quot;scheme_make_type&quot; each time an instance of the type is made. Based on
+what you are saying, perhaps the ID comes back different each time? If
+that is true, it worked in my test as I only made one instance. 
+
+What I think I really want then in my patch for that function is:
+
+======================================================
+Scheme_Object *swig_make_c_pointer(void *c_pointer, char *type_name) {
+    swig_proxy *new_proxy;
+    new_proxy = (swig_proxy *) scheme_malloc(sizeof(swig_proxy));
+    if (0 == pointrel_type) pointrel_type = scheme_make_type(type_name);
+    new_proxy-&gt;type = pointrel_type;
+    new_proxy-&gt;object = (void *) c_pointer;
+
+    return (Scheme_Object *) new_proxy;
+}
+=======================================================
+
+I just compiled and tested this and it works, even for two creations of
+the type.
+
+I went back and tested the first version and it fails if I make a second
+of the type. So the second version is correct and required.
+
+So, Swig out of the box looks broken in this way...
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00791" href="msg00791.html">Swig and MzScheme's _scheme_get_type_name</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00799" href="msg00799.html">Re: Swig and MzScheme's _scheme_get_type_name</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00799.html">Re: Swig and MzScheme's _scheme_get_type_name</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00801.html">Re: Swig and MzScheme's _scheme_get_type_name</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00799.html">Re: Swig and MzScheme's _scheme_get_type_name</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00801.html">Re: Swig and MzScheme's _scheme_get_type_name</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00800"><strong>Date</strong></a></li>
+<li><a href="threads.html#00800"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

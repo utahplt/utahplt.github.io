@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Ideas for documentation system -->
+<!--X-From-R13: @bry Iryfu <abryjNqnv.rq.np.hx> -->
+<!--X-Date: Thu, 13 Jan 2000 03:49:10 &#45;0700 (MST) -->
+<!--X-Message-Id: 14461.42035.275624.189279@kintore.dai.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Ideas for documentation system</TITLE>
+<LINK REV="made" HREF="mailto:noelw@dai.ed.ac.uk">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00010.html">Date Prev</A>][<A HREF="msg00012.html">Date Next</A>][<A HREF="msg00010.html">Thread Prev</A>][<A HREF="msg00012.html">Thread Next</A>][<A HREF="maillist.html#00011">Date Index</A>][<A HREF="threads.html#00011">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Ideas for documentation system</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Ideas for documentation system</LI>
+<LI><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 13 Jan 2000 10:49:04 +0000 (GMT)</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi all,
+
+Is there anything like the Emacs help system and/or JavaDoc for
+Dr/MzScheme? If not, is there interest in such a system? I'm thinking
+of a system whereby one could say:
+
+(documentation the-symbol "the-symbol is blah blah blah"
+	(param x "The parameter x is *mumble*"
+		(pre "This is the precondition of x"
+		     (&lt;code fragment to test precondition&gt;))
+		(post "This is the postcondition of x"
+		     (&lt;code fragment&gt;))
+		(example "This is an example of usage of x"))
+	(param y ...)
+	(pre "Preconditions for using the-symbol" ...)
+	(post ...)
+	(example "Example of using the-symbol"))
+
+&gt;From such a definition, a suitable processor could
+- generate an interactive help system like Emacs/Common Lisp
+- generate XML documentation that could be shared amongst different
+Scheme implementations or converted to HTML
+- insert and remove assertions to test for pre and postconditions
+
+I feel this has an advantage over doc-strings by being a bit more
+structured, so allowing better presentation and conveying more
+information. If one wants to, one could only define a docstring in the
+above system, but one also the ability to define additional useful
+information.
+
+Any thoughts from others?
+
+cya,
+Noel
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00012" HREF="msg00012.html">Re: Ideas for documentation system</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00010.html">web archive</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00012.html">Re: Ideas for documentation system</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00010.html">web archive</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00012.html">Re: Ideas for documentation system</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00011"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00011"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

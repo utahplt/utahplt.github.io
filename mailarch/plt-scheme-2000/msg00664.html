@@ -1,0 +1,147 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Swindle question &#38; bug report -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Thu, 2 Nov 2000 23:45:16 &#45;0700 (MST) -->
+<!--X-Message-Id: 14850.24310.457529.410660@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20001030110311.21928.qmail@web124.yahoomail.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Swindle question &amp; bug report</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00663.html">Date Prev</a>][<a href="msg00665.html">Date Next</a>][<a href="msg00659.html">Thread Prev</a>][<a href="msg00665.html">Thread Next</a>][<a href="maillist.html#00664">Date Index</a>][<a href="threads.html#00664">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Swindle question &amp; bug report</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Swindle question &amp; bug report</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Fri, 3 Nov 2000 01:45:10 -0500</li>
+<li><em>Cc</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00659.html">20001030110311.21928.qmail@web124.yahoomail.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00659.html">20001030110311.21928.qmail@web124.yahoomail.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+[Sorry for long reply time...]
+
+First a comment: Swindle is not part of the stuff from Rice, so I
+guess it wouldn't be too appropriate to discuss it on this list.  I
+have a semi-list things for Swindle that up to now was only used by me
+to say when I have new versions ready.
+
+
+On Oct 30, Noel Welsh wrote:
+&gt; First, the question:
+&gt; 
+&gt; Can Swindle dispatch on MzScheme's structures?
+
+No.  I thought about making that possible, but it's throwing work for
+a rare situation - mixing Swindle stuff with MzScheme structures (and
+objects).  So, currently there is nothing at all to support this.  I
+have just added a little now - instead of getting &lt;unknown-primitive&gt;
+as the class of MzScheme structures (which also was printed as &lt;void&gt;
+by mistake), you get &lt;mzscheme-struct&gt;.  I also added
+&lt;mzscheme-object&gt; and &lt;mzscheme-interface&gt;.  It is probably possible
+to add more useful stuff but there should be a way to pull out
+information about these structures (the inheritance hierarchy) or use
+some wrapper macros - but again, I don't think that this is something
+which would be too popular.
+
+
+&gt; The bug report:
+&gt; 
+&gt; In Swindle or DrSwindle
+&gt; 
+&gt; (require-library &quot;prettyu.ss&quot; &quot;mzlib&quot;)
+&gt; 
+&gt; =&gt;
+&gt; 
+&gt; letrec-values: illegal use of keyword at: :::dummy:::
+
+Oh...  Well, the first thing is that there is no way to use mzlib
+pretty-printer with Swindle - I have a printer implementation that
+supports print-length and print-level as in Lisp, but no pretty
+printing and no `circle' printing.  Implementing these would take some
+time.
+
+Another thing is that the error must be because of a hack I do in
+Swindle - if I encounter a symbol that begins with a colon, I
+immediately define it as a keyword with itself as its value.  For
+example,
+
+  (define :a 1)
+
+gives a similar error.  Remember that DrSwindle is a hacked version of
+DrScheme, there were way too many changes I needed to allow me to
+implement it as a tool.
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00665" href="msg00665.html">Re: Swindle question &amp; bug report</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00659" href="msg00659.html">Swindle question &amp; bug report</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00663.html">Re: forwarded message from greg seibel</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00665.html">Re: Swindle question &amp; bug report</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00659.html">Swindle question &amp; bug report</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00665.html">Re: Swindle question &amp; bug report</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00664"><strong>Date</strong></a></li>
+<li><a href="threads.html#00664"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

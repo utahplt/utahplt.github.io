@@ -1,0 +1,117 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Making MzScheme extensions using VC++ 5.0? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 4 Aug 2000 16:34:01 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000804223357.VHKC10370.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 398B1289.4DC3876A@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Making MzScheme extensions using VC++ 5.0?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00453.html">Date Prev</a>][<a href="msg00455.html">Date Next</a>][<a href="msg00449.html">Thread Prev</a>][<a href="msg00455.html">Thread Next</a>][<a href="maillist.html#00454">Date Index</a>][<a href="threads.html#00454">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Making MzScheme extensions using VC++ 5.0?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Making MzScheme extensions using VC++ 5.0?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 4 Aug 2000 15:33:57 -0700</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00449.html">398B1289.4DC3876A@kurtz-fernhout.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00449.html">398B1289.4DC3876A@kurtz-fernhout.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I've had mostly good experience with MSVC 6, but never tried MSVC 5.
+Others have reported a similar &quot;Internal error&quot; message with MSVC 5. I
+wonder whether it's an incompatibility in the .obj format, since
+mzdyn.obj (as distributed) was built with MSVC 6.
+
+Quoting Paul Fernhout:
+&gt; So, I made my own project to build an Win32 DLL.
+&gt; [...]
+&gt; Any suggestions?  It seems that the &quot;escheme.h&quot; header is insufficient
+&gt; for Windows. I think the alternative is to have a seperate export file,
+
+mzc does indeed use an export file:
+  plt/collects/mzscheme/lib/win32/i386/msvc/mzdyn.exp
+
+You can run mzc wth the -v flag to see exactly how it's calling cl.exe.
+
+&gt; Or is it time to switch to GCC?
+
+Yes, I expect you'll find more success with Cygwin. The Cygwin
+interface for DLLs is messy, but mzc knows how work with it.
+
+If you have both MSVC and Cygwin installed, use &quot;--tool gcc&quot; to get mzc
+to use Cygwin.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00455" href="msg00455.html">Re: Making MzScheme extensions using VC++ 5.0?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00449" href="msg00449.html">Making MzScheme extensions using VC++ 5.0?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00453.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00455.html">Re: Making MzScheme extensions using VC++ 5.0?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00449.html">Making MzScheme extensions using VC++ 5.0?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00455.html">Re: Making MzScheme extensions using VC++ 5.0?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00454"><strong>Date</strong></a></li>
+<li><a href="threads.html#00454"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

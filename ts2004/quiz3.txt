@@ -1,0 +1,46 @@
+
+1. Here's a data definition
+
+   ; A list-of-rock is either
+   ;   - empty
+   ;   - (cons 'granite list-of-rock)
+   ;   - (cons 'sandstone list-of-rock)
+
+  Which of the following are "list-of-rock"s?
+
+   a)  (cons empty empty)
+
+   b)  (list 'granite)
+
+   c)  (list empty)
+
+   d)  (cons 'sandstone (cons 'sandstone empty))
+
+   e)  (list 'granite 'sandstone)
+
+2. Which of the following is the template for
+   list-of-rock:
+
+
+    a)  (define (func-for-lor l)
+          (cond
+           [(empty? l) ...]
+           [(and (cons? l) (eq? (first l) 'granite))
+            ... (first l) ... (func-for-lor (rest l)) ...]
+           [(and (cons? l) (eq? (first l) 'sandstone))
+            ... (first l) ... (func-for-lor (rest l)) ...]))
+
+    b)  (define (func-for-lor l)
+          (cond
+           [(empty? l) ...]
+           [(cons? l) ... (first l) ... (func-for-lor (rest l)) ...]))
+
+    c)  (define (func-for-lor l)
+          ... (first l) ... (func-for-rock (rest l)) ...)
+
+        (define (func-for-rock r)
+          ... (rock-name r) ... (rock-weight r) ...)
+
+3. Suppose you want a function that takes a list of symbols and
+   returns true if every list item is either 'granite or 'sandstone.
+   What data definition and template should you use?

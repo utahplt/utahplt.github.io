@@ -1,0 +1,115 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: safe eval -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 27 Apr 2001 07:16:32 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200104271315.f3RDFiX05771@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 006001c0ce66$4ade69d0$0100a8c0@dready.org -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: safe eval</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00449.html">Date Prev</a>][<a href="msg00451.html">Date Next</a>][<a href="msg00449.html">Thread Prev</a>][<a href="msg00452.html">Thread Next</a>][<a href="maillist.html#00450">Date Index</a>][<a href="threads.html#00450">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: safe eval</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;wil at home&quot; &lt;<A HREF="mailto:wil@dready.org">wil@dready.org</A>&gt;</li>
+<li><em>Subject</em>: Re: safe eval</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 27 Apr 2001 07:15:44 -0600 (MDT)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00449.html">006001c0ce66$4ade69d0$0100a8c0@dready.org</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00449.html">006001c0ce66$4ade69d0$0100a8c0@dready.org</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;wil at home&quot;:
+&gt; At this point my &quot;scheme_console_output&quot; hook is called with the following
+&gt; string
+&gt; &quot;error trying to display error: exception raised:\n&quot;, int len=50
+&gt; The call stack is attached.
+
+Probably you want to set up a stderr port, too (by setting
+scheme_make_stderr). It looks like the error-while-displaying-error is
+from not being able to write to stderr.
+
+Meanwhile, the actual error seems to be that a non-procedure was
+applied. Since you mention random crashes, I'd guess that some
+procedure is being GCed when it shouldn't be (so the GC turns a
+procedure into a nothing).
+
+In particular, since you're embedding in a Windows app, did you set
+GC_use_registered_statics to 1? And if so, did you register the static
+variable `exn_catching_apply' (copied from oe.c)?
+
+If I'm not on the right track, perhaps you can say more about your
+embedding of MzScheme (e.g., whether Jabber is multi-threaded).
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00452" href="msg00452.html">Re: safe eval</a></strong>
+<ul><li><em>From:</em> &quot;wil at home&quot; &lt;wil@dready.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00449" href="msg00449.html">safe eval</a></strong>
+<ul><li><em>From:</em> &quot;wil at home&quot; &lt;wil@dready.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00449.html">safe eval</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00451.html">No Subject</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00449.html">safe eval</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00452.html">Re: safe eval</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00450"><strong>Date</strong></a></li>
+<li><a href="threads.html#00450"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

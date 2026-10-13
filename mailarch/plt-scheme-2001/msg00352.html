@@ -1,0 +1,118 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: select/3 call equivalent in mzscheme -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 1 Mar 2001 07:42:08 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010301144204.PXCP25644.femail8.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010223173945.36411.qmail@web11208.mail.yahoo.com -->
+<!--X-Reference: y9l7l2d6g8s.fsf@sams.informatik.uni&#45;tuebingen.de -->
+<!--X-Reference: 20010226213718.A1086@pacbell.net -->
+<!--X-Reference: 200103011422.IAA07566@africa.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: select/3 call equivalent in mzscheme</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00351.html">Date Prev</a>][<a href="msg00353.html">Date Next</a>][<a href="msg00351.html">Thread Prev</a>][<a href="msg00329.html">Thread Next</a>][<a href="maillist.html#00352">Date Index</a>][<a href="threads.html#00352">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: select/3 call equivalent in mzscheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: select/3 call equivalent in mzscheme</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 1 Mar 2001 06:42:05 -0800</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00351.html">200103011422.IAA07566@africa.cs.rice.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00341.html">20010223173945.36411.qmail@web11208.mail.yahoo.com</a>&gt;&lt;<a href="msg00345.html">y9l7l2d6g8s.fsf@sams.informatik.uni-tuebingen.de</a>&gt; &lt;<a href="msg00346.html">20010226213718.A1086@pacbell.net</a>&gt;	&lt;<a href="msg00351.html">200103011422.IAA07566@africa.cs.rice.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Matthias Felleisen:
+&gt; Are these micro-threads more or less continuations? In Scheme you can
+&gt; pretty much implement all of these things assuming you have a timer 
+&gt; interrupt from call/cc plus interrupt handler setting. 
+
+Yes, from what I could tell by browsing information on the web. And
+it's how MzScheme threads work, of course. In other words, it looks
+like MzScheme's threads are essentially &quot;microthreads&quot;.
+
+There's no problem with creating thousands of threads in MzScheme,
+though 1000 threads in the current implementation would occupy around
+25MB. I think this can be reduced to around 5MB easily, with a little
+tuning. More after I've had time to run some experiments...
+
+Certainly threads can be much smaller than the 5k/thread that I'm
+suggesting. My uninformed guess is that Python's microthreads are
+probably 10 times smaller, since they've likely focused on size --- but
+that's really a guess.
+
+In any case, I don't see smaller threads as a likely near-term
+direction for us, due to MzScheme's architecture.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00341" href="msg00341.html">Re: select/3 call equivalent in mzscheme</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+<li><strong><a name="00345" href="msg00345.html">Re: select/3 call equivalent in mzscheme</a></strong>
+<ul><li><em>From:</em> sperber@informatik.uni-tuebingen.de (Michael Sperber [Mr. Preprocessor])</li></ul></li>
+<li><strong><a name="00346" href="msg00346.html">Re: select/3 call equivalent in mzscheme</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+<li><strong><a name="00351" href="msg00351.html">Re: select/3 call equivalent in mzscheme</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00351.html">Re: select/3 call equivalent in mzscheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00353.html">Bug Report Form Fixed</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00351.html">Re: select/3 call equivalent in mzscheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00329.html">version 199.1</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00352"><strong>Date</strong></a></li>
+<li><a href="threads.html#00352"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

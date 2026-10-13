@@ -1,0 +1,118 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Macros and DrScheme -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 9 Jul 2000 07:13:16 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200007091313.HAA05483@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14694.19746.600856.307961@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Macros and DrScheme</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00357.html">Date Prev</a>][<a href="msg00359.html">Date Next</a>][<a href="msg00357.html">Thread Prev</a>][<a href="msg00359.html">Thread Next</a>][<a href="maillist.html#00358">Date Index</a>][<a href="threads.html#00358">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Macros and DrScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;</li>
+<li><em>Subject</em>: Re: Macros and DrScheme</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 9 Jul 2000 07:13:11 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00356.html">14694.19746.600856.307961@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00356.html">14694.19746.600856.307961@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Eli Barzilay:
+&gt; | &gt; (parameterize ((current-namespace (make-namespace)))
+&gt; |     (eval '(define-macro lambda (lambda x `(#%+ ,@x))))
+&gt; |     (eval '(lambda 1 2)))
+&gt; | 3
+&gt; | &gt; (lambda 1 2)
+&gt; | 3
+&gt; | &gt; (#%lambda 1 2)
+&gt; | 3
+&gt; 
+&gt; ... it does work as expected when the no-debugging versions are used.
+&gt; 
+&gt; So the question is: is this a bug? 
+
+Definitely. This is a bug, too:
+
+ &gt; (define-macro lambda (lambda x `(#%+ ,@x)))
+ &gt; (#%lambda 1 2)
+ 3
+
+&gt; Is it possible to modify these things by hacking DrScheme?
+
+Well, yes, by fixing the bug. :) We might have a fix, but it will take
+a little more time to be sure...
+
+Meanwhile, you can circumvent part of what 102 does differently from
+102 by changing `friendly-current-namespace?' in
+plt/collects/userspce/init-paramr.ss so that it always returns #f. I
+think that would fix the bug as you saw it.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00356" href="msg00356.html">Macros and DrScheme</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00357.html">RE: Macros and DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00359.html">Mixins and stuff</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00357.html">RE: Macros and DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00359.html">Mixins and stuff</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00358"><strong>Date</strong></a></li>
+<li><a href="threads.html#00358"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

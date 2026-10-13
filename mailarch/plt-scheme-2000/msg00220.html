@@ -1,0 +1,95 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: change in the stepper / cvs archive -->
+<!--X-From-R13: "Dbool Tvaqyre" <eboolNpf.evpr.rqh> -->
+<!--X-Date: Sat, 25 Mar 2000 17:30:27 &#45;0700 (MST) -->
+<!--X-Message-Id: 001201bf96ba$67ec8320$efb02a80@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>change in the stepper / cvs archive</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00219.html">Date Prev</a>][<a href="msg00221.html">Date Next</a>][<a href="msg00219.html">Thread Prev</a>][<a href="msg00221.html">Thread Next</a>][<a href="maillist.html#00220">Date Index</a>][<a href="threads.html#00220">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>change in the stepper / cvs archive</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Scheme Mailing List&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: change in the stepper / cvs archive</li>
+<li><em>From</em>: &quot;Robby Findler&quot; &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 25 Mar 2000 18:29:47 -0600</li>
+<li><em>Organization</em>: PLT, Rice University http://www.cs.rice.edu/CS/PLT/</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The stepper was reoganized a few days ago which may have caused problems for
+anyone who has used the CVS archive since then. The stepper is no longer a
+tool; it has been integrated directly into drscheme. So, this means that the
+directory:
+
+  PLT/collects/drscheme/tools/stepper/
+
+is no longer relevant. Since it has no files in it, you should pass the -P
+flag to cvs so the directory is deleted (and then drscheme will start up
+okay):
+
+  % cvs update -P plt
+
+If you do not do this, DrScheme may fail to start up.
+
+Robby
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00219.html">[Q] units and macros in MzScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00221.html">102/10</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00219.html">[Q] units and macros in MzScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00221.html">102/10</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00220"><strong>Date</strong></a></li>
+<li><a href="threads.html#00220"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

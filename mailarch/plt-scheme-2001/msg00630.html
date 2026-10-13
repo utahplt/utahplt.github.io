@@ -1,0 +1,128 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SchemeQL -->
+<!--X-From-R13: Pregenaq Brgvg <cyg&#45;fNcubr.sezht.bet> -->
+<!--X-Date: Tue, 10 Jul 2001 17:52:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20010711015032.A19718@memo.frmug.fr.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87bsmthtxt.fsf@cloaked.freeserve.co.uk -->
+<!--X-Reference: 86zoad86tw.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Reference: 87d778rg8e.fsf@cloaked.freeserve.co.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SchemeQL</title>
+<link rev="made" href="mailto:plt-s@phoe.frmug.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00629.html">Date Prev</a>][<a href="msg00631.html">Date Next</a>][<a href="msg00624.html">Thread Prev</a>][<a href="msg00631.html">Thread Next</a>][<a href="maillist.html#00630">Date Index</a>][<a href="threads.html#00630">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SchemeQL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: MJ Ray &lt;<A HREF="mailto:markj@cloaked.freeserve.co.uk">markj@cloaked.freeserve.co.uk</A>&gt;</li>
+<li><em>Subject</em>: Re: SchemeQL</li>
+<li><em>From</em>: Bertrand Petit &lt;<A HREF="mailto:plt-s@phoe.frmug.org">plt-s@phoe.frmug.org</A>&gt;</li>
+<li><em>Date</em>: Wed, 11 Jul 2001 01:50:32 +0200</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00622.html">87d778rg8e.fsf@cloaked.freeserve.co.uk</a>&gt;</li>
+<li><em>Mail-Followup-To</em>: MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;,plt-scheme@fast.cs.utah.edu</li>
+<li><em>References</em>: &lt;<a href="msg00615.html">87bsmthtxt.fsf@cloaked.freeserve.co.uk</a>&gt; &lt;<a href="msg00620.html">86zoad86tw.fsf@biblio06.fciencias.unam.mx</a>&gt; &lt;<a href="msg00622.html">87d778rg8e.fsf@cloaked.freeserve.co.uk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Tue, Jul 10, 2001 at 03:49:53PM +0100, MJ Ray wrote:
+&gt;
+&gt; ((IM002 0 [unixODBC][Driver Manager]Data source name not found, and no default driver specified))
+&gt; 
+&gt; OK, this looks more like an ODBC installation problem, doesn't it?
+
+	UnixODBC may be installed correctly, but it seems to be
+unconfigured. Compiling and installing that software is not enough, it
+needs to be configured before it can be used.
+
+	The first thing to do is to run ODBCConfig as root and declare
+installed drivers and drivers configurators, this is done under the
+Drivers tab. Add an entry for each installed driver, for each you must
+at least give it a namem choose the driving and setup library. For
+postgres the libraries are respectively libodbcpsql.so and
+libodbcpsqlS.so.
+
+	Then, as an unprivileged user, you must declare data sources,
+one for each database, use the User DSN tab. For each DSN you must
+declare a name(the data source name), a driver, a database server
+hostname (may be localhost), and a database name. This can also be
+done as root, under the System DSN tab if your data sources are to be
+accessed by several users on the same system.
+
+-- 
+%!PS
+297.6 420.9 translate 90 rotate 0 setgray gsave 0 1 1{pop 0 180 moveto 100
+180 170 100 170 -10 curveto 180 -9 180 -9 190 -10 curveto 190 100 100 180
+0 180 curveto fill 180 rotate}for grestore/Bookman-LightItalic findfont
+240 scalefont setfont -151.536392 -63.7998886 moveto (bp)show showpage
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00631" href="msg00631.html">Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00615" href="msg00615.html">SchemeQL</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+<li><strong><a name="00620" href="msg00620.html">Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+<li><strong><a name="00622" href="msg00622.html">Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00629.html">199.17</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00631.html">Re: SchemeQL</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00624.html">Re: SchemeQL</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00631.html">Re: SchemeQL</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00630"><strong>Date</strong></a></li>
+<li><a href="threads.html#00630"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

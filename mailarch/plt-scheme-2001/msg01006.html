@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Problem building a statically linked Mzscheme -->
+<!--X-From-R13: [vxnry Vnafra <zunafraNpf.nhp.qx> -->
+<!--X-Date: Tue, 9 Oct 2001 03:48:28 &#45;0600 (MDT) -->
+<!--X-Message-Id: Pine.GSO.4.33.0110091121290.13551&#45;100000@aton.cs.auc.dk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Problem building a statically linked Mzscheme</title>
+<link rev="made" href="mailto:mhansen@cs.auc.dk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01005.html">Date Prev</a>][<a href="msg01007.html">Date Next</a>][<a href="msg01008.html">Thread Prev</a>][<a href="msg01007.html">Thread Next</a>][<a href="maillist.html#01006">Date Index</a>][<a href="threads.html#01006">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Problem building a statically linked Mzscheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Mzscheme mailinglist &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Problem building a statically linked Mzscheme</li>
+<li><em>From</em>: Mikael Hansen &lt;<A HREF="mailto:mhansen@cs.auc.dk">mhansen@cs.auc.dk</A>&gt;</li>
+<li><em>Date</em>: Tue, 9 Oct 2001 11:48:20 +0200 (MEST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi
+
+I've been trying to build a static linked mzscheme for use on a Solaris
+5.8 (Generic_108529-10) both Intel and Sparc. I need to be able to use the
+write-image-to-file functions and can read in the documentation that
+mzscheme should be linked statically on UNIX. I have CFLAGS set to
+-O2 C-static.
+
+A nm mzscheme | grep image results in:
+0805acd4 T scheme_image_main
+0805aa74 T scheme_init_image
+
+And I have a libmzscheme.a in plt/collects/mzscheme/lib/&quot;platform&quot;. A
+nm libmzscheme.a| grep image results in:
+         U scheme_init_image
+image.o:
+00000260 T scheme_image_main
+00000000 T scheme_init_image
+
+Why can I not use the write-image-to-file function? I haven't loaded any
+modules nor have I any subprocesses running or any filhandles open.
+
+In mzscheme I try:
+
+Welcome to MzScheme version 103, Copyright (c) 1995-2000 PLT (Matthew Flatt)
+&gt; (write-image-to-file &quot;/tmp/mhansen&quot;)
+write-image-to-file: not supported
+&gt;
+
+Any suggestions? Any help would be greatly appreciated.
+
+Best regards
+	Mikael Hansen
+
+&quot;We are Microsoft. You will be assimilated.
+	Resistance is Futile.&quot;
+
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01007" href="msg01007.html">Re: Problem building a statically linked Mzscheme</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01005.html">Re: Greetings</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01007.html">Re: Problem building a statically linked Mzscheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01008.html">RE: Greetings</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01007.html">Re: Problem building a statically linked Mzscheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01006"><strong>Date</strong></a></li>
+<li><a href="threads.html#01006"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

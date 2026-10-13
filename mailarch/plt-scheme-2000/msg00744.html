@@ -1,0 +1,217 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: gush &#45;> plush -->
+<!--X-From-R13: Bnhy Uenhaxr <cgtNpf.evpr.rqh> -->
+<!--X-Date: Sat, 18 Nov 2000 21:57:13 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001118225653.A26846@sun.cs.rice.edu -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>gush -&gt; plush</title>
+<link rev="made" href="mailto:ptg@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00743.html">Date Prev</a>][<a href="msg00745.html">Date Next</a>][<a href="msg00743.html">Thread Prev</a>][<a href="msg00745.html">Thread Next</a>][<a href="maillist.html#00744">Date Index</a>][<a href="threads.html#00744">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>gush -&gt; plush</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: gush -&gt; plush</li>
+<li><em>From</em>: Paul Graunke &lt;<A HREF="mailto:ptg@cs.rice.edu">ptg@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 18 Nov 2000 22:56:53 -0600</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The gush project, which provided a simple unix shell running under guile, is
+in limbo now.  The only thing interesting about it is that scheme &quot;shell
+scripts&quot; are loaded into the same guile interpeter.  Their OS like
+protections appear to be, &quot;Please don't poke me too hard.&quot;  Here's a first
+cut a replacing gush with a plt-scheme version, that hopefully does better
+on the protections.  It's just something I hacked together in a few hours
+this afternoon, so don't expect scsh.  It's more for interactive use with
+plain old scheme programs for more complex tasks.
+
+To try it out, save &quot;fork&quot; to ~/.plush/apps/fork and run
+mzscheme -r plush.ss
+
+Paul
+</PRE>
+<PRE>
+(define-signature plush^ (plush help))
+
+;(require-library &quot;string.ss&quot;)
+(require-library &quot;function.ss&quot;)
+(require-library &quot;macro.ss&quot;)
+;(require-library &quot;pretty.ss&quot;)
+
+; more here
+; \ style line continuations
+; quoting convetions
+; redirection to or from files
+; pipes
+; background processes
+
+; to exit run (exit)
+
+; skip-whitespace : -&gt; Void
+(define (skip-whitespace)
+  (let ([c (peek-char)])
+    (unless (or (eof-object? c) (not (char-whitespace? c)))
+      (read-char)
+      (skip-whitespace))))
+
+; chop-string : Char String -&gt; (listof String)
+(define (chop-string separator s)
+  (let ([p (open-input-string s)])
+    (let extract-parts ()
+      (cons (list-&gt;string
+             (let part ()
+               (let ([char (peek-char p)])
+                 (cond
+                   [(eof-object? char) null]
+                   [else (cond
+                           [(eq? separator char) null]
+                           [else (read-char p) (cons char (part))])]))))
+            (cond
+              [(eof-object? (read-char p)) null]
+              [else (extract-parts)])))))
+
+; bin-search : (listof String) String -&gt; (union String #f)
+(define (bin-search path file)
+  (or (and (absolute-path? file) (file-exists? file) file)
+      (path-search path file)))
+
+; path-search : (listof String) String -&gt; (union String #f)
+; more here - cacheing
+(define (path-search path file)
+  (ormap (lambda (dir)
+           (let ([p (build-path dir file)])
+             (and (file-exists? p) p)))
+         path))
+
+; Cache-line = (make-cache-line ((listof String) -&gt; Void) Nat (-&gt; Nat))
+(define-struct cache-line (value time get-time))
+
+(define app-cache (make-hash-table))
+
+; app-search : (listof String) String ((listof String) -&gt; Void) -&gt; (union ((listof String) -&gt; Void) #f)
+(define (app-search path name plush-cmd)
+  (and (relative-path? name)
+       (let* ([app-name (string-&gt;symbol name)]
+              [cached (hash-table-get app-cache app-name (lambda () #f))])
+         (if (and cached (= (cache-line-time cached) ((cache-line-get-time cached))))
+             (cache-line-value cached)
+             (let ([app-file (path-search path name)])
+               (and app-file
+                    (let* ([update-time (lambda () (file-or-directory-modify-seconds app-file))]
+                           [time (update-time)]
+                           ; warning: race condition with load/cd vs modifying file
+                           [app (safe-eval
+                                 (lambda ()
+                                   (parameterize ([current-namespace
+                                                   (make-namespace 'keywords 'all-syntax 'all-globals)])
+                                     (eval `(define plush-cmd ,plush-cmd))
+                                     (load/cd app-file))))])
+                      (hash-table-put! app-cache app-name (make-cache-line app time update-time))
+                      app)))))))
+
+; safe-eval : (-&gt; a) -&gt; a
+; more here - have a way to shut the custodian down
+; we need a way to tell if any of the custodian's threads are still alive
+(define (safe-eval thunk)
+  (with-handlers ([void (lambda (exn)
+                          (printf &quot;child died: ~s&quot; (if (exn? exn) (exn-message exn) exn)))])
+    (parameterize ([exit-handler (lambda _ (error (format &quot;~s&quot; _)))]
+                   [current-custodian (make-custodian)])
+      (thunk))))
+
+(define HOME (find-system-path 'home-dir))
+
+(define (plush)
+  (let ([app-path (list (build-path HOME &quot;.plush&quot; &quot;apps&quot;))]
+        [path (path-list-string-&gt;path-list (getenv &quot;PATH&quot;) null)])
+    (let repl ()
+      (printf &quot;plush&gt; &quot;)
+      (let ([line (read-line)])
+        (cond
+          [(eof-object? line) (void)]
+          [else
+           (let plush-cmd ([command (filter (lambda (s) (&lt; 0 (string-length s)))
+                                            (chop-string #\space line))])
+             (cond
+               [(null? command) (void)]
+               [(string=? (car command) &quot;cd&quot;)
+                (cond
+                  [(null? (cdr command)) (current-directory HOME)]
+                  [(null? (cddr command)) (current-directory (cadr command))]
+                  [else (printf &quot;usage: cd [path]~n&quot;)])]
+               [(app-search app-path (car command) plush-cmd)
+                =&gt; (lambda (app)
+                     (safe-eval (lambda () (app (cdr command)))))]
+               [(bin-search path (car command))
+                =&gt; (lambda (exec)
+                     ; more here - check for #! interpreter
+                     (apply system* exec (cdr command)))]
+               [else (printf &quot;command not found~n&quot;)]))
+           (repl)])))))
+
+(plush)</PRE>
+<PRE>
+(lambda (args) (thread (lambda () (plush-cmd args))))
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00745" href="msg00745.html">Re: gush -&gt; plush</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00743.html">103d103</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00745.html">Re: gush -&gt; plush</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00743.html">103d103</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00745.html">Re: gush -&gt; plush</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00744"><strong>Date</strong></a></li>
+<li><a href="threads.html#00744"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

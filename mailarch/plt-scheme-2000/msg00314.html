@@ -1,0 +1,121 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: cgi.ss, fastcgi.scm, and environment variables -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fuevenzNpf.evpr.rqh> -->
+<!--X-Date: Wed, 7 Jun 2000 12:41:08 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14654.38402.445431.314145@sun.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: m1og5dshhb.fsf@biblio08.fciencias.unam.mx -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>cgi.ss, fastcgi.scm, and environment variables</title>
+<link rev="made" href="mailto:shriram@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00313.html">Date Prev</a>][<a href="msg00315.html">Date Next</a>][<a href="msg00313.html">Thread Prev</a>][<a href="msg00315.html">Thread Next</a>][<a href="maillist.html#00314">Date Index</a>][<a href="threads.html#00314">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>cgi.ss, fastcgi.scm, and environment variables</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Subject</em>: cgi.ss, fastcgi.scm, and environment variables</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Wed,  7 Jun 2000 13:41:05 -0500 (CDT)</li>
+<li><em>Cc</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00313.html">m1og5dshhb.fsf@biblio08.fciencias.unam.mx</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00313.html">m1og5dshhb.fsf@biblio08.fciencias.unam.mx</a>&gt;</li>
+<li><em>Reply-To</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I don't know FastCGI, so it could be that there are some details I
+don't understand.  It's not clear to me why QUERY_STRING would *not*
+be defined in the environment.  Is FastCGI actually *unbinding* it?
+If not, what's the problem?
+
+Moreover, the binding for QUERY_STRING is defined by the CGI standard
+(for GET requests).  Therefore, if FastCGI is doing something to
+affect this, then the problem is at FastCGI's end.  Put differently,
+if you're using the CGI collection in a context where this isn't
+bound, then you're not really using it for CGI, so it's not surprising
+that it would not work without some monkeying around.
+
+&gt;				   Is this the Right Way(TM) of solving
+&gt; the problem? It works for me, but I feel it's awkward.
+
+That seems like an okay way to work around this problem.  Whether it's 
+the right way depends on what FastCGI is up to.
+
+&gt;         And if I would've wanted to use `get-bindings' then I
+&gt; should have `putenv'ed not only QUERY_STRING but also REQUEST_METHOD. 
+
+Right.
+
+&gt;         How are you guys solving this? Or isn't anybody else using
+&gt; both: fastcgi and cgi libraries? :-)
+
+I don't use the duo.  Perhaps someone else on this list does?
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00315" href="msg00315.html">Re: cgi.ss, fastcgi.scm, and environment variables</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00313" href="msg00313.html">cgi.ss, fastcgi.scm, and environment variables</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00313.html">cgi.ss, fastcgi.scm, and environment variables</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00315.html">Re: cgi.ss, fastcgi.scm, and environment variables</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00313.html">cgi.ss, fastcgi.scm, and environment variables</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00315.html">Re: cgi.ss, fastcgi.scm, and environment variables</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00314"><strong>Date</strong></a></li>
+<li><a href="threads.html#00314"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

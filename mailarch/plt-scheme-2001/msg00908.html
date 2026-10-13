@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: "indexed" COM properties in MysterX? -->
+<!--X-From-R13: "Bnhy Egrpxyre" <fgrpxNppf.arh.rqh> -->
+<!--X-Date: Wed, 19 Sep 2001 15:03:59 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000101c1414e$97b3c4c0$70730a81@NORTHEASDX5RFA -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000a01c1414c$43de3300$5b1669ce@www.dwvd.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: &quot;indexed&quot; COM properties in MysterX?</title>
+<link rev="made" href="mailto:steck@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00907.html">Date Prev</a>][<a href="msg00909.html">Date Next</a>][<a href="msg00905.html">Thread Prev</a>][<a href="msg00914.html">Thread Next</a>][<a href="maillist.html#00908">Date Index</a>][<a href="threads.html#00908">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: &quot;indexed&quot; COM properties in MysterX?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;'Anton van Straaten'&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Subject</em>: RE: &quot;indexed&quot; COM properties in MysterX?</li>
+<li><em>From</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 19 Sep 2001 17:03:54 -0400</li>
+<li><em>Cc</em>: &quot;'PLT Scheme'&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;000a01c1414c$43de3300$5b1669ce@www.dwvd.com&gt;</li>
+<li><em>Reply-To</em>: &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Along these lines, I had played with an idea which may or may not be
+&gt; of
+&gt; interest to you: I was curious as to whether it was necessary to
+&gt; distinguish
+&gt; between COM methods and properties at the Scheme level.  I found that
+&gt; with
+&gt; some (messily hacked) changes to the MysterX C code, it was possible
+&gt; to
+&gt; invoke methods and properties using the same function, i.e.
+&gt; eliminating the
+&gt; distinction between com-invoke and com-get-property, and maybe even
+&gt; com-set-property (I've forgotten - I did this a few weeks back).
+
+It could be done, I think, but the distinction between methods and
+properties is part of the COM mindset.  It might be confusing to
+conflate these ideas in MysterX.
+ 
+&gt; My real goal was to be able to wrap COM objects in procedures so that
+&gt; messages could be invoked like (obj 'message), and I was able to get
+&gt; that
+&gt; working as a proof of concept.  However, I'm not sure if this would be
+&gt; considered philosphically compatible with DrScheme's native object
+&gt; system,
+&gt; which doesn't appear to use this approach.
+
+Shriram Krishnamurthi suggested once that we make COM objects behave
+just like MzScheme objects.  While that's probably possible technically,
+I'm not sure the extra complication is worthwhile.  
+
+You could probably make your system work by memoizing the lists of
+procedures and properties given by com-methods and com-get-properties,
+respectively, and dispatching on that to call com-invoke and
+com-get-property, as appropriate.
+
+Let me know what you come up with.
+
+&gt; &gt; The new code has been exp-tagged.  Although I've tested this feature
+&gt; &gt; here, I'd appreciate any additional offsite testing -- COM always
+&gt; has
+&gt; &gt; surprises.
+&gt; 
+&gt; I'll check it out.
+
+Great, that'd be useful.
+
+-- Paul
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00914" href="msg00914.html">Re: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+<ul><li><em>From:</em> Reini Urban &lt;rurban@x-ray.at&gt;</li></ul></li>
+<li><strong><a name="01073" href="msg01073.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00907.html">Re: what do I do wrong?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00909.html">Timing Problems with DrScheme and Mac OS</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00905.html">Re: Optional arguments, assertions, type annotations</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00914.html">Re: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00908"><strong>Date</strong></a></li>
+<li><a href="threads.html#00908"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

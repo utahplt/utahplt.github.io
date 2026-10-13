@@ -1,0 +1,113 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Macros in DrScheme 103 -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Fri, 15 Mar 2002 09:56:04 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020315165600.BD4E41AA72@amber.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.44.0203151638510.12069&#45;100000@duch.mimuw.edu.pl -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Macros in DrScheme 103</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00354.html">Date Prev</a>][<a href="msg00356.html">Date Next</a>][<a href="msg00356.html">Thread Prev</a>][<a href="msg00360.html">Thread Next</a>][<a href="maillist.html#00355">Date Index</a>][<a href="threads.html#00355">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Macros in DrScheme 103</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Zbyszek Jurkiewicz &lt;<A HREF="mailto:zbyszek@duch.mimuw.edu.pl">zbyszek@duch.mimuw.edu.pl</A>&gt;</li>
+<li><em>Subject</em>: Re: Macros in DrScheme 103</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 15 Mar 2002 11:56:00 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00352.html">Pine.LNX.4.44.0203151638510.12069-100000@duch.mimuw.edu.pl</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00352.html">Pine.LNX.4.44.0203151638510.12069-100000@duch.mimuw.edu.pl</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+You have to use the non-debugging languages to get expand-defmacro. Or,
+you can try v200, available from our CVS server:
+
+  <A  HREF="http://www.cs.utah.edu/plt/anoncvs/">http://www.cs.utah.edu/plt/anoncvs/</A>
+
+Robby
+
+At Fri, 15 Mar 2002 16:43:11 +0100 (CET), Zbyszek Jurkiewicz wrote:
+&gt; In DrScheme 103 I obtain the following (strange) behavior:
+&gt; 
+&gt; &gt; (define-macro foo (lambda (x) `(f1 ,x ,x)))
+&gt; &gt; (expand-defmacro '(foo 1))
+&gt; (foo 1)
+&gt; 
+&gt; while it works correctly in plain MzScheme and in MrEd:
+&gt; 
+&gt; &gt; (define-macro foo (lambda (x) `(f1 ,x ,x)))
+&gt; &gt; (expand-defmacro '(foo 1))
+&gt; (f1 1 1)
+&gt; 
+&gt; Is it intended for some reason or is it plain error?
+&gt; 
+&gt; Best regards,
+&gt; 
+&gt; Zbyszek Jurkiewicz
+&gt; 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00352" href="msg00352.html">Macros in DrScheme 103</a></strong>
+<ul><li><em>From:</em> Zbyszek Jurkiewicz &lt;zbyszek@duch.mimuw.edu.pl&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00354.html">Re: All threads</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00356.html">Re: All threads</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00356.html">Re: All threads</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00360.html">bitmap error using 200alpha9 on Solaris</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00355"><strong>Date</strong></a></li>
+<li><a href="threads.html#00355"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

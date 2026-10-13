@@ -1,0 +1,117 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Swindle Question -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Tue, 10 Jul 2001 10:25:38 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15179.11388.864774.829364@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: NBBBLCLOKKHAGMJBNHDMCEENFGAA.apeake@comac.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Swindle Question</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00624.html">Date Prev</a>][<a href="msg00626.html">Date Next</a>][<a href="msg00610.html">Thread Prev</a>][<a href="msg00627.html">Thread Next</a>][<a href="maillist.html#00625">Date Index</a>][<a href="threads.html#00625">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Swindle Question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Alex Peake&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Swindle Question</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Tue, 10 Jul 2001 12:25:32 -0400</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00610.html">NBBBLCLOKKHAGMJBNHDMCEENFGAA.apeake@comac.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00610.html">NBBBLCLOKKHAGMJBNHDMCEENFGAA.apeake@comac.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Jul  9, Alex Peake wrote:
+&gt; A question about initialization of a class object:
+&gt; 
+&gt; Here is a simple example:
+&gt; 
+&gt; (defclass &lt;attribute&gt; ()
+&gt;   (name :initarg :name :accessor name)
+&gt;   (domain :initarg :domain :accessor domain)
+&gt;   (dom-len :initarg :dom-len :accessor dom-len)
+&gt;   (nullable :initarg :nullable :initvalue #f :reader nullable? :writer
+&gt; set-nullable!)
+&gt;   (pk :initarg :pk :initvalue #f :reader pk? :writer set-pk!)
+&gt;   (pk-pos :initarg :pk-pos :accessor pk-pos))
+&gt; 
+&gt; (define client-attr (make &lt;attribute&gt; :name &quot;Client&quot; :domain &quot;integer&quot;
+&gt; :pk-pos 1))
+&gt; 
+&gt; Is there a way to set the pk slot to #t if the pk-pos slot is set (to
+&gt; anything)?
+
+Yes, but the most obvious way is to use the MOP.  If all you need is
+simple structures, then I think that CLOS is an overkill...
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00627" href="msg00627.html">The 'pipe' sign</a></strong>
+<ul><li><em>From:</em> David Skoupil &lt;skoupil@alpha.inf.upol.cz&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00610" href="msg00610.html">Swindle Question</a></strong>
+<ul><li><em>From:</em> &quot;Alex Peake&quot; &lt;apeake@comac.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00624.html">Re: SchemeQL</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00626.html">Re: SchemeQL</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00610.html">Swindle Question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00627.html">The 'pipe' sign</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00625"><strong>Date</strong></a></li>
+<li><a href="threads.html#00625"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

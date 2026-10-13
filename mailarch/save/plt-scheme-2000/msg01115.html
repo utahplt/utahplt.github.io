@@ -1,0 +1,135 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Threading/Process Question -->
+<!--X-From-R13: Perag Thytunz <oshytunzNqrovna.bet> -->
+<!--X-Date: Wed, 22 Nov 2000 21:35:57 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001122204642.C686@earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C676701223F65@thresher.corp.xpsystems.com -->
+<!--X-Reference: 20001123034324.ETLJ16459.femail3.sdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Threading/Process Question</TITLE>
+<LINK REV="made" HREF="mailto:bfulgham@debian.org">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01114.html">Date Prev</A>][<A HREF="msg01116.html">Date Next</A>][<A HREF="msg01117.html">Thread Prev</A>][<A HREF="msg01116.html">Thread Next</A>][<A HREF="maillist.html#01115">Date Index</A>][<A HREF="threads.html#01115">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Threading/Process Question</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Threading/Process Question</LI>
+<LI><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 22 Nov 2000 20:46:42 -0800</LI>
+<LI><em>Cc</em>: PLT-Scheme &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01113.html">20001123034324.ETLJ16459.femail3.sdc1.sfba.home.com@localhost</A>&gt;; from mflatt@cs.utah.edu on Wed, Nov 22, 2000 at 07:43:24PM -0800</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01112.html">EDFD2A95EE7DD31187350090279C676701223F65@thresher.corp.xpsystems.com</A>&gt; &lt;<A HREF="msg01113.html">20001123034324.ETLJ16459.femail3.sdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>User-Agent</em>: Mutt/1.2.5i</LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Wed, Nov 22, 2000 at 07:43:24PM -0800, Matthew Flatt wrote:
+&gt; Instead, create a new one:
+&gt; 
+&gt;   scheme_thread(thunk, scheme_make_config(scheme_config));
+&gt; 
+&gt; [Note: the docs claim that NULL is a legal second argument to
+&gt; scheme_thread(), but it isn't anymore.]
+&gt; 
+
+One final problem:
+
+I am actually making use of the exception-catching thunk code
+form the Inside MzScheme document.
+
+In that code, I pass a text string that is my Scheme code to
+be evaluated:
+
+value = _apply_thunk_catch_exceptions(scheme_make_closed_prim(do_eval,
+           (char*)cmd), &amp;exn);
+
+Which in turn calls evals internally:
+
+v = _scheme_apply(exn_catchin_apply, 1, &amp;f);
+
+Where in this chain of calls is it best to do the thread switching?
+I was trying to do it outside of this region entirely to keep things
+simple, but since I must pass the thunk directly to the thread
+I guess this must be done within exn_catching_apply:
+
+exn_catching_apply = scheme_eval_string(e, env);
+
+where:
+
+char* e = 
+    "(#%lambda (thunk)
+          (#%with-handlers ([#%void (#%lambda (exn) (#%cons #f exn))])
+	  (#%cons #t (thunk))))"
+
+Any suggestions?  Could it be a simple as just passing MzScheme
+a dummy "(+ 1 2)" thunk earlier to create the thread, and leave
+the rest as-is?
+
+Thanks,
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01112" HREF="msg01112.html">Threading/Process Question</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01113" HREF="msg01113.html">Re: Threading/Process Question</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01114.html">Re: Threading/Process Question</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01116.html">MzScheme Strings</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01117.html">Re: Threading/Process Question</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01116.html">MzScheme Strings</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01115"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01115"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

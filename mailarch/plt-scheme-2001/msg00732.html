@@ -1,0 +1,170 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: bytecode unification for scripting languages -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Wed, 1 Aug 2001 00:32:50 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108010632.CAA08141@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010731225234.D53F45E0EC@sith.bbb.caltech.edu -->
+<!--X-Reference: 200108010102.VAA06590@bosch.cs.brown.edu -->
+<!--X-Reference: 20010801020426.AC7C65E0EC@sith.bbb.caltech.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: bytecode unification for scripting languages</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00731.html">Date Prev</a>][<a href="msg00733.html">Date Next</a>][<a href="msg00731.html">Thread Prev</a>][<a href="msg00733.html">Thread Next</a>][<a href="maillist.html#00732">Date Index</a>][<a href="threads.html#00732">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: bytecode unification for scripting languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: bytecode unification for scripting languages</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 1 Aug 2001 02:32:18 -0400 (EDT)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00730.html">20010801020426.AC7C65E0EC@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00728.html">20010731225234.D53F45E0EC@sith.bbb.caltech.edu</a>&gt;&lt;<a href="msg00729.html">200108010102.VAA06590@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg00730.html">20010801020426.AC7C65E0EC@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Michael Vanier wrote:
+
+&gt; &quot;Sorta-kinda-open source&quot; is not the same as open source.  
+
+I was speaking loosely.  As I understood it, they were planning a
+FreeBSD-style, rather than GPL, license agreement.  If you want to
+throw bombs at that, I'm a bad target; I'm sure the FreeBSD people
+would be happy to take on any claims that they're not sufficiently
+Open Source, though.
+
+&gt;							     The Mono project
+&gt; (<A  HREF="http://www.go-mono.net">http://www.go-mono.net</A>), if it happens, might overcome this objection.
+
+Yeah, I've seen pointers to this before.  If it happens.  The Open
+Source world works in funny ways.  You need source to attract hackers;
+you need hackers to build source.  Linus did it the right way around.
+Notice that already this project is having the rug ruffled under its
+feet by Parrot.  Half the resources =&gt; 1/4? 1/8? the quality.
+
+&gt; However, a separate issue is whether the same intermediate language will
+&gt; work equally well for statically compiled languages like C# and java and
+&gt; for dynamic languages like most scripting languages and scheme.  
+
+As Matthias points out, this distinction is not very meaningful.  As
+Bob Harper would say, Scheme is trivially typed: all expressions are
+of type TheSchemeType, where
+
+datatype TheSchemeType = Number of ...
+                       | Pair of TheSchemeType * TheSchemeType
+                       | Function of TheSchemeType list -&gt; TheSchemeType
+                       | ...
+
+All primitives return values of TheSchemeType.  All primitives consume 
+only the appropriate variants:
+
+  car : Pair -&gt; TheSchemeType
+
+and you're &quot;done&quot;.  All the tagging and casting is exactly what a
+Scheme implementation does anyway.  Add these explicit annotations,
+and you've got a program ready to run on a &quot;statically typed&quot; VM.
+
+&gt;								   For
+&gt; instance, how hard will it be to implement scheme efficiently on top of
+&gt; CIL/CLR?  If it's easy, then you're right; there's no reason to needlessly
+&gt; duplicate functionality.  
+
+No harder that I can see than it would be to implement it on top of a
+VM that is somehow designed for &quot;dynamic languages&quot;.
+
+&gt;			    OTOH I can imagine that a portable bytecode
+&gt; designed explicitly for highly dynamic languages might be a very different
+&gt; beast.
+
+I can't.
+
+&gt; Well, PLT scheme is open source, as are perl, python, ruby, squeak, Linux,
+&gt; the Gimp, Gnome, FreeBSD, etc. etc. and I think there has been a
+&gt; considerable amount of innovation there.  
+
+I'll withhold my opinion on the amount of innovation in many of those
+projects.  Your comment on PLT Scheme is rather misleading.  While
+several people do very helpfully contribute bug reports and patches,
+the ratio of development done globally as opposed to in a small number
+of centers with high communication is virtually zero.  If PLT Scheme
+were to come with a totally different license, it might affect our
+user base, but I doubt it would affect the &quot;innovation&quot;.  That
+innovation came not from a Open Source bazaar but from motivated grad
+students working for a terrific advisor.  I think simply labeling it
+an &quot;Open Source&quot; project, and pointing to it as an example of
+innovation, is extremely misleading.
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00733" href="msg00733.html">Re: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="00737" href="msg00737.html">Re: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Jeffrey Stephens &lt;jsteve17@tampabay.rr.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00728" href="msg00728.html">bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="00729" href="msg00729.html">bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00730" href="msg00730.html">Re: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00731.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00733.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00731.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00733.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00732"><strong>Date</strong></a></li>
+<li><a href="threads.html#00732"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Built in Tests -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Thu, 23 Mar 2000 21:05:11 &#45;0700 (MST) -->
+<!--X-Message-Id: 200003240405.WAA23522@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 75514FC5ECC8D2118C8D00A0C9ED54DB566D07@obcmail1.bsquare.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Built in Tests</title>
+<link rev="made" href="mailto:matthias@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00211.html">Date Prev</a>][<a href="msg00213.html">Date Next</a>][<a href="msg00211.html">Thread Prev</a>][<a href="msg00215.html">Thread Next</a>][<a href="maillist.html#00212">Date Index</a>][<a href="threads.html#00212">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Built in Tests</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A></li>
+<li><em>Subject</em>: Re: Built in Tests</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 23 Mar 2000 22:05:08 -0600 (CST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00211.html">75514FC5ECC8D2118C8D00A0C9ED54DB566D07@obcmail1.bsquare.com</a>&gt;(message from Greg Pettyjohn on Thu, 23 Mar 2000 17:27:35 -0800)</li>
+<li><em>References</em>: &lt;<a href="msg00211.html">75514FC5ECC8D2118C8D00A0C9ED54DB566D07@obcmail1.bsquare.com</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+   X-Authentication-Warning: fast.cs.utah.edu: majordom set sender to owner-plt-scheme@flux.cs.utah.edu using -f
+   From: Greg Pettyjohn &lt;GregP@bsquare.com&gt;
+   Date: Thu, 23 Mar 2000 17:27:35 -0800
+   Content-Type: text/plain;
+	   charset=&quot;iso-8859-1&quot;
+   Sender: owner-plt-scheme@fast.cs.utah.edu
+   Precedence: bulk
+
+   I've noticed and heard mention of test code that you folks
+   (the PLT crew) use in your source code.
+
+   In particular it appears that you have tests for each of the routines
+   accompanying the routines in the actual source. These tests are
+   commented out and you have an automated process in place that sweeps
+   through the source and tests each routine.
+
+;; --- 
+
+Dreams: 
+
+It's not automatic (yet), though I'd like it to be. 
+Ideally we would like top-level definitions to be in 
+cells (say like Mathematica) and each cell would come
+with fields that you can turn on and off: comments, 
+types, tests, etc. For now, none of this exists. 
+
+;; ---
+
+What works: 
+
+For each file, I add the tests for each function to the 
+bottom of my files like this: 
+
+#| TESTS: 
+--------------------------------------------------------------
+
+(define the-function max)
+
+(define (tester label expected-value . args)
+ (with-handler ((exn:user? (lambda (x) (printf &quot;bad test ~s: ~n&quot; label))))
+  (= expected-values (apply the-function args))))
+
+(define (error-tester label . args)
+ (with-handler ((exn:user? (lambda (x) #t)))
+  (apply the-function args)
+  (printf &quot;bad test ~s: ~n&quot; label)))
+
+(tester 1 3 1 2 3 2 1)
+
+(error-tester 'e2) ; because max uses non-empty lists
+|# 
+
+When I change something, I move the closing |# to the end of the ---
+line and execute. Of course, I may have to change my tests. 
+
+-- matthias
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00211" href="msg00211.html">Built in Tests</a></strong>
+<ul><li><em>From:</em> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00211.html">Built in Tests</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00213.html">Re: Sound</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00211.html">Built in Tests</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00215.html">MysterX changes</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00212"><strong>Date</strong></a></li>
+<li><a href="threads.html#00212"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

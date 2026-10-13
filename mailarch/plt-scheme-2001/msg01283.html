@@ -1,0 +1,131 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: problems with with&#45;syntax -->
+<!--X-From-R13: Rbht Aeyrnaf <qbhtbNppf.arh.rqh> -->
+<!--X-Date: Tue, 4 Dec 2001 22:53:04 &#45;0700 (MST) -->
+<!--X-Message-Id: 15373.46650.335251.573418@vega.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15372.4689.318705.163086@vega.ccs.neu.edu -->
+<!--X-Reference: 200112041632.JAA03184@fast.cs.utah.edu -->
+<!--X-Reference: 15373.21575.305457.639987@vega.ccs.neu.edu -->
+<!--X-Reference: 200112042312.SAA23593@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: problems with with-syntax</title>
+<link rev="made" href="mailto:dougo@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01282.html">Date Prev</a>][<a href="msg01284.html">Date Next</a>][<a href="msg01280.html">Thread Prev</a>][<a href="msg01284.html">Thread Next</a>][<a href="maillist.html#01283">Date Index</a>][<a href="threads.html#01283">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: problems with with-syntax</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: problems with with-syntax</li>
+<li><em>From</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 5 Dec 2001 00:52:58 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01280.html">200112042312.SAA23593@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01276.html">15372.4689.318705.163086@vega.ccs.neu.edu</a>&gt;&lt;<a href="msg01278.html">200112041632.JAA03184@fast.cs.utah.edu</a>&gt;&lt;<a href="msg01279.html">15373.21575.305457.639987@vega.ccs.neu.edu</a>&gt;&lt;<a href="msg01280.html">200112042312.SAA23593@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Shriram Krishnamurthi writes:
+ &gt; Hey Doug:
+ &gt; 
+ &gt; &gt; Rats, I keep forgetting Scheme isn't a dynamic language...
+ &gt; 
+ &gt; &gt;From this, I'm forced to infer that your definition of &quot;dynamic
+ &gt; language&quot; is &quot;one that has a screwed-up notion of scope&quot;.  (Well, I
+ &gt; guess this would be consistent with everything we heard at LL1 ...)
+ &gt; 
+ &gt; We had the kind of scoping you seem to call &quot;dynamic&quot; in older
+ &gt; versions of PLT Scheme (and, indeed, in Lisps since time immemorial).
+ &gt; I'd say the problems it introduces far outweight its benefits.
+
+Well, I wasn't necessarily commenting on this particular scoping issue,
+just the general idea that there are restrictions on Scheme programs
+to make static analysis easier (the part you left out of your paste
+was my quoting Matthew saying that the split environment was to make
+it easier for compilers and syntax checkers to figure things out).  I
+realize that it's a tradeoff, and that static analysis is important in
+the Real World, but I'm just used to lexical scoping being pretty
+straightforward, and not thinking too hard about definition-time
+versus run-time.  (Of course I should have figured I wouldn't get far
+with that attitude when I started wanting to break hygiene with
+syntax-case.)
+
+Would it be reasonable to think of the transformer environment being
+roughly analogous to the meta-level?  Then it becomes a little more
+clear that I can't (or shouldn't) call base-level functions in
+meta-level code.
+
+ &gt; (I'll let Matthew comment on whether he wants to support
+ &gt; DEFINE-FOR-SYNTAX, but just note that it violates cut-and-pastability.)
+
+You lost me-- what's no longer cut-and-pasteable?
+
+--dougo@ccs.neu.edu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01276" href="msg01276.html">problems with with-syntax</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01278" href="msg01278.html">Re: problems with with-syntax</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="01279" href="msg01279.html">Re: problems with with-syntax</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01280" href="msg01280.html">Re: problems with with-syntax</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01282.html">Re: problems with with-syntax</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01284.html">mzscheme daemon?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01280.html">Re: problems with with-syntax</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01284.html">mzscheme daemon?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01283"><strong>Date</strong></a></li>
+<li><a href="threads.html#01283"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

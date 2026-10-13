@@ -1,0 +1,305 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Conway's Game of Life (cellular automata) -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Sun, 23 Dec 2001 18:09:42 &#45;0700 (MST) -->
+<!--X-Message-Id: 00c901c18c17$fbc9d710$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200112210454.fBL4sQt25270@poincare.math.northwestern.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Conway's Game of Life (cellular automata)</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01411.html">Date Prev</a>][<a href="msg01413.html">Date Next</a>][<a href="msg01404.html">Thread Prev</a>][<a href="msg01415.html">Thread Next</a>][<a href="maillist.html#01412">Date Index</a>][<a href="threads.html#01412">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Conway's Game of Life (cellular automata)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Bill Richter&quot; &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;,       &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Conway's Game of Life (cellular automata)</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Sun, 23 Dec 2001 20:11:57 -0500</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01385.html">200112210454.fBL4sQt25270@poincare.math.northwestern.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi Bill,
+
+It looks as though you chose quite early on to implement the game purely in
+terms of lists.  This seems to have quite strongly affected the overall
+structure of the program.
+
+If a pure list implementation isn't an absolute requirement - and in fact,
+even if it is - I would be inclined to take a more top-down approach to the
+problem.  In this case, the problem is hopefully small enough to be immune
+to the advice of Alan Perlis: &quot;Everything should be built top-down, except
+the first time.&quot;  I can't vouch for the TLS/TSS/HtDP-ness of my approach,
+but you may find it interesting anyway.
+
+To start out with, I would tend to conceive of the top-level solution as a
+traditional &quot;map&quot;-style operation - mapping a function over each cell on the
+game board, where the function in question determines the next state of the
+cell it is provided with.  The mapping function would correspond roughly to
+your &quot;iterate-life-real&quot; function, although I'm suggesting that the exact
+implementation shouldn't be decided yet.  So the top-level function would
+look as follows:
+
+  ; returns game board containing the next generation based on the specified
+board
+  (define (next-generation game-board)
+    (board-map new-cell-state game-board))
+
+I'm assuming a &quot;board-map&quot; function, as described above, and a
+&quot;new-cell-state&quot; function which will return the next state of each cell on
+the board.  Since I'm guessing you won't let me get away with so little,
+I'll write new-cell-state.  I assume it takes the value of the current cell
+(i.e. whether it's black or white), as well as the x/y coordinates of that
+cell, to allow us to figure out which cells are around us.  Talking about
+coordinates here, though, does tend to push the solution in the direction of
+some kind of matrix representation; an alternative would be to pass through
+the full 3x3 matrix containing the current cell, which is the solution you
+used.  I'm going to continue with x/y coordinates while I'm still
+&quot;designing&quot;, though:
+
+  ; returns next state of cell with current value as
+  ; specified, based on the state of surrounding cells
+  (define (new-cell-state cell-value x y)
+    (let ((count (count-surrounding-black-cells cell-value x y)))
+      (if (or (= count 3) (and (isblack? cell-value) (= count 2)))
+          black-cell-value
+          white-cell-value)))
+
+I've assumed a few functions above.  They're all trivial, except for
+count-surrounding-black-cells.  The trivial ones could be defined like this:
+
+  (define (isblack? cell)	(= cell black-cell-value))
+  (define (iswhite? cell)	(= cell white-cell-value))	 ; for completeness,
+not used (yet?)
+
+  ; below functions are implementation-specific, but fairly innocent
+  (define white-cell-value 0)
+  (define black-cell-value 1)
+
+The code provided so far actually specifies everything that matters about
+Conway's game - what's left now are just implementation details that have no
+bearing on the logic of the game.  In addition, the details of the
+implementation have been left up in the air, although there is that
+assumption that x/y coordinates are going to be useful to us.
+
+At this point, I'll come out of the mathematical closet and admit that I'd
+just like to implement this using a simple, coordinate-addressable 2D
+matrix.  If you wanted to hang a list implementation off the above
+structure, it's certainly possible.  Obviously, it could be done by
+providing coordinate addressing functions for your lists, but that would be
+pretty inefficient.  Alternatively, a suitable implementation for board-map,
+and passing the 3x3 values through to count-surrounding-black-cells ought to
+allow a reasonably efficient list implementation to be developed.
+
+Ignoring lists, though, here's a matrix-oriented definition for
+count-surrounding-black-cells:
+
+  (define (count-surrounding-black-cells cell-value x y)
+    (- (matrix-sum board (- x 1) (+ x 2) (- y 1) (+ y 2))
+       cell-value))
+
+I'm assuming that I have a completely general, non-Life-specific matrix sum
+routine that will sum the portion of a matrix specified by an x-range and a
+y-range.  This once again defers an implementation decision - I could still
+implement the matrix as, for example, a vector of vectors, or even a list of
+lists (if I'm willing to take the efficiency hit for the latter).  To allow
+matrix-sum to be truly general, and not have to worry about omitting the
+center cell, I simply subtract the center cell's value from the result of
+matrix-sum.
+
+Note that there's a free variable in this function, &quot;board&quot; - I'm assuming
+that this function will be defined internal to the next-generation function,
+and thus will have access to the current board.
+
+One more important function that I can define, now that I've decided on a
+coordinate-addressable matrix:
+
+  (define (board-map proc board)
+    (matrix-map proc board 0 (board-width board) 0 (board-height board)))
+
+Again, I'm assuming a general matrix-map function, which maps a procedure
+over each cell in a specified matrix, in this case the board.  Although it
+may not be strictly necessary in this case, for generality I've assumed that
+matrix-map will, like matrix-sum, take an x-range and a y-range, to specify
+which cells the procedure should be applied to.  I've assumed functions
+board-width and board-height to determine those ranges, and I'm also
+assuming a zero-based coordinate system, consistent with Scheme's vectors.
+Note that this still leaves me pretty agnostic about the exact
+implementation of the board/matrix.
+
+What's left now are the implementations of matrix-map and matrix-sum,
+functions to convert matrices to displayable images (&quot;pictures&quot;), plus the
+overall controlling function.  The latter is simple - just a function which
+calls next-generation recursively, and if you like, conses together a
+picture version of the result from each generation.  The matrix-* functions
+would require a typical nested loop, and should be no big deal.  I don't
+really have time to write these right now, but maybe after Christmas if
+there's a reason to...  I've appended the properly sequenced code so far, at
+the end of the message.
+
+Regarding your question about OOP: I don't know about the idea of sending
+messages between cells, that seems like overkill to me, and the question
+would be what the benefit is.  A big point of OOP is to achieve abstraction
+and modularity.  (As well as reuse, which isn't much of an issue in this
+example.)
+
+In both of our designs, the most obvious abstraction is the game board
+itself.  I've defined or specified a few functions related to that:
+board-map, board-width, board-height.  In a completed system, you would also
+need functions like picture-&gt;board and board-&gt;picture.  This set of
+functions, taken together, could be seen as methods of a board object, and
+the program could be structured that way.  This relates to a point I tried
+to make above: by encapsulating the board object and only accessing it
+through an approved set of functions, you can make its exact implementation
+less important, and the higher levels of the program tend to become a better
+expression of the actual problem, rather than of the implementation choices.
+
+A cell object could be implemented similarly.  Using my version as an
+example, this would be done by turning functions like isblack? and
+count-surrounding-black-cells into methods of a cell object.  Although I
+haven't used objects explicitly, the pattern of having a set of functions
+relating to a particular abstraction maps easily onto an object design.
+
+I think the biggest way that your program could benefit from an OOP approach
+is simply from the abstraction aspect - identify the abstractions and define
+functions to deal with them, as I've tried to do.  In your program, I see a
+lot of implementation-specific code, but very little which provides an
+abstraction structure which would be obvious to someone unfamiliar with the
+code.
+
+If you wanted to get really fancy, the issue I mentioned earlier, about the
+choice of coordinate addressing driving other implementation choices, could
+probably be addressed with an OO approach.  For example, your list-based
+iteration could be wrapped in an iterator-like object which keeps track of
+its current position in the lists, and instead of passing x/y coordinates
+around as I've done, you could pass a generalized board iterator object,
+which once again could have any implementation you like under the hood -
+lists, vectors, whatever.  Then instead of invoking my
+count-surrounding-black-cells function with the three parameters cell-value,
+x, and y, you would simply specify the board iterator object as a parameter.
+This would once again push implementation decisions about specific data
+structures further downstream.  I'm not sure it's worth the effort in this
+case, though.
+
+Finally, I notice that if one ignores the implementation details, the
+overall logic of Conway's game can be expressed quite concisely by the
+following program, which is simply the relevant top-level bits from the code
+above, combined into a single function:
+
+  (define (next-generation game-board)
+    (board-map
+      (lambda (cell-value x y)
+	  (let ((count (count-surrounding-black-cells cell-value x y)))
+          (if (or (= count 3) (and (isblack? cell-value) (= count 2)))
+	        black-cell-value
+	        white-cell-value)))
+      game-board))
+
+I think this is useful, since it acts both as a specification and
+documentation for the program, as well as being the program itself (the
+important bits, anyway).  You could imagine giving the above to a junior
+programmer with suitable instructions, and asking him to code up the rest.
+
+--Anton
+
+Code so far follows:
+
+
+  ; returns game board containing the next generation based on the specified
+board
+  (define (next-generation game-board)
+
+    ; returns next state of cell with current value as
+    ; specified, based on the state of surrounding cells
+    (define (new-cell-state cell-value x y)
+      (let ((count (count-surrounding-black-cells cell-value x y)))
+        (if (or (= count 3) (and (isblack? cell-value) (= count 2)))
+            black-cell-value
+            white-cell-value)))
+
+    (define (count-surrounding-black-cells cell-value x y)
+      (- (matrix-sum board (- x 1) (+ x 2) (- y 1) (+ y 2))
+        cell-value))
+
+    (board-map new-cell-state game-board))
+
+
+  (define (isblack? cell)	(= cell black-cell-value))
+  (define (iswhite? cell)	(= cell white-cell-value))	 ; for completeness
+
+  ; below functions are implementation-specific, but fairly innocent
+  (define white-cell-value 0)
+  (define black-cell-value 1)
+
+  (define (board-map proc board)
+    (matrix-map proc board 0 (board-width board) 0 (board-height board)))
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01415" href="msg01415.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01385" href="msg01385.html">Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01411.html">Re: Using continuations in user-interfaces</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01413.html">really, really dumb DrScheme question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01404.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01415.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01412"><strong>Date</strong></a></li>
+<li><a href="threads.html#01412"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

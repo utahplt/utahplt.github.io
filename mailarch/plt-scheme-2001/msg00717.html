@@ -1,0 +1,158 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.18 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 25 Jul 2001 16:53:43 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200107252253.QAA14064@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.18</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00716.html">Date Prev</a>][<a href="msg00718.html">Date Next</a>][<a href="msg00716.html">Thread Prev</a>][<a href="msg00718.html">Thread Next</a>][<a href="maillist.html#00717">Date Index</a>][<a href="threads.html#00717">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.18</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.18</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 25 Jul 2001 16:53:41 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The v200-tagged code in CVS for MzScheme and MrEd is now version 199.18.
+
+The changes are mostly small ones from my long-term &quot;to do&quot; list:
+
+ * Changed mouse-event% and key-event% positions (x and y) to be
+   inexact integers. For a scrollable, scalable canvas, mouse clicks
+   are now reported in client pixels (as the documentation has always
+   claimed!) instead of DC coordinates (or some random combination of
+   client and DC coordinates, depending on the platform).
+
+ * Added `container-flow-modified' method to area-container&lt;%&gt;, which
+   notifies the geometry manager that the result of `place-children',
+   etc.  has changed.
+
+ * Added 'size-n/s, 'size-e/w, 'size-ne/sw, and 'size-nw/se built-in
+   icons.
+
+ * Added colors to `the-color-database' so that all 140 &quot;standard&quot;
+   HTML colors are in the database.
+
+ * Added 'wheel-up and 'wheel-down &quot;key&quot; events.
+
+ * X: Added Motif-style behavior for the middle button in scroll bars
+   and sliders.
+
+ * Windows: Implemented mouse-wheel scrolling in editor-canvas%.
+   The canvas intercepts 'wheel-up and 'wheel-down events instead of
+   passing them on to a displayed editor.
+
+ * Quoted portions of a symbol (using | or \) preserve their case,
+   even when symbols are read without case-sensitivity. (Quoting
+   should have always worked this way, but I didn't know better.)
+
+ * Added an optional third argument to `tcp-listen'. A true value for
+   the argument causes a listener to be created even when the port is
+   still involved with a TIME_WAITed connection.
+
+   This defeats certain guarantees of the TCP protocol, which is why I
+   never implemented it before. (Also, most everything I read on the
+   topic recommended not defeating the protocol.) But many
+   applications --- notably web servers --- can live without the
+   guarantees.
+
+ * In &quot;unit.ss&quot; and &quot;unitsig.ss&quot;, changed
+  `global-define-values/invoke-unit' and
+  `global-define-values/invoke-unit/sig' to
+  `namespace-variable-bind/invoke-unit' and
+  `namespace-variable-bind/invoke-unit/sig', to match the new name for
+  `global-defined-value'.
+
+ * Changed the default error value conversion handler to print values
+   using the current global port print handler.
+
+ * Attempting to write a bytecode that contains unmarshalable constants
+   now raises an exception. (Effectively, the exception is moved from
+   read time to write time, since reading such a bytecode would fail
+   anyway).
+
+ * Re-renamed &quot;2k&quot; to &quot;3m&quot; (for &quot;moving memory manager&quot;).
+
+   Why change again? Garbage collection is inherently imprecise, making
+   &quot;precise garbage collection&quot; an awkward term. &quot;Moving memory
+   manager&quot; more clearly explains the difference as it affects
+   extension/embedding programmers. Also, the number--letter
+   combination looks better. Finally, unlike &quot;2k&quot;, we have another
+   2,997,999 years to get the conversion right before the name goes out
+   of date.
+
+ * Added a -M &lt;coll&gt; flag to MzScheme and MrEd as a shorthand for
+   -L &lt;coll&gt;.ss &lt;coll&gt;.
+
+ * Fixed a bug in code that cooperates with the scheduler; the bug
+   could trigger a crash in `tcp-accept' because the needs_wakeup
+   function was called without a preceding call to the check function.
+
+The MzScheme, MzLib, MrEd, mzc, and Inside MzScheme doc bundles have
+been updated, but many section names are mis-recorded in the Help Desk
+index for MrEd; I'll fix that tomorrow.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00716.html">SAC '02 - 2002 ACM SYMPOSIUM ON APPLIED COMPUTING - Call for</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00718.html">clean output prints</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00716.html">SAC '02 - 2002 ACM SYMPOSIUM ON APPLIED COMPUTING - Call for</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00718.html">clean output prints</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00717"><strong>Date</strong></a></li>
+<li><a href="threads.html#00717"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

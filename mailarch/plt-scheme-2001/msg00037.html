@@ -1,0 +1,137 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Another threading question -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 14 Jan 2001 07:27:37 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010114142733.QGVN8967.femail8.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010111215617.A3193@debian.org -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Another threading question</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00036.html">Date Prev</a>][<a href="msg00038.html">Date Next</a>][<a href="msg00036.html">Thread Prev</a>][<a href="msg00043.html">Thread Next</a>][<a href="maillist.html#00037">Date Index</a>][<a href="threads.html#00037">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Another threading question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Subject</em>: Re: Another threading question</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 14 Jan 2001 06:27:33 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00036.html">20010111215617.A3193@debian.org</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00036.html">20010111215617.A3193@debian.org</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; 3.  I create the new thread (for the request) like this:
+&gt; 
+&gt; Scheme_Object* thrd_id = scheme_thread(
+&gt;   _scheme_apply(exn_catching_apply, 1, &amp;thunk), NULL);
+&gt; 
+&gt; Which applies the wrapper code from #2 (above) to the compiled
+&gt; thunk.
+
+Does exn_catching_apply run the thunk, or does it return a new thunk?
+
+I'd expect it to run the thunk, in which case the code above is
+analogous to
+
+  (thread ((lambda () ... do some work)))
+
+but you really want
+
+ (thread (lambda () ... do some work ...))
+
+
+More specifically, I'm guessing that you have
+
+ (thread (exn-catching-apply (lambda () ... do work ...)))
+
+and you need to thunk the application:
+
+ (thread (lambda () (exn-catching-apply (lambda () ... do work ...))))
+
+Probably you'll need to use scheme_make_closed_prim to implement the
+outer thunk.
+
+
+If I'm guessing right, it would explain this:
+
+Quoting Brent Fulgham:
+&gt; At any rate, it seems almost like the call to scheme_thread doesn't
+&gt; really create a new thread to execute the thunk, since it doesn't
+&gt; print out a mark point that would indicate that processing continues
+&gt; in the main thread.
+
+It would also explain the crash, since scheme_thread() gets a
+non-procedure.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00043" href="msg00043.html">Re: Another threading question</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00036" href="msg00036.html">Another threading question</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00036.html">Another threading question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00038.html">loading a bitmap into a cursor</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00036.html">Another threading question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00043.html">Re: Another threading question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00037"><strong>Date</strong></a></li>
+<li><a href="threads.html#00037"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

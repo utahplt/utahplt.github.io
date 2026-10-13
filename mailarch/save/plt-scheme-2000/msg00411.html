@@ -1,0 +1,149 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: mzc problems with RH 6.1 -->
+<!--X-From-R13: BX Rhenv <qhenvcNrkgraqflf.pbz> -->
+<!--X-Date: Tue, 8 Feb 2000 19:10:44 &#45;0700 (MST) -->
+<!--X-Message-Id: F059D54E5785D31180D200508B550E299042CC@postal.extendsys.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: mzc problems with RH 6.1</TITLE>
+<LINK REV="made" HREF="mailto:duraip@extendsys.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00410.html">Date Prev</A>][<A HREF="msg00412.html">Date Next</A>][<A HREF="msg00410.html">Thread Prev</A>][<A HREF="msg00412.html">Thread Next</A>][<A HREF="maillist.html#00411">Date Index</A>][<A HREF="threads.html#00411">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: mzc problems with RH 6.1</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: RE: mzc problems with RH 6.1</LI>
+<LI><em>From</em>: PJ Durai &lt;<A HREF="mailto:duraip@extendsys.com">duraip@extendsys.com</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 8 Feb 2000 19:10:38 -0700 </LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+It does work if I #include the full path name of mzc.h in the source file.
+(That solves my immediate problem.)
+
+I guess I can make this work by passing the this path to mzc and there by to
+the compiler (using ++ccf flags ?)
+
+In the mean time I will try to see whats different about my system.
+
+Appreciate your time
+pj
+
+
+&gt; -----Original Message-----
+&gt; From: PJ Durai [<A  HREF="mailto:duraip@extendsys.com">mailto:duraip@extendsys.com</A>]
+&gt; Sent: Tuesday, February 08, 2000 6:55 PM
+&gt; To: Noel Welsh
+&gt; Cc: plt-scheme@fast.cs.utah.edu
+&gt; Subject: RE: mzc problems with RH 6.1
+&gt; 
+&gt; 
+&gt; &gt; &gt;I am having trouble compiling simple mzscheme extenstions 
+&gt; &gt; (hello.c) in my RH
+&gt; &gt; &gt;6.1 system.
+&gt; &gt; 
+&gt; 
+&gt; &gt; I don't know what is causing mzc to complain that it is 
+&gt; &gt; unable to find 
+&gt; &gt; mzc.h, but would downloaindg and reinstalling not fix this problem? 
+&gt; &gt;
+&gt; 
+&gt; It doesnt seem to. I have installed it a couple of times.
+&gt;  
+&gt; &gt; Regarding getting mzc to work w/ your hello.c, if you like, send me
+&gt; &gt; your hello.c 
+&gt; 
+&gt; Actually the hello.c is not mine. It is a sample in
+&gt; 'plt/collects/mzscheme/examples'
+&gt; 
+&gt; Normally
+&gt; 
+&gt; 	mzc --cc hello.c
+&gt; 	mzc --ld hello.so hello.o
+&gt; 
+&gt; would build the extension.	
+&gt; 
+&gt; I could do that successfully in my
+&gt; 	NT 40 SP4 , Visual C 6, DrScheme 101 (binary distribution)
+&gt; 	RH 6.0 , DrScheme 100 (I cant remember how I installed it)
+&gt; 
+&gt; But in a new computer it wouldnt work with
+&gt; 
+&gt; 	RH 6.1, egcs 2.91.66 , DrScheme 101 (source distribution).
+&gt; 
+&gt; The OS is a straightforward default RH setup. 
+&gt; 
+&gt; &gt; and I'll try it on my Suse 6.3 system (gcc 2.7.2, glibc
+&gt; &gt; 2.1). That way we can determine if it is a gcc problem, or a problem
+&gt; &gt; w/ your system.
+&gt; 
+&gt; I have no doubts it will work in your system :-)
+&gt; 
+&gt; Has anyone in the group got this going with a RH 6.1 distro?
+&gt; Any suggestions ?
+&gt; 
+&gt; Appreciate your time.
+&gt; pj
+&gt; 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00412" HREF="msg00412.html">RE: mzc problems with RH 6.1</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00410.html">RE: mzc problems with RH 6.1</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00412.html">RE: mzc problems with RH 6.1</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00410.html">RE: mzc problems with RH 6.1</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00412.html">RE: mzc problems with RH 6.1</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00411"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00411"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

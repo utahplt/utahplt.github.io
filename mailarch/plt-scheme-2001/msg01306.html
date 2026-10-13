@@ -1,0 +1,143 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Unhygienic macros -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Sun, 9 Dec 2001 20:48:12 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112100347.WAA08047@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011209191636.GA649@la.iki.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Unhygienic macros</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01305.html">Date Prev</a>][<a href="msg01307.html">Date Next</a>][<a href="msg01303.html">Thread Prev</a>][<a href="msg01309.html">Thread Next</a>][<a href="maillist.html#01306">Date Index</a>][<a href="threads.html#01306">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Unhygienic macros</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Lauri Alanko &lt;<A HREF="mailto:la@iki.fi">la@iki.fi</A>&gt;</li>
+<li><em>Subject</em>: Unhygienic macros</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 9 Dec 2001 22:47:31 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01298.html">20011209191636.GA649@la.iki.fi</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01298.html">20011209191636.GA649@la.iki.fi</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Let me add a bit to this, though it may not be very useful.  In the
+original definition of SYNTAX-CASE, Dybvig and co had a very nice
+construct called IMPLICIT-IDENTIFIER.  If defined ... guess what.
+However, it's less general than DATUM-&gt;SYNTAX-OBJECT, so it didn't
+survive into their final versions, nor into PLT Scheme's.
+
+Let me offer you a simple example that uses this.  (Lauri, you seem to 
+have figured this out for yourself, but perhaps someone else will
+benefit from this.)
+
+Here's the definition of IMPLICIT-IDENTIFIER:
+
+  (define (implicit-identifier original-context-id new-id-sym)
+    (datum-&gt;syntax-object original-context-id new-id-sym))
+
+Now, I'm going to define a simple macro that creates a special,
+binding form of IF, called ARC-IF.  ARC-IF binds `IT' to the value of
+the conditional.  That is,
+
+  (arc-if (+ 1 2) it) ==&gt; 3
+  (arc-if #f 4 it) ==&gt; #f
+
+and so forth.
+
+Now, here's the macro for ARC-IF:
+
+  (define-syntax (arc-if expr)
+    (syntax-case expr ()
+      [(_ test then)
+       (syntax (arc-if test then (void)))]
+      [(_ test then else)
+       (with-syntax ([it-id (implicit-identifier (syntax test) 'it)])
+         (syntax (let ([it-id test])
+                   (if it-id then else))))]))
+
+Notice that I had to give IMPLICIT-IDENTIFIER two arguments:
+
+- the expression to pretend IT came from
+- the variable itself
+
+I could write 
+
+  (syntax _)
+
+for the first argument, but I prefer to think of IT as if it were
+bound by the TEST expression.  This has some good uses -- if anyone
+cares, I can post them here.  But the bottom line is, the code above
+is pretty straight-forward.  Indeed, I would argue that it's worth
+considering building this special case of DATUM-&gt;SYNTAX-OBJECT back
+into the macro system ...
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01309" href="msg01309.html">Re: Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01298" href="msg01298.html">Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01305.html">Re: RFC - GL in scheme (long, with code)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01307.html">Scheme OpenGL API</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01303.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01309.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01306"><strong>Date</strong></a></li>
+<li><a href="threads.html#01306"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

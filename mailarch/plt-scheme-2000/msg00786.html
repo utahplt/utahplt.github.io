@@ -1,0 +1,149 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: system* always returns #f on W2K -->
+<!--X-From-R13: Vnaah Ybvivfgb <nmherNvxv.sv> -->
+<!--X-Date: Fri, 15 Dec 2000 07:07:53 &#45;0700 (MST) -->
+<!--X-Message-Id: 87g0jp6aln.fsf@prelude.vvf.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87snnp6f37.fsf@prelude.vvf.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: system* always returns #f on W2K</title>
+<link rev="made" href="mailto:azure@iki.fi">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00785.html">Date Prev</a>][<a href="msg00787.html">Date Next</a>][<a href="msg00783.html">Thread Prev</a>][<a href="msg00787.html">Thread Next</a>][<a href="maillist.html#00786">Date Index</a>][<a href="threads.html#00786">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: system* always returns #f on W2K</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: system* always returns #f on W2K</li>
+<li><em>From</em>: Hannu Koivisto &lt;<A HREF="mailto:azure@iki.fi">azure@iki.fi</A>&gt;</li>
+<li><em>Date</em>: 15 Dec 2000 16:08:20 +0200</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00783.html">87snnp6f37.fsf@prelude.vvf.fi</a>&gt;</li>
+<li><em>Mail-copies-to</em>: never</li>
+<li><em>Mail-Followup-To</em>: plt-scheme@fast.cs.utah.edu</li>
+<li><em>References</em>: &lt;<a href="msg00783.html">87snnp6f37.fsf@prelude.vvf.fi</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0808 (Gnus v5.8.8) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hannu Koivisto &lt;azure@iki.fi&gt; writes:
+
+| It seems that system* always returns #f on at least Windows 2000
+...
+| would be welcome (I try to take a look at the source code myself
+
+So, I took a look at the source code with a colleague of mine who
+is a Windows user and after little testing and printf-debugging we
+noticed that system* doesn't even wait for the process to finish.
+This seems to be because in code...
+
+    spawn_status = MSC_IZE(spawnv)(type, command, (const char * const *)argv);
+
+    if (!synchonous) {
+      /* Restore stdin and stdout */
+      MSC_IZE(dup2)(save0, 0);
+      MSC_IZE(dup2)(save1, 1);
+      MSC_IZE(dup2)(save2, 2);
+
+      pid = spawn_status;
+      
+      if (spawn_status != -1)
+        sc = (void *)pid;
+    } else if ((spawn_status != -1) &amp;&amp; !as_child) {
+      sc = (void *)spawn_status;
+
+      scheme_block_until(subp_done, subp_needs_wakeup, (void *)sc, (float)0.0);
+
+#ifdef WINDOWS_PROCESSES
+      {
+	DWORD w;
+	if (GetExitCodeProcess((HANDLE)sc, &amp;w))
+	  spawn_status = w;
+	else
+	  spawn_status = -1;
+      }
+#endif
+#ifdef BEOS_PROCESSES
+      spawn_status = (((BeOSProcess *)sc)-&gt;result ? -1 : 0);
+#endif
+
+      pid = 0;
+    }
+
+...from process function in port.c neither of if branches is
+entered because as_child is true (1).  We'd also like to point out
+that the wait function corresponding to the spawnv (I'm didn't
+check what scheme_block_until actually uses) returns the exit code
+of the process and calling GetExitCodeProcess is somewhat
+questionable, if you want to read documentation literally, because
+we couldn't find anyone guaranteeing that the process handle is
+actually a Win32 process handle.  I'm sure it actually is a Win32
+process handle and thus that should work, though.
+
+-- 
+Hannu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00787" href="msg00787.html">Re: system* always returns #f on W2K</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00783" href="msg00783.html">system* always returns #f on W2K</a></strong>
+<ul><li><em>From:</em> Hannu Koivisto &lt;azure@iki.fi&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00785.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00787.html">Re: system* always returns #f on W2K</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00783.html">system* always returns #f on W2K</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00787.html">Re: system* always returns #f on W2K</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00786"><strong>Date</strong></a></li>
+<li><a href="threads.html#00786"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

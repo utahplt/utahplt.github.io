@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Scheme acceptance [no flames] -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Wed, 8 Nov 2000 17:39:41 &#45;0700 (MST) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C67670117941D@THRESHER -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Scheme acceptance [no flames]</title>
+<link rev="made" href="mailto:brent.fulgham@xpsystems.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00714.html">Date Prev</a>][<a href="msg00716.html">Date Next</a>][<a href="msg00713.html">Thread Prev</a>][<a href="msg00716.html">Thread Next</a>][<a href="maillist.html#00715">Date Index</a>][<a href="threads.html#00715">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Scheme acceptance [no flames]</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;,       plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Scheme acceptance [no flames]</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 8 Nov 2000 16:36:15 -0800 </li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; 
+&gt; More constructively than Greg (-:, let me suggest that you fix a
+&gt; semantics first, and figure out a syntax second.  Is the intended
+&gt; semantics for == binding or assignment?
+&gt; 
+
+The semantics are already defined in Perl.  The &quot;=~&quot; operator
+binds a pattern match to a string.  Depending on the form of the
+pattern match, modification of the string may take place:
+
+$foo =~ s/&quot;a&quot;/&quot;b&quot;/;
+
+Would replace 'a' with 'b' in $foo, while:
+
+$foo =~ /&quot;a&quot;/;
+
+Would return &quot;true&quot; if $foo contains the character 'a' at least once.
+
+Now, you might argue that we should have separate operators for
+separate meanings, and of course you are right.  I'm just pointing
+out the way Perl handles these meanings, and that this seems to
+be popular with those types... :-)
+
+It's basically an extension of the way sed, awk, grep, etc., all work,
+so it's very familiar to UNIX-types.  It's not mathematical, it's
+not elegant, and it's not pretty.  But it *is* familiar.
+
+A side note -- Matthias has written to me off-list regarding MzScheme's
+existing regexp handling, which seems to provide most of the features
+one would ever need.
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00716" href="msg00716.html">RE: Scheme acceptance [no flames]</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00714.html">RE: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00716.html">RE: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00713.html">RE: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00716.html">RE: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00715"><strong>Date</strong></a></li>
+<li><a href="threads.html#00715"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

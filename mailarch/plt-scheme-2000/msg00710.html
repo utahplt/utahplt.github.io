@@ -1,0 +1,224 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: plan for moving to modules -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 8 Nov 2000 11:28:34 &#45;0700 (MST) -->
+<!--X-Message-Id: 200011081828.LAA18826@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>plan for moving to modules</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00709.html">Date Prev</a>][<a href="msg00711.html">Date Next</a>][<a href="msg00694.html">Thread Prev</a>][<a href="msg00711.html">Thread Next</a>][<a href="maillist.html#00710">Date Index</a>][<a href="threads.html#00710">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>plan for moving to modules</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: plan for moving to modules</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 8 Nov 2000 11:28:32 -0700 (MST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On the assumption that `module' is a plausible direction for us, I've
+worked out the details on getting from here to there. I wrote the notes
+below for myself, but I think they turned out to be relatively
+informative.
+
+Executive summary: put a stripped-down M3 into MzScheme, add `module'
+handling, create the pattern-matching part of `syntax-case' as a
+module, then re-implement the PLT language extensions (classes, units,
+etc.).
+
+Matthew
+
+----------------------------------------
+
+Phase 1
+-------
+
+* Add source-location tracking to MzScheme.
+
+  `read-syntax' is like `read', but produces `syntax'
+  instances. Syntax objects are defined by the following structures;
+  the creators and mutators are not exposed:
+
+   syntax (e src line column xtra)
+                             ; xtra is for external use,
+                             ;  and its mutator is exposed
+
+     scalar-syntax syntax () ; e is number, etc.
+       symbol-syntax ()      ; e is symbol
+         imported-syntax (module)
+
+     list-syntax ()          ; e is syntax list
+     ilist-syntax ()         ; e is syntax list
+     vector-syntax ()        ; e is vector
+     box-syntax ()           ; e is box
+     graph-syntax ()         ; e is syntax
+     graph-ref-syntax ()     ; e is graph-syntax
+
+   [The inaccessible fields containing marks are not shown. Marks are
+   attached to `list-syntax' objects for lazy expansion, and
+   `list-syntax-e' (actually more than a selector) propagates lazy
+   marks.]
+
+* Change the bytecode compiler to work on `syntax' instances. (Remove
+  the `unit' and `class' forms instead of converting them.)
+
+* Rename `define-macro' to `define-syntax'. Drop
+  `define-elaboration-time' et al.
+
+  Add `datum-&gt;syntax' and `syntax-&gt;datum' so that the old macros can
+  be easily hacked in at first.
+
+* Add `define-identifier-macro', `#%application', `#%improper-list',
+  `#%symbol', and `#%datum'. Insert appropriate hooks into the
+  expander loop to use `#%application', etc.
+
+
+Phase 2
+-------
+
+* Add `module' (with `#%module-begin') to MzScheme.
+
+  The lowest-level language is .PrimitiveMzScheme:
+
+   (module &lt;name&gt; .PrimitiveMzScheme
+    (export-syntax ...)
+    (export-variables ...)
+    &lt;definition-or-expression&gt; ...)
+
+  An expression (or sub-expression) can be an `imported-syntax'
+  object. If the specified `module-name' is not in the encapsulation
+  table, apply auto-loading rules. The `imported-syntax' object's
+  datum must be the name of an exported variable.
+
+* Namespaces stay, but get split to have separate variable and syntax
+  bindings (to avoid #&lt;macro&gt; values, etc.). The library table gets
+  replaced by module-encapsulation table, which maps names to entries
+  of the form:
+
+       (list syntax-exports      ; (listof (cons imported-syntax proc))
+             variable-exports    ; (listof imported-syntax)
+             body                ; compiled code
+             namespace           ; namespace
+             executed?)          ; boolean
+       ; execute == #t means the body has been evaluated in 
+       ; its namespace. the namespace's module encapsulation 
+       ; table is the one containing this entry.
+
+  Evaluating a .PrimitiveMzScheme module creates a module
+  encapculation entry in the current namespace's table. If an
+  encapsualtion is already there for the module name, reset everything
+  except the namespace.  (So old bindings stick around, and
+  modifications are visible to importers --- handy for REPL-based
+  development.)
+
+  Namespace creation:
+
+   (make-namespace module-name)
+
+  where the argument is the name for initial imports.
+
+  Extra functions for use by macros:
+
+   (module-syntax-exports module-name)
+   (module-variable-exports module-name)
+
+  If `module-name' is not in the encapsulation table, apply
+  auto-loading rules.
+
+* The REPL essentially works as currently, based on namespaces. If an
+  `eval' expression contains an import from an unexecuted module, the
+  module is first executed.
+
+  Add
+
+   (module-namespace module-name) 
+
+  to get a module's namespace for a module-local REPL.
+
+
+Phase 3
+-------
+
+* Implement the Scheme module:
+
+  - Implement `import' and `export' via `#%module-begin'
+
+  - Implement `import' for the top-level environment.
+
+* Implement the PLTScheme module:
+
+  - Implement the syntax-case macro.  (Start from Dybvig's code, or
+    Shriram's pattern matcher from zodiac.)
+
+  - Re-implement class, unit, unit/sig, et al.
+
+
+Phase 4
+-------
+
+* Clean up MzScheme, then convert the PLT world.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00711" href="msg00711.html">Re: plan for moving to modules</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00709.html">RE: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00711.html">Re: plan for moving to modules</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00694.html">RE: point of view on mzscheme's module system</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00711.html">Re: plan for moving to modules</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00710"><strong>Date</strong></a></li>
+<li><a href="threads.html#00710"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

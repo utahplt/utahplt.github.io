@@ -1,0 +1,201 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: More Compiled S&#45;Expression Questions -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 8 Jan 2001 08:49:38 &#45;0700 (MST) -->
+<!--X-Message-Id: 200101081549.IAA04693@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C6767014DB692@THRESHER -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: More Compiled S-Expression Questions</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00030.html">Date Prev</a>][<a href="msg00032.html">Date Next</a>][<a href="msg00025.html">Thread Prev</a>][<a href="msg00033.html">Thread Next</a>][<a href="maillist.html#00031">Date Index</a>][<a href="threads.html#00031">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: More Compiled S-Expression Questions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Subject</em>: Re: More Compiled S-Expression Questions</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 8 Jan 2001 08:49:26 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00025.html">EDFD2A95EE7DD31187350090279C6767014DB692@THRESHER</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00025.html">EDFD2A95EE7DD31187350090279C6767014DB692@THRESHER</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; Is it possible to create a single compiled representation of this
+&gt; that could be stored and reloaded without going through the
+&gt; overhead of re-parsing and evaluating?
+
+I'm not sure what you're asking, though I see a couple of
+possibilities:
+
+ 1. Your application gets some code at run-time that you want to cache
+    in a string-friendly database (possibly the filesystem).
+
+ 2. You want to compile some static Scheme code to be embedded in the
+    application.
+
+The first seems more likely, and I'll suggest a method for that first.
+I have an answer for the second close at hand, though, so I've included
+it.
+
+----------------------------------------
+Answer 1: Compiling code at run-time and storing it for later use
+
+Compile phase:
+
+ Use the `(begin ...)' trick to get a single expression. 
+
+ Use scheme_make_string_input_port() to get a port. 
+
+ Use scheme_read() to get an S-expression.
+
+ Use scheme_compile() to get compiled code.
+
+ Use scheme_make_string_output_port() to get a new output port.
+
+ Use scheme_write() to write the compiled code to the output port.
+
+ Use scheme_get_sized_string_output() to get the compiled code in
+ string form. Beware that the string might contain nul characters.
+
+Eval phase:
+
+ Use scheme_make_sized_string_input_port() to convert the string of
+ compiled code into a port of compiled code. (Use the _sized version
+ because the string might have nul characters.)
+
+ Enable bytecode reading using
+  scheme_set_param(scheme_config, MZCONFIG_CAN_READ_COMPILED, scheme_true)
+
+ Use scheme_read() to get the compiled code.
+
+ Use scheme_eval() to evaluate it.
+
+
+----------------------------------------
+Answer 2: Compiling static code and embedding it in an application
+
+Compile phase:
+
+ Use the following little program that takes any number of
+ S-expressions from the current input port, and sends C code to the
+ current output port:
+
+ ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; 
+
+(let ([DIGITS-PER-LINE 15]
+      [p (open-output-string)])
+  (let loop ()
+    (let ([expr (read)])
+      (unless (eof-object? expr)
+	(let ([c (compile expr)])
+	  (write c p)
+	  (loop)))))
+  (let ([s (get-output-string p)])
+    (printf &quot;static unsigned char expr[] = {~n    &quot;)
+    (let loop ([chars (string-&gt;list s)][pos 0])
+      (unless (null? chars)
+	(let ([char (car chars)])
+	  (printf &quot;~a, &quot; (char-&gt;integer char)))
+	(loop (cdr chars)
+	      (if (= pos DIGITS-PER-LINE)
+		  (begin
+		    (printf &quot;~n    &quot;)
+		    0)
+		  (add1 pos)))))
+    (printf &quot;0};~n&quot;)
+    (printf &quot;#define COMPILED_STR_SIZE ~a~n&quot; 
+	    (string-length s))))
+
+ ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; ; 
+
+ The output C code has the form
+
+    static unsigned char expr[] = {
+        ... &lt;a bunch of numbers&gt; ... };
+    #define COMPILED_STR_SIZE &lt;number&gt;
+
+ Copy it or #include it into your C code.
+
+Eval phase:
+
+ Convert the string to a port, using
+   scheme_make_sized_string_input_port(expr, COMPILED_STR_SIZE)
+
+ Turn on bytecode reading using
+   scheme_set_param(scheme_config, MZCONFIG_CAN_READ_COMPILED, scheme_true)
+
+ Read and eval until the port returns EOF:
+  while (1) {
+    expr = scheme_read(port);
+    if (SAME_OBJ(expr, scheme_eof))
+      break;
+    scheme_eval_multi(expr, env);
+  }
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00025" href="msg00025.html">More Compiled S-Expression Questions</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00030.html">Re: Senora GC Seems to Work!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00032.html">bitmap scaling</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00025.html">More Compiled S-Expression Questions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00033.html">RE: More Compiled S-Expression Questions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00031"><strong>Date</strong></a></li>
+<li><a href="threads.html#00031"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

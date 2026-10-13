@@ -1,0 +1,148 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: Syv Pnemvynl <ryvNQE.Qbearyy.SRG> -->
+<!--X-Date: Sun, 12 Mar 2000 14:42:56 &#45;0700 (MST) -->
+<!--X-Message-Id: 14540.3932.744537.731539@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002270435.UAA20217@balu.qualcomm.com -->
+<!--X-Reference: 200002270457.WAA08093@africa.cs.rice.edu -->
+<!--X-Reference: 20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] HOWTO redirect a i/o-port in Unix??</TITLE>
+<LINK REV="made" HREF="mailto:eli@CS.Cornell.EDU">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00542.html">Date Prev</A>][<A HREF="msg00544.html">Date Next</A>][<A HREF="msg00516.html">Thread Prev</A>][<A HREF="msg00544.html">Thread Next</A>][<A HREF="maillist.html#00543">Date Index</A>][<A HREF="threads.html#00543">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] HOWTO redirect a i/o-port in Unix??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</LI>
+<LI><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 12 Mar 2000 16:42:52 -0500 (EST)</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00500.html">20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00496.html">200002270435.UAA20217@balu.qualcomm.com</A>&gt;&lt;<A HREF="msg00497.html">200002270457.WAA08093@africa.cs.rice.edu</A>&gt;&lt;<A HREF="msg00500.html">20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Feb 26, Matthew Flatt wrote:
+&gt; Here's a fairly general and efficient function:
+&gt; 
+&gt;  (define (copy-stream input-port output-port)
+&gt;    ...)
+
+I got stuck trying to use this with two processes where the first one
+gets input from Scheme:
+
+======================================================================
+(define (eprintf . args)
+  (apply fprintf (current-error-port) args) (newline
+  (current-error-port)))
+(define (copy-stream input-port output-port name)
+  (thread (lambda ()
+            (let ((s (make-string 4096)))
+              (let loop ()
+                (eprintf "!!! 1 [~a]" name)
+                (let ((l (read-string! s input-port)))
+                  (eprintf "!!! 2 [~a]" name)
+                  (unless (eof-object? l)
+                    (display (if (&lt; l 4096) (substring s 0 l) s)
+                             output-port)
+                    (loop))))
+              (close-input-port input-port)
+              (close-output-port output-port)))))
+(define-values (from-1st to-1st 1st-pid 1st-err 1st-stat)
+  (apply values (process* "/bin/cat")))
+(define-values (from-2nd to-2nd 2nd-pid 2nd-err 2nd-stat)
+  (apply values (process* "/bin/cat")))
+(when (file-exists? "/tmp/foo") (delete-file "/tmp/foo"))
+(define 1st-thread
+  (begin (copy-stream from-1st to-2nd "1st-&gt;2nd")
+         (copy-stream from-2nd (open-output-file "/tmp/foo") "2nd-&gt;foo")))
+(eprintf "!!! A")
+(fprintf to-1st "12345678901234567890123456789012345678901234567890~%")
+(eprintf "!!! B")
+(close-output-port to-1st)
+(eprintf "!!! C")
+(thread-wait 1st-thread)
+(exit)
+======================================================================
+
+It looks like both threads are getting stuck on the read-string!, but
+I couldn't think of any reason for them to do so...
+
+Am I doing anything wrong here?
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+         <A  HREF="http://www.cs.cornell.edu/eli/meaning.html">http://www.cs.cornell.edu/eli/meaning.html</A>        Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00544" HREF="msg00544.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00496" HREF="msg00496.html">[Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00497" HREF="msg00497.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00500" HREF="msg00500.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00542.html">Re: Compilation warnings? Code walker?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00544.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00516.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00544.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00543"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00543"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,162 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Spinning lambda -->
+<!--X-From-R13: @bry Iryfu <abryjryfuNlnubb.pbz> -->
+<!--X-Date: Fri, 12 Apr 2002 09:06:46 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020412150644.33097.qmail@web11208.mail.yahoo.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Spinning lambda</title>
+<link rev="made" href="mailto:noelwelsh@yahoo.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00735.html">Date Prev</a>][<a href="msg00737.html">Date Next</a>][<a href="msg00735.html">Thread Prev</a>][<a href="msg00739.html">Thread Next</a>][<a href="maillist.html#00736">Date Index</a>][<a href="threads.html#00736">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Spinning lambda</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Spinning lambda</li>
+<li><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 12 Apr 2002 08:06:44 -0700 (PDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm so envious of Eli's spinning lambda that I had
+to boost up the colour of my (X)Emacs scheme-mode (in
+lieu of LSD).  If you're interested in a slightly
+more colourful Emacs cut and paste the below code
+into your .emacs
+
+Any improvements gratefully accepted.
+
+Noel
+
+(x-make-font-bold (font-name (face-font 'default))))
+(set-face-foreground 'font-lock-keyword-face &quot;black&quot;)
+(set-face-foreground 'font-lock-string-face
+&quot;forestgreen&quot;)
+(set-face-foreground 'font-lock-doc-string-face
+&quot;darkgreen&quot;)
+(set-face-font 'font-lock-function-name-face 
+(x-make-font-bold (font-name (face-font 'default))))
+(set-face-foreground 'font-lock-function-name-face
+&quot;royalblue&quot;)
+(set-face-foreground 'font-lock-comment-face &quot;red&quot;)
+(set-face-foreground 'font-lock-preprocessor-face
+&quot;maroon&quot;)
+(set-face-foreground 'font-lock-type-face
+&quot;mediumblue&quot;)
+(if (not (find-face 'font-lock-variable-name-face))
+    (make-face 'font-lock-variable-name-face))
+(set-face-foreground 'font-lock-variable-name-face
+&quot;darkorchid&quot;)
+(if (not (find-face 'font-lock-application-face))
+    (make-face 'font-lock-application-face))
+(set-face-foreground 'font-lock-application-face
+&quot;darkred&quot;)
+(if (not (find-face 'font-lock-value-face))
+    (make-face 'font-lock-value-face))
+(set-face-foreground 'font-lock-value-face &quot;seagreen&quot;)
+
+
+(defun my-scheme-mode-hook ()
+  (setq scheme-font-lock-keywords 
+		'((&quot;(\\(module\\)\\&gt;[ 	\n]*\\(\\sw+\\)\\&gt;[ 
+\n]*\\(\\sw+\\)&quot;
+		   (1 font-lock-keyword-face)
+		   (2 font-lock-variable-name-face)
+		   (3 font-lock-variable-name-face))
+		  (&quot;(\\(require\\)&quot; . 1)
+		  (&quot;(\\(provide\\)&quot; . 1)
+		  (&quot;(\\(define-\\(signature\\|values\\)\\)&quot; . 1)
+		  (&quot;(\\(define[ 	]*\\)&quot;
+		   (1 font-lock-keyword-face)
+		   (&quot;(\\(\\w+\\)\\(.*\\))&quot; nil nil
+			(1 font-lock-function-name-face)
+			(2 font-lock-variable-name-face))
+		   (&quot;\\w+&quot; nil nil (0
+font-lock-function-name-face)))
+		 
+(&quot;(\\(define\\(\\(\\|-\\(generic\\(\\|-procedure\\)\\|method\\)\\)\\|\\(-syntax\\)\\|\\(-class\\)\\)\\)\\&gt;[
+	]*(?\\(\\sw+\\)?&quot; 
+		   (1 font-lock-keyword-face)
+		   (8 (cond ((match-beginning 3) (quote
+font-lock-function-name-face))
+					((match-beginning 6) (quote
+font-lock-variable-name-face))
+					(t (quote font-lock-type-face)))
+			  nil t))
+		 
+(&quot;(\\(and\\|begin\\|c\\(a\\(ll\\(-with-\\(current-continuation\\|input-file\\|output-file\\)\\|/cc\\)\\|se\\)\\|ond\\)\\|d\\(elay\\|o\\)\\|else\\|for-each\\|if\\|l\\(ambda\\|ib\\|et\\(-syntax\\|\\*?\\|-values\\|rec\\(\\|-syntax\\)\\)\\)\\|map\\|not\\|or\\|syntax\\(\\|-rules\\)\\|\\with-\\(input-from-file\\|output-from-file\\)\\)\\&gt;&quot;
+. 1)
+		  (&quot;\\&lt;&lt;\\sw+&gt;\\&gt;&quot; . font-lock-type-face)
+		  (&quot;\\&lt;:\\sw+\\&gt;&quot; . font-lock-reference-face)
+		  (&quot;(\\(\\w+\\)&quot; 
+		   (1 font-lock-application-face))
+		  (&quot;\\w+&quot; . font-lock-value-face))))
+(add-hook 'scheme-mode-hook 'my-scheme-mode-hook)
+
+
+__________________________________________________
+Do You Yahoo!?
+Yahoo! Tax Center - online filing with TurboTax
+<A  HREF="http://taxes.yahoo.com/">http://taxes.yahoo.com/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00739" href="msg00739.html">Re: Spinning lambda</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00735.html">200alpha16</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00737.html">Logging in the PLT Web Server</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00735.html">200alpha16</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00739.html">Re: Spinning lambda</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00736"><strong>Date</strong></a></li>
+<li><a href="threads.html#00736"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

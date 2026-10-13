@@ -1,0 +1,184 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: Zrb Dnmbhzbi  <yenmbhzbiNdhnypbzz.pbz> -->
+<!--X-Date: Sun, 27 Feb 2000 19:26:43 &#45;0700 (MST) -->
+<!--X-Message-Id: 200002280226.SAA06315@balu.qualcomm.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002271846.KAA00527@balu.qualcomm.com -->
+<!--X-Reference: 20000228002410.UGQG21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] HOWTO redirect a i/o-port in Unix??</TITLE>
+<LINK REV="made" HREF="mailto:lrazoumov@qualcomm.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00506.html">Date Prev</A>][<A HREF="msg00508.html">Date Next</A>][<A HREF="msg00505.html">Thread Prev</A>][<A HREF="msg00508.html">Thread Next</A>][<A HREF="maillist.html#00507">Date Index</A>][<A HREF="threads.html#00507">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] HOWTO redirect a i/o-port in Unix??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</LI>
+<LI><em>From</em>: Leo Razoumov  &lt;<A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 27 Feb 2000 18:26:39 -0800 (PST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A>, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-reply-to</em>: &lt;<A HREF="msg00505.html">20000228002410.UGQG21637.mail.rdc1.sfba.home.com@localhost</A>&gt;(message from Matthew Flatt on Sun, 27 Feb 2000 16:24:10 -0800)</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00503.html">200002271846.KAA00527@balu.qualcomm.com</A>&gt; &lt;<A HREF="msg00505.html">20000228002410.UGQG21637.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>Reply-To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;&gt;&gt;&gt;&gt; "MF" == Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+    MF&gt; So why *do* you use Scheme when Perl does everything already?
+
+    MF&gt; To me, it's an aesthetic and engineering argument. I use Scheme because
+    MF&gt; I belive the code will be more reliable, maintainable, and reusable.
+    MF&gt; Those benefits have a lot to do with the careful design of the
+    MF&gt; language.
+
+I started learning/using Scheme a month ago for exactly the same reasons and I
+am *NOT* disappointed. To make my case in favor of Scheme more understandable I
+would like to outline what is my agenda regarding Scheme.  We are designing and
+implementing simulation software to study wireless cellular networks. It is
+heavy number crunching. Therefore, the core of the simulator is programmed in
+C++ for efficiency. But simulator does not live all by itself. It needs some
+input data and it spits out lots of output. Thus, there is a need for a
+scripting language for pre/post processing of data.  Also one would like to use
+the simulator to quickly try out some new ideas and concepts. Therefore, it is
+beneficiary to have an embedded extension language which allows an engineer to
+play with cool stuff.
+
+Here is my arguments for Scheme:
+* nice, exact and concise advocacy found in your message goes here!
+* simple, yet powerful and well designed language
+* interpreted version is suitable for scripting 
+* can be relatively easy embedded in another application
+* relatively flat learning curve for doing simple things 
+
+Here is my personal and might be arguable observation: Perl code does not scale
+well when it comes to maintainability. It is very simple to write little Perl
+scripts but then the complexity builds exponentially with the number of lines in
+your Perl program. I am currently still have to use Perl but I am really looking
+forward to drop it down.
+
+Another aspect: I think that because of its better design one can extend and
+hand-tailor Scheme easier than Perl (not to mention Tcl).
+
+    MF&gt; The same aesthetic and engineering sense leads me to design decisions
+    MF&gt; in MzScheme that don't match the Unix way of doing things. Unix's
+    MF&gt; stream model is great in abstract, but the details are complex. It's
+    MF&gt; taken me *years* to really understand how things are supposed to work,
+    MF&gt; and I still find it difficult to write (and understand!) truly general
+    MF&gt; Unix I/O code. The key problem, I think, is that basic stream model has
+    MF&gt; been augmented in many ad hoc ways (for non-blocking I/O, movable
+    MF&gt; stream positions, etc.).
+
+We as People cannot isolate ourselves from our Society no matter how much we are
+dissatisfied with it. The same is applicable to Programming Languages and
+Operating Systems. Like it or not but a Programming Language cannot abstract
+itself away from the Operation System it is running upon unless it implements an
+OS in itself:-)
+
+    MF&gt; Using lseek on stdout? That sounds pretty strange. Actually, it seems
+    MF&gt; like a good example of where the Unix I/O model breaks down: many
+    MF&gt; strange things are possible since *some* streams have movable positions
+    MF&gt; tacked onto them.
+
+No it doesn't sound strange. You should not think of stdout as always being tied
+to a TTY.  Being seekable is a run-time property of a file descriptor. If file
+descriptor 1 (stdout) is connected to a regular file it is seekable, if to a
+pipe or a TTY it is not seekable. There are several practical situations when
+you would like to reposition your output stream. For example, when you write a
+sparse binary database file or a sparse hash table. It will be a disaster if I
+would try to use read/write copy-stream on several sparse files of about 500MB
+in size each.
+
+    MF&gt; To repeat the non-rant part of my message: I agree that it would be
+    MF&gt; great to have an extension that lets you do everything that is possible
+    MF&gt; in Unix. I'm very much in favor of a Scsh port, or other efforts in
+    MF&gt; that direction. I think that's what you're talking about, and we're
+    MF&gt; with you!
+    MF&gt; Matthew
+
+I perfectly understand that Unix is far from being good (less so perfect). But
+in today's situation people in the Unix/Linux community are mentally more
+receptive to new ideas and approaches than the folks from WinNT or Mac land
+(please, do not flame me:-).  IMHO one has better chances to recrute Scheme
+followers in the Unix/Linux camp than in other OS domains.  What do you think?
+
+thanks,
+-- Leo
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++  Leonid Razoumov,               +  E-mail: lrazoumov@qualcomm.com   +
++  Qualcomm Inc.,                 +  <A  HREF="http://www.qualcomm.com">http://www.qualcomm.com</A>          +
++  5775 Morehouse Drive,          +                                   +
++  San Diego, CA 92121-1714,      +  VOICE:  +1-858/651-5163          +
++        USA                      +    FAX:  +1-858/658-2113          +
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00508" HREF="msg00508.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00503" HREF="msg00503.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00505" HREF="msg00505.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00506.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00508.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00505.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00508.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00507"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00507"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

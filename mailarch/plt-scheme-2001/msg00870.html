@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Bugs &#38; Such Redux -->
+<!--X-From-R13: [vpunryZNsebtjner.pbz -->
+<!--X-Date: Wed, 5 Sep 2001 16:51:09 &#45;0600 (MDT) -->
+<!--X-Message-Id: OF4CD1177F.B21576CE&#45;ON85256ABE.007DBD80@frogware.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Bugs &amp; Such Redux</title>
+<link rev="made" href="mailto:MichaelL@frogware.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00869.html">Date Prev</a>][<a href="msg00871.html">Date Next</a>][<a href="msg00882.html">Thread Prev</a>][<a href="msg00873.html">Thread Next</a>][<a href="maillist.html#00870">Date Index</a>][<a href="threads.html#00870">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Bugs &amp; Such Redux</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Bugs &amp; Such Redux</li>
+<li><em>From</em>: <A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A></li>
+<li><em>Date</em>: Wed, 5 Sep 2001 18:56:25 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+*** This is a re-post, because there was no response to the first post. In
+particular, I can't current compile v199 under Visual C++; does anybody
+have any ideas? ***
+
+The following line hangs MzScheme 103:
+
+        (string-&gt;symbol (string (integer-&gt;char 255)))
+
+The problem is specifically a result of the &quot;255&quot; value.
+
+(It's a stripped down version of a line taken from Oleg Kiselyov's SSAX
+module. Because of this problem the module doesn't load.)
+
+On an unrelated note, there's a documentation bug in the mzc manual. In
+section 1.5, &quot;Native Code Optimization,&quot; there are two &quot;odd/even&quot; examples,
+one with letrec and one with letrec inside a unit. In both examples, the
+&quot;even&quot; lambda is missing the &quot;#t&quot; in the following lines:
+
+        [even (lambda (x)
+                (if (zero? x)
+                        #t
+                        (odd (sub1 x))))]
+
+The recently-modified page at <A  HREF="http://www.cs.utah.edu/plt/anoncvs/">http://www.cs.utah.edu/plt/anoncvs/</A> that
+describes how to grab source from cvs is missing the &quot;@&quot; between the user
+name and the server name: anonymous@anoncvs.plt-scheme.org.
+
+Finally, when I tried to compile the exp branch (with the newly broken-out
+dlls) I get a warning from Visual C++ that the dsp files are not valid; VC
+offers to wrap the dsp files, but the wrapped files don't work. I don't
+have this problem with 103, and I didn't used to have this problem with the
+exp branch; something changed--or now I'm doing something wrong.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00869.html">Re: Yet another feature request for the web-server</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00871.html">Re: Yet another feature request for the web-server</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00882.html">Re: Bugs &amp; Such</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00873.html">Activity Report of FSF China (fwd)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00870"><strong>Date</strong></a></li>
+<li><a href="threads.html#00870"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

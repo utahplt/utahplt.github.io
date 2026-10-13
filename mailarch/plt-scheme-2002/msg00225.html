@@ -1,0 +1,107 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Continuation safety -->
+<!--X-From-R13: Quevf Gmqnivavf <puevfNngqrfx.pbz> -->
+<!--X-Date: Fri, 8 Feb 2002 10:49:28 &#45;0700 (MST) -->
+<!--X-Message-Id: 200202081749.g18HnOV07792@plover.atdesk.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Continuation safety</title>
+<link rev="made" href="mailto:chris@atdesk.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00224.html">Date Prev</a>][<a href="msg00226.html">Date Next</a>][<a href="msg00223.html">Thread Prev</a>][<a href="msg00226.html">Thread Next</a>][<a href="maillist.html#00225">Date Index</a>][<a href="threads.html#00225">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Continuation safety</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Continuation safety</li>
+<li><em>From</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 8 Feb 2002 12:49:24 -0500</li>
+<li><em>In-Reply-To</em>: Matthew Flatt's message of &quot;Fri, 8 Feb 2002 09:54:59 -0700 (MST)&quot;</li>
+<li><em>Organization</em>: Automated Trading Desk, Inc.</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/21.1</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+I'm interested in writing Scheme code, but when it creates threads,
+opens files, and so on, what are the normal steps toward guaranteeing
+that they're freed?  I'm afraid that my code is in general lacking
+such robustness.
+
+I hear mention of custodians but don't really understand how to use
+them.  The PLT Scheme Language Manual dedicates less than 1/3 of a
+page to custodians, and I'm wondering where I could find introductary
+documentation for this concept, especially some kind of example of how
+and when to put them use, how to rely on them to solve a job, etc.  If
+I have to call (custodian-shutdown-all ...) in order to invoke a
+custodian, what prevents a continuation from bypassing that call too?
+
+Is a custodian the right way to make code continuation-safe?  What
+other techniques are used?
+
+Thanks very much in advance.
+
+-- 
+Chris
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00226" href="msg00226.html">Re: Continuation safety</a></strong>
+<ul><li><em>From:</em> &quot;Paul T. Graunke&quot; &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00224.html">Re: Saving Viewport in Bitmap or GIF?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00226.html">Re: Continuation safety</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00223.html">Re: What type of GC is used in PLT?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00226.html">Re: Continuation safety</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00225"><strong>Date</strong></a></li>
+<li><a href="threads.html#00225"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

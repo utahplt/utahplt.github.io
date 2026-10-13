@@ -1,0 +1,182 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Embebed Mzscheme -->
+<!--X-From-R13: cbpzNeay.vfg.hgy.cg (Bnhyb X. [ngbf) -->
+<!--X-Date: Tue, 7 May 2002 16:17:48 &#45;0600 (MDT) -->
+<!--X-Message-Id: 878z6vppog.fsf@localhost.localdomain -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87lmavq08j.fsf@localhost.localdomain -->
+<!--X-Reference: 15576.18129.568497.867553@vimes.home.rcc -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Embebed Mzscheme</title>
+<link rev="made" href="mailto:pocm@rnl.ist.utl.pt">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00862.html">Date Prev</a>][<a href="msg00864.html">Date Next</a>][<a href="msg00862.html">Thread Prev</a>][<a href="msg00864.html">Thread Next</a>][<a href="maillist.html#00863">Date Index</a>][<a href="threads.html#00863">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Embebed Mzscheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Richard Cobbe &lt;<A HREF="mailto:cobbe@airmail.net">cobbe@airmail.net</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Embebed Mzscheme</li>
+<li><em>From</em>: <A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A> (Paulo J. Matos)</li>
+<li><em>Date</em>: 07 May 2002 23:18:39 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00862.html">15576.18129.568497.867553@vimes.home.rcc</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00859.html">87lmavq08j.fsf@localhost.localdomain</a>&gt;&lt;<a href="msg00862.html">15576.18129.568497.867553@vimes.home.rcc</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.09 (Gnus v5.9.0) Emacs/21.2</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Thx alot Richard... Somehow I think mzscheme and mzgc libs are
+not enough... I get:
+bash-2.05$ gcc -o scheme scheme.o -L/usr/local/plt/lib/mzscheme -L/usr/local/plt/lib/mzgc
+scheme.o: In function `main':
+scheme.o(.text+0x7): undefined reference to `scheme_basic_env'
+scheme.o(.text+0x11): undefined reference to `scheme_current_thread'
+scheme.o(.text+0x36): undefined reference to `scheme_current_thread'
+scheme.o(.text+0x6e): undefined reference to `scheme_eval_string'
+scheme.o(.text+0x86): undefined reference to `scheme_display'
+scheme.o(.text+0x95): undefined reference to `scheme_char_constants'
+scheme.o(.text+0xa0): undefined reference to `scheme_display'
+collect2: ld returned 1 exit status
+
+But there are no more libs to link to... 
+I have scheme.h included in my .c... It's the only included one
+like in the example... 
+
+Best regards,
+
+Paulo
+
+&gt; Lo, on Tuesday, May 7, Paulo J. Matos did write:
+&gt; 
+&gt; &gt; Hi all,
+&gt; &gt; 
+&gt; &gt; Following the manual &quot;Inside MzScheme&quot; I've passed the example
+&gt; &gt; in the first pages just to test if embebeding mzscheme is fine in
+&gt; &gt; my PC... (I mean, if configs are ok) and I've found out that they
+&gt; &gt; are not. After compiling DrScheme to get libmzscheme.a and
+&gt; &gt; libmzgc.a as mentioned in the manual I've added
+&gt; &gt; /usr/local/plt/lib to LD_LIBRARY_PATH and ran ldconfig as root.
+&gt; &gt; Then I've tried to compile scheme.c (the file containing the
+&gt; &gt; example) and I get:
+&gt; &gt; bash-2.05$ gcc -o scheme scheme.o -lmzscheme -lmzgc
+&gt; &gt; /usr/i386-slackware-linux/bin/ld: cannot find -lmzscheme
+&gt; &gt; 
+&gt; &gt; This is indeed strange.
+&gt; 
+&gt; LD_LIBRARY_PATH is only relevant when you're running the built
+&gt; executable.  Try adding the -L switch to the compiler command line,
+&gt; specifying the directory where gcc should look for libraries: something
+&gt; like -L/usr/local/lib/plt/....  See the gcc man/info pages for more
+&gt; details.
+&gt; 
+&gt; &gt; However if I try to solve this by creating symbolic links to:
+&gt; &gt; libmzscheme.a, libmzscheme.la, libmzgc.a, libmzgc.la I get a LOT
+&gt; 
+&gt; The .la's are supplementary files created by libtool; you don't need
+&gt; those at all.  In any case, creating symlinks like this isn't the right
+&gt; answer; use the -L switch.
+&gt; 
+&gt; Incidentally, do libmzscheme.so and libmzgc.so not exist?  (I don't have
+&gt; PLT installed right now due to computer problems, so I can't check
+&gt; myself.)  If they do, you'll almost certainly want to use those
+&gt; instead.  Of course, if you supply the correct directory with the -L
+&gt; switch, the compiler will default to the shared libs over the statics.
+&gt; 
+&gt; &gt; of undefined reference... I've pasted a few:
+&gt; &gt; /usr/local/lib/libmzscheme.a(number.o): In function `exp_prim':
+&gt; &gt; /home/pdestroy/src/plt/src/mzscheme/src/./number.c:1375: undefined reference to `exp'
+&gt; &gt; /usr/local/lib/libmzscheme.a(number.o): In function `log_prim':
+&gt; &gt; /home/pdestroy/src/plt/src/mzscheme/src/./number.c:1376: undefined reference to `log'
+&gt; &gt; &lt;snip&gt;
+&gt; &gt; /home/pdestroy/src/plt/src/mzscheme/src/./dynext.c:235: undefined reference to `dlopen'
+&gt; &gt; /home/pdestroy/src/plt/src/mzscheme/src/./dynext.c:237: undefined reference to `dlerror'
+&gt; &gt; /home/pdestroy/src/plt/src/mzscheme/src/./dynext.c:251: undefined reference to `dlsym'
+&gt; 
+&gt; Check the man pages for the functions in question; they should tell you
+&gt; which additional libraries you need to link in.  exp and log are both in
+&gt; libm.so; dlopen, dlerror, and dlsym are all in libdl.so (at least on my
+&gt; Debian/stable system).  Add `-lm -ldl' to your command line.
+&gt; 
+&gt; HTH,
+&gt; 
+&gt; Richard
+&gt; 
+
+-- 
+Paulo J. Matos : pocm(_at_)rnl.ist.utl.pt
+Instituto Superior Tecnico - Lisbon    
+Software &amp; Computer Engineering - A.I.
+ - &gt; <A  HREF="http://www.rnl.ist.utl.pt/~pocm">http://www.rnl.ist.utl.pt/~pocm</A> 
+ ---	
+	Yes, God had a deadline...
+		So, He wrote it all in Lisp!
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00864" href="msg00864.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00859" href="msg00859.html">[plt-scheme] Embebed Mzscheme</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+<li><strong><a name="00862" href="msg00862.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+<ul><li><em>From:</em> Richard Cobbe &lt;cobbe@airmail.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00862.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00864.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00862.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00864.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00863"><strong>Date</strong></a></li>
+<li><a href="threads.html#00863"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

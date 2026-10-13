@@ -1,0 +1,115 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] Another newbie programming problem (MzScheme) -->
+<!--X-From-R13: Sevpu Dnfg <Sevpu.DnfgNg&#45;bayvar.qr> -->
+<!--X-Date: Thu, 13 Jun 2002 11:02:27 &#45;0600 (MDT) -->
+<!--X-Message-Id: a05111b01b92e7a35873b@[217.230.207.4] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] Another newbie programming problem (MzScheme)</title>
+<link rev="made" href="mailto:Erich.Rast@t-online.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01120.html">Date Prev</a>][<a href="msg01122.html">Date Next</a>][<a href="msg01120.html">Thread Prev</a>][<a href="msg01122.html">Thread Next</a>][<a href="maillist.html#01121">Date Index</a>][<a href="threads.html#01121">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] Another newbie programming problem (MzScheme)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: [plt-scheme] Another newbie programming problem (MzScheme)</li>
+<li><em>From</em>: Erich Rast &lt;<A HREF="mailto:Erich.Rast@t-online.de">Erich.Rast@t-online.de</A>&gt;</li>
+<li><em>Date</em>: Thu, 13 Jun 2002 19:01:55 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello,
+
+I'm stuck again with a problem, due to extensive lack of Scheme 
+programming experience. This time, I need to introduce top-level 
+class definitions by template. Here's a sample how I would introduce 
+top-level definitions:
+
+(require (lib &quot;class.ss&quot;))
+
+(define (test)
+   (let ((df-expr
+          '(define testclass% (class* Object% ()
+                                (public hello)
+                                (define (hello)
+                                  (display &quot;hello world&quot;))
+                                (super-instantiate ())))))
+     (eval df-expr (interaction-environment))))
+
+This seems to work.
+
+1st Question: Does this really work, or does it just seem to work by chance?
+
+Anyway, I have a whole bunch of class-names, their properties, their 
+methods and super classes and so on. Now I need to 'fill' each of 
+these class-defining data into a general class template that later 
+gets defined in the above way on demand.
+
+2nd Question: Is there a relatively easy way to  do this? What's the 
+right approach?
+
+Perhaps I should mention that I've read the MzScheme manual chapters 
+about syntax patterns and pattern matching, but wasn't yet able to 
+fully grasp them. That's why I ask.
+
+Best regards,
+
+Erich
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01120.html">[plt-scheme] Linux pre-release binaries back</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01122.html">[plt-scheme] list is moving</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01120.html">[plt-scheme] Linux pre-release binaries back</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01122.html">[plt-scheme] list is moving</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01121"><strong>Date</strong></a></li>
+<li><a href="threads.html#01121"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

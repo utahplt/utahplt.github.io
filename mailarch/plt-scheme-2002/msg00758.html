@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Get&#45;pure&#45;port aborts giving  error 10054 -->
+<!--X-From-R13: [vpunryZNsebtjner.pbz -->
+<!--X-Date: Mon, 15 Apr 2002 09:26:57 &#45;0600 (MDT) -->
+<!--X-Message-Id: OFCFE382CA.F35AE3EA&#45;ON85256B9C.00545D96@frogware.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Get-pure-port aborts giving  error 10054</title>
+<link rev="made" href="mailto:MichaelL@frogware.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00757.html">Date Prev</a>][<a href="msg00759.html">Date Next</a>][<a href="msg00756.html">Thread Prev</a>][<a href="msg00760.html">Thread Next</a>][<a href="maillist.html#00758">Date Index</a>][<a href="threads.html#00758">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Get-pure-port aborts giving  error 10054</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Get-pure-port aborts giving  error 10054</li>
+<li><em>From</em>: <A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A></li>
+<li><em>Date</em>: Mon, 15 Apr 2002 11:35:54 -0400</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+FYI, I noticed that on my W2K machine using IE 5.5 against the PLT web
+server and the sample web pages, some pages take a *long* time to
+&quot;complete&quot; downloading. Really, they don't complete--IE just times out.
+(The web page is loaded, but the icon keeps dancing for a while.) The dev
+branch had the same problem.
+
+Netscape 4.7 and Opera don't have this problem. They also don't have the
+market share. :-)
+
+This fix didn't patch *that* problem... but it looks like a similar kind of
+protocol issue. (I don't remember seeing this kind of thing with any of the
+other web servers on this machine.)
+
+
+
+                                                                                                                              
+                    Matthew Flatt                                                                                             
+                    &lt;mflatt@cs.utah.edu&gt;          To:     Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;                           
+                    Sent by:                      cc:     &lt;plt-scheme@fast.cs.utah.edu&gt;                                       
+                    owner-plt-scheme@fast.c       Subject:     Re: Get-pure-port aborts giving  error 10054                   
+                    s.utah.edu                                                                                                
+                                                                                                                              
+                                                                                                                              
+                    04/15/2002 10:30 AM                                                                                       
+                                                                                                                              
+                                                                                                                              
+
+
+
+
+At Sun, 14 Apr 2002 10:53:19 +0200, Jens_Axel_Søgaard wrote:
+&gt; The following expression aborts my program.
+&gt;
+&gt; &gt; (get-pure-port (string-&gt;url &quot;<A  HREF="http://www.tedgoff.com/mb/images/today.gif">http://www.tedgoff.com/mb/images/today.gif</A>
+&quot;))
+&gt; tcp-read: error reading (Unknown error; errno=10054)
+
+Looks like the URL library's HTTP client protocol has always been
+broken. It's using #\newline for end-of-line in the HTTP request
+header, instead of a #\return #\newline sequence. (Apparently, most
+HTTP servers are forgiving, but not the one at www.tedgeoff.com.)
+
+Fixed and exp-tagged in CVS.
+
+To repair 200alpha12, go to plt/collects/net/url-unit.ss and replace
+each of the two instances of
+    (newline client-&gt;server)
+with
+    (display &quot;\r\n&quot; client-&gt;server)
+
+Matthew
+
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00760" href="msg00760.html">RE: Get-pure-port aborts giving  error 10054</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00757.html">Re: creating scheme class instance inside a C++ extension</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00759.html">Re: Dynamic updating</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00756.html">Re: Get-pure-port aborts giving  error 10054</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00760.html">RE: Get-pure-port aborts giving  error 10054</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00758"><strong>Date</strong></a></li>
+<li><a href="threads.html#00758"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

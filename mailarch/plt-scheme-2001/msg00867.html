@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Yet another feature request for the web&#45;server -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Wed, 5 Sep 2001 09:34:48 &#45;0600 (MDT) -->
+<!--X-Message-Id: 863d62x6ya.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 864rqo5obe.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Reference: 871ylrub60.fsf@cloaked.freeserve.co.uk -->
+<!--X-Reference: 15248.8042.853925.412613@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Yet another feature request for the web-server</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00866.html">Date Prev</a>][<a href="msg00868.html">Date Next</a>][<a href="msg00859.html">Thread Prev</a>][<a href="msg00868.html">Thread Next</a>][<a href="maillist.html#00867">Date Index</a>][<a href="threads.html#00867">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Yet another feature request for the web-server</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Yet another feature request for the web-server</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: Wed, 05 Sep 2001 10:33:49 +0000</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00852.html">15248.8042.853925.412613@mojave.cs.cornell.edu</a>&gt; (EliBarzilay's message of &quot;Fri, 31 Aug 2001 19:36:10 -0400&quot;)</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma deMéxico</li>
+<li><em>References</em>: &lt;<a href="msg00849.html">864rqo5obe.fsf@biblio06.fciencias.unam.mx</a>&gt;&lt;<a href="msg00851.html">871ylrub60.fsf@cloaked.freeserve.co.uk</a>&gt;&lt;<a href="msg00852.html">15248.8042.853925.412613@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090004 (Oort Gnus v0.04) XEmacs/21.1 (Cuyahoga Valley)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Eli Barzilay &lt;eli@barzilay.org&gt; writes:
+
+Hi all,
+
+&gt; On Aug 31, Francisco Solsona wrote:
+&gt; &gt; So, the feature I'd like to see is a parameter, say:
+&gt;&gt;   webserver-output-port
+&gt;&gt; with the obvious value, so that I could send extra headers to the
+&gt;&gt; client, before returning the Xexpr the webserver is waiting for.
+&gt;
+&gt; I think that a much better approach is to have a parameter that
+&gt; accumulates output headers that you can use to add output lines to.
+&gt; Accessing the raw output stream might make many people shoot their
+&gt; feet.
+
+Right, lets forget about having access directly to the output stream.
+
+&gt; This is the approach I used in my webserver which began its life in
+&gt; the distant past as a hack of the PLT server (the tricky part is
+&gt; getting a parameter that has a single value across a single
+&gt; connection, without having shared parameters (which disappeared ages
+&gt; ago)).
+
+One obvious way to overcome this is to implement the META tag:
+
+<A  HREF="http://www.htmlhelp.com/reference/wilbur/head/meta.html">http://www.htmlhelp.com/reference/wilbur/head/meta.html</A>
+
+it would be simple enough to parse the (head ...) section of the
+Xexpr, in search of META tags to transform into headers.
+
+--Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00868" href="msg00868.html">Re: Yet another feature request for the web-server</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00849" href="msg00849.html">Yet another feature request for the web-server</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+<li><strong><a name="00851" href="msg00851.html">Re: Yet another feature request for the web-server</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+<li><strong><a name="00852" href="msg00852.html">Re: Yet another feature request for the web-server</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00866.html">Drscheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00868.html">Re: Yet another feature request for the web-server</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00859.html">Re: Yet another feature request for the web-server</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00868.html">Re: Yet another feature request for the web-server</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00867"><strong>Date</strong></a></li>
+<li><a href="threads.html#00867"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

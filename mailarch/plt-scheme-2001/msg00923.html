@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: URL structs  in cgi^ script -->
+<!--X-From-R13: "Bnhy F. Uenhaxr" <cgtNpf.oebja.rqh> -->
+<!--X-Date: Sat, 22 Sep 2001 17:05:04 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20010922190430.A12879@dulcimer.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c142e3$f811cc90$850a0a0a@amp2k -->
+<!--X-Reference: p05101006b7d173341046@[129.10.115.111] -->
+<!--X-Reference: 002201c143ad$03baedf0$6500a8c0@gregpwin2k -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: URL structs  in cgi^ script</title>
+<link rev="made" href="mailto:ptg@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00922.html">Date Prev</a>][<a href="msg00924.html">Date Next</a>][<a href="msg00922.html">Thread Prev</a>][<a href="msg00921.html">Thread Next</a>][<a href="maillist.html#00923">Date Index</a>][<a href="threads.html#00923">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: URL structs  in cgi^ script</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: URL structs  in cgi^ script</li>
+<li><em>From</em>: &quot;Paul T. Graunke&quot; &lt;<A HREF="mailto:ptg@cs.brown.edu">ptg@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 22 Sep 2001 19:04:30 -0400</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00922.html">002201c143ad$03baedf0$6500a8c0@gregpwin2k</a>&gt;; from pgreg14@qwest.net on Sat, Sep 22, 2001 at 02:24:50PM -0700</li>
+<li><em>References</em>: &lt;<a href="msg00919.html">000001c142e3$f811cc90$850a0a0a@amp2k</a>&gt; &lt;<a href="msg00920.html">p05101006b7d173341046@[129.10.115.111]</a>&gt; &lt;<a href="msg00922.html">002201c143ad$03baedf0$6500a8c0@gregpwin2k</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Sat, Sep 22, 2001 at 02:24:50PM -0700, Greg Pettyjohn wrote:
+&gt; I would like to be able to access the members of a struct from within a cgi^
+&gt; script. The problem is that the url struct procedures don't work the way I
+&gt; expect.
+&gt; (I'm using DrScheme v.103)
+
+The problem is that the server's compound unit and your cgi program's
+compound unit both link in different versions of the URL library.
+
+In version 103, you can either do something strange with the server's compound
+unit and the cgi program's compound unit to import the same copy of the URL
+library (probably through top-level definitions), or you can change the
+&quot;invoke&quot; expresssion in the server to include url^.  The later solution may
+be simpler, but it breaks other cgi programs.
+
+The (unreleased) version 200 port of the server doesn't have this
+problem due to the new module system.
+
+Paul
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00919" href="msg00919.html">debug, break, single-step</a></strong>
+<ul><li><em>From:</em> &quot;Masoud Pirnazar&quot; &lt;amp@apptek.com&gt;</li></ul></li>
+<li><strong><a name="00920" href="msg00920.html">Re: debug, break, single-step</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+<li><strong><a name="00922" href="msg00922.html">URL structs  in cgi^ script</a></strong>
+<ul><li><em>From:</em> &quot;Greg Pettyjohn&quot; &lt;pgreg14@qwest.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00922.html">URL structs  in cgi^ script</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00924.html">199.23</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00922.html">URL structs  in cgi^ script</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00921.html">Re: debug, break, single-step</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00923"><strong>Date</strong></a></li>
+<li><a href="threads.html#00923"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

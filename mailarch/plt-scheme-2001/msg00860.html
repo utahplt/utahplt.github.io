@@ -1,0 +1,97 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Bugs &#38; Such -->
+<!--X-From-R13: [vpunryZNsebtjner.pbz -->
+<!--X-Date: Sun, 2 Sep 2001 14:13:17 &#45;0600 (MDT) -->
+<!--X-Message-Id: OF11717769.C70A4650&#45;ON85256ABB.0067AF57@frogware.com -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Bugs &amp; Such</title>
+<link rev="made" href="mailto:MichaelL@frogware.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00859.html">Date Prev</a>][<a href="msg00861.html">Date Next</a>][<a href="msg00850.html">Thread Prev</a>][<a href="msg00875.html">Thread Next</a>][<a href="maillist.html#00860">Date Index</a>][<a href="threads.html#00860">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Bugs &amp; Such</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Bugs &amp; Such</li>
+<li><em>From</em>: <A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A></li>
+<li><em>Date</em>: Sun, 2 Sep 2001 16:15:36 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+
+<br><font size=2 face="sans-serif">The following line hangs MzScheme 103:</font>
+<br>
+<br><font size=2 face="sans-serif">&nbsp; &nbsp; &nbsp; &nbsp; (string-&gt;symbol (string (integer-&gt;char 255)))</font>
+<br>
+<br><font size=2 face="sans-serif">The problem is specifically a result of the &quot;255&quot; value.</font>
+<br>
+<br><font size=2 face="sans-serif">(It's a stripped down version of a line taken from Oleg Kiselyov's SSAX module. Because of this problem the module doesn't load.)</font>
+<br>
+<br><font size=2 face="sans-serif">On an unrelated note, there's a documentation bug in the mzc manual. In section 1.5, &quot;Native Code Optimization,&quot; there are two &quot;odd/even&quot; examples, one with letrec and one with letrec inside a unit. In both examples, the &quot;even&quot; lambda is missing the &quot;#t&quot; in the following lines:</font>
+<br>
+<br><font size=2 face="sans-serif">&nbsp; &nbsp; &nbsp; &nbsp; [even (lambda (x)</font>
+<br><font size=2 face="sans-serif">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (if (zero? x)</font>
+<br><font size=2 face="sans-serif">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #t</font>
+<br><font size=2 face="sans-serif">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; (odd (sub1 x))))]</font>
+<br>
+<br><font size=2 face="sans-serif">The recently-modified page at http://www.cs.utah.edu/plt/anoncvs/ that describes how to grab source from cvs is missing the &quot;@&quot; between the user name and the server name: </font><font size=3 face="Courier New">anonymous@anoncvs.plt-scheme.org</font><font size=2 face="sans-serif">.</font>
+<br>
+<br><font size=2 face="sans-serif">Finally, when I tried to compile the exp branch (with the newly broken-out dlls) I get a warning from Visual C++ that the dsp files are not valid; VC offers to wrap the dsp files, but the wrapped files don't work. I don't have this problem with 103, and I didn't used to have this problem with the exp branch; something changed--or now I'm doing something wrong.</font>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00875" href="msg00875.html">Re: Bugs &amp; Such</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00859.html">Re: Yet another feature request for the web-server</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00861.html">Re: Hard of thinking using schemeql</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00850.html">Call for Papers: CLPSE'01 Workshop</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00875.html">Re: Bugs &amp; Such</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00860"><strong>Date</strong></a></li>
+<li><a href="threads.html#00860"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

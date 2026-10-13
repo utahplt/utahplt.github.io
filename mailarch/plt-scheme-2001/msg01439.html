@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: module questions -->
+<!--X-From-R13: [vpunry Hnavre <zinavreNooo.pnygrpu.rqh> -->
+<!--X-Date: Fri, 28 Dec 2001 01:43:37 &#45;0700 (MST) -->
+<!--X-Message-Id: 20011228084333.D6FC85E0ED@sith.bbb.caltech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>module questions</title>
+<link rev="made" href="mailto:mvanier@bbb.caltech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01438.html">Date Prev</a>][<a href="msg01440.html">Date Next</a>][<a href="msg01438.html">Thread Prev</a>][<a href="msg01442.html">Thread Next</a>][<a href="maillist.html#01439">Date Index</a>][<a href="threads.html#01439">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>module questions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: module questions</li>
+<li><em>From</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 28 Dec 2001 00:43:33 -0800 (PST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+I've been working with the new PLT scheme module system extensively for
+about the last week, and in general it's been pretty pleasant.  I have one
+simple question and a couple other issues I'd like to discuss.
+
+The simple question is: is there a simple way to provide all the bindings
+from a module?  Or is that simply the default when you don't supply a
+provide statement?  Typically my modules export most or all of the
+functions they define, so explicitly specifying each function in a provide
+statement is tedious.
+
+The more complicated issue relates to mutually-recursive modules, which are
+not allowed in PLT scheme.  I got slightly burned on this and had to
+partition some code in ways other than what I wanted to avoid the mutual
+recursion (ocaml has the same issue).  Now, on the one hand I realize that
+if you have a lot of mutual recursion between modules, it suggests a level
+of interdependency that means that you really should only have one module
+(in my case, though, it was just a single function that caused the
+problem).  On the other hand, sometimes groups of functions that are
+mutually recursive solve conceptually different kinds of problems and it's
+desirable to have them divided up into separate files just to keep them
+straight in your mind.  I guess what would be ideal given this is something
+like the java package mechanism, where the notions of module (package) and
+file are kept separate.
+
+So: is there any deep reason for wanting to maintain this
+one-module-one-file organization, or is it just out of convenience?
+
+Mike
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01442" href="msg01442.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01438.html">curses and ncurses</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01440.html">[Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01438.html">curses and ncurses</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01442.html">Re: module questions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01439"><strong>Date</strong></a></li>
+<li><a href="threads.html#01439"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

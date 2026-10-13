@@ -1,0 +1,142 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Question on Multithreading from C API -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Wed, 3 Jan 2001 14:06:23 &#45;0700 (MST) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C676701493C3C@THRESHER -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Question on Multithreading from C API</title>
+<link rev="made" href="mailto:brent.fulgham@xpsystems.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00014.html">Date Prev</a>][<a href="msg00016.html">Date Next</a>][<a href="msg00014.html">Thread Prev</a>][<a href="msg00016.html">Thread Next</a>][<a href="maillist.html#00015">Date Index</a>][<a href="threads.html#00015">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Question on Multithreading from C API</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Question on Multithreading from C API</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 3 Jan 2001 13:04:48 -0800 </li>
+<li><em>Cc</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; One other approach is to wrap some scheme code around each request:
+&gt; 
+&gt;    (let ([v #f])
+&gt;      ... code to retrieve value ...
+&gt;      (thread
+&gt;        (lambda ()
+&gt;          (set! v ...)))
+&gt; 
+&gt; Would something like that work for you?
+&gt;
+
+Maybe.  Since I'm in C at the point the request is being made, I'm
+thinking in terms of something like this (pseudocode):
+
+Scheme_Object* my_special_signal(int argc, Scheme_Object** argv)
+{
+	// Based on its first argument (which is the value returned by
+	// scheme_thread), look up the appropriate condition
+	// variable
+	// Do the usual checking
+	if (!	SCHEME_SOMETHINGP(argv[0]))
+		scheme_raise_exn(blah blah);
+
+	sRequest* req = lookup_struct(argv[0]);
+	req-&gt;result = // result part of argv[1], which
+			// should check exceptions, etc.
+	
+	pthread_condition(&amp;done_var);	// Signal the waiter
+
+	return scheme_void;
+}
+
+(&quot;my_special_signal&quot; is registered as arity 2, etc.)
+
+All code goes through this thunk:
+
+char *e = 
+      &quot;(#%lambda (thunk) &quot;
+        &quot;(#%with-handlers ([#%void (#%lambda (exn) (#%cons #f exn))]) &quot;
+          &quot;(#%cons #t (thunk))))&quot;;
+
+It seems like I should be able to modify this to call the global &quot;signal&quot;
+method.  Unforunately, I'm not very familiar with Scheme's macro system
+yet, so this may be wrong:
+
+char* e =
+	&quot;(#%lambda (thunk) &quot;
+		&quot;(#%my-special-signal (#%get-my-thread-id)
+			&quot;(#%with-handlers ([#%void (#%lambda (exn) (#%cons
+#f exn))]) &quot;
+			&quot;(#%cons #t (thunk)))))&quot;;
+ 
+And &quot;get-my-thread-id&quot; is either already defined in MzScheme (I'll have to
+check the manuals), or could be simply defined as a C function.
+
+Does this look right?
+
+-Brent
+	
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00016" href="msg00016.html">RE: Question on Multithreading from C API</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00014.html">Re: Question on Multithreading from C API</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00016.html">RE: Question on Multithreading from C API</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00014.html">Re: Question on Multithreading from C API</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00016.html">RE: Question on Multithreading from C API</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00015"><strong>Date</strong></a></li>
+<li><a href="threads.html#00015"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: process* in MSDOS (Win 95) ? -->
+<!--X-From-R13: Hnequna Hnezn <inequnaNpnqrapr.pbz> -->
+<!--X-Date: Tue, 25 Jul 2000 21:08:34 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14718.21889.56860.249541@gargle.gargle.HOWL -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200007251851.MAA24233@fast.cs.utah.edu -->
+<!--X-Reference: 397DEAAF.4AF5@mastnet.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>process* in MSDOS (Win 95) ?</title>
+<link rev="made" href="mailto:vardhan@cadence.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00406.html">Date Prev</a>][<a href="msg00408.html">Date Next</a>][<a href="msg00411.html">Thread Prev</a>][<a href="msg00409.html">Thread Next</a>][<a href="maillist.html#00407">Date Index</a>][<a href="threads.html#00407">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>process* in MSDOS (Win 95) ?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:jclonts@mastnet.net">jclonts@mastnet.net</A></li>
+<li><em>Subject</em>: process* in MSDOS (Win 95) ?</li>
+<li><em>From</em>: Vardhan Varma &lt;<A HREF="mailto:vardhan@cadence.com">vardhan@cadence.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 26 Jul 2000 08:36:37 +0531 (IST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00405.html">397DEAAF.4AF5@mastnet.net</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00404.html">200007251851.MAA24233@fast.cs.utah.edu</a>&gt;&lt;<a href="msg00405.html">397DEAAF.4AF5@mastnet.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+       On windows 9x, there are problems with catching outputs of
+process. if A ( scheme ) invokes B (command.com ) which invokes
+C(a.exe), then A can't catch output of C !!
+
+       This may or may not be related to this problem, depending
+       on if process* uses command.com or not.
+
+Detail:
+        All this because command.com is a 16 bit application,
+        Soln: avoid command.com somehow,
+        or get a 32 bit command interpreter,  ( zsh, tcsh, 4dos?)
+
+
+        This is on basis of what i discovered couple of years back,
+        some or more of this may be wrong.
+--Vardhan       
+
+John Clonts writes:
+ &gt; Whenever I try to read from the stdout of a process*, it returns #&lt;eof&gt;.
+ &gt; 
+ &gt; To wit:
+ &gt; 
+ &gt; (define cmd &quot;d:\\djgpp\\johnsrc\\misc\\a.exe&quot;)
+ &gt; (define ports (process* cmd))
+ &gt; (define (status) ((list-ref ports 4) 'status))
+ &gt; (define (readnext)(read (car ports)))
+ &gt; 
+ &gt; &gt; (status)
+ &gt; done-ok
+ &gt; &gt; (readnext)
+ &gt; #&lt;eof&gt;
+ &gt; 
+ &gt; 
+ &gt; (My a.exe writes &quot;hello\nworld&quot; to stdout).
+ &gt; 
+ &gt; Is this a limitation, bug, or am I misusing this facility in some way?
+ &gt; 
+ &gt; Cheers,
+ &gt; John
+ &gt; 
+ &gt; P.S. DrScheme 101
+ &gt; 
+
+-- 
+Vardhan Varma &lt;vardhan@cadence.com&gt;  +91-118-4562842 Extn / VMail: 4123
+Random Quote: Whenever you stop to think, don't forget to start.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00409" href="msg00409.html">Re: process* in MSDOS (Win 95) ?</a></strong>
+<ul><li><em>From:</em> John Clonts &lt;jclonts@mastnet.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00404" href="msg00404.html">I/O bugs</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00405" href="msg00405.html">process* in MSDOS (Win 95) ?</a></strong>
+<ul><li><em>From:</em> John Clonts &lt;jclonts@mastnet.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00406.html">Re: process* in MSDOS (Win 95) ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00408.html">Re: process* in MSDOS (Win 95) ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00411.html">[SOLVED] process* in MSDOS (Win 95) ?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00409.html">Re: process* in MSDOS (Win 95) ?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00407"><strong>Date</strong></a></li>
+<li><a href="threads.html#00407"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

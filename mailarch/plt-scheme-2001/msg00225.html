@@ -1,0 +1,195 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: good books on scheme? -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Tue, 6 Feb 2001 10:19:15 &#45;0700 (MST) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C676701683A96@thresher.corp.xpsystems.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: good books on scheme?</title>
+<link rev="made" href="mailto:brent.fulgham@xpsystems.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00224.html">Date Prev</a>][<a href="msg00226.html">Date Next</a>][<a href="msg00223.html">Thread Prev</a>][<a href="msg00226.html">Thread Next</a>][<a href="maillist.html#00225">Date Index</a>][<a href="threads.html#00225">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: good books on scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Tim Hanson &lt;<A HREF="mailto:tbhanson@gmx.de">tbhanson@gmx.de</A>&gt;</li>
+<li><em>Subject</em>: RE: good books on scheme?</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 6 Feb 2001 09:19:14 -0800 </li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I think one final problem is that SICP makes the point that there
+are conflicting definitions of &quot;closure&quot;.  Some of the books missing
+the term &quot;closure&quot; from the index might have used a different term
+so as not to confuse it with the &quot;mathematical&quot; definition, which
+(from memory) says  something to the effect that a function that
+acts on a set returns data from that same set -- which allows you
+to apply functions to other functions.
+
+Someone else can probably explain this better than I can.  I don't
+have any of those books with me right now.
+
+Can anyone clean up that mess of a paragraph above?
+
+Thanks,
+
+-Brent
+
+&gt; -----Original Message-----
+&gt; From: Michael Bogomolny [<A  HREF="mailto:bogo@bigfoot.com">mailto:bogo@bigfoot.com</A>]
+&gt; Sent: Tuesday, February 06, 2001 7:56 AM
+&gt; To: Tim Hanson
+&gt; Cc: plt-scheme@fast.cs.utah.edu
+&gt; Subject: Re: good books on scheme?
+&gt; 
+&gt; 
+&gt; a lambda expression (i.e. a procedure definition) returns a *closure*,
+&gt; capturing the environment in which it was defined so that it can
+&gt; execute in that environment when called.
+&gt; 
+&gt; example:
+&gt; (define (make-counter)
+&gt;   (let ((x 0))
+&gt;      (lambda () 
+&gt;         (set! x (add1 x))
+&gt;         x)))
+&gt; 
+&gt; make-counter returns a procedure that, when called, increments the
+&gt; value of its local variable x each time. Several procedures can be
+&gt; defined using make-counter, but each one has access to its own local
+&gt; x.
+&gt; 
+&gt; &gt; (define counter1 (make-counter))
+&gt; &gt; (define counter1 (make-counter))
+&gt; &gt; (counter1)
+&gt; 1
+&gt; &gt; (counter1)
+&gt; 2
+&gt; &gt; (counter2)
+&gt; 1
+&gt; &gt; (counter1)
+&gt; 3
+&gt; 
+&gt; 
+&gt; if you like &quot;The Little Schemer&quot; you should probably check out
+&gt; &quot;essentials of programming languages&quot; by Daniel Friedman, 
+&gt; Mitchell Wand, and
+&gt; Christopher Haynes. A new edition was just released by MIT Press. I
+&gt; haven't had a chance to evaluate it yet, though, so I can't comment on
+&gt; it's quality.
+&gt; 
+&gt; From a teaching perspective, Concrete Abstractions (Hailperin, Kaiser,
+&gt; Knight; Brooks/Cole Publishing Company) and Simply Scheme (Harvey and
+&gt; Wright; MIT Press) are both good books. However, they both fail the
+&gt; &quot;closure test&quot;. Interesting enough, Essentials of Programming
+&gt; Languages *does* have it listed, though.
+&gt; 
+&gt; Also failing the &quot;closure test&quot; is the r5rs standards!
+&gt; 
+&gt; -bogo
+&gt; 
+&gt; 
+&gt; On Feb 06, 2001 11:59, Tim Hanson wrote:
+&gt; | hi, I read SICP a number of years ago and was mostly 
+&gt; delighted, in stark
+&gt; | contrast to a number of unimpressed reviewers cited in this 
+&gt; space in the past
+&gt; | couple weeks! :)
+&gt; | 
+&gt; | my scheme skills, however, have atrophied considerably in 
+&gt; the past few
+&gt; | years, during which time I've been paid to do more 
+&gt; &quot;scripting&quot; using ksh, awk,
+&gt; | perl, and more recently MS's &quot;windows script host&quot; and 
+&gt; &quot;active server pages.&quot;
+&gt; | 
+&gt; | i tried to follow a recent discussion which mentioned tail 
+&gt; recursion and
+&gt; | closures. i remember tail recursion from SICP, but had 
+&gt; forgotten what a closure
+&gt; | is and I didn't find it in the index of my old copy (nor in 
+&gt; the index of &quot;the
+&gt; | little schemer&quot;, the only other book on scheme I have. ah, 
+&gt; wait! the latter
+&gt; | has &quot;apply-closure&quot; and I find what I wanted to know: a 
+&gt; closure is &quot;a
+&gt; | non-primitive function&quot;?)
+&gt; | 
+&gt; | i was going to ask: can folks recommend good books on 
+&gt; scheme, including ones
+&gt; | that define &quot;closure.&quot; i guess I can still ask that and can 
+&gt; also appeal to
+&gt; | the authors among you to include it in the index in your 
+&gt; next editions! :)
+&gt; | 
+&gt; | cheers,
+&gt; | 
+&gt; | Tim Hanson
+&gt; | 
+&gt; | -- 
+&gt; | Sent through GMX FreeMail - <A  HREF="http://www.gmx.net">http://www.gmx.net</A>
+&gt; | 
+&gt; 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00226" href="msg00226.html">Re: good books on scheme?</a></strong>
+<ul><li><em>From:</em> Max Hailperin &lt;max@gac.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00224.html">Re: programming languages as a core topic</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00226.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00223.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00226.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00225"><strong>Date</strong></a></li>
+<li><a href="threads.html#00225"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

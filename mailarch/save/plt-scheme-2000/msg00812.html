@@ -1,0 +1,189 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Making MzScheme extensions using VC++ 5.0? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Fri, 4 Aug 2000 12:53:34 &#45;0600 (MDT) -->
+<!--X-Message-Id: 398B1289.4DC3876A@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Making MzScheme extensions using VC++ 5.0?</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00811.html">Date Prev</A>][<A HREF="msg00813.html">Date Next</A>][<A HREF="msg00811.html">Thread Prev</A>][<A HREF="msg00817.html">Thread Next</A>][<A HREF="maillist.html#00812">Date Index</A>][<A HREF="threads.html#00812">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Making MzScheme extensions using VC++ 5.0?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Making MzScheme extensions using VC++ 5.0?</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 04 Aug 2000 14:59:21 -0400</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+(I mentioned this issue in a previous post, but I tried again and
+thought I'd ask the question more directly with more information.)
+
+I'm having difficulties compiling an extension for MzScheme.
+It's basically the "Hello World" extension from the documentation.
+
+I have Microsoft Visual C++ 5.0 installed under NT 4.0 SP 3. 
+No SP installed for VC++ 5.0 I think 
+(although there is a 100MB one from Microsoft).
+(I know there is a VC 6.0, but I'm trying to avoid sending Redmond more
+money than I have to.)
+
+Using, mzc the file compiles OK, but in the link stage I get:
+.\mzdyn.obj : error : Internal error during Pass1
+
+So, I made my own project to build an Win32 DLL.
+I left the default options for everything.
+One exception, I got this link warning for the debug version:
+LINK : warning 
+LNK4098: defaultlib "LIBC" conflicts with use of other libs; use
+/NODEFAULTLIB:library
+
+So, I added
+LIBC
+under Link: 
+Catagory: Input
+to "Ignore Libraries" field.
+
+I am now able to build a DLL using the debug settings. Under release, I
+get the same error as before under mzc:
+  .\mzdyn.obj : error : Internal error during Pass1
+
+Trying to load this Debug verion of the DLL, 
+(load-extension "c:/PdfScheme/TestDll.dll")
+I got a load error from DrScheme:
+
+load-extension: "c:/PdfScheme/TestDll.dll" is not an extension (The
+specified procedure could not be found.; errno=127)
+
+I look at the DLL some more, and try this:
+"g:/program Files/devstudio/vc/bin/dumpbin.exe" /exports 
+debug/testdll.dll
+which shows me that there are no exported functions in the DLL.
+
+I look at "escheme.h" and it only declares the two core functions
+"extern". There is no declaration for Win32 that they are exported from
+a DLL.
+
+So I modify the code to be the following:
+
+===============================================
+#define SCHEME_DIRECT_EMBEDDED 0
+#include "c:\plt\collects\mzscheme\include\scheme.h"
+extern __declspec( dllexport ) Scheme_Object
+*scheme_initialize(Scheme_Env *global_env);
+extern __declspec( dllexport ) Scheme_Object *scheme_reload(Scheme_Env
+*global_env);
+
+//#include "c:\plt\collects\mzscheme\include\escheme.h"
+
+Scheme_Object *scheme_reload(Scheme_Env *env)
+{
+  /* When the extension is loaded, return a Scheme string: */
+  return scheme_make_string("Hello, world!");
+}
+
+Scheme_Object *scheme_initialize(Scheme_Env *env)
+{
+  /* First load is same as every load: */
+  return scheme_reload(env);
+}
+======================================================
+
+This builds under Debug (same error still for release), but DrScheme
+still gives me:
+ 
+load-extension: "c:/PdfScheme/TestDll.dll" is not an extension (The
+specified procedure could not be found.; errno=127)
+
+when I try to load it. I tried shutting down DrScheme (do I have to on a
+second try if the first failed?) and trying the load again, but still
+the same error.
+
+Any suggestions?  It seems that the "escheme.h" header is insufficient
+for Windows. I think the alternative is to have a seperate export file,
+so maybe mzc fools the linker with some sort of other approach somehow
+and then the header may be adequate.
+
+Any suggestions how to proceed from this point?
+
+Does anyone have a complete stand-alone simple project to build a DLL
+that works under VC 5.0 I could try?
+
+Or is it time to switch to GCC? If so, can someone first confirm it does
+work under GCC for Win NT? I would think the dllexport would still be
+needed even then in the declaration (although I've only used GCC for
+other platforms than Win32).
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00817" HREF="msg00817.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00839" HREF="msg00839.html">Any Other Lists?</A></STRONG>
+<UL><LI><EM>From:</EM> Joey Gibson &lt;joeyGibson@mindspring.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00811.html">Database-friendly file primitives in 103? (set-size, read-buffer, lock, etc.)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00813.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00811.html">Database-friendly file primitives in 103? (set-size, read-buffer, lock, etc.)</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00817.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00812"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00812"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

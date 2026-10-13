@@ -1,0 +1,180 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: peasant revolt against DrScheme! -->
+<!--X-From-R13: [vpunry Hnavre <zinavreNooo.pnygrpu.rqh> -->
+<!--X-Date: Tue, 23 Jan 2001 00:34:22 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010123071953.A2A795E0E9@sith.bbb.caltech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E4C0D8267DAA6141B77F1A4EAAEB2B91BE3DCB@seapriv1 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: peasant revolt against DrScheme!</title>
+<link rev="made" href="mailto:mvanier@bbb.caltech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00081.html">Date Prev</a>][<a href="msg00083.html">Date Next</a>][<a href="msg00078.html">Thread Prev</a>][<a href="msg00089.html">Thread Next</a>][<a href="maillist.html#00082">Date Index</a>][<a href="threads.html#00082">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: peasant revolt against DrScheme!</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A></li>
+<li><em>Subject</em>: Re: peasant revolt against DrScheme!</li>
+<li><em>From</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 22 Jan 2001 23:19:53 -0800 (PST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00078.html">E4C0D8267DAA6141B77F1A4EAAEB2B91BE3DCB@seapriv1</a>&gt; (message fromGreg Pettyjohn on Mon, 22 Jan 2001 19:23:36 -0800)</li>
+<li><em>References</em>: &lt;<a href="msg00078.html">E4C0D8267DAA6141B77F1A4EAAEB2B91BE3DCB@seapriv1</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; X-Authentication-Warning: fast.cs.utah.edu: majordom set sender to owner-plt-scheme@flux.cs.utah.edu using -f
+&gt; From: Greg Pettyjohn &lt;GregP@bsquare.com&gt;
+&gt; Date: Mon, 22 Jan 2001 19:23:36 -0800
+&gt; Content-Type: text/plain;
+&gt; 	charset=&quot;iso-8859-1&quot;
+&gt; Sender: owner-plt-scheme@fast.cs.utah.edu
+&gt; Precedence: bulk
+&gt; 
+&gt; &gt; On the other hand, I can understand why people who have no interest in
+&gt; &gt; programming except as a practical tool might balk at learning 
+&gt; &gt; scheme, which
+&gt; &gt; is clearly not the most used language in practical contexts.  
+&gt; &gt; I think the
+&gt; &gt; long-term solution to this is to have more useful programs 
+&gt; &gt; that use scheme
+&gt; &gt; as a scripting language, which will hopefully change the outdated
+&gt; &gt; perception of scheme as an &quot;academic language&quot;.
+&gt; 
+&gt; What is a &quot;scripting language&quot;? I think that the category &quot;scripting
+&gt; language&quot;
+&gt; is defined more by it's constituents than by anything else i.e. Perl,
+&gt; JScript,
+&gt; VB, Python et al. May I suggest that Scheme is not just a &quot;scripting
+&gt; language&quot;.
+
+I agree that scheme is not _just_ a scripting language.  My point was that
+it is eminently suitable for the kind of tasks that people use scripting
+languages for (areas where flexibility and rapid development are much more
+important than raw performance), and so scheme, and particularly mzscheme,
+can be used effectively in this area.  The advantage is enormous: the
+flexibility provided by scheme is so great that the incentive to invent Yet
+Another Lame Scripting Language will (I hope) be vastly reduced.  Put
+another way, once they've tasted the power of scheme why would they want to
+go back to perl, python, etc.?  Even the syntactic issue can (in principle)
+be handled by some kind of translator(s) to tide people over until they
+understand why scheme syntax is actually the Right Thing (TM).
+
+&gt; 
+&gt; The whole notion of a &quot;scripting language&quot; rests on the assumption that the
+&gt; underlying
+&gt; functionality has been provided by a layer written in, most likely C. With
+&gt; this
+&gt; assumption, there's really no point doing your scripting in Scheme.
+
+I disagree here.  Scripting languages traditionally do provide good
+interfaces to code written in C/C++, as does mzscheme.  This is very
+important for time-critical aspects of many programs.  Of course,
+conceivably you might use a scheme compiler to generate highly optimized C
+code for speed -- or you may write the C/C++ code directly.  It's your
+choice.  Regardless, typical &quot;scripted&quot; applications have a large fraction
+of the code written in the scripting language, for the more mutable and/or
+user-configurable parts of the application.
+
+Side note: a course that taught students scheme, then C/C++, then linking
+them together would be very cool and eminently practical.  Students would
+probably hate it, though :-)
+
+&gt; OK, let me elaborate:
+&gt; Who cares that your Scheme script won't crash? The underlying dll *will*
+&gt; crash,
+&gt; and so it really doesn't matter how safe Scheme is, your system is still
+&gt; unstable.
+&gt; 
+&gt; Who cares that your Scheme script has a garbage collector? The underlying
+&gt; dll was written
+&gt; in C, so it leaks memory just the same.
+&gt; 
+
+True, but you can write C code that won't crash or leak memory -- it's just
+much harder.  Safety is important, but raw speed is also important for many
+tasks.
+
+&gt; So now that I've bombarded you all with annoying riddles, allow me to make a
+&gt; coherent point:
+&gt; 
+&gt; A programming language defines an implicit abstract opperating system and
+&gt; the reverse
+&gt; is also true, an opperating system defines an implicit abstract programming
+&gt; language.
+&gt; 
+&gt; The &quot;killer app&quot; won't be a scripting application. It will be an application
+&gt; of
+&gt; Scheme as a high level OS.
+&gt; 
+
+That would be cool too.  These are not mutually exclusive.
+
+Mike
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00089" href="msg00089.html">Re: peasant revolt against DrScheme!</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00078" href="msg00078.html">RE: peasant revolt against DrScheme!</a></strong>
+<ul><li><em>From:</em> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00081.html">Re: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00083.html">Re: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00078.html">RE: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00089.html">Re: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00082"><strong>Date</strong></a></li>
+<li><a href="threads.html#00082"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Dynamic updating -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Fri, 12 Apr 2002 17:17:39 &#45;0600 (MDT) -->
+<!--X-Message-Id: 024e01c1e278$4b12ca00$0a00a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3CB75182.5030003@entricom.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Dynamic updating</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00742.html">Date Prev</a>][<a href="msg00744.html">Date Next</a>][<a href="msg00742.html">Thread Prev</a>][<a href="msg00744.html">Thread Next</a>][<a href="maillist.html#00743">Date Index</a>][<a href="threads.html#00743">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Dynamic updating</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Bruce Butterfield&quot; &lt;<A HREF="mailto:bab@entricom.com">bab@entricom.com</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Dynamic updating</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 12 Apr 2002 19:18:02 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00742.html">3CB75182.5030003@entricom.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;  &gt;Lisp allows you to enter a running image, build up a lot of state by
+&gt;  &gt;running programs, and then at that point load new definitions. This
+&gt;  &gt;gives product maintainers the powerful ability to have customers load
+&gt;  &gt;patches that can fix bugs in running programs without requiring those
+&gt;  &gt;programs to be exited. The value to a customer in some situations can
+&gt;  &gt;be immeasurable.
+&gt;
+&gt; In hopes of not starting any language wars on this very high S/N mailing
+&gt; list I would like to know if this is a property of CL itself or is this
+&gt; possible in mzscheme as well?
+
+MzScheme does this just fine.  Comes in very handy when debugging
+server-style applications, since you can modify code without restarting the
+server.  The applications for runtime behavior modification go way beyond
+that, though.
+
+Here's a little demo, which redefines a function being used by a running
+thread:
+
+; peephole is global variable to see what's going on in our thread
+(define peephole 0)
+
+; peek is a function to display a few snapshots of peephole
+(define (peek)
+  (do ((n 4 (- n 1)))
+    ((zero? n))
+    (sleep 0.1)
+    (display peephole)(newline)))
+
+; looper loops and repeatedly updates peephole
+; with the value of a function named &quot;bar&quot;
+(define (looper) (set! peephole (bar peephole)) (looper))
+
+; the initial version of bar
+(define (bar x) (+ x 1))
+
+; start running the looper function in a separate thread
+(define loop (thread looper))
+
+; take a look at what we can see through the peephole
+; should print a few numbers
+(peek)
+
+; redefine bar
+(define (bar x) &quot;MzScheme rules!&quot;)
+
+; take another peek to see the effect of redefining bar
+; should print a statement of fact
+(peek)
+
+; stop the thread
+(kill-thread loop)
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00744" href="msg00744.html">Re: Dynamic updating</a></strong>
+<ul><li><em>From:</em> Bruce Butterfield &lt;bab@entricom.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00742" href="msg00742.html">Dynamic updating</a></strong>
+<ul><li><em>From:</em> Bruce Butterfield &lt;bab@entricom.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00742.html">Dynamic updating</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00744.html">Re: Dynamic updating</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00742.html">Dynamic updating</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00744.html">Re: Dynamic updating</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00743"><strong>Date</strong></a></li>
+<li><a href="threads.html#00743"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

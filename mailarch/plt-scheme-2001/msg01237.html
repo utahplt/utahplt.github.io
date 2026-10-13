@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: R: Crash exiting DrScheme -->
+<!--X-From-R13: "[nhevmvb Treerven" <sreervenNfryrfgn.vg> -->
+<!--X-Date: Fri, 23 Nov 2001 09:34:43 &#45;0700 (MST) -->
+<!--X-Message-Id: 000d01c1743c$e6492e60$7800a8c0@selesta.it -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000501c17423$0e088000$7800a8c0@selesta.it -->
+<!--X-Reference: 200111231605.JAA26821@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>R: Crash exiting DrScheme</title>
+<link rev="made" href="mailto:ferreira@selesta.it">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01236.html">Date Prev</a>][<a href="msg01238.html">Date Next</a>][<a href="msg01236.html">Thread Prev</a>][<a href="msg01238.html">Thread Next</a>][<a href="maillist.html#01237">Date Index</a>][<a href="threads.html#01237">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>R: Crash exiting DrScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matthew Flatt&quot; &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: R: Crash exiting DrScheme</li>
+<li><em>From</em>: &quot;Maurizio Ferreira&quot; &lt;<A HREF="mailto:ferreira@selesta.it">ferreira@selesta.it</A>&gt;</li>
+<li><em>Date</em>: Fri, 23 Nov 2001 17:35:45 +0100</li>
+<li><em>Cc</em>: &quot;plt-scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01235.html">000501c17423$0e088000$7800a8c0@selesta.it</a>&gt; &lt;<a href="msg01236.html">200111231605.JAA26821@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting: Matthew Flatt
+
+&gt; I've fixed this problem in the latest source (exp-tagged in CVS), at
+&gt; least for the crash I see in Win98.
+&gt;
+&gt; I don't understand exactly why the crash happens. DrScheme crashes
+&gt; *after* it calls _exit(), which is supposed to terminate the program
+&gt; without doing anything else. MzScheme also calls _exit().
+&gt;
+I don't know if this is the case, but sometimes Windows Sends a wm_size
+message
+to a window even after having sent to it a wm_destroy message.
+I'm not sure if this message goes through the normal message queue or not,
+but sometimes this happens.
+If the routine handling the wm_destroy message removes something needed by
+the routine linked to
+wm_size, then this could overwrite memory areas, causing  the error, perhaps
+several instructions later.
+Another thing to look after  is DDE handling (if DDE initialize is called).
+again, is it possible that windows sends some dde message to a window even
+after having sent a wm_destroy message.
+I went crazy about both problems, working in Delphi.
+
+Maurizio
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01235" href="msg01235.html">Crash exiting DrScheme</a></strong>
+<ul><li><em>From:</em> &quot;Maurizio Ferreira&quot; &lt;ferreira@selesta.it&gt;</li></ul></li>
+<li><strong><a name="01236" href="msg01236.html">Re: Crash exiting DrScheme</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01236.html">Re: Crash exiting DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01238.html">has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded dll&quot; project?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01236.html">Re: Crash exiting DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01238.html">has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded dll&quot; project?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01237"><strong>Date</strong></a></li>
+<li><a href="threads.html#01237"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: (problem? 'guile) -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Tue, 27 Nov 2001 11:15:50 &#45;0700 (MST) -->
+<!--X-Message-Id: 15363.55378.738476.476543@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: qs3667wv8pq.fsf@yoko.inria.fr -->
+<!--X-Reference: 20011127135333.A76B8206F3@sualocin.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: (problem? 'guile)</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01254.html">Date Prev</a>][<a href="msg01256.html">Date Next</a>][<a href="msg01248.html">Thread Prev</a>][<a href="msg01346.html">Thread Next</a>][<a href="maillist.html#01255">Date Index</a>][<a href="threads.html#01255">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: (problem? 'guile)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: (problem? 'guile)</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Tue, 27 Nov 2001 13:15:46 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01247.html">20011127135333.A76B8206F3@sualocin.ccs.neu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01245.html">qs3667wv8pq.fsf@yoko.inria.fr</a>&gt;&lt;<a href="msg01247.html">20011127135333.A76B8206F3@sualocin.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Nov 27, Matthias Felleisen wrote:
+&gt; 
+&gt; Okay, I will answer one question. The following is the header of my current
+&gt; homework assignment: 
+&gt; 
+&gt;    #! /bin/sh
+&gt;    #|
+&gt;    exec /usr/local/lib/plt/bin/mzscheme -r $0
+&gt;    |#
+
+I prefer
+
+  exec mzscheme -r &quot;$0&quot; &quot;$@&quot;
+
+since mzscheme is on my path anyway, and I want to use command-line
+arguments.
+
+Anyway, I wanted to say that I think that this approach is generally
+better than the
+
+  string=? ; ...
+
+not only because it evaluates an unnecessary token, but because of the
+convenience of &quot;#&quot; being a line-comment characters in probably every
+possible shell.  (Besides, &quot;string=?&quot; will look for one-character
+filenames in the current directory which might lead to problems in
+case you're in some weird directory (like some screwed up mount
+point).)
+
+In addition, because you can get anything in the comments, you can put
+anything you want before the &quot;exec&quot;, my favorite case is playing
+around with some C extension -- I'll put the compilation commands
+before the exec so I if even if I modify the C code I still just have
+to run the script.
+
+My bottom line is -- I think that this is much better so it is better
+to be put in the documentation instead of the &quot;string=?&quot; thing.
+
+And while I'm at this, I helped someone recently write scripts on
+Windows, and I think that the general approach of creating a new
+association for a suffix like &quot;.sx&quot; that will run mzscheme with the
+&quot;-r&quot; flag is better since it avoids adding stuff to the top and the
+bottom of the file.  I think it should be possible to add this
+association as part of the setup, and to create another entry in the
+context menu for .sx files that will allow you to open the file in
+DrScheme like normal .ss files (I can ask the local Windows expert if
+this sounds reasonable enough).
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01245" href="msg01245.html">(problem? 'guile)</a></strong>
+<ul><li><em>From:</em> Manuel Giraud &lt;giraud@tif.inria.fr&gt;</li></ul></li>
+<li><strong><a name="01247" href="msg01247.html">Re: (problem? 'guile)</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01254.html">documentation source code</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01256.html">The Swine before Perl...</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01248.html">Re: (problem? 'guile)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01346.html">RE: (problem? 'guile)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01255"><strong>Date</strong></a></li>
+<li><a href="threads.html#01255"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

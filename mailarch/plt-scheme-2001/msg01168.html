@@ -1,0 +1,135 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: R: closing an application -->
+<!--X-From-R13: "[nhevmvb Treerven" <sreervenNfcyvg.vg> -->
+<!--X-Date: Fri, 2 Nov 2001 14:21:53 &#45;0700 (MST) -->
+<!--X-Message-Id: 000201c163e4$5cfa85e0$54424dd4@ferreira -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 002a01c16386$b48272e0$66424dd4@ferreira -->
+<!--X-Reference: 200111021333.fA2DXJ519041@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>R: closing an application</title>
+<link rev="made" href="mailto:ferreira@split.it">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01167.html">Date Prev</a>][<a href="msg01169.html">Date Next</a>][<a href="msg01163.html">Thread Prev</a>][<a href="msg01171.html">Thread Next</a>][<a href="maillist.html#01168">Date Index</a>][<a href="threads.html#01168">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>R: closing an application</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matthew Flatt&quot; &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: R: closing an application</li>
+<li><em>From</em>: &quot;Maurizio Ferreira&quot; &lt;<A HREF="mailto:ferreira@split.it">ferreira@split.it</A>&gt;</li>
+<li><em>Date</em>: Fri, 2 Nov 2001 16:58:48 +0100</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01162.html">002a01c16386$b48272e0$66424dd4@ferreira</a>&gt; &lt;<a href="msg01163.html">200111021333.fA2DXJ519041@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Quoting &quot;Matthew Flatt&quot;
+
+&gt; Quoting &quot;Maurizio Ferreira&quot;:
+&gt; &gt;    (yield (make-semaphore 0)))
+&gt; &gt;
+&gt; &gt; [...]
+&gt; &gt;
+&gt; &gt; The problem is that the window is hidden, but the application does not
+&gt; &gt; stop.
+&gt;
+&gt; I think you want to get rid of the above line.
+&gt;
+&gt; MrEd will continue to run as long as a window is open, or as long as
+&gt; code in the main thread is still executing. In the your example `(yield
+&gt; (make-semaphore 0))' never returns --- that is, it never stops
+&gt; executing --- in the main thread, so MrEd can't exit.
+&gt;
+&gt; Matthew
+&gt;
+Thanks, it works.
+I've also removed the line
+  (override [on-close exit])
+in the construction of the frame.
+I've blindly copied the source from the &quot;Games&quot; program
+I've tought the line
+    (yield (make-semaphore 0)))
+was necessary to avoid the emission on a console of the messages related to
+the construction
+of the objects, and that to exit the program was necessary to override the
+Onclose event.
+Now i suppose the messages are removed by the
+(invoke-unit/sig (unit-sig ...
+construct.
+The manuals are not much clear about such topics...
+
+Maurizio
+
+
+
+
+
+
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01162" href="msg01162.html">closing an application</a></strong>
+<ul><li><em>From:</em> &quot;Maurizio Ferreira&quot; &lt;ferreira@split.it&gt;</li></ul></li>
+<li><strong><a name="01163" href="msg01163.html">Re: closing an application</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01167.html">RE: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01169.html">RE: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01163.html">Re: closing an application</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01171.html">Is it a bug or a feature ? (tabbing out of fields)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01168"><strong>Date</strong></a></li>
+<li><a href="threads.html#01168"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Is (require&#45;library "xxxx.ss" "yyyy") valid syntax -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 10 Oct 2001 05:50:47 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110101150.f9ABofH29886@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 01101005213000.04915@dt1c0n56.tampabay.rr.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Is (require-library &quot;xxxx.ss&quot; &quot;yyyy&quot;) valid syntax</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01021.html">Date Prev</a>][<a href="msg01023.html">Date Next</a>][<a href="msg01020.html">Thread Prev</a>][<a href="msg01023.html">Thread Next</a>][<a href="maillist.html#01022">Date Index</a>][<a href="threads.html#01022">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Is (require-library &quot;xxxx.ss&quot; &quot;yyyy&quot;) valid syntax</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:jsteve17@tampabay.rr.com">jsteve17@tampabay.rr.com</A></li>
+<li><em>Subject</em>: Re: Is (require-library &quot;xxxx.ss&quot; &quot;yyyy&quot;) valid syntax</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 10 Oct 2001 05:50:42 -0600 (MDT)</li>
+<li><em>CC</em>: Mzscheme mailinglist &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01020.html">01101005213000.04915@dt1c0n56.tampabay.rr.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01020.html">01101005213000.04915@dt1c0n56.tampabay.rr.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Jeffrey Stephens:
+&gt; Though referenced in the DrScheme/Mzscheme documentation,
+&gt; I get the error &quot;reference to undefined identifier&quot; whenever I try to use
+&gt; this construct, as, for example, 
+&gt; 
+&gt; (require-library &quot;init.ss&quot; &quot;slibinit&quot;)
+&gt; 
+&gt; What am I doing wrong?  Thanks in advance.
+
+Are you using 199.X? If so, `require-library' has been replaced by a
+module-based `require' form.
+
+Top-level usage of `require' is similar to `require-library'. For
+example,
+
+ (require-library &quot;cmdline.ss&quot;) ;; in 103.X
+
+to get MzLib's cmdline tools, is now
+
+ (require (lib &quot;cmdline.ss&quot;)) ;; in 199.X
+
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01020" href="msg01020.html">Is (require-library &quot;xxxx.ss&quot; &quot;yyyy&quot;) valid syntax</a></strong>
+<ul><li><em>From:</em> Jeffrey Stephens &lt;jsteve17@tampabay.rr.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01021.html">Re: newline comparison?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01023.html">Re: Is (require-library &quot;xxxx.ss&quot; &quot;yyyy&quot;) valid syntax</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01020.html">Is (require-library &quot;xxxx.ss&quot; &quot;yyyy&quot;) valid syntax</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01023.html">Re: Is (require-library &quot;xxxx.ss&quot; &quot;yyyy&quot;) valid syntax</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01022"><strong>Date</strong></a></li>
+<li><a href="threads.html#01022"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

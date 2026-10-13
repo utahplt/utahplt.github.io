@@ -1,0 +1,244 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Thu, 10 Aug 2000 08:50:11 &#45;0600 (MDT) -->
+<!--X-Message-Id: 3992C26F.B6BDFC3F@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: v04220805b5b85c578e93@[128.42.2.124] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Specialized input parsing for code/REPL in DrScheme?</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00472.html">Date Prev</a>][<a href="msg00474.html">Date Next</a>][<a href="msg00472.html">Thread Prev</a>][<a href="msg00474.html">Thread Next</a>][<a href="maillist.html#00473">Date Index</a>][<a href="threads.html#00473">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Specialized input parsing for code/REPL in DrScheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 10 Aug 2000 10:55:43 -0400</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00471.html">399207D9.5F451CC@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00472.html">v04220805b5b85c578e93@[128.42.2.124]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Robert-
+
+Thanks for the information -- it's a start! 
+
+I also appreciate the offer to expose that part of the base system if
+sensible/neccessary. I see classes are starting again at Rice real soon, 
+  <A  HREF="http://www.ruf.rice.edu/~reg/calendars/acadcalf00.html">http://www.ruf.rice.edu/~reg/calendars/acadcalf00.html</A>
+so I'm sure you all will have your hands full with other things shortly
+(if not now in preparation).
+
+I hadn't looked through the tools stuff, so thanks for the pointer
+By the way, for the &quot;m3&quot; documentation, this link works:
+  * <A  HREF="http://www.cs.rice.edu/CS/PLT/packages/102/doc/m3/index.htm">http://www.cs.rice.edu/CS/PLT/packages/102/doc/m3/index.htm</A>
+But this link does not:
+ * <A  HREF="http://www.cs.rice.edu/CS/PLT/packages/102/DocBundles/m3-doc.plt">http://www.cs.rice.edu/CS/PLT/packages/102/DocBundles/m3-doc.plt</A>.
+
+Right now, rather than rush into this, I'm still trying to see just how
+much work it would be in DrScheme. I'm more used to Smalltalk where
+typically (Squeak, VisualWorks) the parser, compiler, formatter, etc.
+are pretty much always written in Smalltalk and are usually easily
+accessible in source and changeable (including by subclassing). It seems
+that in the Lisp world (not necessarily DrScheme - I need to understand
+it more) these things are more often written in C and hidden in the base
+code. Even when you get hooks, there is still a lot of writing to do to
+rewrite the C in Lisp or Scheme (or find such already written).
+
+However, it might be fun to build a reader as you say, and then if it
+works, worry about hooking it up later. Since I'm still learning Scheme
+(and it's strengths and weaknesses), even a failure will be a success
+(as
+far as learning). 
+
+By the way, I found one of the most interesting replies (appropriate to
+the future of programmming environments like DrScheme) to be one by
+Chris Page.
+He points toward how programming can rise above languages and textual
+representations. He mentions the book &quot;Human Factors and Typography for
+More Readable Programs&quot; by Ronald M. Baecker &amp; Aaron Marcus. Chris's
+full comment is available at:
+<A  HREF="http://x56.deja.com/getdoc.xp?AN=656713307&amp;CONTEXT=965918514.123535370&amp;hitnum=18">http://x56.deja.com/getdoc.xp?AN=656713307&amp;CONTEXT=965918514.123535370&amp;hitnum=18</A>
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+Robert Bruce Findler wrote:
+&gt; 
+&gt; The best way to implement something like this is to write your own
+&gt; reader (ie a procedure that accepts a port and returns an sexp).
+&gt; Then, you can use that reader instead of the one supplied with
+&gt; DrScheme and just hook into the usual parsers.
+&gt; 
+&gt; The tricky part will be getting DrScheme itself to use your reader.
+&gt; The environment is designed to be &quot;open&quot; (via the tools mechanism),
+&gt; but so far the exposed procedures have been added on an as needed
+&gt; basis. I suspect that this kind of change is either difficult or
+&gt; impossible (I guess that it is merely the former :). Check out the
+&gt; tools manual for more information. Don't hesitate to contact me if
+&gt; you get stuck or need some more infrastructure exposed.
+&gt; 
+&gt; From the forewarned is forarmed department, there are two readers in
+&gt; DrScheme currently: one tracks source location information and the
+&gt; other doesn't. So, your reader will need to do both if it is to
+&gt; actually make it into DrScheme someday.
+&gt; 
+&gt; Good Luck! Hope that helps!
+&gt; 
+&gt; Robby
+&gt; 
+&gt; &gt;I'm interested in being able to flip between alternate textual
+&gt; &gt;representations in DrScheme. I'm trying to determine how hard this would
+&gt; &gt;be to implement in DrScheme.
+&gt; &gt;
+&gt; &gt;Specifically, I'd like to flip back and forth in the DrScheme editor
+&gt; &gt;between conventional Scheme syntax and a syntax where indentation is
+&gt; &gt;significant (like in Python or Occam) and thus parentheses at the edges
+&gt; &gt;of lines can be removed as redundant.
+&gt; &gt;
+&gt; &gt;For example:
+&gt; &gt;
+&gt; &gt;(define (square x)
+&gt; &gt;   (* x x))
+&gt; &gt;
+&gt; &gt;would become:
+&gt; &gt;
+&gt; &gt;define (square x)
+&gt; &gt;   * x x
+&gt; &gt;
+&gt; &gt;and vice versa. I posted a thread on this to comp.lang.lisp if anyone
+&gt; &gt;wants the specifics.
+&gt; &gt;<A  HREF="http://x66.deja.com/viewthread.xp?AN=656209628.4&amp;search=thread&amp;svccla">http://x66.deja.com/viewthread.xp?AN=656209628.4&amp;search=thread&amp;svccla</A>
+&gt; &gt;ss=dncurrent&amp;ST=PS&amp;CONTEXT=965870095.884932614&amp;HIT_CONTEXT=965870095.8
+&gt; &gt;84932614&amp;HIT_NUM=1&amp;recnum=%3c3990E003.6EE78131@kurtz-fernhout.com%3e%2
+&gt; &gt;34/4&amp;group=comp.lang.lisp&amp;frpage=viewthread.xp&amp;back=clarinet
+&gt; &gt;
+&gt; &gt;So my question is, in DrScheme, how should I best go about doing this
+&gt; &gt;(in terms of interfacing with DrScheme, not specifically the parsing)?
+&gt; &gt;Is there a way to do this completely in Scheme (I hope) or will I have
+&gt; &gt;to recompile DrScheme and make changes to the C code?
+&gt; &gt;
+&gt; &gt;Note this is something very different from defining a macro as far as I
+&gt; &gt;can tell -- since I am fundamentally changing the interpretation of the
+&gt; &gt;text before it is made into nested lists.
+&gt; &gt;
+&gt; &gt;I see there are some hooks and code for printing in DrScheme,
+&gt; &gt;specifically
+&gt; &gt;   Converted Printing: pconver.ss
+&gt; &gt;   Pretty Printing: pretty.ss
+&gt; &gt;so I have something to start with.
+&gt; &gt;
+&gt; &gt;The part that looks harder is transparently taking the code entered into
+&gt; &gt;DrScheme, perhaps checking the first line or so for a flag
+&gt; &gt;(indent-mode-on?) and then using an alternate parser (hopefully
+&gt; &gt;writeable in Scheme). I'm not sure where to begin.
+&gt; &gt;
+&gt; &gt;Can anyone rough out the big picture of what I need to do to accomplish
+&gt; &gt;this in DrScheme?  The easier and more in Scheme the approach, the
+&gt; &gt;better. I looked at the docs, but didn't see anything obvious on hooking
+&gt; &gt;the REPL handler. Is it in there somewhere? I'd also like to hook saving
+&gt; &gt;the file, so I could transparently save the alternative syntax as
+&gt; &gt;standard Scheme syntax.
+&gt; &gt;
+&gt; &gt;Naturally people on comp.lang.lisp suggest I do this as emacs Lisp
+&gt; &gt;macros, but a DrScheme implementation would probably be more useful for
+&gt; &gt;me (and hopefully might interest people on this list as well). Of
+&gt; &gt;course, what they mostly suggest is that this is just a bad idea, but
+&gt; &gt;I'm curious enough to at least want to see how difficult it would be to
+&gt; &gt;implement it.
+&gt; &gt;
+&gt; &gt;I guess this is the &quot;second system&quot; effect Fred Brooks warns about.
+&gt; &gt;   <A  HREF="http://www.best.com/~rgm/notebook/second-system.html">http://www.best.com/~rgm/notebook/second-system.html</A>
+&gt; &gt;One tiny success with a simple plug-in (still in need of error handling
+&gt; &gt;no less!) and I think I can rewrite Scheme parsing rules... :-)
+&gt; &gt;
+&gt; &gt;Note: Educational motivations for this (if any are needed) are:
+&gt; &gt;* an easy way to switch between syntaxes might allow students to
+&gt; &gt;experiment with their own mini-languages and parsers more easily using
+&gt; &gt;the DrScheme system (by hooking the REPL with their own handler)
+&gt; &gt;* this alternative syntax might be easier to understand or perhaps learn
+&gt; &gt;for some Scheme novices -- especially those coming from Python (I don't
+&gt; &gt;say this is necessarily true, but I can hope).
+&gt; &gt;
+&gt; &gt;-Paul Fernhout
+&gt; &gt;Kurtz-Fernhout Software
+&gt; &gt;=========================================================
+&gt; &gt;Developers of custom software and educational simulations
+&gt; &gt;Creators of the Garden with Insight(TM) garden simulator
+&gt; &gt;<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00474" href="msg00474.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00471" href="msg00471.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00472" href="msg00472.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00472.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00474.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00472.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00474.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00473"><strong>Date</strong></a></li>
+<li><a href="threads.html#00473"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

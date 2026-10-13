@@ -1,0 +1,113 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: DrScheme/MzScheme (Glibc 2.1.3) -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Thu, 11 May 2000 10:36:57 &#45;0600 (MDT) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C6767856B08@THRESHER -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: DrScheme/MzScheme (Glibc 2.1.3)</title>
+<link rev="made" href="mailto:brent.fulgham@xpsystems.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00289.html">Date Prev</a>][<a href="msg00291.html">Date Next</a>][<a href="msg00289.html">Thread Prev</a>][<a href="msg00291.html">Thread Next</a>][<a href="maillist.html#00290">Date Index</a>][<a href="threads.html#00290">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: DrScheme/MzScheme (Glibc 2.1.3)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: DrScheme/MzScheme (Glibc 2.1.3)</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 11 May 2000 09:38:11 -0700</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; The problem is that mzschemelib++ doesn't provide -DOPERATOR_NEW_ARRAY
+&gt; when it's needed.
+&gt;
+Yes -- that became clear when looking at the tracing data! :-)
+ 
+&gt; The original gc_cpp.cc (distributed with the Boehm collector) is
+&gt; restored in plt/src/mzscheme/gc for version 102. But most programmers
+&gt; embedding MzScheme into a C++ application probably don't want 
+&gt; it, since it replaces the built-in `new' and `delete' operations. I've
+already
+&gt; removed the mzschemelib++ makefile target in 102, but I can restore it
+&gt; (with -DOPERATOR_NEW_ARRAY when needed) if anyone thinks it's
+&gt; worthwhile.
+&gt; 
+Most linkers (including G++2.95) correctly initialize global C++ objects
+for libraries built in C++ that are dynamically loaded by an executable 
+that was linked with a &quot;C&quot; linker.  (Did that make sense to anyone?)  There
+are
+a few compiler/linker combinations that apparently do not work this way,
+and require the &quot;main&quot; executable entry to have been linked using a C++
+aware linker for global initializations to take place.
+
+This problem has been documented on the Python mailing lists when people
+have written modules (compiled under C++ tools) that are loaded by a 
+Python interpreter built with C tools.  Note that this is not related to
+the obvious name-mangling issues you might get by not declaring the
+API calls as extern &quot;C&quot;.
+
+So there might be cases where people need the library to be built with
+the C++ features.  Although, I suppose if the main executable that uses
+the mzschemelib was built with C++ tools it won't be a problem.
+
+Thanks,
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00289.html">Re: DrScheme/MzScheme (Glibc 2.1.3)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00291.html">102/12</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00289.html">Re: DrScheme/MzScheme (Glibc 2.1.3)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00291.html">102/12</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00290"><strong>Date</strong></a></li>
+<li><a href="threads.html#00290"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

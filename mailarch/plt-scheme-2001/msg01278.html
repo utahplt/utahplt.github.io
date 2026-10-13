@@ -1,0 +1,144 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: problems with with&#45;syntax -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 4 Dec 2001 09:32:50 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112041632.JAA03184@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15372.4689.318705.163086@vega.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: problems with with-syntax</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01277.html">Date Prev</a>][<a href="msg01279.html">Date Next</a>][<a href="msg01276.html">Thread Prev</a>][<a href="msg01279.html">Thread Next</a>][<a href="maillist.html#01278">Date Index</a>][<a href="threads.html#01278">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: problems with with-syntax</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: problems with with-syntax</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 4 Dec 2001 09:32:17 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01276.html">15372.4689.318705.163086@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01276.html">15372.4689.318705.163086@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Doug Orleans:
+&gt; I'm trying to make a macro that does some computation at expansion
+&gt; time.  I defined a helper function at the top level, but when I call
+&gt; it in a binding clause in with-syntax, MzScheme says it's undefined.
+&gt; Here's a boiled-down version of the code:
+&gt; 
+&gt;   (define (id x) x)
+&gt; 
+&gt;   (define-syntax (foobar x)
+&gt;     (syntax-case x ()
+&gt;       ((_ expr)
+&gt;        (with-syntax ((q (id (syntax expr))))
+&gt; 	 (syntax q)))))
+&gt; 
+&gt;   &gt; (foobar 2)
+&gt;   reference to undefined identifier: id
+&gt; 
+&gt; What environment is the &quot;stx-expr&quot; part of a with-syntax construct
+&gt; evaluated in?  What's a better way to write this sort of thing?
+
+There are two parallel enviornments: a &quot;normal&quot; environment and a
+transformer environment. Top-level definitions are visible in the
+normal environment, and `require' also extends the normal environment.
+The only way to extend the transformer is with `require-for-syntax'.
+
+So, the above example can be re-written
+
+  (module m mzscheme
+    (provide id)
+    (define (id x) x))
+
+  (require-for-syntax m)
+
+  (define-syntax (foobar x)
+    (syntax-case x ()
+      ((_ expr)
+       (with-syntax ((q (id (syntax expr))))
+	 (syntax q)))))
+
+It would be better to put `foobar' in its own module and avoid the top
+level entirely, though.
+
+
+Splitting the environment allows compilers, syntax checkers, etc. to
+see how much of the code needs to be evaluated at compile-time. For
+example, imagine trying to run &quot;Check Syntax&quot; on the original code
+(cinluding the use of `foobar'); the checker wouldn't know that it
+needs to execute the `id' definition, instead of simply checking it. In
+contrast, the `require-for-syntax' in the second program tells the
+checker exactly which code that needs to be executed.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01279" href="msg01279.html">Re: problems with with-syntax</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01276" href="msg01276.html">problems with with-syntax</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01277.html">Re: Procedure definition</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01279.html">Re: problems with with-syntax</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01276.html">problems with with-syntax</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01279.html">Re: problems with with-syntax</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01278"><strong>Date</strong></a></li>
+<li><a href="threads.html#01278"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

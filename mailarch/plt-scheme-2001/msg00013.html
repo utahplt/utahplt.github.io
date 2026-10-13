@@ -1,0 +1,103 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Question on Multithreading from C API -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Wed, 3 Jan 2001 13:34:38 &#45;0700 (MST) -->
+<!--X-Message-Id: p0433010bb6793cf11a98@[128.42.2.124] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C676701493BE8@THRESHER -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Question on Multithreading from C API</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00012.html">Date Prev</a>][<a href="msg00014.html">Date Next</a>][<a href="msg00012.html">Thread Prev</a>][<a href="msg00018.html">Thread Next</a>][<a href="maillist.html#00013">Date Index</a>][<a href="threads.html#00013">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Question on Multithreading from C API</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Question on Multithreading from C API</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 3 Jan 2001 14:34:19 -0600</li>
+<li><em>Cc</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00012.html">EDFD2A95EE7DD31187350090279C676701493BE8@THRESHER</a>&gt;</li>
+<li><em>Organization</em>: PLT, Rice University (http://www.cs.rice.edu/CS/PLT/)</li>
+<li><em>References</em>: &lt;<a href="msg00012.html">EDFD2A95EE7DD31187350090279C676701493BE8@THRESHER</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+One other approach is to wrap some scheme code around each request:
+
+   (let ([v #f])
+     ... code to retrieve value ...
+     (thread
+       (lambda ()
+         (set! v ...)))
+
+Would something like that work for you?
+
+Robby
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00018" href="msg00018.html">bug in define-syntax</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00012" href="msg00012.html">Question on Multithreading from C API</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00012.html">Question on Multithreading from C API</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00014.html">Re: Question on Multithreading from C API</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00012.html">Question on Multithreading from C API</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00018.html">bug in define-syntax</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00013"><strong>Date</strong></a></li>
+<li><a href="threads.html#00013"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] embarrasing question -->
+<!--X-From-R13: "Quevf Ievtug" <pnjNpf.zh.bm.nh> -->
+<!--X-Date: Sun, 5 May 2002 22:33:46 &#45;0600 (MDT) -->
+<!--X-Message-Id: 00df01c1f4b7$d1a3ccd0$450c1eac@icu19 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] embarrasing question</title>
+<link rev="made" href="mailto:caw@cs.mu.oz.au">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00852.html">Date Prev</a>][<a href="msg00854.html">Date Next</a>][<a href="msg00858.html">Thread Prev</a>][<a href="msg00855.html">Thread Next</a>][<a href="maillist.html#00853">Date Index</a>][<a href="threads.html#00853">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] embarrasing question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;plt-scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [plt-scheme] embarrasing question</li>
+<li><em>From</em>: &quot;Chris Wright&quot; &lt;<A HREF="mailto:caw@cs.mu.oz.au">caw@cs.mu.oz.au</A>&gt;</li>
+<li><em>Date</em>: Mon, 6 May 2002 14:38:07 +1000</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I have a list of symbols and functions that I want to populate into a
+hash-table. Some of them are &quot;builtins&quot; (+ - * ) etc etc, but other will be
+defined.
+
+I'm trying to do this:
+
+(for-each (lambda (sym fn)
+                (hash-table-put! *function-table* sym fn))
+    '(+ - blurp) '(+ - (lambda (x) (+ x 1))))
+
+with the idea being, obviously, storing the procedure + under the key +, and
+the proc to add one to a number under the key blurp.
+
+Equally obviously, it doesn't work. What gets stored under the key '+ is the
+symbol '+, not the (symbol-&gt;function '+)   .... that's probably a horrible
+lisp-scheme mean-nothing-at-all-hybrid expression! But you know what I mean.
+blurp and the function stored under blurp work fine.
+
+So, what's the best way to do this? I could store (lambda (lst) (apply +
+lst)) under '+, but I'd just like to be able to say + and get the same
+effect..
+
+Thanks
+
+Chris Wright
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00855" href="msg00855.html">Re: [plt-scheme] embarrasing question</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00852.html">Re: [plt-scheme] keyboard shortcuts check-syntax button</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00854.html">Re: [plt-scheme] embarrasing question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00858.html">Re: [plt-scheme] Errors in Release Notes Doc.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00855.html">Re: [plt-scheme] embarrasing question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00853"><strong>Date</strong></a></li>
+<li><a href="threads.html#00853"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

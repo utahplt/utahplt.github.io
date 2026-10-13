@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: How can I redefine REPL -->
+<!--X-From-R13: Xbat&#45;Ylbh Yvz <wxxvzNpubyyvna.arg> -->
+<!--X-Date: Tue, 5 Dec 2000 22:51:56 &#45;0700 (MST) -->
+<!--X-Message-Id: 3A2E52E0.5DA1F3B5@chollian.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>How can I redefine REPL</title>
+<link rev="made" href="mailto:jkkim@chollian.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00771.html">Date Prev</a>][<a href="msg00773.html">Date Next</a>][<a href="msg00768.html">Thread Prev</a>][<a href="msg00773.html">Thread Next</a>][<a href="maillist.html#00772">Date Index</a>][<a href="threads.html#00772">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>How can I redefine REPL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: How can I redefine REPL</li>
+<li><em>From</em>: Jong-Kyou Kim &lt;<A HREF="mailto:jkkim@chollian.net">jkkim@chollian.net</A>&gt;</li>
+<li><em>Date</em>: Wed, 06 Dec 2000 14:53:20 +0000</li>
+<li><em>Reply-To</em>: <A HREF="mailto:jkkim@chollian.net">jkkim@chollian.net</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi.
+
+I wanted to redefine read-eval-print-loop for providing some additional
+functions in REPL. I tried the following code. But when I make an error
+in the expression, it automatically goes back to original REPL. Is there
+any way to remain in the redefined REPL?
+
+Thanks in advance.
+
+Jong-Kyou Kim.
+
+&lt;&lt;&lt;&lt;
+(define (silent-repl)
+
+  (define get-exp
+    (lambda ()
+      (display &quot;question? &quot;)
+      (read)))
+
+  (let repl ([exp (get-exp)])
+    (if (eof-object? exp)
+ (newline)
+ (begin
+   (newline)
+   (write (eval exp))
+   (newline)
+   (repl (get-exp))))))
+
+(silent-repl)
+&gt;&gt;&gt;&gt;
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00773" href="msg00773.html">How can I redefine REPL</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00771.html">Re: Security models in mzscheme ??</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00773.html">How can I redefine REPL</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00768.html">mzscheme -- what's not to like?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00773.html">How can I redefine REPL</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00772"><strong>Date</strong></a></li>
+<li><a href="threads.html#00772"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

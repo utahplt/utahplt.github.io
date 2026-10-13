@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: using the PLT scheme lexer -->
+<!--X-From-R13: [vpunry Hnavre <zinavreNooo.pnygrpu.rqh> -->
+<!--X-Date: Sun, 16 Dec 2001 18:37:28 &#45;0700 (MST) -->
+<!--X-Message-Id: 20011217013721.742F25E0ED@sith.bbb.caltech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.21.0112131405460.31019&#45;100000@famine.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: using the PLT scheme lexer</title>
+<link rev="made" href="mailto:mvanier@bbb.caltech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01353.html">Date Prev</a>][<a href="msg01355.html">Date Next</a>][<a href="msg01340.html">Thread Prev</a>][<a href="msg01355.html">Thread Next</a>][<a href="maillist.html#01354">Date Index</a>][<a href="threads.html#01354">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: using the PLT scheme lexer</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:sowens@cs.utah.edu">sowens@cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: using the PLT scheme lexer</li>
+<li><em>From</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 16 Dec 2001 17:37:21 -0800 (PST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01340.html">Pine.LNX.4.21.0112131405460.31019-100000@famine.cs.utah.edu</a>&gt;(message from Scott Owens on Thu, 13 Dec 2001 14:12:01 -0700 (MST))</li>
+<li><em>References</em>: &lt;<a href="msg01340.html">Pine.LNX.4.21.0112131405460.31019-100000@famine.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Playing around with the example lexer, it appears as if the lexer will
+always return the first matching token, even if that token is the prefix to
+a longer token which is also a valid match.  For instance, if you have two
+token categories, one of which matches &quot;-&quot; (e.g. a symbol) and one of which
+matches &quot;-42&quot; (an integer), the lexer matches &quot;-&quot; instead of &quot;-42&quot;.  This
+is different from standard lex/flex behavior.  Is this a bug?
+
+Mike
+
+&gt; Date: Thu, 13 Dec 2001 14:12:01 -0700 (MST)
+&gt; From: Scott Owens &lt;sowens@cs.utah.edu&gt;
+&gt; 
+&gt; In general, the return value of the lexer is not restricted.  The token
+&gt; structure is provided for interoperation with a parser, but you are free
+&gt; to return whatever values you prefer.
+&gt; 
+&gt; Since the lexer generator is a new tool to v200, I would appreciate any
+&gt; suggestions/feedback on you experience using it.
+&gt; 
+&gt; -Scott Owens
+&gt; 
+&gt; On Thu, 13 Dec 2001, Michael Vanier wrote:
+&gt; 
+&gt; &gt; 
+&gt; &gt; OK, now that I've found the lexer, here's a simple question.
+&gt; &gt; 
+&gt; &gt; I can run the lexer to return a single value of type &lt;struct:token&gt;, but I
+&gt; &gt; can't figure out how to extract the fields from the struct.  As far as I
+&gt; &gt; can tell (and I'm a total newbie with the module system), the token struct
+&gt; &gt; type is defined in collects/parser-tools/private-lex/token.ss.  I can't
+&gt; &gt; import it directly because it already gets imported when I import the lex
+&gt; &gt; library.  However, the token accessor functions do not appear to be
+&gt; &gt; exported.  Does that mean that tokens are an opaque data type?  If I can't
+&gt; &gt; get the value of the token, the lex module is not usable by me.  I don't
+&gt; &gt; want or need to use the yacc module.  Sorry for my utter cluelessness.
+&gt; &gt; 
+&gt; &gt; Mike
+&gt; &gt; 
+&gt; &gt; 
+&gt; 
+&gt; 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01355" href="msg01355.html">Re: using the PLT scheme lexer</a></strong>
+<ul><li><em>From:</em> Scott Owens &lt;sowens@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01340" href="msg01340.html">Re: using the PLT scheme lexer</a></strong>
+<ul><li><em>From:</em> Scott Owens &lt;sowens@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01353.html">Re: Premature eof-object   ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01355.html">Re: using the PLT scheme lexer</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01340.html">Re: using the PLT scheme lexer</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01355.html">Re: using the PLT scheme lexer</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01354"><strong>Date</strong></a></li>
+<li><a href="threads.html#01354"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

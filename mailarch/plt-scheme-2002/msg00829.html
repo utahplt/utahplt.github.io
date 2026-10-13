@@ -1,0 +1,137 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] Re: webserver and print&#45;struct -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Thu, 2 May 2002 15:31:07 &#45;0600 (MDT) -->
+<!--X-Message-Id: 009f01c1f21f$e70a3b80$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 021a01c1f142$c8d19b00$0500000a@Lr30JS -->
+<!--X-Reference: 20020502124405.QTAI4412.rwcrmhc52.attbi.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] Re: webserver and print-struct</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00828.html">Date Prev</a>][<a href="msg00830.html">Date Next</a>][<a href="msg00820.html">Thread Prev</a>][<a href="msg00831.html">Thread Next</a>][<a href="maillist.html#00829">Date Index</a>][<a href="threads.html#00829">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] Re: webserver and print-struct</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [plt-scheme] Re: webserver and print-struct</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Thu, 2 May 2002 23:25:35 +0200</li>
+<li><em>References</em>: &lt;<a href="msg00817.html">021a01c1f142$c8d19b00$0500000a@Lr30JS</a>&gt; &lt;<a href="msg00820.html">20020502124405.QTAI4412.rwcrmhc52.attbi.com@localhost</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Paul Graunke wrote:
+&gt; Check help-desk for print-convert.  You might get it to do what you
+&gt; need with the right hooks installed (current-print-convert-hook
+&gt; [hook]).
+
+This is quite clever. I will add it to the good old bag'o'tricks.
+
+But - I still have problems now. I end up with stuff like this in output
+file
+
+(quasiquote ((unquote #&lt;struct:entry&gt;) (unquote #&lt;struct:entry&gt;)))
+
+The #&lt;struct:entry&gt; ought to be (make-struct ..)-thingies.
+
+Now the behaviour in DrScheme and in the web-server are not the same.
+It has proably something to do with language settings or parametrizations.
+Reading the manual the solution ought to be to use (print-struct #t),
+but for some reason the web-server does not respect it.
+(Or at least: that's way it seems - I could have missed something)
+
+My functions are
+
+(define (load-book)
+  (let* ([port (open-input-file filnavn)]
+         [book (eval (read port))])
+    (close-input-port port)
+    (map convert-entry book)))
+
+(define (save-book)
+  (let ([port (open-output-file filename 'replace)])
+    ;  (print-struct #t)
+    (write (print-convert book) port)
+   ; (pretty-print (print-convert bog) port)  ; this is no better
+    (close-output-port port)))
+
+[ The pconvert.ss documentation has a small bug:
+   &quot;In addition to print-convert, this library provides print-convert, ...
+&quot; ]
+
+--
+Jens Axel Søgaard
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00831" href="msg00831.html">Re: [plt-scheme] Re: webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00839" href="msg00839.html">Re: [plt-scheme] Re: webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00817" href="msg00817.html">webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+<li><strong><a name="00820" href="msg00820.html">Re: webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Paul Graunke &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00828.html">RE: [plt-scheme] Re: posting restricted to subscribers</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00830.html">[plt-scheme] 200alpha18</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00820.html">Re: webserver and print-struct</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00831.html">Re: [plt-scheme] Re: webserver and print-struct</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00829"><strong>Date</strong></a></li>
+<li><a href="threads.html#00829"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

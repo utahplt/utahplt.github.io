@@ -1,0 +1,182 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Greetings -->
+<!--X-From-R13: Quevf Gmqnivavf <puevfNngqrfx.pbz> -->
+<!--X-Date: Sun, 7 Oct 2001 15:01:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: j6itdrp3kw.fsf@explicit.atdesk.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Greetings</title>
+<link rev="made" href="mailto:chris@atdesk.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00998.html">Date Prev</a>][<a href="msg01000.html">Date Next</a>][<a href="msg00998.html">Thread Prev</a>][<a href="msg01000.html">Thread Next</a>][<a href="maillist.html#00999">Date Index</a>][<a href="threads.html#00999">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Greetings</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Greetings</li>
+<li><em>From</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Date</em>: 07 Oct 2001 17:01:19 -0400</li>
+<li><em>Organization</em>: Automated Trading Desk, Inc.</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0808 (Gnus v5.8.8) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Hi,
+
+I wanted to say thanks to everyone involved with this project.
+Recently I've decided to learn Scheme as an alternative to C++ which
+is my primary professional language.  I saw a study done comparing
+lisp/scheme against C++ and Java and was surprised at how well it had
+done (it beat them both quite handily, using mzscheme.)  I first tried
+out MIT scheme but couldn't figure out how to really &quot;do&quot; anything in
+its REPL.  Surely there must be a way that people use it but it just
+seems very difficult when I just wanted to learn the language.
+DrScheme was by far the best environment I've found to use.  Many kudos!
+
+Anyway, I found DrScheme due to its relationship with mzscheme (which
+I found in the report) and independently started studying this
+language.  With pretty much just the online help, followed by a
+careful study of &quot;The Little Schemer&quot; I've worked myself through a lot
+of the material and am starting (I think) to understand this language.
+It strikes me as elegant and simplistic, yet very powerful.  (Surely
+I'm preaching to the choir on that!)  
+
+I wish I could have an opportunity to study this in more depth in a
+formal environment, but for now I'm stuck by myself without anyone to
+whom I may any questions.  So I'm hoping that someone would be willing to
+answer a question that I'm stuck on.  (If this is the wrong newsgroup,
+please accept my apologies and let me know where I should ask this.
+It is the only general discussion group I found listed in the online
+help.) 
+
+In an attempt to solve a &quot;simple&quot; problem, I wrote a recursive
+algorithm to visit each n-sized unique combination of elements in a
+list (which contains at least n elements.)  I have it working to my
+satisfaction, but I'm afraid I'm missing something, because Mr. Spidy
+is not liking some of my code, and I am having trouble figuring out
+why.  (And I'm not the kind of person who likes to overlook any
+warnings.  My C++ code is compiled in -Wall and -pedantic mode on
+g++.)
+
+Here is the code:
+
+
+(define (visit lst)
+  (printf &quot;Current combination: ~a~n&quot; lst))
+
+
+;;
+;; generate all n combinations of items in list &quot;lst&quot;
+;;
+;; The premise here is for each combination of size n of items in the
+;;set called &quot;avail&quot;
+;; I can take one element from
+;; the &quot;available&quot; set and bind it to an &quot;in-use&quot; set.  Then I can
+;;simplify the problem
+;; to (n-1) combinations of the remaining &quot;available&quot; set, with the
+;;&quot;in-use&quot; set appended 
+;; to the beginning.
+;;
+(define (choose m lst)
+  (define choose-internal 
+    (lambda (n  in-use  avail  num-avail)
+      (cond ([null? avail] null)
+            ([= 1 n]
+             (visit (cons (car avail) in-use))
+             (choose-internal n in-use (cdr avail) (sub1 num-avail)))
+            (else (let loop ([cur avail]
+                             [len num-avail])
+                    (if (&gt;= len n)
+                        (begin
+                          (choose-internal (sub1 n) 
+                                           (cons (car cur) in-use) ;&lt;--HERE
+                                           (cdr cur)
+                                           (sub1 len))
+                          (loop (cdr cur) (sub1 len)))))))))
+  (if (&gt; m 0)
+      (choose-internal m null lst (length lst)) 
+      #f))
+
+(choose 3 '(a b c d e))
+
+
+
+(The problem is marked &quot;HERE&quot;.  The 'car' call is in red, but my
+program appears to work correctly, and I don't see how that call could
+fail.
+
+If anyone could explain what I've done wrong to warrent this warning,
+I'd be very thankful.
+
+(If you have any other suggestions about this code, I'd also love to
+hear them!)  
+
+Thanks!
+
+-- 
+Chris
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01000" href="msg01000.html">Re: Greetings</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01001" href="msg01001.html">RE: Greetings</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00998.html">199d4</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01000.html">Re: Greetings</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00998.html">199d4</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01000.html">Re: Greetings</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00999"><strong>Date</strong></a></li>
+<li><a href="threads.html#00999"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

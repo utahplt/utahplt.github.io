@@ -1,0 +1,95 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [Shootout] Ackermann.bat -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wfNitg&#45;tlz.qx> -->
+<!--X-Date: Wed, 27 Mar 2002 12:04:05 &#45;0700 (MST) -->
+<!--X-Message-Id: 68716CE1D81E5F4DA22B1354442F094B061CBA@vgtgym03.VGTGYM.DK -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[Shootout] Ackermann.bat</title>
+<link rev="made" href="mailto:js@vgt-gym.dk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00556.html">Date Prev</a>][<a href="msg00558.html">Date Next</a>][<a href="msg00577.html">Thread Prev</a>][<a href="msg00562.html">Thread Next</a>][<a href="maillist.html#00557">Date Index</a>][<a href="threads.html#00557">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[Shootout] Ackermann.bat</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [Shootout] Ackermann.bat</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:js@vgt-gym.dk">js@vgt-gym.dk</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Mar 2002 20:03:30 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Thread-Index</em>: AcHVwYARwmGaCpdzQJKRH6F8r4iqvw==</li>
+<li><em>Thread-Topic</em>: [Shootout] Ackermann.bat</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+; @echo off
+; mzscheme.exe -f ackermann.bat -mvC %1
+; goto :end
+
+(define (main args)
+  (let ([n (string-&gt;number (car  args))])
+    (print-list &quot;Ack(3,&quot; n &quot;): &quot; (ack 3 n))))
+
+(define (ack m n)
+  (cond ((zero? m) (+ n 1))
+    ((zero? n) (ack (- m 1) 1))
+    (else      (ack (- m 1) (ack m (- n 1))))))
+
+(define (print-list . items) (for-each display items))
+
+; :end
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00556.html">Re: Great Computer Language Shootout</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00558.html">[shootout] ary3.bat</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00577.html">RE: Great Computer Language Shootout</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00562.html">RE: [Shootout] Ackermann.bat</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00557"><strong>Date</strong></a></li>
+<li><a href="threads.html#00557"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

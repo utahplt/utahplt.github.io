@@ -1,0 +1,108 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: embedded mzscheme and initializing the mzscheme environment as well as my own -->
+<!--X-From-R13: "Uertbel Znzcfuver" <tertbel_ynzcfuverNubgznvy.pbz> -->
+<!--X-Date: Sun, 24 Jun 2001 20:02:42 &#45;0600 (MDT) -->
+<!--X-Message-Id: OE19VwPGxgelXDeqoMI00000f6a@hotmail.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>embedded mzscheme and initializing the mzscheme environment as well as m</title>
+<link rev="made" href="mailto:gregory_lampshire@hotmail.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00562.html">Date Prev</a>][<a href="msg00564.html">Date Next</a>][<a href="msg00562.html">Thread Prev</a>][<a href="msg00566.html">Thread Next</a>][<a href="maillist.html#00563">Date Index</a>][<a href="threads.html#00563">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>embedded mzscheme and initializing the mzscheme environment as well as my own</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: embedded mzscheme and initializing the mzscheme environment as well as my own</li>
+<li><em>From</em>: &quot;Gregory Lampshire&quot; &lt;<A HREF="mailto:gregory_lampshire@hotmail.com">gregory_lampshire@hotmail.com</A>&gt;</li>
+<li><em>Date</em>: Sun, 24 Jun 2001 21:51:36 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I am embedding mzscheme into a C++ application (and library) that uses the
+Singleton design pattern and the Object Lifetime Manager (or whatever it's
+called) design pattern to ensure that my application components follows the
+correct elaboration order, etc.
+
+As part of the elaboration of my MLT_Enivornment component, I create the
+mzscheme environment and then add symbols and create mzscheme types in the
+mzscheme environment.  Since this Singleton is declared as a static object,
+it is elaborated prior to main.  I am wondering if it is improper to create
+the mzscheme environment prior to entering main.  Should I expect different
+behavior on different compilers and OSs?  Obviously, I can move
+initialization around a bit and my application will keep running, however, I
+would really like to move all of my systems startup and initialization calls
+into their respective modules and allow for a cleaner main routine.  Doing
+so will make it easier for other folks to extend the application, control
+their own elaboration code, and ensure that the right thing always happens
+from an elaboration perspective.  My approach works fine on my current
+platform.
+
+Thoughts?
+
+
+cheers,
+gregory
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00566" href="msg00566.html">Re: embedded mzscheme and initializing the mzscheme environment as well as my own</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00562.html">Compiling under HP/UX</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00564.html">Scheme_Manager_Reference and friends</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00562.html">Compiling under HP/UX</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00566.html">Re: embedded mzscheme and initializing the mzscheme environment as well as my own</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00563"><strong>Date</strong></a></li>
+<li><a href="threads.html#00563"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

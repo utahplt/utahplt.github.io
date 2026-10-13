@@ -1,0 +1,138 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: debug, break, single&#45;step -->
+<!--X-From-R13: Xbua Qyrzragf <pyrzragfNoevapxreubss.bet> -->
+<!--X-Date: Fri, 21 Sep 2001 16:48:37 &#45;0600 (MDT) -->
+<!--X-Message-Id: p05101006b7d173341046@[129.10.115.111] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c142e3$f811cc90$850a0a0a@amp2k -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: debug, break, single-step</title>
+<link rev="made" href="mailto:clements@brinckerhoff.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00919.html">Date Prev</a>][<a href="msg00921.html">Date Next</a>][<a href="msg00919.html">Thread Prev</a>][<a href="msg00922.html">Thread Next</a>][<a href="maillist.html#00920">Date Index</a>][<a href="threads.html#00920">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: debug, break, single-step</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Masoud Pirnazar&quot; &lt;<A HREF="mailto:amp@apptek.com">amp@apptek.com</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: debug, break, single-step</li>
+<li><em>From</em>: John Clements &lt;<A HREF="mailto:clements@brinckerhoff.org">clements@brinckerhoff.org</A>&gt;</li>
+<li><em>Date</em>: Fri, 21 Sep 2001 18:52:54 -0400</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00919.html">000001c142e3$f811cc90$850a0a0a@amp2k</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00919.html">000001c142e3$f811cc90$850a0a0a@amp2k</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 5:25 PM -0400 9/21/01, Masoud Pirnazar wrote:
+&gt;except for the student-level stepper, is there any kind of debugger 
+&gt;for mzscheme?
+&gt;
+&gt;if not, any good strategies for debugging code?  (i've been using printf's)
+&gt;
+&gt;i've been unable to use &quot;psd&quot;, the portable-scheme-debugger.  if 
+&gt;anyone has used this successfully, please let me know.
+&gt;
+&gt;(please reply to my email address as well as the mailing list. thanks.)
+
+1) There are plans for a full-featured debugger.  This is not 
+scheduled for inclusion in version 200.
+
+2) The &quot;errortrace&quot; library displays the program text of the 
+expressions that make up the continuation.  This is very much like 
+gdb's &quot;backtrace&quot; facility.  (Except that it's less likely to be 
+wrong.)
+
+To use errortrace, you must require the errortrace library.  An 
+example follows:
+
+Welcome to MzScheme version 199.22, Copyright (c) 1995-2001 PLT
+&gt;  (require (lib &quot;errortrace.ss&quot; &quot;errortrace&quot;))
+&gt;  (define (faulty-map p l)
+      (cons (p (car l)) (faulty-map p (cdr l))))
+&gt;  (faulty-map (lambda (x) (+ x 1)) (list 3 4 5 6))
+car: expects argument of type &lt;pair&gt;; given ()
+STDIN::177: (car l)
+STDIN::174: (p (car l))
+STDIN::168: (cons (p (car l)) (faulty-map p (cdr l)))
+STDIN::168: (cons (p (car l)) (faulty-map p (cdr l)))
+STDIN::168: (cons (p (car l)) (faulty-map p (cdr l)))
+STDIN::168: (cons (p (car l)) (faulty-map p (cdr l)))
+STDIN::168: (cons (p (car l)) (faulty-map p (cdr l)))
+
+... so we can see that we're nested five deep in recursive calls, but 
+we can't see the values of the variables at each point.
+
+The example shown uses the &quot;new&quot;, version-200 syntax.  In version 
+103, you would write
+(require-library &quot;errortrace.ss&quot; &quot;errortrace&quot;)
+rather than the require form shown above.
+
+HTH,
+
+john clements
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00922" href="msg00922.html">URL structs  in cgi^ script</a></strong>
+<ul><li><em>From:</em> &quot;Greg Pettyjohn&quot; &lt;pgreg14@qwest.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00919" href="msg00919.html">debug, break, single-step</a></strong>
+<ul><li><em>From:</em> &quot;Masoud Pirnazar&quot; &lt;amp@apptek.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00919.html">debug, break, single-step</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00921.html">Re: debug, break, single-step</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00919.html">debug, break, single-step</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00922.html">URL structs  in cgi^ script</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00920"><strong>Date</strong></a></li>
+<li><a href="threads.html#00920"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

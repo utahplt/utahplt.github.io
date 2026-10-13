@@ -1,0 +1,127 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: tcp&#45;listen -->
+<!--X-From-R13: Ibwpvrpu Ebopmhx <fbcryNserrofq.uom.cy> -->
+<!--X-Date: Mon, 7 Jan 2002 09:27:48 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020107172534.B54388@freebsd.hbz.pl -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020107163840.A54388@freebsd.hbz.pl -->
+<!--X-Reference: 15417.52015.952535.968224@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: tcp-listen</title>
+<link rev="made" href="mailto:sopel@freebsd.hbz.pl">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00034.html">Date Prev</a>][<a href="msg00036.html">Date Next</a>][<a href="msg00034.html">Thread Prev</a>][<a href="msg00039.html">Thread Next</a>][<a href="maillist.html#00035">Date Index</a>][<a href="threads.html#00035">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: tcp-listen</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Subject</em>: Re: tcp-listen</li>
+<li><em>From</em>: Wojciech Sobczuk &lt;<A HREF="mailto:sopel@freebsd.hbz.pl">sopel@freebsd.hbz.pl</A>&gt;</li>
+<li><em>Date</em>: Mon, 7 Jan 2002 17:25:35 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00034.html">15417.52015.952535.968224@mojave.cs.cornell.edu</a>&gt;; from eli@barzilay.org on Mon, Jan 07, 2002 at 11:22:07AM -0500</li>
+<li><em>References</em>: &lt;<a href="msg00033.html">20020107163840.A54388@freebsd.hbz.pl</a>&gt; &lt;<a href="msg00034.html">15417.52015.952535.968224@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.2.5i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Mon, Jan 07, 2002 at 11:22:07AM -0500, Eli Barzilay wrote:
+&gt; On Jan  7, Wojciech Sobczuk wrote:
+&gt; &gt; hey,
+&gt; &gt; 
+&gt; &gt; it would be nice to have an option to tcp-listen on a single IP not
+&gt; &gt; all (as it is now).  it's probably a simple change..
+&gt; 
+&gt; But you can easily do it in Scheme:
+
+well, i like to have the flexibility to be able to listen on a single ip, and
+i'm sure it would be used by more people.
+for example, i'd like to have apache listen on one ip and port 80, and
+a scheme web server on another ip of the same host on port 80 too.
+
+Wojtek
+
+&gt; 
+&gt;   (define (connection)
+&gt;     (printf &quot;&gt;&gt;&gt; ~s~%&quot; (read-line)))
+&gt;   (define (server)
+&gt;     (define listener (tcp-listen 9999 1))
+&gt;     (let loop ()
+&gt;       (let*-values (((i o) (tcp-accept listener))
+&gt;                     ((_ ip) (tcp-addresses i)))
+&gt;         (when (equal? ip &quot;127.0.0.1&quot;)
+&gt;           (parameterize ((current-input-port i)
+&gt;                          (current-output-port o))
+&gt;             (connection)))
+&gt;         (close-input-port i)
+&gt;         (close-output-port o))
+&gt;       (loop)))
+&gt; 
+&gt; or maybe you want to deny connections?
+&gt; 
+&gt; -- 
+&gt;           ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+&gt;                   <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00033" href="msg00033.html">tcp-listen</a></strong>
+<ul><li><em>From:</em> Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt;</li></ul></li>
+<li><strong><a name="00034" href="msg00034.html">Re: tcp-listen</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00034.html">Re: tcp-listen</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00036.html">Re: LL1</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00034.html">Re: tcp-listen</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00039.html">200alpha8</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00035"><strong>Date</strong></a></li>
+<li><a href="threads.html#00035"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

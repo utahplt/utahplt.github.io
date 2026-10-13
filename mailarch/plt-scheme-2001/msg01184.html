@@ -1,0 +1,148 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Building scheme on Linux -->
+<!--X-From-R13: "Rnivq Hna Vbea" <qnivqNinaubea.pbz> -->
+<!--X-Date: Wed, 7 Nov 2001 15:56:33 &#45;0700 (MST) -->
+<!--X-Message-Id: 001301c167e9$b1f81130$0c6efea9@barbuda -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.30.0111062035060.11695&#45;100000@ant -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Building scheme on Linux</title>
+<link rev="made" href="mailto:david@vanhorn.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01183.html">Date Prev</a>][<a href="msg01185.html">Date Next</a>][<a href="msg01180.html">Thread Prev</a>][<a href="msg01185.html">Thread Next</a>][<a href="maillist.html#01184">Date Index</a>][<a href="threads.html#01184">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Building scheme on Linux</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Building scheme on Linux</li>
+<li><em>From</em>: &quot;David Van Horn&quot; &lt;<A HREF="mailto:david@vanhorn.com">david@vanhorn.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 7 Nov 2001 18:09:51 -0600</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01180.html">Pine.LNX.4.30.0111062035060.11695-100000@ant</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Yes, the XFree86-devel package was needed. I added it and that seems to
+solve the X11 header file problem. However, I still am unable to build the
+PLT source.
+
+Here is the std out
+...
+make mred
+make[2]: Entering directory `/home/dvanhorn/plt/src/mred'
+c++   -o mred mrmain.o ../mzscheme/libmzscheme.a ../mzscheme/libmzgc.a
+mred.o mredx.o wxGC.o wxJPEG.o wxs/libwxscheme.a wxme/libwxme.a
+../wxxt/src/libwx_xt.a ../wxxt/contrib/xpm/lib/libXpm.a
+../wxxt/utils/image/src/libimage_xt.a
+../wxcommon/jpeg/libjpeg.a -lXaw -lXmu -lXt -lX11 -lXext  -ldl -lm  -rdynami
+c
+make[2]: Leaving directory `/home/dvanhorn/plt/src/mred'
+make[1]: Leaving directory `/home/dvanhorn/plt/src/mred'
+
+And the error
+/usr//bin/ld: cannot find -lXaw
+collect2: ld returned 1 exit status
+make[2]: *** [mred] Error 1
+make[1]: *** [all] Error 2
+make: *** [mr] Error 2
+
+I am in the src directory running ./configure then make.
+Its a Mandrake 8.1 box, any ideas?
+Thanks,
+David
+
+
+-----Original Message-----
+From: owner-plt-scheme@fast.cs.utah.edu
+[<A  HREF="mailto:owner-plt-scheme@fast.cs.utah.edu]On">mailto:owner-plt-scheme@fast.cs.utah.edu]On</A> Behalf Of Kirill Lisovsky
+Sent: Tuesday, November 06, 2001 11:44 AM
+To: plt-scheme@fast.cs.utah.edu
+Subject: RE: Building scheme on Linux
+
+
+Hello!
+
+On Tue, 6 Nov 2001, Paul Steckler wrote:
+
+&gt; &gt; ./XWidgets/xwTabString.c:6:27: X11/Intrinsic.h: No such file or
+&gt; &gt; directory
+&gt;
+&gt; Did you install Linux with a &quot;server&quot; configuration?  If so, you may not
+&gt; have X11 files on your machine.  Can you run X on it?
+&gt;
+It may be that a package XFree86-devel* is not installed.
+It contains the file and it is not required to run X.
+
+Best regards,
+        Kirill.
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01185" href="msg01185.html">RE: Building scheme on Linux</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01187" href="msg01187.html">RE: Building scheme on Linux</a></strong>
+<ul><li><em>From:</em> Kirill Lisovsky &lt;lisovsky@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01180" href="msg01180.html">RE: Building scheme on Linux</a></strong>
+<ul><li><em>From:</em> Kirill Lisovsky &lt;lisovsky@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01183.html">Is it possible to have a persistent canvas background color ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01185.html">RE: Building scheme on Linux</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01180.html">RE: Building scheme on Linux</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01185.html">RE: Building scheme on Linux</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01184"><strong>Date</strong></a></li>
+<li><a href="threads.html#01184"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

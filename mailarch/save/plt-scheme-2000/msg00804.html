@@ -1,0 +1,102 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: MzScheme Special Form &#45;> Native Numerical Code? -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Wed, 2 Aug 2000 10:04:16 &#45;0600 (MDT) -->
+<!--X-Message-Id: 75514FC5ECC8D2118C8D00A0C9ED54DB010901E1@obcmail1.bsquare.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: MzScheme Special Form -&gt; Native Numerical Code?</TITLE>
+<LINK REV="made" HREF="mailto:GregP@bsquare.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00803.html">Date Prev</A>][<A HREF="msg00805.html">Date Next</A>][<A HREF="msg00816.html">Thread Prev</A>][<A HREF="msg00815.html">Thread Next</A>][<A HREF="maillist.html#00804">Date Index</A>][<A HREF="threads.html#00804">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: MzScheme Special Form -&gt; Native Numerical Code?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: RE: MzScheme Special Form -&gt; Native Numerical Code?</LI>
+<LI><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 2 Aug 2000 09:04:44 -0700 </LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; By the way, the educational motivation for generating and calling native
+&gt; code from MzScheme is that then TeachScheme! can then be easily extended
+&gt; into classes for advanced students on low level machine architecture.
+&gt; Students could learn how a real processor works by poking at it through
+&gt; MzScheme interface functions. Need to add a new language level then --
+&gt; "crash and burn horribly". :-) But as I've heard it said, "If you can't
+&gt; crash it, you're not the one doing the driving..."
+
+
+I know this sounds like a contradiction, but I wonder whether there would be
+a 
+"safe" way to "crash and burn horribly." Recently, Matthew Flatt pointed
+me to a paper overviewing various garbage collectors. The idea that comes to
+mind is that you could use the write barier of the garbage collector to make
+sure that machine instructions from a "crash and burn routine" didn't
+actually
+trash other unrelated parts of the system.
+
+The idea is that (call-native-code someSortOfByteArray memory-size) would
+set aside some
+memory that the native-code could write to. The native-code would be free to
+do whatever
+it wanted in that memory, but if it tried to write to another part of
+memory,
+MzScheme would stop the native-code execution and raise an exception.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00803.html">MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00805.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00816.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00815.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00804"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00804"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

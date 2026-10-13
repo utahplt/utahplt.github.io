@@ -1,0 +1,117 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] mred control&#45;c -->
+<!--X-From-R13: Dba Egnabavx <fgnabavxNpbtfpv.hpfq.rqh> -->
+<!--X-Date: Thu, 6 Jun 2002 06:44:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: Pine.LNX.4.44.0206060534080.22345&#45;100000@cogsci.ucsd.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] mred control-c</title>
+<link rev="made" href="mailto:stanonik@cogsci.ucsd.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01065.html">Date Prev</a>][<a href="msg01067.html">Date Next</a>][<a href="msg01067.html">Thread Prev</a>][<a href="msg01070.html">Thread Next</a>][<a href="maillist.html#01066">Date Index</a>][<a href="threads.html#01066">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] mred control-c</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: [plt-scheme] mred control-c</li>
+<li><em>From</em>: Ron Stanonik &lt;<A HREF="mailto:stanonik@cogsci.ucsd.edu">stanonik@cogsci.ucsd.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 6 Jun 2002 05:44:29 -0700 (PDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello,
+
+Control-c (linux plt 200) causes mzscheme to break out of what's currently
+being executed and return to the mzscheme user prompt.
+
+Control-c causes mred to exit.
+
+How can we make mred -z behave like mzscheme?
+
+I copied the mzscheme SIGINT handling code into an extension and
+loaded that into mred.  mred reports &quot;user break&quot; when control-c
+is hit, but still exits.  Do I needed to catch exn:break too and
+do something with that to prevent mred from exiting?
+
+    static void user_break_hit(int ignore)
+    {
+      scheme_break_thread(NULL);
+      scheme_signal_received();
+    
+    #  ifdef SIGSET_NEEDS_REINSTALL
+      MZ_SIGSET(SIGINT, user_break_hit);
+    #  endif
+    #  ifdef MZ_PRECISE_GC
+      /* Restore variable stack. */
+      GC_variable_stack = (void **)__gc_var_stack__[0];
+    #  endif
+    }
+
+    signal(SIGINT, user_break_hit);
+    
+Thanks,
+
+Ron Stanonik
+stanonik@cogsci.ucsd.edu
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01070" href="msg01070.html">Re: [plt-scheme] mred control-c</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01065.html">RE: [plt-scheme] eval question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01067.html">Re: [plt-scheme] Arrays and scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01067.html">Re: [plt-scheme] Arrays and scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01070.html">Re: [plt-scheme] mred control-c</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01066"><strong>Date</strong></a></li>
+<li><a href="threads.html#01066"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

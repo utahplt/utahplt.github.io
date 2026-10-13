@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Any Examples of COM (and perhaps ADO)? -->
+<!--X-From-R13: "Bnhy Egrpxyre" <fgrpxNppf.arh.rqh> -->
+<!--X-Date: Fri, 10 Aug 2001 14:24:09 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000001c121d9$e335d3a0$70730a81@NORTHEASDX5RFA -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 001601c121d4$9ad97350$0100a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Any Examples of COM (and perhaps ADO)?</title>
+<link rev="made" href="mailto:steck@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00768.html">Date Prev</a>][<a href="msg00770.html">Date Next</a>][<a href="msg00767.html">Thread Prev</a>][<a href="msg00765.html">Thread Next</a>][<a href="maillist.html#00769">Date Index</a>][<a href="threads.html#00769">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Any Examples of COM (and perhaps ADO)?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;'Anton van Straaten'&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;,       &quot;'PLT Scheme'&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;, &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Subject</em>: RE: Any Examples of COM (and perhaps ADO)?</li>
+<li><em>From</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 10 Aug 2001 16:20:24 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00766.html">001601c121d4$9ad97350$0100a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; However, I can do the same thing in DrScheme - load the same file
+&gt; multiple
+&gt; times, either in the definitions or interactions window - and it works
+&gt; fine.
+&gt; The problem doesn't occur until an ADO Connection object has been
+&gt; instantiated and opened one or more times, whether in the definitions
+&gt; or
+&gt; interactions window.  After that's happened, any subsequent presses of
+&gt; Execute will fail.
+
+OK, I think I've found a fix.  It looks like the ADO implementation is
+either interacting badly with the DrScheme garbage-collector, or there's
+an outright error in its reference-counting.  I'll have to experiment to
+see which hypothesis is true.
+
+In any case, adding
+
+  (com-add-ref conn)
+
+after opening the connection fixes the symptom.
+
+This shouldn't be necessary, of course ... sigh.
+
+-- Paul
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00766" href="msg00766.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00768.html">&quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00770.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00767.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00765.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00769"><strong>Date</strong></a></li>
+<li><a href="threads.html#00769"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

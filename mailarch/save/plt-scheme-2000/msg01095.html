@@ -1,0 +1,219 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Scheme acceptance [no flames] -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Sat, 11 Nov 2000 19:30:44 &#45;0700 (MST) -->
+<!--X-Message-Id: 3A0E010D.CBD3C6E7@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200011062253.OAA20700@balu.qualcomm.com -->
+<!--X-Reference: 3A074096.3352B443@lokigames.com -->
+<!--X-Reference: 200011070112.RAA22546@balu.qualcomm.com -->
+<!--X-Reference: 14855.17563.441431.688791@mojave.cs.cornell.edu -->
+<!--X-Reference: 14855.24401.446278.54505@minbar.directlink.net -->
+<!--X-Reference: 200011070346.VAA29119@africa.cs.rice.edu -->
+<!--X-Reference: 200011070630.BAA21751@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Scheme acceptance [no flames]</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01094.html">Date Prev</A>][<A HREF="msg01096.html">Date Next</A>][<A HREF="msg01066.html">Thread Prev</A>][<A HREF="msg01091.html">Thread Next</A>][<A HREF="maillist.html#01095">Date Index</A>][<A HREF="threads.html#01095">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Scheme acceptance [no flames]</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Scheme acceptance [no flames]</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 11 Nov 2000 21:31:41 -0500</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01030.html">200011062253.OAA20700@balu.qualcomm.com</A>&gt;	&lt;<A HREF="msg01031.html">3A074096.3352B443@lokigames.com</A>&gt;	&lt;<A HREF="msg01034.html">200011070112.RAA22546@balu.qualcomm.com</A>&gt;	&lt;<A HREF="msg01032.html">14855.17563.441431.688791@mojave.cs.cornell.edu</A>&gt;	&lt;<A HREF="msg01035.html">14855.24401.446278.54505@minbar.directlink.net</A>&gt;	&lt;<A HREF="msg01036.html">200011070346.VAA29119@africa.cs.rice.edu</A>&gt; &lt;<A HREF="msg01039.html">200011070630.BAA21751@bosch.cs.brown.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Shriram Krishnamurthi wrote:
+&gt;   Paul Fernhout has been playing with a new Scheme syntax.  Hopefully
+&gt;   he will respond with some notification of its status.  I should
+&gt;   warn, though, that lots of people have tried to come up with a
+&gt;   better syntax for Scheme (including, blush, Matthias and I).  I've
+&gt;   never seen a success (ditto).
+
+Sorry I didn't notice this sooner -- I just started a contract in 
+Scheme-with-training-wheels (Java/XML) and so I've not been following 
+the list that closely (sorry).
+
+As far as I'm concerned, the indentational syntax works fine. 
+I'm quite satisfied with it and have written a couple short things in it.
+
+An example module for the main part of a file viewer application:
+
+========================================================
+; The next lines autorun this file through the IndentReader.scm
+; The "eval-indented-file" skips the first eight lines on reading)
+; Note that Scheme will then error out on the define with:
+; "reference to undefined identifier: fail-at-end-of-loader-not-defined"
+; that is expected. It would be nice to have a better termination
+(load "IndentReader.scm")
+(eval-indented-file "C:/pdfscheme/FileViewerIndented.scm" 8)
+(fail-at-end-of-loader-not-defined)
+
+; parse as indented Scheme v1.0
+; reads all files in a directory and lets you view them
+
+load "IndentWriter.scm"
+
+define (directory-chooser)
+ get-file "Pick a directory by choosing a file" #f #f #f #f null
+
+define windowFrame (make-object frame% "File Viewer" #f 200 200) 
+ 
+define (choice-callback widget event)
+ load-file-contents (open-input-file (send widget get-string-selection) 'text)
+
+define scheme-style-delta 
+ send (make-object style-delta% 'change-family 'modern) set-delta 'change-smaller 3
+
+define (load-file-contents file)
+ send windowText insert (read-string 100000 file) 0 100000 #f
+ send windowText change-style scheme-style-delta 0 100000
+ 
+define (directoryButton-callback a b ) 
+ let
+  .
+   choice (directory-chooser)
+  if choice
+   begin
+    send directoryChoice append choice
+    load-file-contents (open-input-file choice 'text)
+  
+define directoryButton 
+ make-object button% "Choose file" windowFrame directoryButton-callback
+                              
+define (convertButton-callback a b ) 
+ let
+  .
+   choice (send directoryChoice get-string-selection)
+   string-port (open-output-string)
+  if choice
+   begin
+    indent-print-file choice string-port
+    load-file-contents (open-input-string (get-output-string string-port))
+  
+define convertButton 
+ make-object button% "Show indented" windowFrame convertButton-callback
+                              
+define directoryChoice
+ make-object choice% "File:" null windowFrame choice-callback null
+
+send directoryChoice stretchable-width #t 
+
+send windowFrame set-control-font (make-object font% 12 "Courier" 'modern 'normal 'normal #f)
+
+define windowText (make-object text%) 
+
+define windowCanvas (make-object editor-canvas% windowFrame)
+
+; set up edit menu and font menu
+define menu-bar (make-object menu-bar% windowFrame)
+define menu-edit (make-object menu% "Edit" menu-bar)
+append-editor-operation-menu-items menu-edit
+define menu-font (make-object menu% "Font" menu-bar)
+append-editor-font-menu-items menu-font
+
+send windowCanvas set-editor windowText
+send windowFrame show #t
+
+=================================================================
+
+What I discovered doing this (and it's obvious now with or without parentheses) 
+is that Scheme/Lisp relies heavily on the physical structure of code
+to denote meaning (as opposed to tagged fields). There are few reminders
+in Scheme/Lisp of what the structure should be. PLT Scheme improves on
+this with language level checks. Perhaps more could be done here
+to make the coding process easier, to to somehow indicate these
+patterns more strongly. That might be in a fancy editor with hints?
+
+One of the reasons I like Smalltalk is the keyword syntax 
+(required and thus used consistently, not just occasionally) 
+serves  to remind what the arguments are opposed to mean. 
+For example: 
+  Display lineFrom: (10 @ 20) to: (20 @ 30).
+Or:
+  Display drawRectangleX1: 10 y1: 20 x2: 30 y2: 40.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01030" HREF="msg01030.html">Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01031" HREF="msg01031.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> "John R. Hall" &lt;overcode@lokigames.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01034" HREF="msg01034.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01032" HREF="msg01032.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@barzilay.org&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01035" HREF="msg01035.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Richard Cobbe &lt;cobbe@directlink.net&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01036" HREF="msg01036.html">Re: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01039" HREF="msg01039.html">Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01094.html">Re: Emacs bindings?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01096.html">Re: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01066.html">Re: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01091.html">Re: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01095"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01095"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,226 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: functional programming is great, but why lists? -->
+<!--X-From-R13: "Dvpneqb V. [rqry" <ezrqryNpf.fgriraf&#45;grpu.rqh> -->
+<!--X-Date: Thu, 11 Oct 2001 07:21:20 &#45;0600 (MDT) -->
+<!--X-Message-Id: Pine.NEB.4.33.0110110908230.383&#45;100000@uff&#45;da&#45;bock.cs.stevens&#45;tech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110110342.WAA00959@banach.math.nwu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: functional programming is great, but why lists?</title>
+<link rev="made" href="mailto:rmedel@cs.stevens-tech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01026.html">Date Prev</a>][<a href="msg01028.html">Date Next</a>][<a href="msg01042.html">Thread Prev</a>][<a href="msg01031.html">Thread Next</a>][<a href="maillist.html#01027">Date Index</a>][<a href="threads.html#01027">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: functional programming is great, but why lists?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Bill Richter &lt;<A HREF="mailto:richter@math.nwu.edu">richter@math.nwu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: functional programming is great, but why lists?</li>
+<li><em>From</em>: &quot;Ricardo H. Medel&quot; &lt;<A HREF="mailto:rmedel@cs.stevens-tech.edu">rmedel@cs.stevens-tech.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 11 Oct 2001 09:21:24 -0400 (EDT)</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01025.html">200110110342.WAA00959@banach.math.nwu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Bill:
+
+Functional programming is great, but why numbers? Numbers seems pretty
+cumbersome. Why not use functions instead? For example, there's a very
+elegant number in your examples: 3. The easiest way to describe the
+number 3 is by a function/non-number version of it:
+
+(lambda (f) (lambda (x) (f (f (f x)))))
+
+Sorry. I'm in funny mood.
+
+Ricardo Medel
+Stevens Institute of Technology
+-------------------------------
+
+On Wed, 10 Oct 2001, Bill Richter wrote:
+
+&gt; Date: Wed, 10 Oct 2001 22:42:36 -0500
+&gt; From: Bill Richter &lt;richter@math.nwu.edu&gt;
+&gt; To: plt-scheme@fast.cs.utah.edu
+&gt; Subject: functional programming is great, but why lists?
+&gt;
+&gt; Here's a pedagogical question, particularly affecting the PLT mission
+&gt; of teaching Scheme to high school students.
+&gt;
+&gt; I'm perfectly sold on functional programming, i.e. no mutators.  But
+&gt; cons/list seems pretty cumbersome.  Why not use functions instead?
+&gt; For instance, there's a very elegant program `scramble' on p 15 of
+&gt; &quot;The Seasoned Schemer&quot;, .  The easiest way to describe what `scramble'
+&gt; is by a function/non-list version of it:
+&gt;
+&gt; (define (scramble-fun tup-fun)
+&gt;   (lambda (n)
+&gt;     (tup-fun (add1 (- n (tup-fun n))))))
+&gt;
+&gt; i.e. it takes a function f and returns n |--&gt; f(n - f(n) + 1).  Boom,
+&gt; no problem.  But F &amp; F's elegant solution with lists is:
+&gt;
+&gt; (define (scramble-b tup rev-pre)
+&gt;   (letrec ((pick (lambda (n lat)
+&gt;                    (if (= n 1)
+&gt;                        (car lat)
+&gt;                        (pick (- n 1) (cdr lat))))))
+&gt;     (if (null? tup)
+&gt;         '()
+&gt;         (cons (pick (car tup)
+&gt;                     (cons (car tup) rev-pre))
+&gt;               (scramble-b (cdr tup)
+&gt;                           (cons (car tup) rev-pre))))))
+&gt;
+&gt; (define (scramble tup)
+&gt;   (scramble-b tup '()))
+&gt;
+&gt; OK, it's a skill to learn how to write such function as `scramble' and
+&gt; `scramble-b', and I'm not quite there yet, but I ask: what is the
+&gt; point of developing such a skill?  I assume that we're really trying
+&gt; to teach recursion (and I'm not quite there yet either), so is the
+&gt; idea, &quot;let's pick some arcane area where we can practice recursion&quot;?
+&gt;
+&gt; Actually showing my function was equivalent to F&amp;F's took some work,
+&gt; but the output indicates that I've got the same function:
+&gt;
+&gt; Welcome to DrScheme, version 103p1.
+&gt; Language: Graphical Full Scheme (MrEd).
+&gt; (1 1 1 1 1 1 1 1 1)
+&gt; (1 1 1 1 1 1 1 1 1)
+&gt; (1 1 1 1 1 1 1 1 2 8 2)
+&gt; (1 1 1 1 1 1 1 1 2 8 2)
+&gt; (1 1 1 1 1 4 1 1 1 9)
+&gt; (1 1 1 1 1 4 1 1 1 9)
+&gt;
+&gt;
+&gt; (require-library &quot;functio.ss&quot;)
+&gt;
+&gt; (define (increment-function funny)
+&gt;   (lambda (n)
+&gt;     (funny (add1 n))))
+&gt;
+&gt;
+&gt; (scramble '(1 2 3 4 5 6 7 8 9))
+&gt;
+&gt; (define (tup-fun2 n)
+&gt;   ;; (1 2 3 4 5 6 7 8 9)
+&gt;   (cond ((= n 1) 1)
+&gt;         ((= n 2) 2)
+&gt;         ((= n 3) 3)
+&gt;         ((= n 4) 4)
+&gt;         ((= n 5) 5)
+&gt;         ((= n 6) 6)
+&gt;         ((= n 7) 7)
+&gt;         ((= n 8) 8)
+&gt;         ((= n 9) 9)))
+&gt;
+&gt;
+&gt; (build-list 9 (increment-function (scramble-fun tup-fun2)))
+&gt;
+&gt; (scramble '(1 2 3 1 2 3 4 1 8 2 10))
+&gt;
+&gt; (define (tup-fun1 n)
+&gt;   ;; (1 2 3 1 2 3 4 1 8 2 10)
+&gt;   (cond ((= n 1) 1)
+&gt;         ((= n 2) 2)
+&gt;         ((= n 3) 3)
+&gt;         ((= n 4) 1)
+&gt;         ((= n 5) 2)
+&gt;         ((= n 6) 3)
+&gt;         ((= n 7) 4)
+&gt;         ((= n 8) 1)
+&gt;         ((= n 9) 8)
+&gt;         ((= n 10) 2)
+&gt;         ((= n 11) 10)))
+&gt;
+&gt; (build-list 11 (increment-function (scramble-fun tup-fun1)))
+&gt;
+&gt; (scramble '(1 1 1 3 4 2 1 1 9 2))
+&gt;     ;;     (1 1 1 1 1 4 1 1 1 9)
+&gt;
+&gt;
+&gt; (define (tup-fun3 n)
+&gt;   (cond ((= n 1) 1)
+&gt;         ((= n 2) 1)
+&gt;         ((= n 3) 1)
+&gt;         ((= n 4) 3)
+&gt;         ((= n 5) 4)
+&gt;         ((= n 6) 2)
+&gt;         ((= n 7) 1)
+&gt;         ((= n 8) 1)
+&gt;         ((= n 9) 9)
+&gt;         ((= n 10) 2)))
+&gt;
+&gt; (build-list 10 (increment-function (scramble-fun tup-fun3)))
+&gt;
+&gt;
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01031" href="msg01031.html">RE: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01025" href="msg01025.html">functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01026.html">functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01028.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01042.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01031.html">RE: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01027"><strong>Date</strong></a></li>
+<li><a href="threads.html#01027"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

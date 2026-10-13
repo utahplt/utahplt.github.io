@@ -1,0 +1,165 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Swindle question &#38; bug report -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Tue, 7 Nov 2000 22:31:40 &#45;0700 (MST) -->
+<!--X-Message-Id: 14856.58680.512405.822415@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20001106154702.1541.qmail@web123.yahoomail.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Swindle question &amp; bug report</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00704.html">Date Prev</a>][<a href="msg00706.html">Date Next</a>][<a href="msg00666.html">Thread Prev</a>][<a href="msg00718.html">Thread Next</a>][<a href="maillist.html#00705">Date Index</a>][<a href="threads.html#00705">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Swindle question &amp; bug report</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Swindle question &amp; bug report</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Wed, 8 Nov 2000 00:31:36 -0500</li>
+<li><em>Cc</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00666.html">20001106154702.1541.qmail@web123.yahoomail.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00666.html">20001106154702.1541.qmail@web123.yahoomail.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Nov  6, Noel Welsh wrote:
+&gt; I disagree - I think it a very useful add-on to PLT
+&gt; Scheme and others may be interested in the discussion,
+&gt; so I'll discuss it on the list unless others object.
+
+Well, all I can do is be flattered...  (But still, I'm keeping my
+mailing list thing - I'm think Swindle is not that popular...)
+
+
+&gt; Well, it depends on what the see as Swindle's use.  If
+&gt; you want to build wholly Swindle programs then it
+&gt; isn't much use, but I see more value in Swindle's
+&gt; ability to dispatch on type (i.e. generic functions)
+&gt; than in the ability to (essentially) define a new type
+&gt; of structure.   For a start, dispatching on structures
+&gt; &amp; PLT classes makes the system more unified -
+&gt; everything is an object.  Having generic functions as
+&gt; a core part of PLT Scheme would be really useful - one
+&gt; could overload display and write for instance, and the
+&gt; whole system could be more reflective.
+
+Yes, and because the built-in printer etc don't have enough hooks to
+change the way they behave, I implemented my printer.  As for built-in
+types: the object system is just too much to hack around, I think that
+I'm overriding names in more than one place -- I don't know how
+feasible it would be to use Swindle generic functions with built-in
+objects.  Besides, considering the plans that Matthew just mentioned,
+it would make sense to wait until this phase is done.  Especially, if
+the built-in object system is made into a loadable module, it would
+make using Swindle much more reasonable as a substitute (the problem
+is that MrEd will probably rely on it, so a future DrSwindle thing
+will have to use both again).
+
+
+&gt; My intended
+&gt; use of Swindle is dispatching on structure type (in
+&gt; this case Zodiac structures).
+
+As for built-in structures, the only thing I'd need for this is some
+way to get a structure object that correspond to some struct instance.
+If I get it in a form of an object that allows me to pull out its
+super-structs (Java-style limited reflection) then I'm happy, but even
+some unique object would allow hacking some table in Swindle that
+you'll use to declare the struct object you're using (saying that a
+struct X inherits from a struct Y).  Currently, all I saw was
+struct-&gt;vector that has a symbol which is only the name and is not a
+unique object for the structure.  The point is that Swindle must have
+some class hierarchy to be able to choose methods at a generic call.
+The hierarchy is for sorting methods, so it is not enough to know that
+something is a struct but what struct does it inherit from.
+
+
+&gt; Unfortunately the whole Swindle packages breaks PLT
+&gt; Scheme a bit - the bug I reported and the loss of the
+&gt; buttons (Spidey, syntax highlighting) being two
+&gt; obvious problems.
+
+I'm sure that there are many more places that get broken.  The
+original motivation was not trying to make MzScheme behave like a CLOS
+system, but to have enough CLOS features in a Scheme environment so we
+could get rid of an old and very unstable implementation of a
+Dylan-like thing.  The result is pretty useful by itself but doesn't
+take things like built in classes too seriously as it was not designed
+to cooperate with them.
+
+
+&gt; FWIW, I don't see a conflict between the existing PLT
+&gt; Scheme objects and CLOS ala Swindle.  The former are
+&gt; more suited to the typical 'islands of state' OO
+&gt; model, whilst the latter seem more appropriate for the
+&gt; 'transformation of inputs' functional style.
+
+Well, I don't see either any serious problem - there is some minimal
+support (or hacks to mimic such) that should be added to make the
+internal object/struct system a bit less opaque.
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00666" href="msg00666.html">Re: Swindle question &amp; bug report</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00704.html">Re: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00706.html">RE: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00666.html">Re: Swindle question &amp; bug report</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00718.html">Re: Swindle question &amp; bug report</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00705"><strong>Date</strong></a></li>
+<li><a href="threads.html#00705"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

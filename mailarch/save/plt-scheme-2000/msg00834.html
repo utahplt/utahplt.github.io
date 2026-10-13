@@ -1,0 +1,161 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Wed, 9 Aug 2000 19:33:03 &#45;0600 (MDT) -->
+<!--X-Message-Id: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Specialized input parsing for code/REPL in DrScheme?</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00833.html">Date Prev</A>][<A HREF="msg00835.html">Date Next</A>][<A HREF="msg00833.html">Thread Prev</A>][<A HREF="msg00835.html">Thread Next</A>][<A HREF="maillist.html#00834">Date Index</A>][<A HREF="threads.html#00834">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Specialized input parsing for code/REPL in DrScheme?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Specialized input parsing for code/REPL in DrScheme?</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 09 Aug 2000 21:39:37 -0400</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm interested in being able to flip between alternate textual
+representations in DrScheme. I'm trying to determine how hard this would
+be to implement in DrScheme.
+
+Specifically, I'd like to flip back and forth in the DrScheme editor
+between conventional Scheme syntax and a syntax where indentation is
+significant (like in Python or Occam) and thus parentheses at the edges
+of lines can be removed as redundant.
+
+For example:
+
+(define (square x)
+  (* x x))
+
+would become:
+
+define (square x)
+  * x x
+
+and vice versa. I posted a thread on this to comp.lang.lisp if anyone
+wants the specifics. 
+<A  HREF="http://x66.deja.com/viewthread.xp?AN=656209628.4&amp;search=thread&amp;svcclass=dncurrent&amp;ST=PS&amp;CONTEXT=965870095.884932614&amp;HIT_CONTEXT=965870095.884932614&amp;HIT_NUM=1&amp;recnum=%3c3990E003.6EE78131@kurtz-fernhout.com%3e%234/4&amp;group=comp.lang.lisp&amp;frpage=viewthread.xp&amp;back=clarinet">http://x66.deja.com/viewthread.xp?AN=656209628.4&amp;search=thread&amp;svcclass=dncurrent&amp;ST=PS&amp;CONTEXT=965870095.884932614&amp;HIT_CONTEXT=965870095.884932614&amp;HIT_NUM=1&amp;recnum=%3c3990E003.6EE78131@kurtz-fernhout.com%3e%234/4&amp;group=comp.lang.lisp&amp;frpage=viewthread.xp&amp;back=clarinet</A>
+
+So my question is, in DrScheme, how should I best go about doing this
+(in terms of interfacing with DrScheme, not specifically the parsing)? 
+Is there a way to do this completely in Scheme (I hope) or will I have
+to recompile DrScheme and make changes to the C code? 
+
+Note this is something very different from defining a macro as far as I
+can tell -- since I am fundamentally changing the interpretation of the
+text before it is made into nested lists.
+
+I see there are some hooks and code for printing in DrScheme,
+specifically 
+  Converted Printing: pconver.ss
+  Pretty Printing: pretty.ss
+so I have something to start with.
+
+The part that looks harder is transparently taking the code entered into
+DrScheme, perhaps checking the first line or so for a flag
+(indent-mode-on?) and then using an alternate parser (hopefully
+writeable in Scheme). I'm not sure where to begin.
+
+Can anyone rough out the big picture of what I need to do to accomplish
+this in DrScheme?  The easier and more in Scheme the approach, the
+better. I looked at the docs, but didn't see anything obvious on hooking
+the REPL handler. Is it in there somewhere? I'd also like to hook saving
+the file, so I could transparently save the alternative syntax as
+standard Scheme syntax. 
+
+Naturally people on comp.lang.lisp suggest I do this as emacs Lisp
+macros, but a DrScheme implementation would probably be more useful for
+me (and hopefully might interest people on this list as well). Of
+course, what they mostly suggest is that this is just a bad idea, but
+I'm curious enough to at least want to see how difficult it would be to
+implement it. 
+
+I guess this is the "second system" effect Fred Brooks warns about. 
+  <A  HREF="http://www.best.com/~rgm/notebook/second-system.html">http://www.best.com/~rgm/notebook/second-system.html</A>
+One tiny success with a simple plug-in (still in need of error handling
+no less!) and I think I can rewrite Scheme parsing rules... :-)
+
+Note: Educational motivations for this (if any are needed) are:
+* an easy way to switch between syntaxes might allow students to
+experiment with their own mini-languages and parsers more easily using
+the DrScheme system (by hooking the REPL with their own handler)
+* this alternative syntax might be easier to understand or perhaps learn
+for some Scheme novices -- especially those coming from Python (I don't
+say this is necessarily true, but I can hope).
+ 
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00835" HREF="msg00835.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00838" HREF="msg00838.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00833.html">102d2</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00835.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00833.html">102d2</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00835.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00834"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00834"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

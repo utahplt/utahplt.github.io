@@ -1,0 +1,145 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: MzScheme library question -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 20 Feb 2001 09:25:20 &#45;0700 (MST) -->
+<!--X-Message-Id: 200102201624.JAA16895@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000b01c09b57$dfa0eee0$20dff0c3@koot -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: MzScheme library question</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00325.html">Date Prev</a>][<a href="msg00327.html">Date Next</a>][<a href="msg00325.html">Thread Prev</a>][<a href="msg00327.html">Thread Next</a>][<a href="maillist.html#00326">Date Index</a>][<a href="threads.html#00326">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: MzScheme library question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Jacob J. A. Koot&quot; &lt;<A HREF="mailto:jja.koot@wolmail.nl">jja.koot@wolmail.nl</A>&gt;</li>
+<li><em>Subject</em>: Re: MzScheme library question</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 20 Feb 2001 09:24:43 -0700 (MST)</li>
+<li><em>CC</em>: &quot;plt&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00325.html">000b01c09b57$dfa0eee0$20dff0c3@koot</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00325.html">000b01c09b57$dfa0eee0$20dff0c3@koot</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Jacob J. A. Koot&quot;:
+&gt; Is it correct to post questions about MzScheme in this list?
+
+Yes.
+
+&gt; I
+&gt; would be much obliged if you can point me to a reasonably simple way to
+&gt; construct a tool for preparing and loading/requiring libraries meeting the
+&gt; following criteria:
+&gt; 1: the values returned by the library do not depend on the environment in
+&gt; which the library is loaded/required, i.e. no need for hash-percent, except
+&gt; may be in the expansion of macros.
+&gt; 2: an option to prevent the library from overriding the value or syntactic
+&gt; binding of any variable that at load/require time happens already to be
+&gt; bound in the global namespace of the calling program. Say
+&gt; (require-library-dont-override name collects ...)
+&gt; 3: an option for the specification of symbols that may be redefined despite
+&gt; of requirement 2, say (require-library-dont-override-except (symbol ...)
+&gt; name collects ...)
+&gt; 4: load/require commands within a library preferably do not load a copy if
+&gt; already loaded. May be loading can even be lazy.
+&gt; 5: if the library loads/requires other libraries, it must still meet the
+&gt; above conditions
+
+Hey -- good timing! The module system in MzScheme version 200 will do
+exactly these things.
+
+In 200, instead of
+
+ (require-library &quot;lib.ss&quot; &quot;collection&quot;)
+
+you'll import library-based module bindings with
+
+ (require (lib &quot;lib.ss&quot; &quot;collection&quot;))
+
+either into the top level, or into a module context.
+
+
+If you want everything from the library except it's a, b, and c:
+
+ (require (all-except (lib &quot;lib.ss&quot; &quot;collection&quot;) a b c))
+
+If you want *only* the library's z, you have to drop down to the most
+general form:
+
+ (require (rename (lib &quot;lib.ss&quot; &quot;collection&quot;) z z))
+
+
+The library &quot;lib.ss&quot; is defined via the new `module' form, which means
+that its language is fixed. Other library modules that &quot;lib.ss&quot; depends
+on (and that haven't been loaded already) are automatically loaded when
+the module is loaded. No #%, not even for macros.
+
+
+More news later today on how you can get the bleeding-edge
+implementation...
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00325" href="msg00325.html">MzScheme library question</a></strong>
+<ul><li><em>From:</em> &quot;Jacob J. A. Koot&quot; &lt;jja.koot@wolmail.nl&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00325.html">MzScheme library question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00327.html">MzScheme library question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00325.html">MzScheme library question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00327.html">MzScheme library question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00326"><strong>Date</strong></a></li>
+<li><a href="threads.html#00326"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

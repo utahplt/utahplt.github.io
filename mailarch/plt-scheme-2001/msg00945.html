@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Undesired behaviour of current&#45;directory parameter -->
+<!--X-From-R13: Vnaah Ybvivfgb <nmherNvxv.sv> -->
+<!--X-Date: Mon, 1 Oct 2001 07:45:15 &#45;0600 (MDT) -->
+<!--X-Message-Id: 87itdz325f.fsf@lynx.ionific.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Undesired behaviour of current-directory parameter</title>
+<link rev="made" href="mailto:azure@iki.fi">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00944.html">Date Prev</a>][<a href="msg00946.html">Date Next</a>][<a href="msg00992.html">Thread Prev</a>][<a href="msg00956.html">Thread Next</a>][<a href="maillist.html#00945">Date Index</a>][<a href="threads.html#00945">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Undesired behaviour of current-directory parameter</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Undesired behaviour of current-directory parameter</li>
+<li><em>From</em>: Hannu Koivisto &lt;<A HREF="mailto:azure@iki.fi">azure@iki.fi</A>&gt;</li>
+<li><em>Date</em>: 01 Oct 2001 16:45:00 +0300</li>
+<li><em>Mail-copies-to</em>: nobody</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090003 (Oort Gnus v0.03) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Greetings,
+
+MzScheme 103.5 (+ some hopefully unrelated local bugfixes) on
+Windows 2000:
+
+It seems that current-directory parameter works so that setting the
+parameter doesn't actually change process' current directory
+immediately but it is changed when one, for example, runs an
+external application.  At least the externally observable behaviour
+indicates that.  This seems to fall apart in the following
+situation:
+
+(define temp-dir &quot;some-directory-that-does-not-exist-yet&quot;)
+(make-directory temp-dir)
+(parameterize ((current-directory temp-dir))
+  (system* ...))
+(delete-directory temp-dir)
+
+What happens is that delete-directory fails because mzscheme
+process is using the directory that is being deleted.
+
+Workaround was to add (system &quot;exit&quot;) before the delete-directory
+call :-)
+
+Perhaps delete-directory should be modified to set process' current
+directory from the corresponding parameter or the whole method
+should be changed so that the current directory of the process is
+changed immediately when the parameter is set?
+
+-- 
+Hannu
+Please don't send copies of list mail
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00956" href="msg00956.html">Re: Undesired behaviour of current-directory parameter</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00944.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00946.html">Re: 199.22</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00992.html">RE: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00956.html">Re: Undesired behaviour of current-directory parameter</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00945"><strong>Date</strong></a></li>
+<li><a href="threads.html#00945"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

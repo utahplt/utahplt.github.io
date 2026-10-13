@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Double click events -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 1 Feb 2001 19:17:49 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010202021746.VIKP4438.femail5.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010202012856.A31302@memo.frmug.fr.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Double click events</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00187.html">Date Prev</a>][<a href="msg00189.html">Date Next</a>][<a href="msg00185.html">Thread Prev</a>][<a href="msg00200.html">Thread Next</a>][<a href="maillist.html#00188">Date Index</a>][<a href="threads.html#00188">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Double click events</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Bertrand Petit &lt;<A HREF="mailto:plt-s@phoe.frmug.org">plt-s@phoe.frmug.org</A>&gt;</li>
+<li><em>Subject</em>: Re: Double click events</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 1 Feb 2001 18:17:46 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00185.html">20010202012856.A31302@memo.frmug.fr.net</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00185.html">20010202012856.A31302@memo.frmug.fr.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Bertrand Petit:
+&gt; 
+&gt; 	When handling an event, trough the on-default-event method of
+&gt; a text% object, how one identify if the event was a single or a double
+&gt; click?
+&gt; 	The mouse-event% class documentaion has no information about
+&gt; this. Are we supposed to detect a double-click from a couple of
+&gt; down-up events arriving in a given interval of time? Or should we use
+&gt; a keymap?
+
+All of your suggestions are correct.
+
+Long ago, the `on-event' method received double-click information, but
+it was inconsistently implemented, so I ripped it out and never got
+around to replacing it.
+
+If you want to track the interval yourself, create a dummy keymap% and
+call `get-double-click-interval' to get the right delta for event
+timestamps. (There should probably be a better way to get this number.)
+
+Or create a keymap%, map &quot;leftbuttondouble&quot; to a handler, and call the
+keymap's `handle-key-event' for each event.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00185" href="msg00185.html">Double click events</a></strong>
+<ul><li><em>From:</em> Bertrand Petit &lt;plt-s@phoe.frmug.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00187.html">Re: Re: Offtopic: How to Design Programming Tests</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00189.html">Re: Offtopic: How to Design Programming Tests</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00185.html">Double click events</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00200.html">Dr Scheme Error</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00188"><strong>Date</strong></a></li>
+<li><a href="threads.html#00188"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

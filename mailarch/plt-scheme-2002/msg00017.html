@@ -1,0 +1,249 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: loading additional code -->
+<!--X-From-R13: Ibwpvrpu Ebopmhx <fbcryNserrofq.uom.cy> -->
+<!--X-Date: Sun, 6 Jan 2002 03:57:12 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020106115537.A5027@freebsd.hbz.pl -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020106000441.A1480@freebsd.hbz.pl -->
+<!--X-Reference: Pine.LNX.4.21.0201060319100.1153&#45;100000@elm -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: loading additional code</title>
+<link rev="made" href="mailto:sopel@freebsd.hbz.pl">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00016.html">Date Prev</a>][<a href="msg00018.html">Date Next</a>][<a href="msg00016.html">Thread Prev</a>][<a href="msg00018.html">Thread Next</a>][<a href="maillist.html#00017">Date Index</a>][<a href="threads.html#00017">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: loading additional code</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Kirill Lisovsky &lt;<A HREF="mailto:lisovsky@acm.org">lisovsky@acm.org</A>&gt;</li>
+<li><em>Subject</em>: Re: loading additional code</li>
+<li><em>From</em>: Wojciech Sobczuk &lt;<A HREF="mailto:sopel@freebsd.hbz.pl">sopel@freebsd.hbz.pl</A>&gt;</li>
+<li><em>Date</em>: Sun, 6 Jan 2002 11:55:37 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00016.html">Pine.LNX.4.21.0201060319100.1153-100000@elm</a>&gt;; from lisovsky@acm.org on Sun, Jan 06, 2002 at 04:40:43AM +0300</li>
+<li><em>References</em>: &lt;<a href="msg00012.html">20020106000441.A1480@freebsd.hbz.pl</a>&gt; &lt;<a href="msg00016.html">Pine.LNX.4.21.0201060319100.1153-100000@elm</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.2.5i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Sun, Jan 06, 2002 at 04:40:43AM +0300, Kirill Lisovsky wrote:
+&gt; Hello!
+&gt; 
+&gt; On Sat, 5 Jan 2002, Wojciech Sobczuk wrote:
+&gt; &gt; i'm currently developing a http server in mzscheme.  it already serves static
+&gt; PLT provides a http server in mzscheme. 
+&gt; What is the rationale behind this new implementation?
+&gt; (Just curious)
+
+well, the main reason is to learn programming Scheme while doing something
+interesting.  i've only been doing imperative programming for the last 6 years,
+and started having fun with lisp 2 months ago or so, and now i'm into scheme,
+since i'm going to use it while programming CLIPS (an expert system shell),
+Festival (a text-to-speech system) *AND* i need a nice environment to complete
+two large web projects (and i also need to convince others that it's better
+than PHP which 'everyone knows')..
+
+&gt; 
+&gt; On Sun, 6 Jan 2002, Wojciech Sobczuk wrote:
+&gt; 
+&gt; &gt; On Sat, Jan 05, 2002 at 11:49:29PM +0100, David N. Welton wrote:
+&gt; &gt; [..snip..]
+&gt; &gt; &gt; 
+&gt; &gt; &gt; &gt; i'm also planning to develop some kind of JSP equivalent for scheme.
+&gt; &gt; &gt; &gt; i don't think custom tags will be needed, because scheme is so
+&gt; &gt; &gt; &gt; readable and 'natural' that it can be seamlessly included in the
+&gt; &gt; &gt; &gt; HTML code like:
+&gt; &gt; &gt; 
+&gt; &gt; &gt; &gt; 	&lt;(reqparam &quot;foo&quot;)&gt;
+&gt; &gt; &gt; &gt; would display a request parameter &quot;foo&quot;, contrary to the long and dirty
+&gt; &gt; &gt; &gt; java code for the same:
+&gt; &gt; &gt; &gt; 	&lt;%= request.getParameter(&quot;foo&quot;) %&gt;
+&gt; &gt; &gt; 
+&gt; &gt; &gt; &lt;? ?&gt; are the correct markers to use for processing instructions in
+&gt; &gt; &gt; xml, possibly accompanied by an identifier like this:
+&gt; &gt; &gt; 
+&gt; &gt; &gt; &lt;?mzwebscheme 
+&gt; &gt; &gt; (display &quot;hello world&quot;)
+&gt; &gt; &gt; ?&gt;
+&gt; &gt; 
+&gt; &gt; true!  but my main aim is - make it simple, developer friendly and quick to
+&gt; &gt; work in.  i'm tired of all this formalism which doesn't give anything.
+&gt; &gt; i'm the one parsing the document - why not use &lt;(.  java people didn't fear to
+&gt; &gt; use % instead of ?, why would i?
+&gt; &gt; if i use '(' - it will embed scheme really nicely into the page - because a
+&gt; &gt; programmer would have to write the '(' to start a piece of scheme code.
+&gt; &gt;
+&gt; Documents containing &lt;( ... )&gt; or &lt;% ... %&gt; are not weel-formed XML document,
+&gt; while &lt;?mzwebscheme s-expr ?&gt; is proper XML PI (prod. 16 of W3C XML Rec.).
+&gt; Which makes it possible to use XML/XHTML processing/editing tools on the documents
+&gt; containing &lt;? but not &lt;( or &lt;% . So, this formalism gives something.
+&gt; Shorter PITarget (say, 'mz' instead of 'mzwebscheme') may be more developer
+&gt; friendly. 
+
+i'm not saying that i won't allow &lt;?mzwebscheme ?&gt; or similiar, i'm just saying
+that i want to allow the simplest form available for programmers to use.
+i'm tired of excessively formalized systems like J2EE in which one spends more
+time writing up the formal documents/classes than doing the actual programming.
+besides, i can provide a converter which would change he &lt;( to &lt;?mzwebscheme (,
+providing an easy way to change all the files to be standards compliant.
+
+so, summing up, i want to use the machine for what it's job is - doing all the
+hairy details that can be done automatically. instead of making the programmer
+do it.
+
+&gt; 
+&gt; Using XML element abd dedicated namespace may be a solution also. 
+&gt; &lt;mz:scm&gt; S-expr &lt;/mz:scm&gt;
+&gt; 
+&gt; I do agree that one-liner
+&gt; &lt;h1&gt;&lt;(+ 2 2)&gt;&lt;/h1&gt;
+&gt; 
+&gt; is looking more pleasant than 
+&gt; &lt;h1&gt;&lt;?mzwebscheme (+ 2 2)?&gt;&lt;/h1&gt;
+&gt; or
+&gt; &lt;mz:scm&gt;(+ 2 2)&lt;/mz:scm&gt;
+
+yes!  i've just had a brief look at a LAML paper - the good idea inside seems
+to be:
+	&lt;mz:sometag a &quot;bcd&quot; e &quot;fgh&quot;&gt; content &lt;/mz:sometag&gt;
+translates to:
+	(sometag 'a &quot;bcd&quot; 'e &quot;fgh&quot; content)
+
+the hard part is that any time we move to using some kind of tags, from actually
+writing code in the webpage (which i'd like to avoid) - we come to a point where
+something we need to do can't be easily done with tags.  like accessing session
+and request variables.  in my Java taglib library i had the tag handler process
+the tag's argument and finding strings preceded by a '$' sign and then replacing
+those with the value of a request parameter named as the string following the '$'.
+but that isn't really flexible too.
+
+so.. i don't really know where should we place the border between html and
+scheme - to make it both usable, to some extent, by html people and place
+as little code as possible in the html document itself.
+
+a good idea would be to let the user easily extend the initially provided tag
+library, and this could actually be a solution to the whole problem, so if 
+the user wanted to print 2 request variables, he would simply write:
+	&lt;mz:printtag &quot;abc&quot; &quot;def&quot;&gt;
+in the html file, and provide a printtag.scm placed inside the mz/ subdirectory
+in the taglib directory, which would contain:
+(define printtag
+  (lambda (args)
+    (for-each (lambda (arg) (request-parameter arg)) args)))
+
+so the above html code would be compiled into:
+(printtag &quot;abc&quot; &quot;def&quot;)
+and nicely executed.
+
+the problem here is that we're not standards compliant (no tag parameter names
+- but there must be a simple, and standards compliant, way to represent a list
+inside a HTML tag??
+
+&gt; 
+&gt; but for a larger document blurred distinction between 
+&gt; &lt;h1&gt;&lt;(+ 2 2)&gt;&lt;/h1&gt;
+&gt; and
+&gt; &lt;h1&gt;(+ 2 2)&lt;/h1&gt;
+&gt; may be a disadvantage.
+&gt; 
+&gt; 
+&gt; &gt; &gt; 
+&gt; &gt; &gt; &gt; is this the right way to go?  or perhaps i should experiment with
+&gt; &gt; &gt; &gt; XML related code in <A  HREF="http://pobox.com/~oleg/ftp/">http://pobox.com/~oleg/ftp/</A> and go some other
+&gt; &gt; &gt; &gt; way?
+&gt; Olegs's SSAX provides support for PIs and namespaces both.
+&gt; SXPath may be also interesting in this context.
+
+yes, it surely will be helpful if we use the new-html-tags-in-a-namespace
+approach. 
+
+&gt; 
+&gt; 
+&gt; &gt; &gt; You might also look at things like 'BRL' which do web/scheme (he uses
+&gt; &gt; &gt; Kawa though, if I'm not mistaken).
+&gt; 
+&gt; LAML (uses mzscheme)
+&gt; JScheme (former SILK) 
+&gt; HB
+&gt; autogen
+&gt; mod_lisp
+&gt; are other examples...
+
+these resources are _very_ interesting.  thanks :)
+
+&gt; 
+&gt; Best regards,
+&gt;           Kirill.
+&gt; 
+
+greetings,
+Wojtek
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00018" href="msg00018.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> davidw@dedasys.com (David N. Welton)</li></ul></li>
+<li><strong><a name="00019" href="msg00019.html">SXML (was: Re: loading additional code)</a></strong>
+<ul><li><em>From:</em> Kirill Lisovsky &lt;lisovsky@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00012" href="msg00012.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt;</li></ul></li>
+<li><strong><a name="00016" href="msg00016.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Kirill Lisovsky &lt;lisovsky@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00016.html">Re: loading additional code</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00018.html">Re: loading additional code</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00016.html">Re: loading additional code</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00018.html">Re: loading additional code</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00017"><strong>Date</strong></a></li>
+<li><a href="threads.html#00017"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

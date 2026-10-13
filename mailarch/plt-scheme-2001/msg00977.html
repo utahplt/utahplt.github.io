@@ -1,0 +1,256 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: DrScheme as Emacs&#45;like kitchen sink -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.ajh.rqh> -->
+<!--X-Date: Wed, 3 Oct 2001 19:42:48 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110040142.UAA00352@banach.math.nwu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110010328.WAA00358@banach.math.nwu.edu -->
+<!--X-Reference: 200110010347.XAA14156@klee.cs.brown.edu -->
+<!--X-Reference: 200110011154.f91BsH420528@denali.ccs.neu.edu -->
+<!--X-Reference: 200110020416.XAA00784@banach.math.nwu.edu -->
+<!--X-Reference: p05100300b7df6c1a47b7@[192.168.1.100] -->
+<!--X-Reference: 200110030344.WAA00950@banach.math.nwu.edu -->
+<!--X-Reference: 3BBADF30.F5C4A1B@info.unicaen.fr -->
+<!--X-Reference: 200110031423.IAA09143@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: DrScheme as Emacs-like kitchen sink</title>
+<link rev="made" href="mailto:richter@math.nwu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00976.html">Date Prev</a>][<a href="msg00978.html">Date Next</a>][<a href="msg00966.html">Thread Prev</a>][<a href="msg00980.html">Thread Next</a>][<a href="maillist.html#00977">Date Index</a>][<a href="threads.html#00977">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: DrScheme as Emacs-like kitchen sink</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: DrScheme as Emacs-like kitchen sink</li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.nwu.edu">richter@math.nwu.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 3 Oct 2001 20:42:33 -0500</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00964.html">200110031423.IAA09143@fast.cs.utah.edu</a>&gt; (message from MatthewFlatt on Wed, 3 Oct 2001 08:23:13 -0600 (MDT))</li>
+<li><em>References</em>: &lt;<a href="msg00941.html">200110010328.WAA00358@banach.math.nwu.edu</a>&gt; &lt;<a href="msg00942.html">200110010347.XAA14156@klee.cs.brown.edu</a>&gt; &lt;<a href="msg00944.html">200110011154.f91BsH420528@denali.ccs.neu.edu</a>&gt; &lt;<a href="msg00949.html">200110020416.XAA00784@banach.math.nwu.edu</a>&gt; &lt;<a href="msg00951.html">p05100300b7df6c1a47b7@[192.168.1.100]</a>&gt; &lt;<a href="msg00961.html">200110030344.WAA00950@banach.math.nwu.edu</a>&gt;	&lt;<a href="msg00962.html">3BBADF30.F5C4A1B@info.unicaen.fr</a>&gt; &lt;<a href="msg00964.html">200110031423.IAA09143@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   The actual editor that DrScheme users see is inflexible. As
+   Matthias, Shriram, and Robby have pointed out, the inflexibility
+   intentional, in the same way that the restrictions in the default
+   language are intentional. But there's no reason that the editor
+   couldn't grow with a user, in the same way that language levels do.
+
+Thanks, Matthew.  I like that.  Just make sure I got it: it's
+intentional that there's nothing like a .emacs file for users to stick
+their customizations in?  However, we can with tools define levels
+where such customizations exist?
+
+Here are some Scheme changes that I want that I think you would be
+interested in.  I kinda struck out on &quot;general purpose editor&quot;, but
+there are definite Scheme improvements that I'd like to see in
+DrScheme--I'm happy to keep them out of the core editor--but let me
+give you some wish-listing, just for Scheme editing:
+
+*********** feature request 1: more key bindings *********** 
+
+I need more function key bindings.  PageUp &amp; PageDown work, but not
+Home &amp; End.  I can't imagine why you wouldn't put those bindings in
+the core editor.  But I want other bindings, less suitable for the
+core editor:
+
+Esc-Shift-Left selects the next expression.   That's a great binding!
+But maybe I'd like to put it on a function key, like KP_4.
+
+I definitely want to bind KP_5 to C-l.  
+
+I want to bind right-mouse to what left-mouse does.
+
+Put it another way, the mouse in DrScheme works basically like it does
+in XEmacs, and not the way it works in Emacs.  That's great for XEmacs
+folks, and tough on Emacs folks.  I don't think it would be untoward
+to have a menu item to click in Preferences Emacs vs XEmacs mouse.
+
+But even if you don't want to do that, it's definitely something I
+need to figure out how to do.
+
+*********** feature request 2:  multiple indentation styles *********** 
+
+My rap on Latex mode didn't grab anyone, but I can easily restate it
+in Scheme terms: DrScheme ought to support multiple indentation
+styles.  I don't know how many Scheme styles there are (maybe not as
+many as C indentation styles), but I know that Emacs supports:
+
+   ;;;; MIT Scheme specific indentation.
+
+   (if scheme-mit-dialect
+       (progn
+	 (put 'fluid-let 'scheme-indent-function 1)
+	 (put 'in-package 'scheme-indent-function 1)
+	 (put 'local-declare 'scheme-indent-function 1)
+
+Now you all know whether MIT Scheme uses a different indentation style
+than DrScheme, but I'm taking this as evidence for it.
+
+OK, now in the basic inflexible core editor, maybe you don't want to
+offer multiple indentation styles.  I'd think it'd be a lot easier to
+teach a Scheme class if everyone's indenting the same way!
+
+However, DrScheme is also for mature Schemers (not me yet :)), and
+these mature Schemers may easily want multiple indentation styles.
+
+So I say multiple indentation styles is a great Scheme direction to
+head in.  Agree?  And then I can get my Latex mode by defining an
+indentation style with no indentation!
+
+*********** feature request 3: template capability *********** 
+
+There must be lazy Schemers out there like me who want templates,
+something that inserts this into the Definitions window:
+
+(cond (() )
+
+      (() )
+
+      (() )
+
+      (else () ))
+
+In Emacs this is no challenge:
+
+(defun condify (&amp;optional arg)
+  &quot;Types out a `cond' template.  With prefix arg, omit the else branch.&quot;
+  (interactive &quot;P&quot;)
+  (insert &quot;(cond (() )\n
+      (() )\n
+      (() )\n
+      (else () ))\n&quot;)
+  (when arg
+        (insert &quot;(cond (() )\n
+      (() )\n
+      (() ))\n&quot;)))
+
+Then `C-u M-x condify' gives a template sans else branch.  
+
+If we can get this capability into the Scheme part of DrScheme, then I
+can use it for Latex files, to get things like:
+
+   \begin{Theorem}
+   \label{}
+
+   \end{Theorem}
+
+or
+
+   \begin{proof}
+   [Proof of ]
+
+
+
+   \end{proof}
+
+which I get this by way of embarrassing simple keyboard macros
+
+   (fset 'Thm
+   &quot;\\begin{Theorem}\\label{}\\end{Theorem}&quot;)
+
+and even somewhat respectable Lisp:
+
+   (defun Proof (&amp;optional arg)
+     &quot;Types out a `Proof' environment.  With prefix arg, use the optional
+   form `Proof of Theorem XXX'.&quot;
+     (interactive &quot;P&quot;)
+     (insert &quot;\\begin{proof}\n&quot;)
+     (save-excursion
+       (insert &quot;\n\n\n\\end{proof}\n\n&quot;))
+     (when arg
+       (insert &quot;[Proof of &quot;)
+       (save-excursion
+	 (insert &quot;]\n&quot;))))
+
+
+   Of course, the reason the PLT never got far (in terms of actual
+   editors) is that building a general, user-extensible editing system is
+   difficult and time-consuming, and we have other difficult and
+   time-consuming goals. We'd all be happy to see someone (or some group)
+   take up the challenge.
+
+I might be interested!  Right now I have no competence, but that could
+change. 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00980" href="msg00980.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+<li><strong><a name="00985" href="msg00985.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Riku.Saikkonen@hut.fi (Riku Saikkonen)</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00941" href="msg00941.html">DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00942" href="msg00942.html">DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00944" href="msg00944.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00949" href="msg00949.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00951" href="msg00951.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00961" href="msg00961.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00962" href="msg00962.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00964" href="msg00964.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00976.html">Re: list of email in spanish</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00978.html">Re: bounce</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00966.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00980.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00977"><strong>Date</strong></a></li>
+<li><a href="threads.html#00977"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

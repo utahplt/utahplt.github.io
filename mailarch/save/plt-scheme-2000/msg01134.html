@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Security models in mzscheme ?? -->
+<!--X-From-R13: Xbua Qnfh <pnfhwNinyvahk.pbz> -->
+<!--X-Date: Tue, 5 Dec 2000 11:57:44 &#45;0700 (MST) -->
+<!--X-Message-Id: E143NH1&#45;0001Q3&#45;00@beefcake.hdqt.valinux.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20001205105317.C11639@sun.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Security models in mzscheme ??</TITLE>
+<LINK REV="made" HREF="mailto:casuj@valinux.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01133.html">Date Prev</A>][<A HREF="msg01135.html">Date Next</A>][<A HREF="msg01133.html">Thread Prev</A>][<A HREF="msg01111.html">Thread Next</A>][<A HREF="maillist.html#01134">Date Index</A>][<A HREF="threads.html#01134">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Security models in mzscheme ??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Paul Graunke &lt;<A HREF="mailto:ptg@cs.rice.edu">ptg@cs.rice.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Security models in mzscheme ??</LI>
+<LI><em>From</em>: John Casu &lt;<A HREF="mailto:casuj@valinux.com">casuj@valinux.com</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 5 Dec 2000 10:57:07 -0800 (PST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01133.html">20001205105317.C11639@sun.cs.rice.edu</A>&gt; from Paul Graunke at "Dec5, 2000 10:53:17 am"</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; On Tue, Dec 05, 2000 at 09:00:42AM -0700, Matthew Flatt wrote:
+&gt; &gt; A little problem here: the `unit' form provides access to all of the
+&gt; &gt; built-in the file primitives, even if they're not in the namespace.
+&gt; &gt; 
+&gt; &gt; This is the sort of problem that the new module system will solve.
+&gt; &gt; 
+&gt; &gt; Matthew
+&gt; 
+&gt; Good point.  I suppose that excluding unit and unit/sig from the namespace
+&gt; would work around this for now.
+&gt; 
+&gt; Paul
+&gt; 
+
+Please forgive me if I'm being a little dense, but while your proposed solution
+would surely work for the sandbox case, it's not clear to me that we would have
+a solution for the more general case.
+
+I'm guessing, but I think you'd want to be able to dynamically adjust your current
+permissions/capabilities and have an interface like:
+
+(with-user (get-user-id)
+  (foo))
+
+or more specifically :
+
+(with-user (interactive-get-user-id user-port)
+  (REPL user-port))
+
+
+In addition, in a multiuser environment, you'd want to share namespaces between 
+differently authorized REPL's, where you might have a global read-only namespace
+for defining system level environment in addition to your local namespace.
+
+In the more general case, I'm envisioning distributed groupware type applications 
+using MrEd, where I'd want to take an input event and pass it to the eventspace/
+event streams of each instance of my app.
+
+The question, I think, then becomes at which point can you insert some notion of 
+security into MzScheme ?  
+
+Does one create some kind of uber-custodian which manages security, and then we
+would have a coarse-grained view of security; or would one just create a new set
+of parameterized functions like (make-secure-namespace permission), which would 
+allow you a much more dynamic security model ?
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01133" HREF="msg01133.html">Re: Security models in mzscheme ??</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Graunke &lt;ptg@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01133.html">Re: Security models in mzscheme ??</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01135.html">How can I redefine REPL</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01133.html">Re: Security models in mzscheme ??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01111.html">Daydreaming about Higher Level Operating Systems</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01134"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01134"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

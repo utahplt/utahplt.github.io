@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: peasant revolt against DrScheme! -->
+<!--X-From-R13: Drvav Geona <eheonaNfobk.gh&#45;tenm.np.ng> -->
+<!--X-Date: Sun, 28 Jan 2001 06:54:19 &#45;0700 (MST) -->
+<!--X-Message-Id: 3A742489.2394DE84@sbox.tu&#45;graz.ac.at -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 005201c0868e$cf611ce0$bbdff0c3@koot -->
+<!--X-Reference: 14960.22737.170782.355991@mcallister.cyc.com -->
+<!--X-Reference: 3A72FC4C.B05C2E5B@sbox.tu&#45;graz.ac.at -->
+<!--X-Reference: 200101271700.MAA05718@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: peasant revolt against DrScheme!</title>
+<link rev="made" href="mailto:rurban@sbox.tu-graz.ac.at">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00156.html">Date Prev</a>][<a href="msg00158.html">Date Next</a>][<a href="msg00167.html">Thread Prev</a>][<a href="msg00160.html">Thread Next</a>][<a href="maillist.html#00157">Date Index</a>][<a href="threads.html#00157">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: peasant revolt against DrScheme!</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: peasant revolt against DrScheme!</li>
+<li><em>From</em>: Reini Urban &lt;<A HREF="mailto:rurban@sbox.tu-graz.ac.at">rurban@sbox.tu-graz.ac.at</A>&gt;</li>
+<li><em>Date</em>: Sun, 28 Jan 2001 15:54:17 +0200</li>
+<li><em>Organization</em>: http://xarch.tu-graz.ac.at</li>
+<li><em>References</em>: &lt;<a href="msg00127.html">005201c0868e$cf611ce0$bbdff0c3@koot</a>&gt;	&lt;<a href="msg00132.html">14960.22737.170782.355991@mcallister.cyc.com</a>&gt;	&lt;<a href="msg00146.html">3A72FC4C.B05C2E5B@sbox.tu-graz.ac.at</a>&gt; &lt;<a href="msg00147.html">200101271700.MAA05718@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Shriram Krishnamurthi schrieb:
+&gt; Reini Urban wrote:
+&gt; &gt; Even recursion is an advanced topic, and thanksfully nobody is
+&gt; &gt; forced to write recursive in lisp/scheme.
+&gt; 
+&gt; Quick quiz: If you had to teach recursion, what is the first example
+&gt; you would use?  (You may give multiple examples, but they must all be
+&gt; ones you would cover in the first week of teaching it.)
+
+FACTORIAL of course, as bad and easy example for the start.
+I actually use it in the faq in the teaching. 
+  <A  HREF="http://xarch.tu-graz.ac.at/autocad/news/faq/autolisp.html#9">http://xarch.tu-graz.ac.at/autocad/news/faq/autolisp.html#9</A>
+plus for memoization and self-modification then.
+  <A  HREF="http://xarch.tu-graz.ac.at/autocad/lisp/self-mod.lsp">http://xarch.tu-graz.ac.at/autocad/lisp/self-mod.lsp</A>
+FIBONACCI is not as good.
+
+And as good counter example something more complicated, which looks terrible
+iterative:
+MAPATOM, map a function to every symbol in a tree, keeping the tree structure
+intact.
+(as destructuring-bind in cl)
+
+  <A  HREF="http://xarch.tu-graz.ac.at/autocad/stdlib/archive/3/msg00054.html">http://xarch.tu-graz.ac.at/autocad/stdlib/archive/3/msg00054.html</A>
+  against the recursive version in
+<A  HREF="http://xarch.tu-graz.ac.at/autocad/stdlib/STDLIST.LSP">http://xarch.tu-graz.ac.at/autocad/stdlib/STDLIST.LSP</A>
+  25 lines against 8.
+
+it is more motivating to write a new one, instead of recreating a builtin, 
+like REMOVE, LENGTH, REVERSE or such. the recursive versions of these are not
+really 
+persuasing. MEMBER and UNION are better.
+of course MATCH in the third week then.
+
+for tail-recursion I use HEAD (or FIRSTN) from Winston-Horn.
+though the iterative version is also more convincing to newbies here.
+
+;;; list of only the first n elements
+;;; head - list till (including) the n-th element, base 0
+(defun head (l n)
+  (cond ((zerop n) nil)
+	(t (cons (car l) (head (cdr l) (1- n))))))
+;;; not tail-recursive, (cons) and (car l) stay on the stack
+
+;;; trick to make it tail-recursive with the helper symbol x
+(defun head (l n) (head-rec l nil n))
+(defun head-rec (l x n)
+  (cond ((zerop n) (reverse x))
+	(t (head-rec (cdr l) (cons (car l) x) (1- n)))))
+
+-- 
+Reini Urban
+<A  HREF="http://xarch.tu-graz.ac.at/autocad/news/faq/autolisp.html">http://xarch.tu-graz.ac.at/autocad/news/faq/autolisp.html</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00127" href="msg00127.html">peasant revolt against DrScheme!</a></strong>
+<ul><li><em>From:</em> &quot;Jacob J. A. Koot&quot; &lt;jja.koot@wolmail.nl&gt;</li></ul></li>
+<li><strong><a name="00132" href="msg00132.html">peasant revolt against DrScheme!</a></strong>
+<ul><li><em>From:</em> Daniel Mahler &lt;mahler@cyc.com&gt;</li></ul></li>
+<li><strong><a name="00146" href="msg00146.html">Re: peasant revolt against DrScheme!</a></strong>
+<ul><li><em>From:</em> Reini Urban &lt;rurban@sbox.tu-graz.ac.at&gt;</li></ul></li>
+<li><strong><a name="00147" href="msg00147.html">Re: peasant revolt against DrScheme!</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00156.html">Re: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00158.html">Re: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00167.html">Re: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00160.html">RE: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00157"><strong>Date</strong></a></li>
+<li><a href="threads.html#00157"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

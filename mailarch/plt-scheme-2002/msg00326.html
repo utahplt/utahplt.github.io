@@ -1,0 +1,121 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 200alpha13 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 5 Mar 2002 19:10:15 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203060210.g262ACL26161@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>200alpha13</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00325.html">Date Prev</a>][<a href="msg00327.html">Date Next</a>][<a href="msg00325.html">Thread Prev</a>][<a href="msg00329.html">Thread Next</a>][<a href="maillist.html#00326">Date Index</a>][<a href="threads.html#00326">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>200alpha13</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 200alpha13</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 5 Mar 2002 19:10:13 -0700 (MST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged code in the CVS repository for MzScheme and MrEd is now
+version 200alpha13.
+
+The main change in this version is the addition of a `current-locale'
+parameter, which mainly affects string and character comparisions.
+
+The default locale is the machine's default (indicated by &quot;&quot;). As a
+result, on my Windows/Linux machine:
+
+ &gt; (string&lt;? &quot;a&quot; &quot;B&quot;)
+ #t
+
+which is more natural than the all-uppercase-before-lowercase
+convention that falls out of ASCII. And even with an English locale:
+
+ &gt; (string&lt;? &quot;caractères&quot; &quot;caractfres&quot;)
+ #t
+
+Locale sensitivity is disabled by setting `current-locale' to #f:
+
+ &gt; (current-locale #f)
+ &gt; (string&lt;? &quot;a&quot; &quot;B&quot;)
+ #f
+ &gt; (string&lt;? &quot;caractères&quot; &quot;caractfres&quot;)
+ #f
+
+
+In addition to letter order, char-upcase/downcase, alphabetic tests,
+and printability tests (used when printing a string with `write') are
+all affected by the locale. Regexp ranges are not affected (though, in
+the future, we may supply a `regexp/locale' procedure where character
+ranges are based on the locale instead of `char-&gt;integer').
+
+To avoid incompatibilies due to different downcasing of symbols in
+different locales, module-loading disables locales.
+
+
+This is a subtle change, and there's plenty of room for new bugs due to
+shifting character comparisions. But I've been using DrScheme with
+locale-sensitiviy enabled for a couple of weeks, and it seems to be an
+improvement. As always, feedback on this change is encouraged.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00325.html">Re: scheme_block_until ready function</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00327.html">Parser Libraries and Newbie Disclaimer</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00325.html">Re: scheme_block_until ready function</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00329.html">Re: 200alpha13</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00326"><strong>Date</strong></a></li>
+<li><a href="threads.html#00326"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

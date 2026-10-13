@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Can't get process*/ports to work -->
+<!--X-From-R13: Vnaah Ybvivfgb <nmherNvxv.sv> -->
+<!--X-Date: Tue, 10 Oct 2000 04:40:57 &#45;0600 (MDT) -->
+<!--X-Message-Id: 87u2alnfmw.fsf@senstation.vvf.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Can't get process*/ports to work</TITLE>
+<LINK REV="made" HREF="mailto:azure@iki.fi">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00961.html">Date Prev</A>][<A HREF="msg00963.html">Date Next</A>][<A HREF="msg00965.html">Thread Prev</A>][<A HREF="msg00963.html">Thread Next</A>][<A HREF="maillist.html#00962">Date Index</A>][<A HREF="threads.html#00962">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Can't get process*/ports to work</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Can't get process*/ports to work</LI>
+<LI><em>From</em>: Hannu Koivisto &lt;<A HREF="mailto:azure@iki.fi">azure@iki.fi</A>&gt;</LI>
+<LI><em>Date</em>: 10 Oct 2000 13:40:23 +0300</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>User-Agent</em>: Gnus/5.0808 (Gnus v5.8.8) Emacs/20.7</LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Greetings,
+
+I want a process to write its output to a file and for its stdin I
+want an output port to which I can write.
+
+Using MzScheme 102/16, the following code (with missing pieces
+filled)
+
+(call-with-output-file foofile
+  (lambda (fooport)
+    (match-let (((stdout stdin process-id stderr waiter)
+                 (apply process*/ports fooport #f #f
+                        ...)))
+      (printf "~A,~A,~A,~A,~A~%" stdout stdin process-id stderr waiter)
+      ...)))
+
+prints
+
+"process*: expects type &lt;file-stream-input-port&gt; as 1st argument,
+ given: #&lt;stream-output-port&gt;;"
+
+which doesn't make any sense to me, because documentation says:
+
+"(process/ports output-port input-port error-output-port
+command-string) is like process, except that output-port is used
+for the process's standard output,"
+
+so why on earth does it want file-stream-**input**-port when the
+documentation says it wants output-port?  If I assume that the
+documentation is incorrect and the first and the second parameters
+should be swapped and I thus pass fooport as the second parameter,
+I get...
+
+#&lt;stream-input-port&gt;,#f,3695,#&lt;stream-input-port&gt;,#&lt;primitive:control-process&gt;
+
+...from my printf, which doesn't make any sense either, because I'm
+expecting second element to be an output port chained to process'
+standard input.  I passed an output port to process*/ports so the
+first element of the returned list should not be input port but
+#f.
+
+So I guess that swapping wasn't a good idea after all and the
+documentation is correct but something else is fucked up.  What
+could that be?
+
+-- 
+Hannu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00963" HREF="msg00963.html">Re: Can't get process*/ports to work</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00961.html">compilation</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00963.html">Re: Can't get process*/ports to work</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00965.html">Re: compilation</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00963.html">Re: Can't get process*/ports to work</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00962"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00962"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

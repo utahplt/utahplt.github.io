@@ -1,0 +1,148 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: mzscheme daemon? -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Tue, 4 Dec 2001 23:41:49 &#45;0700 (MST) -->
+<!--X-Message-Id: 00cf01c17d58$247e3710$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15373.47839.744894.225369@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: mzscheme daemon?</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01285.html">Date Prev</a>][<a href="msg01287.html">Date Next</a>][<a href="msg01285.html">Thread Prev</a>][<a href="msg01287.html">Thread Next</a>][<a href="maillist.html#01286">Date Index</a>][<a href="threads.html#01286">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: mzscheme daemon?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Eli Barzilay&quot; &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Subject</em>: RE: mzscheme daemon?</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 5 Dec 2001 01:43:26 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01285.html">15373.47839.744894.225369@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Thanks - that's probably fine, I just don't know enough about it.  I ran
+into trouble when I tested starting mzscheme in the background from a shell
+prompt - when I logged out, the task was automatically terminated.  I
+realize now that this might have been because I didn't think to redirect the
+i/o, so it was probably terminating when it lost that.
+
+I thought that simply using &quot;&amp;&quot; in init.d might end up doing the same thing,
+although I didn't try it.  So I figured if sendmail has a -bd option, why
+can't mzscheme? :)
+
+Anyway, thanks - I'll give it a try your way.
+
+Anton
+
+
+&gt; -----Original Message-----
+&gt; From: Eli Barzilay [<A  HREF="mailto:eli@barzilay.org">mailto:eli@barzilay.org</A>]
+&gt; Sent: Wednesday, December 05, 2001 1:13 AM
+&gt; To: Anton van Straaten
+&gt; Cc: plt-scheme@fast.cs.utah.edu
+&gt; Subject: Re: mzscheme daemon?
+&gt;
+&gt;
+&gt; On Dec  5, Anton van Straaten wrote:
+&gt; &gt; This worked fine, and my mzscheme daemon is now running happily.  I
+&gt; &gt; wondered, though, whether there was some other solution that doesn't
+&gt; &gt; require patching mzscheme.
+&gt;
+&gt; What's wrong with just running it in the background?  -- For my server
+&gt; I have this tiny script:
+&gt;
+&gt; | #!/bin/sh
+&gt; | cd /home/eli/scheme/webserver
+&gt; |
+&gt; | /home/eli/bin/mzscheme -mf server -e -start- -- `hostname` '80' \
+&gt; |  &lt; /dev/null &gt; /tmp/webserver-log 2&gt;&amp;1 &amp;
+&gt; | echo $! &gt; /var/run/scheme-webserver.pid
+&gt;
+&gt; and then I hacked a quick scheme-webserver script in /etc/init.d (its
+&gt; a RedHat) and life has been more fun since.  It even starts much
+&gt; faster than Apache.
+&gt;
+&gt;
+&gt; &gt; I realize that a cross-platform daemon/service solution is more
+&gt; &gt; complex (especially on Windows, beentheredonethat), [...]
+&gt;
+&gt; Not that I know anything about starting a service on Windows, but
+&gt; isn't the whole concept something that falls nicely into the
+&gt; OS-dependant world?
+&gt;
+&gt; --
+&gt;           ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+&gt;                   <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+&gt;
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01287" href="msg01287.html">RE: mzscheme daemon?</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+<li><strong><a name="01288" href="msg01288.html">Re: mzscheme daemon?</a></strong>
+<ul><li><em>From:</em> &quot;Paul T. Graunke&quot; &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01285" href="msg01285.html">Re: mzscheme daemon?</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01285.html">Re: mzscheme daemon?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01287.html">RE: mzscheme daemon?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01285.html">Re: mzscheme daemon?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01287.html">RE: mzscheme daemon?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01286"><strong>Date</strong></a></li>
+<li><a href="threads.html#01286"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: MzScheme in a multi&#45;threading environment -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 5 Oct 2000 09:05:40 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20001005150536.LXCL10425.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 4.1.20001004103903.03d3f740@florida&#45;software.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: MzScheme in a multi-threading environment</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00584.html">Date Prev</a>][<a href="msg00586.html">Date Next</a>][<a href="msg00582.html">Thread Prev</a>][<a href="msg00583.html">Thread Next</a>][<a href="maillist.html#00585">Date Index</a>][<a href="threads.html#00585">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: MzScheme in a multi-threading environment</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Blake McBride &lt;<A HREF="mailto:blake@florida-software.com">blake@florida-software.com</A>&gt;</li>
+<li><em>Subject</em>: Re: MzScheme in a multi-threading environment</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 5 Oct 2000 08:05:37 -0700</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>,       &quot;Gary L. Pendleton&quot; &lt;<A HREF="mailto:GPendleton@integra-online.com">GPendleton@integra-online.com</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00582.html">4.1.20001004103903.03d3f740@florida-software.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00582.html">4.1.20001004103903.03d3f740@florida-software.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Blake McBride:
+&gt; After considerable effort and time we discovered that if MzScheme is called
+&gt; by an application and Win32 Threads is used the application must call
+&gt; DllMain in order to initialize the system for multi thread use.  Now that we
+&gt; call that first the system seems to work fine.  This leads me to some
+&gt; questions.
+&gt; 
+&gt; 1.  Are we doing it correctly now?  Is there anything else we should be doing?
+&gt; 
+&gt; 2.  Is this documented somewhere?
+
+Instead of calling DllMain, does it work to set
+
+  GC_use_registered_statics = 1
+
+and then register any static variables that contain Scheme pointers?
+
+I assume that you're using MzScheme in a single-threaded way, and that
+MzScheme threads needn't be implemented as Windows threads.
+
+
+There's a little bit of documentation about mixing MzScheme with
+OS-implemented threads in &quot;Inside MzScheme&quot;:
+
+  <A  HREF="http://www.cs.rice.edu/CS/PLT/packages/doc/insidemz/node7.htm">http://www.cs.rice.edu/CS/PLT/packages/doc/insidemz/node7.htm</A>
+
+Unfortunately, I see that the above page doesn't refer to the previous
+one, which ends with an important note about threads and Windows:
+
+  <A  HREF="http://www.cs.rice.edu/CS/PLT/packages/doc/insidemz/node6.htm">http://www.cs.rice.edu/CS/PLT/packages/doc/insidemz/node6.htm</A>
+
+(I've fixed the duplicated sentence fragment on that page.)
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00582" href="msg00582.html">MzScheme in a multi-threading environment</a></strong>
+<ul><li><em>From:</em> Blake McBride &lt;blake@florida-software.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00584.html">Re: WX_XT</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00586.html">DrScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00582.html">MzScheme in a multi-threading environment</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00583.html">WX_XT</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00585"><strong>Date</strong></a></li>
+<li><a href="threads.html#00585"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

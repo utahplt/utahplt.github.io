@@ -1,0 +1,157 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: a brief introduction to "closures" for "uneducated" C hackers -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Wed, 7 Feb 2001 07:47:16 &#45;0700 (MST) -->
+<!--X-Message-Id: 200102071448.IAA23845@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C676701683DAE@thresher.corp.xpsystems.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>a brief introduction to &quot;closures&quot; for &quot;uneducated&quot; C hackers</title>
+<link rev="made" href="mailto:matthias@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00237.html">Date Prev</a>][<a href="msg00239.html">Date Next</a>][<a href="msg00232.html">Thread Prev</a>][<a href="msg00242.html">Thread Next</a>][<a href="maillist.html#00238">Date Index</a>][<a href="threads.html#00238">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>a brief introduction to &quot;closures&quot; for &quot;uneducated&quot; C hackers</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: a brief introduction to &quot;closures&quot; for &quot;uneducated&quot; C hackers</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 7 Feb 2001 08:48:16 -0600 (CST)</li>
+<li><em>References</em>: &lt;<a href="msg00232.html">EDFD2A95EE7DD31187350090279C676701683DAE@thresher.corp.xpsystems.com</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+1. Apologies if the term &quot;uneducated&quot; offended anyone. 
+
+   As you may understand from my post on &quot;Programming languages matter&quot;, I
+   believe that the computer science culture is deteriorating faster than
+   moldy yogurt or whatever. I am deeply saddened by the lack of general PL
+   education that I see in the general programmer population. 
+
+   The very fact that you have signed up for a Scheme mailing list shows
+   that you attempt to learn things about the general area, and a pretty
+   advanced language on top. So the term wasn't meant as an insult to the
+   people on this list, but rather as a descriptive term concerning the
+   people in the programming/SE world. 
+
+2. A closure is function that knows its lexical scope. 
+
+   Consider this quasi-C program: 
+
+     [double -&gt; double] d_dx( [double -&gt; double] f ) {
+
+	// a locally defined constant 
+	double epsilon = 0.000001
+
+	// a locally defined procedure [not C] 
+	double f_prime(double x) { 
+	   return ( ( f(x + epsilon) - f(x - epsilon) )
+		    / 
+		    (2 * epsilon) ) 
+	}; 
+
+	// d_dx's true body: [not C]
+	return f_prime; 
+      }
+
+    The notation [double -&gt; double] is the type of a function that consumes
+    a double and returns a double. So, d_dx is a function that consumes such 
+    a beast and returns one, too. 
+
+    We could use it as follows: 
+
+    main() {
+      double epsilon = 0.1; 
+      [double -&gt; double] f_prime = d_dx(sin); 
+
+      printf(&quot;\d\n&quot;, f_prime(0.0)); 
+      printf(&quot;\d\n&quot;, f_prime(0.0+epsilon)); 
+      printf(&quot;\d\n&quot;, f_prime(0.0+epsilon+epsilon)); 
+    }
+
+
+    The function f_prime is a closure. d_dx, sin, cos, and so on are just
+    functions. The difference is that f_prime's definition refers to two
+    variables in its lexical context: epsilon and f.  
+
+    A Scheme compiler knows how to emit code that constructs a value that
+    represent f_prime properly, meaning, the epsilon w/i d_dx not the one 
+    that is defined in the context of one of d_dx's many &quot;users&quot;. 
+
+    LISP, and for a long time Smalltalk, got this all wrong. 
+
+    In C, you can't define functions in a lexically nested position. So the
+    problem didn't come up. 
+
+3. The above example doesn't explain the true power of closures. For that,
+   read SICP, HtDP, or Concrete Abstractions or any other Scheme book. 
+
+Hope this helps  -- Matthias
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00242" href="msg00242.html">Re: a brief introduction to &quot;closures&quot; for &quot;uneducated&quot; C hackers</a></strong>
+<ul><li><em>From:</em> John Clonts &lt;jclonts@mastnet.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00232" href="msg00232.html">RE: Code available</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00237.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00239.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00232.html">RE: Code available</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00242.html">Re: a brief introduction to &quot;closures&quot; for &quot;uneducated&quot; C hackers</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00238"><strong>Date</strong></a></li>
+<li><a href="threads.html#00238"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

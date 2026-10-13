@@ -1,0 +1,471 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: C++ -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 4 Jun 2000 10:05:48 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000604160543.QACJ27967.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 4.3.2.7.0.20000527075656.00b17d68@mpop.netlink.co.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: C++</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00315.html">Date Prev</A>][<A HREF="msg00317.html">Date Next</A>][<A HREF="msg00307.html">Thread Prev</A>][<A HREF="msg00308.html">Thread Next</A>][<A HREF="maillist.html#00316">Date Index</A>][<A HREF="threads.html#00316">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: C++</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Scorzelli Giorgio &lt;<A HREF="mailto:scr.giorgio@cogesic.it">scr.giorgio@cogesic.it</A>&gt;</LI>
+<LI><em>Subject</em>: Re: C++</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 4 Jun 2000 09:05:43 -0700</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00307.html">4.3.2.7.0.20000527075656.00b17d68@mpop.netlink.co.uk</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00307.html">4.3.2.7.0.20000527075656.00b17d68@mpop.netlink.co.uk</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Sorry for the delay.
+
+Quoting Scorzelli Giorgio:
+&gt; I'd like to know if there is a method to access C++ classes in PLT mzscheme 
+&gt; other than xctocc (that seems to use some deprecated functions instead...).
+
+xctocc is indeed deprecated. It's still used to build MrEd, and at this
+point it's filled wth MrEd-specific hacks. It would be nice to have a
+replacement.
+
+&gt; Can someone explain me about the integration between C++ classes and
+&gt; mzscheme?
+
+In a sense, MzScheme knows nothing about C++. Instead, MzScheme's
+C-level API includes support for creating new Scheme classes (both base
+and derived classes) whose methods are implemented in C. Instances of
+the Scheme class contain a field that points to arbitrary data to be
+used by the C-implemented methods.
+
+To inject a C++ class into the Scheme world, it's necessary to
+
+  1) Use the API to create a new Scheme class.
+
+  2) Use the designated field in instances of the class to store a
+     pointer to a C++ class instance.
+
+  3) Provide method implementations for the Scheme class that invoke
+     the corresponding C++ method of the stored C++ instance. This part
+     requires lots of marshaling and unmarhsaling work.
+
+  4) To allow Scheme-based classes to override C++ methods, derive a
+     new class for the original C++ class, and use the derived C++
+     class for the above glue. In instances of the derived C++ class,
+     keep a pointer back to the Scheme value corresponding to the
+     object instance. Also, for each overrideable method in the C++
+     class, providing an overriding method that checks whether the
+     corresponding method was overridden in the Scheme class, and call
+     it if so; otherwise, chain to the original C++ method.
+
+Yes, complex. I've included some example code below, and also added it
+to plt/collect/mzscheme/examples.
+
+The example is rolled by hand. For MrEd, xctocc does most of the work
+for derving a new C++ class and generating the glue, including the
+marshaling and unmarshaling code. But xctocc can only do simple
+marshaling and error-checking, and that's essentially why it's
+unusable; for the 10% that it can't do automatically for MrEd, I've
+added lots of obscure syntax and hacks to the xctocc input.
+
+Matthew
+
+----------------------------------------------------------------------
+
+
+#include "escheme.h"
+
+/* Example demonstrating how to inject a C++ class into MzScheme's
+   class world. 
+
+   Since it uses C++, this one can be slightly tricky to compile.
+   Specifying the linker as, say g++, ensures that the right
+   C++ libraries get included:
+     mzc --cc tree.cxx
+     mzc --linker /usr/bin/g++ --ld tree.so tree.o
+
+  Example use:
+    (define tree% (load-extension "tree.so"))
+
+    (define o (make-object tree% 10))
+    (send o get-leaves) ; =&gt; 10
+    (send o get-left) ; =&gt; #f
+
+    (send o grow 2) ; grows new branches on the frontier
+    (send o get-left) ; =&gt; #&lt;object:tree%&gt;
+    (send (send o get-left) get-leaves) ; =&gt; 2
+
+    (define apple-tree%
+      (class tree% ()
+        (inherit graft)
+        (override
+          ;; This `grow' drops branches and grows new ones
+	  [grow (lambda (n)
+                  (let ([l (make-object apple-tree%)]
+		        [r (make-object apple-tree%)])
+		    (graft l r)))])
+	(sequence (super-init 1))))
+
+    (define a (make-object apple-tree%))
+    (send a get-leaves) ; =&gt; 1
+    (send a grow)
+    (send a get-left) ; =&gt; #&lt;object:apple-tree%&gt;
+
+    (define o (make-object tree% 10))
+    (define a (make-object apple-tree%))
+    (send o graft a #f)
+    (send o grow 1)   ; C++ calls apple-tree%'s `grow' for `a'
+    (send a get-left) ; -&gt; #&lt;object:apple-tree&gt;
+*/
+
+/**********************************************************/
+/* The original C++ class: Tree                           */
+/**********************************************************/
+
+/* This kind tree never grows or loses leaves. It only changes when it
+   grows subtrees, or when subtrees are grafted onto it. We'll derive
+   new classes (in Scheme) for trees that can grow leaves and
+   fruit. */
+
+class Tree {
+private:
+
+  int refcount; /* Suppose the C++ class uses reference counting. */
+
+public:
+
+  /* Public fields: */
+  Tree *left_branch, *right_branch;
+  int leaves;
+
+  void *user_data; /* The original class might not be this friendly,
+		      but for simplicity we assume that it is. */
+
+  Tree(int init_leaves) {
+    left_branch = right_branch = NULL;
+    leaves = init_leaves;
+    refcount = 1;
+    user_data = NULL;
+  }
+
+  virtual void Grow(int n) {
+    if (left_branch)
+      left_branch-&gt;Grow(n);
+    else
+      left_branch = new Tree(n);
+    if (right_branch)
+      left_branch-&gt;Grow(n);
+    else
+      right_branch = new Tree(n);
+  }
+
+  void Graft(Tree *left, Tree *right) {
+    Drop(left_branch);
+    Drop(right_branch);
+
+    left_branch = left;
+    right_branch = right;
+
+    Add(left_branch);
+    Add(right_branch);
+  }
+
+  /* Note that Graft is not overrideable in C++.
+     In Scheme, we might override this methods, but
+     the C++ code never has to know since it never
+     calls the Graft methods itself. */
+
+  /* Reference counting utils: */
+
+  static void Add(Tree *t) {
+    if (t)
+      t-&gt;refcount++;
+  }
+  static void Drop(Tree *t) {
+    if (t) {
+      t-&gt;refcount--;
+      if (!t-&gt;refcount)
+	delete t;
+    }
+  }
+};
+
+/**********************************************************/
+/* The glue class: mzTree (C++ calls to Scheme)           */
+/**********************************************************/
+
+/* The Scheme class value: */
+static Scheme_Object *tree_class;
+/* Generic for the overrideable method: */
+static Scheme_Object *grow_method;
+
+/* We keep a pointer to the Scheme object, and override the
+   methods to (potentially) dispatch to Scheme. */
+
+class mzTree : public Tree {
+public:
+  mzTree(int c) : Tree(c) { }
+
+  virtual void Grow(int n) {
+    /* Check whether the Scheme class for user_data is 
+       actually a derived class that overrode `grow': */
+    Scheme_Object *overriding;
+    Scheme_Object *scmobj;
+
+    scmobj = (Scheme_Object *)user_data;
+
+    /* Cache a generic to find the method quickly: */
+    if (!grow_method) {
+      scheme_register_extension_global(&amp;grow_method, sizeof(grow_method));
+      grow_method = scheme_get_generic_data(tree_class,
+					    scheme_intern_symbol("grow"));
+    }
+    
+    overriding = scheme_apply_generic_data(grow_method,
+					   scmobj,
+					   0); /* 0 means return NULL
+						  if not overridden. */
+
+    if (overriding) {
+      /* Call Scheme-based overriding implementation: */
+      Scheme_Object *argv[1];
+
+      argv[0] = scheme_make_integer(n);
+      _scheme_apply(overriding, 1, argv);
+    } else {
+      /* Grow is not overridden: */
+      Tree::Grow(n);
+    }
+  }
+};
+
+/**********************************************************/
+/* The glue functions (Scheme calls to C++)               */
+/**********************************************************/
+
+/* Used for finalizing: */
+void FreeTree(void *scmobj, void *_t)
+{
+  Tree *t = (Tree *)_t;
+
+  Tree::Drop(t);
+}
+
+Scheme_Object *Make_Tree(Scheme_Object *obj, int argc, Scheme_Object **argv)
+{
+  /* Unfortunately, init arity is not automatically checked: */
+  if (argc != 1)
+    scheme_wrong_count("tree% initialization", 1, 1, argc, argv);
+
+  if (!SCHEME_INTP(argv[0]))
+    scheme_wrong_type("tree% initialization", 
+		      "fixnum", 
+		      0, argc, argv);
+
+  /* Create C++ instance, and remember pointer back to Scheme instance: */
+  Tree *t = new mzTree(SCHEME_INT_VAL(argv[0]));
+  t-&gt;user_data = obj;
+
+  /* Store C++ pointer in Schemeobject: */
+  ((Scheme_Class_Object *)obj)-&gt;primdata = t;
+
+  /* Free C++ instance when the Scheme object is no longer referenced: */
+  scheme_add_finalizer(obj, FreeTree, t);
+
+  return obj;
+}
+
+Scheme_Object *Grow(Scheme_Object *obj, int argc, Scheme_Object **argv)
+{
+  Tree *t;
+  int n;
+
+  if (!SCHEME_INTP(argv[0]))
+    scheme_wrong_type("tree%'s grow", 
+		      "fixnum", 
+		      0, argc, argv);
+  n = SCHEME_INT_VAL(argv[0]);
+
+  /* Extract the C++ pointer: */
+  t = (Tree *)((Scheme_Class_Object *)obj)-&gt;primdata;
+  
+  /* Call method (without override check): */
+  t-&gt;Tree::Grow(n);
+  
+  return scheme_void;
+}
+
+Scheme_Object *Graft(Scheme_Object *obj, int argc, Scheme_Object **argv)
+{
+  Tree *t, *l, *r;
+
+  if (!SCHEME_FALSEP(argv[0]) &amp;&amp; !scheme_is_a(argv[0], tree_class))
+    scheme_wrong_type("tree%'s graft", 
+		      "tree% object or #f", 
+		      0, argc, argv);
+  if (!SCHEME_FALSEP(argv[1]) &amp;&amp; !scheme_is_a(argv[1], tree_class))
+    scheme_wrong_type("tree%'s graft", 
+		      "tree% object or #f", 
+		      1, argc, argv);
+
+  /* Extract the C++ pointer for `this': */
+  t = (Tree *)((Scheme_Class_Object *)obj)-&gt;primdata;
+
+  /* Extract the C++ pointers for the args: */
+  l = (SCHEME_FALSEP(argv[0])
+       ? (Tree *)NULL
+       : (Tree *)((Scheme_Class_Object *)argv[0])-&gt;primdata);
+  r = (SCHEME_FALSEP(argv[1])
+       ? (Tree *)NULL
+       : (Tree *)((Scheme_Class_Object *)argv[1])-&gt;primdata);
+  
+  /* Call method: */
+  t-&gt;Graft(l, r);
+  
+  return scheme_void;
+}
+
+Scheme_Object *MarshalTree(Tree *t)
+{
+  if (!t)
+    return scheme_false;
+  else if (!t-&gt;user_data) {
+    /* Object created in C++, not seen by Scheme, yet.
+       Create a Scheme version of this object. */
+    Scheme_Object *scmobj;
+
+    /* Make Scheme object: */
+    scmobj = scheme_make_uninited_object(tree_class);
+
+    /* Link C++ and Scheme objects: */
+    t-&gt;user_data = scmobj;
+    ((Scheme_Class_Object *)scmobj)-&gt;primdata = t;
+    
+    return scmobj;
+  } else
+    /* Get pointer back to Scheme: */
+    return (Scheme_Object *)t-&gt;user_data;
+}
+
+Scheme_Object *Get_Left(Scheme_Object *obj, int argc, Scheme_Object **argv)
+{
+  Tree *t = (Tree *)((Scheme_Class_Object *)obj)-&gt;primdata;
+  
+  return MarshalTree(t-&gt;left_branch);
+}
+
+Scheme_Object *Get_Right(Scheme_Object *obj, int argc, Scheme_Object **argv)
+{
+  Tree *t = (Tree *)((Scheme_Class_Object *)obj)-&gt;primdata;
+ 
+  return MarshalTree(t-&gt;right_branch);
+}
+
+Scheme_Object *Get_Leaves(Scheme_Object *obj, int argc, Scheme_Object **argv)
+{
+  Tree *t = (Tree *)((Scheme_Class_Object *)obj)-&gt;primdata;
+ 
+  return scheme_make_integer(t-&gt;leaves);
+}
+
+/**********************************************************/
+/* Extension initialization: create the Scheme class      */
+/**********************************************************/
+
+Scheme_Object *scheme_initialize(Scheme_Env *env)
+{
+  scheme_register_extension_global(&amp;tree_class, sizeof(tree_class));
+
+  tree_class = scheme_make_class("tree%",    /* name */
+				 NULL,       /* superclass */
+				 Make_Tree,  /* init func */
+				 5);         /* num methods */
+
+  scheme_add_method_w_arity(tree_class, "grow",
+			    Grow, 1, 1);
+  scheme_add_method_w_arity(tree_class, "graft", 
+			    Graft, 2, 2);
+
+  scheme_add_method_w_arity(tree_class, "get-left",
+			    Get_Left, 0, 0);
+  scheme_add_method_w_arity(tree_class, "get-right",
+			    Get_Right, 0, 0);
+  scheme_add_method_w_arity(tree_class, "get-leaves",
+			    Get_Leaves, 0, 0);
+
+  scheme_made_class(tree_class);
+  
+  return tree_class;
+}
+
+Scheme_Object *scheme_reload(Scheme_Env *env)
+{
+  return tree_class;
+}
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00307" HREF="msg00307.html">C++</A></STRONG>
+<UL><LI><EM>From:</EM> Scorzelli Giorgio &lt;scr.giorgio@cogesic.it&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00315.html">Re: problem with anon cvs</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00317.html">SchemeQL beta version 0.01</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00307.html">C++</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00308.html">odbc and cgi</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00316"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00316"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

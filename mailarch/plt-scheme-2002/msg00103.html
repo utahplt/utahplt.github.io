@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SchemeQL problem -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Thu, 17 Jan 2002 20:23:45 &#45;0700 (MST) -->
+<!--X-Message-Id: 86elko1gy6.fsf@csc01.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 008701c19fca$718a6530$0101a8c0@DOUBLE -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SchemeQL problem</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00102.html">Date Prev</a>][<a href="msg00104.html">Date Next</a>][<a href="msg00102.html">Thread Prev</a>][<a href="msg00104.html">Thread Next</a>][<a href="maillist.html#00103">Date Index</a>][<a href="threads.html#00103">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SchemeQL problem</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Chris Double&quot; &lt;<A HREF="mailto:chris@double.co.nz">chris@double.co.nz</A>&gt;</li>
+<li><em>Subject</em>: Re: SchemeQL problem</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: Thu, 17 Jan 2002 21:22:25 -0600</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00102.html">008701c19fca$718a6530$0101a8c0@DOUBLE</a>&gt; (&quot;Chris Double&quot;'smessage of &quot;Fri, 18 Jan 2002 15:47:14 +1300&quot;)</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma deMéxico</li>
+<li><em>References</em>: &lt;<a href="msg00102.html">008701c19fca$718a6530$0101a8c0@DOUBLE</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090004 (Oort Gnus v0.04) XEmacs/21.1 (Cuyahoga Valley,i386--freebsd)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&quot;Chris Double&quot; &lt;chris@double.co.nz&gt; writes:
+
+[...]
+
+&gt; Any ideas where the problem could lie? I can use the 'db' database from
+&gt; other ODBC programs.
+
+What ODBC driver are you using?  is there any driver manager in the
+middle? If so, the problem might be that your actual driver is less
+than 3.0, and your driver manager is 3.51, etc.  Thus you compiled
+SrPersist having:
+
+ODBCVER=0x0350
+
+or similar.  SchemeQL relies on the information returned by:
+
+(compiled-odbc-version) ;; 3.50 if ODBCVER is like above
+
+and so it tries to call `alloc-handle' to alloc environment,
+connection, and statement handles.  The error:
+
+=&gt; Unspecified error in alloc-handle
+
+means, most of the time I guess, that alloc-handle is not supported by
+your actual driver.  Then you should be using a 2.0, or similar ODBC
+compliant notation: alloc-henv, alloc-connect, etc.
+
+Could you please try this:
+
+(require (lib &quot;schemeql.ss&quot; &quot;schemeql&quot;))
+(sister-ver 2.5) ;; (sister-ver) must return 3.51, I guess.
+(define sql (connect-to-database &quot;db&quot; &quot;user&quot; &quot;password&quot;))
+
+This is a known problem, unfortunately one without a known solution.
+:-( I guess that it isn't enough to tell SchemeQL to use a smaller
+sister-ver, but you have to re-compile your SrPersist to use that
+version too.  Ummmm yes, that should do it (Paul, what do you think?).
+
+HTH,
+--Francisco
+
+P.S. I recently downloaded the: `spgsql - Interface library for
+PostgreSQL', and I believe it would be fairly easy to add support to
+SchemeQL to use it as a back-end too.  I'll give it a go ASAP (in a
+couple of weeks I guess).  This should help alleviate the ODBC
+problems for PostgreSQL users only, though.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00104" href="msg00104.html">Re: SchemeQL problem</a></strong>
+<ul><li><em>From:</em> &quot;Chris Double&quot; &lt;chris@double.co.nz&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00102" href="msg00102.html">SchemeQL problem</a></strong>
+<ul><li><em>From:</em> &quot;Chris Double&quot; &lt;chris@double.co.nz&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00102.html">SchemeQL problem</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00104.html">Re: SchemeQL problem</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00102.html">SchemeQL problem</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00104.html">Re: SchemeQL problem</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00103"><strong>Date</strong></a></li>
+<li><a href="threads.html#00103"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: Afpne Thragrf <bsiNjnanqbb.rf> -->
+<!--X-Date: Mon, 25 Mar 2002 01:25:27 &#45;0700 (MST) -->
+<!--X-Message-Id: adsxawb3.fsf@wanadoo.es -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: zo0xekyu.fsf@wanadoo.es -->
+<!--X-Reference: iss.5683.3c9e5ba4.87a65.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Reference: 200203250349.WAA08682@bosch.cs.brown.edu -->
+<!--X-Reference: ofhdb3gp.fsf@wanadoo.es -->
+<!--X-Reference: 200203250612.BAA08910@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:ofv@wanadoo.es">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00466.html">Date Prev</a>][<a href="msg00468.html">Date Next</a>][<a href="msg00468.html">Thread Prev</a>][<a href="msg00476.html">Thread Next</a>][<a href="maillist.html#00467">Date Index</a>][<a href="threads.html#00467">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Oscar Fuentes &lt;<A HREF="mailto:ofv@wanadoo.es">ofv@wanadoo.es</A>&gt;</li>
+<li><em>Date</em>: 25 Mar 2002 09:25:20 +0100</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00463.html">200203250612.BAA08910@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00438.html">zo0xekyu.fsf@wanadoo.es</a>&gt;&lt;<a href="msg00441.html">iss.5683.3c9e5ba4.87a65.1@hermes.hrz.uni-giessen.de</a>&gt;&lt;<a href="msg00451.html">200203250349.WAA08682@bosch.cs.brown.edu</a>&gt; &lt;<a href="msg00461.html">ofhdb3gp.fsf@wanadoo.es</a>&gt;&lt;<a href="msg00463.html">200203250612.BAA08910@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>Reply-To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.09 (Gnus v5.9.0) Emacs/21.1</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt; writes:
+
+&gt; Oscar Fuentes wrote:
+&gt; 
+&gt; &gt; Abbreviating: it has no sense to say that somebody that doesn't know
+&gt; &gt; what are you doing is capable of providing a better solution for your
+&gt; &gt; problem than yourself.
+&gt; 
+&gt; Duh.  This is the basic fact underlying all of optimization theory.
+&gt; So what?  You haven't even begun to address my question.
+&gt; 
+&gt; - Your &quot;logical demonstration&quot; is only a proof of possibility, not
+&gt;   certainty.  (To be utterly pedantic, you've only used the dia
+&gt;   modality, not box.)  As Keith Cooper, a compiler optimization
+&gt;   wizard, memorably put it, &quot;Information is not optimization.&quot;  Think
+&gt;   that over.
+
+Well, my &quot;demonstration&quot; states that for, every given system, it is
+_possible_ to create a manual memory management that performs at least
+as well as the best GC system. If you mean that the manual memory
+system must be programmed by a monkey, well, I admit that it is not
+sure that you'll get such results :-)
+
+And putting my Math hat on, I claim that is a certainty that, for each
+given pair (application, GCS), we can create a memory management
+system (MMS) that performs at least as fast as the given GCS _and_
+there is no GCS that equals or exceeds the performance of an
+application-dependent MMS for all applications.
+
+Putting back my programmer hat on, I claim that is a certainty that we
+can create a MMS than performs better than any existing GC system for
+an arbitrary real-world application. Moreover, I claim that *you* know
+this. :-)
+
+&gt; - In a sufficiently complex domain, even the implementor of the
+&gt;   special-purpose collector may not understand the details to know (a) 
+&gt;   how to exploit them or (b) that he has done so soundly.
+
+See above.
+ 
+&gt; - The engineering of special-purpose collectors is highly
+&gt; non-trivial.  In many domains, it will take a while to match, much
+&gt; less beat, the performance of a finely-tuned general-purpose GC.
+
+My experience shows the opposite. Again, see above.
+ 
+&gt; - Even if you could come up with a customized mechanism, there's no
+&gt;   guarantee that it will necessarily be better.  For instance, even if 
+&gt;   your domain guaranteed the exclusion of cycles, reference counting
+&gt;   will not *necessarily* be better than a copying GC.
+
+Agreed. How about manually applying the GC scheme to those elements
+that optimally benefits from them and applying better schemes to other
+elements? You end with a system that beats the GC system applied to it
+all ;-)
+ 
+&gt; - As a real-world programmer, you know all about cost-benefit
+&gt;   analysis.  Do the obvious thing here (analysis cost, creativity
+&gt;   cost, development cost, maintenance cost, ...).
+
+This must be decided for every case, as we do with everything. Note,
+however, that the statement you defied was under the heading 
+
+&quot;Other factors concerning speed might be:&quot;
+
+so we are talking about run-time performance here.
+ 
+&gt; - Even when you've done all this and decided you can build a better
+&gt;   mousetrap, your manager may come along and demand that your language 
+&gt;   run-time interact closely with code written in C++ by a guy who
+&gt;   insists C++ has _two_ features he absolutely needs.  Now what will
+&gt;   you do?
+
+This is ironic indeed. The main reason because I'm not using mzScheme
+embedded on my applications is 'cause I don't trust GC for getting rid
+appropriately and on time of the objects allocated on the C++ code.
+
+Even more ironic: that objects causes me zero work to deallocate on
+the C++ side, but I must put guards around the Scheme code that uses
+them to &quot;guarantee&quot; their deallocation. That &quot;guarantee&quot; (that, AFAIK,
+is somewhat weak) absolutely disappears as soon as continuations
+enters the picture.
+
+A correction about this issue would be greatly appreciated.
+ 
+&gt; So instead of getting sidetracked into analyzing an empirical question
+&gt; through logic, let's get back to my question: how about some evidence?
+
+If the arguments made on my previous msg did not convince you, what
+kind of argument do you expect?
+
+-- 
+Oscar
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00476" href="msg00476.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00438" href="msg00438.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Oscar Fuentes &lt;ofv@wanadoo.es&gt;</li></ul></li>
+<li><strong><a name="00441" href="msg00441.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+<li><strong><a name="00451" href="msg00451.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00461" href="msg00461.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Oscar Fuentes &lt;ofv@wanadoo.es&gt;</li></ul></li>
+<li><strong><a name="00463" href="msg00463.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00466.html">A beginner interjects</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00468.html">Re: A beginner interjects</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00468.html">Re: A beginner interjects</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00476.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00467"><strong>Date</strong></a></li>
+<li><a href="threads.html#00467"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

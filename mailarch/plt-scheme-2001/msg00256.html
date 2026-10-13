@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: good books on scheme? -->
+<!--X-From-R13: Drvav Geona <eheonaNk&#45;enl.ng> -->
+<!--X-Date: Fri, 9 Feb 2001 12:08:27 &#45;0700 (MST) -->
+<!--X-Message-Id: 3A84402E.93E1E24C@x&#45;ray.at -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: F127TmIClmpcQABZTW500001dc3@hotmail.com -->
+<!--X-Reference: 14977.25283.974814.519025@minbar.directlink.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: good books on scheme?</title>
+<link rev="made" href="mailto:rurban@x-ray.at">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00255.html">Date Prev</a>][<a href="msg00257.html">Date Next</a>][<a href="msg00241.html">Thread Prev</a>][<a href="msg00228.html">Thread Next</a>][<a href="maillist.html#00256">Date Index</a>][<a href="threads.html#00256">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: good books on scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Richard Cobbe &lt;<A HREF="mailto:cobbe@directlink.net">cobbe@directlink.net</A>&gt;</li>
+<li><em>Subject</em>: Re: good books on scheme?</li>
+<li><em>From</em>: Reini Urban &lt;<A HREF="mailto:rurban@x-ray.at">rurban@x-ray.at</A>&gt;</li>
+<li><em>Date</em>: Fri, 09 Feb 2001 20:08:30 +0100</li>
+<li><em>CC</em>: Immanuel Litzroth &lt;<A HREF="mailto:immanuel_litzroth@hotmail.com">immanuel_litzroth@hotmail.com</A>&gt;,       <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: http://www.x-ray.at</li>
+<li><em>References</em>: &lt;<a href="msg00234.html">F127TmIClmpcQABZTW500001dc3@hotmail.com</a>&gt; &lt;<a href="msg00240.html">14977.25283.974814.519025@minbar.directlink.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Richard Cobbe schrieb:
+&gt; Lo, on Wednesday, February 7, Immanuel Litzroth did write:
+&gt; &gt; Not being a C hacker, but definitely uneducated I wonder if the greatest
+&gt; &gt; difference between C function pointers and first-class procedures is not the
+&gt; &gt; fact that they cannot be created at runtime because you have neither the
+&gt; &gt; compiler nor the symboltable present?
+
+Not so. 
+Bruno Haible's ffcall library allows the creation of C functions at runtime, 
+so called trampolines, and extends it to closures as well. 
+(keeping the data with the functions)
+  <A  HREF="http://clisp.cons.org/~haible/packages-ffcall.html">http://clisp.cons.org/~haible/packages-ffcall.html</A>
+Ordinary trampolines came with gcc.
+ffcall works with gcc and MSVC for sure, others also.
+The similar but free libffi package (ffcall is GPL'd) works only with gcc.
+
+I'd try to explain it for dummies at  
+<A  HREF="http://xarch.tu-graz.ac.at/autocad/lisp/ffis.html#libffi">http://xarch.tu-graz.ac.at/autocad/lisp/ffis.html#libffi</A>
+
+One can extend it to create C++ classes at runtime as well (similar to Java or 
+better systems, as lisp/scheme/...), but this is hard work and completely
+compiler, version and platform specific. Though I would need it terribly for
+my work, I wouldn't 
+do it.
+The latest gcc at least mimics the latest msvc conventions, so it's 
+only one to follow. (The compiler switches for full struct and vtable 
+compatibility do work now.)
+
+&gt; You *can* do closures in C++, although it's not as convenient as in Scheme:
+&gt; class Adder
+...
+-- 
+Reini Urban
+<A  HREF="http://xarch.tu-graz.ac.at/home/rurban/">http://xarch.tu-graz.ac.at/home/rurban/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00234" href="msg00234.html">Re: good books on scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Immanuel Litzroth&quot; &lt;immanuel_litzroth@hotmail.com&gt;</li></ul></li>
+<li><strong><a name="00240" href="msg00240.html">Re: good books on scheme?</a></strong>
+<ul><li><em>From:</em> Richard Cobbe &lt;cobbe@directlink.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00255.html">Re: Question on HtDP Exercise</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00257.html">Re: Offtopic: How to Design Programming Tests</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00241.html">RE: good books on scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00228.html">Code available</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00256"><strong>Date</strong></a></li>
+<li><a href="threads.html#00256"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

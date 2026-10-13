@@ -1,0 +1,163 @@
+Thank you, reviewers, for your feedback! I quote below parts of your
+reviews to some specific questions and comments, limited by space.
+
+> ----------------------- REVIEW 1 ---------------------
+> The semantics is given algorithmically [...]
+
+I think the example of using set membership instead of `resolve' (see
+below) may be a good example of how the model can be made more
+declarative. Do you have other examples to suggest?
+
+There is a bit of concrete syntax in the model, but that's because
+it's meant to explain macro expansion (i.e., parsing), which in turn
+enables other kinds of phases (like documentation time). I think the
+concrete syntax is otherwise minimal. Again, though, suggestions may
+help me see what you mean.
+
+> You say both "loading a module" and "running a module". [...]
+
+I have used the two terms in imprecise and almost interchangable ways
+in the less formal parts of the paper, and the model covers only the
+running part (because finding declarations on demand, which is the
+essence of loading, seems relatively straightforward). The
+presentation should be improved.
+
+> In page 2, it is written "The meaning of [...]" Do you
+> simply mean [...]
+
+Yes, and this is a good example of where the informal part could be
+clearer. The model covers this in the `run' metafunction and the
+`visit' metafunction (the latter shown in the full model and described
+in the paper as being like `run').
+
+> In page 3, it is written "When a module is used in multiple phases, 
+> [...] I couldn't figure out
+> where this is implemented in the formalization in section 5.
+
+In Figure 4, the `run' metafunction checks for an existing instance of
+a module at a given phase, and it attaches a phase to every
+instantiation of a definition within a module.
+
+> page 7, left, para 1. What is a definition's binding phase?
+
+The intent is to refer to the phase where a `define-syntax' form
+binds, as opposed to the phase (one higher) where its right-hand side
+resides.
+
+> In figure 4, I think you can omit the shift metafunction, [...]
+
+The `eval' function is fairly standard, while handling phase shifts is
+not. In particular, it would be easy to get phases wrong by threading
+a phase through `eval' instead of applying a shift at the right place
+--- akin to accidentally implementing dynamic scope by threading an
+environment through an interpreter instead of forming closures.
+
+> I think the detailed handling of syntax objects is irrelevant, [...]
+
+I have left out most macro machinery, but I don't know how to provide
+a coherent account of macro expansion without using syntax objects to
+the minimal degree they are used in this paper. In particular, there's
+no way to talk about bindings for different phases without something
+like syntax objects.
+
+> In the definition of the resolve metafunction [...]
+
+The phase is always the same. I see why the notation of figure 7 is
+confusing. The `ph' is bound at the first use on the left-hand side of
+the rule, and other uses (whether on the left or right of a side
+condition) imply matching. This is normal Redex notation, but it is
+not standard. At the same time, the current use of `resolve' may be a
+bad compromise between using set membership directly and leaving
+`resolve' as a hook for a model that has more complete macro
+machinery.
+
+> page 9, right: "the bindings inherited by the submodule
+> [...]". Please elaborate.
+
+The "submodule's phase nesting" is intended to refer back to the
+next-to-last paragraph of section 4, which explains how a submodule
+can be nested under `begin-for-syntax'. That connection should be made
+clearer.
+
+> ----------------------- REVIEW 2 ---------------------
+> Perhaps the reader's
+> understanding would by help by also providing a comparison between,
+> say, the ML module system (i.e., a language *without* macros but
+> *with* modules)
+
+Racket's model system without macros is indeed little different from
+ML structures. As the related-work section notes, however, nested ML
+structures run whenever the enclosing structure runs, while submodules
+are not so constrained. Inner classes in Java are even closer, as far
+as non-extensible languages go.
+
+> Section 2 begins to be difficult to follow when it introduces
+> `for-template`.  I understand `for-syntax` [...]
+
+Your analogy sounds reasonable.
+
+> I remain confused about the relationship between submodules and
+> phases after reading this in section 3:
+
+I think this is a bad transition in the exposition.  "This treatment"
+is meant to refer to the specific treatment of names like `main' and
+`test'; that protocol could be useful without phases, such as in a
+variant of ML modules where nested structures can be independent of
+enclosing structures. The rest of the paragraph is intended to bridge
+to the rest of the section, where macros and phases come into play to
+leverage of submodules in a greater way.
+
+> Is it really possible for Racket programmers to define their own
+> phases as the paper advertises, [...] baked-in language forms like
+> `for-doc` that section 3 describes?
+
+The `for-doc' form is implemented in `scribble/srcdoc', not baked-in.
+
+> - In section 2, why switch from .scm to .lsp [...]
+
+Yes: The ".lsp" examples sketch the way Common Lisp works (but not
+exactly syntactically right), while ".scm" sketches the way old Scheme
+implementations worked (again, not exactly syntactically right for any
+Scheme implementation).
+
+> - In section 4, it looks as though in the Redex model one has to
+>   manually annotate imports and exports with the phase numbers [...]
+
+I think of the annotations are more like types on module
+boundaries. They annotations can be inferred, but it changes the
+capabilities of the language in subtles ways. See the related-work
+section's discussion of "implicit phasing" (Ghuloum and Dybvig) for
+more on why we stick with explicit phasing.
+
+> - Is the Redex model capable of modeling side-effecting module bodies
+
+The current model does not include side-affecting operations, but they
+are easily accomodated in the usual way by threading the store through
+the `eval' metafunction.
+
+>  [...] [Flatt 2002] [...] the
+>   contribution of this paper is beyond the previous one.
+
+The contribution is the design and implementation of submodules. The
+original design and paper did not include submodules.
+
+
+> ----------------------- REVIEW 3 ---------------------
+> specific to Racket and quite unclear to me if
+> these ideas can be made useful outside this context. 
+
+Racket is on the cutting edge of one form of language extensibility,
+so the work that we do may not immediately apply to other languages.
+Some of our recent work also shows how Scheme techniques can apply to
+a language with infix syntax (GPCE'12). Furthermore, Scheme-style
+macros are starting find their way into Scala and JavaScript (see
+"sugar.js" or Eich's recorded keynote at StrangeLoop'12).
+
+> I worry that this is essentially creating a
+> configuration system that's no easier to understand than a complex
+> nest of #ifdef's in a language with a C-like pre-processor.
+
+The module and macro system described in the paper is the foundation
+of Racket's ability to express sophisticated language constructs, such
+as contracts, Scribble, and Typed Racket. No one is building anything
+like contracts, Scribble, or Typed Racket with the C pre-processor.

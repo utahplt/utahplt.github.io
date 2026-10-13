@@ -1,0 +1,188 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: change to `make&#45;input&#45;port' and `make&#45;output&#45;port' -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 10 Apr 2002 10:24:25 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200204101624.KAA25986@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>change to `make-input-port' and `make-output-port'</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00723.html">Date Prev</a>][<a href="msg00725.html">Date Next</a>][<a href="msg00723.html">Thread Prev</a>][<a href="msg00727.html">Thread Next</a>][<a href="maillist.html#00724">Date Index</a>][<a href="threads.html#00724">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>change to `make-input-port' and `make-output-port'</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: change to `make-input-port' and `make-output-port'</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 10 Apr 2002 10:24:23 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+To support general non-blocking input and output operations on all
+ports, we need to revise the interface of `make-input-port' and
+`make-output-port'. The new interface is defined below.
+
+This interface is quite different from the old one. It makes each port
+responsible for implementing non-blocking, string-based I/O instead of
+blocking, character-based I/O. The old interface doesn't map well to
+the new one in the case of input, and not at all in the case of output.
+
+Since this is such a big change for a relatively useful set of
+procedures, and since there's no good path for backward compatibility,
+I wonder whether anyone thinks that adapting their code to the new
+interface would be prohibitively difficult. Let me know if so.
+
+Thanks,
+Matthew
+
+----------------------------------------
+
+  (make-input-port waitable-or-#f
+                   read-proc
+                   peek-proc-or-#f
+                   close-proc)
+
+      waitable-or-#f :
+         This waitable object (e.g., a semaphore or another port) is
+         used by the system with `object-wait-multiple' to block until
+         input/EOF is ready for reading/peeking. If the waitable is a
+         semaphore, it will be re-posted after a block completes. The
+         system will not allow user code to access the object.
+
+         The port's reading and peeking procedures need not return
+         data when the waitable unblocks, but spurious unblocks will
+         reduce the port's performance. For example, a waitable might
+         unblock when no data is available as a way of detecting
+         demand on the port.
+
+         The waitable will not always be used before a call to a
+         reading or peeking procedure (e.g., for a non-blocking
+         read).
+
+         Supplying #f instead of a waitable indicates that input/EOF
+         is always available. In other words, it's the same as
+         (make-semaphore 1).
+
+      read-proc : (string -&gt; int-or-eof)
+         Fills the given string and returns the number of read characters,
+         or returns EOF (without putting any characters into the string).
+
+         Errors can be reported by raising an exception, but only if no
+         characters are read.
+
+         A port's reading procedure may be called in multiple threads
+         simultaneously. The port is reposnsible for its own internal
+         synchronization.
+
+      peek-proc : (string -&gt; int-or-eof)
+         Optional; the protocol is the same as read, except that the
+         port keeps all characters.
+
+      close-proc : (-&gt; void)
+         Called when the port is closed. The port's waitable, reading
+         procedure, peeking procedure, and closing procedure will
+         never be used again via the port after this procedure
+         returns. However, the procedure can be called simultaneously
+         in multiple threads.
+
+
+
+  (make-output-port waitable-or-#f
+                    write-proc
+                    close-proc)
+
+      waitable-or-#f :
+         As for input ports, but to indicate that a non-blocking write
+         is likely to write at least one character.
+
+      write-proc : (immutable-string start-int end-int flush? -&gt; int)
+         Writes as much of the given range of the given string as
+         possible without blocking. Returns the number of characters
+         written (or buffered).
+
+         If `flush?' is false, then the port can buffer characters at
+         will, instead of immediately committing them. From a user's
+         perspective, the different between buffered and committed
+         data is (1) buffered data can be lost in the future due to a
+         failed commit, and (2) `flush-output' forces all buffered
+         data to be committed.
+
+         If `flush?' is true, previously buffered characters must be
+         committed before the write, and newly written characters
+         should not be buffered. When the `flush-output' procedure is
+         applied to the port after one or more non-flushed writes, the
+         write procedure is called with an empty string and a true
+         value for `flush?'.
+
+         If the writing procedure raises an exception, due either to
+         write or commit operations, it must not have written any
+         characters (though it may have committed previously written
+         characters).
+
+         A port's writing procedure may be called in multiple threads
+         simultaneously. The port is reposnsible for its own internal
+         synchronization.
+
+      close-proc : (-&gt; void)
+         Called when the port is closed.  The port's waitable, writing
+         procedure, and close procedure will never be used again via
+         the port after this procedure returns. However, the procedure
+         can be called simultaneously in multiple threads.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00723.html">A Bit of History</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00725.html">Re: should definitions introduced by macros be gensymmed?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00723.html">A Bit of History</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00727.html">need help with macros (again)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00724"><strong>Date</strong></a></li>
+<li><a href="threads.html#00724"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

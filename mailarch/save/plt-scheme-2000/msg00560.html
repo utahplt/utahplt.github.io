@@ -1,0 +1,109 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Error with WITH&#45;HANDLER+UNIT? -->
+<!--X-From-R13: ebool <eboolNpf.evpr.rqh> -->
+<!--X-Date: Tue, 14 Mar 2000 16:14:44 &#45;0700 (MST) -->
+<!--X-Message-Id: v04220805b4f477e834e0@[128.42.2.124] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000b01bf8dce$4b3d4830$11969fd0@fitzgerald_nt -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Error with WITH-HANDLER+UNIT?</TITLE>
+<LINK REV="made" HREF="mailto:robby@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00559.html">Date Prev</A>][<A HREF="msg00561.html">Date Next</A>][<A HREF="msg00559.html">Thread Prev</A>][<A HREF="msg00547.html">Thread Next</A>][<A HREF="maillist.html#00560">Date Index</A>][<A HREF="threads.html#00560">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Error with WITH-HANDLER+UNIT?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: &lt;<A HREF="mailto:fitzgerald@neodesic.com">fitzgerald@neodesic.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Error with WITH-HANDLER+UNIT?</LI>
+<LI><em>From</em>: robby &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 14 Mar 2000 17:14:53 -0600</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00556.html">000b01bf8dce$4b3d4830$11969fd0@fitzgerald_nt</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00556.html">000b01bf8dce$4b3d4830$11969fd0@fitzgerald_nt</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;This code fragment catches an error and returns it:
+&gt;
+&gt;  &gt; (with-handlers
+&gt;     ((identity identity))
+&gt;      (/ 1 0))
+&gt;#&lt;struct:exn:application:divide-by-zero&gt;
+&gt;
+&gt;But this doesn't catch the error UNIT throws
+&gt;
+&gt;  &gt; (with-handlers
+&gt;     ((identity identity))
+&gt;      (unit (import) (export) some-unknown-variable))
+&gt;
+&gt;unit: used an unbound or non-primitive global in: some-unknown-variable
+
+This is a syntax error, not a runtime error. So, the evaluator raises 
+and error when compiling the expression, before the handler is 
+installed.  I'm not sure what you are trying to do, perhaps if you 
+give a little context, we can help you cath the errors you want to 
+catch.
+
+Robby
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00556" HREF="msg00556.html">Error with WITH-HANDLER+UNIT?</A></STRONG>
+<UL><LI><EM>From:</EM> "Will Fitzgerald" &lt;fitzgerald@neodesic.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00559.html">A utility for checking for unbound variables.</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00561.html">DrScheme &amp; SRFIs Was: Possible bug w/ internal defines?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00559.html">A utility for checking for unbound variables.</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00547.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00560"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00560"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

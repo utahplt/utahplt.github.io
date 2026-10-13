@@ -1,0 +1,142 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Error context info -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Fri, 26 Oct 2001 12:15:37 &#45;0600 (MDT) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B91023B87D5@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Error context info</title>
+<link rev="made" href="mailto:GregP@bsquare.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01125.html">Date Prev</a>][<a href="msg01127.html">Date Next</a>][<a href="msg01127.html">Thread Prev</a>][<a href="msg01128.html">Thread Next</a>][<a href="maillist.html#01126">Date Index</a>][<a href="threads.html#01126">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Error context info</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Error context info</li>
+<li><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 26 Oct 2001 11:14:47 -0700</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Consider the following example:
+
+(define-struct a (b-exprs))
+(define-struct b (c-exprs))
+(define-struct c (c-field))
+
+(define-syntax validate
+  (lambda (stx)
+    (syntax-case stx (a)
+      [(_ (a x ...)) (syntax (make-a (list (validate-b x) ...)))]))) ; &lt;--
+expression on this line is highlighted
+
+(define-syntax validate-b
+  (lambda (stx)
+    (syntax-case stx (b)
+      [(_ (b x ...)) (syntax (make-b (list (validate-c x) ...)))])))
+
+(define-syntax validate-c
+  (lambda (stx)
+    (syntax-case stx (c)
+      [(_ (c c-field))
+       (syntax (if (string? c-field) (make-c c-field)
+                   (raise-syntax-error 'c (format &quot;expected string, given:
+~a ~a&quot; c-f (syntax-line (syntax c-field))))))])))
+
+(validate (a (b (c &quot;foo&quot;)
+                (c &quot;bar&quot;)) ;&lt;--- misplaced paren here causes error
+                (c &quot;baz&quot;)
+             (b (c &quot;this&quot;)
+                (c &quot;is&quot;)
+                (c &quot;a&quot;)
+                (c &quot;test&quot;))))
+
+
+In the example, a paren is deliberately misplaced in order to cause an
+error.
+When the error occurs the expression on the indicated line is highlighted
+and
+the following error message is printed:
+
+#&lt;struct:object:derived-from-definitions-text%&gt;:8:22: validate-b: bad syntax
+in: (validate-b (c &quot;baz&quot;))
+
+I would rather that the expression, '(c &quot;baz&quot;) were highlighted on the line
+where the error occured.
+I tried doing a ... (syntax/loc stx (make-a ...))...  but in this case, no
+line was highlighted.
+
+When I modify validate like this:
+(define-syntax validate
+  (lambda (stx)
+    (display (syntax-line stx)) ;display the context information of stx
+    (syntax-case stx (a)
+      [(_ (a x ...)) (syntax (make-a (list (validate-b x) ...)))])))
+
+
+It displays 23, which is the line number of the invocation of validate, so
+I would have expected that syntax/loc would have used this line-number.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01128" href="msg01128.html">Re: Error context info</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="01129" href="msg01129.html">Re: Error context info</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01125.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01127.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01127.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01128.html">Re: Error context info</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01126"><strong>Date</strong></a></li>
+<li><a href="threads.html#01126"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

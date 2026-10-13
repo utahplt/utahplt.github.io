@@ -1,0 +1,52 @@
+
+ 1.
+     (define (func-for-pipeline p)
+       (cond
+
+        [(boolean? p)            ...                ]
+       
+        [(straight? p) 
+          ... (func-for-pipeline (straight-next p))
+          ...
+
+                                                    ]
+
+        [(branch? p)
+          ... (func-for-pipeline (branch-left p))
+          ... (func-for-pipeline (branch-right p))
+          ...
+
+                                                    ]))
+
+2.
+    (define (count-faucets p)
+       (cond
+
+        [(boolean? p)            1                ]
+       
+        [(straight? p) 
+              (count-faucets (straight-next p))
+          
+
+                                                    ]
+
+        [(branch? p)
+           (+ (count-faucets (branch-left p))
+              (count-faucets (branch-right p)))
+                                                    ]))
+
+ 3.
+     (define (water-running? p)
+       (cond
+
+        [(boolean? p)            .p                 ]
+       
+        [(straight? p) 
+              (water-running? (straight-next p))
+                                                    ]
+
+        [(branch? p)
+          (or (water-running? (branch-left p))
+              (water-running? (branch-right p)))
+                                                    ]))
+

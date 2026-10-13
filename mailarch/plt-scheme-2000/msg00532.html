@@ -1,0 +1,175 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Multimedia in DrScheme -->
+<!--X-From-R13: "Xbua D. Vnyy" <birepbqrNybxvtnzrf.pbz> -->
+<!--X-Date: Thu, 31 Aug 2000 19:05:06 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39AF0055.D81CB3FE@lokigames.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: v04210133b5d445049dfd@[130.207.3.227] -->
+<!--X-Reference: 39AEB5BF.C6A16194@kurtz&#45;fernhout.com -->
+<!--X-Reference: 39AEDE4E.521F33B8@mastnet.net -->
+<!--X-Reference: 39AEEA11.CF16FB2A@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Multimedia in DrScheme</title>
+<link rev="made" href="mailto:overcode@lokigames.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00531.html">Date Prev</a>][<a href="msg00533.html">Date Next</a>][<a href="msg00531.html">Thread Prev</a>][<a href="msg00533.html">Thread Next</a>][<a href="maillist.html#00532">Date Index</a>][<a href="threads.html#00532">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Multimedia in DrScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Multimedia in DrScheme</li>
+<li><em>From</em>: &quot;John R. Hall&quot; &lt;<A HREF="mailto:overcode@lokigames.com">overcode@lokigames.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 31 Aug 2000 21:03:17 -0400</li>
+<li><em>Organization</em>: Loki Entertainment Software</li>
+<li><em>References</em>: &lt;<a href="msg00528.html">v04210133b5d445049dfd@[130.207.3.227]</a>&gt; &lt;<a href="msg00529.html">39AEB5BF.C6A16194@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00530.html">39AEDE4E.521F33B8@mastnet.net</a>&gt; &lt;<a href="msg00531.html">39AEEA11.CF16FB2A@kurtz-fernhout.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&lt;a bunch of other interesting comments snipped&gt;
+
+&gt; 2) even if it did, I expect it to be proprietary at the implementation
+&gt; level (likely producing another Java situation where people reimplement
+&gt; it with different code on different platforms, leading to a host of
+&gt; compatability issues).
+
+Even worse, they could sue anyone who tries to implement it under some
+bastardization of the DMCA.
+
+&gt; To bring this back around to DrScheme before getting too Off-Topic, the
+&gt; issue is being able to leverage off of work by other open source
+&gt; developers. For example, Squeak developers are doing lots of work to get
+&gt; sockets to work across all platforms -- yet witness the recent issue
+&gt; with DrScheme sockets under Linux.
+
+It's fixed, btw. Apparently the semantics of zero-byte transfers on
+nonblocking sockets changed with the new TCP/IP stack. If anyone wants
+the patch I'd be happy to send it.
+
+That was just a bug, albeit a strange one. MzScheme's sockets do work on
+Windows, Unix, and MacOS.
+
+&gt; And obviously Perl, Python, and TCl
+&gt; programmers all are writing socket code for numerous platforms.
+
+Tcl socket programming is presently a bit simplistic, without the aid of
+dynamically linked extensions. Which is a shame; Tcl is cool :)
+
+&gt; If all
+&gt; that effort could be pooled, what wonders we might see. Think on the
+&gt; story of the &quot;Tower of Babel&quot; where people were made to speak different
+&gt; languages so the tower could never touch the heavens. I'm not suggesting
+&gt; everyone program in Scheme -- just that to the extent possible, open
+&gt; languages could share many facilities -- especially ones related to
+&gt; cross platform bitmaps, sound, networking, file access, FFI, plugin
+&gt; architecture, native widgets, installation, documentation viewers, maybe
+&gt; some memory management, OS interface calls for processes, and so forth.
+&gt; Note this is also different from saying everyone should just use Linux.
+&gt; Obviously there may be some performance issues if one has to add another
+&gt; layer isolating language and runtime libraries, and various language
+&gt; implementations have their own expectations about threading, garbage
+&gt; collection, memory allocation, and so forth.
+
+I agree that portable interfaces are a Good Thing, but a lot of this is
+language specific (Squeak and Scheme deal with GC differently, for
+instance).
+Nonetheless:
+-SDL provides high-performance multimedia IO on most platforms (Windows,
+Linux, *BSD, BeOS, MacOS, IRIX).
+-The Boehm GC exists for most platforms. I believe this is what MzScheme
+uses.
+-wxWindows provides portable windowing support. Some people seem to
+dislike wx, but GTK+ and Tk are also available. All are fairly stable at
+this point.
+-File IO is more or less portable across platforms with the standard C
+library. There are annoying differences in filename formats, though.
+(Why did Mr. Gates have to use the \ instead of the /? Argh!! :)
+-Sockets are a pain. They're never too difficult on any given platform,
+but they're not portable (it's easier to port a Unix socket app to a
+Palm Pilot than to MacOS). It would be nice to have a portable network
+programming toolkit.
+
+&gt; I wonder what wxWindows would look like if it had been designed to serve
+&gt; as a &quot;Common Language Runtime&quot; for Scheme, Python, etc. instead of a
+&gt; windowing library orginally for C/C++.  SDL (Simple DirectMedia Layer)
+&gt; is a similar effort, and bindings exist for several languages (not yet
+&gt; Scheme that I saw):
+&gt;   <A  HREF="http://www.devolution.com/~slouken/projects/SDL/">http://www.devolution.com/~slouken/projects/SDL/</A>
+&gt; If one was going to add multimedia (and emulated widgets) to MzScheme
+&gt; and not use wxWindows as MrEd does, SDL would be an interesting choice.
+
+I'm currently working on SDL bindings for Scheme. No estimated time of
+arrival, but hopefully I'll have time to finish soon.
+
+-John
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00533" href="msg00533.html">Re: Multimedia in DrScheme</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00528" href="msg00528.html">Multimedia in DrScheme</a></strong>
+<ul><li><em>From:</em> Mark Guzdial &lt;guzdial@cc.gatech.edu&gt;</li></ul></li>
+<li><strong><a name="00529" href="msg00529.html">Re: Multimedia in DrScheme</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00530" href="msg00530.html">Re: Multimedia in DrScheme</a></strong>
+<ul><li><em>From:</em> John Clonts &lt;jclonts@mastnet.net&gt;</li></ul></li>
+<li><strong><a name="00531" href="msg00531.html">Re: Multimedia in DrScheme</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00531.html">Re: Multimedia in DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00533.html">Re: Multimedia in DrScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00531.html">Re: Multimedia in DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00533.html">Re: Multimedia in DrScheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00532"><strong>Date</strong></a></li>
+<li><a href="threads.html#00532"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

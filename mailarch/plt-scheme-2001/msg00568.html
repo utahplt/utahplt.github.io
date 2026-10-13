@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Scheme_Manager_Reference and friends -->
+<!--X-From-R13: Oyrkrl [nubgxva <nyrkzNwrg.zfx.fh> -->
+<!--X-Date: Mon, 25 Jun 2001 06:09:00 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15159.10692.654326.312057@david.jet.msk.su -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15159.1613.974038.245842@david.jet.msk.su -->
+<!--X-Reference: 000101c0fd6b$686bff10$020c2a80@stecksoft.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Scheme_Manager_Reference and friends</title>
+<link rev="made" href="mailto:alexm@jet.msk.su">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00567.html">Date Prev</a>][<a href="msg00569.html">Date Next</a>][<a href="msg00565.html">Thread Prev</a>][<a href="msg00567.html">Thread Next</a>][<a href="maillist.html#00568">Date Index</a>][<a href="threads.html#00568">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Scheme_Manager_Reference and friends</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Scheme_Manager_Reference and friends</li>
+<li><em>From</em>: Alexey Mahotkin &lt;<A HREF="mailto:alexm@jet.msk.su">alexm@jet.msk.su</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Jun 2001 16:08:36 +0400 (MSD)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00565.html">000101c0fd6b$686bff10$020c2a80@stecksoft.com</a>&gt;</li>
+<li><em>Organization</em>: http://www.jet.msk.su/</li>
+<li><em>References</em>: &lt;<a href="msg00564.html">15159.1613.974038.245842@david.jet.msk.su</a>&gt;&lt;<a href="msg00565.html">000101c0fd6b$686bff10$020c2a80@stecksoft.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;&gt;&gt;&gt;&gt; &quot;PAS&quot; == Paul A Steckler &lt;psteckler@earthlink.net&gt; writes:
+
+    &gt;&gt; one of our extensions uses scheme_add_managed(),
+    &gt;&gt; Scheme_Manager_Reference, etc.  However, in newer MzScheme
+    &gt;&gt; those things simply disappeared.  Aren't they not needed no
+    &gt;&gt; more, or what should we replace those with?
+
+    PAS&gt; I believe items with Manager in their name now have Custodian
+    PAS&gt; in their name.
+
+Thanks!
+
+Matthew, it seems like the following should be mentioned in
+MzScheme_200.txt:
+
+
+Index: MzScheme_200.txt
+===================================================================
+RCS file: /home/scheme/Archives/AnonCVS/plt/notes/mzscheme/MzScheme_200.txt,v
+retrieving revision 1.14
+diff -u -u -r1.14 MzScheme_200.txt
+--- MzScheme_200.txt	2001/06/19 02:08:33	1.14
++++ MzScheme_200.txt	2001/06/25 12:06:20
+@@ -131,6 +131,13 @@
+    either replaced by `unit/sig' names or eliminated in favor of
+    existing `unit/sig' names.
+ 
++
++Warning to MzScheme extensions writers:
++
++ * Scheme_Manager_Reference from `scheme.h' is now called
++   Scheme_Custodian_Reference.  Same for other symbols with `Manager'.
++
++
+ MzLib changes:
+ 
+  * &quot;functio.ss&quot; was split into &quot;list.ss&quot; and &quot;etc.ss&quot;
+
+
+--alexm
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00564" href="msg00564.html">Scheme_Manager_Reference and friends</a></strong>
+<ul><li><em>From:</em> Alexey Mahotkin &lt;alexm@jet.msk.su&gt;</li></ul></li>
+<li><strong><a name="00565" href="msg00565.html">RE: Scheme_Manager_Reference and friends</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;psteckler@earthlink.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00567.html">MzScheme version number issues</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00569.html">scheme_add_global_constant and scheme_rep</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00565.html">RE: Scheme_Manager_Reference and friends</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00567.html">MzScheme version number issues</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00568"><strong>Date</strong></a></li>
+<li><a href="threads.html#00568"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

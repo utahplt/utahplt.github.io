@@ -1,0 +1,179 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Daydreaming about Higher Level Operating Systems -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Wed, 22 Nov 2000 13:39:15 &#45;0700 (MST) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B91BE3C60@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Daydreaming about Higher Level Operating Systems</TITLE>
+<LINK REV="made" HREF="mailto:GregP@bsquare.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01110.html">Date Prev</A>][<A HREF="msg01112.html">Date Next</A>][<A HREF="msg01134.html">Thread Prev</A>][<A HREF="msg01112.html">Thread Next</A>][<A HREF="maillist.html#01111">Date Index</A>][<A HREF="threads.html#01111">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Daydreaming about Higher Level Operating Systems</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Daydreaming about Higher Level Operating Systems</LI>
+<LI><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 22 Nov 2000 12:38:29 -0800</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+This is from the paper "Programming Languages as Operating Systems"
+
+"
+3.2 Embedding and Security 
+Conventional operating systems support multiple programs 
+through a process abstraction that gives each program its 
+own control flow, I/O environment, and resource controls. 
+A process is distinguished primarily by its address space, 
+where separate address spaces serve both as a protection 
+barrier between programs and as a mechanism for defining 
+a program's environment; e.g., the stdout global variable in 
+a Unix C program contains a process­specific value. 
+In MrEd, separate address spaces are unnecessary for 
+protection between programs, due to the safety properties 
+of the programming language. Nevertheless, separate pro­ 
+grams require separate control flow, I/O environments, and 
+resource controls. Instead of providing an all­encompassing 
+process abstraction, MrEd provides specific mechanisms for 
+creating threads of control, dealing with graphical I/O, and 
+managing resources. 
+"
+
+In the conventional OS, (as stated) the "currency" is the process.
+Each process has it's own address space. This stinks of C. Indeed each
+application is given it's own little sandbox to play in, in which it
+can piddle, if that be the case, without dirtying the sand in another box.
+
+As I was learning about Windows NT, this seemed like a good idea, but now
+that I've learned about functional programming languages and garbage
+collection,
+it almost seems like a hack. The analogy is one of a tight-rope with a
+safety
+net installed so that no one get's *hurt*. Then I ask, why not just install
+a proper
+walkway with a handrail and then no one even *falls*.
+
+Now we have the sentence:
+"In MrEd, separate address spaces are unnecessary for protection between
+programs, due to the safety properties of the programming language"
+
+This opens up some possibilities, as now the notion of an "address space"
+and associated stuff like "marshalling" (I believe "marshalling" means
+getting
+ideas/data from one process/address space to another), can be forgotten and
+replaced with
+higher level ideas.
+
+Now the questions:
+
+How mature is this idea? While I would be confident that a "pure" Scheme
+program
+could run without ever crashing. I wonder about the other sorts of things
+that an
+OS might need to do.
+
+In particular, I believe it was Paul Fernhout, in a previous posting, who
+said 
+"if you can't crash it, then you aren't driving". The contrapositive of this
+would be
+"if you are driving, then you can crash it."
+
+So let's suppose we're "driving". Let's suppose "driving" is the "Scheme
+box" that never even heard of
+a C program. The kernel is Scheme. For this situation, we have a whole host
+of functions that
+our Scheme implementation must carry out that aren't in the R5RS. For
+example, a driver for
+the video card --- and other device drivers. What happens if one of the
+peripherals is on the blink? 
+Does the GC protect the rest of system from that? Suppose there is a really
+handy program,
+written in C, that you want to run but don't want to rewrite in Scheme. Do
+you then allow for
+an address space for this poor old thing? Do you interpret the C on some
+emulation so that it can
+crash the emulation without hurting others? If C had never been invented,
+how would you communicate
+with the video card?
+
+For another interpretation of "driving", suppose I write an OpenGL extention
+for MrEd. I can make a mistake
+in the binding code that might crash MrEd --- in which case, all threads
+under that instance of MrEd are
+lost. Can the resource management in MrEd be made robust enough to contain a
+crash caused by a
+dynamic extention? I recall reading about garbage collectors, and ,in
+particular, about "incremental
+garbage collectors" which had "read barriers" and "write barriers" and such,
+which allowed the GC to
+*know* when memory had been written/read to/from. So couldn't the read/write
+barrier be used to
+trap an access violation?
+
+The situation in the previous paragraph is very real. I recall playing with
+the ODBC extension 
+about a year ago and discovered that freeing one of the various handles was
+not idempotent. Free it once,
+you're OK, free it again and you crash. So let's suppose you're running a
+Scheme webserver that is linked
+to a database via ODBC --- and then you free a handle twice. I suppose then
+it would crash the process and
+your webserver goes down. :-(
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01110.html">Redrawing and clipping regions</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01112.html">Threading/Process Question</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01134.html">Re: Security models in mzscheme ??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01112.html">Threading/Process Question</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01111"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01111"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

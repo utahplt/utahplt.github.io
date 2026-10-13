@@ -1,0 +1,158 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Premature eof&#45;object   ? -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Sat, 15 Dec 2001 12:17:25 &#45;0700 (MST) -->
+<!--X-Message-Id: 02c601c1859c$a56cfc20$0400000a@LJS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Premature eof-object   ?</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01346.html">Date Prev</a>][<a href="msg01348.html">Date Next</a>][<a href="msg01351.html">Thread Prev</a>][<a href="msg01348.html">Thread Next</a>][<a href="maillist.html#01347">Date Index</a>][<a href="threads.html#01347">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Premature eof-object   ?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Premature eof-object   ?</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Sat, 15 Dec 2001 20:13:47 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello
+
+I have a problem in the following code.
+
+I would like to retrieve the image db011214.gif
+
+The code below stops when app. 16000 bytes of the 52000 bytes
+have been downloaded.
+
+I have tried two different ways of downloading.
+
+In &quot;copy-port&quot;, I use the same method as in &quot;display-pure-port&quot; in the net
+collection.
+In &quot;copy-port2&quot; I busy-wait until a char is ready (so I can be sure and
+eof-object means eof-object
+and not for example that the network is slow), but it gives the exact same
+result.
+
+The copy I made on my own web server <A  HREF="http://www.jensaxel.dk/db.gif">http://www.jensaxel.dk/db.gif</A> can be
+downloaded
+with no problems.
+
+I use DrScheme v201a on windows 2000.
+
+I tried to get the windows source from download.plt-scheme.org,
+but it was not available. I wanted to look at the source for tcp-connect
+in order to see whether an eof-object means eof or no-chars-available-now.
+
+The code:
+
+(require (lib &quot;url.ss&quot; &quot;net&quot;))
+(require (lib &quot;process.ss&quot;))
+
+(define (copy-port in out)
+  (let loop ()
+    (let ((c (read-char in)))
+      (unless (eof-object? c)
+        (write-char c out)
+        (loop)))))
+
+(define (copy-port2 in out)
+  (let loop ()
+    (let wait ((r (char-ready? in)))
+      (if (not r)
+          (wait (char-ready? in))
+          (let ((c (read-char in)))
+            (unless (eof-object? c)
+              (write-char c out)
+              (loop)))))))
+
+
+(define out (open-output-file &quot;foo.gif&quot; 'replace))
+
+;(define in (get-pure-port (string-&gt;url <A  HREF="http://www.jasoegaard.dk/db.gif">http://www.jasoegaard.dk/db.gif</A>)))
+
+(define in (get-pure-port (string-&gt;url
+&quot;<A  HREF="http://a1736.g.akamai.net/7/1736/1392/1dcf6501c8f9fe/images.ucomics.com/com">http://a1736.g.akamai.net/7/1736/1392/1dcf6501c8f9fe/images.ucomics.com/com</A>
+ics/db/2001/db011214.gif&quot;)))
+
+;(copy-port in out)
+(copy-port2 in out)
+
+(close-output-port out)
+(close-input-port in)
+
+Yours,
+--
+Jens Axel Søgaard
+<A  HREF="http://www.jensaxel.dk">http://www.jensaxel.dk</A>
+
+
+--
+Jens Axel Søgaard
+&lt;<A  HREF="http://www.jensaxel.dk">http://www.jensaxel.dk</A>&gt;
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01348" href="msg01348.html">Re: Premature eof-object   ?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01346.html">RE: (problem? 'guile)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01348.html">Re: Premature eof-object   ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01351.html">Re: Input/output file port</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01348.html">Re: Premature eof-object   ?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01347"><strong>Date</strong></a></li>
+<li><a href="threads.html#01347"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

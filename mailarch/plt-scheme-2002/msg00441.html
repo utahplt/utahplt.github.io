@@ -1,0 +1,187 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to =?iso&#45;8859&#45;1?q?do=3F?= -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Sun, 24 Mar 2002 16:05:32 &#45;0700 (MST) -->
+<!--X-Message-Id: iss.5683.3c9e5ba4.87a65.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: zo0xekyu.fsf@wanadoo.es -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00440.html">Date Prev</a>][<a href="msg00442.html">Date Next</a>][<a href="msg00440.html">Thread Prev</a>][<a href="msg00451.html">Thread Next</a>][<a href="maillist.html#00441">Date Index</a>][<a href="threads.html#00441">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Mar 2002 00:05:06 +0100</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00438.html">zo0xekyu.fsf@wanadoo.es</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Sorry,
+
+I've been starting out with C++ and the whole language as well as the
+glorious STL is one huge syntactic mess. I've seen Scheme-programs
+translated into C++ and yes, it seems to work but the resulting code
+is so ugly that you could as well hard-code it on a Turing-Machine.
+In my opinion that guy Stroustroup had a little too much fun
+elaborating on his crooked syntax and rather than keeping it simple
+like C he decided to write a sleep-pill of 1024 pages and design a
+language that enslaves your mind.
+
+Join the right side,
+Sebastian
+
+PS: 
+One word about types though: Why did C++ come up with 'templates' if
+static typing would really be that great? Templates are used in C++ -
+coded numeric libraries where speed is of much concern. So maybe it's
+the compiler and algorithm that makes your program racing and not the
+choice or lack of type-system.
+
+Other factors concerning speed might be:
+- Homogenous arrays beat heterogenous ones.
+- Doubles beat Reals and Bignums.
+- Explicit memory-management beats garbage-collection.
+- The human-factor: In C it's almost impossible not to think about
+efficiency because that's all you have.
+
+After all I'm glad that Scheme is not a crooked syntactic mess like
+C++, not just a portable assembler like C, not a language with walls
+all over the place like others might be that I did not yet bother to
+try out.
+
+Nevertheless I'd gladly use a cleanly designed (no glitches like the
+'=&gt;'-thing and the superfluous 'else' in 'cond'-clauses) type-system
+if I can restrict it to single modules. Maybe one could do it like:
+
+(typed-lambda ((double: a int: b)
+               (double:))
+   (+ a b))
+
+Or even include multiple-value-return:
+
+(typed-lambda ((double: a int: b)
+               (double: int:))
+   (values a b))
+
+
+------------------------------------------------------------------
+
+
+
+&gt; Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt; writes:
+&gt; 
+&gt; &gt; Oscar Fuentes wrote:
+&gt; &gt; 
+&gt; &gt; &gt; This last paragraph confused me. In what sense C++'s type system
+&gt; &gt; &gt; fails? The whole point around C++ type system is that it is
+verified
+&gt; &gt; &gt; at compile time in a way that there is no need for run-time
+checks
+&gt; &gt; 
+&gt; &gt; Define a new type, A.
+&gt; &gt; 
+&gt; &gt; Define a vector of ten A's.
+&gt; &gt; 
+&gt; &gt; Make an instance of this vector.
+&gt; &gt; 
+&gt; &gt; C++'s type system says that all dereferences of this vector will
+give
+&gt; &gt; you objects of type A.
+&gt; &gt; 
+&gt; &gt; Dereference the eleventh element of this vector.
+&gt; &gt; 
+&gt; &gt; Do you get an A?
+&gt; 
+&gt; The C++ standard does not says that _any_ _pointer_ dereference will
+&gt; return a _well_ _constructed_ instance. If you want to stay safe,
+&gt; avoid &quot;naked&quot; pointers. (And yes, it is perfectly possible to do C++
+&gt; using wrapped pointers, and not just barely dressed pointers like
+&gt; std::vector)
+&gt; 
+&gt; Still, the case you mention does show a &quot;problem&quot; with std::vector
+(or
+&gt; with traditional C style arrays, which are more or less the same for
+&gt; the case we are discussing). It is not a problem with the
+&gt; _language_. The same applies to most Standard C++ Library, where
+&gt; performance criteria prevails over safety. If run-time performance
+is
+&gt; not as critical to you as safety, use a safe library.
+&gt; 
+&gt; -- 
+&gt; Oscar
+&gt; 
+&gt; 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00451" href="msg00451.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00469" href="msg00469.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00438" href="msg00438.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Oscar Fuentes &lt;ofv@wanadoo.es&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00440.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00442.html">Re: your mail</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00440.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00451.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00441"><strong>Date</strong></a></li>
+<li><a href="threads.html#00441"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

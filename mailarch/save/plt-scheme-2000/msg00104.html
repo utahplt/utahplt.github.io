@@ -1,0 +1,128 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Development/Production versions (was RE: CVS) -->
+<!--X-From-R13: @bry Iryfu <abryjNqnv.rq.np.hx> -->
+<!--X-Date: Fri, 18 Feb 2000 10:05:21 &#45;0700 (MST) -->
+<!--X-Message-Id: 14509.31172.982496.2800@kintore.dai.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20000217201300.6891.qmail@web903.mail.yahoo.com -->
+<!--X-Reference: 200002180053.QAA10538@balu.qualcomm.com -->
+<!--X-Reference: 20000218144102.WUXF13956.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Development/Production versions (was RE: CVS)</TITLE>
+<LINK REV="made" HREF="mailto:noelw@dai.ed.ac.uk">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00103.html">Date Prev</A>][<A HREF="msg00105.html">Date Next</A>][<A HREF="msg00103.html">Thread Prev</A>][<A HREF="msg00105.html">Thread Next</A>][<A HREF="maillist.html#00104">Date Index</A>][<A HREF="threads.html#00104">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Development/Production versions (was RE: CVS)</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Development/Production versions (was RE: CVS)</LI>
+<LI><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 18 Feb 2000 17:05:17 +0000 (GMT)</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00103.html">20000218144102.WUXF13956.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00087.html">20000217201300.6891.qmail@web903.mail.yahoo.com</A>&gt;&lt;<A HREF="msg00097.html">200002180053.QAA10538@balu.qualcomm.com</A>&gt;&lt;<A HREF="msg00103.html">20000218144102.WUXF13956.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt writes:
+&gt; I took a long-overdue look at SWIG. It seems like a decent starting
+&gt; point, and it looks relatively easy to go from Guile's interface to
+&gt; MzScheme's interface. 
+
+Recent messages on the Guile list suggest they might also be doing
+some work on the SWIG binding in the near future. I believe the
+current Guile binding are for 1.2
+
+&gt; Adding support for subclassing would probably take some work, but
+&gt; it may not be an important feature anyway.
+
+I don't think it is important.
+
+&gt; If I understand correctly, Eli's code implements a different approach
+&gt; than SWIG. [snip]
+
+You are correct.
+
+&gt; Is the distinction important to the people who want to use a glue
+&gt; generator?
+
+As I understand it, the most important difference is that SWIG allows
+one to connect to C++ code, whereas Eli's method will only allow calls
+to C shared objects (or C++ shared objects if you know the name
+mangling scheme in use, which I certainly don't). Eli's method is a
+great solution for C libraries, but falls down for 1) things that
+aren't libraries and 2) C++ code; which is where SWIG is handy.
+
+cya,
+Noel
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00105" HREF="msg00105.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Reini Urban &lt;rurban@x-ray.at&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00087" HREF="msg00087.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> see signature &lt;slonika@yahoo.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00097" HREF="msg00097.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00103" HREF="msg00103.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00103.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00105.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00103.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00105.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00104"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00104"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

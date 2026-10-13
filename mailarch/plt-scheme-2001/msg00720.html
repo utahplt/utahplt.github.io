@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: mzc intermediate files -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 27 Jul 2001 06:17:10 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200107271217.f6RCH4X18679@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010727.102526.50040138.sven@fernuni&#45;hagen.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: mzc intermediate files</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00719.html">Date Prev</a>][<a href="msg00721.html">Date Next</a>][<a href="msg00719.html">Thread Prev</a>][<a href="msg00723.html">Thread Next</a>][<a href="maillist.html#00720">Date Index</a>][<a href="threads.html#00720">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: mzc intermediate files</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:Sven.Hartrumpf@FernUni-Hagen.de">Sven.Hartrumpf@FernUni-Hagen.de</A></li>
+<li><em>Subject</em>: Re: mzc intermediate files</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 27 Jul 2001 06:17:05 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00719.html">20010727.102526.50040138.sven@fernuni-hagen.de</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00719.html">20010727.102526.50040138.sven@fernuni-hagen.de</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Sven.Hartrumpf@FernUni-Hagen.de:
+&gt; With the current mzc 199.18, I get the following error for
+&gt; mzc --save-temps -v p.scm:
+&gt;  Reading...  expanding...
+&gt;  [?,?]: Error: Error during elaboration: car: expects argument of type &lt;pair&gt;; given ()
+&gt; Errors encountered.  Compilation aborted.
+&gt; 
+&gt; I realized that the compiler has generated a file /tmp/l.ss
+&gt; with exactly one function from the middle of the source file (which runs
+&gt; fine in the interpreter).
+&gt; 
+&gt; Can I use this file l.ss to locate the error (in my program)?
+
+Looks like I forgot to remove some debugging code that generates
+/tmp/l.ss. I've removed it, now.
+
+The error would have happened with the next expression in your source
+(i.e., the one after the expression written to /tmp/l.ss).
+
+The error looks to me like a bug in the compiler --- probably in the
+relatvely new src-to-src optimization phase --- and not in your code.
+What's the next expression in your file?
+
+Thanks,
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00719" href="msg00719.html">mzc intermediate files</a></strong>
+<ul><li><em>From:</em> Sven.Hartrumpf@FernUni-Hagen.de</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00719.html">mzc intermediate files</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00721.html">RE: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00719.html">mzc intermediate files</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00723.html">variant record &amp; cases</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00720"><strong>Date</strong></a></li>
+<li><a href="threads.html#00720"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

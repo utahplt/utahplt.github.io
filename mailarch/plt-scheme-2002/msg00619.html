@@ -1,0 +1,167 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [shootout] echo.scm + Question concerning the implementation of thread -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Sat, 30 Mar 2002 09:13:49 &#45;0700 (MST) -->
+<!--X-Message-Id: 013201c1d805$c66d9130$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[shootout] echo.scm + Question concerning the implementation of thread</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00618.html">Date Prev</a>][<a href="msg00620.html">Date Next</a>][<a href="msg00617.html">Thread Prev</a>][<a href="msg00628.html">Thread Next</a>][<a href="maillist.html#00619">Date Index</a>][<a href="threads.html#00619">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[shootout] echo.scm + Question concerning the implementation of thread</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [shootout] echo.scm + Question concerning the implementation of thread</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Sat, 30 Mar 2002 17:13:01 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Here is a go at the echo server.
+I have used threads although the guide lines tell you to avoid them;
+fork was no where in the documentation (and frankly I like threads better).
+The main reason for avoiding threads is the the timing is easier if
+the programs only run in one thread on the host OS. The documentation
+of  threads in mzscheme states that the implementation depends on the
+platform.
+Does that mean that mzscheme use a single thread on Windows and mulitple
+under
+Linux?
+
+/Jens Axel Søgaard
+
+Guide lines
+-----------
+
+    Each test program runs a single-threaded server process that listens on
+an Internet
+    socket. When the server starts, it forks a separate client process that
+connects back
+    to the server's socket. Then the server loops, receiving data and
+echoing it back to
+    the client until the client closes its socket. When it is finished, the
+server reports how
+    many bytes were processed. The client checks each echo request sent
+against the data
+     received from the server to make sure it is correct before the next
+request is made.
+    Each echo request consists of 19 characters including a terminating
+newline.
+    Each client must do the following for N iterations:
+
+   send 19 bytes
+   recv 19 bytes
+   check reply == request
+   repeat
+
+    The read/write operations on the stream socket should either use
+line-oriented standard I/O functions or else handle incomplete reads/writes.
+    The reason for using fork is simply to make it easy for the test driver,
+so it only has to start one process.
+
+
+; @echo off
+; mzscheme.exe -f echo.bat -mvC %1
+; goto :end
+
+(define PORT 8888)
+(define DATA &quot;Hello there sailor\n&quot;)
+(define n 10)
+
+(define (server)
+  (thread client)
+  (let-values ([(in out) (tcp-accept (tcp-listen PORT))])
+    (let loop ([i (read in)]
+               [bytes 0])
+      (if (not (eof-object? i))
+          (begin
+            (write i out)
+            (loop (read in)
+                  (+ bytes (string-length i))))
+          (begin
+            (display &quot;server processed &quot;)
+            (display bytes)
+            (display &quot; bytes\n&quot;))))))
+
+(define (client)
+  (let-values ([(in out) (tcp-connect &quot;127.0.0.1&quot; PORT)])
+    (let loop ([n n])
+      (if (&gt; n 0)
+          (begin
+            (write DATA out)
+            (let ([i (read in)])
+              (begin
+                (if (equal? DATA i)
+                    (loop (- n 1))
+                    'error))))
+          (close-output-port out)))))
+
+(define (main args)
+  (set! n (string-&gt;number (car  args)))
+  (server))
+
+; :end
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00628" href="msg00628.html">Re: [shootout] echo.scm + Question concerning the implementation of thread</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00618.html">Re: [shootout]ary3.scm</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00620.html">Re: Parser tools: How to make the lexer context sensitive?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00617.html">Fwd: The SIGPLAN Scheme Workshop</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00628.html">Re: [shootout] echo.scm + Question concerning the implementation of thread</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00619"><strong>Date</strong></a></li>
+<li><a href="threads.html#00619"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

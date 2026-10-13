@@ -1,0 +1,22 @@
+CC=gcc
+MZ_CFLAGS=-I/opt/plt/collects/mzscheme/include
+CFLAGS=${MZ_CFLAGS}
+PLT_HOME=/opt/plt
+PLT_LIB=${PLT_HOME}/collects/mzscheme/lib/i386-linux
+MZ_LIBS=${PLT_LIB}/mzdyn.o
+LIBS=${MZ_LIBS}
+LDFLAGS=
+
+.PHONY: clean
+.SUFFIXES: .o .c
+
+.c.o:
+	${CC} ${CFLAGS} -c $<
+
+clean:
+	/bin/rm -f *.o *.so
+
+all: try-ext.so
+
+try-ext.so: try-ext.o
+	${CC} -o $@ try-ext.o -shared ${LIBS}

@@ -1,0 +1,188 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: define&#45;syntax -->
+<!--X-From-R13: "Xv&#45;Kbat R. Quhat" <iveghnyploreNrebyf.pbz> -->
+<!--X-Date: Fri, 22 Dec 2000 17:48:34 &#45;0700 (MST) -->
+<!--X-Message-Id: 00b001c06c7a$590f9fe0$0100007f@cradle -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000501c06747$3d589b90$0100007f@cradle -->
+<!--X-Reference: 200012191548.IAA12113@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>define-syntax</title>
+<link rev="made" href="mailto:virtualcyber@erols.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00808.html">Date Prev</a>][<a href="msg00810.html">Date Next</a>][<a href="msg00796.html">Thread Prev</a>][<a href="msg00810.html">Thread Next</a>][<a href="maillist.html#00809">Date Index</a>][<a href="threads.html#00809">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>define-syntax</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: define-syntax</li>
+<li><em>From</em>: &quot;Ji-Yong D. Chung&quot; &lt;<A HREF="mailto:virtualcyber@erols.com">virtualcyber@erols.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 22 Dec 2000 19:50:28 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00790.html">000501c06747$3d589b90$0100007f@cradle</a>&gt; &lt;<a href="msg00796.html">200012191548.IAA12113@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+    Hi,
+
+(1)    By the way -- my apologies for sending multiple emails 
+earlier.  As I already explained to Shriram, as a newbie here,
+I was not certain if anyone was getting these messages.
+
+(2) I noticed that you have not quite finished with define-syntax.
+I suppose you will implement this soon enough.
+
+    This is rather a general question regarding it and macros -- I was
+wondering if you came across literature or anything that tries
+to use macro to optimize code before &quot;compilation&quot; (prior
+to evaluation).
+
+    I would be grateful for any enlightenment (if you 
+are familiar with it) on the topic.
+
+For instance if you have 
+
+    (let ((x #f)) x),
+
+    this might expand to 
+
+    ((lambda (x) x) #f)  
+
+    which is inefficient.
+
+    I was wondering of if you came across any system
+that attempts to rewrite expressions as the one above,
+using macros, to make it more efficient.
+
+    For example, say you have define-syntax, as 
+follows (assuming that lambda is not a special keyword)
+
+    (define-syntax lambda
+       (syntax-rules ()
+          ((lambda (x ...) 
+            b1 ...) 
+           a1 ...)
+
+           (begin 
+             (define x a1) 
+            ...
+              b1 ...)))))
+
+    The macro will rewrite the lambda expression
+above (the inefficient one) as:
+
+    (begin (define x #f) x)  
+
+     If a non-optimizing compilation were done on
+the preceding lambda expression and the &quot;begin&quot;
+expression above, the begin expression would
+result in faster code -- it eliminates stack frame
+allocation.
+
+.
+(3)    I looked at your code for eval, and before eval is invoked,
+it is pruning redundant code during &quot;compile&quot; stage.  
+I also noticed that certain functions are inlined.  
+
+    It is terriffic stuff.
+
+----- Original Message ----- 
+From: Matthew Flatt &lt;mflatt@cs.utah.edu&gt;
+To: Ji-Yong D. Chung &lt;virtualcyber@erols.com&gt;
+Cc: &lt;plt-scheme@fast.cs.utah.edu&gt;
+Sent: Tuesday, December 19, 2000 10:48 AM
+Subject: Re: efficiency
+
+
+&gt; Quoting &quot;Ji-Yong D. Chung&quot;:
+&gt; &gt;     Does anyone have good understanding of its
+&gt; &gt; architecture and why MzScheme seems to be
+&gt; &gt; so much faster than MITScheme?
+&gt; 
+&gt; As Shriram says, the interpreter is probably fast just because we've
+&gt; put most of our effort there.
+&gt; 
+&gt; More technically, the reason might have to do with the way function
+&gt; application special-cases argument expressions that are constants,
+&gt; lexical variables, and global variables. The eval-apply loop has also
+&gt; been carefully optimized by hand. And most primitives are implemented
+&gt; directly in C, so a program that spends a lot of time in &quot;large&quot;
+&gt; primitives like `memq' and `list-ref' gets the equivalent of compiled,
+&gt; optimized code.
+&gt; 
+&gt; But all of these architectural choices play against each other in a way
+&gt; that makes it difficult to compare alternaitves. We've simply spent
+&gt; time over the years working towards a local maximum for one particular
+&gt; set of choices.
+&gt; 
+&gt; Matthew
+&gt; 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00810" href="msg00810.html">define-syntax</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00790" href="msg00790.html">efficiency</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00796" href="msg00796.html">Re: efficiency</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00808.html">Distribution of MrEd-based apps</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00810.html">define-syntax</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00796.html">Re: efficiency</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00810.html">define-syntax</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00809"><strong>Date</strong></a></li>
+<li><a href="threads.html#00809"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

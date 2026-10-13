@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: how to link CGI scripts and PLT libraries? -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Tue, 28 Aug 2001 18:15:37 &#45;0600 (MDT) -->
+<!--X-Message-Id: 86ae0kvvxc.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 86elq0xhxu.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Reference: 200108282154.PAA29221@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: how to link CGI scripts and PLT libraries?</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00840.html">Date Prev</a>][<a href="msg00842.html">Date Next</a>][<a href="msg00840.html">Thread Prev</a>][<a href="msg00832.html">Thread Next</a>][<a href="maillist.html#00841">Date Index</a>][<a href="threads.html#00841">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: how to link CGI scripts and PLT libraries?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: how to link CGI scripts and PLT libraries?</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: Tue, 28 Aug 2001 19:14:39 +0000</li>
+<li><em>Cc</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00840.html">200108282154.PAA29221@fast.cs.utah.edu</a>&gt; (Matthew Flatt'smessage of &quot;Tue, 28 Aug 2001 15:54:10 -0600 (MDT)&quot;)</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma deMéxico</li>
+<li><em>References</em>: &lt;<a href="msg00831.html">86elq0xhxu.fsf@biblio06.fciencias.unam.mx</a>&gt;&lt;<a href="msg00840.html">200108282154.PAA29221@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090004 (Oort Gnus v0.04) XEmacs/21.1 (Cuyahoga Valley)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+[...]
+
+&gt;&gt; Now, if I go to: <A  HREF="http://.../cgi-bin/foo">http://.../cgi-bin/foo</A>, it (almost) work, except that
+&gt;&gt; I cannot use send-mail-message/port, defined? returns #f on it from
+&gt;&gt; within the dispatch unit, huh?
+&gt;
+&gt; `send-mail-message/port' is bound within the unit, but not in the
+&gt; top-level namespace, so `defined?' will report #f.
+
+right.
+
+&gt; I don't quite understand why you can't use `send-mail-message/port',
+&gt; though. Are you using `eval' in handling the CGI request?
+
+No, I am not.  Turns out that I was doing something really stupid (I
+left one parameter out of the call to send-mail-message/port, and
+didn't notice until after I sent my previous message).  Sorry.
+
+The PLT web server works like a charm even when using compound units
+as CGIs.
+
+--Francisco, now looking for a gun to shoot himself...
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00831" href="msg00831.html">how to link CGI scripts and PLT libraries?</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+<li><strong><a name="00840" href="msg00840.html">Re: how to link CGI scripts and PLT libraries?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00840.html">Re: how to link CGI scripts and PLT libraries?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00842.html">Hard of thinking using schemeql</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00840.html">Re: how to link CGI scripts and PLT libraries?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00832.html">199d2</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00841"><strong>Date</strong></a></li>
+<li><a href="threads.html#00841"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

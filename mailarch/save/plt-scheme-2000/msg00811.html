@@ -1,0 +1,185 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Database&#45;friendly file primitives in 103? (set&#45;size, read&#45;buffer, lock, etc.) -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Fri, 4 Aug 2000 09:47:56 &#45;0600 (MDT) -->
+<!--X-Message-Id: 398AE706.E0210632@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Database-friendly file primitives in 103? (set-size, read-buffer, lock, </TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00810.html">Date Prev</A>][<A HREF="msg00812.html">Date Next</A>][<A HREF="msg00810.html">Thread Prev</A>][<A HREF="msg00812.html">Thread Next</A>][<A HREF="maillist.html#00811">Date Index</A>][<A HREF="threads.html#00811">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Database-friendly file primitives in 103? (set-size, read-buffer, lock, etc.)</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Database-friendly file primitives in 103? (set-size, read-buffer, lock, etc.)</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 04 Aug 2000 11:53:42 -0400</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I would like to port my open source Pointrel implementation to MzScheme.
+Versions in Smalltak and Python are available at:
+  <A  HREF="http://sourceforge.net/project/?group_id=6010">http://sourceforge.net/project/?group_id=6010</A>
+You can think of Pointrel as a sort of database, or maybe a bit more
+grandiosely, as a "Dynamic Knowledge Repository".
+
+With the recent post on 103/2, (presumably fixing the cut&amp;paste issues
+I'm having under NT, hooray!), I've been wondering what minor changes
+could be slipped in to make MzScheme more "database" friendly to assist
+my porting effort. Thie requires certain lower live file activities.
+Please feel free to point out if what I propose is already doable under
+MzScheme. I've looked through the HelpDesk, but I might have missed
+something.
+
+To do this port and support transactions nicely (roll-back) would
+require at a minimum primitive to truncate file to the current location
+(or the equivalent of setting an open file's size). Note this is
+different from truncating a file completely on an open (which is
+currently supported). Also, it would be ideal to read and write to a
+buffer (a mutable string of bytes). It would also ideally require being
+able to lock a file temporarily for writing (or possibly instead just a
+set of bytes in the file), while allowing others to be reading that
+file. Related to this is opening files in various modes (e.g.
+shareDenyWrite, shareDenyNone) and ideally changing the mode while a
+file is open (few systems support that, they just use locking). It
+appears the other things needed of setting file position and flushing a
+file are already supported in MzScheme (but only for existing file port
+types). I've also seen some code floating around in Scheme for
+converting some basic types (like integers) to storable binary
+reperesentations, although it would be nice to this quickly.
+
+If I can have only one of these features across all platforms,
+"truncate-to-current-position" or the equivalent "set-file-size" would
+be it. A possible workaround without set-size is to write a program to
+set a file's size on each platform which I can call within MzScheme
+after closing the file. I can get around the others somewhat by using a
+client-server model, at the cost of a more complicated application.
+
+For completeness, it just might be nice instead to support all the
+standard POSIX file operations and modes (although this might be a Mac
+support issue). This is along the lines of what Leo Razoumov wrote:
+<A  HREF="http://www.cs.utah.edu/plt/mailarch/plt-scheme-2000/msg00145.html">http://www.cs.utah.edu/plt/mailarch/plt-scheme-2000/msg00145.html</A>
+&gt;(From Leo Razoumov: 27 Feb 2000)
+&gt; But I still believe it is worthwhile to have a Unix (POSIX) extension
+&gt; library which provides most handy pieces of Unix API.
+However, I think this minimal set of five extra file primitives would
+get me everywhere I want to go today. :-) 
+
+In general, even the MzScheme names for file operations implies a
+certain limitation since by implication two file types exist returned by
+"open-input-file" and "open-output-file", when databases tend to do both
+input and output on a file. I haven't delved enough into this to see
+what limits if any this dichotomy of file handle types implies
+throughout the system, but certainly the ability to automatically open
+and close a file of either type (e.g. with-input-from-file) is handy.
+Note that MIT Scheme has chosen to also support an i/o port, beyond
+seperate input and output ports:
+<A  HREF="http://www-swiss.ai.mit.edu/projects/scheme/documentation/scheme_15.html">http://www-swiss.ai.mit.edu/projects/scheme/documentation/scheme_15.html</A>
+Perhaps an i/o port type is not needed if and MzScheme output-port type
+can also be used for reading?
+
+I could make a DLL under Windows to do these things (if I can ever get
+VC++ 5.0 to work with mzc correctly :-( ), but this is if much greater
+value to me (and the MzScheme community) if this functionality works
+under all platforms. Also, I might run into a DLL conflict issue if
+multiple separate MzScheme applications used the same DLL and clobber
+each others global variables (to the VM). All these actions are (at
+least under PC and Unix) typically single function call operations on a
+file handle, so most of the the real work is just getting them all
+called for each platform (the buffer using calls may be a bit harder)
+and then testing them.
+
+So what will it take to get this binary file related functionality (i.e.
+set-size, lock, lock-bytes, read-buffer, write-buffer) added to the base
+release across all platforms? How can I help (from the Windows NT side)?
+It would probably be fine for my own purposes if these were a separate
+set of functions entirely working on a separate type (binary-io-file)
+(as long as the also had open, seek, etc.). The Microsoft MFC CFile
+class is an example of something that I believe supports all the needed
+functionality.  Would it make sense for me to develop a NT
+implementation of an external primitive using Mzc and a DLL and then
+submit it somewhere for others to get to work on the other platforms?
+(If so, I need to resolve why I can't get VC++ 5.0 to link my test DLLs
+correctly, choking on the format of "mzdyn.obj", any hints gladly
+appreciated). If I did this work myself, for ease of implimentation I
+probably would just make a seperate i/o type, rather than figure out how
+to integrate this with the exisiting source for MrEd etc. at the start.
+
+The educational motivation if such is needed for this is three-fold:
+1. Having these few extra primitives will allow students in database
+courses to use MzScheme to write fully functional databases entirely in
+MzScheme.
+2. The Pointrel Data Repository System itself (or any other database
+implemented in MzScheme) might be valuable for archiving knowledge
+useful to education (like lesson plans or versions of teachpacks).
+4. A database in MzScheme might then be useful for better support for
+versioning a student's work -- that is keeping multiple timestamped
+versions of functions or files so a student or teacher could review more
+easily review progress and revert back to the last succesful attempt
+when experiements go wrong.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00810.html">103/2</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00812.html">Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00810.html">103/2</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00812.html">Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00811"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00811"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

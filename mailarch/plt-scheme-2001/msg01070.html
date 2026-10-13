@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: MzScheme on Win32, not MSVC -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 19 Oct 2001 10:19:02 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110191618.KAA27947@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15308.49409.556000.651386@gargle.gargle.HOWL -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: MzScheme on Win32, not MSVC</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01069.html">Date Prev</a>][<a href="msg01071.html">Date Next</a>][<a href="msg01063.html">Thread Prev</a>][<a href="msg01064.html">Thread Next</a>][<a href="maillist.html#01070">Date Index</a>][<a href="threads.html#01070">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: MzScheme on Win32, not MSVC</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Oscar Fuentes &lt;<A HREF="mailto:ofv@wanadoo.es">ofv@wanadoo.es</A>&gt;</li>
+<li><em>Subject</em>: Re: MzScheme on Win32, not MSVC</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 19 Oct 2001 10:18:52 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01063.html">15308.49409.556000.651386@gargle.gargle.HOWL</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01063.html">15308.49409.556000.651386@gargle.gargle.HOWL</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Oscar Fuentes:
+&gt; I could try to wrote a makefile for Borland (and another for MingW)
+&gt; but building MzScheme as a DLL with MSVC will work too.
+
+Building MzScheme with anything other than MSVC or Cygwin will be
+painful. (MzScheme relies too much on the libraries provided by each
+compiler to port easily to another compiler.)
+
+The MSVC makefiles for 199.X generate MzScheme as a DLL (well, two:
+libmzsch.dll and libmzgc.dll). So, when we eventually release version
+200, it will be in DLL form.
+
+Unless you have specific reasons to stick with 103.X, upgrading to
+199.X now via CVS is probably the right way to go. If you have MSVC for
+the purposes of building DLLs, that should work right away. But if you
+don't have MSVC, then you need binaries from someone who does...
+
+Creating binaries for exp-tagged pre-releases is one place where we
+could use help. Any volunteers on the plt-scheme list (especially for
+Windows)? I'll provide the web space; we just need someone to build and
+upload binaries.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01063" href="msg01063.html">MzScheme on Win32, not MSVC</a></strong>
+<ul><li><em>From:</em> Oscar Fuentes &lt;ofv@wanadoo.es&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01069.html">Re: call-with-input-file</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01071.html">MysterX, DrScheme, and Execute (revisited...)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01063.html">MzScheme on Win32, not MSVC</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01064.html">call-with-input-file</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01070"><strong>Date</strong></a></li>
+<li><a href="threads.html#01070"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

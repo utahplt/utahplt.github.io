@@ -1,0 +1,226 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: question about DrScheme -->
+<!--X-From-R13: Quhra Quvat <gwvbrNrynat.fggf.np.vq> -->
+<!--X-Date: Fri, 25 May 2001 02:07:53 &#45;0600 (MDT) -->
+<!--X-Message-Id: 3.0.32.20010525151440.006b5d0c@elang.stts.ac.id -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: question about DrScheme</title>
+<link rev="made" href="mailto:tjioe@elang.stts.ac.id">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00488.html">Date Prev</a>][<a href="msg00490.html">Date Next</a>][<a href="msg00488.html">Thread Prev</a>][<a href="msg00491.html">Thread Next</a>][<a href="maillist.html#00489">Date Index</a>][<a href="threads.html#00489">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: question about DrScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></li>
+<li><em>Subject</em>: Re: question about DrScheme</li>
+<li><em>From</em>: Chuen Ching &lt;<A HREF="mailto:tjioe@elang.stts.ac.id">tjioe@elang.stts.ac.id</A>&gt;</li>
+<li><em>Date</em>: Fri, 25 May 2001 15:18:24 +0700</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi, thanks for the responds.
+I don't know I should ask this questions to you or not, but in case if
+there is any of you who know the answer. I am trying to run this program,
+the infix to prefix artihmatic parsing, but it can't work. This is what
+happenned :
+&gt; (parse '(4 + 3 * 2))
+procedure application: expected procedure, given: (+ (4) (* (3) (2))) (no
+arguments)
+
+Is there any of you know why ? Below is the complete listing program :
+
+(define word?
+  (let ((number? number?)
+	(symbol? symbol?)
+	(string? string?))
+    (lambda (x)
+      (or (symbol? x) (number? x) (string? x)))))
+(define whoops
+  (let ((string? string?)
+	(string-append string-append)
+	(error error)
+	(cons cons)
+	(map map)
+	(apply apply))
+    (define (error-printform x)
+      (if (string? x)
+	  (string-append &quot;\&quot;&quot; x &quot;\&quot;&quot;)
+	  x))
+    (lambda (string . args)
+      (apply error (cons string (map error-printform args))))))
+
+(define word-&gt;string
+  (let ((number? number?)
+	(string? string?)
+	(number-&gt;string number-&gt;string)
+	(symbol-&gt;string symbol-&gt;string))
+    (lambda (wd)
+      (cond ((string? wd) wd)
+	    ((number? wd) (number-&gt;string wd))
+	    (else (symbol-&gt;string wd))))))
+
+(define empty?
+  (let ((null? null?)
+	(string? string?)
+	(string=? string=?))
+    (lambda (x)
+      (or (null? x)
+	  (and (string? x) (string=? x &quot;&quot;))))))
+
+(define member?
+  (let ((&gt; &gt;) (- -) (&lt; &lt;)
+	(null? null?)
+	(symbol? symbol?)
+	(eq? eq?)
+	(car car)
+	(not not)
+	(symbol-&gt;string symbol-&gt;string)
+	(string=? string=?)
+	(cdr cdr)
+	(equal? equal?)
+	(word-&gt;string word-&gt;string)
+	(string-length string-length)
+	(whoops whoops)
+	(string-ref string-ref)
+	(char=? char=?)
+	(list? list?)
+	(number? number?)
+	(empty? empty?)
+	(word? word?)
+	(string? string?))
+    (define (symbol-in-list? symbol string lst)
+      (cond ((null? lst) #f)
+	    ((and (symbol? (car lst))
+		  (eq? symbol (car lst))))
+	    ((string? (car lst))
+	     (cond ((not string)
+		    (symbol-in-list? symbol (symbol-&gt;string symbol) lst))
+		   ((string=? string (car lst)) #t)
+		   (else (symbol-in-list? symbol string (cdr lst)))))
+	    (else (symbol-in-list? symbol string (cdr lst)))))
+    (define (word-in-list? wd lst)
+      (cond ((null? lst) #f)
+	    ((equal? wd (car lst)) #t)
+	    (else (word-in-list? wd (cdr lst)))))
+    (define (word-in-word? small big)
+      (let ((one-letter-str (word-&gt;string small)))
+	(if (&gt; (string-length one-letter-str) 1)
+	    (whoops &quot;Invalid arguments to MEMBER?: &quot; small big)
+	    (let ((big-str (word-&gt;string big)))
+	      (char-in-string? (string-ref one-letter-str 0)
+			       big-str
+			       (- (string-length big-str) 1))))))
+    (define (char-in-string? char string i)
+      (cond ((&lt; i 0) #f)
+	    ((char=? char (string-ref string i)) #t)
+	    (else (char-in-string? char string (- i 1)))))
+    (lambda (x stuff)
+      (cond ((empty? stuff) #f)
+	    ((word? stuff) (word-in-word? x stuff))
+	    ((not (list? stuff))
+	     (whoops &quot;Invalid second argument to MEMBER?: &quot; stuff))
+	    ((symbol? x) (symbol-in-list? x #f stuff))
+	    ((or (number? x) (string? x))
+	     (word-in-list? x stuff))
+	    (else (whoops &quot;Invalid first argument to MEMBER?: &quot; x))))))
+
+(define (parse expr)
+  (parse-helper expr '() '()))
+
+(define (parse-helper expr operators operands)
+  (cond ((null? expr)
+         (if (null? operators)
+             ((car operands))
+             (handle-op '() operators operands)))
+        ((number? (car expr))
+         ((parse-helper (cdr expr)
+                       operators
+                       (cons (cons (car expr) '()) operands))))
+        ((list? (car expr))
+         (parse-helper (cdr expr)
+                       operators
+                       (cons (parse (car expr)) operands)))
+        (else (if (or (null? operators)
+                      (&gt; (precedence (car expr))
+                         (precedence (car operators))))
+                  (parse-helper (cdr expr)
+                                (cons (car expr) operators)
+                                 operands)
+                  (handle-op expr operators operands)))))
+
+(define (handle-op expr operators operands)
+ (  (parse-helper expr
+                (cdr operators)
+                (cons (cons (car operators)
+                                 (list (cadr operands) (car operands)))
+                      (cddr operands))))
+)
+(define (precedence oper)
+  (if (member? oper '(+ -)) 1 2))
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00491" href="msg00491.html">Re: question about DrScheme</a></strong>
+<ul><li><em>From:</em> &quot;wil at home&quot; &lt;wil@dready.org&gt;</li></ul></li>
+<li><strong><a name="00492" href="msg00492.html">Re: question about DrScheme</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00488.html">Re: question about DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00490.html">Help: Looking at the Sun makes you blind...</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00488.html">Re: question about DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00491.html">Re: question about DrScheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00489"><strong>Date</strong></a></li>
+<li><a href="threads.html#00489"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

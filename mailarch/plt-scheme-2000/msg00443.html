@@ -1,0 +1,227 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: MzScheme Special Form &#45;> Native Numerical Code? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Wed, 2 Aug 2000 12:38:00 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39886BD5.C95D252E@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14726.42132.123747.888972@kintore.dai.ed.ac.uk -->
+<!--X-Reference: 39881AAD.5E3E659D@kurtz&#45;fernhout.com -->
+<!--X-Reference: 200008021636.LAA09910@africa.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: MzScheme Special Form -&gt; Native Numerical Code?</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00442.html">Date Prev</a>][<a href="msg00444.html">Date Next</a>][<a href="msg00442.html">Thread Prev</a>][<a href="msg00444.html">Thread Next</a>][<a href="maillist.html#00443">Date Index</a>][<a href="threads.html#00443">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: MzScheme Special Form -&gt; Native Numerical Code?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: MzScheme Special Form -&gt; Native Numerical Code?</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 02 Aug 2000 14:43:33 -0400</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00437.html">14726.42132.123747.888972@kintore.dai.ed.ac.uk</a>&gt; &lt;<a href="msg00440.html">39881AAD.5E3E659D@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00442.html">200008021636.LAA09910@africa.cs.rice.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthias-
+
+Sounds neat! Love to see it. This is also one way of addressing the
+issue Greg Pettyjohn raised in his previous message about a &quot;safe&quot; way
+to crash and burn.
+Sounds like your students must be having fun.
+
+However, I might point out that there is still no substitute for being
+able to really &quot;crash and burn&quot; at machine speeds to keep you on your
+toes. The nice thing about a system like Forth (when used as an OS) is
+that it reboots so quickly. Perhaps Scheme-&gt;MachineCode might be most
+interesting for students on the presumably quick rebooting
+MzScheme-on-OSKit version?
+
+Also, since I don't know your virtual instruction set you use, assuming
+it is not an actual one, perhaps student projects could be to make
+simplified instruction subset simulators for the most common processors
+MzScheme runs on, with special emphasis for numerical handing? :-) Then
+they are just a step away from really generating native code.
+
+If you are not aware of this already, you might want to check out:
+  <A  HREF="http://www.eecs.harvard.edu/~nr/toolkit/">http://www.eecs.harvard.edu/~nr/toolkit/</A>
+&quot;The New Jersey Machine-Code Toolkit helps programmers write
+applications that process machine code---assemblers, disassemblers, code
+generators, tracers, profilers, and debuggers. The toolkit lets
+programmers encode and decode machine instructions symbolically.
+Encoding and decoding are automated based on compact specifications. The
+toolkit is a joint project of Mary Fernández and Norman Ramsey.&quot;
+
+This is a very large effort and consists of code, data, and several
+hundred
+of pages of documentation. It includes specifications for MIPS, SPARC,
+Alpha, PPC, and Pentium processors. There are extensive tools with
+source to take those specifications to generate code (right now in C and
+Modula-3) for machine language interpreters, disassemblers, and more.
+The toolkit is written in a combination of Icon and Standard ML.
+
+I've been through the NJML toolkit source and tools some, and there is a
+lot there to work through. I do think there is a lot there worth
+learning -- it is a very elegant approach to representing the
+functionality of CPUs. I never actually tried to use the tools to
+generate code though.  
+
+Not that much of the kit doesn't involve generating binary code so much
+as generating code in other high level languages that can disassemble
+and assemble instructions. However, if you are working directly in a
+language like Scheme, many of the ideas of abstractly representing
+machine architectures might still be applicable, along with the work to
+actually encode specific machine architectures in that representation.
+The New Jersey Machine-Code Toolkit is in ML &amp; Icon, but why not use
+some of the same ideas in MzScheme?
+(As an alternative, one could add a library for the NJML toolkit to
+ouput MzScheme to automatically generate tools, which is probably what
+the NJML toolkit authors might prefer, but somehow I'd rather have
+MzScheme interpreting the processor architecture specifications
+directly.)
+
+The educational analogy I would use for giving MzScheme for example a
+native-code disassembler is that it is like giving MzScheme users a
+&quot;telescope&quot; for looking at the computing world around them (as well as a
+&quot;microscope&quot; for examining MzScheme's own VM/EXE code). From there it
+might be a short(?) step to having MzScheme assemble (and run) its own
+machine code for those platforms.
+
+I corresponded with one of the authors a year or so ago about using NJML
+for dynamic compilation in Squeak, and here is part of what Norman wrote
+(in reply to another person's comments on the Squeak list):
+&gt;  &gt; Now I understand better.  I think that what Alan, Paul, and the other
+&gt;  &gt; Squeak folk would like to see is probably the ability to generate the VM or
+&gt;  &gt; Plugins through the toolkit, or even to do Just-In-Time native code
+&gt;  &gt; compilation through the toolkit. 
+&gt; 
+&gt; This would be great, but be warned that you need lots more than the
+&gt; Toolkit to get as far as dynamic compilation.  The Toolkit really only
+&gt; helps you get the last mile: when you already know which machine
+&gt; instructions you want, it will spit out the right binaries for you.
+&gt; 
+&gt; We are doing some work in compilation that might lead to something a
+&gt; little more interesting.  I imagine something like the following:
+&gt; 
+&gt;   1) Begin with the Squeak subset that is currently translated to C.
+&gt; 
+&gt;   2) Translate it to register transfer lists.
+&gt; 
+&gt;   3) Massage the register transfer lists such that each one can
+&gt;      be represented as a single instruction on the target machine.
+&gt; 
+&gt;   4) Map the RTLs to machine instructions
+&gt; 
+&gt;   5) Emit the binary
+&gt; 
+&gt; I've got a student who worked on item 4 last semester who is in the
+&gt; middle of his PhD qualifying exam.  Once he passes (optimism!) I'm
+&gt; thinking of encouraging him to look into item 3 as a problem that
+&gt; might lead to a thesis (it also has applications in binary translation
+&gt; and compiler generation).  I'd be interested to know what you all
+&gt; think of this idea.
+&gt; 
+&gt; It might make an interesting proof of concept to go right from item 1
+&gt; to machine-dependent RTLs (or even machine instructions).
+
+I haven't kept up with the latest work on it though.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+Matthias Felleisen wrote:
+&gt; 
+&gt;   By the way, the educational motivation for generating and calling native
+&gt;   code from MzScheme is that then TeachScheme! can then be easily extended
+&gt;   into classes for advanced students on low level machine architecture.
+&gt;   Students could learn how a real processor works by poking at it through
+&gt;   MzScheme interface functions. Need to add a new language level then --
+&gt;   &quot;crash and burn horribly&quot;. :-) But as I've heard it said, &quot;If you can't
+&gt;   crash it, you're not the one doing the driving...&quot;
+&gt; 
+&gt; I have developed a module on studying machines within the TeachScheme!
+&gt; framework. At Rice students write an assembler for a machine simulator
+&gt; and extend the machine simulator by the end of the first semester. It's all
+&gt; a safe way to crash and burn -- w/i DrScheme.
+&gt; 
+&gt; The chapter will appear as additional material on our HtDP web site
+&gt; when things calm down.
+&gt; 
+&gt; -- Matthias
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00444" href="msg00444.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</li></ul></li>
+<li><strong><a name="00445" href="msg00445.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00437" href="msg00437.html">AOP/Fast matrices/Type hinting</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</li></ul></li>
+<li><strong><a name="00440" href="msg00440.html">MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00442" href="msg00442.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00442.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00444.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00442.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00444.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00443"><strong>Date</strong></a></li>
+<li><a href="threads.html#00443"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

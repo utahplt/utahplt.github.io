@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: functional programming is great, but why lists? -->
+<!--X-From-R13: [vpunry Pbtbzbyal <obtbNpf.hgrknf.rqh> -->
+<!--X-Date: Fri, 12 Oct 2001 03:26:03 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20011012042559.A27541@cs.utexas.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110102329.f9ANTnH19850@wrath.cs.utah.edu -->
+<!--X-Reference: 200110110342.WAA00959@banach.math.nwu.edu -->
+<!--X-Reference: 200110111325.f9BDPJw28502@sualocin.ccs.neu.edu -->
+<!--X-Reference: 200110120129.UAA00361@banach.math.nwu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: functional programming is great, but why lists?</title>
+<link rev="made" href="mailto:bogo@cs.utexas.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01045.html">Date Prev</a>][<a href="msg01047.html">Date Next</a>][<a href="msg01043.html">Thread Prev</a>][<a href="msg01049.html">Thread Next</a>][<a href="maillist.html#01046">Date Index</a>][<a href="threads.html#01046">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: functional programming is great, but why lists?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: functional programming is great, but why lists?</li>
+<li><em>From</em>: Michael Bogomolny &lt;<A HREF="mailto:bogo@cs.utexas.edu">bogo@cs.utexas.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 12 Oct 2001 04:25:59 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01037.html">200110120129.UAA00361@banach.math.nwu.edu</a>&gt;; from richter@math.nwu.edu on Thu, Oct 11, 2001 at 08:29:09PM -0500</li>
+<li><em>References</em>: &lt;<a href="msg01024.html">200110102329.f9ANTnH19850@wrath.cs.utah.edu</a>&gt; &lt;<a href="msg01025.html">200110110342.WAA00959@banach.math.nwu.edu</a>&gt; &lt;<a href="msg01028.html">200110111325.f9BDPJw28502@sualocin.ccs.neu.edu</a>&gt; &lt;<a href="msg01037.html">200110120129.UAA00361@banach.math.nwu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.2.4i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+If the goals of this list aren't to discuss pedagogical aspects of
+scheme, what are the goals? I feel like Bill has been responded to in
+an unduly harsh manner for asking a question about some of the
+fundamentals of scheme.
+
+
+| &quot;Why are we using such a strange data structure?  It takes a lotta
+|  cleverness to get at the innards of a list (a (b (c (d)))), it'd be
+|  easier with vectors (a, b, c, d).  Just reversing a list to get 
+|  (d (c (b (a)))) is itself a recursive gem.&quot;
+
+I'm not sure what is &quot;strange&quot; about cons as a data structure. It can
+be thought of as a two-vector, and of course 2-vectors are sufficient,
+when chained together, to form vectors of arbitrary length. So it is
+as about as basic data structure as they get.
+
+On a picky note:
+(reverse (a (b (c (d)))))      =&gt; ((b (c (d))) a) 
+(deep-reverse (a (b (c (d))))) =&gt; ((((d) c) b) a)
+
+I recommend, if you don't see that right away, that you draw some box
+diagrams of this structure and convince yourself of that. Note that
+although (a b c d) could be represented readily by a 4-vector (or 4
+2-vectors), (a (b (c (d)))) is more complex, and actually needs 7
+2-vectors (pairs) to represent it. Just out of curiousity, would you
+still find nested vectors any easier to reverse than nested lists?
+
+-bogo
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01049" href="msg01049.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="01051" href="msg01051.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01024" href="msg01024.html">199.25</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="01025" href="msg01025.html">functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01028" href="msg01028.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01037" href="msg01037.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01045.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01047.html">RE: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01043.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01049.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01046"><strong>Date</strong></a></li>
+<li><a href="threads.html#01046"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

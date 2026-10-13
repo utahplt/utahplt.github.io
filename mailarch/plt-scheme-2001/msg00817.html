@@ -1,0 +1,144 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Requiring module extensions -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 19 Aug 2001 07:39:24 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108191339.f7JDdJ915057@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 998193808.22067.11.camel@incarnation -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Requiring module extensions</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00816.html">Date Prev</a>][<a href="msg00818.html">Date Next</a>][<a href="msg00816.html">Thread Prev</a>][<a href="msg00818.html">Thread Next</a>][<a href="maillist.html#00817">Date Index</a>][<a href="threads.html#00817">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Requiring module extensions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Robert John Andersen &lt;<A HREF="mailto:myyrk@nc.rr.com">myyrk@nc.rr.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Requiring module extensions</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 19 Aug 2001 07:39:20 -0600 (MDT)</li>
+<li><em>CC</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00816.html">998193808.22067.11.camel@incarnation</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00816.html">998193808.22067.11.camel@incarnation</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Robert John Andersen:
+&gt;   name = scheme_intern_symbol( &quot;my-mod&quot; );
+&gt;   module_env = scheme_primitive_module( name, env );
+&gt; 
+&gt;   prim = scheme_make_prim_w_arity( prim1, &quot;prim1&quot;, 0, 0 );
+&gt;   scheme_add_global( &quot;prim1&quot;, prim, module );
+                                      ------
+&gt; 
+&gt;   scheme_finish_primitive_module( module_env );
+
+The problem may be simply the underlined `module', which should be
+`module_env'. Or maybe that was just a typo in the e-mail message.
+
+The code below (yours, with appropriate wrappers) worked for me when
+compiled to &quot;x.so&quot;:
+
+ &gt; (load-extension &quot;x.so&quot;)
+ &gt; (require my-mod)
+ &gt; prim1
+ #&lt;primitive:prim1&gt;
+ &gt; (prim1)
+ hello
+
+Does that much work for you, too?
+
+Matthew
+
+----------------------------------------
+
+#include &quot;escheme.h&quot;
+
+Scheme_Object *prim1 (int argc, Scheme_Object  **argv)
+{
+  return scheme_intern_symbol(&quot;hello&quot;);
+}
+
+Scheme_Object *scheme_reload(Scheme_Env *env)
+{
+  Scheme_Object *name, *prim;
+  Scheme_Env *module_env;
+  
+  name = scheme_intern_symbol( &quot;my-mod&quot; );
+  module_env = scheme_primitive_module( name, env );
+
+  prim = scheme_make_prim_w_arity( prim1, &quot;prim1&quot;, 0, 0 );
+  scheme_add_global( &quot;prim1&quot;, prim, module_env );
+
+  scheme_finish_primitive_module( module_env );
+
+  return scheme_void;
+}
+
+Scheme_Object *scheme_initialize(Scheme_Env *env)
+{
+    return scheme_reload(env);
+}
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00816" href="msg00816.html">Requiring module extensions</a></strong>
+<ul><li><em>From:</em> Robert John Andersen &lt;myyrk@nc.rr.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00816.html">Requiring module extensions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00818.html">compiling files</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00816.html">Requiring module extensions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00818.html">compiling files</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00817"><strong>Date</strong></a></li>
+<li><a href="threads.html#00817"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.22 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 17 Sep 2001 09:08:54 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200109171508.JAA04525@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.22</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00892.html">Date Prev</a>][<a href="msg00894.html">Date Next</a>][<a href="msg00891.html">Thread Prev</a>][<a href="msg00894.html">Thread Next</a>][<a href="maillist.html#00893">Date Index</a>][<a href="threads.html#00893">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.22</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.22</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 17 Sep 2001 09:08:52 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged code in CVS for MzScheme and MrEd is now version 199.22.
+
+The changes are significant:
+
+ * Changed `define-struct' so that it can cooperate with other
+   syntactic forms, such as `match' and `shared'.
+
+   In addition to the old bindings,
+
+      (define-struct &lt;id&gt; (&lt;field-id&gt; ...))
+
+   now binds &lt;id&gt; to expansion-time information about the declaration,
+   and the sub-typing form is now
+
+      (define-struct (&lt;id&gt; &lt;super-id&gt;) (&lt;field-id&gt; ...))
+
+   where &lt;super-id&gt; is the &lt;id&gt; from a previous `define-struct' ---
+   not an expression that produces a structure type descriptor.
+
+   The changes break old code in several ways:
+
+     - The binding for &lt;id&gt; might collide with other definitions.
+
+     - Sub-typing declarations must be changed, usually by deleting
+       `struct:'.
+
+   The new `define-struct' is slightly less powerful than the old one,
+   though in ways that are unlikely to matter. For example, the new
+   form cannot extend a structure type descriptor that is passed into
+   a procedure.
+
+   The advantage of the change is that forms like `match' and `shared'
+   can work properly with structures. For example, given the
+   declarations
+
+     (define-struct a (x y))
+     (define-struct (b a) (z))
+
+   The expression
+
+     (match .... [($ a pat) ....])
+
+   is a syntax error, because the structure type `a' has two
+   fields. But
+
+     (match .... [($ a pat1 pat2) ....])
+     (match .... [($ b pat1 pat2 pat3) ....])
+
+   both work, and the structure types need not be declared as
+   &quot;transparent&quot; (through a dummy inspector).
+   
+   The `struct' module export form exports the &lt;id&gt; binding as well as
+   the old ones, so that sub-typing declarations and `match' forms
+   work across module boundaries.
+
+   The `struct' signature form for `unit/sig' introduces
+   expansion-time information into importing units that immitates that
+   of a `define-struct' declaration. The information is currently
+   limited, in that subtyping relations are not exposed and the actual
+   structure type may have more fields than declared in the
+   signature. But `match' works with the partial information, for
+   example, matching on as many fields as declared in the signature.
+
+ * Changed loading to distinguish normal loads from module loads.
+
+   When `require' triggers a load to get a module definition, the
+   loaded file must contain a single `module' expression with the
+   expected name, otherwise a helpful error message is reported. (The
+   constraint on the file shape was always specified, but not directly
+   enforced.)
+
+   In addition, `module' in the loaded file is always mapped to the
+   primitive `module' form, independent of the `module' binding of the
+   current namespace. (Thus, loading a file from source reliably
+   mimics loading a compiled version of the file, and vice-versa.)
+
+   A load handler or load extension handler now takes two argument
+   instead of one: the filename and the expected module name. The
+   expected module name is either a symbol, indicating that a module
+   declaration is expected, or #f, indicating that the file need not
+   contain a module (though it may). If the expected name is a symbol,
+   the handler is responsible for checking that the file actually
+   contains a `module' declaration, and for mapping the loading
+   `module' identifier to the primitive `module' form.
+
+   Inside MzScheme: an extension is now obliged to define
+   scheme_module_name(), in addition to scheme_initialize() and
+   scheme_reload(). The scheme_module_name() function should return a
+   module name symbol if the extension declares a module, #f
+   otherwise.
+
+ * `define-syntax' is now allowed within `class' and `unit' bodies,
+   analogous to embedded `define-syntax'.  However, local macros in
+   `class' cannot currently expand to procedure expressions that serve
+   as methods.
+
+ * EXPERIMENTAL: Added `#cs' and `#ci' prefixes for controlling
+   case sentivity during `read'. The sequence `#cs' can be used as a
+   prefix for any expression to make symbols within the expression
+   case-sensitive.  The `#ci' prefix similarly makes symbols
+   case-insensitive. For example,
+
+      #cs(Apple #ciBanana Coconut)
+
+    is the same as
+
+     (|Apple| |banana| |Coconut|)
+
+    whether `read-case-sensitive' is set to #f or #t.
+
+    For example, `#cs' can be used in front of a `module' expression
+    so that the module body is implemented in a case-sensitive
+    variant of MzScheme:
+
+     &gt; #cs(module m mzscheme (define Foo 1) (define foo 2) (provide foo Foo))
+     &gt; (require m)
+     &gt; foo
+     2
+     &gt; |Foo|
+     1
+
+ * Removed the cursor% constructor that takes a filename (it never
+   worked on any platform), and added a constrcutor that takes image
+   and mask bitmaps, 16x16 monochrome.
+
+ * `unit/sig' struct type changed to `signed-unit' to aviod conflicts
+   (though it's not clear that the structure type needs to be exposed
+   anymore, anyway).
+
+ * Changed result of `identifier-binding' in the module case. It's now
+   a list of four elements, including the &quot;nominal&quot; source module and
+   its export name for the identifier.
+
+ * Changed 'origin tracking so that starts with the empty and adds new
+   identifiers to the front of the list. See the manual for details.
+
+ * Added `cons-immutable', `list-immutable', and `list*-immutable', 
+   and removed `pair-&gt;immutable-pair'.
+
+ * Added `compiled-module-expression?' and `module-compiled-name'.
+
+The MzScheme, MzLib, MrEd, mzc, and Inside MzScheme doc bundles have
+been updated. The MzLib documentation now includes complete
+documentation for `match'.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00894" href="msg00894.html">199.22</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00946" href="msg00946.html">Re: 199.22</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00892.html">[E-CFP] AGP'01 2nd CFP</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00894.html">199.22</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00891.html">Re: print-struct?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00894.html">199.22</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00893"><strong>Date</strong></a></li>
+<li><a href="threads.html#00893"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

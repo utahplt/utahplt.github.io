@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: scsh in PLT Scheme? -->
+<!--X-From-R13: Oagba ina Egenngra <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Tue, 2 Apr 2002 23:21:59 &#45;0700 (MST) -->
+<!--X-Message-Id: 3CAA9F89.4090609@appsolutions.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: NBBBLCLOKKHAGMJBNHDMMELAFKAA.apeake@comac.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: scsh in PLT Scheme?</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00681.html">Date Prev</a>][<a href="msg00683.html">Date Next</a>][<a href="msg00681.html">Thread Prev</a>][<a href="msg00677.html">Thread Next</a>][<a href="maillist.html#00682">Date Index</a>][<a href="threads.html#00682">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: scsh in PLT Scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Alex Peake &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Subject</em>: Re: scsh in PLT Scheme?</li>
+<li><em>From</em>: Anton van Straaten &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 03 Apr 2002 01:22:01 -0500</li>
+<li><em>CC</em>: Bruce Butterfield &lt;<A HREF="mailto:bab@entricom.com">bab@entricom.com</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>References</em>: &lt;<a href="msg00681.html">NBBBLCLOKKHAGMJBNHDMMELAFKAA.apeake@comac.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.8) Gecko/20020207</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+ &gt; I am not trying to say that the only way to fetch data is a
+ &gt; careful query followed by downloading all results. Only that
+ &gt; this is the default (or primary) method and should be so
+ &gt; addressed in a scheme to access databases from Scheme.
+
+As I said in my first message, I agree that preloading is fine as a 
+default behavior.  But you were also making some fairly 
+absolute-sounding statements that I don't believe can be applied as 
+absolutely as you've implied, and I wanted to point out that real life 
+can be more complicated, just in case anyone else believed you...  ;^P
+
+As it happens, the manual you quoted implicitly covers the example case 
+I was using:
+
+&gt; &quot;If all the results from a given query are going to be used in 
+&gt; your application, a server cursor is always going to be more 
+&gt; expensive than a default result set...&quot;
+
+I was talking about the implied &quot;else&quot; clause in that &quot;if&quot;.
+
+Also, database manuals don't usually talk about more modern access 
+patterns, like middle-tier application object layers, which can 
+introduce all sorts of appaernt inefficiencies at the database level, 
+which would horrify a traditional database developer.
+
+&gt;  (There are ways to &quot;protect users from themselves&quot; that
+&gt;  we use and they appreciate - like limiting the number of
+&gt;  rows returned and suggesting that they refine their request
+&gt;  to reduce the amount of data. You can even tell them how
+&gt;  much data they requested, ...)
+
+Yes, we do all the same things.  I've also had the experience where a 
+search that was limited to return 500 rows was explicitly requested to 
+be increased to support thousands.  The requirement might have been 
+addressed by providing a more sophisticated search mechanism (which in 
+this case would probably have required some kind of simple query 
+language, rather than query by form), but simply removing the row 
+restriction &quot;solved&quot; the problem to the user's satisfaction.
+
+Anton
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00681" href="msg00681.html">RE: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Alex Peake&quot; &lt;apeake@comac.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00681.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00683.html">Re: a new port of oleg's ssax xml parser to plt</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00681.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00677.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00682"><strong>Date</strong></a></li>
+<li><a href="threads.html#00682"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Trying to create a struct in a Mzscheme extension. -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 28 Dec 1999 08:05:44 &#45;0700 (MST) -->
+<!--X-Message-Id: 19991228150541.TFWB14222.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: F059D54E5785D31180D200508B550E29903621@postal.extendsys.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Trying to create a struct in a Mzscheme extension.</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00007.html">Date Prev</A>][<A HREF="msg00009.html">Date Next</A>][<A HREF="msg00007.html">Thread Prev</A>][<A HREF="msg00009.html">Thread Next</A>][<A HREF="maillist.html#00008">Date Index</A>][<A HREF="threads.html#00008">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Trying to create a struct in a Mzscheme extension.</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: PJ Durai &lt;<A HREF="mailto:duraip@extendsys.com">duraip@extendsys.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Trying to create a struct in a Mzscheme extension.</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 28 Dec 1999 07:05:41 -0800</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00007.html">F059D54E5785D31180D200508B550E29903621@postal.extendsys.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00007.html">F059D54E5785D31180D200508B550E29903621@postal.extendsys.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting PJ Durai:
+&gt; Is there something more I need to do in the above code?. (Something like
+&gt; "Need to add this typename to the Global environment" etc.) 
+
+Yes, you need to add the values returned by scheme_make_struct_values()
+to the top-level environment.
+
+The scheme_make_struct_values() function doesn't affect the
+environment; it only creates the struct procedures. The `names'
+argument to scheme_make_struct_values() is used to set the internal
+names of the procedures (for error reporting).
+
+So you want something like
+
+ Scheme_Object **vals;
+ ...
+ vals = scheme_make_struct_values(new_type, struct_names, count_out, 0); 
+ for (i = 0; i &lt; count_out; i++)
+   scheme_add_global_symbol(struct_names[i], vals[i], env);
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00007" HREF="msg00007.html">Trying to create a struct in a Mzscheme extension.</A></STRONG>
+<UL><LI><EM>From:</EM> PJ Durai &lt;duraip@extendsys.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00007.html">Trying to create a struct in a Mzscheme extension.</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00009.html">changing display methods for structures, etc?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00007.html">Trying to create a struct in a Mzscheme extension.</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00009.html">changing display methods for structures, etc?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00008"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00008"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,151 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Object access -->
+<!--X-From-R13: Xreml Ynepmznepmhx <xnepmznNvasb.havpnra.se> -->
+<!--X-Date: Mon, 10 Apr 2000 04:10:09 &#45;0600 (MDT) -->
+<!--X-Message-Id: 38F1B692.5E320D7D@info.unicaen.fr -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001bf937e$3d82ae00$6a032a80@cs.rice.edu -->
+<!--X-Reference: 200003212225.OAA23170@balu.qualcomm.com -->
+<!--X-Reference: 38DA2B60.6C911FE@info.unicaen.fr -->
+<!--X-Reference: 20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 38DB4F28.A4A0EEDB@info.unicaen.fr -->
+<!--X-Reference: 14555.19213.467566.25039@kintore.dai.ed.ac.uk -->
+<!--X-Reference: 38EB9A40.DE8B823F@info.unicaen.fr -->
+<!--X-Reference: 200004052130.PAA21847@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Object access</TITLE>
+<LINK REV="made" HREF="mailto:karczma@info.unicaen.fr">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00596.html">Date Prev</A>][<A HREF="msg00598.html">Date Next</A>][<A HREF="msg00592.html">Thread Prev</A>][<A HREF="msg00601.html">Thread Next</A>][<A HREF="maillist.html#00597">Date Index</A>][<A HREF="threads.html#00597">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Object access</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>Subject</em>: Object access</LI>
+<LI><em>From</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 10 Apr 2000 12:10:10 +0100</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Organization</em>: University of Caen, France</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00566.html">000001bf937e$3d82ae00$6a032a80@cs.rice.edu</A>&gt;		&lt;<A HREF="msg00567.html">200003212225.OAA23170@balu.qualcomm.com</A>&gt;		&lt;<A HREF="msg00572.html">38DA2B60.6C911FE@info.unicaen.fr</A>&gt;		&lt;<A HREF="msg00573.html">20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost</A>&gt;		&lt;<A HREF="msg00576.html">38DB4F28.A4A0EEDB@info.unicaen.fr</A>&gt; &lt;<A HREF="msg00577.html">14555.19213.467566.25039@kintore.dai.ed.ac.uk</A>&gt;		&lt;<A HREF="msg00590.html">38EB9A40.DE8B823F@info.unicaen.fr</A>&gt; &lt;<A HREF="msg00592.html">200004052130.PAA21847@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt suggests (about getting all ivars from a class):
+
+&gt; Note, however, that in the source distribution's 
+&gt; plt/tests/mred, you can find a file called "classhack.c". 
+&gt; It defines an extension to return all of the ivar names 
+&gt; in a class.
+
+The Windows distribution (sorry, but we use *that* for
+teaching...) has only tests/mzscheme directory. No mred.
+The unix source distribution neither. There is some info
+in src/mzscheme/src/object.c, but quite entangled.
+
+==========
+
+So, another, diferent question.
+
+I enjoy very much the idea of embeddable, reconfigurable
+universal editors in MrEd. In particular, I thought about
+a graphical editor, permitting to draw and to interact
+with geometric figures.
+
+I have no idea whatsoever how to make snip%'s different
+from what is there: string/tab/editor/image.
+
+I would like to make a snip% containing a rectangle, a
+segment of line, an ellipse - you see what I mean. I can
+subclass snip% redefining the draw method, but I don't
+know how to make it behave like interacting geom. objects
+in a typical drawing program. 
+
+I thought about inserting such objects into a pasteboard%
+as editor-snip%s, and within this editor play with bitmaps
+etc., but it becomes heavy and clumsy. (And buggy...)
+
+Do you have somewhere some examples of non-orthodox snip%/
+editor constructs?
+
+
+Jerzy Karczmarczuk
+Caen, France
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00601" HREF="msg00601.html">Re: Object access</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00566" HREF="msg00566.html">Distributing PLT Scheme with RedHat</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00567" HREF="msg00567.html">Re: Distributing PLT Scheme with RedHat</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00572" HREF="msg00572.html">Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00573" HREF="msg00573.html">Re: Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00576" HREF="msg00576.html">Re: Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00577" HREF="msg00577.html">Re: Sound &amp; Testing</A></STRONG>
+<UL><LI><EM>From:</EM> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00590" HREF="msg00590.html">What is an object?</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00592" HREF="msg00592.html">Re: What is an object?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00596.html">Swindle: CLOS for MzScheme</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00598.html">Graph Modelling tutorials with DrScheme</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00592.html">Re: What is an object?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00601.html">Re: Object access</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00597"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00597"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,102 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] extension case senstivity -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 10 May 2002 08:19:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205101415.g4AEFcP06993@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.44.0205090816190.19261&#45;100000@cogsci.ucsd.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] extension case senstivity</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00878.html">Date Prev</a>][<a href="msg00880.html">Date Next</a>][<a href="msg00876.html">Thread Prev</a>][<a href="msg00877.html">Thread Next</a>][<a href="maillist.html#00879">Date Index</a>][<a href="threads.html#00879">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] extension case senstivity</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Ron Stanonik &lt;<A HREF="mailto:stanonik@cogsci.ucsd.edu">stanonik@cogsci.ucsd.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] extension case senstivity</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 10 May 2002 08:15:38 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00876.html">Pine.LNX.4.44.0205090816190.19261-100000@cogsci.ucsd.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00876.html">Pine.LNX.4.44.0205090816190.19261-100000@cogsci.ucsd.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Thu, 9 May 2002 08:24:24 -0700 (PDT), Ron Stanonik wrote:
+&gt; I'm writing a mzscheme extension (200alpha14-cvs15mar2002) and
+&gt; noticed that extension function names with mixed cased aren't
+&gt; recognized by mzscheme.  For example,
+&gt; 
+&gt;   scheme_add_global(&quot;sch_padID&quot;,
+&gt;     scheme_make_prim_w_arity(sch_padID, &quot;sch_padID&quot;, 1, 1), env);
+&gt; 
+&gt; DrScheme reports &quot;undefined identifier: sch_padID&quot;.
+
+The easiest solution is to use scheme_add_global_symbol(), and create
+the first argument using scheme_intern_exact_symbol() (as opposed to
+scheme_intern_symbol()).
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00876" href="msg00876.html">[plt-scheme] extension case senstivity</a></strong>
+<ul><li><em>From:</em> Ron Stanonik &lt;stanonik@cogsci.ucsd.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00878.html">Re: [plt-scheme] Namespaces</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00880.html">[plt-scheme] Unix Question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00876.html">[plt-scheme] extension case senstivity</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00877.html">[plt-scheme] Namespaces</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00879"><strong>Date</strong></a></li>
+<li><a href="threads.html#00879"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

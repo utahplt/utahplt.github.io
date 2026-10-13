@@ -1,0 +1,44 @@
+echo off
+rem ************* MZSCHEME ******************
+rem Build mzscheme with the dsw, the nmake complain about a file missing : mzscheme.dep
+rem cd mzscheme
+rem nmake -f mzscheme.mak
+rem cd ..
+
+rem ************* MRED ******************
+rem Build mred with the dsw, the nmake complain about a file missing :  mred.dep
+rem cd mred
+rem nmake -f mred.mak
+rem cd ..
+
+rem ************* MZSTART ******************
+rem Build mzstart with the dsw, the nmake complain about a file missing :  mzstart.dep
+rem cd mzstart
+rem nmake -f mzstart.mak
+rem cd ..
+
+rem ************* MRSTART ******************
+rem Build mrstart with the dsw, the nmake complain about a file missing :  mrstart.dep
+rem cd mrstart
+rem nmake -f mrstart.mak
+rem cd ..
+
+cd ..
+
+rem ************* MYSTERX ******************
+rem the next complain about the missing file f:\SBN\lib\shell32.lib
+rem cd mysterx
+rem nmake
+rem cd ..
+
+rem ************* DYNSRC *******************
+cd  mzscheme\dynsrc
+call mkmzdyn.bat
+cd ..\..\..
+
+rem ************* SETUP *******************
+mzscheme.exe -mvqL- setup.ss setup
+rem errors:
+rem readline-installer: can't find readline include files and/or library;
+rem   try editing 'search-path' in mzmake.ss
+

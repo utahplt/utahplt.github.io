@@ -1,0 +1,145 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: exceptions -->
+<!--X-From-R13: "Quevf Ievtug" <pnjNpf.zh.bm.nh> -->
+<!--X-Date: Sun, 6 Jan 2002 20:16:33 &#45;0700 (MST) -->
+<!--X-Message-Id: 005901c19729$e2404280$450c1eac@icu19 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>exceptions</title>
+<link rev="made" href="mailto:caw@cs.mu.oz.au">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00028.html">Date Prev</a>][<a href="msg00030.html">Date Next</a>][<a href="msg00040.html">Thread Prev</a>][<a href="msg00030.html">Thread Next</a>][<a href="maillist.html#00029">Date Index</a>][<a href="threads.html#00029">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>exceptions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: exceptions</li>
+<li><em>From</em>: &quot;Chris Wright&quot; &lt;<A HREF="mailto:caw@cs.mu.oz.au">caw@cs.mu.oz.au</A>&gt;</li>
+<li><em>Date</em>: Mon, 7 Jan 2002 14:17:48 +1100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+In python, I might write:
+(outlook might stuff up the indentation...)
+
+C:\&gt;python
+Python 2.2 (#28, Dec 21 2001, 12:21:22) [MSC 32 bit (Intel)] on win32
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; def divider(x):
+...     return lambda y : y / x
+...
+&gt;&gt;&gt; halver = divider(2)
+&gt;&gt;&gt; halver(9)
+4 #integer division is the default, but that's changing...
+&gt;&gt;&gt; halver(4)
+2
+&gt;&gt;&gt; bomber = divider(0)
+&gt;&gt;&gt; bomber(4)
+Traceback (most recent call last):
+  File &quot;&lt;stdin&gt;&quot;, line 1, in ?
+  File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;lambda&gt;
+ZeroDivisionError: integer division or modulo by zero
+
+and I can catch exceptions in a very straightforward way:
+
+&gt;&gt;&gt; try:
+...     bomber(4)
+... except:
+...     print &quot;you moron -- something went wrong&quot;
+...
+you moron -- something went wrong
+
+and I can choose which class of exceptions I want to catch
+
+&gt;&gt;&gt; try:
+...     bomber(4)
+... except ArithmeticError:
+...     print &quot;something went wrong with the arithmetic&quot;
+...
+something went wrong with the arithmetic
+
+and even which subclass of ArithmeticError I want to catch
+
+&gt;&gt;&gt; try:
+...     bomber(4)
+... except ZeroDivisionError:
+...     print &quot;You tried to divide by zero!&quot;
+...
+You tried to divide by zero!
+&gt;&gt;&gt;
+
+I am sure that all this can be done in mzscheme, but I wonder if there is a
+simple &quot;transliteration&quot; of the above examples
+to get started. The documentation seems to quite quickly get into custodians
+and theads and parameters. I wonder if that is necessary in a dumb
+single-threaded example like the above?
+
+Cheers and thanks
+
+Chris Wright
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00030" href="msg00030.html">Re: exceptions</a></strong>
+<ul><li><em>From:</em> steck@ccs.neu.edu (Paul Steckler)</li></ul></li>
+<li><strong><a name="00031" href="msg00031.html">Re: exceptions</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00032" href="msg00032.html">exceptions</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00028.html">Re: objects, databases</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00030.html">Re: exceptions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00040.html">Re: objects, databases</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00030.html">Re: exceptions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00029"><strong>Date</strong></a></li>
+<li><a href="threads.html#00029"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

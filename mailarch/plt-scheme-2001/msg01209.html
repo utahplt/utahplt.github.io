@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: bug or feature? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 15 Nov 2001 06:10:03 &#45;0700 (MST) -->
+<!--X-Message-Id: 200111151309.fAFD9O520847@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: hv4g07gcklt.fsf@david.jet.msk.su -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: bug or feature?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01208.html">Date Prev</a>][<a href="msg01210.html">Date Next</a>][<a href="msg01207.html">Thread Prev</a>][<a href="msg01211.html">Thread Next</a>][<a href="maillist.html#01209">Date Index</a>][<a href="threads.html#01209">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: bug or feature?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Alexander Taranov &lt;<A HREF="mailto:tay@jet.msk.su">tay@jet.msk.su</A>&gt;</li>
+<li><em>Subject</em>: Re: bug or feature?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 15 Nov 2001 06:09:24 -0700 (MST)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01207.html">hv4g07gcklt.fsf@david.jet.msk.su</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01207.html">hv4g07gcklt.fsf@david.jet.msk.su</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Alexander Taranov:
+&gt; Here is a transcript of v103 session:
+&gt; 
+&gt; Welcome to MzScheme version 103.1 (using locale), Copyright (c) 1995-2000 PLT (Matthew Flatt)
+&gt; &gt; (string=? &quot;&quot; (string (integer-&gt;char 0)))
+&gt; #t
+&gt; &gt; (string-ci=? &quot;&quot; (string (integer-&gt;char 0)))
+&gt; #f 
+&gt; &gt; (string-length (string (integer-&gt;char 0)))
+&gt; 1
+&gt; &gt; 
+&gt; 
+&gt; Is it a bug?
+
+Yes, it's a bug in the locale support.
+
+Probably the only people who know about the locale support are
+@jet.msk.su; I didn't advertise it more broadly due to the above
+problem.
+
+Here's the note in the source:
+
+ static int mz_strcmp(unsigned char *str1, int l1, unsigned char *str2, int l2)
+ {
+ #ifdef USE_LOCALE
+   /* USE_LOCALE contributed by Boris Tobotras, tobotras@jet.msk.su. */
+   /* Caveat emptor. */
+   /* The problem with using strcoll is that MzScheme strings may
+      contain a null character. In that case, if the strings match up
+      to the first null character but differ afterwards, strcoll will
+      return the wrong result. (This is why we use mz_strcmp instead of
+      strcmp in the first place.) */
+   return strcoll(str1, str2);
+ #else  
+
+Generalizing strings to work with locales, unicode, etc. is still on my
+to-do list.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01207" href="msg01207.html">bug or feature?</a></strong>
+<ul><li><em>From:</em> Alexander Taranov &lt;tay@jet.msk.su&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01208.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01210.html">RE: ** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01207.html">bug or feature?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01211.html">strings in scheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01209"><strong>Date</strong></a></li>
+<li><a href="threads.html#01209"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

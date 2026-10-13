@@ -1,0 +1,121 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: A few comments about SchemeQL -->
+<!--X-From-R13: @bry Iryfu <abryjNqnv.rq.np.hx> -->
+<!--X-Date: Mon, 31 Jul 2000 12:45:13 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14725.50792.412752.55980@saker.dai.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14725.30612.208258.690156@saker.dai.ed.ac.uk -->
+<!--X-Reference: 000901bffb04$28f8acd0$6a032a80@cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: A few comments about SchemeQL</TITLE>
+<LINK REV="made" HREF="mailto:noelw@dai.ed.ac.uk">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00795.html">Date Prev</A>][<A HREF="msg00797.html">Date Next</A>][<A HREF="msg00793.html">Thread Prev</A>][<A HREF="msg00799.html">Thread Next</A>][<A HREF="maillist.html#00796">Date Index</A>][<A HREF="threads.html#00796">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: A few comments about SchemeQL</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "Paul A. Steckler" &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</LI>
+<LI><em>Subject</em>: RE: A few comments about SchemeQL</LI>
+<LI><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 31 Jul 2000 19:45:04 +0100 (BST)</LI>
+<LI><em>Cc</em>: "Noel Welsh" &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;, &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00793.html">000901bffb04$28f8acd0$6a032a80@cs.rice.edu</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00791.html">14725.30612.208258.690156@saker.dai.ed.ac.uk</A>&gt;&lt;<A HREF="msg00793.html">000901bffb04$28f8acd0$6a032a80@cs.rice.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Paul A. Steckler writes:
+&gt; How does DBI connect to databases; does it use ODBC?
+
+No, there are separate modules for Oracle, Sybase, ODBC,
+Comma separated values and a few other databases.
+
+&gt; If you want to use a driver with a non-ODBC interface, you would,
+&gt; as Francisco suggests, need to write a suitable unit.
+&gt; But nearly every database these days supports ODBC.
+
+True, but not everyone wants to use a real database, or ODBC. For a
+brief period of madness I was an 'Associate Consultant' in a big
+boring company that did boring things that often involved
+databases. The accepted wisdom at the time was to use the native
+drivers as they were often a lot faster than the ODBC
+drivers. Admittedly there was a lot of accepted wisdom that was none
+too wise...
+
+The point I'm trying to make is that SchemeQL shouldn't depend on
+SrPersist, 'cause people will want to use different interfaces. For
+example, there is a guy in my labs who's been sucked into the madness
+that is Perl because it supports flat-text files in a simple[1] way -
+there's no ODBC driver for text. SrPersist is the only interface for
+now, but that may not be the case in the future.
+
+cya,
+Noel
+
+[1] I use 'simple' in a weak way when discussing Perl
+-- 
+Noel Welsh
+<A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00791" HREF="msg00791.html">Re: A few comments about SchemeQL</A></STRONG>
+<UL><LI><EM>From:</EM> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00793" HREF="msg00793.html">RE: A few comments about SchemeQL</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00795.html">Re: Hello from a new user interested in shipping applications</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00797.html">Re: Hello from a new user interested in shipping applications</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00793.html">RE: A few comments about SchemeQL</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00799.html">About Embedding MzScheme</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00796"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00796"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

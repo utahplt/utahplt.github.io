@@ -1,0 +1,143 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Sun, 24 Mar 2002 23:12:36 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203250612.BAA08910@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: zo0xekyu.fsf@wanadoo.es -->
+<!--X-Reference: iss.5683.3c9e5ba4.87a65.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Reference: 200203250349.WAA08682@bosch.cs.brown.edu -->
+<!--X-Reference: ofhdb3gp.fsf@wanadoo.es -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00462.html">Date Prev</a>][<a href="msg00464.html">Date Next</a>][<a href="msg00461.html">Thread Prev</a>][<a href="msg00464.html">Thread Next</a>][<a href="maillist.html#00463">Date Index</a>][<a href="threads.html#00463">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Mar 2002 01:12:00 -0500 (EST)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00461.html">ofhdb3gp.fsf@wanadoo.es</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00438.html">zo0xekyu.fsf@wanadoo.es</a>&gt;&lt;<a href="msg00441.html">iss.5683.3c9e5ba4.87a65.1@hermes.hrz.uni-giessen.de</a>&gt;&lt;<a href="msg00451.html">200203250349.WAA08682@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg00461.html">ofhdb3gp.fsf@wanadoo.es</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Oscar Fuentes wrote:
+
+&gt; Abbreviating: it has no sense to say that somebody that doesn't know
+&gt; what are you doing is capable of providing a better solution for your
+&gt; problem than yourself.
+
+Duh.  This is the basic fact underlying all of optimization theory.
+So what?  You haven't even begun to address my question.
+
+- Your &quot;logical demonstration&quot; is only a proof of possibility, not
+  certainty.  (To be utterly pedantic, you've only used the dia
+  modality, not box.)  As Keith Cooper, a compiler optimization
+  wizard, memorably put it, &quot;Information is not optimization.&quot;  Think
+  that over.
+
+- In a sufficiently complex domain, even the implementor of the
+  special-purpose collector may not understand the details to know (a) 
+  how to exploit them or (b) that he has done so soundly.
+
+- The engineering of special-purpose collectors is highly
+  non-trivial.  In many domains, it will take a while to match, much
+  less beat, the performance of a finely-tuned general-purpose GC.
+
+- Even if you could come up with a customized mechanism, there's no
+  guarantee that it will necessarily be better.  For instance, even if 
+  your domain guaranteed the exclusion of cycles, reference counting
+  will not *necessarily* be better than a copying GC.
+
+- As a real-world programmer, you know all about cost-benefit
+  analysis.  Do the obvious thing here (analysis cost, creativity
+  cost, development cost, maintenance cost, ...).
+
+- Even when you've done all this and decided you can build a better
+  mousetrap, your manager may come along and demand that your language 
+  run-time interact closely with code written in C++ by a guy who
+  insists C++ has _two_ features he absolutely needs.  Now what will
+  you do?
+
+So instead of getting sidetracked into analyzing an empirical question
+through logic, let's get back to my question: how about some evidence?
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00464" href="msg00464.html">A beginner interjects</a></strong>
+<ul><li><em>From:</em> Chris Wright &lt;caw@cs.mu.oz.au&gt;</li></ul></li>
+<li><strong><a name="00467" href="msg00467.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Oscar Fuentes &lt;ofv@wanadoo.es&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00438" href="msg00438.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Oscar Fuentes &lt;ofv@wanadoo.es&gt;</li></ul></li>
+<li><strong><a name="00441" href="msg00441.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+<li><strong><a name="00451" href="msg00451.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00461" href="msg00461.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Oscar Fuentes &lt;ofv@wanadoo.es&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00462.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00464.html">A beginner interjects</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00461.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00464.html">A beginner interjects</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00463"><strong>Date</strong></a></li>
+<li><a href="threads.html#00463"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

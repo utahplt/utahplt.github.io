@@ -1,0 +1,151 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: "Oyrk Brnxr" <ncrnxrNpbznp.pbz> -->
+<!--X-Date: Fri, 22 Mar 2002 17:56:26 &#45;0700 (MST) -->
+<!--X-Message-Id: NBBBLCLOKKHAGMJBNHDMMEGGFKAA.apeake@comac.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020322221141.B5331206F6@sualocin.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:apeake@comac.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00416.html">Date Prev</a>][<a href="msg00418.html">Date Next</a>][<a href="msg00430.html">Thread Prev</a>][<a href="msg00419.html">Thread Next</a>][<a href="maillist.html#00417">Date Index</a>][<a href="threads.html#00417">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: &quot;Alex Peake&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 22 Mar 2002 16:55:43 -0800</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00409.html">20020322221141.B5331206F6@sualocin.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Forgive my ignorance - I am just an application developer not a language
+expert - but..
+
+does not Common Lisp give much of the &quot;typing option&quot; that offers the
+&quot;graceful transition&quot; you refer to? For example, there are multi-methods
+where you can use:
+(defmethod (do-it ((arg1 float) (arg2 float)) body...)
+(and even define a version to capture all other types and throw an error)
+
+
+Alex
+
+-----Original Message-----
+From: owner-plt-scheme@fast.cs.utah.edu
+[<A  HREF="mailto:owner-plt-scheme@fast.cs.utah.edu]On">mailto:owner-plt-scheme@fast.cs.utah.edu]On</A> Behalf Of Matthias
+Felleisen
+Sent: Friday, March 22, 2002 2:12 PM
+To: plt-scheme@fast.cs.utah.edu
+Subject: Re: Strong Typing, Dynamic Languages, What to do?
+
+
+
+Let me try to express in a nutshell why we do what we do. Perhaps it
+becomes clear what people should really have.
+
+Scheme-style typing (uni-typed statically or dynamically typed; safe no
+ matter what you choose first). It works great for getting small scripts
+ off the ground and for teaching beginners. Then things evolve and, for
+ human reasons, need static validation and static types.
+
+ Real-world evidence: Perl, Python and other monsters that are more less
+ broken Scheme's and have a huge appeal. Entire business have been founded
+ on these things, precisely for the reason I mentioned. Writing a script is
+ easy.
+
+ The problem? Maintaining it for the rest of your life in that language is
+ horrible work.
+
+So what do you want? A smooth, graceful transition of stable parts into a
+statically validated version.
+
+How? We have experimented with a whole bunch of type systems for Scheme
+(HM, SBA, Conditional Types, etc). Their explanatory capabilities and their
+module-level performance matters most. So we're still doing research.
+
+We also need generalizations of types for Scheme modules. At a min, we
+should be able to write down interface contracts. Hold your breath for
+Robby's contract system.
+
+Combining those two (soft typing/static debugging and contracts) should
+produce the best of both worlds: lightweight scripting and evolution into
+static typing.
+
+-- Matthias
+
+P.S. No, I don't pay much attention to performance. I have lived with High
+Performance Fortran people for 15 years. Enough is enough.
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00419" href="msg00419.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00421" href="msg00421.html">RE: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00409" href="msg00409.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00416.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00418.html">RE: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00430.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00419.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00417"><strong>Date</strong></a></li>
+<li><a href="threads.html#00417"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

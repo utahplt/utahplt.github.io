@@ -1,0 +1,125 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: loading additional code -->
+<!--X-From-R13: Ibwpvrpu Ebopmhx <fbcryNserrofq.uom.cy> -->
+<!--X-Date: Sat, 5 Jan 2002 12:48:15 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020105204652.A99992@freebsd.hbz.pl -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>loading additional code</title>
+<link rev="made" href="mailto:sopel@freebsd.hbz.pl">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00009.html">Date Prev</a>][<a href="msg00011.html">Date Next</a>][<a href="msg00009.html">Thread Prev</a>][<a href="msg00011.html">Thread Next</a>][<a href="maillist.html#00010">Date Index</a>][<a href="threads.html#00010">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>loading additional code</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: loading additional code</li>
+<li><em>From</em>: Wojciech Sobczuk &lt;<A HREF="mailto:sopel@freebsd.hbz.pl">sopel@freebsd.hbz.pl</A>&gt;</li>
+<li><em>Date</em>: Sat, 5 Jan 2002 20:46:52 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.2.5i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+hello,
+
+i'm currently developing a http server in mzscheme.  it already serves static
+content, but i'd like to give it the ability to load up additional pieces of
+code - perhaps similiar to Java servlets, or perhaps there's a better way to
+accomplish such functionality in Scheme?
+
+i have two ideas to do this:
+1. create a new namespace/custodian, load a file which would have to define a
+   http_post function, and call that function.
+2. force the user to place his methods inside a unit - load up that unit and
+   pass the request and session variables into the unit's import clause.
+
+which way would be better?  i'd like to cache the 'servlets' and invoke functions
+defined by them from various threads - which way allows me to accomplish it?
+in the future - i'd like to make sure that the code inside a 'servlet' isn't
+able to access any data outside it's unit - how will that work with caching the
+code?
+
+i'm also planning to develop some kind of JSP equivalent for scheme.  i don't
+think custom tags will be needed, because scheme is so readable and 'natural'
+that it can be seamlessly included in the HTML code like:
+	&lt;(reqparam &quot;foo&quot;)&gt;
+would display a request parameter &quot;foo&quot;, contrary to the long and dirty
+java code for the same:
+	&lt;%= request.getParameter(&quot;foo&quot;) %&gt;
+
+is this the right way to go?  or perhaps i should experiment with XML related
+code in <A  HREF="http://pobox.com/~oleg/ftp/">http://pobox.com/~oleg/ftp/</A> and go some other way?
+
+
+thanks for any comments.  i'm going to make the server open source as soon as
+it reaches some sensible state.  if You have any suggestions/ideas - please let
+me know.
+
+also, is it possible to make the mailing list archives searchable?  i've tried
+to browse them to find answers to my questions but it really took too long..
+
+greetings,
+Wojtek
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00011" href="msg00011.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> davidw@dedasys.com (David N. Welton)</li></ul></li>
+<li><strong><a name="00014" href="msg00014.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00009.html">CVS binaries</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00011.html">Re: loading additional code</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00009.html">CVS binaries</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00011.html">Re: loading additional code</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00010"><strong>Date</strong></a></li>
+<li><a href="threads.html#00010"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

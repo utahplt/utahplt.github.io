@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Embebed Mzscheme -->
+<!--X-From-R13: Dvpuneq Qboor <pboorNnveznvy.arg> -->
+<!--X-Date: Tue, 7 May 2002 15:27:30 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15576.18129.568497.867553@vimes.home.rcc -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87lmavq08j.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Embebed Mzscheme</title>
+<link rev="made" href="mailto:cobbe@airmail.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00861.html">Date Prev</a>][<a href="msg00863.html">Date Next</a>][<a href="msg00859.html">Thread Prev</a>][<a href="msg00863.html">Thread Next</a>][<a href="maillist.html#00862">Date Index</a>][<a href="threads.html#00862">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Embebed Mzscheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] Embebed Mzscheme</li>
+<li><em>From</em>: Richard Cobbe &lt;<A HREF="mailto:cobbe@airmail.net">cobbe@airmail.net</A>&gt;</li>
+<li><em>Date</em>: Tue, 7 May 2002 16:27:45 -0500 (CDT)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00859.html">87lmavq08j.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00859.html">87lmavq08j.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Lo, on Tuesday, May 7, Paulo J. Matos did write:
+
+&gt; Hi all,
+&gt; 
+&gt; Following the manual &quot;Inside MzScheme&quot; I've passed the example
+&gt; in the first pages just to test if embebeding mzscheme is fine in
+&gt; my PC... (I mean, if configs are ok) and I've found out that they
+&gt; are not. After compiling DrScheme to get libmzscheme.a and
+&gt; libmzgc.a as mentioned in the manual I've added
+&gt; /usr/local/plt/lib to LD_LIBRARY_PATH and ran ldconfig as root.
+&gt; Then I've tried to compile scheme.c (the file containing the
+&gt; example) and I get:
+&gt; bash-2.05$ gcc -o scheme scheme.o -lmzscheme -lmzgc
+&gt; /usr/i386-slackware-linux/bin/ld: cannot find -lmzscheme
+&gt; 
+&gt; This is indeed strange.
+
+LD_LIBRARY_PATH is only relevant when you're running the built
+executable.  Try adding the -L switch to the compiler command line,
+specifying the directory where gcc should look for libraries: something
+like -L/usr/local/lib/plt/....  See the gcc man/info pages for more
+details.
+
+&gt; However if I try to solve this by creating symbolic links to:
+&gt; libmzscheme.a, libmzscheme.la, libmzgc.a, libmzgc.la I get a LOT
+
+The .la's are supplementary files created by libtool; you don't need
+those at all.  In any case, creating symlinks like this isn't the right
+answer; use the -L switch.
+
+Incidentally, do libmzscheme.so and libmzgc.so not exist?  (I don't have
+PLT installed right now due to computer problems, so I can't check
+myself.)  If they do, you'll almost certainly want to use those
+instead.  Of course, if you supply the correct directory with the -L
+switch, the compiler will default to the shared libs over the statics.
+
+&gt; of undefined reference... I've pasted a few:
+&gt; /usr/local/lib/libmzscheme.a(number.o): In function `exp_prim':
+&gt; /home/pdestroy/src/plt/src/mzscheme/src/./number.c:1375: undefined reference to `exp'
+&gt; /usr/local/lib/libmzscheme.a(number.o): In function `log_prim':
+&gt; /home/pdestroy/src/plt/src/mzscheme/src/./number.c:1376: undefined reference to `log'
+&gt; &lt;snip&gt;
+&gt; /home/pdestroy/src/plt/src/mzscheme/src/./dynext.c:235: undefined reference to `dlopen'
+&gt; /home/pdestroy/src/plt/src/mzscheme/src/./dynext.c:237: undefined reference to `dlerror'
+&gt; /home/pdestroy/src/plt/src/mzscheme/src/./dynext.c:251: undefined reference to `dlsym'
+
+Check the man pages for the functions in question; they should tell you
+which additional libraries you need to link in.  exp and log are both in
+libm.so; dlopen, dlerror, and dlsym are all in libdl.so (at least on my
+Debian/stable system).  Add `-lm -ldl' to your command line.
+
+HTH,
+
+Richard
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00863" href="msg00863.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+<li><strong><a name="00865" href="msg00865.html">[plt-scheme] scheme for microcontrollers</a></strong>
+<ul><li><em>From:</em> Deva Seetharam &lt;deva@media.mit.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00859" href="msg00859.html">[plt-scheme] Embebed Mzscheme</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00861.html">Re: [plt-scheme] Documentation System</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00863.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00859.html">[plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00863.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00862"><strong>Date</strong></a></li>
+<li><a href="threads.html#00862"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

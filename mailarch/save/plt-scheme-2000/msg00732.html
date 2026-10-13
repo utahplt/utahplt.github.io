@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: defmacro fails under DrScheme but not under MzScheme -->
+<!--X-From-R13: Vnaah Ybvivfgb <nmherNvxv.sv> -->
+<!--X-Date: Wed, 12 Jul 2000 03:47:21 &#45;0600 (MDT) -->
+<!--X-Message-Id: 87vgybllyy.fsf@senstation.vvf.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87vgydlzlb.fsf@senstation.vvf.fi -->
+<!--X-Reference: 14699.11792.479797.277649@sun.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: defmacro fails under DrScheme but not under MzScheme</TITLE>
+<LINK REV="made" HREF="mailto:azure@iki.fi">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00731.html">Date Prev</A>][<A HREF="msg00733.html">Date Next</A>][<A HREF="msg00729.html">Thread Prev</A>][<A HREF="msg00734.html">Thread Next</A>][<A HREF="maillist.html#00732">Date Index</A>][<A HREF="threads.html#00732">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: defmacro fails under DrScheme but not under MzScheme</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: defmacro fails under DrScheme but not under MzScheme</LI>
+<LI><em>From</em>: Hannu Koivisto &lt;<A HREF="mailto:azure@iki.fi">azure@iki.fi</A>&gt;</LI>
+<LI><em>Date</em>: 12 Jul 2000 12:46:45 +0300</LI>
+<LI><em>In-Reply-To</em>: Shriram Krishnamurthi's message of "Tue, 11 Jul 2000 09:30:47 -0500 (CDT)"</LI>
+<LI><em>Mail-copies-to</em>: never</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00727.html">87vgydlzlb.fsf@senstation.vvf.fi</A>&gt;&lt;<A HREF="msg00729.html">14699.11792.479797.277649@sun.cs.rice.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>User-Agent</em>: Gnus/5.0805 (Gnus v5.8.5) Emacs/20.7</LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt; writes:
+
+| I'm afraid I cannot reproduce the behavior you are seeing.  The
+| library compat.ss does not define the defmacro form, which is not
+| built in, either.  Therefore, I have a feeling some file is being
+| loaded in one case but not another.
+
+Ah, you are right.  I had two years old (last time I've used
+MzScheme!) ~/.mzschemerc that again loaded SLIB initialization file
+that again defined defmacro.  Also, when reading manual's
+"Compatibility: compat.ss" section I didn't notice that syntactic
+forms are defined in compatm.ss, not compat.ss, so even I only
+loaded compat.ss, everything seemed to work thanks to SLIB being
+initialized behind my back.
+
+| I'm not sure what you mean by "plain MzScheme" -- by definition,
+
+I mean command line MzScheme running on its own, i.e. no DrScheme
+stuff or anything else on top of it.
+
+| MzScheme does not offer any of these facilities.  Likewise, the
+
+Right, it doesn't, and that's why I wondered (I shouldn't have used
+"enable") whether it would be possible to load them selectively the
+way DrScheme Jr probably does (so your suggestion to use DrScheme
+Jr sort of answered my question).
+
+| stepper is fundamentally a graphical program, so it cannot run on a
+
+Well, DrScheme's stepper perhaps is, but in general I can't see any
+reason why one couldn't also have a textual stepper like many
+Common Lisp implementations do.  I thought that there might be a
+possibility that also DrScheme's stepper is layered so that the
+graphical stuff is not neccessary and one could run it on a textual
+system at least with only few lines of glue code.  On top of a
+textual stepper one could also build, for example, Emacs interface.
+
+| textual system.  Perhaps you want to investigate DrScheme Jr, which is 
+| a source-correlation-enriched textual version of DrScheme.  It does
+| not, however, provide tools such as the Stepper.
+
+Thanks, I'll try DrScheme Jr next time.
+
+-- 
+Hannu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00734" HREF="msg00734.html">Re: defmacro fails under DrScheme but not under MzScheme</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00727" HREF="msg00727.html">defmacro fails under DrScheme but not under MzScheme</A></STRONG>
+<UL><LI><EM>From:</EM> Hannu Koivisto &lt;azure@iki.fi&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00729" HREF="msg00729.html">defmacro fails under DrScheme but not under MzScheme</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00731.html">Re: version 102 on mac</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00733.html">MzScheme and MrEd on an Alpha computer</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00729.html">defmacro fails under DrScheme but not under MzScheme</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00734.html">Re: defmacro fails under DrScheme but not under MzScheme</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00732"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00732"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

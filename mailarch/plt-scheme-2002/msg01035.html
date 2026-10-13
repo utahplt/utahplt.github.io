@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] upgrading to 200 from 103 -->
+<!--X-From-R13: Pvyy Ibbq <jgjNzngufgne.pbz> -->
+<!--X-Date: Mon, 3 Jun 2002 13:26:35 &#45;0600 (MDT) -->
+<!--X-Message-Id: 3CFBB770.AB30F5F1@mathstar.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.OSF.3.91.1020529161743.16546Y&#45;100000@ml.media.mit.edu -->
+<!--X-Reference: 200205311213.g4VCDvT18970@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] upgrading to 200 from 103</title>
+<link rev="made" href="mailto:wtw@mathstar.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01034.html">Date Prev</a>][<a href="msg01036.html">Date Next</a>][<a href="msg01011.html">Thread Prev</a>][<a href="msg00986.html">Thread Next</a>][<a href="maillist.html#01035">Date Index</a>][<a href="threads.html#01035">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] upgrading to 200 from 103</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] upgrading to 200 from 103</li>
+<li><em>From</em>: Bill Wood &lt;<A HREF="mailto:wtw@mathstar.com">wtw@mathstar.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 03 Jun 2002 13:37:36 -0500</li>
+<li><em>Organization</em>: MathStar, Inc.</li>
+<li><em>References</em>: &lt;<a href="msg00997.html">Pine.OSF.3.91.1020529161743.16546Y-100000@ml.media.mit.edu</a>&gt; &lt;<a href="msg01011.html">200205311213.g4VCDvT18970@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+  . . .
+&gt; The problem is that `(require (lib &quot;load.ss&quot; &quot;slibinit&quot;))' redefines
+&gt; `require' to be the one defined by SLIB.
+  . . .
+&gt; That's ugly, but any solution is probably going to be ugly, since the
+&gt; underlying problem is that SLIB doesn't use MzScheme's `module'.
+
+I've been wrestling with this problem, and I'm curious as to the PLT
+community view on the trade-offs involved.  On the one hand, having
+powerful
+features built into DrScheme clearly makes it a more attractive choice;
+on the other hand, these same features make it less likely that
+libraries
+developed within and provided to the Scheme community at large will be
+usable in DrScheme without some resource expenditure for retrofitting.
+
+This problem occurs with SLIB and STk as well, but a fix is available:
+STk uses (require &lt;string&gt;) while SLIB uses (require &lt;symbol&gt;), so the
+STk.init redefines require to dispatch on the arg type -- problem
+solved!
+The Help Desk doc'n on modules is unclear on this point, but it looks
+like
+require can take either a symbol or a list structure arg, so the same
+trick won't work.
+
+I don't know any good answers ...
+
+ -- Bill Wood
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00997" href="msg00997.html">Re: [plt-scheme] upgrading to 200 from 103</a></strong>
+<ul><li><em>From:</em> Deva Seetharam &lt;deva@media.mit.edu&gt;</li></ul></li>
+<li><strong><a name="01011" href="msg01011.html">Re: [plt-scheme] upgrading to 200 from 103</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01034.html">[plt-scheme] Linux pre-release binaries</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01036.html">RE: [plt-scheme] Linux pre-release binaries</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01011.html">Re: [plt-scheme] upgrading to 200 from 103</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00986.html">Re: [plt-scheme] defining macros in mzscheme 103</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01035"><strong>Date</strong></a></li>
+<li><a href="threads.html#01035"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: The correct way in a C extension to close a file on GC? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Mon, 7 Aug 2000 08:46:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: 398ECD3D.C6867E52@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>The correct way in a C extension to close a file on GC?</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00826.html">Date Prev</A>][<A HREF="msg00828.html">Date Next</A>][<A HREF="msg00832.html">Thread Prev</A>][<A HREF="msg00830.html">Thread Next</A>][<A HREF="maillist.html#00827">Date Index</A>][<A HREF="threads.html#00827">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>The correct way in a C extension to close a file on GC?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: The correct way in a C extension to close a file on GC?</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 07 Aug 2000 10:52:45 -0400</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm trying to build a DLL that creates a new type -- a file that can do
+simultaneous input and output.
+
+The short question is: How can I get a function in C to be called on the
+garbage collection of a file object? I'm looking for a general outline
+of the correct and complete process to avoid substantial trial and error
+-- I can fill in the actual code if I know exactly all the things that
+need to be done.
+
+The longer background (probably full of half-truths about things, please
+correct me as needed):
+
+"Bitmatrix" provides an example with almost everything I need to know to
+implement a new file type (one with set-size, a string buffer, etc.).
+
+The big extra thing I need to know that is not shown in that example is
+how to ensure files are closed on garbage collection. Is there a good
+example for this?
+
+I looked at the Custodian documentation and also the port.c source code.
+In the source for port.c, the files are strongly held by a Custodian.
+So, if I understand the behavior of the custodian correctly (which I may
+not) they won't be garbage collected, ever (unless explicitly closed in
+a Scheme program and removed from the Custodian in the close function).
+So, if a file is opened in MzScheme and then not closed, it seems to me
+that Custodians only call close functions for their charges when Scheme
+exits. Is this true?  
+
+Yet it seems if a Custodian has a weak hold on something, the
+documentation doesn't say that it will call the close function (which it
+seems is what it should do).  I tried briefly to look at the Custodian
+source, but I also needed to peruse the garbage collections process,
+which got me into a bit more complexity than I desired. 
+
+It would seem I need to use a "will executor" to do this.
+Is there a C API for this, or do I have to call back into Scheme
+somehow, or make wrapper functions in Scheme? I didn't see it in the
+inside PLT MzScheme docs and there is nothing in the index for it. I
+also didn't see a "will executor" being set up for files in MzScheme
+when opened. Is this handled on the Scheme side or did I just miss it?
+
+What else I am I missing? Is the purpose of the custodian to ensure
+garbage collection on shut-down? Presumably, I guess the conservative
+garbage collector may not collect a file handle if it has a resemblance
+to some value stored somewhere else... And, I'm guessing no garbage
+collection takes place on MzScheme exit... Thus the need for both will
+executors and custodians for any protected resource like a file handle.
+Am I getting it? 
+
+This would imply you could never count on a file to be closed
+automatically when it went out of scope. You would always need to
+explicitly close it to ensure you could properly open it again -- that
+is unless DrScheme is doing some sleight of hand with cached file
+handles.
+
+Would this explain the anomalous behavior I thought I saw (and mentioned
+in my other post) with only being able to append to a file I didn't
+close even after I had reopened one with the same name by rexecuting the
+Scheme code?  I had found that without the explicit close, I was unable
+to open the file in an external editor (wordPad) as the editor said it
+was in use. After I added the close, the problem went away (without
+closing DrScheme I think), almost like DrScheme knew I was reopening the
+same file and used a cached handle to it which it then closed the second
+time around.
+
+Relating this to a previous topic, if MrEd exits at the end of its main
+thread, does it do all the cleanup and unwinding of other code in other
+threads which might be protecting resources if they are not in
+custodians?
+
+Relevant docs on custodian:
+&gt; Scheme_Manager_Reference *scheme_add_managed(Scheme_Manager *m, Scheme_Object *o, 
+&gt; Scheme_Close_Manager_Client *f, void *data, 
+&gt; int strong)
+&gt; 
+&gt; Places the value o into the management of the custodian m. The f function is called by the custodian if it is ever asked to ``shutdown'' its values; o and data are passed on to f, which has the type
+&gt; 
+&gt; typedef void (*Scheme_Close_Manager_Client)(Scheme_Object *o, void *data);
+&gt; 
+&gt; If strong is non-zero, then the newly managed value will be remembered 
+&gt; until either the custodian shuts it down or scheme_remove_managed is 
+&gt; called. If strong is zero, the value is allowed to be garbaged 
+&gt; collected (and automatically removed from the custodian).
+
+Other background on files: 
+
+It is still possible that I might do some of what I want (in a database
+sense) with an input and output port on the same file. I found that
+"(read output-port)" definitely doesn't work (it wants an input port).
+However, DrScheme does usually seem happy enough to have an input port
+and output port open on the same file. On trying this the first time, I
+ended up not being able to overwrite data in the file. Then later it
+worked. I think this might have something to do with opening the file
+and not closing it (I added the close lines later), and possibly my
+restarting DrScheme.
+
+For reference, my test script:
+
+;this first should only append
+;(define myfile (open-output-file "c:\\pdfscheme\\test.dat" 'append))
+;this should allow overwriting
+(define myfile (open-output-file "c:\\pdfscheme\\test.dat" 'replace))
+(write "hello world" myfile)
+(file-position myfile 0)
+;(read myfile)
+(define myfile2 (open-input-file "c:\\pdfscheme\\test.dat"))
+;(write "hello world" myfile)
+(file-position myfile2 0)
+(read myfile2)
+(newline)
+(print "rewriting") 
+(newline)
+(file-position myfile 0)
+(write "another soon thing is that this is longer" myfile)
+(flush-output myfile)
+(file-position myfile2 0)
+(read myfile2)
+(read myfile2)
+(read myfile2)
+(read myfile2)
+(read myfile2)
+(close-output-port myfile)
+(close-input-port myfile2)
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00830" HREF="msg00830.html">Re: The correct way in a C extension to close a file on GC? (Example Code)</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00826.html">xctocc documentation link bad?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00828.html">RE: xctocc documentation link bad?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00832.html">Re: xctocc documentation link bad?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00830.html">Re: The correct way in a C extension to close a file on GC? (Example Code)</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00827"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00827"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

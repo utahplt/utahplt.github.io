@@ -1,0 +1,196 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: GC Errors in Embedded Program -->
+<!--X-From-R13: Perag Thytunz <oshytunzNqrovna.bet> -->
+<!--X-Date: Thu, 28 Dec 2000 00:50:51 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001228000310.A2102@earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20001227085419.A6666@earthlink.net -->
+<!--X-Reference: 20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: GC Errors in Embedded Program</title>
+<link rev="made" href="mailto:bfulgham@debian.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00832.html">Date Prev</a>][<a href="msg00834.html">Date Next</a>][<a href="msg00824.html">Thread Prev</a>][<a href="msg00836.html">Thread Next</a>][<a href="maillist.html#00833">Date Index</a>][<a href="threads.html#00833">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: GC Errors in Embedded Program</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: GC Errors in Embedded Program</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Date</em>: Thu, 28 Dec 2000 00:03:10 -0800</li>
+<li><em>Cc</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00824.html">20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost</a>&gt;; from mflatt@cs.utah.edu on Wed, Dec 27, 2000 at 08:47:09AM -0800</li>
+<li><em>References</em>: &lt;<a href="msg00823.html">20001227085419.A6666@earthlink.net</a>&gt; &lt;<a href="msg00824.html">20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.12i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Wed, Dec 27, 2000 at 08:47:09AM -0800, Matthew Flatt wrote:
+&gt; MzScheme does not like to be called from a thread that is not the one
+&gt; used to call scheme_basic_env(), and not an OS-level thread that
+&gt; MzScheme itself creates. In the trace above, it looks like MzScheme was
+&gt; called from a new thread created by the embedding program.
+&gt; 
+&gt; I think the particular crash you're seeing is because the GC is
+&gt; prepared to work on the C stack from the thread that called
+&gt; scheme_basic_env(), and it gets confused because the stack has moved.
+&gt; 
+&gt; The usual solution to this problem is to create a server (OS-level)
+&gt; thread for evaluating MzScheme expressions. The server thread might
+&gt; spawn MzScheme threads to handle requests.
+&gt; 
+
+Unfortunately, the problems don't seem to be resolved that easily.
+
+I reworked the code to use an MzScheme server (wrapped in a little
+C++ class) that would wait for requests from the client part of
+the program.  It would pass these requests on to MzScheme for the
+real work.
+
+The first part of the constructor for this class is to create a new
+OS-level thread, which in turn calls &quot;scheme_basic_env()&quot; and is
+then supposed to loop forever checking an input queue of evaluation
+requests.
+
+Here's what I actually get:
+
+[27/Dec/2000:23:52:34][2089.1024][-main-] Notice: modload: loading '/usr/lib/aolserver/bin/nsmachv.so'
+[27/Dec/2000:23:52:34][2089.1024][-main-] Notice: MachV: EnableMV set to on.
+[27/Dec/2000:23:52:34][2089.1024][-main-] Notice: Machiavelli is starting.
+[27/Dec/2000:23:52:34][2089.1024][-main-] Debug: MachV: Constructing MV_InterpreterPool.
+[New Thread 4101 (LWP 2096)]
+[27/Dec/2000:23:52:34][2089.4101][MachV Intrp Svr] Notice: MachV:  Setting basic environment.
+
+Program received signal SIGSEGV, Segmentation fault.
+[Switching to Thread 4101 (LWP 2096)]
+GC_push_all_eager (bottom=0xbf1ff8a8 &quot;Èø\037¿áJ6@¨ø\037¿&quot;, 
+    top=0xc0000000 &lt;Address 0xc0000000 out of bounds&gt;) at ./mark.c:854
+854     ./mark.c: No such file or directory.
+(gdb) bt
+#0  _push_all_eager (bottom=0xbf1ff8a8 &quot;Èø\037¿áJ6@¨ø\037¿&quot;, 
+    top=0xc0000000 &lt;Address 0xc0000000 out of bounds&gt;) at ./mark.c:854
+#1  0x40365d0c in GC_push_all_stack_partially_eager (
+    bottom=0xbf1ff8a8 &quot;Èø\037¿áJ6@¨ø\037¿&quot;, 
+    top=0xc0000000 &lt;Address 0xc0000000 out of bounds&gt;, 
+    cold_gc_frame=0xbf1ff954 &quot;&quot;) at ./mark.c:891
+#2  0x40364ae1 in GC_push_current_stack (cold_gc_frame=0xbf1ff954 &quot;&quot;)
+    at ./mark_rts.c:430
+#3  0x40364b3f in GC_push_roots (all=1, cold_gc_frame=0xbf1ff954 &quot;&quot;)
+    at ./mark_rts.c:487
+#4  0x40365359 in GC_mark_some (cold_gc_frame=0xbf1ff954 &quot;&quot;) at ./mark.c:309
+#5  0x40361afa in GC_stopped_mark (stop_func=0x403616e0 &lt;GC_never_stop_func&gt;)
+    at ./alloc.c:443
+#6  0x40361983 in GC_try_to_collect_inner (
+    stop_func=0x403616e0 &lt;GC_never_stop_func&gt;) at ./alloc.c:317
+#7  0x40363bbc in GC_init_inner () at ./misc.c:557
+#8  0x40367a77 in GC_generic_malloc_inner (lb=4, k=0) at ./malloc.c:61
+#9  0x40367b99 in GC_generic_malloc (lb=4, k=0) at ./malloc.c:129
+#10 0x40367bfe in GC_malloc_atomic (lb=4) at ./malloc.c:175
+#11 0x4034ffb8 in scheme_init_setjumpup () at ./setjmpup.c:149
+#12 0x40319f4f in scheme_basic_env () at ./env.c:199
+#13 0x403196d4 in Run (arg=0x8193d88) at ns_interps.cc:161
+#14 0x81190bb in NsThreadMain (arg=0x81a45f0) at thread.c:241
+
+===========================================================
+
+Above you mention that:
+&gt; MzScheme does not like to be called from a thread that is not the one
+&gt; used to call scheme_basic_env(), and not an OS-level thread that
+&gt; MzScheme itself creates. In the trace above, it looks like MzScheme was
+&gt; called from a new thread created by the embedding program.
+
+I'm not sure what you mean by &quot;...and not an OS-level thread that
+MzScheme itself creates.&quot;
+
+This sounds like MzScheme should be forking the thread that will
+satisfy the request.  Is that right?  If so, I may need to do
+some additional thinking about how this works.
+
+I think the problem may be that scheme_basic_env is not called
+by the &quot;main&quot; thread of execution that launches the program
+itself.  Looking back at the earlier stack dump, it looks like
+MzScheme is really only happy if it get's called by the main
+thread created by the OS when the program starts.  (You may recall
+that the earlier dump showed scheme_basic_env returning successfully,
+but future calls to scheme_eval and friends crashed because they
+were coming from POSIX threads created later on in the program run.)
+Any threads created by the program through calls to POSIX functions,
+etc., seem to be unsatisfactory for some reason.
+
+Has anyone else seen this behavior?  What's different about the
+&quot;-main-&quot; thread versus a thread created later on?
+
+Could this problem be resolved using the SGC collector instead?
+
+Thanks,
+
+-Brent
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00836" href="msg00836.html">Re: GC Errors in Embedded Program</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00823" href="msg00823.html">GC Errors in Embedded Program</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+<li><strong><a name="00824" href="msg00824.html">Re: GC Errors in Embedded Program</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00832.html">Re: PLT Scheme development directions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00834.html">More GC Errors (New, Improved, In Senora GC!)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00824.html">Re: GC Errors in Embedded Program</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00836.html">Re: GC Errors in Embedded Program</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00833"><strong>Date</strong></a></li>
+<li><a href="threads.html#00833"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

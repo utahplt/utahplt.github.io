@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: proper tail recusion for `or' -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Thu, 15 Mar 2001 06:56:02 &#45;0700 (MST) -->
+<!--X-Message-Id: 200103151357.HAA16797@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 83g0gfmdn7.fsf@login.math.unifi.it -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: proper tail recusion for `or'</title>
+<link rev="made" href="mailto:matthias@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00379.html">Date Prev</a>][<a href="msg00381.html">Date Next</a>][<a href="msg00378.html">Thread Prev</a>][<a href="msg00382.html">Thread Next</a>][<a href="maillist.html#00380">Date Index</a>][<a href="threads.html#00380">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: proper tail recusion for `or'</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:maggesi@math.unifi.it">maggesi@math.unifi.it</A></li>
+<li><em>Subject</em>: Re: proper tail recusion for `or'</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 15 Mar 2001 07:57:14 -0600 (CST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00378.html">83g0gfmdn7.fsf@login.math.unifi.it</a>&gt; (message from Marco Maggesion 15 Mar 2001 13:15:40 +0100)</li>
+<li><em>References</em>: &lt;<a href="msg00378.html">83g0gfmdn7.fsf@login.math.unifi.it</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+DrScheme is tail-recursive. The Stepper reconstructs intermediate terms
+from the actual execution state. It is the reconstruction that places 
+or into the program text. Why? I forgot but I am sure that John Clements
+has a lengthy explanation for it :-) 
+
+-- Matthias
+
+   X-Authentication-Warning: fast.cs.utah.edu: majordom set sender to owner-plt-scheme@flux.cs.utah.edu using -f
+   From: Marco Maggesi &lt;maggesi@math.unifi.it&gt;
+   Date: 15 Mar 2001 13:15:40 +0100
+   User-Agent: Gnus/5.0808 (Gnus v5.8.8) Emacs/20.7
+   Content-Type: text/plain; charset=us-ascii
+   Sender: owner-plt-scheme@fast.cs.utah.edu
+   Precedence: bulk
+
+
+   Please, correct me if I am wrong.  By using the stepper, it seems that
+   DrScheme do not handle tail recursion properly for `or'.  Is this a bug?
+
+   Here is an example:
+
+     (define (list-or l)
+       (if (null? l)
+	   #t
+	   (or (car l) (list-or (cdr l)))))
+
+     (list-or (list #f #f #f #f #f #f #t))
+
+   Thank you.
+   MM
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00378" href="msg00378.html">proper tail recusion for `or'</a></strong>
+<ul><li><em>From:</em> Marco Maggesi &lt;maggesi@math.unifi.it&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00379.html">data directed programming and types (was Re: learning how to use MrSpidey)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00381.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00378.html">proper tail recusion for `or'</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00382.html">Re: proper tail recusion for `or'</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00380"><strong>Date</strong></a></li>
+<li><a href="threads.html#00380"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: MzScheme library question -->
+<!--X-From-R13: "Xnpbo X. O. Ybbg" <wwn.xbbgNjbyznvy.ay> -->
+<!--X-Date: Tue, 20 Feb 2001 09:02:10 &#45;0700 (MST) -->
+<!--X-Message-Id: 000b01c09b57$dfa0eee0$20dff0c3@koot -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>MzScheme library question</title>
+<link rev="made" href="mailto:jja.koot@wolmail.nl">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00324.html">Date Prev</a>][<a href="msg00326.html">Date Next</a>][<a href="msg00324.html">Thread Prev</a>][<a href="msg00326.html">Thread Next</a>][<a href="maillist.html#00325">Date Index</a>][<a href="threads.html#00325">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>MzScheme library question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;plt&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: MzScheme library question</li>
+<li><em>From</em>: &quot;Jacob J. A. Koot&quot; &lt;<A HREF="mailto:jja.koot@wolmail.nl">jja.koot@wolmail.nl</A>&gt;</li>
+<li><em>Date</em>: Tue, 20 Feb 2001 17:10:34 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi,
+Is it correct to post questions about MzScheme in this list? I hope so. I
+would be much obliged if you can point me to a reasonably simple way to
+construct a tool for preparing and loading/requiring libraries meeting the
+following criteria:
+1: the values returned by the library do not depend on the environment in
+which the library is loaded/required, i.e. no need for hash-percent, except
+may be in the expansion of macros.
+2: an option to prevent the library from overriding the value or syntactic
+binding of any variable that at load/require time happens already to be
+bound in the global namespace of the calling program. Say
+(require-library-dont-override name collects ...)
+3: an option for the specification of symbols that may be redefined despite
+of requirement 2, say (require-library-dont-override-except (symbol ...)
+name collects ...)
+4: load/require commands within a library preferably do not load a copy if
+already loaded. May be loading can even be lazy.
+5: if the library loads/requires other libraries, it must still meet the
+above conditions
+I have played with units and namespaces, but my trials look clumsy and much
+too complicated. I am sure there is a more obvious way. Below you find what
+I have tried. It does not work for macro definitions (and is useful for top
+level loads only: how about a let-library or with-library form?) Help will
+be much appreciated. Sorry about the length of this mail. Kind regards, Jos
+Jacob J. A. Koot
+
+; trial library, for global value bindings only.
+; not affecting existing global vars, i hope.
+; insensitive to redefinition of global bindings, i hope.
+
+(#%define-values (a b c foldl foldr)
+ (#%let-values
+  (((new-a new-b new-c new-foldl new-foldr binder)
+    (#%parameterize
+     ((#%current-namespace
+       (#%make-namespace (#%quote all-syntax) (#%quote keywords))))
+     (invoke-unit ; here we dont need #%
+      (unit (import) (export)
+       (require-library &quot;functio.ss&quot;) ; not sure how this works at this spot
+       (define foldl (global-defined-value 'foldl)) ; this is not nice
+       (define foldr (global-defined-value 'foldr)) ; this is not nice
+       (define x 4)
+       (define a 5)
+       (define b 6)
+       (define c (lambda (z) (+ a x z)))
+       (define binder
+        (lambda (x new-x)
+         (if (defined? x) (global-defined-value x) new-x)))
+       (values a b c foldl foldr binder))))))
+  (#%apply #%values
+   (#%map binder (#%quote (a b c foldl foldr))
+    (#%list new-a new-b new-c new-foldl new-foldr)))))
+
+;;===========================================================
+;; program using the above library
+;
+;(define a 33)     ; the library must not affect this binding
+;(define foldl 44) ; the library must not affect this binding
+;
+;; perversely disable some primitives.
+;; nevertheless the library should work
+;
+;(define list (void))
+;(define values (void))
+;(define define-values (void))
+;(define current-namespace (void))
+;
+;(require-library &quot;synrule.ss&quot;)
+;(define-syntax require-private-library
+; (syntax-rules ()
+;  ((require-private-library name)
+;   (require-library name ; is there a simpler way for this?
+;    &quot;..&quot; &quot;..&quot; &quot;..&quot; &quot;..&quot; &quot;mijn documenten&quot; &quot;scheme&quot; &quot;libraries&quot;))))
+;(require-private-library &quot;trial library.scm&quot;)
+;
+;a     ; --&gt; 33  not affected, ok
+;b     ; --&gt; 6   defined by unit, ok
+;(c 3) ; --&gt; 12  ok, c uses correct bindings
+;foldl ; --&gt; 44  not affected, ok
+;foldr ; --&gt; #&lt;proc:foldr&gt; defined by library, ok
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00326" href="msg00326.html">Re: MzScheme library question</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00324.html">RE: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00326.html">Re: MzScheme library question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00324.html">RE: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00326.html">Re: MzScheme library question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00325"><strong>Date</strong></a></li>
+<li><a href="threads.html#00325"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

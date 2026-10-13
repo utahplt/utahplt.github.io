@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Redefining define -->
+<!--X-From-R13: Znhev Oynaxb <ynNvxv.sv> -->
+<!--X-Date: Sat, 8 Dec 2001 08:41:17 &#45;0700 (MST) -->
+<!--X-Message-Id: 20011208154106.GA602@la.iki.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011208105348.GA748@la.iki.fi -->
+<!--X-Reference: 200112081336.fB8DaIr11719@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Redefining define</title>
+<link rev="made" href="mailto:la@iki.fi">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01295.html">Date Prev</a>][<a href="msg01297.html">Date Next</a>][<a href="msg01295.html">Thread Prev</a>][<a href="msg01297.html">Thread Next</a>][<a href="maillist.html#01296">Date Index</a>][<a href="threads.html#01296">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Redefining define</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Redefining define</li>
+<li><em>From</em>: Lauri Alanko &lt;<A HREF="mailto:la@iki.fi">la@iki.fi</A>&gt;</li>
+<li><em>Date</em>: Sat, 8 Dec 2001 17:41:06 +0200</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01295.html">200112081336.fB8DaIr11719@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01294.html">20011208105348.GA748@la.iki.fi</a>&gt; &lt;<a href="msg01295.html">200112081336.fB8DaIr11719@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.24i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Sat, Dec 08, 2001 at 06:36:18AM -0700, Matthew Flatt wrote:
+&gt;  (module util mzscheme
+&gt;     (define-syntax util-define ...)
+&gt; 
+&gt;     (provide (rename util-define define)
+&gt;              (all-from-except mzscheme define)))
+
+But this requires that util is used as the initial import instead of
+mzscheme? This is kind of icky, since then you can't use multiple
+modules with these sorts of redefinitions simultaneously, except of
+course by combining the needed modules into yet another module to use as
+the initial import.
+
+I can understand that disallowing _any_ overlap between names in scope,
+even between the initial and required modules, is conceptually elegant,
+but it seems to have impractical consequences.
+
+&gt; Yes - the names exported by `#%kernel' overlap with the names exported
+&gt; by `mzscheme'.
+
+More specifically, the conflict comes from #%module-begin. When I
+exclude that from the import list, using #%kernel works fine. That, of
+course, doesn't solve the problem of how to _use_ a module that exports
+define...
+
+Perhaps I'll just stick to another name. :)
+
+
+Lauri Alanko
+la@iki.fi
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01297" href="msg01297.html">Re: Redefining define</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01294" href="msg01294.html">Redefining define</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+<li><strong><a name="01295" href="msg01295.html">Re: Redefining define</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01295.html">Re: Redefining define</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01297.html">Re: Redefining define</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01295.html">Re: Redefining define</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01297.html">Re: Redefining define</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01296"><strong>Date</strong></a></li>
+<li><a href="threads.html#01296"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: URL structs  in cgi^ script -->
+<!--X-From-R13: "Uert Brgglwbua" <ctert14Ndjrfg.arg> -->
+<!--X-Date: Sat, 22 Sep 2001 15:21:46 &#45;0600 (MDT) -->
+<!--X-Message-Id: 002201c143ad$03baedf0$6500a8c0@gregpwin2k -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c142e3$f811cc90$850a0a0a@amp2k -->
+<!--X-Reference: p05101006b7d173341046@[129.10.115.111] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>URL structs  in cgi^ script</title>
+<link rev="made" href="mailto:pgreg14@qwest.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00921.html">Date Prev</a>][<a href="msg00923.html">Date Next</a>][<a href="msg00920.html">Thread Prev</a>][<a href="msg00923.html">Thread Next</a>][<a href="maillist.html#00922">Date Index</a>][<a href="threads.html#00922">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>URL structs  in cgi^ script</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: URL structs  in cgi^ script</li>
+<li><em>From</em>: &quot;Greg Pettyjohn&quot; &lt;<A HREF="mailto:pgreg14@qwest.net">pgreg14@qwest.net</A>&gt;</li>
+<li><em>Date</em>: Sat, 22 Sep 2001 14:24:50 -0700</li>
+<li><em>References</em>: &lt;<a href="msg00919.html">000001c142e3$f811cc90$850a0a0a@amp2k</a>&gt; &lt;<a href="msg00920.html">p05101006b7d173341046@[129.10.115.111]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I would like to be able to access the members of a struct from within a cgi^
+script. The problem is that the url struct procedures don't work the way I
+expect.
+(I'm using DrScheme v.103)
+
+Here's one of many attempts to get this to work (file: test4.cgi):
+
+(require-library &quot;web-servers.ss&quot; &quot;server&quot;)
+
+(define test@
+  (unit/sig ()
+    (import [url : mzlib:url^] [cgi : cgi^])
+
+    `(html (head (title &quot;Test&quot;))
+           (body (h1 &quot;This is test4.cgi&quot;)
+                 (h2 ,(format &quot;uri: ~s&quot; (struct-&gt;vector cgi:uri)))
+                 (h3 ,(format &quot;query: ~s&quot; (url:url? cgi:uri)))))))
+
+(compound-unit/sig
+  (import (cgi : cgi^))
+  (link
+   [STRING   : mzlib:string^   ((require-library-unit/sig &quot;stringr.ss&quot;))]
+   [FUN      : mzlib:function^ ((require-library-unit/sig &quot;functior.ss&quot;))]
+   [FILE     : mzlib:file^     ((require-library-unit/sig &quot;filer.ss&quot;) STRING
+FUN)]
+   [URL      : mzlib:url^      ((require-library-unit/sig &quot;urlr.ss&quot; &quot;net&quot;)
+FILE)]
+   [BASE64   : mzlib:base64^   ((require-library-unit/sig &quot;base64r.ss&quot;
+&quot;net&quot;))]
+   [XML      : xml^            ((require-library-unit/sig &quot;xmlr.ss&quot; &quot;xml&quot;)
+FUN)]
+   [B        : ()              (test@ URL cgi)])
+  (export))
+
+Here's the resulting HTML from my browser:
+
+&lt;html&gt;
+ &lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;
+ &lt;body&gt;
+  &lt;h1&gt;This is test4.cgi&lt;/h1&gt;
+  &lt;h2&gt;uri: #8(struct:url #f #f #f &quot;/cgi-bin/test4.cgi&quot; #f
+&quot;these?are?the?args&quot; #f)&lt;/h2&gt;
+  &lt;h3&gt;query: #f&lt;/h3&gt;
+ &lt;/body&gt;
+&lt;/html&gt;
+
+I would expect (url:url? cgi:uri) --&gt; #t
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00923" href="msg00923.html">Re: URL structs  in cgi^ script</a></strong>
+<ul><li><em>From:</em> &quot;Paul T. Graunke&quot; &lt;ptg@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00919" href="msg00919.html">debug, break, single-step</a></strong>
+<ul><li><em>From:</em> &quot;Masoud Pirnazar&quot; &lt;amp@apptek.com&gt;</li></ul></li>
+<li><strong><a name="00920" href="msg00920.html">Re: debug, break, single-step</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00921.html">Re: debug, break, single-step</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00923.html">Re: URL structs  in cgi^ script</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00920.html">Re: debug, break, single-step</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00923.html">Re: URL structs  in cgi^ script</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00922"><strong>Date</strong></a></li>
+<li><a href="threads.html#00922"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Top window garbage collected in standalone? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 8 Aug 2000 10:48:33 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200008081648.JAA18710@hawk.prod.itd.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20000805171845.HYWU10370.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 398C4C03.54C8F2B6@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Top window garbage collected in standalone?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00467.html">Date Prev</a>][<a href="msg00469.html">Date Next</a>][<a href="msg00462.html">Thread Prev</a>][<a href="msg00463.html">Thread Next</a>][<a href="maillist.html#00468">Date Index</a>][<a href="threads.html#00468">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Top window garbage collected in standalone?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Top window garbage collected in standalone?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 8 Aug 2000 09:48:28 -0700 (PDT)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00462.html">20000805171845.HYWU10370.mail.rdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00462.html">20000805171845.HYWU10370.mail.rdc1.sfba.home.com@localhost</a>&gt;           &lt;<a href="msg00461.html">398C4C03.54C8F2B6@kurtz-fernhout.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quiting Matthew Flatt:
+&gt; This is a consistent source of confusion, but we don't currently know a
+&gt; better overall convention.
+
+Ok, maybe we have a better convention for 103 (thanks to Robby).
+
+We're considering the following changes:
+
+ * Change `yield' so that it accepts 'wait as an argument. When called
+   in the handler thread of an eventspace, `(yield 'wait)' will yield
+   (processing events) until
+
+    - no top-level windows in the eventspace are visible;
+    - no timers in the eventspace are running; and
+    - no callbacks are queued in the eventspace.
+
+ * Change MrEd to call `(yield 'wait)' when the main thread runs out of
+   expressions to evaluate.
+
+With this change,
+
+  mred -e `(send (make-object frame% &quot;x&quot;) show #t)'
+
+would do what a programmer might naively expect: it will show the
+frame, and wait until the frame is closed. Furthermore, if `frame%' is
+replaced by a frame class that overrides, say, `on-superwindow-show',
+MrEd will not exit until after the method has been called (because even
+after the frame is hidden, the callback event triggerring
+`on-superwindow-show' will be queued already).
+
+Old programs that use the `(yield (make-semaphore))'/`(exit)' pattern
+would continue to work as before, since `exit' always exits
+immediately.
+
+The -V command-line flag that was introduced in 102 would not be useful
+anymore. But it might be useful to suppress the call to `(yield
+'wait)'; so we'll likely re-assign -V to suppress both the call to
+`graphical-read-eval-print-loop' and the call to `yield'.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00462" href="msg00462.html">Re: Top window garbage collected in standalone?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00461" href="msg00461.html">Top window garbage collected in standalone?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00467.html">Re: The correct way in a C extension to close a file on GC? (Example Code)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00469.html">Re: xctocc documentation link bad?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00462.html">Re: Top window garbage collected in standalone?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00463.html">xctocc documentation link bad?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00468"><strong>Date</strong></a></li>
+<li><a href="threads.html#00468"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

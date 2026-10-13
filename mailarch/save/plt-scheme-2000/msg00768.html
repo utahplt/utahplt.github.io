@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: process* in MSDOS (Win 95) ? -->
+<!--X-From-R13: Xbua Qybagf <wpybagfNznfgarg.arg> -->
+<!--X-Date: Tue, 25 Jul 2000 13:32:36 &#45;0600 (MDT) -->
+<!--X-Message-Id: 397DEAAF.4AF5@mastnet.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200007251851.MAA24233@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>process* in MSDOS (Win 95) ?</TITLE>
+<LINK REV="made" HREF="mailto:jclonts@mastnet.net">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00767.html">Date Prev</A>][<A HREF="msg00769.html">Date Next</A>][<A HREF="msg00767.html">Thread Prev</A>][<A HREF="msg00769.html">Thread Next</A>][<A HREF="maillist.html#00768">Date Index</A>][<A HREF="threads.html#00768">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>process* in MSDOS (Win 95) ?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: process* in MSDOS (Win 95) ?</LI>
+<LI><em>From</em>: John Clonts &lt;<A HREF="mailto:jclonts@mastnet.net">jclonts@mastnet.net</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 25 Jul 2000 14:29:51 -0500</LI>
+<LI><em>Organization</em>: Myself</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00767.html">200007251851.MAA24233@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Reply-To</em>: <A HREF="mailto:jclonts@mastnet.net">jclonts@mastnet.net</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Whenever I try to read from the stdout of a process*, it returns #&lt;eof&gt;.
+
+To wit:
+
+(define cmd "d:\\djgpp\\johnsrc\\misc\\a.exe")
+(define ports (process* cmd))
+(define (status) ((list-ref ports 4) 'status))
+(define (readnext)(read (car ports)))
+
+&gt; (status)
+done-ok
+&gt; (readnext)
+#&lt;eof&gt;
+
+
+(My a.exe writes "hello\nworld" to stdout).
+
+Is this a limitation, bug, or am I misusing this facility in some way?
+
+Cheers,
+John
+
+P.S. DrScheme 101
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00769" HREF="msg00769.html">Re: process* in MSDOS (Win 95) ?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00770" HREF="msg00770.html">process* in MSDOS (Win 95) ?</A></STRONG>
+<UL><LI><EM>From:</EM> Vardhan Varma &lt;vardhan@cadence.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00767" HREF="msg00767.html">I/O bugs</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00767.html">I/O bugs</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00769.html">Re: process* in MSDOS (Win 95) ?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00767.html">I/O bugs</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00769.html">Re: process* in MSDOS (Win 95) ?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00768"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00768"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

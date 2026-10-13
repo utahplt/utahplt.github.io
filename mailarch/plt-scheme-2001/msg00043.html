@@ -1,0 +1,183 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Another threading question -->
+<!--X-From-R13: Perag Thytunz <oshytunzNqrovna.bet> -->
+<!--X-Date: Tue, 16 Jan 2001 21:42:05 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010116205140.A2752@debian.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010111215617.A3193@debian.org -->
+<!--X-Reference: 20010114142733.QGVN8967.femail8.sdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Another threading question</title>
+<link rev="made" href="mailto:bfulgham@debian.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00042.html">Date Prev</a>][<a href="msg00044.html">Date Next</a>][<a href="msg00037.html">Thread Prev</a>][<a href="msg00041.html">Thread Next</a>][<a href="maillist.html#00043">Date Index</a>][<a href="threads.html#00043">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Another threading question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Another threading question</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Date</em>: Tue, 16 Jan 2001 20:51:40 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00037.html">20010114142733.QGVN8967.femail8.sdc1.sfba.home.com@localhost</a>&gt;; from mflatt@cs.utah.edu on Sun, Jan 14, 2001 at 06:27:33AM -0800</li>
+<li><em>References</em>: &lt;<a href="msg00036.html">20010111215617.A3193@debian.org</a>&gt; &lt;<a href="msg00037.html">20010114142733.QGVN8967.femail8.sdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.12i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Sun, Jan 14, 2001 at 06:27:33AM -0800, Matthew Flatt wrote:
+&gt; More specifically, I'm guessing that you have
+&gt; 
+&gt;  (thread (exn-catching-apply (lambda () ... do work ...)))
+&gt; 
+&gt; and you need to thunk the application:
+&gt; 
+&gt;  (thread (lambda () (exn-catching-apply (lambda () ... do work ...))))
+&gt; 
+&gt; Probably you'll need to use scheme_make_closed_prim to implement the
+&gt; outer thunk.
+&gt; 
+
+I went back to my working &quot;non-threaded&quot; version of the code,
+and tried to run an &quot;application&quot; that looks like this:
+
+(thread
+  (lambda ()
+    (begin
+      (display &quot;Content-type: text/html&quot;)
+      (newline)
+      (newline)
+      (display &quot;&lt;HTML&gt;&lt;HEAD&gt;&quot;)
+      (display &quot;&lt;TITLE&gt;Test&lt;/TITLE&gt;&quot;)
+      (display &quot;&lt;BODY&gt;&lt;H1&gt;Another Test&lt;/H1&gt;&quot;)
+      (display &quot;Another Exceptional Test!&quot;)
+      (display &quot;&lt;B&gt;&quot;)
+      (display &quot;Did I work?&quot;)
+      (display &quot;&lt;/HTML&gt;&quot;))
+))
+
+But again I got the same group of errors:
+
+[Switching to Thread 4101 (LWP 2729)]
+0x402329ae in is_stack_too_shallow2 () at ./process.c:1610
+1610      scheme_check_stack_ok(s);
+(gdb) bt
+#0  0x402329ae in is_stack_too_shallow2 () at ./process.c:1610
+#1  0x402329d5 in is_stack_too_shallow () at ./process.c:1620
+#2  0x40232a47 in scheme_thread_w_manager (thunk=0x40316538, 
+    config=0x402d4270, mgr=0x0) at ./process.c:1669
+#3  0x4023283e in scheme_thread (thunk=0x40316538, config=0x402d4270)
+    at ./process.c:1525
+#4  0x40232872 in sch_thread (argc=1, args=0x402ebe38) at ./process.c:1535
+#5  0x4020c260 in scheme_do_eval (obj=0x4032f788, num_rands=1, 
+    rands=0x402ebe38, get_value=1) at ./eval.c:2592
+#6  0x4020c88c in eval_k () at ./eval.c:2997
+#7  0x402112b5 in scheme_top_level_do (k=0x4020c7ec &lt;eval_k&gt;, eb=1)
+    at ./fun.c:883
+#8  0x4020c8e3 in _eval (obj=0x40316540, isexpr=0, multi=0, top=1)
+    at ./eval.c:3014
+#9  0x4020c8fc in scheme_eval_compiled (obj=0x40316540) at ./eval.c:3021
+#10 0x40203a22 in handle_request (request=0x81a6a30) at mv_interps.cc:333
+#11 0x40203cd2 in Run (arg=0x8161e40) at mv_interps.cc:402
+#12 0x811910b in NsThreadMain ()
+#13 0x4002dc95 in pthread_start_thread () from /lib/libpthread.so.0
+#14 0x4002dcdd in pthread_start_thread_event () from /lib/libpthread.so.0
+
+Does this code look right?  Actually, I guess the code actually looks
+like this:
+
+(begin
+ (thread
+  (lambda ()
+    (begin
+      (display &quot;Content-type: text/html&quot;)
+      (newline)
+      (newline)
+      (display &quot;&lt;HTML&gt;&lt;HEAD&gt;&quot;)
+      (display &quot;&lt;TITLE&gt;Test&lt;/TITLE&gt;&quot;)
+      (display &quot;&lt;BODY&gt;&lt;H1&gt;Another Test&lt;/H1&gt;&quot;)
+      (display &quot;Another Exceptional Test!&quot;)
+      (display &quot;&lt;B&gt;&quot;)
+      (display &quot;Did I work?&quot;)
+      (display &quot;&lt;/HTML&gt;&quot;))
+)))
+
+Which is then compiled to a thunk prior to being run as:
+
+scheme_eval_compiled(thunk, env);
+
+(Where 'env' right now is just the regular scheme_config
+environment).
+
+Shouldn't this test at least work?  I'm wondering if my
+SGC-built MzScheme has some kind of threading bug in it...
+
+Any ideas?
+
+Thanks,
+
+-Brent
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00036" href="msg00036.html">Another threading question</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;bfulgham@debian.org&gt;</li></ul></li>
+<li><strong><a name="00037" href="msg00037.html">Re: Another threading question</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00042.html">Threading Challenges Continue....</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00044.html">Vanishing MrEd</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00037.html">Re: Another threading question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00041.html">RE: Another threading question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00043"><strong>Date</strong></a></li>
+<li><a href="threads.html#00043"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: module: How to specify indirect exports =?iso&#45;8859&#45;1?q?positively=3F?= -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Tue, 23 Apr 2002 08:54:17 &#45;0600 (MDT) -->
+<!--X-Message-Id: iss.3599.3cc57590.a9bf.1@merkur.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>module: How to specify indirect exports positively?</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00783.html">Date Prev</a>][<a href="msg00785.html">Date Next</a>][<a href="msg00778.html">Thread Prev</a>][<a href="msg00787.html">Thread Next</a>][<a href="maillist.html#00784">Date Index</a>][<a href="threads.html#00784">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>module: How to specify indirect exports positively?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: module: How to specify indirect exports positively?</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Tue, 23 Apr 2002 16:54:05 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm using the module system very much now and came to a point where I
+could not find a practical solution:
+
+In module B i want to use some prefixed definitions from module A and
+export these definitions with their original names. Propably, I could
+do this like so:
+
+(module B mzscheme
+  (require (prefix a. A))
+  (provide (all-from-except A 
+              def0
+              def1 
+              ...))
+  &lt;Body-of-module-B&gt;
+  )
+
+... but this is a queer solution because
+
+a) I want to provide no more than a third of the definitions of A
+which would make specifying the non-exports a pain.
+
+b) The provide-part of module B shall serve as a kind of &quot;what can I
+do with this module ?&quot;-overview rather than a &quot;what can I not do with
+this module?&quot;-overview to prevent proliferation of semicolon.
+
+Is there any possibility to specify indirect exports positively?
+
+Sebastian
+
+
+PS: 
+(require (prefix &lt;prefix-id&gt; &lt;module-id&gt;)) has similar limitations but
+that is currently no problem for me.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00787" href="msg00787.html">Re: module: How to specify indirect exports positively?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00783.html">Re: define-macro bug?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00785.html">SAS'02 CFP Reminder -- Submission Deadline May 5, 2002</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00778.html">ICLP02 Call for Participation</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00787.html">Re: module: How to specify indirect exports positively?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00784"><strong>Date</strong></a></li>
+<li><a href="threads.html#00784"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

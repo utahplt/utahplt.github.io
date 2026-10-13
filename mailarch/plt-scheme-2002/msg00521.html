@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: scsh in PLT Scheme? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 26 Mar 2002 17:47:58 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203270047.g2R0lnL16879@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c1d507$aee69940$70730a81@NORTHEASDX5RFA -->
+<!--X-Reference: 15521.4752.423373.621592@winona.neilvandyke.org -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: scsh in PLT Scheme?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00520.html">Date Prev</a>][<a href="msg00522.html">Date Next</a>][<a href="msg00520.html">Thread Prev</a>][<a href="msg00523.html">Thread Next</a>][<a href="maillist.html#00521">Date Index</a>][<a href="threads.html#00521">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: scsh in PLT Scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Neil W. Van Dyke&quot; &lt;<A HREF="mailto:nwv@neilvandyke.org">nwv@neilvandyke.org</A>&gt;</li>
+<li><em>Subject</em>: Re: scsh in PLT Scheme?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 26 Mar 2002 17:47:49 -0700 (MST)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00520.html">15521.4752.423373.621592@winona.neilvandyke.org</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00514.html">000001c1d507$aee69940$70730a81@NORTHEASDX5RFA</a>&gt;	&lt;<a href="msg00520.html">15521.4752.423373.621592@winona.neilvandyke.org</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Tue, 26 Mar 2002 19:30:08 -0500, &quot;Neil W. Van Dyke&quot; wrote:
+&gt;   1. Ability to bind a socket to a specific address.
+
+This is on my near-term list.
+
+&gt;   2. Block I/O, for low-level efficiency when doing things like
+&gt;      shuffling blocks of bytes verbatim between ports.  In Guile, these
+&gt;      are &quot;read-string!/partial&quot; and &quot;write-string!/partial&quot;.
+
+`read-string', `read-string-avail!', and `write-string/avail'.
+
+&gt;   3. Ability to make socket I/O be non-blocking.  In Guile, this is:
+&gt;      (fcntl port F_SETFL (logior O_NONBLOCK (fcntl port F_GETFL)))
+
+`read-string-avail!' and `write-string/avail' support non-blocking I/O
+patterns.
+
+&gt;   4. Posix &quot;select&quot; or similar.
+
+`object-wait'. It doesn't support output ports at the moment, but it
+will within a couple of weeks (if a re-write of Windows I/O goes as
+planned).
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00514" href="msg00514.html">scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00520" href="msg00520.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Neil W. Van Dyke&quot; &lt;nwv@neilvandyke.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00520.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00522.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00520.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00523.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00521"><strong>Date</strong></a></li>
+<li><a href="threads.html#00521"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

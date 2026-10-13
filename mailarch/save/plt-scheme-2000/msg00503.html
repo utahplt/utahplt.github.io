@@ -1,0 +1,177 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: Zrb Dnmbhzbi  <yenmbhzbiNdhnypbzz.pbz> -->
+<!--X-Date: Sun, 27 Feb 2000 11:46:50 &#45;0700 (MST) -->
+<!--X-Message-Id: 200002271846.KAA00527@balu.qualcomm.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20000227060809.FVPH21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] HOWTO redirect a i/o-port in Unix??</TITLE>
+<LINK REV="made" HREF="mailto:lrazoumov@qualcomm.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00502.html">Date Prev</A>][<A HREF="msg00504.html">Date Next</A>][<A HREF="msg00502.html">Thread Prev</A>][<A HREF="msg00504.html">Thread Next</A>][<A HREF="maillist.html#00503">Date Index</A>][<A HREF="threads.html#00503">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] HOWTO redirect a i/o-port in Unix??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</LI>
+<LI><em>From</em>: Leo Razoumov  &lt;<A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 27 Feb 2000 10:46:45 -0800 (PST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A>, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-reply-to</em>: &lt;<A HREF="msg00502.html">20000227060809.FVPH21637.mail.rdc1.sfba.home.com@localhost</A>&gt;(message from Matthew Flatt on Sat, 26 Feb 2000 22:08:09 -0800)</LI>
+<LI><em>Reply-To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;&gt;&gt;&gt;&gt; "MF" == Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+    MF&gt; Quoting Leo Razoumov:
+    &gt;&gt; Your solution would not work (in general) if you are redirecting more
+    &gt;&gt; than one port at once because it may cause a dead-lock situation.
+    &gt;&gt; [...]
+    &gt;&gt; The dead-lock symptoms are:
+    &gt;&gt; 1). MzScheme will block in the myprog's stderr read/write loop when there is
+    &gt;&gt; nothing to read from the stderr.
+    &gt;&gt; 2). "myprog" will block at the same time if it fills up the output buffer
+    &gt;&gt; of its stdout pipe. This pipe is not being consumed at the MzScheme end
+    &gt;&gt; because MzScheme is blocked by item 1).
+
+    MF&gt; I don't think your example quite captures a problem. In MzScheme, when
+    MF&gt; one thread is blocked on a read, other threads can proceed. In the
+    MF&gt; above example, when the stderr-reading thread is blocked, the
+    MF&gt; stdout-reading thread can proceed.
+
+    MF&gt; However, in 101 and previous versions, a MzScheme thread blocked on a
+    MF&gt; *write* would actually block all MzScheme threads. This has been fixed
+    MF&gt; in 102, so that pipelines can be implemented reliably. (The build
+    MF&gt; process for MzScheme2k uses a pipeline.)
+
+GREAT!!!! When is 102 released??
+
+    &gt;&gt; However, a much simplier solution would be to provide a primitive
+    &gt;&gt; function like (redirect-port! FROM TO) which essentially does dup2
+    &gt;&gt; and let Operating System handle all the gory details of I/O
+    &gt;&gt; operations.
+
+    MF&gt; Operating systems aren't as good at this as you might think :), at
+    MF&gt; least not in my opinion. 
+
+But they are getting better:-) 
+
+    MF&gt; While getting [non-]blocking output to work
+    MF&gt; right in MzScheme, I had to learn about all the ways that Unix's
+    MF&gt; select() and the non-blocking flags are broken, particularly when TTYs
+    MF&gt; are involved. 
+
+For such simple things as dup2 it is not necessary.
+
+    MF&gt; Probably dup2 really would work well in Unix for many purposes, but
+    MF&gt; then there are arbitrary ports (not to mention Windows and MacOS) to
+    MF&gt; worry about. 
+
+dup2 is a POSIX.1 function and therefore should be supported by WinNT, Win2000
+as well. 
+
+    MF&gt; I speculate that a `redirect-port!' that worked precisely
+    MF&gt; like dup2 on file descriptions would be hard to define for other kinds
+    MF&gt; of ports; we would implement the general case like the code I sent out,
+    MF&gt; but unless that code is exposed by the definition of `redirect-port!',
+    MF&gt; its definition would have to tackle messy issues related to thread and
+    MF&gt; resource control with custodians, etc.
+
+I agree with the points you are making. It is probably *NOT* a good idea to make
+redirect-port! a part of the MzScheme *CORE* language. But I still beleive it is
+worthwhile to have a Unix (POSIX) extension library which provides most handy
+pieces of Unix API. 
+
+Also there is another problem with "copy-stream" implementation of redirect-port:
+with a read/write approach it is all but impossible to synchronize FROM and TO
+stream positions. What happens if my subprocess "myprog" uses 'lseek' and
+repositions its output file position. This new position will not be propagated
+into the redirected MzScheme port without "myprog" to explicitly send this
+information to MzScheme process over IPC (what a mess).  On the other hand
+file descriptors duplicated with dup2 share file positions and such a problem
+does not happen (dup2 is also MT-safe).
+
+I am trying to promote Scheme (in particular MzScheme) here as a universal
+scripting/extension language and to drop Perl (Tk/Tcl) all together. My
+colleagues are keeping asking me "nasty" practical questions like: how do I do
+this-and-that in Scheme what I can do in Perl in the middle of a night with my
+eyes closed?  What should I answer?
+
+-- Leo
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++  Leonid Razoumov,               +  E-mail: lrazoumov@qualcomm.com   +
++  Qualcomm Inc.,                 +  <A  HREF="http://www.qualcomm.com">http://www.qualcomm.com</A>          +
++  5775 Morehouse Drive,          +                                   +
++  San Diego, CA 92121-1714,      +  VOICE:  +1-858/651-5163          +
++        USA                      +    FAX:  +1-858/658-2113          +
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00504" HREF="msg00504.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00505" HREF="msg00505.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00502" HREF="msg00502.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00502.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00504.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00502.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00504.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00503"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00503"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

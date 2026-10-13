@@ -1,0 +1,108 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Problems with process* -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 2 Apr 2000 20:03:21 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000403020318.GDHM19529.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14567.63092.415086.878914@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Problems with process*</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00229.html">Date Prev</A>][<A HREF="msg00231.html">Date Next</A>][<A HREF="msg00229.html">Thread Prev</A>][<A HREF="msg00231.html">Thread Next</A>][<A HREF="maillist.html#00230">Date Index</A>][<A HREF="threads.html#00230">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Problems with process*</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Problems with process*</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 2 Apr 2000 19:03:18 -0700</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00229.html">14567.63092.415086.878914@mojave.cs.cornell.edu</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00229.html">14567.63092.415086.878914@mojave.cs.cornell.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Eli Barzilay:
+&gt; Anyway - process* is used a *lot* to get cksums and permission bits
+&gt; for many files (that's on Linux), and every once in a while the whole
+&gt; thing just crashes with a
+&gt; 
+&gt;   make-file-input-port(internal): null file pointer
+
+As far as I can tell, this requires that fdopen() returns NULL. Why
+would it do that? Maybe you could change the null-file-pointer error in
+port.c to include the value of errno; it might provide a useful hint.
+
+In any case, the specific symptom should go away in 102 (starting with
+102/10), which doesn't use fdopen() anymore. But I wonder whether it
+will be replaced by an error when reading/writing to the port.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00231" HREF="msg00231.html">Re: Problems with process*</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00229" HREF="msg00229.html">Problems with process*</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00229.html">Problems with process*</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00231.html">Re: Problems with process*</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00229.html">Problems with process*</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00231.html">Re: Problems with process*</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00230"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00230"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

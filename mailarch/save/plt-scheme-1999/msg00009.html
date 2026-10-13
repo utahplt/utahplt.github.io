@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: changing display methods for structures, etc? -->
+<!--X-From-R13: "Ivyy Tvgmtrenyq" <svgmtrenyqNarbqrfvp.pbz> -->
+<!--X-Date: Tue, 28 Dec 1999 11:22:19 &#45;0700 (MST) -->
+<!--X-Message-Id: 000e01bf5160$758d5490$11969fd0@fitzgerald_nt -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>changing display methods for structures, etc?</TITLE>
+<LINK REV="made" HREF="mailto:fitzgerald@neodesic.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00008.html">Date Prev</A>][<A HREF="msg00010.html">Date Next</A>][<A HREF="msg00008.html">Thread Prev</A>][<A HREF="msg00010.html">Thread Next</A>][<A HREF="maillist.html#00009">Date Index</A>][<A HREF="threads.html#00009">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>changing display methods for structures, etc?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: changing display methods for structures, etc?</LI>
+<LI><em>From</em>: "Will Fitzgerald" &lt;<A HREF="mailto:fitzgerald@neodesic.com">fitzgerald@neodesic.com</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 28 Dec 1999 13:22:12 -0500</LI>
+<LI><em>Importance</em>: Normal</LI>
+<LI><em>Reply-To</em>: &lt;<A HREF="mailto:fitzgerald@neodesic.com">fitzgerald@neodesic.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+If I create a structure in MzScheme, e.g.,
+
+(define-struct task (name priority))
+
+And then display an instance:
+
+(display (make-task 'my-task 100))
+
+I get something like:
+
+#&lt;struct:task&gt;
+
+Is there a method for defining a print method (like Common Lisp's
+PRINT-OBJECT) that would allow me print out the fields of the structure
+as well as the 'unique id' of the structure? This would help greatly in
+debugging.
+
+For example:
+
+#&lt;struct:task 32323 :name my-task :priority 100&gt;
+
+--
+Will
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00010" HREF="msg00010.html">Re: changing display methods for structures, etc?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00011" HREF="msg00011.html">Re: changing display methods for structures, etc?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00008.html">Re: Trying to create a struct in a Mzscheme extension.</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00010.html">Re: changing display methods for structures, etc?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00008.html">Re: Trying to create a struct in a Mzscheme extension.</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00010.html">Re: changing display methods for structures, etc?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00009"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00009"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

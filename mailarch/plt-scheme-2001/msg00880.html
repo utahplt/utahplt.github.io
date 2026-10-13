@@ -1,0 +1,192 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: need help with syntax&#45;case/syntax/datum&#45;>syntax&#45;object -->
+<!--X-From-R13: Rbht Aeyrnaf <qbhtbNppf.arh.rqh> -->
+<!--X-Date: Mon, 10 Sep 2001 08:44:12 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15260.48588.398273.30402@vega.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>need help with syntax-case/syntax/datum-&gt;syntax-object</title>
+<link rev="made" href="mailto:dougo@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00879.html">Date Prev</a>][<a href="msg00881.html">Date Next</a>][<a href="msg00879.html">Thread Prev</a>][<a href="msg00887.html">Thread Next</a>][<a href="maillist.html#00880">Date Index</a>][<a href="threads.html#00880">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>need help with syntax-case/syntax/datum-&gt;syntax-object</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: need help with syntax-case/syntax/datum-&gt;syntax-object</li>
+<li><em>From</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 10 Sep 2001 09:19:08 -0400 (EDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm trying to grok the new syntax mechanism, but having some
+difficulty.
+
+First of all, I think there is a bug in the MzScheme Language Manual.
+Section 11.1.1 says:
+
+  The syntax-rules form can be expressed as a syntax-case form wrapped
+  in lambda:
+
+	 (syntax-rules (literal-identifier ···)
+	   ((ignored-identifier . pattern) template)
+	   ···)
+	=expands=&gt;
+	 (lambda (stx)
+	   (syntax-case stx (literal-identifier ···)
+	     ((generated-identifier . pattern) template)
+	     ···))
+
+My (shaky) understanding of syntax-case makes me believe this should
+instead be:
+
+	 (lambda (stx)
+	   (syntax-case stx (literal-identifier ···)
+	     ((generated-identifier . pattern) (syntax template))
+	     ···))
+
+Please correct me if I'm wrong.
+
+Okay, here's what I'm trying to do (or rather, here's a simple example 
+that exhibits the same problem as what I'm trying to do does):
+
+  (define-syntax lambda-foo
+    (lambda (x)
+      (syntax-case x ()
+	((_ body ...)
+	 (with-syntax ((foo (datum-&gt;syntax-object (syntax _) 'foo)))
+	   (syntax (lambda (foo) body ...)))))))
+
+This makes a special form in which the magic variable &quot;foo&quot; is available:
+
+  &gt; (define add1 (lambda-foo (+ foo 1)))
+  &gt; (add1 3)
+  4
+
+All well and good.  But when I make another macro that uses this, I
+run into problems:
+
+  (define-syntax traced-lambda-foo-1
+    (lambda (x)
+      (syntax-case x ()
+	((_ body ...)
+	 (syntax (lambda-foo (display foo) (newline) body ...))))))
+
+  &gt; (define add1 (traced-lambda-foo-1 (+ foo 1)))
+  &gt; (add1 3)
+  3
+  reference to undefined identifier: foo
+
+Here's what it's being expanded to:
+
+  &gt; (pretty-print (syntax-object-&gt;datum (expand '(traced-lambda-foo-1 (+ foo 1)))))
+  (lambda (foo)
+    (#%app (#%top . display) foo)
+    (#%app (#%top . newline))
+    (#%app (#%top . +) (#%top . foo) (#%datum . 1)))
+
+The second &quot;foo&quot; gets tagged as a top-level-variable reference, rather 
+than a reference to the bound variable.  Why is this happening?  Why
+does it work for the first foo but not the second?
+
+Here's my attempt at fixing it:
+
+  (define-syntax traced-lambda-foo-2
+    (lambda (x)
+      (syntax-case x ()
+	((_ body ...)
+	 (with-syntax ((foo (datum-&gt;syntax-object (syntax _) 'foo)))
+	   (syntax (lambda-foo (display foo) (newline) body ...)))))))
+
+But that just makes it worse:
+
+  &gt; (pretty-print (syntax-object-&gt;datum (expand '(traced-lambda-foo-2 (+ foo 1)))))
+  (lambda (foo)
+    (#%app (#%top . display) (#%top . foo))
+    (#%app (#%top . newline))
+    (#%app (#%top . +) (#%top . foo) (#%datum . 1)))
+
+Both &quot;foo&quot;s now turn into tlv references.  Can someone walk me through 
+what's going on here?  Is there a way to get this to work right?
+
+Even more perplexing is when I try to step through the macro expansion 
+using expand-once:
+
+  &gt; (pretty-print (syntax-object-&gt;datum (expand-once '(traced-lambda-foo-1 (+ foo 1)))))
+  (lambda-foo (display foo) (newline) (+ foo 1))
+  &gt; (pretty-print (syntax-object-&gt;datum (expand-once (expand-once '(traced-lambda-foo-1 (+ foo 1))))))
+  (lambda (foo) (display foo) (newline) (+ foo 1))
+  &gt; (pretty-print (syntax-object-&gt;datum (expand-once (expand-once (expand-once '(traced-lambda-foo-1 (+ foo 1)))))))
+  (lambda (foo)
+    (#%app (#%top . display) foo)
+    (#%app (#%top . newline))
+    (#%app (#%top . +) foo (#%datum . 1)))
+
+Why does it seem to do the right thing when expanded incrementally,
+but not when it's expanded all at once?
+
+Thanks for your help.
+
+--Doug Orleans
+dougo@ccs.neu.edu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00887" href="msg00887.html">Re: need help with syntax-case/syntax/datum-&gt;syntax-object</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00879.html">Problems with mzc (Mac)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00881.html">Re: Activity Report of FSF China (fwd)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00879.html">Problems with mzc (Mac)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00887.html">Re: need help with syntax-case/syntax/datum-&gt;syntax-object</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00880"><strong>Date</strong></a></li>
+<li><a href="threads.html#00880"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

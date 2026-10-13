@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Macros: One expression => more than one expression? -->
+<!--X-From-R13: oexNwraxba.pbz -->
+<!--X-Date: Mon, 1 Apr 2002 11:59:42 &#45;0700 (MST) -->
+<!--X-Message-Id: 61AC3AD3E884D411836F0050BA8FE9F3903535@franklin.jenkon.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Macros: One expression =&gt; more than one expression?</title>
+<link rev="made" href="mailto:brk@jenkon.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00630.html">Date Prev</a>][<a href="msg00632.html">Date Next</a>][<a href="msg00629.html">Thread Prev</a>][<a href="msg00634.html">Thread Next</a>][<a href="maillist.html#00631">Date Index</a>][<a href="threads.html#00631">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Macros: One expression =&gt; more than one expression?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Macros: One expression =&gt; more than one expression?</li>
+<li><em>From</em>: <A HREF="mailto:brk@jenkon.com">brk@jenkon.com</A></li>
+<li><em>Date</em>: Mon, 1 Apr 2002 10:58:46 -0800 </li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I was playing around with classes in DrScheme last night, and I made a
+number of classes that had one or more (init-field)s in them. After a while
+I got tired of the typing, and defined a macro like this:
+
+(require (lib &quot;defmacro.ss&quot;))
+
+(define-macro (init-fields . fields)
+  (map (lambda (x) `(init-field ,x)) fields))
+
+Which wasn't quite right. What I wanted was to be able to type:
+
+(class object%
+	(init-fields foo bar baz))
+
+and get:
+
+(class object%
+	(init-field foo)
+	(init-field bar)
+	(init-field baz))
+
+But of course my macro produces:
+
+(class object%
+	((init-field foo)
+	 (init-field bar)
+	 (init-field baz)))
+
+which doesn't work at all...
+
+I can't see any way to have the one expression expand into multiple
+expressions. Hopefully there's something obvious I'm missing here? I know I
+could do it by making my own class macro that would handle (init-fields)
+itself with unquote-splicing, but that's not my question. Can I make a macro
+that expands into more than one expression, without any special support from
+the enclosing context?
+
+Thanks,
+
+Bryn Keller
+Senior Software Engineer
+Jenkon
+brk@jenkon.com
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00634" href="msg00634.html">Re: Macros: One expression =&gt; more than one expression?</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00630.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00632.html">RE: a new port of oleg's ssax xml parser to plt</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00629.html">list in Español</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00634.html">Re: Macros: One expression =&gt; more than one expression?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00631"><strong>Date</strong></a></li>
+<li><a href="threads.html#00631"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

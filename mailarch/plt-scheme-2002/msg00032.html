@@ -1,0 +1,278 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: exceptions -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Sun, 6 Jan 2002 21:17:04 &#45;0700 (MST) -->
+<!--X-Message-Id: 200201070416.XAA25631@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 005901c19729$e2404280$450c1eac@icu19 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>exceptions</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00031.html">Date Prev</a>][<a href="msg00033.html">Date Next</a>][<a href="msg00031.html">Thread Prev</a>][<a href="msg00043.html">Thread Next</a>][<a href="maillist.html#00032">Date Index</a>][<a href="threads.html#00032">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>exceptions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Chris Wright&quot; &lt;<A HREF="mailto:caw@cs.mu.oz.au">caw@cs.mu.oz.au</A>&gt;</li>
+<li><em>Subject</em>: exceptions</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 6 Jan 2002 23:16:31 -0500 (EST)</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00029.html">005901c19729$e2404280$450c1eac@icu19</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00029.html">005901c19729$e2404280$450c1eac@icu19</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi Chris,
+
+As Paul Steckler points out, what you want is the construct
+WITH-HANDLERS.  But you asked for an actual transliteration; here's a
+pretty close approximation.  As you will see, WITH-HANDLERS is a bit
+messy in the raw, but you can easily build abstractions around it to
+suit your needs, and you rarely need its whole power.
+
+&gt; &gt;&gt;&gt; def divider(x):
+&gt; ...     return lambda y : y / x
+&gt; ...
+&gt; &gt;&gt;&gt; halver = divider(2)
+&gt; &gt;&gt;&gt; halver(9)
+&gt; 4 #integer division is the default, but that's changing...
+&gt; &gt;&gt;&gt; halver(4)
+&gt; 2
+
+Here's the equivlent code.  I use ==&gt; to denote output.
+
+  (define (divider x)
+    (lambda (y)
+      (/ y x)))
+
+  (define halver (divider 2))
+  (halver 9)
+  ==&gt;
+  9/2  ;; DrScheme actually prints            1
+       ;; something that looks             4 --- 
+       ;; more like                           2
+       ;; but &quot;copy&quot; turns this 
+       ;; into 9/2 for easy pasting
+
+  (halver 4)
+  ==&gt;
+  2
+
+&gt; &gt;&gt;&gt; bomber = divider(0)
+
+  (define bomber (divider 0))
+
+&gt; &gt;&gt;&gt; bomber(4)
+
+  (bomber 4)
+
+&gt; Traceback (most recent call last):
+&gt;   File &quot;&lt;stdin&gt;&quot;, line 1, in ?
+&gt;   File &quot;&lt;stdin&gt;&quot;, line 2, in &lt;lambda&gt;
+&gt; ZeroDivisionError: integer division or modulo by zero
+
+  ==&gt;
+  /: division by zero
+  ;; DrScheme also highlights the offending expression,
+  ;; and displays a bug; clicking on this gives you a backtrace
+
+&gt; and I can catch exceptions in a very straightforward way:
+&gt; 
+&gt; &gt;&gt;&gt; try:
+&gt; ...     bomber(4)
+&gt; ... except:
+&gt; ...     print &quot;you moron -- something went wrong&quot;
+&gt; ...
+&gt; you moron -- something went wrong
+&gt; 
+&gt; and I can choose which class of exceptions I want to catch
+&gt; 
+&gt; &gt;&gt;&gt; try:
+&gt; ...     bomber(4)
+&gt; ... except ArithmeticError:
+&gt; ...     print &quot;something went wrong with the arithmetic&quot;
+&gt; ...
+&gt; something went wrong with the arithmetic
+&gt; 
+&gt; and even which subclass of ArithmeticError I want to catch
+&gt; 
+&gt; &gt;&gt;&gt; try:
+&gt; ...     bomber(4)
+&gt; ... except ZeroDivisionError:
+&gt; ...     print &quot;You tried to divide by zero!&quot;
+&gt; ...
+&gt; You tried to divide by zero!
+
+PLT Scheme uses a slightly different exception subclass hierarchy, but
+the principle is the same.  Here's an example:
+
+  (with-handlers ([exn:application?
+		   (lambda (exn)
+		     &quot;You made an application error&quot;)])
+    (bomber 4))
+  ==&gt;
+  &quot;You made an application error&quot;
+
+The &quot;parts of speech&quot; are
+
+  (with-handlers ([PREDICATE HANDLER])
+    BODY)
+
+which of course you can generalize to
+
+  (with-handlers ([PREDICATE0 HANDLER0]
+                  [PREDICATE1 HANDLER1]
+                  ...)
+    BODY)
+
+In the example above, I've used the built-in Scheme function
+EXN:APPLICATION? as the predicate.  The handler is a procedure of one
+argument, the exception &quot;package&quot;.  Depending on the exception, you
+have different operators that unbundle the package.
+
+Here's a little function that can test different handlers:
+
+  (define (try-different-exns exn-predicate message)
+    (with-handlers ([exn-predicate (lambda (exn)
+                                     message)])
+      (bomber 4)))
+
+Using this:
+
+  (try-different-exns exn:application:divide-by-zero? 
+		      &quot;You tried to divide by zero!&quot;)
+  ==&gt;
+  &quot;You tried to divide by zero!&quot;
+
+  (try-different-exns exn:application? 
+		      &quot;You made an application error&quot;)
+  ==&gt;
+  &quot;You made an application error&quot;
+
+  (try-different-exns void 
+		      &quot;something went wrong&quot;)
+  ==&gt;
+  &quot;something went wrong&quot;
+
+Notice that in the last example, I use the &quot;predicate&quot; VOID.  VOID is
+a function that accepts any number of arguments (zero or more) and
+returns the &quot;void&quot; value, which is non-false.  Because this value is
+non-false, PLT Scheme invokes the corresponding handler.  Therefore,
+this is useful both for testing/prototyping and as a &quot;catch-all&quot;
+(though in production code, it would be better to explicitly write
+down the identity function here).
+
+To get a list of the predicates, go to Help Desk (in DrScheme, it's in 
+the Help Menu) and search for &quot;exception&quot;.  You'll get an entry
+
+  _exceptions,_primitive_hierarchy_ in &quot;Primitive Exceptions&quot;
+
+Select this.  This lists the exception hierarchy as well as the fields 
+available for use in the handlers.  For instance, the document says, 
+
+  exn : not instantiated directly
+    ...
+    application : not instantiated directly 
+    fields: value -- the error-specific inappropriate value (type: value) 
+    ...
+      divide-by-zero : divide by zero; application-value is always zero 
+
+The text above the table tells us that the predicate name is
+
+  exn:application:divide-by-zero?
+
+and the field
+
+  exn:application-value
+
+of the exception package will always be 0.  Indeed:
+
+  (with-handlers ([exn:application?
+                   (lambda (exn)
+                     (exn:application-value exn))])
+    (bomber 4))
+  ==&gt;
+  0
+
+You can simplify the above code to
+
+  (with-handlers ([exn:application?
+                   exn:application-value])
+    (bomber 4))
+  ==&gt;
+  0
+
+which shows that you don't always need to write (lambda (exn) ...).
+
+Hope that helps get you started.  Indeed, you don't need custodians,
+threads, parameters, etc.  We will produce more tutorial material on
+this in the future.
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00043" href="msg00043.html">Re: exceptions</a></strong>
+<ul><li><em>From:</em> &quot;Chris Wright&quot; &lt;caw@cs.mu.oz.au&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00029" href="msg00029.html">exceptions</a></strong>
+<ul><li><em>From:</em> &quot;Chris Wright&quot; &lt;caw@cs.mu.oz.au&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00031.html">Re: exceptions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00033.html">tcp-listen</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00031.html">Re: exceptions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00043.html">Re: exceptions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00032"><strong>Date</strong></a></li>
+<li><a href="threads.html#00032"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

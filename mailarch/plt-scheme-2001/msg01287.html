@@ -1,0 +1,204 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: mzscheme daemon? -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Wed, 5 Dec 2001 00:55:22 &#45;0700 (MST) -->
+<!--X-Message-Id: 15373.53991.113424.915357@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15373.47839.744894.225369@mojave.cs.cornell.edu -->
+<!--X-Reference: 00cf01c17d58$247e3710$0100a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: mzscheme daemon?</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01286.html">Date Prev</a>][<a href="msg01288.html">Date Next</a>][<a href="msg01286.html">Thread Prev</a>][<a href="msg01288.html">Thread Next</a>][<a href="maillist.html#01287">Date Index</a>][<a href="threads.html#01287">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: mzscheme daemon?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Subject</em>: RE: mzscheme daemon?</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Wed, 5 Dec 2001 02:55:19 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01286.html">00cf01c17d58$247e3710$0100a8c0@femto</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01285.html">15373.47839.744894.225369@mojave.cs.cornell.edu</a>&gt;&lt;<a href="msg01286.html">00cf01c17d58$247e3710$0100a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Dec  5, Anton van Straaten wrote:
+&gt; Thanks - that's probably fine, I just don't know enough about it.  I
+&gt; ran into trouble when I tested starting mzscheme in the background
+&gt; from a shell prompt - when I logged out, the task was automatically
+&gt; terminated.  I realize now that this might have been because I
+&gt; didn't think to redirect the i/o, so it was probably terminating
+&gt; when it lost that.
+
+So, for the sake of completeness I wanted to include the
+/etc/rc.d/init.d/scheme-webserver -- so I cleaned it and this is a
+version that works by itself (the previous script was there so the
+init script will start it with the stadard init functions...).
+
+----------------------------------------------------------------------
+#!/bin/bash
+#
+# Startup script for Eli's Scheme Web Server
+#
+# chkconfig: - 85 15
+# description: Eli's Scheme server.
+# processname: mzscheme
+# pidfile: /var/run/scheme-webserver-daemon.pid
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+prog=scheme-webserver
+pidfile=/var/run/$prog.pid
+sysfile=/var/lock/subsys/httpd
+RETVAL=0
+
+start() {
+  echo -n &quot;Starting $prog: &quot;
+  if [ -f $pidfile -o -f $sysfile ]; then
+    echo -n &quot;pid file or subsys locked&quot;
+    echo_failure
+    echo
+    return 1
+  fi
+  cd /home/eli/scheme/webserver
+  /home/eli/bin/mzscheme \
+    -mf /home/eli/scheme/webserver/server -e -start- -- \
+    `hostname` '80' &lt; /dev/null &gt; /tmp/webserver-log 2&gt;&amp;1 &amp;
+  echo $! &gt; $pidfile
+  # Assume that it always succeeds
+  RETVAL=0
+  echo_success
+  echo
+  touch $sysfile
+  return 0
+}
+
+stop() {
+  echo -n &quot;Stopping $prog: &quot;
+  killproc $prog
+  RETVAL=$?
+  echo
+  [ $RETVAL = 0 ] &amp;&amp; rm -f $pidfile $sysfile
+}
+
+status() {
+  if [ -f $pidfile ]; then
+    read pid &lt; $pidfile
+    if [ &quot;$pid&quot; = &quot;&quot; ] ; then
+      echo &quot;$pidfile is empty&quot;
+      return 1
+    elif ps $pid &gt; /dev/null 2&gt;&amp;1; then
+      echo &quot;$prog (pid $pid) is running...&quot;
+      return 0
+    else
+      echo &quot;$prog dead but pid file exists ($pidfile)&quot;
+      return 1
+    fi
+  fi
+  if [ -f $sysfile ]; then
+    echo &quot;$prog dead but subsys locked ($sysfile)&quot;
+    return 2
+  fi
+  echo &quot;$prog is stopped&quot;
+  return 3
+}
+
+# See how we were called.
+case &quot;$1&quot; in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  status)
+	status
+	RETVAL=$?
+	;;
+  condrestart)
+	if [ -f $pidfile ]; then
+	    stop
+	    start
+	fi
+	;;
+  restart)
+	stop
+	start
+	;;
+  *)
+	echo &quot;Usage: $prog {start|stop|status|condrestart|restart}&quot;
+	exit 1
+esac
+
+exit $RETVAL
+----------------------------------------------------------------------
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01285" href="msg01285.html">Re: mzscheme daemon?</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+<li><strong><a name="01286" href="msg01286.html">RE: mzscheme daemon?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01286.html">RE: mzscheme daemon?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01288.html">Re: mzscheme daemon?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01286.html">RE: mzscheme daemon?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01288.html">Re: mzscheme daemon?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01287"><strong>Date</strong></a></li>
+<li><a href="threads.html#01287"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

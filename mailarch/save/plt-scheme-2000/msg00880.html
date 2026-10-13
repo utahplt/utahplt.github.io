@@ -1,0 +1,102 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: GC&#45;related question -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 26 Aug 2000 08:18:08 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000826141803.HLIN15470.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 39A73518.F1C13739@lokigames.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: GC-related question</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00879.html">Date Prev</A>][<A HREF="msg00881.html">Date Next</A>][<A HREF="msg00876.html">Thread Prev</A>][<A HREF="msg00877.html">Thread Next</A>][<A HREF="maillist.html#00880">Date Index</A>][<A HREF="threads.html#00880">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: GC-related question</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "John R. Hall" &lt;<A HREF="mailto:overcode@lokigames.com">overcode@lokigames.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: GC-related question</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 26 Aug 2000 07:18:03 -0700</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00876.html">39A73518.F1C13739@lokigames.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00876.html">39A73518.F1C13739@lokigames.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting "John R. Hall":
+&gt; I want the Scheme representations of these structures to be GC'ed
+&gt; normally (so that the bindings can be conveniently used in
+&gt; functional-style programs), but I need to be able to free the data they
+&gt; represent before they are lost. How can I do this?
+&gt; 
+&gt; The scheme_register_finalizer function looks something like what I need,
+&gt; but I'm not sure.
+
+Yes, that's what you want. A finalzer for a GCable object is called
+when the object would otherwise have beeen reclaimed. So, your finalizer
+will free the malloced data associated with the Scheme object.
+
+Matthew
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00876" HREF="msg00876.html">GC-related question</A></STRONG>
+<UL><LI><EM>From:</EM> "John R. Hall" &lt;overcode@lokigames.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00879.html">(sans sujet)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00881.html">#&lt;byte&gt;?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00876.html">GC-related question</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00877.html">(sans sujet)</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00880"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00880"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

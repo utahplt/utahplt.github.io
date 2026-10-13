@@ -1,0 +1,26 @@
+#!/usr/bin/env mzscheme -r
+
+(define (sequence start stop)
+  (if (> start stop)
+      '()
+      (cons start (sequence (+ start 1) stop))))
+
+(define (main)
+  (let* ([n (string->number (vector-ref argv 0))]
+	 [x (make-vector n)]
+	 [y (make-vector n)]
+	 [seq (sequence 0 999)]
+	 [nseq (sequence 0 (- n 1))]
+	 [rseq (reverse seq)])
+    (for-each (lambda (i)
+		(vector-set! x i (+ i 1)))
+	      nseq)
+    (for-each (lambda (k)
+		(for-each (lambda (i)
+			    (vector-set! y i (+ (vector-ref y i)
+						(vector-ref x i))))
+			  rseq))
+	      seq)	      
+    (printf "~s ~s" (vector-ref y 0) (vector-ref y (- (vector-length y) 1)))))
+
+(main)

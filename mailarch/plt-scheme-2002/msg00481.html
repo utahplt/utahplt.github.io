@@ -1,0 +1,170 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 200alpha15 (security guards) -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 25 Mar 2002 09:26:44 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203251626.JAA15614@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>200alpha15 (security guards)</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00480.html">Date Prev</a>][<a href="msg00482.html">Date Next</a>][<a href="msg00472.html">Thread Prev</a>][<a href="msg00482.html">Thread Next</a>][<a href="maillist.html#00481">Date Index</a>][<a href="threads.html#00481">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>200alpha15 (security guards)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 200alpha15 (security guards)</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Mar 2002 09:26:42 -0700 (MST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged code in CVS for MzScheme and MrEd is now version
+200alpha15.
+
+The main change in this version is the addition of &quot;security guards&quot; to
+check filesystem and network access.
+
+Security Guards
+---------------
+
+In principle, programmers could always sand-box a program through a
+namespace that constains a retricted set of primitives. But
+constructing a useful and restricted namespace is tedious, at best.
+
+To make sand-boxing easier, we've added an access check around each
+access of the filesystem or network in MzScheme's primitives. The
+access check calls a function provided by the current security guard
+--- as determined by the new `current-security-guard' parameter ---
+giving the guard a pathname/hostname, plus an indication of the kind of
+access that is needed (read, write, etc.). If the function does not
+raise an exception, access is granted.
+
+For example, evaluating the following expression should cut off all
+filesystem and network access:
+
+ (current-security-guard
+     (make-security-guard (current-security-guard)
+         ;; filesystem check:
+         (lambda (who path mode) (raise 'no-filesystem!))
+         ;; network check:
+         (lambda (who host port-number) (raise 'no-network!))))
+
+A new security guard can be created only as a child of an existing
+security guard, and access checks always consult the parent as well as
+the child, so a program can't arbitrarily increase its access by
+creating a new security guard.
+
+See the latest documentation for details.
+
+Security and Extensions
+-----------------------
+
+Extension implementors must insert access check into their code using
+the following new functions:
+
+ void scheme_security_check_file(const char *who, char *filename, int guards);
+ void scheme_security_check_network(const char *who, char *host, int port);
+
+Of course, most sand-boxing security guards will simply disallow the
+loading of extensions.
+
+Why Security Guards Definitely Don't Work, Yet
+----------------------------------------------
+
+A gaping security hole remains in MzScheme: bytecodes (usually from .zo
+files) are not fully validated, so ill-formed bytecodes can in
+principle do arbitrarily bad things. It's not enough to simply cut off
+filesystem access; an expression such as
+
+ (parameterize ([read-accept-compiled #t])
+    (read (open-input-string &quot;#~...&quot;)))
+
+can do anything with a cleverly chosen &quot;...&quot;, I think.
+
+Also, MrEd is still missing some access checks.
+
+These bugs will be fixed soon.
+
+Will Security Guards Ever Work?
+-------------------------------
+
+I think so, but I'm interested in feedback (either about the interface
+or the implementation) from anyone who knows something about security.
+
+There are *so many* things that can go wrong. For example, in my
+initial specification, the string and list passed to a security-guard
+procedure were mutable, so a child security guard could mutate the
+arguments before the parent security guard saw them. I caught that one,
+but I wonder how many other things I've missed.
+
+(Knowing just a little about security, and knowing a fair bit about the
+PLT Scheme infrastructure, my guess is that the problem is no more
+difficult than the problem of preventing seg faults --- but, almost by
+definition, also no easier.)
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00482" href="msg00482.html">Re: 200alpha15 (security guards)</a></strong>
+<ul><li><em>From:</em> ptg@ccs.neu.edu (Paul T. Graunke)</li></ul></li>
+<li><strong><a name="00497" href="msg00497.html">Re: 200alpha15 (security guards)</a></strong>
+<ul><li><em>From:</em> &quot;Neil W. Van Dyke&quot; &lt;nwv@neilvandyke.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00480.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00482.html">Re: 200alpha15 (security guards)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00472.html">Re: Strong typing, dynamical languages, what to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00482.html">Re: 200alpha15 (security guards)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00481"><strong>Date</strong></a></li>
+<li><a href="threads.html#00481"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

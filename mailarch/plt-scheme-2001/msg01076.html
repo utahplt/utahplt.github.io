@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: is too an application -->
+<!--X-From-R13: "Uert Brgglwbua" <ctert14Ndjrfg.arg> -->
+<!--X-Date: Sun, 21 Oct 2001 12:14:13 &#45;0600 (MDT) -->
+<!--X-Message-Id: 001701c15a5c$c8e8b6f0$6500a8c0@gregpwin2k -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110102329.f9ANTnH19850@wrath.cs.utah.edu -->
+<!--X-Reference: 000e01c15a51$bcc32140$6500a8c0@gregpwin2k -->
+<!--X-Reference: 200110211716.KAA28021@albatross.prod.itd.earthlink.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: is too an application</title>
+<link rev="made" href="mailto:pgreg14@qwest.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01075.html">Date Prev</a>][<a href="msg01077.html">Date Next</a>][<a href="msg01075.html">Thread Prev</a>][<a href="msg01077.html">Thread Next</a>][<a href="maillist.html#01076">Date Index</a>][<a href="threads.html#01076">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: is too an application</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: is too an application</li>
+<li><em>From</em>: &quot;Greg Pettyjohn&quot; &lt;<A HREF="mailto:pgreg14@qwest.net">pgreg14@qwest.net</A>&gt;</li>
+<li><em>Date</em>: Sun, 21 Oct 2001 11:18:29 -0700</li>
+<li><em>Delivered-To</em>: fixup-plt-scheme@fast.cs.utah.edu@fixme</li>
+<li><em>References</em>: &lt;<a href="msg01024.html">200110102329.f9ANTnH19850@wrath.cs.utah.edu</a>&gt;	&lt;<a href="msg01074.html">000e01c15a51$bcc32140$6500a8c0@gregpwin2k</a>&gt; &lt;<a href="msg01075.html">200110211716.KAA28021@albatross.prod.itd.earthlink.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Robert Bruce Findler wrote:
+&gt; This won't explain why, but if you write something like this:
+&gt; 
+&gt;   (lambda x (send test1 . x))
+&gt; 
+&gt; you should be okay.
+
+
+OK, that helps, but suppose I want to do something like this:
+
+
+(define t%
+  (class object%
+    (public t1 t2)
+    (define t1
+      (lambda x
+        (printf &quot;t1 called with args: ~a~n&quot; x)))
+    
+    (define t2
+      (lambda x
+        (printf &quot;t2 called with args: ~a~n&quot; x)
+        (let ([y (cons 'foo x)])
+          (send this t1 . y))))
+    (super-instantiate ())))
+
+(define t (instantiate t% ()))
+(send t t2 'a 'b 'c 'd)
+
+How can I rewrite t2 without using the embedded let?
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01077" href="msg01077.html">Re: is too an application</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01024" href="msg01024.html">199.25</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="01074" href="msg01074.html">is too an application</a></strong>
+<ul><li><em>From:</em> &quot;Greg Pettyjohn&quot; &lt;pgreg14@qwest.net&gt;</li></ul></li>
+<li><strong><a name="01075" href="msg01075.html">Re: is too an application</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01075.html">Re: is too an application</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01077.html">Re: is too an application</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01075.html">Re: is too an application</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01077.html">Re: is too an application</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01076"><strong>Date</strong></a></li>
+<li><a href="threads.html#01076"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

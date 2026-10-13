@@ -1,0 +1,177 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Added a class to MrEd. -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Sun, 24 Dec 2000 01:36:37 &#45;0700 (MST) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B91BE3D28@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Added a class to MrEd.</TITLE>
+<LINK REV="made" HREF="mailto:GregP@bsquare.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01176.html">Date Prev</A>][<A HREF="msg01178.html">Date Next</A>][<A HREF="msg01176.html">Thread Prev</A>][<A HREF="msg01178.html">Thread Next</A>][<A HREF="maillist.html#01177">Date Index</A>][<A HREF="threads.html#01177">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Added a class to MrEd.</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Added a class to MrEd.</LI>
+<LI><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 24 Dec 2000 00:35:52 -0800</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Helpful folks on the mailing list,
+
+I recently added a new primitive class, simple%, to MrEd. It doesn't do very
+much.
+It is equivalent to the following
+
+(define simple%
+  (class object% (num)
+    (sequence (super-init))
+    (public
+      [get-num (lambda () num)])))
+
+except that it has been implemented using the C interface.
+
+I intend to implement a prototype OpenGL canvas, that should work with MrEd,
+shortly.
+
+Anyway, simple% is my "hello world" version of a new MrEd class. I
+successfully, added it
+to the MrEd project and compiled it. Along with several other things, I
+figured out that 
+I needed to add "simple%" to the propgate.ss file and do a makewrap.bat.
+
+I started MrEd and tried it out and my simple% class works as expected, but
+with one
+quirk.
+
+When I start I get a small MrEd error window with the following:
+
+"
+compound-unit/sig: 2nd linkage (mred signature) for hierlist is
+missing a value name `simple%', required by hierlist unit's
+2nd import (mred^ signature)
+"
+
+I suppose that somewhere there is a compound-unit/sig expression that isn't
+happy
+with the fact that MrEd now implements a new primitve class called simple%.
+I suppose
+further that the compound-unit/sig must have something to do with this
+hierlist thingy.
+So I go to \plt\collects\hierlist and find hierlistr.ss which contains this
+business:
+
+(unit/sig hierlist^
+  (import mzlib:function^
+	  mred^)
+
+  ...implementation of hierlist
+
+So it appears that hierlist is a unit who's second import must satisfy mred^
+
+I root around in the collects tree a little more and under
+D:\PLT\collects\drscheme\tools\project-manager
+I find the file unit.ss containing this business:
+
+(compound-unit/sig
+  (import [mred : mred^]
+	  [core : mzlib:core^]
+	  [fw : framework^]
+	  [pc : mzlib:print-convert^]
+	  [drscheme : drscheme:export^]
+	  [zodiac : zodiac:system^])
+
+  (link
+   [hierlist : hierlist^ ((require-library "hierlistr.ss" "hierlist") (core
+function) mred)]
+   [main : () ((require-library "main.ss" "drscheme" "tools"
+"project-manager")
+	       mred
+	       core
+               pc
+	       fw
+	       drscheme
+	       zodiac
+	       hierlist)])
+  (export))
+
+So this duvalaki, takes several units and combines them together yielding
+still another unit, which unit doesn't
+export anything. This last unit can be invoked.
+
+So is this the compound-unit/sig that isn't pleased with my addition of
+simple%?
+What's it complaining about? after all, the new signature file
+(plt/collects/mred/sig.ss) for mred that makewrap.bat 
+spit out for me has simple% in it.
+
+So is there another version of the mred signature data kicking around which
+needs to be kept in sync with
+the new version I created? I'm guessing now, but does this have anything to
+do with .zo files?
+
+Thanks.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01178" HREF="msg01178.html">Re: Added a class to MrEd.</A></STRONG>
+<UL><LI><EM>From:</EM> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01176.html">Re: Distribution of MrEd-based apps</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01178.html">Re: Added a class to MrEd.</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01176.html">Re: Distribution of MrEd-based apps</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01178.html">Re: Added a class to MrEd.</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01177"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01177"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

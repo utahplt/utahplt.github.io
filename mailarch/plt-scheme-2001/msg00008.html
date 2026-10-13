@@ -1,0 +1,120 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Senora GC ? -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Tue, 2 Jan 2001 11:55:34 &#45;0700 (MST) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C676701493600@THRESHER -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Senora GC ?</title>
+<link rev="made" href="mailto:brent.fulgham@xpsystems.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00007.html">Date Prev</a>][<a href="msg00009.html">Date Next</a>][<a href="msg00006.html">Thread Prev</a>][<a href="msg00009.html">Thread Next</a>][<a href="maillist.html#00008">Date Index</a>][<a href="threads.html#00008">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Senora GC ?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Senora GC ?</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 2 Jan 2001 10:55:09 -0800 </li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;  ... as well as the address of any static variable containing
+&gt;    GCable pointers.
+
+Does this mean a static variable pointing to a Scheme_Object that
+you wish the GC to destroy for you at some point?  What would be
+a good example of this, something like:
+
+static Scheme_Object* v = NULL;
+
+... later ...
+
+v = scheme_make_string(&quot;Hello, World&quot;);
+
+... do something ...
+
+Later we reassign v:
+
+v = scheme_make_string(&quot;New string.&quot;);
+
+And therefore the original &quot;v&quot; is not collected, correct?  But
+if we register v, it *would* have been collected, without an
+explicit call to scheme_free or similar?
+
+On a similar thread:  What if I have some Scheme_Object's in
+my program that I wish to retain control of (in terms of when
+or if they are collected).  If I don't register them, the GC
+should never touch them, right?  But Boehm might?
+
+So in those cases do I need to use the &quot;uncollectable&quot; malloc
+version?  And what about if I am creating an object using an
+existing function like &quot;scheme_make_string&quot;.  How can I protect
+them from being collected?  I might want them to persist beyond
+a single &quot;scheme_eval&quot;...
+
+Thanks,
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00009" href="msg00009.html">RE: Senora GC ?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00007.html">Re: Compiled S-Expressions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00009.html">RE: Senora GC ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00006.html">Re: Senora GC ?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00009.html">RE: Senora GC ?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00008"><strong>Date</strong></a></li>
+<li><a href="threads.html#00008"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

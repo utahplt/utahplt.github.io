@@ -1,0 +1,158 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Document formatting in Scheme -->
+<!--X-From-R13: Dvxh.EnvxxbaraNuhg.sv (Dvxh Envxxbara) -->
+<!--X-Date: Fri, 26 Oct 2001 13:13:20 &#45;0600 (MDT) -->
+<!--X-Message-Id: 87y9lyw6yr.fsf@lambda.cs.hut.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011026132355.62580.qmail@web11202.mail.yahoo.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Document formatting in Scheme</title>
+<link rev="made" href="mailto:Riku.Saikkonen@hut.fi">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01129.html">Date Prev</a>][<a href="msg01131.html">Date Next</a>][<a href="msg01125.html">Thread Prev</a>][<a href="msg01131.html">Thread Next</a>][<a href="maillist.html#01130">Date Index</a>][<a href="threads.html#01130">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Document formatting in Scheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Document formatting in Scheme</li>
+<li><em>From</em>: <A HREF="mailto:Riku.Saikkonen@hut.fi">Riku.Saikkonen@hut.fi</A> (Riku Saikkonen)</li>
+<li><em>Date</em>: 26 Oct 2001 22:13:00 +0300</li>
+<li><em>Cc</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: Noel Welsh's message of &quot;Fri, 26 Oct 2001 06:23:55 -0700 (PDT)&quot;</li>
+<li><em>References</em>: &lt;<a href="msg01117.html">20011026132355.62580.qmail@web11202.mail.yahoo.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Noel Welsh &lt;noelwelsh@yahoo.com&gt; writes:
+&gt;One half of the problem is API documentation.
+...
+
+I'd just like to mention a somewhat different approach for this:
+literate programming. There are programming language-independent tools
+for this (nowebm seems to be a good and simple one), and the markup
+language is usually some form of TeX (which can, of course, be
+converted to HTML, good-quality PostScript, etc.). See the
+comp.programming.literate FAQ for pointers to more information on the
+tools and such.
+
+The advantages of this approach are that it can be used for all
+describing of source code (not just the external interface) and that
+the tools and markup language already exist (and there may be people
+who have already used the tools with another language, so they don't
+need to learn yet another syntax for documenting code).
+
+Disadvantages are that the syntax is usually not very &quot;Schemish&quot; (not
+S-expressions), and perhaps that literate programming doesn't really
+offer a complete solution to API documentation: you usually still need
+to create a smaller sub-language for specifying the API of functions,
+because literate programming seems to be more of an informal approach
+to documenting software. (At least that's what I've gathered from
+reading Knuth's _TeX: The Program_: there is very little API
+documentation, but lots of documentation on how and why the code
+works. Perhaps other people use it differently, I don't really know.)
+
+Just thought I'd mention it. I have a feeling that it would be more
+useful to create a language-independent approach to API documentation
+than to write something that only works for Scheme...
+
+
+But if you are writing something for Scheme only, I'd suggest making
+it a language feature instead of things to put in comments. It would
+be nice if you could, e.g., ask the interpreter for the documentation
+to a particular function, kind of like many Lisps do. And I think it's
+cleaner to leave comments as informal descriptions. But I don't think
+Lisp docstrings by themselves are enough: one should also specify a
+machine-readable format for what to put in the docstrings.
+
+I once had an idea of splitting up the documentation for arguments,
+like:
+
+(define (fun &lt;argname&gt; &lt;argdescription&gt; ...)
+  &lt;return-value-description&gt;
+  &lt;docstring&gt;
+  &lt;body of function ...&gt;)
+
+For example:
+
+(define (mergesort less-than? &quot;a &lt; predicate for ordering the elements&quot;
+                   lst &quot;the list to sort&quot;) &quot;the sorted list&quot;
+  &quot;Sorts the given list using Merge sort, in O(n log n) comparisons,
+where n is (length lst).&quot;
+  &lt;body of function here ...&gt;)
+
+But I don't really like the way that syntax breaks up the argument
+list, though it may be somewhat better than Javadoc's way of
+requiring another copy of the argument list in the comments.
+
+-- 
+-=- Rjs -=- Riku.Saikkonen@hut.fi
+&quot;From cavern pale the moist moon eyes / the white mists that from earth arise /
+to hide the morrow's sun and drip / all the grey day from each twig's tip.&quot;
+    -- J. R. R. Tolkien
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01131" href="msg01131.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> lisovsky@acm.org</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01117" href="msg01117.html">Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01129.html">Re: Error context info</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01131.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01125.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01131.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01130"><strong>Date</strong></a></li>
+<li><a href="threads.html#01130"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

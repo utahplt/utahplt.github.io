@@ -1,0 +1,101 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: quasiquote in a class definition -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Tue, 24 Oct 2000 18:37:10 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200010250036.UAA11870@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 39F62304.7B9C0ADF@sympatico.ca -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>quasiquote in a class definition</TITLE>
+<LINK REV="made" HREF="mailto:sk@cs.brown.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01007.html">Date Prev</A>][<A HREF="msg01009.html">Date Next</A>][<A HREF="msg01007.html">Thread Prev</A>][<A HREF="msg01009.html">Thread Next</A>][<A HREF="maillist.html#01008">Date Index</A>][<A HREF="threads.html#01008">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>quasiquote in a class definition</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Hassoun &lt;<A HREF="mailto:hassoun@sympatico.ca">hassoun@sympatico.ca</A>&gt;</LI>
+<LI><em>Subject</em>: quasiquote in a class definition</LI>
+<LI><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 24 Oct 2000 20:36:37 -0400 (EDT)</LI>
+<LI><em>Cc</em>: "<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>" &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01007.html">39F62304.7B9C0ADF@sympatico.ca</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01007.html">39F62304.7B9C0ADF@sympatico.ca</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+That's because the method's value is captured at the time when you
+create the association list.
+
+In general, I don't think you want to be writing code like this at
+all.  This doesn't seem to be a good use of an association list (and,
+consequently, of quasiquote).  If you think about it, an object itself 
+is a kind of association list between names and fields/methods.  So
+why not just use an object instead?
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01009" HREF="msg01009.html">Re: quasiquote in a class definition</A></STRONG>
+<UL><LI><EM>From:</EM> John Clements &lt;clements@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01007" HREF="msg01007.html">quasiquote in a class definition</A></STRONG>
+<UL><LI><EM>From:</EM> Hassoun &lt;hassoun@sympatico.ca&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01007.html">quasiquote in a class definition</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01009.html">Re: quasiquote in a class definition</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01007.html">quasiquote in a class definition</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01009.html">Re: quasiquote in a class definition</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01008"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01008"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

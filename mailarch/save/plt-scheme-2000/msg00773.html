@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: process* in MSDOS (Win 95) ? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 26 Jul 2000 08:06:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000726140621.MGG10370.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200007251851.MAA24233@fast.cs.utah.edu -->
+<!--X-Reference: 397DEAAF.4AF5@mastnet.net -->
+<!--X-Reference: 20000725223105.LRHG21972.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 397E5949.1FECCAF2@mastnet.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: process* in MSDOS (Win 95) ?</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00772.html">Date Prev</A>][<A HREF="msg00774.html">Date Next</A>][<A HREF="msg00771.html">Thread Prev</A>][<A HREF="msg00774.html">Thread Next</A>][<A HREF="maillist.html#00773">Date Index</A>][<A HREF="threads.html#00773">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: process* in MSDOS (Win 95) ?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: John Clonts &lt;<A HREF="mailto:jclonts@mastnet.net">jclonts@mastnet.net</A>&gt;</LI>
+<LI><em>Subject</em>: Re: process* in MSDOS (Win 95) ?</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 26 Jul 2000 07:06:21 -0700</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00771.html">397E5949.1FECCAF2@mastnet.net</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00767.html">200007251851.MAA24233@fast.cs.utah.edu</A>&gt;		&lt;<A HREF="msg00768.html">397DEAAF.4AF5@mastnet.net</A>&gt; &lt;<A HREF="msg00769.html">20000725223105.LRHG21972.mail.rdc1.sfba.home.com@localhost</A>&gt;	&lt;<A HREF="msg00771.html">397E5949.1FECCAF2@mastnet.net</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting John Clonts:
+&gt; Matthew Flatt wrote:
+&gt; &gt; [...]
+&gt; &gt; Otherwise, I'm out of ideas. Certainly it works for me in 102, and I'm
+&gt; &gt; farily certain it worked in 101.
+&gt; 
+&gt; It works for you under Windows 95?  (Or some other win32 ver?)
+
+Windows 95. Here's the source to my a.c, which I compiled with MSVC 5:
+
+ #include &lt;stdio.h&gt;
+ int main() {
+   printf("hello\nworld");
+   return 0;
+ }
+
+&gt; Hmmm, from the docs I guess that (process* ...) does not use
+&gt; command.com, which distinguishes it from (process ...) which does.
+
+You're right that `process*' does not use command.com. `process' isn't
+supported in MzScheme for Windows.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00774" HREF="msg00774.html">[SOLVED] process* in MSDOS (Win 95) ?</A></STRONG>
+<UL><LI><EM>From:</EM> John Clonts &lt;jclonts@mastnet.net&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00767" HREF="msg00767.html">I/O bugs</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00768" HREF="msg00768.html">process* in MSDOS (Win 95) ?</A></STRONG>
+<UL><LI><EM>From:</EM> John Clonts &lt;jclonts@mastnet.net&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00769" HREF="msg00769.html">Re: process* in MSDOS (Win 95) ?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00771" HREF="msg00771.html">Re: process* in MSDOS (Win 95) ?</A></STRONG>
+<UL><LI><EM>From:</EM> John Clonts &lt;jclonts@mastnet.net&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00772.html">Re: process* in MSDOS (Win 95) ?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00774.html">[SOLVED] process* in MSDOS (Win 95) ?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00771.html">Re: process* in MSDOS (Win 95) ?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00774.html">[SOLVED] process* in MSDOS (Win 95) ?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00773"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00773"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,253 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: bytecode unification for scripting (and other!) languages -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Mon, 13 Aug 2001 14:30:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: 002d01c12436$e42db840$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: BCEOLHKHFMDPNMEKEAECKEEMCAAA.sk@cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: bytecode unification for scripting (and other!) languages</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00779.html">Date Prev</a>][<a href="msg00781.html">Date Next</a>][<a href="msg00757.html">Thread Prev</a>][<a href="msg00781.html">Thread Next</a>][<a href="maillist.html#00780">Date Index</a>][<a href="threads.html#00780">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: bytecode unification for scripting (and other!) languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Shriram Krishnamurthi&quot; &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;,       &quot;plt-scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: bytecode unification for scripting (and other!) languages</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 13 Aug 2001 16:31:11 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00757.html">BCEOLHKHFMDPNMEKEAECKEEMCAAA.sk@cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Shriram,
+
+I had previously seen your Seasonal Lisp Machine page, but I had forgotten
+that it was yours when I mentioned Lisp chips in my message.  Perhaps I
+remembered subconsciously...
+
+I was speaking loosely when I associated compiling to machine code with
+interoperability problems.  In theory, there may not be a fundamental
+connection there, but practical implementation issues do exist, and these
+are reflected in all current languages and tools.
+
+&gt; Machine code vs bytecode is entirely orthogonal to this capability.
+&gt; That is simply a question of how code is distributed and run.  A VM
+&gt; could just as well dynamically load DLLs or .o files or whatever --
+&gt; binaries, in short, that can reside in the same address space.
+
+In fact, this is essentially what Microsoft's COM does.  It doesn't achieve
+the desired level of interoperability, though, largely because COM support
+is typically &quot;tacked on&quot; to languages, rather than integrated at a low
+enough level to make interoperability completely transparent.
+
+One can think of bytecode, in this interoperability context, as a way of
+forcing compiler writers to speak a common language.  Compiling to a common
+bytecode removes the possiblity that a compiler writer might add some little
+twist to the binary output of his compiler, that would cause
+interoperability problems with other compilers.
+
+So as with my alleged connection between compiling to machine code and
+interoperability problems, there is a similar practical requirement that a
+common runtime use a common bytecode, aside from the ease of implementation
+reasons you mention.
+
+Anyway, these are minor points.
+
+&gt; CORBA does something much more complex.  It lets programs interoperate
+&gt; *across* address spaces, even permitting them to interoperate across
+&gt; physical machines and networks.  I don't think its complexity is
+&gt; comparable to what we're talking about.
+
+An important feature of CORBA is interoperability between languages.  Using
+a common bytecode and runtime addresses this in a slightly different way.
+It so happens that using a common bytecode and runtime also simplifies the
+issues involved in crossing address spaces.  Java's RMI is an example of
+this.  .NET provides a similar capability.  As such, the JVM and .NET both
+address the same problem that CORBA was designed to solve, but they do so in
+a way that provides better transparency and greater simplicity.
+
+&gt; (2) The real problem here is coming up with a unified bytecode that
+&gt; includes enough to please everyone.
+
+Say &quot;unified bytecode and runtime&quot;, and I'll agree :)
+
+&gt; What is interoperability?  It's the ability to share DATA between
+&gt; programs in different languages.  Data are values in a run-time system
+&gt; (at least in value-oriented languages, such as scripting languages).
+&gt; So what does it take to share these?  The languages (really, their
+&gt; implementations) need to agree on a common space in which to create
+&gt; values, a common technique for reclaiming values, and a common manner
+&gt; for representing values that can be shared between these languages.
+
+Which brings me right back to my point.  The data that can be shared between
+.NET languages is limited to basic data types, and objects which conform to
+.NET's object semantics.  This excludes a few data types which I think are
+important (and I hope I'm not the only one): closures would be the simplest
+and perhaps least controversial example; continuations are another, less
+controversial (because of implementation overhead).  Of course, these types
+could be implemented in languages which compile to .NET, but that would
+limit interoperability between the languages that support these types.
+
+&gt; But please, tell me where the innovation is here.
+
+Perhaps the best summary of the sort of applications I'm interested in are
+on the Kali Scheme page (<A  HREF="http://www.neci.nec.com/PLS/Kali.html">http://www.neci.nec.com/PLS/Kali.html</A>) - borrowing
+their bullet list just to provide some representative examples:
+
+* User-level load balancing and migration.
+* Incremental distributed linking of code objects.
+* Parameterized client-server applications.
+* Long-lived parallel computations.
+* Distributed data mining.
+* Executable content in messages over wide-area networks (e.g. the
+World-Wide Web)
+
+A related example can be found in the use of continuations to provide
+transparent web server session support by PS3I
+(<A  HREF="http://youpou.lip6.fr/queinnec/VideoC/ps3i.html">http://youpou.lip6.fr/queinnec/VideoC/ps3i.html</A>).  Another example along
+these lines that interests me is the use of continuations to simplify the
+coding of systems which use asynchronous I/O (e.g. Unix AIO implementations
+or Win32's completion ports).
+
+Although you might argue that these examples have been done already, and
+therefore are not innovations, it seems to me that a project which extended
+these capabilities to multiple languages, and allowed them to use those
+features interoperably, would certainly advance the state of the art,
+including in many ways that may not be obvious now.
+
+You might think that this would be a project more suited to the commercial
+world than academia; I'm not so sure.  The commercial world will be happy
+with .NET and its ilk for some time to come.  That doesn't mean that
+something better and more useful isn't possible, or shouldn't be developed.
+
+&gt; Designing a VM is a surprisingly painful and difficult
+&gt; experience.  Even all the expertise of Sun and MS haven't dealt with
+&gt; the many complex issues that arise (see Bill Pugh's amazing work on
+&gt; memory models, for instance) -- and that's even when dealing
+&gt; explicitly with only one language (as in the JVM case).  It seems a
+&gt; lot more productive to copy the hard work than try to create a new
+&gt; context in which *the same work* needs to be done all over again.
+
+I don't dispute the difficulty of the task, and that was part of the point I
+was originally trying to make: I agree that using .NET is a pragmatic
+choice, but that doesn't mean there aren't benefits to be had by taking
+things further.
+
+(I'm sorely tempted to start quoting Kennedy's moon speech, which was
+(coincidentally?) delivered at Rice University: &quot;But why, some say, the
+moon? Why choose this as our goal? And they may well ask why climb the
+highest mountain? Why, 35 years ago, fly the Atlantic? Why does Rice play
+Texas?&quot;  Do I even need to mention the bit about &quot;not because they are easy,
+but because they are hard&quot;?  ;o)
+
+I wouldn't argue against &quot;embracing and extending&quot; Microsoft's work by
+extending the CIL and CLR to support the features I'm talking about.  That
+presupposes an open implementation that can be extended in the first place,
+though (and raises compatibility issues).  Failing that, perhaps something
+along the lines described by Greg Pettyjohn could work - a layer above
+CIL/CLR which supports more advanced features.
+
+&gt; I'll tell you where I think the win is going to be: in designing
+&gt; domain-specific VMs.  Look at what the Curl folks have done; it's very
+&gt; neat work.  Or pick another programming language -- Macromedia Flash.
+&gt; (Indeed, Flash is reputed to now be in 97% of the world's browsers.)
+&gt; I just don't see &quot;scripting&quot; (which I think is a bogus notion anyway)
+&gt; as a driving domain.  You're much more likely to get far by picking
+&gt; something interesting and creating a VM for it.  Use a *use*, rather
+&gt; than some (particularly in this case, ill-defined) *technology*, as
+&gt; the driving force.
+
+The use of the term &quot;scripting&quot; came from Michael Vanier original message.
+I contend that the issues here go far beyond scripting.  Real software
+projects are increasingly implemented in multiple languages, some of which
+may be domain-specific, and these languages have to communicate.  Systems
+are also increasingly distributed, raising the cross-address-space and
+cross-network requirements.
+
+These requirements that are only weakly addressed by current technology.
+The sorts of features that are found in special-purpose language
+implementations like Kali and PS3I could really simplify the development of
+such systems, and provide greatly improved capabilities to those systems.
+
+Sadly, these features are doomed to remain obscure, as long as they are
+confined to use within individual, special-purpose implementations of
+particular academic languages.  This isn't just about making these features
+available to the commercial world, either - you're concerned about
+reinventing wheels, but how much of that goes on in the name of achieving
+things that have already been done in the context of some other language?  A
+virtual machine/runtime/bytecode/whatever which gave language implementors
+access to such features &quot;for free&quot; would be enormously beneficial.
+
+Anton
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00781" href="msg00781.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="00784" href="msg00784.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00757" href="msg00757.html">RE: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> &quot;Shriram Krishnamurthi&quot; &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00779.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00781.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00757.html">RE: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00781.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00780"><strong>Date</strong></a></li>
+<li><a href="threads.html#00780"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

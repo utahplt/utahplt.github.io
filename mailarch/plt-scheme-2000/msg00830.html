@@ -1,0 +1,121 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Problems with mzc -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 27 Dec 2000 13:16:45 &#45;0700 (MST) -->
+<!--X-Message-Id: 200012272016.NAA20918@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 4.1.20001227133144.0445acb0@florida&#45;software.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Problems with mzc</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00829.html">Date Prev</a>][<a href="msg00831.html">Date Next</a>][<a href="msg00828.html">Thread Prev</a>][<a href="msg00829.html">Thread Next</a>][<a href="maillist.html#00830">Date Index</a>][<a href="threads.html#00830">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Problems with mzc</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Blake McBride &lt;<A HREF="mailto:blake@florida-software.com">blake@florida-software.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Problems with mzc</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Dec 2000 13:16:41 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00827.html">4.1.20001227133144.0445acb0@florida-software.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00827.html">4.1.20001227133144.0445acb0@florida-software.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Blake McBride:
+&gt; 1.  When a .scm file is compiled to a .zo file, mzc
+&gt; changes the symbols to lower case.
+
+Put (read-case-sensitive #t) in prefix.scm, and run mzc with --prefix
+prefix.scm.
+
+&gt; Why would mzc need to change the case? 
+
+One reason is that mzc needs to know how to compile
+
+ (let* ([x 5]
+        [X 7])
+    x) ; 5 or 7?
+
+Perhaps the case of quoted symbols could be preserved, but that sounds
+difficult to implement.
+
+&gt; 2.  I have mzc working (except for the above problem) but when
+&gt; I copy the whole thing to my laptop mzc gives an error message
+&gt; that it can't find mzscheme.exe.
+
+mzc.exe contains a hard-wired path to mzscheme.exe. The path is
+installed as part of the setup process.
+
+On your laptop, delete plt/*.exe EXCEPT mzscheme.exe and mred.exe. Then
+run the following:
+
+  mzscheme -mvqL- setup.ss setup
+
+The .exe files will be restored on the laptop, with paths that work
+there.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00827" href="msg00827.html">Problems with mzc</a></strong>
+<ul><li><em>From:</em> Blake McBride &lt;blake@florida-software.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00829.html">Re: Problems with mzc</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00831.html">A Very Special Offer to win $3,300</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00828.html">Re: Problems with mzc</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00829.html">Re: Problems with mzc</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00830"><strong>Date</strong></a></li>
+<li><a href="threads.html#00830"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

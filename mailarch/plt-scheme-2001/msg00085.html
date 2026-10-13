@@ -1,0 +1,127 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Type&#45;based Optimizatoins?  [was: tail calls [was: Vanishing MrEd] ] -->
+<!--X-From-R13: @bry Iryfu <abryjryfuNlnubb.pbz> -->
+<!--X-Date: Tue, 23 Jan 2001 02:53:22 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010123095318.37398.qmail@web11203.mail.yahoo.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Type-based Optimizatoins?  [was: tail calls [was: Vanishing MrEd] ]</title>
+<link rev="made" href="mailto:noelwelsh@yahoo.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00084.html">Date Prev</a>][<a href="msg00086.html">Date Next</a>][<a href="msg00121.html">Thread Prev</a>][<a href="msg00093.html">Thread Next</a>][<a href="maillist.html#00085">Date Index</a>][<a href="threads.html#00085">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Type-based Optimizatoins?  [was: tail calls [was: Vanishing MrEd] ]</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Type-based Optimizatoins?  [was: tail calls [was: Vanishing MrEd] ]</li>
+<li><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 23 Jan 2001 01:53:18 -0800 (PST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; So, I'm left wondering if there isn't room for
+&gt; improvement in MzScheme's
+&gt; internal representation of data types.  For example,
+&gt; I wonder if Andrew
+&gt; Wright's soft type system could be used in an
+&gt; optimization pass in
+&gt; the &quot;scheme-to-c&quot; mode of the compiler to perhaps
+&gt; create fast-paths for
+&gt; native C data types?
+
+I'm also interest in speed improvements.  Andrew
+Wright's work has moved on to control flow based type
+inference.  I think they decreased run-time to between
+80 and 10(!)% by removing type checks and inlining
+functions. See
+<A  HREF="http://citeseer.nj.nec.com/jagannathan98polymorphic.html">http://citeseer.nj.nec.com/jagannathan98polymorphic.html</A>
+ There is also source code available.
+ 
+The creator of Stalin (Jeff Siskind) has a tech report
+called &quot;Flow-Directed Lightweight Closure&quot; that
+explains one optimisation Stalin does, again based on
+control flow.  See
+<A  HREF="http://external.nj.nec.com/homepages/qobi/papers.html">http://external.nj.nec.com/homepages/qobi/papers.html</A>
+
+Spidey must include some form of control-flow
+analysis, and it, IMO, is the key to speed
+improvements.  Some optimisations one could do with a
+control flow analysis include:
+- removing type checks
+- unboxing
+- inlining
+- method dispatch (e.g. when the type of an object is
+known the method can be selected at compile time).
+- folding calls (don't know what this optimisation is
+called, but if you have a sequence of calls like
+(filter x (map y list)) then the calls to x and y can
+be collapsed into one recursion over list)
+
+I'd like to see 'machine types', like 32-bit integers,
+and associated operations included as well, and
+functional arrays in the style of SAC
+(<A  HREF="http://www.informatik.uni-kiel.de/~sacbase/">http://www.informatik.uni-kiel.de/~sacbase/</A>).  
+
+cya,
+Noel
+
+__________________________________________________
+Do You Yahoo!?
+Yahoo! Auctions - Buy the things you want at great prices. 
+<A  HREF="http://auctions.yahoo.com/">http://auctions.yahoo.com/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00084.html">Re: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00086.html">Re: Bug in the call chain between process*/ports and sch_process_star_ports -&gt; crash</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00121.html">Re: [OFFTOPIC, but possibly amusing]  [was: peasant revoltagainst Dr 	Scheme!]</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00093.html">book</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00085"><strong>Date</strong></a></li>
+<li><a href="threads.html#00085"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

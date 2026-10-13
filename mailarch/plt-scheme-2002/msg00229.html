@@ -1,0 +1,207 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: #%app problems with nested macro -->
+<!--X-From-R13: "Uert Brgglwbua" <tertcrgglwbuaNfcrnxrnfl.arg> -->
+<!--X-Date: Sat, 9 Feb 2002 13:32:10 &#45;0700 (MST) -->
+<!--X-Message-Id: 005301c1b1aa$20436950$6401a8c0@gregpwin2k -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 878za3jtrm.fsf@localhost.localdomain -->
+<!--X-Reference: 200202090336.UAA10045@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>#%app problems with nested macro</title>
+<link rev="made" href="mailto:gregpettyjohn@speakeasy.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00228.html">Date Prev</a>][<a href="msg00230.html">Date Next</a>][<a href="msg00228.html">Thread Prev</a>][<a href="msg00230.html">Thread Next</a>][<a href="maillist.html#00229">Date Index</a>][<a href="threads.html#00229">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>#%app problems with nested macro</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: #%app problems with nested macro</li>
+<li><em>From</em>: &quot;Greg Pettyjohn&quot; &lt;<A HREF="mailto:gregpettyjohn@speakeasy.net">gregpettyjohn@speakeasy.net</A>&gt;</li>
+<li><em>Date</em>: Sat, 9 Feb 2002 12:41:18 -0800</li>
+<li><em>References</em>: &lt;<a href="msg00227.html">878za3jtrm.fsf@localhost.localdomain</a>&gt; &lt;<a href="msg00228.html">200202090336.UAA10045@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm having trouble *nesting* a macro within another.
+
+This macro works fine at top level:
+
+(define-syntax my-let
+  (lambda (x)
+    (syntax-case x ()
+      [(_ () body) #'((lambda () body))]
+      [(_ ((var* val*) ...) body)
+       #'((lambda (var* ...) body) val* ...)])))
+
+So does this one:
+
+(define-syntax with-values
+  (lambda (x)
+    (syntax-case x ()
+      [(_ P C) #'(call-with-values (lambda () P) C)])))
+
+
+But if I nest the second macro with the first --- like this:
+
+(define-syntax my-let
+  (lambda (x)
+
+    (define-syntax with-values
+      (lambda (x)
+        (syntax-case x ()
+          [(_ P C) #'(call-with-values (lambda () P) C)])))
+
+    (syntax-case x ()
+      [(_ () body) #'((lambda () body))]
+      [(_ ((var* val*) ...) body)
+       #'((lambda (var* ...) body) val* ...)])))
+
+I will get the following error:
+
+compile: bad syntax; function application is not allowed, because no #%app
+syntax transformer is bound in: (lambda (x) (syntax-case x () ((_ p c)
+(syntax (call-with-values (lambda () p) c)))))
+
+
++--------------------------------------------------
+So...
+
+I tried writing this macro at top level:
+
+(define-syntax #%app
+      (lambda (x)
+        (syntax-case x ()
+          [(_ rator rands ...) #'(apply rator rands ...)])))
+
+When I click execute, it goes forever (actually, I didn't wait that long).
+
+If I change the name to foo:
+
+(define-syntax foo
+      (lambda (x)
+        (syntax-case x ()
+          [(_ rator rands ...) #'(apply rator rands ...)])))
+
+It works as expected.
+
+If I put the #%app macro at the same scope as with values:
+
+(define-syntax my-let
+  (lambda (x)
+
+    (define-syntax #%app
+      (lambda (x)
+        (syntax-case x ()
+          [(_ rator rands ...) #'(apply rator rands ...)])))
+
+    (define-syntax with-values
+      (lambda (x)
+        (syntax-case x ()
+          [(_ P C) #'(call-with-values (lambda () P) C)])))
+
+    (syntax-case x ()
+      [(_ () body) #'((lambda () body))]
+      [(_ ((var* val*) ...) body)
+       #'((lambda (var* ...) body) val* ...)])))
+
+I get:
+
+compile: identifier used out of context in: #%app
+
++-----------------------------------------------------
+Finally I tried this:
+
+(define-syntax my-let
+  (lambda (x)
+
+    (define-syntax with-values
+      (lambda (x)
+        (define-syntax #%app
+          (lambda (x)
+            (syntax-case x ()
+              [(_ rator rands ...) #'(apply rator rands ...)])))
+        (syntax-case x ()
+          [(_ P C) #'(call-with-values (lambda () P) C)])))
+
+    (syntax-case x ()
+      [(_ () body) #'((lambda () body))]
+      [(_ ((var* val*) ...) body)
+       #'((lambda (var* ...) body) val* ...)])))
+
+And I get the seemingly contradictory error message:
+
+compile: bad syntax; function application is not allowed, because no #%app
+syntax transformer is bound in: (lambda (x) (define-syntax #%app (lambda (x)
+(syntax-case x () ((_ rator rands ...) (syntax (apply rator rands ...))))))
+(syntax-case x () ((_ p c) (syntax (call-with-values (lambda () p) c)))))
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00230" href="msg00230.html">Re: #%app problems with nested macro</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00227" href="msg00227.html">Profiler</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+<li><strong><a name="00228" href="msg00228.html">Re: Profiler</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00228.html">Re: Profiler</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00230.html">Re: #%app problems with nested macro</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00228.html">Re: Profiler</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00230.html">Re: #%app problems with nested macro</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00229"><strong>Date</strong></a></li>
+<li><a href="threads.html#00229"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

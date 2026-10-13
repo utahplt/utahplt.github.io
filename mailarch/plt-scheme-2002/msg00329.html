@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: 200alpha13 -->
+<!--X-From-R13: xentraNcbobk.pbz (Yentra Evgnxre) -->
+<!--X-Date: Wed, 6 Mar 2002 22:11:26 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020307051122.79CD5BDC8@panacea.canonical.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: 200alpha13</title>
+<link rev="made" href="mailto:kragen@pobox.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00328.html">Date Prev</a>][<a href="msg00330.html">Date Next</a>][<a href="msg00326.html">Thread Prev</a>][<a href="msg00333.html">Thread Next</a>][<a href="maillist.html#00329">Date Index</a>][<a href="threads.html#00329">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: 200alpha13</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: 200alpha13</li>
+<li><em>From</em>: <A HREF="mailto:kragen@pobox.com">kragen@pobox.com</A> (Kragen Sitaker)</li>
+<li><em>Date</em>: Thu,  7 Mar 2002 00:11:22 -0500 (EST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt writes:
+&gt; The main change in this version is the addition of a `current-locale'
+&gt; parameter, which mainly affects string and character comparisions.
+&gt; 
+&gt; . . .
+&gt; 
+&gt; This is a subtle change, and there's plenty of room for new bugs due to
+&gt; shifting character comparisions. But I've been using DrScheme with
+&gt; locale-sensitiviy enabled for a couple of weeks, and it seems to be an
+&gt; improvement. As always, feedback on this change is encouraged.
+
+This change introduces subtle environmental dependencies into nearly
+every algorithm dealing with strings, and (from your post; I haven't
+looked at the code) it appears that you have to use dynamic-wind to
+isolate a particular string algorithm from those dependencies without
+breaking parts of your program which *should* be locale-dependent.
+(If you didn't write all the code in the program, you may not even be
+aware of their existence.)
+
+These dependencies cause programs to depend not only on other things
+in PLT Scheme, but also things that vary from machine to machine.  The
+result is that a program that works perfectly on my machine may
+produce incorrect results or crash on yours.
+
+The subtle environmental dependencies introduced by this change will
+break data structures that depend on string or character comparisons
+returning consistent results and which persist across locale changes
+or are transmitted from machine to machine.
+
+It is not surprising that C implements locales this way, but I think
+that Scheme can do better.
+
+If I were adding locale sensitivity to PLT Scheme, I would do it by
+adding new locale-sensitive functions, not by adding subtle
+dependencies on global state to standard functions.
+
+-- 
+&lt;kragen@pobox.com&gt;       Kragen Sitaker     &lt;<A  HREF="http://www.pobox.com/~kragen/">http://www.pobox.com/~kragen/</A>&gt;
+&quot;Why are you withholding me?&quot; -- name withheld  &quot;Oh... And dig this:  I
+am a fish.  'Nuff said.&quot; -- Joe Blaylock (no further explanation)
+These are the denizens of the CLUG mailing list.  Their five-year mission:
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00333" href="msg00333.html">Re: 200alpha13</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00328.html">alpha-13 runtime problem</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00330.html">No Subject</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00326.html">200alpha13</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00333.html">Re: 200alpha13</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00329"><strong>Date</strong></a></li>
+<li><a href="threads.html#00329"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

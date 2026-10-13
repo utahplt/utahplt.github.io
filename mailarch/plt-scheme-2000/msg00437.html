@@ -1,0 +1,159 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: AOP/Fast matrices/Type hinting -->
+<!--X-From-R13: @bry Iryfu <abryjNqnv.rq.np.hx> -->
+<!--X-Date: Tue, 1 Aug 2000 05:09:44 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14726.42132.123747.888972@kintore.dai.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>AOP/Fast matrices/Type hinting</title>
+<link rev="made" href="mailto:noelw@dai.ed.ac.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00436.html">Date Prev</a>][<a href="msg00438.html">Date Next</a>][<a href="msg00438.html">Thread Prev</a>][<a href="msg00439.html">Thread Next</a>][<a href="maillist.html#00437">Date Index</a>][<a href="threads.html#00437">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>AOP/Fast matrices/Type hinting</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: AOP/Fast matrices/Type hinting</li>
+<li><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;</li>
+<li><em>Date</em>: Tue,  1 Aug 2000 12:09:40 +0100 (BST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Here are the links to the AOP research that describes the `loop
+collapsing':
+
+<A  HREF="http://www.stanford.edu/~amitp/Java/amgoyal/aop.html">http://www.stanford.edu/~amitp/Java/amgoyal/aop.html</A>
+<A  HREF="http://www.parc.xerox.com/csl/groups/sda/publications/papers/Kiczales-ECOOP97/for-web.pdf">http://www.parc.xerox.com/csl/groups/sda/publications/papers/Kiczales-ECOOP97/for-web.pdf</A>
+
+There is a package called SERIES for Common Lisp that appears to do
+the same sort of thing:
+
+<A  HREF="http://series.sourceforge.net/">http://series.sourceforge.net/</A>
+
+All of the above is Lisp so should be eminently stealable and
+hackable. It is possible that doing this kind of smart programming
+would get back the losses from a rather simple minded
+compiler. Anything that is better than Matlab will get my attention!
+
+-------
+
+Type hinting:
+
+The way Gambit does type hinting (which I think is the same as Common
+Lisp) is with the declare special form.
+
+<A  HREF="http://www.iro.umontreal.ca/~gambit/doc/gambit-c.html">http://www.iro.umontreal.ca/~gambit/doc/gambit-c.html</A>
+
+&quot;special form: declare declaration... 
+
+This form introduces declarations to be used by the compiler(currently
+the interpreter ignores the declarations). This form can only appear
+where a define form is acceptable. Declarations are lexically scoped
+in the same way as macros. The following declarations are accepted by
+the compiler:
+
+[snip]
+
+(number-type primitive...) 
+            Numeric arguments and result of the specified primitives
+are known to be of the given type (all primitives if none
+specified). number-type can be: `generic', `fixnum', or `flonum'.&quot;
+
+-------
+
+Re Paul's simple translation program:
+
+Take a look at the pattern matching system in MzLib (match.ss). I find
+it makes this sort of code a lot easier.
+
+E.g.
+
+(define (print-infix-call-arg arg)
+  (if (list? arg)
+      (print-call arg)
+      (print arg)))
+
+can be written as
+
+(require-library &quot;match.ss&quot; &quot;mzlib&quot;)
+
+(define print-infix-call-arg
+  (match-lambda
+    [(arg . rest) (print-call arg)]
+    [arg (print arg)]))
+
+Note square brackets [] are equivalent to parentheses ()
+
+DrScheme comes with a parser system called Zodiac, described best in
+the DrScheme Extension Manual. I suspect its is over-kill if you only
+want to compile a limited subset of Scheme to C (but maybe the
+vocabularies will help?) 
+
+cya,
+Noel
+-- 
+Noel Welsh
+<A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00439" href="msg00439.html">Re: AOP/Fast matrices/Type hinting</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00440" href="msg00440.html">MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00436.html">About Embedding MzScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00438.html">RE: About Embedding MzScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00438.html">RE: About Embedding MzScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00439.html">Re: AOP/Fast matrices/Type hinting</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00437"><strong>Date</strong></a></li>
+<li><a href="threads.html#00437"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

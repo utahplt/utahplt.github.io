@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Implementing 2d&#45;put! and 2d&#45;get in DrScheme -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Fri, 2 Nov 2001 17:19:27 &#45;0700 (MST) -->
+<!--X-Message-Id: 066101c163fd$41a0fdb0$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 064801c163db$f8e6fdc0$0100a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Implementing 2d-put! and 2d-get in DrScheme</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01168.html">Date Prev</a>][<a href="msg01170.html">Date Next</a>][<a href="msg01167.html">Thread Prev</a>][<a href="msg01170.html">Thread Next</a>][<a href="maillist.html#01169">Date Index</a>][<a href="threads.html#01169">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Implementing 2d-put! and 2d-get in DrScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;John J Reilly&quot; &lt;<A HREF="mailto:slash@fingerlust.net">slash@fingerlust.net</A>&gt;</li>
+<li><em>Subject</em>: RE: Implementing 2d-put! and 2d-get in DrScheme</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 2 Nov 2001 19:19:52 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01167.html">064801c163db$f8e6fdc0$0100a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Attached below is an MzScheme version of MIT Scheme's association table
+(prop2d.scm).  It follows the spec at:
+<A  HREF="http://www.swiss.ai.mit.edu/projects/scheme/documentation/scheme_12.html#SEC">http://www.swiss.ai.mit.edu/projects/scheme/documentation/scheme_12.html#SEC</A>
+106
+
+Following the implementation in prop2d.scm, which used an MIT Scheme
+mechanism for weak references to objects, this implementation uses
+MzScheme's weak hash tables.  This obviated the MIT code related to weak
+references and garbage collection (at least, I think it did).
+
+If this were going to be used for any purpose other than compatibility with
+MIT Scheme, I would give it a constructor (e.g.
+&quot;make-2d-association-table&quot;), add an association table parameter to the
+accessors and mutators, eliminate the global variable &quot;system-properties&quot;,
+and package it all in a module.
+
+-Anton
+
+
+(define system-properties (make-hash-table-weak))
+
+(define (not-found) #f)
+
+(define (2d-put! x y value)
+  (let* ((add-new-bucket
+          (lambda ()
+            (let ((new-bucket (make-hash-table-weak)))
+              (hash-table-put! system-properties x new-bucket)
+              new-bucket)))
+         (bucket (hash-table-get system-properties x add-new-bucket)))
+    (hash-table-put! bucket y value)))
+
+(define (2d-get x y)
+  (let ((bucket (hash-table-get system-properties x not-found)))
+    (if bucket
+        (hash-table-get bucket y not-found)
+        #f)))
+
+(define (2d-remove! x y)
+  (let ((bucket (hash-table-get system-properties x not-found)))
+    (if bucket
+        (hash-table-remove! bucket y))))
+
+(define (2d-get-alist-x x)
+  (let ((bucket (hash-table-get system-properties x not-found)))
+    (if bucket
+      (hash-table-map bucket (lambda (k v) (cons k v)))
+      '())))
+
+(define (2d-get-alist-y y)
+  (let ((alist '()))
+    (hash-table-for-each
+     system-properties
+     (lambda (k x-bucket)
+       (let/cc done
+         (let ((v (hash-table-get x-bucket y done)))
+           (set! alist (cons (cons k v) alist))))))
+    alist))
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01167" href="msg01167.html">RE: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01168.html">R: closing an application</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01170.html">RE: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01167.html">RE: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01170.html">RE: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01169"><strong>Date</strong></a></li>
+<li><a href="threads.html#01169"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

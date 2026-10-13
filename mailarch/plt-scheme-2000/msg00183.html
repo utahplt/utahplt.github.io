@@ -1,0 +1,159 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: Syv Pnemvynl <ryvNQE.Qbearyy.SRG> -->
+<!--X-Date: Sun, 12 Mar 2000 15:21:41 &#45;0700 (MST) -->
+<!--X-Message-Id: 14540.6258.302212.93890@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002270435.UAA20217@balu.qualcomm.com -->
+<!--X-Reference: 200002270457.WAA08093@africa.cs.rice.edu -->
+<!--X-Reference: 20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 14540.3932.744537.731539@mojave.cs.cornell.edu -->
+<!--X-Reference: 20000312215411.TMX14285.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 20000312220315.XLV14285.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [Q] HOWTO redirect a i/o-port in Unix??</title>
+<link rev="made" href="mailto:eli@CS.Cornell.EDU">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00182.html">Date Prev</a>][<a href="msg00184.html">Date Next</a>][<a href="msg00182.html">Thread Prev</a>][<a href="msg00193.html">Thread Next</a>][<a href="maillist.html#00183">Date Index</a>][<a href="threads.html#00183">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [Q] HOWTO redirect a i/o-port in Unix??</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;</li>
+<li><em>Date</em>: Sun, 12 Mar 2000 17:21:38 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00181.html">20000312215411.TMX14285.mail.rdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00133.html">200002270435.UAA20217@balu.qualcomm.com</a>&gt;&lt;<a href="msg00134.html">200002270457.WAA08093@africa.cs.rice.edu</a>&gt;&lt;<a href="msg00137.html">20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost</a>&gt;&lt;<a href="msg00180.html">14540.3932.744537.731539@mojave.cs.cornell.edu</a>&gt;&lt;<a href="msg00181.html">20000312215411.TMX14285.mail.rdc1.sfba.home.com@localhost</a>&gt;&lt;<a href="msg00182.html">20000312220315.XLV14285.mail.rdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Mar 12, Matthew Flatt wrote:
+&gt; I should have been more careful in my original post.
+&gt; 
+&gt; The bottom line is that you want to use `read-line' instead of
+&gt; `read-string!':
+&gt; 
+&gt; ...
+&gt; 
+&gt; The problem is that `read-string!' waits until it can fill the
+&gt; string or until EOF, but your application relies on line-based
+&gt; question--response I/O.
+
+But wouldn't it fill whatever possible in case there's an EOF waiting?
+I did close the output port into the 1st process, which, as far as I
+understood, should have caused it to die, closing its output port
+which propagates to the second thread as well...
+
+
+&gt; Previously in this thread (I think), I mentioned that MzScheme needs
+&gt; a primitive like `read-string', except that it returns immediately
+&gt; if there's something to read, and blocks only if nothing's
+&gt; available. With that, we could have a truly general and reasonably
+&gt; efficient `copy-stream'. The next verison of MzScheme will likely
+&gt; have such a primitive.
+
+I don't get it - isn't that what read-string is supposed to do now?
+&quot;Otherwise, if fewer than k characters are available before an
+end-of-file is encountered, then the returned string will contain only
+those characters before the end-of-file (i.e., the returned string's
+length will be less than k). If no characters are available before an
+end-of-file, then eof is returned.&quot;  Or are you talking about general
+availability of characters, unrelated to the EOF?
+
+
+&gt; Without it, we need at least `copy-stream', as before, and
+&gt; `copy-stream/lines', as above.
+
+Anyway, I hope I can work through this...  This whole process/ports
+thing is pretty messy...
+
+
+On Mar 12, Matthew Flatt wrote:
+&gt; A further correction. On closer inspection, I see your example
+&gt; doesn't even have a newline in the stream.
+&gt; 
+&gt; Usually, /bin/cat doesn't flush its output until it sees a newline:
+
+Yeah, I'm aware of that - but I did have newlines...  The cat thing
+was actually an attempt to clarify things, but I think that my real
+example would be more complicted - I want to do somwthing similar to
+what pack does (gzip into mmencode) in a more robust way of starting
+two processes and using copy-stream to connect them.  Maybe I'll just
+stick to that (process &quot;gzip -c | mmencode &gt; ...&quot; dest), I just hope
+it doesn't depend on things like shell etc...
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+         <A  HREF="http://www.cs.cornell.edu/eli/meaning.html">http://www.cs.cornell.edu/eli/meaning.html</A>        Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00133" href="msg00133.html">[Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+<li><strong><a name="00134" href="msg00134.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00137" href="msg00137.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00180" href="msg00180.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</li></ul></li>
+<li><strong><a name="00181" href="msg00181.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00182" href="msg00182.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00182.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00184.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00182.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00193.html">Error with WITH-HANDLER+UNIT?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00183"><strong>Date</strong></a></li>
+<li><a href="threads.html#00183"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

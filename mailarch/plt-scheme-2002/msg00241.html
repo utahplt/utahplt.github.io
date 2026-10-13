@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: mzc on NetBSD -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 12 Feb 2002 21:07:50 &#45;0700 (MST) -->
+<!--X-Message-Id: 200202130407.g1D47GT03697@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.SGI.4.33.0202122120530.26903141&#45;100000@buphy.bu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: mzc on NetBSD</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00240.html">Date Prev</a>][<a href="msg00242.html">Date Next</a>][<a href="msg00240.html">Thread Prev</a>][<a href="msg00213.html">Thread Next</a>][<a href="maillist.html#00241">Date Index</a>][<a href="threads.html#00241">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: mzc on NetBSD</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brian Gregor &lt;<A HREF="mailto:bgregor@BUPHY.bu.edu">bgregor@BUPHY.bu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: mzc on NetBSD</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 12 Feb 2002 21:07:16 -0700 (MST)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00240.html">Pine.SGI.4.33.0202122120530.26903141-100000@buphy.bu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00240.html">Pine.SGI.4.33.0202122120530.26903141-100000@buphy.bu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brian Gregor:
+&gt; &gt; (load-extension &quot;bitmatrix.so&quot;)
+&gt; load-extension: couldn't open &quot;/home/brian/src/bitmatrix.so&quot;
+&gt; (/home/brian/src/bitmatrix.so: Undefined symbol &quot;scheme_lookup_global&quot;
+&gt; (reloc type = 2, symnum = 26))
+&gt; &gt;
+&gt; 
+&gt; Is this a PLT issue or a NetBSD-specific issue?  A similar
+&gt; error happens if I try to compile a Scheme file, and the
+&gt; same situation happens with 200alpha12.
+
+Probably the link line needs -rdynamic, same as FreeBSD. Try adding it
+to the end of &lt;your-build-dir&gt;/mzscheme/Makefile line 91, delete
+&lt;your-build-dir&gt;/mzscheme/mzsche, and re-make.
+
+If that works, can you tell me the result of `uname -s'? Then I'll fix
+the configure script.
+
+
+Alternate solution: when you run configure, try --enable-dynlib.
+Probably libtool knows the right linking flags...
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00240" href="msg00240.html">mzc on NetBSD</a></strong>
+<ul><li><em>From:</em> Brian Gregor &lt;bgregor@BUPHY.bu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00240.html">mzc on NetBSD</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00242.html">reading htdp solutions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00240.html">mzc on NetBSD</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00213.html">Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00241"><strong>Date</strong></a></li>
+<li><a href="threads.html#00241"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

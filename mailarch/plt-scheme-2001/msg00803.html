@@ -1,0 +1,182 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Question about CMUCL type inference -->
+<!--X-From-R13: Ivyyvnz Vnebyq @rjzna <jvyyvnz.arjznaNnveznvy.arg> -->
+<!--X-Date: Thu, 16 Aug 2001 17:37:33 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20010816182117.A5223@rootless -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: wslmkjkjqh.fsf@ortler.iwr.uni&#45;heidelberg.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Question about CMUCL type inference</title>
+<link rev="made" href="mailto:william.newman@airmail.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00802.html">Date Prev</a>][<a href="msg00804.html">Date Next</a>][<a href="msg00814.html">Thread Prev</a>][<a href="msg00807.html">Thread Next</a>][<a href="maillist.html#00803">Date Index</a>][<a href="threads.html#00803">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Question about CMUCL type inference</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:cmucl-help@cons.org">cmucl-help@cons.org</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Question about CMUCL type inference</li>
+<li><em>From</em>: William Harold Newman &lt;<A HREF="mailto:william.newman@airmail.net">william.newman@airmail.net</A>&gt;</li>
+<li><em>Date</em>: Thu, 16 Aug 2001 18:21:17 -0500</li>
+<li><em>In-Reply-To</em>: &lt;wslmkjkjqh.fsf@ortler.iwr.uni-heidelberg.de&gt;; from nicolas.neuss@iwr.uni-heidelberg.de on Thu, Aug 16, 2001 at 07:17:10PM +0200</li>
+<li><em>References</em>: &lt;wslmkjkjqh.fsf@ortler.iwr.uni-heidelberg.de&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On the cmucl-help@cons.org mailing list, on Thu, Aug 16, 2001 at
+07:17:10PM +0200, Nicolas Neuss wrote:
+
+&gt; In a discussion on the PLT Scheme mailing list about type inference I
+&gt; asked Shriram Krishnamurti about the relation of his ideas to CMUCL
+&gt; type inference:
+&gt; 
+&gt; <A  HREF="http://www.cs.utah.edu/plt/mailarch/plt-scheme-2001/msg00799.html">http://www.cs.utah.edu/plt/mailarch/plt-scheme-2001/msg00799.html</A>
+&gt; 
+&gt; He answers (not yet in the archive, so I repeat it here):
+&gt; 
+&gt; ----------------------------------------------------------------
+&gt; Nicolas Neuss wrote:
+&gt; 
+&gt; &gt; You certainly know the type inference which CMUCL is using.
+&gt; 
+&gt; No, I don't.  That is, I know it's there, and I've seen examples of
+&gt; it, but I don't understand how it works.  (I've read the manual.  This
+&gt; gives me several examples, but no spec.  Maybe the manual has changed
+&gt; since I last read it?)
+&gt; 
+&gt; I don't know what mechanism they use to implement type inference, and
+&gt; how it stays tractable in the presence of union types and range types
+&gt; and so forth.  I don't fully understand &quot;dynamic type inference&quot;; it
+&gt; looks more like &quot;static flow analysis&quot; to me.  Certainly what they
+&gt; accomplish looks impressive -- eg, if-splitting followed by
+&gt; optimizations -- but how?
+&gt; 
+&gt; Surely someone on this list can point me to a technical paper that
+&gt; explains exactly what they do?  I'd be much obliged.
+&gt; 
+&gt; Shriram
+&gt; 
+&gt; ----------------------------------------------------------------
+&gt; 
+&gt; I guess people on this list are most suited to answer his question.
+&gt; Could someone do so - best cc-ing also to
+&gt; plt-scheme@fast.cs.utah.edu ?
+
+I'm not aware of anything published about the CMU CL type inference
+system.
+
+I'm not sure what &quot;dynamic type inference&quot; would mean, and I agree
+that what's going on looks like (my compiler non-guru's idea of)
+static flow analysis. Most of the type information seems to flow from
+  * type declarations in the user source code (of course)
+  * type declarations built into the CMU CL system (mostly with the
+    DEFKNOWN macro)
+  * type inference based on argument types, mostly through things
+    defined with the DERIVE-TYPE variant of the DEFOPTIMIZER macro
+Then the type information is used by various compiler transforms
+and primitive operations which have type constraints on their
+operands.
+
+I don't think there's a single simple answer to the question about how
+the type inference stays tractable in the presence of union types and
+so forth. Two parts of the answer are:
+  1. The algebra of types is implemented in a hand-rolled object
+     system. The methods for some operations (e.g. type intersections,
+     and to some extent type unions) punt, representing the result of 
+     the operation as a type which is sort of opaque, so that all
+     further operations on it yield other opaque types, or 
+     &quot;don't know&quot; answers to boolean queries. This punting tends to
+     limit the complexity of nonopaque types. If you want to see how
+     it does it in a particular case, you can search the sources
+     for uses of the macro DEFINE-TYPE-METHOD, which is used to
+     define the methods. Unfortunately the hand-rolled object system
+     is (in my opinion) a mite confusing. (I wish it were CLOS, but
+     since I'm pretty sure it predates CLOS by many years, that's
+     of course unreasonable.) Still, you can see a lot of what's going
+     on by looking at the methods without understanding the method
+     combination system in any detail.
+  2. I think the optimizer uses some sort of cutoff to stop refining
+     type information after a certain number of passes. I can't give
+     you a citation for this (to code or documentation), but I
+     think I've seen it somewhere, and it seems to explain why
+     the system doesn't want to optimize some complicated code for
+     me, and finding and changing this limiting behavior is (somewhere
+     fairly far down) on my to-do list. I suspect that this may be
+     important in order to keep the optimizer from getting stuck
+     in problems where it refines e.g. (RATIONAL 0 1/2) to 
+     (RATIONAL 0 1/4) on the first pass, then to (RATIONAL 0 1/8)
+     on the next pass, then to (RATIONAL 0 1/16) on the next pass,
+     and so on ad infinitum without being brilliant enough to jump
+     to the limit (RATIONAL 0 0).
+My answer to #1 is based on a fairly good understanding of the type
+system, since I rewrote the implementation of type intersections for
+the SBCL fork of CMU CL. My answer to #2 is, obviously, based on much
+more superficial knowledge of the optimizer.
+
+The system claims to adhere the principle that &quot;declarations are
+assertions&quot;, and in fact mostly does, so it seems as though it would
+be nice match to Scheme R4RS, which is the last version I'm familiar
+with. (In Scheme, you could just run the principle backwards,
+optimizing code downstream from a type check/assertion with type
+knowledge based on the fact that the type check succeeded.)
+
+-- 
+William Harold Newman &lt;william.newman@airmail.net&gt;
+&quot;Three hours a day will produce as much as a man ought to write.&quot;
+  -- Anthony Trollope
+PGP key fingerprint 85 CE 1C BA 79 8D 51 8C  B9 25 FB EE E0 C3 E5 7C
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00802.html">Drscheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00804.html">RE: lisp v. scheme macros</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00814.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00807.html">2001 Scheme Workshop: Call for Participation</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00803"><strong>Date</strong></a></li>
+<li><a href="threads.html#00803"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

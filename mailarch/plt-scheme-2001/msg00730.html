@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: bytecode unification for scripting languages -->
+<!--X-From-R13: [vpunry Hnavre <zinavreNooo.pnygrpu.rqh> -->
+<!--X-Date: Tue, 31 Jul 2001 20:04:29 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20010801020426.AC7C65E0EC@sith.bbb.caltech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010731225234.D53F45E0EC@sith.bbb.caltech.edu -->
+<!--X-Reference: 200108010102.VAA06590@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: bytecode unification for scripting languages</title>
+<link rev="made" href="mailto:mvanier@bbb.caltech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00729.html">Date Prev</a>][<a href="msg00731.html">Date Next</a>][<a href="msg00729.html">Thread Prev</a>][<a href="msg00731.html">Thread Next</a>][<a href="maillist.html#00730">Date Index</a>][<a href="threads.html#00730">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: bytecode unification for scripting languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A></li>
+<li><em>Subject</em>: Re: bytecode unification for scripting languages</li>
+<li><em>From</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 31 Jul 2001 19:04:26 -0700 (PDT)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00729.html">200108010102.VAA06590@bosch.cs.brown.edu</a>&gt; (message from ShriramKrishnamurthi on Tue, 31 Jul 2001 21:02:59 -0400 (EDT))</li>
+<li><em>References</em>: &lt;<a href="msg00728.html">20010731225234.D53F45E0EC@sith.bbb.caltech.edu</a>&gt; &lt;<a href="msg00729.html">200108010102.VAA06590@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+&gt; Date: Tue, 31 Jul 2001 21:02:59 -0400 (EDT)
+&gt; From: Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;
+&gt; 
+&gt; In the end, what's the point here?  Microsoft's .NET is already
+&gt; shipping, and they will be releasing a sorta-kinda-open source
+&gt; implementation next year.  
+
+&quot;Sorta-kinda-open source&quot; is not the same as open source.  The Mono project
+(<A  HREF="http://www.go-mono.net">http://www.go-mono.net</A>), if it happens, might overcome this objection.
+
+&gt; Why not take the CIL/CLR spec and build a really great implementation
+&gt; of it instead?  Here's an opportunity where Linux and the Open Source
+&gt; movement can completely embarass Microsoft.  Be the first to provide a
+&gt; free and openly hackable implementation of it, well before Microsft
+&gt; does, and make the Linux version run five times as fast as the Windows
+&gt; version.  Now *there* would be something impressive.
+
+Again, the Mono project comes to mind as having exactly this goal.
+However, a separate issue is whether the same intermediate language will
+work equally well for statically compiled languages like C# and java and
+for dynamic languages like most scripting languages and scheme.  For
+instance, how hard will it be to implement scheme efficiently on top of
+CIL/CLR?  If it's easy, then you're right; there's no reason to needlessly
+duplicate functionality.  OTOH I can imagine that a portable bytecode
+designed explicitly for highly dynamic languages might be a very different
+beast.
+
+&gt; 
+&gt; PS: Full disclosure: I just spent 3 days at MS hearing about .NET.
+&gt;     But my comments are based not on the fact that I'm easily bought
+&gt;     -- perhaps I am -- but rather than the CIL/CLR is, at least on
+&gt;     paper, *good*.  The Open Source movement has never led the way in
+&gt;     the design of *anything*, anyway, afaik.
+
+Well, PLT scheme is open source, as are perl, python, ruby, squeak, Linux,
+the Gimp, Gnome, FreeBSD, etc. etc. and I think there has been a
+considerable amount of innovation there.  The free software/open source
+&quot;movement&quot; is a very recent phenomenon, and there is no &quot;central command&quot;,
+so it's a bit hard to compare its success at large design projects with
+that of Microsoft.  If we compare Microsoft with the overall OS community,
+my impression is that Microsoft has been far less innovative overall.  This
+doesn't mean that I dislike C#/.net on paper; like you, I think that
+technically it has much to recommend it.  It's the politics that worries
+me.
+
+Mike
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00731" href="msg00731.html">Re: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00732" href="msg00732.html">Re: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00746" href="msg00746.html">Re: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Reini Urban &lt;rurban@x-ray.at&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00728" href="msg00728.html">bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="00729" href="msg00729.html">bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00729.html">bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00731.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00729.html">bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00731.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00730"><strong>Date</strong></a></li>
+<li><a href="threads.html#00730"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

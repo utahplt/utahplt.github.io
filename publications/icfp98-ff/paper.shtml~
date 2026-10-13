@@ -1,0 +1,1598 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<!--Converted with LaTeX2HTML 96.1 (Feb 5, 1996) by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds -->
+<HTML>
+<HEAD>
+<TITLE>Modular Object-Oriented Programming with Units and Mixins</TITLE>
+<META NAME="description" CONTENT="Modular Object-Oriented Programming with Units and Mixins">
+<META NAME="keywords" CONTENT="paper.sub">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<LINK REL=STYLESHEET HREF="u+m.sub.css">
+</HEAD>
+<!--#include virtual="body-tag.shtml" -->
+ <H1 ALIGN=CENTER>Modular Object-Oriented Programming with Units and Mixins</H1>
+
+<P ALIGN=CENTER><STRONG>
+<a href="http://www.cs.rice.edu/~robby/">Robert Bruce Findler</a>&nbsp;&nbsp;<a href="http://www.cs.rice.edu/~mflatt/">Matthew Flatt</a> <BR> 
+<a href="http://www.cs.rice.edu/">Department of Computer Science</a>
+<A NAME="tex2html1" HREF="#5"><IMG SRC="footnote.gif" WIDTH=15 HEIGHT=15 BORDER=0 ALIGN=BOTTOM ALT="[footnote]"></A>
+<BR> Rice University<BR> Houston, Texas 77005-1892</STRONG></P>
+
+<P></p>
+
+<P ALIGN=CENTER><STRONG>DRAFT: July 18, 1998
+</STRONG></P><P>
+<P>
+
+<P>
+<H3 CLASS=ABSTRACT>Abstract</H3>
+<P CLASS=ABSTRACT>Module and class systems have evolved to meet the demand for reuseable
+software components. Considerable effort has been invested in
+developing new module and class systems, and in demonstrating how each
+promotes code reuse. However, relatively little has been said about
+the interaction of these constructs, and how using modules and classes
+<EM>together</EM> can improve programs. In this paper, we demonstrate
+the synergy of a particular form of modules and classes--called units
+and mixins, respectively--for solving complex reuse problems in a
+natural manner.
+</P>
+
+<H1><A NAME="SECTION00010000000000000000">Introduction</A></H1>
+<P>
+Module and class systems both promote code reuse.  In theory, many
+ uses of classes can be simulated with modules, and <I>vice  versa</I>. Experience shows, however, that programmers need both
+ constructs because they serve different
+ purposes&nbsp;[<A HREF="paper.shtml#Szyperski92">43</A>]. A module delineates boundaries for
+ separate development. A class permits fine-grained reuse via
+ selective inheritance and overriding.
+<P>
+Since modules and classes aid different patterns of reuse, modern
+ languages provide separate constructs for each. Unfortunately, the
+ reuse allowed by conventional module and class systems is limited. In
+ these systems, modules and classes are hard-wired to a specific
+ context, <I>i.e.</I>, to specific modules or to a specific superclass.
+<P>
+In previous work, we separately described the novel module and class
+ systems in MzScheme&nbsp;[<A HREF="paper.shtml#MzScheme">12</A>]. MzScheme's
+ modules&nbsp;[<A HREF="paper.shtml#pldi98ff">13</A>], called <EM>units</EM>, are roughly like
+ Java packages, except that units are linked through an external
+ linking specification, instead of through a fixed internal
+ specification.  MzScheme's object language&nbsp;[<A HREF="paper.shtml#popl98fkf">14</A>] provides
+ <EM>mixins</EM>, which are like Java classes except that a mixin is
+ parameterized over its superclass, so it can be applied multiple
+ times to create different derived classes from different base
+ classes. The advantages of units and mixins over conventional module
+ and class languages follow from a single language design principle:
+ <EM>specify connections between modules or classes separately from  their definitions</EM>.
+<P>
+The shared principle of separating connections from definitions makes
+ units and mixins synergistic.  When units and mixins are combined, a
+ programmer can exploit the encapsulation and linking properties of
+ units to control the application of mixin extensions (<I>e.g.</I>, to
+ change the class extended by a particular mixin).
+<P>
+In Section&nbsp;<A HREF="paper.shtml#designsection">5</A>, we motivate in more detail the design
+ behind MzScheme's units and mixins, but their synergy is best
+ demonstrated with an example. The bulk of this paper therefore
+ presents an in-depth example, showing how the synergy of units and mixins
+ solves an old extensibility problem&nbsp;[<A HREF="paper.shtml#Cook90">7</A>, <A HREF="paper.shtml#Reynolds75">40</A>] in a
+ natural manner.  Section&nbsp;<A HREF="paper.shtml#examplesection">2</A> describes the
+ extensibility problem, and Section&nbsp;<A HREF="paper.shtml#classessection">3</A> develops a
+ rough solution the problem using conventional classes.
+ Section&nbsp;<A HREF="paper.shtml#unitssection">4</A> introduces units and mixins to refine and
+ complete the solution. Sections&nbsp;<A HREF="paper.shtml#designsection">5</A> and
+ <A HREF="paper.shtml#typessection">6</A> extract lessons from the example for the design
+ of modular object-oriented programming languages. Finally,
+ Section&nbsp;<A HREF="paper.shtml#relatedsection">7</A> relates our work to other research.
+
+<P>
+<H1><A NAME="SECTION00020000000000000000">The Extensibility Problem</A></H1>
+<P>
+<A NAME="examplesection"></A>
+<P>
+The following table summarizes the extensibility problem:
+<P> 
+<center>
+<IMG WIDTH=370 HEIGHT=128 ALIGN=BOTTOM ALT="picture628" SRC="img2.gif">
+</center>
+</P>  
+<P>
+The portion of the table contained in the dotted box represents a
+ program component that provides several operations, <TT>draw</TT> and
+ <TT>shrink</TT>, on a collection of data, geometric shapes like squares
+ and circles.  A programmer may wish to use such a component in three
+ different contexts:
+<OL><LI> The programmer may wish to include the component <EM>as is</EM>.<LI> The programmer may wish to extend the datatype with a variant,
+  repositioned shapes, and adapt the collection of operations
+  accordingly.<LI> The programmer may wish to add a new operation, <TT>rotate</TT>.
+<P>
+</OL>
+To avoid duplicate maintenance, or because the component is acquired
+ in object form, the component must be organized so that programmers
+ can add both new forms of data and new operations <EM>without  modifying or recompiling</EM>
+<UL><LI> the original program component, or<LI> its existing clients.
+<P>
+</UL>
+Such a program organization dramatically increases the potential for
+ software reuse and enables the smooth integration of proprietary
+ modules.
+<P>
+Neither standard functional nor object-oriented strategies offer a
+ satisfactory way to implement the component and its clients. In a
+ functional language, the variants can be implemented as a type, with
+ the operations as functions on the type.  Using this approach, the
+ set of operations is easily extended, but adding a new variant
+ requires modifying the functions. In an object-oriented language, the
+ variants can be implemented as a collection of classes, with the
+ operations as methods common to all of the classes. Using this approach,
+ the datatype is easily extended with a new variant, but adding a new
+ operation is typically implemented by modifying the classes.
+<P>
+The existing literature provides three solutions to the problem.
+ K&#252;hne's&nbsp;[<A HREF="paper.shtml#Kuhne97">24</A>] solution, which relies on generic procedures
+ with double-dispatching, can interfere with the hierarchical
+ structure of the program. Palsberg and Jay's&nbsp;[<A HREF="paper.shtml#Palsberg97">32</A>]
+ solution is based on reflection operators and incurs a substantial
+ run-time penalty.  Krishnamurthi, Felleisen, and
+ Friedman&nbsp;[<A HREF="paper.shtml#LittleJavar">11</A>, <A HREF="paper.shtml#ecoop98kff">23</A>] propose an efficient solution
+ that works with standard class mechanisms, but it requires the
+ implementation (and maintenance) of a complex programming protocol.
+ All of these solutions are partial because they do not address the
+ reuse of clients. In contrast, the combination of units and mixins
+ solves the problem simply and elegantly, and it addresses the reuse
+ of both the original component and its clients.
+<P>
+
+<A NAME="examplesolution">
+<A NAME="figure1">
+<IMG WIDTH=667 HEIGHT=307 ALIGN=BOTTOM ALT="picture34" SRC="img1.gif"> 
+<BR>Figure 1: Extensible programming on datatypes<P>
+</A></a>
+
+<H1><A NAME="SECTION00030000000000000000">Extensible Programming with Classes</A></H1>
+<p>
+<A NAME="classessection"></A>
+Figure&nbsp;<A HREF="paper.shtml#examplesolution">1</A> outlines our solution to the
+ extensibility problem:
+<UL><LI> Diagram&nbsp;(a) represents the original component. The rhombus
+   stands for the datatype, and the rectangles denote the datatype's
+   variants. The oval is a client of the datatype component.<LI> Diagram&nbsp;(b) shows the datatype extended with a new variant. The
+   extension is contained in the right inner dashed box. The solid box
+   on the left represents the unmodified datatype code from&nbsp;(a). The
+   original client is also preserved, and a new client of the datatype
+   exploits the variant extension.<LI> Diagram&nbsp;(c) shows extension in the other direction: adding a
+  new operation to the datatype. As before, the extension is
+  implemented by the inner dashed box while the solid box represents
+  the unmodified existing implementation from&nbsp;(b). The new squares in
+  the extension represent the implementation of the operation for each
+  variant. The existing clients have not been modified, although they
+  now refer to the extended variants.
+<P>
+</UL>
+The remainder of this section develops a concrete example, an evolving
+ shape program&nbsp;[<A HREF="paper.shtml#LittleJavar">11</A>, <A HREF="paper.shtml#ecoop98kff">23</A>]. Since
+ Figure&nbsp;<A HREF="paper.shtml#examplesolution">1</A> can be approximated using conventional
+ classes, we first use only language features available in a typical
+ object-oriented language.  But, classes are not enough;
+ Section&nbsp;<A HREF="paper.shtml#unitssection">4</A> introduces units and mixins to complete
+ the solution.
+<p>
+
+<table width=100%>
+<tr align=top>
+<td valign=top colspan=2>
+<H2><A NAME="SECTION00031000000000000000">Shape Datatype</A></H2>
+</td>
+</tr>
+
+<tr align=top>
+<td valign=top width=50%>
+Initially, our shape datatype consists of three variants and one
+operation: rectangles, circles, and translated shapes for drawing.
+The rectangle and circle variants contain numbers that describe the
+dimensions of the shape. The translated variant consists of two
+numbers,  <IMG WIDTH=17 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline8846" SRC="img4.gif"  >  and  <IMG WIDTH=17 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline8848" SRC="img5.gif"  > , and another shape. For all
+variants, the drawing operation takes a destination window and two
+numbers describing a position to draw the shape.
+<P>
+The shape datatype is defined by the <I>Shape</I> interface and
+ implemented by three classes: <I>Rectangle</I>, <I>Circle</I> and
+ <I>Translated</I>. Each subclass declares a <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM> method,
+ which is required to implement the <I>Shape</I>
+ interface. Figure&nbsp;<A HREF="paper.shtml#exampleshapes">2</A> shows the interface and class
+ definitions using MzScheme's class system. (MzScheme's class system
+ is similar to Java's; for details, see the Appendix.)
+<P>
+</td>
+<td valign=top width=50%>
+
+<A NAME="exampleshapes"></A>
+<A NAME="figure2"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>(<B>i</B><B>n</B><B>t</B><B>e</B><B>r</B><B>f</B><B>a</B><B>c</B><B>e</B>()<EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I> 
+   (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>n</I><I>u</I><I>l</I><I>l</I>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(<EM>w</EM><EM>i</EM><EM>d</EM><EM>t</EM><EM>h</EM><EM>h</EM><EM>e</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>) 
+     (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B> 
+       &#91;<EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>(<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>(<EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>x</EM><EM>y</EM>) <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )&#93;)))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>
+   (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>n</I><I>u</I><I>l</I><I>l</I>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(<EM>r</EM><EM>a</EM><EM>d</EM><EM>i</EM><EM>u</EM><EM>s</EM>) 
+     (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B> 
+       &#91;<EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>(<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>(<EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>x</EM><EM>y</EM>) <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > ))&#93;))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I> 
+   (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>n</I><I>u</I><I>l</I><I>l</I>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(<EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> <IMG WIDTH=17 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline8846" SRC="img4.gif"  >  <IMG WIDTH=17 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline8848" SRC="img5.gif"  > ) 
+     (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B> 
+       &#91;<EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>(<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>(<EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>x</EM><EM>y</EM>) 
+              (<B>s</B><B>e</B><B>n</B><B>d</B><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM><EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM> 
+                   <EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM>(&#43;<EM>x</EM> <IMG WIDTH=17 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline8846" SRC="img4.gif"  > )(&#43;<EM>y</EM> <IMG WIDTH=17 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline8848" SRC="img5.gif"  > )))&#93;))) 
+</TT></PRE>
+<a href="figure-2.shtml">Complete Program</a>
+<BR>Figure 2: Shape classes<P>
+<hr>
+
+</td>
+</tr>
+
+<tr align=top>
+
+<td valign=top width=50%>
+<P>
+Figure&nbsp;<A HREF="paper.shtml#exampleshapeclients">3</A> contains clients for the shape
+datatype.  The function <EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> consumes a shape and
+draws it in a new window. The final expression creates a shape and
+displays it. As the shape datatype is extended, we consider how these
+clients are affected.
+</td>
+
+<td valign=top width=50%>
+<A NAME="exampleshapeclients"></A>
+<A NAME="figure3"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>
+  (<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>(<EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>)
+    (<B>i</B><B>f</B>(<I>n</I><I>o</I><I>t</I>(<I>i</I><I>s</I><I>-</I><I>a</I><I>?</I><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)) 
+      (<I>e</I><I>r</I><I>r</I><I>o</I><I>r</I><I>``</I><I>e</I><I>x</I><I>p</I><I>e</I><I>c</I><I>t</I><I>e</I><I>d</I><I>a</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I><I>''</I>)) 
+    (<B>l</B><B>e</B><B>t</B>(&#91;<EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > &#93;) 
+      (<B>s</B><B>e</B><B>n</B><B>d</B><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM><EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM><EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><I>0</I><I>0</I>))))
+<P>
+ (<EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>(<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I> 
+                 (<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I><I>5</I><I>0</I><I>1</I><I>0</I><I>0</I>) 
+                 <I>3</I><I>0</I><I>3</I><I>0</I>)) 
+</TT></PRE>
+<a href="figure-3.shtml">Complete Program</a>
+<BR>Figure 3: Two shape clients<P>
+<hr>
+</td>
+</tr>
+
+<tr valign=top>
+<td colspan=2 valign=top>
+<H2><A NAME="SECTION00032000000000000000">Variant Extension</A></H2>
+<A NAME="sectionvariantextention"></A>
+</td>
+</tr>
+
+<tr valign=top>
+<td valign=top width=50%>
+To create more interesting configurations of shapes, we extend the shape
+datatype with a new variant representing the union of two shapes. Following
+the strategy suggested in Figure&nbsp;<A HREF="paper.shtml#examplesolution">1</A>&nbsp;(b), we define a
+new <I>Union</I> class derived from
+<I>Shape</I>. Figure&nbsp;<A HREF="paper.shtml#examplehorizontal">4</A> defines the
+<I>Union</I> class, and shows an expression that uses the new class.
+<P>
+The simplicity of the variant extension reflects the natural
+expressiveness of object-oriented programming.  The object-oriented
+approach also lets us add this variant without modifying the original
+code or the existing clients in Figure&nbsp;<A HREF="paper.shtml#exampleshapeclients">3</A>.
+<P>
+</td>
+<td valign=top width=50%>
+
+<A NAME="examplehorizontal"></A>
+<A NAME="figure4"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>
+  (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>n</I><I>u</I><I>l</I><I>l</I>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(<EM>l</EM><EM>e</EM><EM>f</EM><EM>t</EM><EM>r</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>) 
+    (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B> 
+      &#91;<EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>(<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>(<EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>x</EM><EM>y</EM>) 
+             (<B>s</B><B>e</B><B>n</B><B>d</B><EM>l</EM><EM>e</EM><EM>f</EM><EM>t</EM><EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM><EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>x</EM><EM>y</EM>) 
+             (<B>s</B><B>e</B><B>n</B><B>d</B><EM>r</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM><EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM><EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>x</EM><EM>y</EM>))&#93;)))
+<P>
+ (<EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> 
+   (<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I> 
+     (<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I><I>1</I><I>0</I><I>3</I><I>0</I>) 
+     (<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I> 
+        (<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I><I>2</I><I>0</I>)<I>3</I><I>0</I><I>3</I><I>0</I>))) 
+</TT></PRE>
+<a href="figure-4.shtml">Complete Program</a>
+<BR>Figure 4: Variant extension and a new client<P>
+
+<hr>
+</td></tr>
+
+<tr align=top>
+<td colspan=2 valign=top>
+<H2><A NAME="SECTION00033000000000000000">Operation Extension</A></H2>
+</td>
+</tr>
+
+<tr align=top>
+<td valign=top width=50%>
+Shapes look better when they are drawn centered in their windows.  We
+ can support centered shapes by adding the operation
+ <EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM>, which computes the smallest rectangle
+ enclosing a shape.
+<P>
+We add an operation to our shape datatype by defining four new
+classes, each derived from the variants of <I>Shape</I> in
+Section&nbsp;<A HREF="paper.shtml#sectionvariantextention">3.2</A>.
+Figure&nbsp;<A HREF="paper.shtml#examplevertical">5</A> defines the extended classes
+<I>BB-Circle</I>, <I>BB-Rectangle</I>,
+<I>BB-Translated</I>, and <I>BB-Union</I>, each providing the
+<EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM> method. It also defines the <I>BB-Shape</I>
+interface, which describes the extended shape type for the bounding
+box classes just as <I>Shape</I> describes the type for the original
+shape classes.
+<P>
+The new <EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> client in Figure&nbsp;<A HREF="paper.shtml#examplevertical">5</A>
+ uses bounding box information to center its shape in a
+ window. Unfortunately, we must also modify the clients so they create
+ instances of the new bounding box classes instead of the original
+ shape classes, including clients that do not use bounding box
+ information. Thus, the standard object-oriented architecture does not
+ satisfy our original goal; it does not support operation extensions
+ to the shape datatype without modifying existing clients.
+<P>
+Since object-oriented programming constructs do not address this
+ problem directly, we must resort to a programming protocol or
+ pattern. In this case, the Abstract Factory
+ pattern&nbsp;[<A HREF="paper.shtml#DesignPatterns">15</A>] and a mutable reference solves the
+ problem. The Abstract Factory pattern relies on one object, called
+ the <EM>factory</EM>, to create instances of the shape classes. The
+ factory supplies one creation method for each variant of the shape,
+ and clients create shapes by calling these methods instead of using
+ <I>make-object</I> directly.  To change the classes that are
+ instantiated by clients, it is only necessary to change the factory,
+ which is stored in the mutable reference. A revised client, using the
+ Abstract Factory, is shown in Figure&nbsp;<A HREF="paper.shtml#examplefactory">6</A>.
+<P>
+The Abstract Factory pattern implements a simple dynamic linker, where
+ <B>set!</B> installs the link.<A NAME="tex2html2" HREF="#2762"><IMG SRC="footnote.gif" WIDTH=15 HEIGHT=15 BORDER=0 ALIGN=BOTTOM ALT="[footnote]"></A> It separates the definition of
+ shapes and clients so that a specific shape implementation can be
+ selected at a later time, rather than hard-wiring a reference to a
+ particular implementation into the client. However, using a construct
+ like <B>set!</B> for linking obscures this intent both to other
+ programmers and to the compiler. A more robust solution is to improve
+ the module language.
+</td>
+
+<td valign=top>
+<A NAME="examplevertical"></A>
+<A NAME="figure5"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>(<B>i</B><B>n</B><B>t</B><B>e</B><B>r</B><B>f</B><B>a</B><B>c</B><B>e</B>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)<EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM>))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I> 
+   (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>(<I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(<EM>w</EM><EM>i</EM><EM>d</EM><EM>t</EM><EM>h</EM><EM>h</EM><EM>e</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>) 
+     (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B>
+       &#91;<EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM> 
+        (<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>()(<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I><I>B</I><I>B</I><I>0</I><I>0</I><EM>w</EM><EM>i</EM><EM>d</EM><EM>t</EM><EM>h</EM><EM>h</EM><EM>e</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>))&#93;) 
+     (<B>s</B><B>e</B><B>q</B><B>u</B><B>e</B><B>n</B><B>c</B><B>e</B>(<I>s</I><I>u</I><I>p</I><I>e</I><I>r</I><I>-</I><I>i</I><I>n</I><I>i</I><I>t</I><EM>w</EM><EM>i</EM><EM>d</EM><EM>t</EM><EM>h</EM><EM>h</EM><EM>e</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>))))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I> 
+   (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>(<I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(<EM>r</EM><EM>a</EM><EM>d</EM><EM>i</EM><EM>u</EM><EM>s</EM>) 
+     (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B>
+       &#91;<EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM> 
+         (<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>()(<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I><I>B</I><I>B</I>(<EM>-</EM><EM>r</EM><EM>a</EM><EM>d</EM><EM>i</EM><EM>u</EM><EM>s</EM>)(<EM>-</EM><EM>r</EM><EM>a</EM><EM>d</EM><EM>i</EM><EM>u</EM><EM>s</EM>) 
+                                <EM>r</EM><EM>a</EM><EM>d</EM><EM>i</EM><EM>u</EM><EM>s</EM><EM>r</EM><EM>a</EM><EM>d</EM><EM>i</EM><EM>u</EM><EM>s</EM>))&#93;) 
+     (<B>s</B><B>e</B><B>q</B><B>u</B><B>e</B><B>n</B><B>c</B><B>e</B>(<I>s</I><I>u</I><I>p</I><I>e</I><I>r</I><I>-</I><I>i</I><I>n</I><I>i</I><I>t</I><EM>r</EM>))))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I> 
+   (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>(<I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(<EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> <IMG WIDTH=17 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline8846" SRC="img4.gif"  >  <IMG WIDTH=17 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline8848" SRC="img5.gif"  > ) 
+     (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B>
+       &#91;<EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM>(<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>() <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )&#93;) 
+     (<B>s</B><B>e</B><B>q</B><B>u</B><B>e</B><B>n</B><B>c</B><B>e</B>(<I>s</I><I>u</I><I>p</I><I>e</I><I>r</I><I>-</I><I>i</I><I>n</I><I>i</I><I>t</I><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> <IMG WIDTH=17 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline8846" SRC="img4.gif"  >  <IMG WIDTH=17 HEIGHT=21 ALIGN=MIDDLE ALT="tex2html_wrap_inline8848" SRC="img5.gif"  > ))))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I> 
+   (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>(<I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(<EM>l</EM><EM>e</EM><EM>f</EM><EM>t</EM><EM>r</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>) 
+     (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B>
+       &#91;<EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM>(<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>() <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )&#93;) 
+     (<B>s</B><B>e</B><B>q</B><B>u</B><B>e</B><B>n</B><B>c</B><B>e</B>(<I>s</I><I>u</I><I>p</I><I>e</I><I>r</I><I>-</I><I>i</I><I>n</I><I>i</I><I>t</I><EM>l</EM><EM>e</EM><EM>f</EM><EM>t</EM><EM>r</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>))))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I> 
+   (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>n</I><I>u</I><I>l</I><I>l</I>()(<EM>l</EM><EM>e</EM><EM>f</EM><EM>t</EM><EM>t</EM><EM>o</EM><EM>p</EM><EM>r</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM><EM>b</EM><EM>o</EM><EM>t</EM><EM>t</EM><EM>o</EM><EM>m</EM>) 
+      <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > ))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> 
+   (<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>(<EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>) 
+     (<B>i</B><B>f</B>(<I>n</I><I>o</I><I>t</I>(<I>i</I><I>s</I><I>-</I><I>a</I><I>?</I><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM><I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)) 
+       (<I>e</I><I>r</I><I>r</I><I>o</I><I>r</I><I>``</I><I>e</I><I>x</I><I>p</I><I>e</I><I>c</I><I>t</I><I>e</I><I>d</I><I>a</I><I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I><I>''</I>)) 
+     (<B>l</B><B>e</B><B>t</B>&#42;(&#91;<EM>b</EM><EM>b</EM>(<B>s</B><B>e</B><B>n</B><B>d</B><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM><EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM>)&#93; 
+           &#91;<EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > &#93;&#91;<EM>x</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > &#93;&#91;<EM>y</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > &#93;) 
+       (<B>s</B><B>e</B><B>n</B><B>d</B><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM><EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM><EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>x</EM><EM>y</EM>)))) 
+</TT></PRE>
+<a href="figure-5.shtml">Complete Program</a>
+<BR>Figure 5: Operation extension<P>
+<P>
+<A NAME="examplefactory"></A>
+<A NAME="figure6"></A>
+<hr>
+<P>
+<PRE><TT>(<B>s</B><B>e</B><B>t</B><B>!</B><EM>f</EM><EM>a</EM><EM>c</EM><EM>t</EM><EM>o</EM><EM>r</EM><EM>y</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )
+  <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  >  
+ (<EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>(<B>s</B><B>e</B><B>n</B><B>d</B><EM>f</EM><EM>a</EM><EM>c</EM><EM>t</EM><EM>o</EM><EM>r</EM><EM>y</EM><EM>m</EM><EM>a</EM><EM>k</EM><EM>e</EM><EM>-</EM><EM>u</EM><EM>n</EM><EM>i</EM><EM>o</EM><EM>n</EM> 
+                 (<B>s</B><B>e</B><B>n</B><B>d</B><EM>f</EM><EM>a</EM><EM>c</EM><EM>t</EM><EM>o</EM><EM>r</EM><EM>y</EM><EM>m</EM><EM>a</EM><EM>k</EM><EM>e</EM><EM>-</EM><EM>r</EM><EM>e</EM><EM>c</EM><EM>t</EM><EM>a</EM><EM>n</EM><EM>g</EM><EM>l</EM><EM>e</EM><I>1</I><I>0</I><I>3</I><I>0</I>) 
+                 (<B>s</B><B>e</B><B>n</B><B>d</B><EM>f</EM><EM>a</EM><EM>c</EM><EM>t</EM><EM>o</EM><EM>r</EM><EM>y</EM><EM>m</EM><EM>a</EM><EM>k</EM><EM>e</EM><EM>-</EM><EM>t</EM><EM>r</EM><EM>a</EM><EM>n</EM><EM>s</EM><EM>l</EM><EM>a</EM><EM>t</EM><EM>e</EM><EM>d</EM> 
+                   (<B>s</B><B>e</B><B>n</B><B>d</B><EM>f</EM><EM>a</EM><EM>c</EM><EM>t</EM><EM>o</EM><EM>r</EM><EM>y</EM><EM>m</EM><EM>a</EM><EM>k</EM><EM>e</EM><EM>-</EM><EM>c</EM><EM>i</EM><EM>r</EM><EM>c</EM><EM>l</EM><EM>e</EM><I>2</I><I>0</I>)<I>3</I><I>0</I><I>3</I><I>0</I>))) 
+</TT></PRE>
+<a href="figure-6.shtml">Complete Program</a>
+<BR>Figure 6: Revised clients using Abstract Factory<P>
+
+<hr>
+</td></tr>
+
+<tr>
+<td colspan=2>
+
+<H1><A NAME="SECTION00040000000000000000">Better Reuse through Units and Mixins</A></H1>
+<A NAME="unitssection"></A>
+</td>
+</tr>
+
+<tr>
+<td valign=top>
+In the previous section, we developed the <I>Shape</I> datatype and
+ its collection of operations, and we showed how object-oriented
+ programming supports new variants and operations in separately
+ developed extensions.  In this section, we make the separate
+ development explicit using MzScheme's module system; the basic
+ definitions, the extensions, and the clients are all defined in
+ separate modules.  MzScheme supports separate compilation for these
+ modules, and provides a flexible language for linking them. Indeed,
+ the linking implemented with an Abstract Factory in the previous
+ section can be more naturally defined through module
+ linking. Finally, we show how MzScheme's class-module combination
+ provides new opportunities for reuse that are not available in
+ conventional object-oriented languages.
+<P>
+</td>
+</tr>
+
+<tr align=top>
+<td valign=top colspan=2>
+<H2><A NAME="SECTION00041000000000000000">Unitizing the Basic Shapes</A></H2>
+</td>
+</tr>
+
+<tr align=top>
+<td valign=top width=50%>
+A module in MzScheme is called a
+ <EM>unit</EM>. Figure&nbsp;<A HREF="paper.shtml#exampleunitshapes">7</A> shows the basic
+ shape classes encapsulated in a B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font> unit. This unit
+ imports nothing and exports all of the basic shape classes. The body
+ of the unit contains the class definitions exactly as they appear in
+ Figure&nbsp;<A HREF="paper.shtml#exampleshapes">2</A>.
+<P>
+In general, the shape of a unit expression is
+<PRE><TT>(<B>u</B><B>n</B><B>i</B><B>t</B>(<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B><EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > )
+     (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B><EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > ) 
+   <EM>u</EM><EM>n</EM><EM>i</EM><EM>t</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>d</EM><EM>y</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > ) 
+</TT></PRE>
+<P>
+(centered ellipses indicate repeated syntactic patterns). The
+ <EM>u</EM><EM>n</EM><EM>i</EM><EM>t</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>d</EM><EM>y</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>s have the same form as top-level Scheme
+ expressions, allowing a mixture of expressions and definitions, but
+ <B>define</B> within a <B>unit</B> expression creates a
+ unit-local variable instead of a top-level variable.  The unit's
+ imported variables are bound within the
+ <EM>u</EM><EM>n</EM><EM>i</EM><EM>t</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>d</EM><EM>y</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>s. Each exported variable must be defined by
+ some <EM>u</EM><EM>n</EM><EM>i</EM><EM>t</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>d</EM><EM>y</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>. Unexported variables that are defined
+ in the <EM>u</EM><EM>n</EM><EM>i</EM><EM>t</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>d</EM><EM>y</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>s are private to the unit.
+<P>
+Figure&nbsp;<A HREF="paper.shtml#exampleunitshapeclients">8</A> defines two client units of
+B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font>: G<font size=-1><small>UI</small></font> and P<font size=-1><small>ICTURE</small></font>. 
+The G<font size=-1><small>UI</small></font> unit provides the function <EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>
+ (the same as in Figure&nbsp;<A HREF="paper.shtml#exampleshapeclients">3</A>). Since it only
+ depends on the functionality in the <I>Shape</I> type, not the
+ specific variants, it only imports <I>Shape</I>. The
+ P<font size=-1><small>ICTURE</small></font> unit imports all of the shape variants--so it can
+ construct instances--as well as the <EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> function,
+ and it exports nothing. When P<font size=-1><small>ICTURE</small></font> is invoked as part of a
+ program, it constructs a shape and displays it.
+<P>
+A unit is an unevaluated bundle of code, much like a ``.o'' object
+ file created by compiling a traditional language.  At the point where
+ B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font>, G<font size=-1><small>UI</small></font>, and P<font size=-1><small>ICTURE</small></font> are defined
+ as units, no shape classes have been defined, no instances have been
+ created, and no drawing window has been opened. Each unit
+ encapsulates its definitions and expressions without evaluating them
+ until the unit is invoked, just like a procedure encapsulates
+ expressions until it is applied.  However, none of the units in
+ Figures&nbsp;<A HREF="paper.shtml#exampleunitshapes">7</A> and
+ <A HREF="paper.shtml#exampleunitshapeclients">8</A> can be invoked directly because each
+ unit requires imports. The units must first be linked together to
+ form a program.
+<P>
+</td>
+<td valign=top width=50%>
+
+<A NAME="exampleunitshapes"></A>
+<A NAME="figure7"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font>
+  (<B>u</B><B>n</B><B>i</B><B>t</B>(<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B>) 
+       (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>) 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>(<B>i</B><B>n</B><B>t</B><B>e</B><B>r</B><B>f</B><B>a</B><B>c</B><B>e</B> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > ))&#59;<I><B>see Figure&nbsp;<A HREF="paper.shtml#exampleshapes">2</A></I></B> 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>(<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>n</I><I>u</I><I>l</I><I>l</I>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )) 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>(<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>n</I><I>u</I><I>l</I><I>l</I>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )) 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>(<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>n</I><I>u</I><I>l</I><I>l</I>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )))) 
+</TT></PRE>
+<a href="figure-7.shtml">Complete Program</a>
+<BR>Figure 7: Creating Units<P>
+<hr>
+<P>
+<A NAME="exampleunitshapeclients"></A>
+<A NAME="figure8"></A>
+<hr>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> G<font size=-1><small>U</small></font><font size=-1><small>I</small></font>
+  (<B>u</B><B>n</B><B>i</B><B>t</B>(<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) 
+       (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B><EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>) 
+   (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )))&#59;<I><B>see Figure&nbsp;<A HREF="paper.shtml#exampleshapeclients">3</A></I></B>
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> P<font size=-1><small>I</small></font><font size=-1><small>C</small></font><font size=-1><small>T</small></font><font size=-1><small>U</small></font><font size=-1><small>R</small></font><font size=-1><small>E</small></font> 
+   (<B>u</B><B>n</B><B>i</B><B>t</B>(<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I><EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>) 
+        (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B>) 
+    (<EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>(<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > ))))&#59;<I><B>see Figure&nbsp;<A HREF="paper.shtml#exampleshapeclients">3</A></I></B> 
+</TT></PRE>
+<a href="figure-8.shtml">Complete Program</a>
+<BR>Figure 8: Unitized shape clients<P>
+<p>
+<hr>
+</td></tr>
+
+<tr align=top>
+<td valign=top colspan=2>
+<H2><A NAME="SECTION00042000000000000000">Linking the Shape and Client Units</A></H2>
+<A NAME="sectionlinking"></A>
+</td>
+</tr>
+
+<tr align=top>
+<td valign=top>
+Units are linked together with the <B>compound-unit</B> form.
+ Figure&nbsp;<A HREF="paper.shtml#exampleunitshapeprogram">9</A> shows how to link the units of the
+ previous sub-section into a complete program:
+ B<font size=-1><small>ASIC</small></font>-P<font size=-1><small>ROGRAM</small></font>. The P<font size=-1><small>ICTURE</small></font> unit's imports are not
+ <I>a priori</I> associated with the classes in B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font>.
+ This association is established only by the <B>compound-unit</B>
+ expression, and it is established only in the context of
+ B<font size=-1><small>ASIC</small></font>-P<font size=-1><small>ROGRAM</small></font>. The P<font size=-1><small>ICTURE</small></font> unit can be reused with
+ different <I>Shape</I> classes in other compound units.
+<P>
+The <B>compound-unit</B> form links several units, called
+ <EM>constituent</EM> units, into one new <EM>compound</EM>
+ unit. The linking process matches imported variables in each
+ constituent unit with either variables exported by other
+ constituents, or variables imported into the compound unit. The
+ compound unit can then re-export some of the variables exported by
+ the constituents. Thus, B<font size=-1><small>ASIC</small></font>-P<font size=-1><small>ROGRAM</small></font> is a unit with imports
+ and exports, just like B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font> or G<font size=-1><small>UI</small></font>, and
+ no evaluation of the unit bodies has occurred.  But, unlike the
+ B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font> and G<font size=-1><small>UI</small></font> units, B<font size=-1><small>ASIC</small></font>-P<font size=-1><small>ROGRAM</small></font>
+ is a complete program because it has no imports.
+<P>
+Each <B>compound-unit</B> expression
+<PRE><TT>(<B>c</B><B>o</B><B>m</B><B>p</B><B>o</B><B>u</B><B>n</B><B>d</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B>(<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B><EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > )
+              (<B>l</B><B>i</B><B>n</B><B>k</B>&#91;<I>tag <IMG WIDTH=4 HEIGHT=11 ALIGN=MIDDLE ALT="tex2html_wrap_inline8904" SRC="img7.gif"  > </I>(<I>expr <IMG WIDTH=4 HEIGHT=11 ALIGN=MIDDLE ALT="tex2html_wrap_inline8904" SRC="img7.gif"  > </I><I>linkspec <IMG WIDTH=4 HEIGHT=11 ALIGN=MIDDLE ALT="tex2html_wrap_inline8904" SRC="img7.gif"  > </I> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > )&#93; 
+                    <IMG WIDTH=2 HEIGHT=15 ALIGN=BOTTOM ALT="tex2html_wrap_inline8912" SRC="img8.gif"  >  
+                   &#91;<I>tag <IMG WIDTH=7 HEIGHT=5 ALIGN=MIDDLE ALT="tex2html_wrap_inline8914" SRC="img9.gif"  > </I>(<I>expr <IMG WIDTH=7 HEIGHT=5 ALIGN=MIDDLE ALT="tex2html_wrap_inline8914" SRC="img9.gif"  > </I><I>linkspec <IMG WIDTH=7 HEIGHT=5 ALIGN=MIDDLE ALT="tex2html_wrap_inline8914" SRC="img9.gif"  > </I> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > )&#93;) 
+              (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B>(<EM>t</EM><EM>a</EM><EM>g</EM><EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM>) <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > )) 
+</TT></PRE>
+<P>
+has three parts:
+<UL><LI> The <B>import</B> clause lists variables that are imported into
+ the compound unit.  These imported variables can be linked to the
+ constituent unit's imports.<LI> The <B>link</B> clause specifies how the compound unit is created
+ from the constituent units. Each constituent unit is specified via an
+ <EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM> and identified with a unique <EM>t</EM><EM>a</EM><EM>g</EM>.  Following the
+ <EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>, a link specification <EM>l</EM><EM>i</EM><EM>n</EM><EM>k</EM><EM>s</EM><EM>p</EM><EM>e</EM><EM>c</EM> is provided for each of the
+ constituent's imports. Link specifications have two forms:
+  <UL><LI> A <EM>l</EM><EM>i</EM><EM>n</EM><EM>k</EM><EM>s</EM><EM>p</EM><EM>e</EM><EM>c</EM> of the form <EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM> links the
+  constituent's import to the corresponding import of the compound
+  unit.<LI> A <EM>l</EM><EM>i</EM><EM>n</EM><EM>k</EM><EM>s</EM><EM>p</EM><EM>e</EM><EM>c</EM> of the form (<EM>t</EM><EM>a</EM><EM>g</EM> <EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM>) links
+  the constituent's import to <EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM> as exported by the
+  <EM>t</EM><EM>a</EM><EM>g</EM> constituent.
+<P>
+ </UL><LI> The <B>export</B> clause re-exports variables from the
+ compound unit that are exported from the constituents. The
+ <EM>t</EM><EM>a</EM><EM>g</EM> indicates the constituent and <EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM> is the
+ variable exported by that constituent.
+<P>
+</UL>
+<P>
+To evaluate a <B>compound-unit</B> expression, the <EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>s in
+ the <B>link</B> clause are evaluated to determine the compound
+ unit's constituents. For each constituent, the number of variables it
+ imports must match the number of <EM>l</EM><EM>i</EM><EM>n</EM><EM>k</EM><EM>s</EM><EM>p</EM><EM>e</EM><EM>c</EM>s provided;
+ otherwise, an exception is raised. Each <EM>l</EM><EM>i</EM><EM>n</EM><EM>k</EM><EM>s</EM><EM>p</EM><EM>e</EM><EM>c</EM> is matched
+ to an imported variable by position.<A NAME="tex2html3" HREF="#3801"><IMG SRC="footnote.gif" WIDTH=15 HEIGHT=15 BORDER=0 ALIGN=BOTTOM ALT="[footnote]"></A>  Each constituent must also export the variables
+ that are referenced by <B>link</B> and <B>export</B> clauses
+ using the constituent's <EM>t</EM><EM>a</EM><EM>g</EM>.
+<P>
+Once a compound unit's constituents are linked, the compound unit is
+ indistinguishable from an atomic unit. Conceptually, linking creates
+ a new unit by merging the internal expressions and definitions from
+ all the constituent units. During this merge, variables are renamed as
+ necessary to implement linking between constituents and to avoid name
+ collisions between unrelated variables. The merged
+ <EM>u</EM><EM>n</EM><EM>i</EM><EM>t</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>d</EM><EM>y</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>s are ordered to match the order of the
+ constituents in the <B>compound-unit</B>'s <B>link</B>
+ clause.<A NAME="tex2html4" HREF="#3823"><IMG SRC="footnote.gif" WIDTH=15 HEIGHT=15 BORDER=0 ALIGN=BOTTOM ALT="[footnote]"></A>
+<P>
+</td>
+
+<td valign=top width=50%>
+<A NAME="exampleunitshapeprogram"></A>
+<A NAME="figure9"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>-P<font size=-1><small>R</small></font><font size=-1><small>O</small></font><font size=-1><small>G</small></font><font size=-1><small>R</small></font><font size=-1><small>A</small></font><font size=-1><small>M</small></font>
+ (<B>c</B><B>o</B><B>m</B><B>p</B><B>o</B><B>u</B><B>n</B><B>d</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B> 
+   (<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B>) 
+   (<B>l</B><B>i</B><B>n</B><B>k</B>&#91;S(B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font>)&#93; 
+        &#91;G(G<font size=-1><small>U</small></font><font size=-1><small>I</small></font>(S<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>))&#93; 
+        &#91;P(P<font size=-1><small>I</small></font><font size=-1><small>C</small></font><font size=-1><small>T</small></font><font size=-1><small>U</small></font><font size=-1><small>R</small></font><font size=-1><small>E</small></font>(S<I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>)(S<I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>)(S<I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>) 
+                  (G<EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>))&#93;) 
+   (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B>)))
+<P>
+ (<B>i</B><B>n</B><B>v</B><B>o</B><B>k</B><B>e</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B>B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>-P<font size=-1><small>R</small></font><font size=-1><small>O</small></font><font size=-1><small>G</small></font><font size=-1><small>R</small></font><font size=-1><small>A</small></font><font size=-1><small>M</small></font>) 
+</TT></PRE>
+<a href="figure-9.shtml">Complete Program</a>
+<BR>Figure 9: Linking basic shape program<P>
+<P>
+<hr>
+</td>
+
+</tr>
+
+<tr align=top>
+<td valign=top colspan=2>
+<H2><A NAME="SECTION00043000000000000000">Invoking Unit Programs</A></H2>
+</td>
+</tr>
+
+<tr align=top>
+<td valign=top width=50%>
+The B<font size=-1><small>ASIC</small></font>-P<font size=-1><small>ROGRAM</small></font> unit from
+ Figure&nbsp;<A HREF="paper.shtml#exampleunitshapeprogram">9</A> is a complete program,
+ analogous to a conventional application, but the program still has
+ not been executed.  In most languages with module systems, a complete
+ program is executed through commands outside the language. In
+ MzScheme, a program unit is executed directly with the
+ <B>invoke-unit</B> form:
+<PRE><TT>(<B>i</B><B>n</B><B>v</B><B>o</B><B>k</B><B>e</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>)
+</TT></PRE>
+<P>
+The value of <EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM> must be a unit.  Invocation evaluates the
+ unit's definitions and expressions, and the result of the last
+ expression in the unit is the result of the <B>invoke-unit</B>
+ expression. Hence, to run B<font size=-1><small>ASIC</small></font>-P<font size=-1><small>ROGRAM</small></font>, evaluate
+<PRE><TT>(<B>i</B><B>n</B><B>v</B><B>o</B><B>k</B><B>e</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B>B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>-P<font size=-1><small>R</small></font><font size=-1><small>O</small></font><font size=-1><small>G</small></font><font size=-1><small>R</small></font><font size=-1><small>A</small></font><font size=-1><small>M</small></font>)
+</TT></PRE>
+<P>
+</td>
+
+<td></td>
+</tr>
+
+<tr align=top>
+<td valign=top colspan=2>
+<H2><A NAME="SECTION00044000000000000000">New Units for a New Variant</A></H2>
+</td>
+</tr>
+
+<tr align=top>
+<td valign=top width=50%>
+To extend <I>Shape</I> with a <I>Union</I> variant, we define the
+ extension in its own unit, U<font size=-1><small>NION</small></font>-S<font size=-1><small>HAPE</small></font>, as shown in
+ Figure&nbsp;<A HREF="paper.shtml#exampleunithorizontal">10</A>. The <I>Shape</I> class is
+ imported into U<font size=-1><small>NION</small></font>-S<font size=-1><small>HAPE</small></font>, and the new <I>Union</I> class
+ is exported. In terms of Figure&nbsp;<A HREF="paper.shtml#examplesolution">1</A>&nbsp;(b),
+ U<font size=-1><small>NION</small></font>-S<font size=-1><small>HAPE</small></font> corresponds to the smaller dashed box, drawn
+ around the new variant class. The solid box is the
+ original unmodified B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font> unit, and the outer dashed box in (b)
+ is B<font size=-1><small>ASIC</small></font>+U<font size=-1><small>NION</small></font>-S<font size=-1><small>HAPES</small></font>, a compound unit linking
+ U<font size=-1><small>NION</small></font>-S<font size=-1><small>HAPE</small></font> together with B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font>.
+<P>
+
+Since the B<font size=-1><small>ASIC</small></font>+U<font size=-1><small>NION</small></font>-S<font size=-1><small>HAPES</small></font> unit exports the variants
+ defined by both B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font> and U<font size=-1><small>NION</small></font>-S<font size=-1><small>HAPE</small></font>, it
+ can serve as a replacement for the original B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font>
+ unit, yet it can also provide more functionality for new clients.
+ The U<font size=-1><small>NION</small></font>-P<font size=-1><small>ROGRAM</small></font> unit in
+ Figure&nbsp;<A HREF="paper.shtml#exampleunithorizontalprogram">11</A> demonstrates both of
+ these uses. In this new program, the G<font size=-1><small>UI</small></font> and
+ P<font size=-1><small>ICTURE</small></font> clients are reused intact from the original program,
+ but they are now linked to B<font size=-1><small>ASIC</small></font>+U<font size=-1><small>NION</small></font>-S<font size=-1><small>HAPES</small></font> instead of
+ B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font>. An additional client unit,
+ U<font size=-1><small>NION</small></font>-P<font size=-1><small>ICTURE</small></font>, takes advantage of the shape extension to
+ draw a superimposed rectangle and circle picture.
+<P>
+</td>
+<td valign=top width=50%>
+
+<A NAME="exampleunithorizontal"></A>
+<A NAME="figure10"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font>
+  (<B>u</B><B>n</B><B>i</B><B>t</B>(<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) 
+       (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>) 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>(<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>n</I><I>u</I><I>l</I><I>l</I>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > ))))&#59;<I><B>see Figure&nbsp;<A HREF="paper.shtml#examplehorizontal">4</A></I></B>
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>+U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font> 
+   (<B>c</B><B>o</B><B>m</B><B>p</B><B>o</B><B>u</B><B>n</B><B>d</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B> 
+     (<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B>)
+     (<B>l</B><B>i</B><B>n</B><B>k</B>&#91;S(B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font>)&#93; 
+          &#91;US(U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font>(S<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>))&#93;) 
+     (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B>(S<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) 
+            (S<I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>) 
+            (S<I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>) 
+            (S<I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>) 
+            (US<I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>)))) 
+</TT></PRE>
+<a href="figure-10.shtml">Complete Program</a>
+<BR>Figure 10: Variant extension in a unit<P>
+<hr>
+<p>
+<A NAME="exampleunithorizontalprogram"></A>
+<A NAME="figure11"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>-P<font size=-1><small>I</small></font><font size=-1><small>C</small></font><font size=-1><small>T</small></font><font size=-1><small>U</small></font><font size=-1><small>R</small></font><font size=-1><small>E</small></font>
+  (<B>u</B><B>n</B><B>i</B><B>t</B>(<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I> 
+              <EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>) 
+       (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B>)
+    (<EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>(<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > ))))&#59;<I><B>see Figure&nbsp;<A HREF="paper.shtml#examplehorizontal">4</A></I></B>
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>-P<font size=-1><small>R</small></font><font size=-1><small>O</small></font><font size=-1><small>G</small></font><font size=-1><small>R</small></font><font size=-1><small>A</small></font><font size=-1><small>M</small></font> 
+   (<B>c</B><B>o</B><B>m</B><B>p</B><B>o</B><B>u</B><B>n</B><B>d</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B>
+     (<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B>) 
+     (<B>l</B><B>i</B><B>n</B><B>k</B>&#91;S(B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>+U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font>)&#93; 
+          &#91;G(G<font size=-1><small>U</small></font><font size=-1><small>I</small></font>(S<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>))&#93;
+          &#91;P(P<font size=-1><small>I</small></font><font size=-1><small>C</small></font><font size=-1><small>T</small></font><font size=-1><small>U</small></font><font size=-1><small>R</small></font><font size=-1><small>E</small></font>(S<I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>)(S<I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>)(S<I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>) 
+                    (G<EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>))&#93; 
+          &#91;UP(U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>-P<font size=-1><small>I</small></font><font size=-1><small>C</small></font><font size=-1><small>T</small></font><font size=-1><small>U</small></font><font size=-1><small>R</small></font><font size=-1><small>E</small></font>(S<I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>) 
+                           (S<I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>) 
+                           (S<I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>) 
+                           (S<I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>) 
+                           (G<EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>))&#93;) 
+     (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B>)))
+<P>
+ (<B>i</B><B>n</B><B>v</B><B>o</B><B>k</B><B>e</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B>U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>-P<font size=-1><small>R</small></font><font size=-1><small>O</small></font><font size=-1><small>G</small></font><font size=-1><small>R</small></font><font size=-1><small>A</small></font><font size=-1><small>M</small></font>) 
+</TT></PRE>
+<a href="figure-11.shtml">Complete Program</a>
+<BR>Figure 11: New client and the extended program<P>
+
+<hr>
+</td></tr>
+
+<tr align=top>
+<td valign=top colspan=2>
+<H2><A NAME="SECTION00045000000000000000">New Units and Mixins for a New Operation</A></H2>
+</td>
+</tr>
+
+<tr align=top>
+<td valign=top width=50%>
+To extend <I>Shape</I> with a <EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM> operation, we
+ define the BB-S<font size=-1><small>HAPES</small></font> unit in
+ Figure&nbsp;<A HREF="paper.shtml#exampleunitvertical">12</A>.  This unit corresponds to the
+ smaller dashed box in Figure&nbsp;<A HREF="paper.shtml#examplesolution">1</A>&nbsp;(c).
+<P>
+The BB-S<font size=-1><small>HAPES</small></font> unit is the first example to rely on
+ mixins. The <I>BB-Rectangle</I> class is derived from an imported
+ <I>Rectangle</I> class, which is not determined until the unit is
+ linked--long after the unit is compiled. Thus, <I>BB-Rectangle</I>
+ defines a <EM>mixin</EM>, a class extension that is parameterized
+ over its superclass.
+<P>
+The compound unit B<font size=-1><small>ASIC</small></font>+U<font size=-1><small>NION</small></font>+BB-S<font size=-1><small>HAPES</small></font> links the
+ B<font size=-1><small>ASIC</small></font>+U<font size=-1><small>NION</small></font>-S<font size=-1><small>HAPES</small></font> unit from the previous section with the
+ new bounding-box unit, then exports the bounding-box classes. As the
+ bounding-box classes are exported, they are renamed to match the
+ original class names,<A NAME="tex2html5" HREF="#8334"><IMG SRC="footnote.gif" WIDTH=15 HEIGHT=15 BORDER=0 ALIGN=BOTTOM ALT="[footnote]"></A>
+ <I>i.e.</I>, <I>BB-Rectangle</I> is renamed to <I>Rectangle</I>,
+ and so on. This renaming does not affect the linking <EM>within</EM>
+ B<font size=-1><small>ASIC</small></font>+U<font size=-1><small>NION</small></font>+BB-S<font size=-1><small>HAPES</small></font>; it only affects the way that
+ B<font size=-1><small>ASIC</small></font>+U<font size=-1><small>NION</small></font>+BB-S<font size=-1><small>HAPES</small></font> is linked with other units.
+<P>
+As before, the B<font size=-1><small>ASIC</small></font>+U<font size=-1><small>NION</small></font>+BB-S<font size=-1><small>HAPES</small></font> unit serves as a
+ replacement for either B<font size=-1><small>ASIC</small></font>-S<font size=-1><small>HAPES</small></font> or
+ B<font size=-1><small>ASIC</small></font>+U<font size=-1><small>NION</small></font>-S<font size=-1><small>HAPES</small></font>, and also provides new functionality for
+ new clients. One new client is BB-G<font size=-1><small>UI</small></font> (see
+ Figure&nbsp;<A HREF="paper.shtml#exampleunitverticalprogram">13</A>), which provides a
+ <EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> that exploits bounding box information to
+ center a shape in a window. The BB-G<font size=-1><small>UI</small></font> unit replaces
+ G<font size=-1><small>UI</small></font>, but we reuse P<font size=-1><small>ICTURE</small></font> and
+ U<font size=-1><small>NION</small></font>-P<font size=-1><small>ICTURE</small></font> without modifying them.  An Abstract Factory
+ is unnecessary because units already permit us to vary the connection
+ between the shape-creating clients and the instantiated
+ classes. Putting everything together produces the new program
+ BB-P<font size=-1><small>ROGRAM</small></font> at the bottom of
+ Figure&nbsp;<A HREF="paper.shtml#exampleunitverticalprogram">13</A>.
+<P>
+</td>
+
+<td valign=top width=50%>
+<A NAME="exampleunitvertical"></A>
+<A NAME="figure12"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> BB-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font>
+  (<B>u</B><B>n</B><B>i</B><B>t</B>(<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>) 
+       (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B><I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I><I>B</I><I>B</I><I>-</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I><I>B</I><I>B</I><I>-</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I> 
+              <I>B</I><I>B</I><I>-</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I><I>B</I><I>B</I><I>-</I><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I><I>B</I><I>B</I>) 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>(<B>i</B><B>n</B><B>t</B><B>e</B><B>r</B><B>f</B><B>a</B><B>c</B><B>e</B>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > ))&#59;<I><B>see Figure&nbsp;<A HREF="paper.shtml#examplevertical">5</A></I></B> 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>(<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )) 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>(<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )) 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>(<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )) 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>(<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )) 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>+U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>+BB-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font> 
+   (<B>c</B><B>o</B><B>m</B><B>p</B><B>o</B><B>u</B><B>n</B><B>d</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B>
+    (<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B>)
+    (<B>l</B><B>i</B><B>n</B><B>k</B>&#91;S(B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>+U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font>)&#93; 
+         &#91;BS(BB-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font>(S<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) 
+                      (S<I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>) 
+                      (S<I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>) 
+                      (S<I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>) 
+                      (S<I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>))&#93;) 
+    (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B>(S<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) 
+           (BS<I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(BS<I>B</I><I>B</I>) 
+           &#59;<I><B>rename BS's <I>BB-Rectangle</I> to <I>Rectangle</I>, etc.:</I></B>
+           (BS(<I>B</I><I>B</I><I>-</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>)) 
+           (BS(<I>B</I><I>B</I><I>-</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>)) 
+           (BS(<I>B</I><I>B</I><I>-</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>)) 
+           (BS(<I>B</I><I>B</I><I>-</I><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>))))) 
+</TT></PRE>
+<a href="figure-12.shtml">Complete Program</a>
+<BR>Figure 12: Operation extension in a unit<P>
+<hr>
+<P>
+<A NAME="exampleunitverticalprogram"></A>
+<A NAME="figure13"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> BB-G<font size=-1><small>U</small></font><font size=-1><small>I</small></font>
+  (<B>u</B><B>n</B><B>i</B><B>t</B>(<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B><I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I><I>B</I><I>B</I>) 
+       (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B><EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>) 
+    (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM> 
+      (<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>(<EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>) 
+        (<B>i</B><B>f</B>(<I>n</I><I>o</I><I>t</I>(<I>i</I><I>s</I><I>-</I><I>a</I><I>?</I><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM><I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)) 
+            <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )&#59;<I><B>see Figure&nbsp;<A HREF="paper.shtml#examplevertical">5</A></I></B>
+         <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> BB-P<font size=-1><small>R</small></font><font size=-1><small>O</small></font><font size=-1><small>G</small></font><font size=-1><small>R</small></font><font size=-1><small>A</small></font><font size=-1><small>M</small></font> 
+  (<B>c</B><B>o</B><B>m</B><B>p</B><B>o</B><B>u</B><B>n</B><B>d</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B> 
+   (<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B>) 
+   (<B>l</B><B>i</B><B>n</B><B>k</B>&#91;S(B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>+U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>+BB-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font>)&#93; 
+        &#91;BG(BB-G<font size=-1><small>U</small></font><font size=-1><small>I</small></font>(S<I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(S<I>B</I><I>B</I>))&#93; 
+        &#91;P(P<font size=-1><small>I</small></font><font size=-1><small>C</small></font><font size=-1><small>T</small></font><font size=-1><small>U</small></font><font size=-1><small>R</small></font><font size=-1><small>E</small></font>(S<I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>)(S<I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>)(S<I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>) 
+                  (BG<EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>))&#93; 
+        &#91;UP(U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>-P<font size=-1><small>I</small></font><font size=-1><small>C</small></font><font size=-1><small>T</small></font><font size=-1><small>U</small></font><font size=-1><small>R</small></font><font size=-1><small>E</small></font>(S<I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>)(S<I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>) 
+                         (S<I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>)(S<I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>) 
+                         (BG<EM>d</EM><EM>i</EM><EM>s</EM><EM>p</EM><EM>l</EM><EM>a</EM><EM>y</EM><EM>-</EM><EM>s</EM><EM>h</EM><EM>a</EM><EM>p</EM><EM>e</EM>))&#93;) 
+   (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B>)))
+<P>
+ (<B>i</B><B>n</B><B>v</B><B>o</B><B>k</B><B>e</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B>BB-P<font size=-1><small>R</small></font><font size=-1><small>O</small></font><font size=-1><small>G</small></font><font size=-1><small>R</small></font><font size=-1><small>A</small></font><font size=-1><small>M</small></font>) 
+</TT></PRE>
+<a href="figure-13.shtml">Complete Program</a>
+<BR>Figure 13: Program with the operation extension<P>
+<P>
+
+<hr>
+</td>
+</tr>
+
+<tr>
+<td colspan=2>
+<H2><A NAME="SECTION00046000000000000000">Synergy at Work</A></H2>
+<A NAME="unitssynergy"></A>
+</td>
+</tr>
+
+<tr align=top>
+<td valign=top>
+The shape example demonstrates the synergy of units and mixins.
+ Units, by separating the definition and linking of modules, support
+ the reuse of P<font size=-1><small>ICTURE</small></font> and U<font size=-1><small>NION</small></font>-P<font size=-1><small>ICTURE</small></font> as the shape
+ representation evolves.  Mixins, by abstracting a class expression over an
+ imported class, enable the encapsulation of each extension in its own
+ unit.  The combination of units and mixins thus enables a direct
+ translation of the ideal program structure from
+ Figure&nbsp;<A HREF="paper.shtml#examplesolution">1</A> into a working program.
+<P>
+
+We have achieved the complete reuse of existing code at every stage in
+ the extension of <I>Shape</I>, but even <EM>more</EM> reuse is
+ possible.  The code in Figure&nbsp;<A HREF="paper.shtml#exampleunitcolor">14</A> illustrates
+ how units and mixins combine to allow the use of one <EM>extension</EM>
+ multiple times. The C<font size=-1><small>OLOR</small></font>-S<font size=-1><small>HAPE</small></font> unit imports a
+ <I>Shape</I> class and extends it to handle colors. With this
+ single unit containing a single mixin, we can extend all four of the
+ shape variants: <I>Rectangle</I>, <I>Circle</I>,
+ <I>Translated</I>, and <I>Union</I>. The compound unit
+ B<font size=-1><small>ASIC</small></font>+U<font size=-1><small>NION</small></font>+BB+C<font size=-1><small>OLOR</small></font>-S<font size=-1><small>HAPES</small></font> in
+ Figure&nbsp;<A HREF="paper.shtml#exampleunitcolor">14</A> uses the C<font size=-1><small>OLOR</small></font>-S<font size=-1><small>HAPE</small></font> unit
+ four times to obtain the set of color shape classes.
+<P>
+The code in Figure&nbsp;<A HREF="paper.shtml#exampleunitcolor">14</A> uses a few features that
+ are not described in this paper (the <B>rename</B> clause in a
+ <B>class*</B> expression, and the use of <EM>a</EM><EM>r</EM><EM>g</EM><EM>s</EM> to stand for
+ multiple arguments, passed on to <I>super-init</I> with
+ <I>apply</I>).  These details are covered in the MzScheme reference
+ manual&nbsp;[<A HREF="paper.shtml#MzScheme">12</A>]. The point here is that units and mixins open
+ new avenues for reuse on a large scale.
+<P>
+
+<td valign=top width=50%>
+
+<A NAME="exampleunitcolor"></A>
+<A NAME="figure14"></A>
+<hr>
+<P>
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> C<font size=-1><small>O</small></font><font size=-1><small>L</small></font><font size=-1><small>O</small></font><font size=-1><small>R</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font>
+  (<B>u</B><B>n</B><B>i</B><B>t</B>(<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) 
+       (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B><I>C</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) 
+     (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>C</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I> 
+       (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>()<EM>a</EM><EM>r</EM><EM>g</EM><EM>s</EM> 
+         (<B>r</B><B>e</B><B>n</B><B>a</B><B>m</B><B>e</B> 
+           &#91;<EM>s</EM><EM>u</EM><EM>p</EM><EM>e</EM><EM>r</EM><EM>-</EM><EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM><EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>&#93;) 
+         (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B> 
+           &#91;<EM>c</EM><EM>o</EM><EM>l</EM><EM>o</EM><EM>r</EM><I>``</I><I>b</I><I>l</I><I>a</I><I>c</I><I>k</I><I>''</I>&#93; 
+           &#91;<EM>c</EM><EM>h</EM><EM>a</EM><EM>n</EM><EM>g</EM><EM>e</EM><EM>-</EM><EM>c</EM><EM>o</EM><EM>l</EM><EM>o</EM><EM>r</EM> 
+             (<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>(<EM>c</EM>) 
+               (<B>s</B><B>e</B><B>t</B><B>!</B><EM>c</EM><EM>o</EM><EM>l</EM><EM>o</EM><EM>r</EM><EM>c</EM>))&#93; 
+           &#91;<EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM> 
+             (<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>(<EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>x</EM><EM>y</EM>) 
+               (<B>s</B><B>e</B><B>n</B><B>d</B><EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>s</EM><EM>e</EM><EM>t</EM><EM>-</EM><EM>c</EM><EM>o</EM><EM>l</EM><EM>o</EM><EM>r</EM><EM>c</EM><EM>o</EM><EM>l</EM><EM>o</EM><EM>r</EM>) 
+               (<EM>s</EM><EM>u</EM><EM>p</EM><EM>e</EM><EM>r</EM><EM>-</EM><EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM><EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>x</EM><EM>y</EM>))&#93;) 
+         (<B>s</B><B>e</B><B>q</B><B>u</B><B>e</B><B>n</B><B>c</B><B>e</B> 
+           (<I>a</I><I>p</I><I>p</I><I>l</I><I>y</I><I>s</I><I>u</I><I>p</I><I>e</I><I>r</I><I>-</I><I>i</I><I>n</I><I>i</I><I>t</I><EM>a</EM><EM>r</EM><EM>g</EM><EM>s</EM>))))))
+<P>
+ (<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>+U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>+BB+C<font size=-1><small>O</small></font><font size=-1><small>L</small></font><font size=-1><small>O</small></font><font size=-1><small>R</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font> 
+   (<B>c</B><B>o</B><B>m</B><B>p</B><B>o</B><B>u</B><B>n</B><B>d</B><B>-</B><B>u</B><B>n</B><B>i</B><B>t</B> 
+    (<B>i</B><B>m</B><B>p</B><B>o</B><B>r</B><B>t</B>)
+    (<B>l</B><B>i</B><B>n</B><B>k</B>&#91;S(B<font size=-1><small>A</small></font><font size=-1><small>S</small></font><font size=-1><small>I</small></font><font size=-1><small>C</small></font>+U<font size=-1><small>N</small></font><font size=-1><small>I</small></font><font size=-1><small>O</small></font><font size=-1><small>N</small></font>+BB-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font><font size=-1><small>S</small></font>)&#93; 
+         &#91;CR(C<font size=-1><small>O</small></font><font size=-1><small>L</small></font><font size=-1><small>O</small></font><font size=-1><small>R</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font>(S<I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>))&#93; 
+         &#91;CC(C<font size=-1><small>O</small></font><font size=-1><small>L</small></font><font size=-1><small>O</small></font><font size=-1><small>R</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font>(S<I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>))&#93; 
+         &#91;CT(C<font size=-1><small>O</small></font><font size=-1><small>L</small></font><font size=-1><small>O</small></font><font size=-1><small>R</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font>(S<I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>))&#93; 
+         &#91;CU(C<font size=-1><small>O</small></font><font size=-1><small>L</small></font><font size=-1><small>O</small></font><font size=-1><small>R</small></font>-S<font size=-1><small>H</small></font><font size=-1><small>A</small></font><font size=-1><small>P</small></font><font size=-1><small>E</small></font>(S<I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>))&#93;) 
+    (<B>e</B><B>x</B><B>p</B><B>o</B><B>r</B><B>t</B>(S<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) 
+           (S<I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>) 
+           (S<I>B</I><I>B</I>) 
+           (CR(<I>C</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>)) 
+           (CC(<I>C</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I><I>C</I><I>i</I><I>r</I><I>c</I><I>l</I><I>e</I>)) 
+           (CT(<I>C</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I><I>T</I><I>r</I><I>a</I><I>n</I><I>s</I><I>l</I><I>a</I><I>t</I><I>e</I><I>d</I>)) 
+           (CU(<I>C</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I><I>U</I><I>n</I><I>i</I><I>o</I><I>n</I>))))) 
+</TT></PRE>
+<a href="figure-14.shtml">Complete Program</a>
+<BR>Figure 14: Reusing a class extension<P>
+
+<hr>
+</td>
+</tr>
+</table>
+
+<H1><A NAME="SECTION00050000000000000000">The Moral of the Story</A></H1>
+<A NAME="designsection"></A>
+We have demonstrated how units and mixins apply to a specific example,
+ but a general principle is at work: specifying connections between
+ modules or classes separately from their definitions. This principle
+ is the key to making units and mixins succeed together without
+ conflating the distinct purposes of module and class systems.
+<P>
+A module system serves two key purposes:
+<UL><LI> <B>Separate Development:</B> A module encapsulates a set of
+ definitions, clearly delineating the interface between the module and
+ the rest of the program. Each module can be developed in isolation
+ and distributed to clients in a compiled form.<LI> <B>Linking:</B> Modules are linked together to form a
+ program. Linking connects the definitions in one module with those in
+ another, but a module cannot interfere with the internal structure of
+ any other module.
+<P>
+</UL>
+In contrast, a class system supports three different key services:
+<UL><LI> <B>Extensible Types:</B> An interface defines an extensible
+ type, and a class implements such a type.<LI> <B>Selective Reuse:</B> A class can selectively refine the
+ implementation of its superclass, preserving some inherited
+ definitions and overriding others with its own definitions.<LI> <B>Instantiation:</B> A class is instantiated to create an
+ object, a first-class value that encapsulates the methods and
+ instance variables of the class.
+<P>
+</UL>
+<P>
+To serve their distinct purposes, modules and classes require distinct
+ constructs in a programming language, but these constructs
+ interact. In our example program, the collection of geometric shapes
+ is naturally implemented as a set of <I>Shape</I> classes. The
+ implementation of the shape classes and the client code that uses
+ them are defined in separate modules.  Using classes to represent
+ shapes makes it easy to extend the shape classes without modifying
+ the basic definition of a shape.  Separating the definition of shapes
+ from their use in different modules makes it easy to replace the
+ original shape classes with new classes without modifying the
+ client. This is precisely how modular object-oriented code is
+ supposed to work.
+<P>
+Unfortunately, the existing module-class combinations do not support
+ this sort of modular object-oriented programming. In Java, for
+ example, if the <I>Rectangle</I> class is extended, then a client
+ module that creates <I>Rectangle</I> instances must be modified to
+ refer to the new, extended class. The root of this problem, both in
+ Java and many other object-oriented languages, is that the
+ connections between modules are hard-wired within the modules.  For
+ example, client modules declare that they import <EM>the</EM> shape
+ module instead of importing <EM>a</EM> shape module.
+<P>
+The design of module and class constructs must encourage the
+ interaction of the constructs.  The <I>Shape</I> example suggests a
+ lesson for the design of modules:
+ <BLOCKQUOTE> <EM>Separate a module's linking specification from its  encapsulated definitions.</EM> </BLOCKQUOTE>
+In other words, a module should describe its imports with enough
+ detail to support separate compilation, but the module should not
+ specify the source of its imports. Instead, the imports should be
+ supplied externally by a linking expression.
+<P>
+A module system with external linking in turn constrains the design of
+ the class system. A module may encapsulate a class definition with an
+ imported superclass (<I>e.g.</I>, <I>BB-Rectangle</I> in
+ Figure&nbsp;<A HREF="paper.shtml#exampleunitvertical">12</A>). Since module linking is
+ specified outside the module, the superclass is not determined until
+ the module is linked, so the class expression is <I>de facto</I>
+ parameterized over its superclass. Such a parameterized class is a
+ <EM>mixin</EM>. Mixins tend to be computationally more expensive
+ than classes, but the cost is small&nbsp;[<A HREF="paper.shtml#popl98fkf">14</A>]. In parallel to
+ the lesson for modules, the requirement to support mixins can be
+ stated as follows:
+ <BLOCKQUOTE> <EM>Separate a class's superclass specification from its  extending definitions.</EM> </BLOCKQUOTE>
+Mixins are valuable in their own right. While classes enable reuse
+ because each class can be extended and refined by defining new
+ subclasses, the reuse is one-sided: each class can be extended in
+ many different ways, but each extension applies only to its
+ superclass. A mixin is parameterized with respect to its superclass,
+ so it can add functionality to many different classes. Thus, the
+ reuse potential of a mixin is greater than that of a class.
+<P>
+<H1><A NAME="SECTION00060000000000000000">A Type Challenge</A></H1>
+<A NAME="typessection"></A>
+We have explored typed models of mixins&nbsp;[<A HREF="paper.shtml#popl98fkf">14</A>] and
+ units&nbsp;[<A HREF="paper.shtml#pldi98ff">13</A>] separately in previous work.  In addition, we
+ have anticipated an extension of the present work with types by
+ including <I>is-a?</I> safety tests in our examples, and by
+ showing how the <I>Shape</I> and <I>BB-Shape</I> interfaces are
+ linked to clients to enable those tests. Still, certain challenges
+ remain for bringing mixins and units together in a single typed model.
+ For mixins, the previously published type rules assume a complete
+ program and a single namespace for mixin names. For units, the
+ previously published language does not express the kind of type
+ relationships necessary for importing and exporting interface types
+ (<I>e.g.</I>, importing types <I>A</I> and <I>B</I> where
+ <I>A</I> must be a subtype of <I>B</I>).
+<P>
+Others have explored a similar combination of classes and modules in a
+ typed setting. The module systems in Objective
+ Caml&nbsp;[<A HREF="paper.shtml#OCAML">28</A>, <A HREF="paper.shtml#POPLRemyV1997">38</A>] and OML&nbsp;[<A HREF="paper.shtml#PLDIReppyR1996">39</A>]
+ support externally specified connections, and since a class can be
+ defined within a module, these languages also provide a form of
+ mixins.  However, the modules and mixins in these languages fail to
+ support the synergy we have demonstrated for units and mixins. In
+ particular, they do not allow the operation extension demonstrated in
+ Section&nbsp;<A HREF="paper.shtml#unitssection">4</A> because an imported class must match the
+ expected type exactly--no extra methods are allowed. In our example,
+ P<font size=-1><small>ICTURE</small></font> is initially linked to the <I>Rectangle</I> class
+ and later linked to <I>BB-Rectangle</I>; since the latter has more
+ methods, neither Objective Caml nor OML would allow P<font size=-1><small>ICTURE</small></font>
+ to be reused in this way. Our example thus suggests a third lesson
+ for the design of module and class type systems:
+ <BLOCKQUOTE> <EM>Allow subsumption for connections, including both module
+linking and class extension.</EM> </BLOCKQUOTE><H1>
+<A NAME="SECTION00070000000000000000">Related Work</A></H1>
+<A NAME="relatedsection"></A>
+<P>
+Much of the previous research on modules and classes focused on
+ unifying the constructs. Lee and Friedman&nbsp;[<A HREF="paper.shtml#Lee93">26</A>, <A HREF="paper.shtml#Lee96">27</A>]
+ investigated languages that work directly on variables and bindings,
+ which provides a theoretical foundation for implementing both modules
+ and classes. Similarly, Jagannathan&nbsp;[<A HREF="paper.shtml#JagannathanTOPLAS">21</A>] and
+ Miller and Rozas&nbsp;[<A HREF="paper.shtml#Miller91">29</A>] proposed first-class environments as
+ a common mechanism.  Bracha&nbsp;[<A HREF="paper.shtml#BrachaPhD">3</A>] has explored mixins for
+ both modular and object-oriented programming; Ancona and
+ Zucca&nbsp;[<A HREF="paper.shtml#AnconaZucca96">1</A>] provide a categorical treatment of this
+ view. Our work is complementary to all of the above work, because we
+ focus on designing the constructs to be used by a programmer, rather
+ than the method used to implement those constructs.
+<P>
+Languages that have promoted modularization, including Mesa&nbsp;[<A HREF="paper.shtml#Mesa">31</A>],
+ Modula-2&nbsp;[<A HREF="paper.shtml#ModII">45</A>], and SML&nbsp;[<A HREF="paper.shtml#BibleML">30</A>], provide no direct
+ support for object-oriented programming. Similarly, early
+ object-oriented languages, such as Simula 67&nbsp;[<A HREF="paper.shtml#Simula67">9</A>] and
+ Smalltalk&nbsp;[<A HREF="paper.shtml#Smalltalk">16</A>], provide no module system.  In contrast,
+ languages such as Ada 95&nbsp;[<A HREF="paper.shtml#Ada95">20</A>], Common Lisp&nbsp;[<A HREF="paper.shtml#CLTL">42</A>],
+ Dylan&nbsp;[<A HREF="paper.shtml#Dylan">41</A>], Haskell&nbsp;[<A HREF="paper.shtml#HaskellReport">19</A>], Java&nbsp;[<A HREF="paper.shtml#JavaTL">17</A>],
+ and Modula-3&nbsp;[<A HREF="paper.shtml#ModIII">18</A>] provide both modules and classes. For
+ Cecil&nbsp;[<A HREF="paper.shtml#Cecil">4</A>], Chambers and Leavens&nbsp;[<A HREF="paper.shtml#ChambersLeavens95b">5</A>]
+ designed a module system specifically to complement a class system
+ with multi-methods.  Unfortunately, these module and class systems do
+ not support external connections--a central principle of our
+ design that is crucial to software engineering (see
+ Section&nbsp;<A HREF="paper.shtml#designsection">5</A>).
+<P>
+Scheme&nbsp;[<A HREF="paper.shtml#R4RS">6</A>] provides no specific mechanisms for modular or
+ object-oriented programming.  Instead, Scheme supports modular
+ programming through lexical scope, and many implementations provide
+ separate compilation for top-level expressions. Programmers can
+ regard top-level expressions as ``modules'' that hide private
+ definitions by using <B>let</B> or <B>letrec</B>. A number of
+ Scheme systems have been developed that codify the
+ module-via-top-level
+ idea&nbsp;[<A HREF="paper.shtml#CurtisRauen90">8</A>, <A HREF="paper.shtml#GambitC">10</A>, <A HREF="paper.shtml#S48Modules">36</A>, <A HREF="paper.shtml#Queinnec96">35</A>, <A HREF="paper.shtml#Tung92">44</A>], but
+ none of these satisfies the criteria in
+ Section&nbsp;<A HREF="paper.shtml#designsection">5</A>. In contrast, Kelsey's proposed module
+ system&nbsp;[<A HREF="paper.shtml#KelseyMod">22</A>] captures many of the same ideas as
+ units. Scheme can also support object-oriented programming by
+ simulating objects with procedures and classes with higher-order
+ procedures&nbsp;[<A HREF="paper.shtml#ReesJonath1988a">37</A>].  Several object-oriented
+ extensions for Scheme have been developed&nbsp;[<A HREF="paper.shtml#PCScheme">2</A>, <A HREF="paper.shtml#MeroonV3">34</A>],
+ including some that support
+ mixins&nbsp;[<A HREF="paper.shtml#Oaklisp">25</A>, <A HREF="paper.shtml#Queinnec97fj">33</A>].<A NAME="tex2html6" HREF="#8236"><IMG SRC="footnote.gif" WIDTH=15 HEIGHT=15 BORDER=0 ALIGN=BOTTOM ALT="[footnote]"></A> However, none of these systems provide complete
+ languages for both modular and object-oriented programming.
+<P>
+<H1><A NAME="SECTION00080000000000000000">Conclusion</A></H1>
+<P>
+Units and mixins promote a synergistic integration of modular and
+ object-oriented programming techniques. The combination succeeds due
+ to a consistent separation of definitions (encapsulated in modules or
+ classes) from connections (between modules or classes) in both units
+ and mixins.
+<P>
+The bulk of the paper explores the extensibility problem because it
+ highlights many of the advantages of units and mixins. Strictly
+ speaking, the problem can be solved using conventional module and
+ class systems and the Abstract Factory pattern. Nevertheless, a
+ straightforward datatype implementation using units and mixins is
+ more immediately extensible. This natural bias towards reuse and
+ extension is the essential benefit of units and mixins.
+<P>
+<P>
+<P>
+For a complete version of the code presented here, see
+<TT>
+<a href="http://www.cs.utah.edu/plt/publications/icfp98-ff/">
+<code>http://www.cs.utah.edu/plt/publications/icfp98-ff/</code></a>
+</TT>
+<H1><A NAME="SECTION00090000000000000000">Acknowledgements</A></H1>
+<P>
+The authors would like to thank Matthias Felleisen, Corky Cartwright,
+John Clements, Dan Friedman, Shriram Krishnamurthi, Paul Steckler, and
+the anonymous reviewers.
+<P>
+<P><A NAME="SECTIONREF"><H2>References</H2></A><P>
+<DL COMPACT>
+<DT><A NAME="AnconaZucca96"><STRONG>1</STRONG></A><DD>
+Ancona,&nbsp;D. and E.&nbsp;Zucca.
+An algebraic approach to mixins and modularity.
+In Hanus,&nbsp;M. and M.&nbsp;Rodr&#237;guez-Artalejo, editors, <EM>Proc.
+  Conference on Algebraic and Logic Programming</EM>, Lecture Notes in Computer
+  Science 1139, pages 179-193, Berlin, 1996. Springer Verlag.
+<P>
+<DT><A NAME="PCScheme"><STRONG>2</STRONG></A><DD>
+Bartley,&nbsp;D.&nbsp;H. and J.&nbsp;C. Jensen.
+The implementation of PC Scheme.
+In <EM>Proc. ACM Conference on Lisp and Functional Programming</EM>,
+  pages 86-93, 1986.
+<P>
+<DT><A NAME="BrachaPhD"><STRONG>3</STRONG></A><DD>
+Bracha,&nbsp;G.
+<EM>The Programming Language Jigsaw: Mixins, Modularity and Multiple
+  Inheritance</EM>.
+Ph.D. thesis, Dept. of Computer Science, University of Utah, March
+  1992.
+<P>
+<DT><A NAME="Cecil"><STRONG>4</STRONG></A><DD>
+Chambers,&nbsp;C.
+<EM>The Cecil Language Specification and Rationale: Version 2.0</EM>,
+  1995.
+<P>
+<DT><A NAME="ChambersLeavens95b"><STRONG>5</STRONG></A><DD>
+Chambers,&nbsp;C. and G.&nbsp;T. Leavens.
+Typechecking and modules for multi-methods.
+<EM>ACM Transactions on Programming Languages and Systems</EM>,
+  17(6):805-843, November 1995.
+<P>
+<DT><A NAME="R4RS"><STRONG>6</STRONG></A><DD>
+Clinger,&nbsp;W. and Rees, J. (Eds.).
+The revised <IMG WIDTH=5 HEIGHT=7 ALIGN=BOTTOM ALT="tex2html_wrap_inline9076" SRC="img10.gif"  >  report on the algorithmic language Scheme.
+<EM>ACM Lisp Pointers</EM>, 4(3), July 1991.
+<P>
+<DT><A NAME="Cook90"><STRONG>7</STRONG></A><DD>
+Cook,&nbsp;W.&nbsp;R.
+Object-oriented programming versus abstract data types.
+In <EM>Foundations of Object-Oriented Languages</EM>, pages 151-178,
+  June 1990.
+<P>
+<DT><A NAME="CurtisRauen90"><STRONG>8</STRONG></A><DD>
+Curtis,&nbsp;P. and J.&nbsp;Rauen.
+A module system for Scheme.
+In <EM>Proc. ACM Conference on Lisp and Functional Programming</EM>,
+  pages 13-28, 1990.
+<P>
+<DT><A NAME="Simula67"><STRONG>9</STRONG></A><DD>
+Dahl,&nbsp;O.-J., B.&nbsp;Myrhaug  and K.&nbsp;Nygaard.
+SIMULA 67. common base language.
+Technical Report Publ. No. S-2, Norwegian Computing Center, Oslo,
+  Norway, May 1968.
+<P>
+<DT><A NAME="GambitC"><STRONG>10</STRONG></A><DD>
+Feeley,&nbsp;M.
+<EM>Gambit-C, a portable Scheme implementation</EM>, 1996.
+<P>
+<DT><A NAME="LittleJavar"><STRONG>11</STRONG></A><DD>
+Felleisen,&nbsp;M. and D.&nbsp;P. Friedman.
+<EM>A Little Java, A Few Patterns</EM>.
+The MIT Press, 1998.
+<P>
+<DT><A NAME="MzScheme"><STRONG>12</STRONG></A><DD>
+Flatt,&nbsp;M.
+PLT MzScheme: Language manual.
+Technical Report TR97-280, Rice University, 1997.
+<P>
+<DT><A NAME="pldi98ff"><STRONG>13</STRONG></A><DD>
+Flatt,&nbsp;M. and M.&nbsp;Felleisen.
+Units: Cool modules for HOT languages.
+In <EM>Proc. ACM Conference on Programming Language Design and
+  Implementation</EM>, pages 236-248, 1998.
+<P>
+<DT><A NAME="popl98fkf"><STRONG>14</STRONG></A><DD>
+Flatt,&nbsp;M., S.&nbsp;Krishnamurthi  and M.&nbsp;Felleisen.
+Classes and mixins.
+In <EM>Proc. ACM Symposium on Principles of Programming Languages</EM>,
+  pages 171-183, 1998.
+<P>
+<DT><A NAME="DesignPatterns"><STRONG>15</STRONG></A><DD>
+Gamma,&nbsp;E., R.&nbsp;Helm, R.&nbsp;Johnson  and J.&nbsp;Vlissides.
+<EM>Design Patterns: Elements of Reusable Object-Oriented Software</EM>.
+Addison Wesley, Massachusetts, 1994.
+<P>
+<DT><A NAME="Smalltalk"><STRONG>16</STRONG></A><DD>
+Goldberg,&nbsp;A. and D.&nbsp;Robson.
+<EM>Smalltalk 80: The Language</EM>.
+Addison-Wesley, Reading, 1989.
+<P>
+<DT><A NAME="JavaTL"><STRONG>17</STRONG></A><DD>
+Gosling,&nbsp;J., B.&nbsp;Joy  and G.&nbsp;Steele.
+<EM>The Java Language Specification</EM>.
+The Java Series. Addison-Wesley, Reading, MA, USA, June
+  1996.
+<P>
+<DT><A NAME="ModIII"><STRONG>18</STRONG></A><DD>
+Harbison,&nbsp;S.&nbsp;P.
+<EM>Modula-3</EM>.
+Prentice Hall, 1991.
+<P>
+<DT><A NAME="HaskellReport"><STRONG>19</STRONG></A><DD>
+Hudak,&nbsp;P. and Wadler, P. (Eds.).
+Report on the programming language Haskell.
+Technical Report YALE/DCS/RR777, Yale University, Department of
+  Computer Science, August 1991.
+<P>
+<DT><A NAME="Ada95"><STRONG>20</STRONG></A><DD>
+International Organization for Standardization.
+<EM>Ada 95 Reference Manual. The Language. The Standard Libraries</EM>,
+  Janurary 1995.
+<P>
+<DT><A NAME="JagannathanTOPLAS"><STRONG>21</STRONG></A><DD>
+Jagannathan,&nbsp;S.
+Metalevel building blocks for modular systems.
+<EM>ACM Transactions on Programming Languages and Systems</EM>,
+  16(3):456-492, May 1994.
+<P>
+<DT><A NAME="KelseyMod"><STRONG>22</STRONG></A><DD>
+Kelsey,&nbsp;R.&nbsp;A.
+Fully-parameterized modules or the missing link.
+Technical Report 97-3, NEC Research Institute, 1997.
+<P>
+<DT><A NAME="ecoop98kff"><STRONG>23</STRONG></A><DD>
+Krishnamurthi,&nbsp;S., M.&nbsp;Felleisen  and D.&nbsp;Friedman.
+Synthesizing object-oriented and functional design to promote re-use.
+In <EM>Proc. European Conference on Object-Oriented Programming</EM>,
+  1998.
+<P>
+<DT><A NAME="Kuhne97"><STRONG>24</STRONG></A><DD>
+K&#252;hne,&nbsp;T.
+The translator pattern--external functionality with homomorphic
+  mappings.
+In <EM>Proceedings of TOOLS 23, USA</EM>, pages 48-62, July 1997.
+<P>
+<DT><A NAME="Oaklisp"><STRONG>25</STRONG></A><DD>
+Lang,&nbsp;K.&nbsp;J. and B.&nbsp;A. Pearlmutter.
+Oaklisp: an object-oriented dialect of Scheme.
+<EM>Lisp and Symbolic Computation: An International Journal</EM>,
+  1(1):39-51, May 1988.
+<P>
+<DT><A NAME="Lee93"><STRONG>26</STRONG></A><DD>
+Lee,&nbsp;S.-D. and D.&nbsp;P. Friedman.
+Quasi-static scoping: Sharing variable bindings across multiple
+  lexical scopes.
+In <EM>Proc. ACM Symposium on Principles of Programming Languages</EM>,
+  pages 479-492, 1993.
+<P>
+<DT><A NAME="Lee96"><STRONG>27</STRONG></A><DD>
+Lee,&nbsp;S.-D. and D.&nbsp;P. Friedman.
+Enriching the lambda calculus with context toward a theory of
+  incremental program construction.
+In <EM>Proc. ACM International Conference on Functional
+  Programming</EM>, pages 239-250, 1996.
+<P>
+<DT><A NAME="OCAML"><STRONG>28</STRONG></A><DD>
+Leroy,&nbsp;X.
+<EM>The Objective Caml system</EM>, 1996.
+URL: <TT><a href="http://pauillac.inria.fr/ocaml/">http://pauillac.inria.fr/ocaml/</a></TT>.
+<P>
+<DT><A NAME="Miller91"><STRONG>29</STRONG></A><DD>
+Miller,&nbsp;J. and G.&nbsp;Rozas.
+Free variables and first-class environments.
+<EM>Lisp and Symbolic Computation: An International Journal</EM>,
+  3(4):107-141, 1991.
+<P>
+<DT><A NAME="BibleML"><STRONG>30</STRONG></A><DD>
+Milner,&nbsp;R., M.&nbsp;Tofte  and R.&nbsp;Harper.
+<EM>The Definition of Standard ML</EM>.
+The MIT Press, Cambridge, Massachusetts and London, England, 1990.
+<P>
+<DT><A NAME="Mesa"><STRONG>31</STRONG></A><DD>
+Mitchell,&nbsp;J.&nbsp;G., W.&nbsp;Mayberry  and R.&nbsp;Sweet.
+<EM>Mesa Language Manual</EM>, 1979.
+<P>
+<DT><A NAME="Palsberg97"><STRONG>32</STRONG></A><DD>
+Palsberg,&nbsp;J. and C.&nbsp;B. Jay.
+The essence of the Visitor pattern.
+Technical Report&nbsp;05, University of Technology, Sydney, 1997.
+<P>
+<DT><A NAME="Queinnec97fj"><STRONG>33</STRONG></A><DD>
+Queinnec,&nbsp;C.
+Distributed generic functions.
+In <EM>Proc. 1997 France-Japan Workshop on Object-Based Parallel and
+  Distributed Computing</EM>, 1997.
+<P>
+<DT><A NAME="MeroonV3"><STRONG>34</STRONG></A><DD>
+Queinnec,&nbsp;C.
+<EM>Meroon V3: A Small, Efficient, and Enhanced Object System</EM>,
+  1997.
+<P>
+<DT><A NAME="Queinnec96"><STRONG>35</STRONG></A><DD>
+Queinnec,&nbsp;C. and D.&nbsp;De Roure.
+Sharing code through first-class envinroments.
+In <EM>Proc. ACM International Conference on Functional
+  Programming</EM>, pages 251-261, 1996.
+<P>
+<DT><A NAME="S48Modules"><STRONG>36</STRONG></A><DD>
+Rees,&nbsp;J.
+Another module system for Scheme, 1994.
+Scheme48 documentation.
+<P>
+<DT><A NAME="ReesJonath1988a"><STRONG>37</STRONG></A><DD>
+Rees,&nbsp;J. and N.&nbsp;Adams.
+Object-oriented programming in Scheme.
+In <EM>Proc. ACM Conference on Lisp and Functional Programming</EM>,
+  pages 277-288, 1988.
+<P>
+<DT><A NAME="POPLRemyV1997"><STRONG>38</STRONG></A><DD>
+R&#233;my,&nbsp;D. and J.&nbsp;Vouillon.
+Objective ML: A simple object-oriented extension of&nbsp;ML.
+In <EM>Proc. ACM Symposium on Principles of Programming Languages</EM>,
+  pages 40-53, Paris, France, 15-17 Janurary 1997.
+<P>
+<DT><A NAME="PLDIReppyR1996"><STRONG>39</STRONG></A><DD>
+Reppy,&nbsp;J. and J.&nbsp;Riecke.
+Simple objects for Standard ML.
+In <EM>Proc. ACM Conference on Programming Language Design and
+  Implementation</EM>, pages 171-180, 1996.
+<P>
+<DT><A NAME="Reynolds75"><STRONG>40</STRONG></A><DD>
+Reynolds,&nbsp;J.&nbsp;C.
+User-defined types and procedural data structures as complementary
+  approaches to data abstraction.
+In Schuman,&nbsp;S.&nbsp;A., editor, <EM>New Directions in Algorithmic
+  Languages</EM>, pages 157-168. IFIP Working Group 2.1 on Algol, 1975.
+<P>
+<DT><A NAME="Dylan"><STRONG>41</STRONG></A><DD>
+Shalit,&nbsp;A.
+<EM>The Dylan Reference Manual</EM>.
+Addison-Wesley, 1996.
+<P>
+<DT><A NAME="CLTL"><STRONG>42</STRONG></A><DD>
+Steele Jr.,&nbsp;G.&nbsp;L.
+<EM>Common Lisp: The Language</EM>.
+Digital Press, second edition, 1990.
+<P>
+<DT><A NAME="Szyperski92"><STRONG>43</STRONG></A><DD>
+Szyperski,&nbsp;C.&nbsp;A.
+Import is not inheritance - why we need both: Modules and classes.
+In <EM>European Conference on Object-Oriented Programming</EM>, volume
+  615 of <EM>Lecture Notes in Computer Science</EM>, pages 19-32.
+  Springer-Verlag, New York, N.Y., 1992.
+<P>
+<DT><A NAME="Tung92"><STRONG>44</STRONG></A><DD>
+Tung,&nbsp;S.-H.
+Interactive modular programming in Scheme.
+In <EM>Proc. ACM Conference on Lisp and Functional Programming</EM>,
+  pages 86-95, 1992.
+<P>
+<DT><A NAME="ModII"><STRONG>45</STRONG></A><DD>
+Wirth,&nbsp;N.
+<EM>Programming in Modula-2</EM>.
+Springer-Verlag, 1983.
+</DL>
+<P>
+<H1><A NAME="SECTION000110000000000000000">Appendix: MzScheme Class and Interface Syntax</A></H1>
+<P>
+<H2><A NAME="SECTION000111000000000000000">Classes</A></H2>
+<P>
+The shape of a MzScheme class declaration is:
+<PRE><TT>(<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B>
+  <EM>s</EM><EM>u</EM><EM>p</EM><EM>e</EM><EM>r</EM><EM>c</EM><EM>l</EM><EM>a</EM><EM>s</EM><EM>s</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>(<EM>i</EM><EM>n</EM><EM>t</EM><EM>e</EM><EM>r</EM><EM>f</EM><EM>a</EM><EM>c</EM><EM>e</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > )(<EM>i</EM><EM>n</EM><EM>i</EM><EM>t</EM><EM>-</EM><EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > ) 
+  <EM>i</EM><EM>n</EM><EM>s</EM><EM>t</EM><EM>a</EM><EM>n</EM><EM>c</EM><EM>e</EM><EM>-</EM><EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM><EM>-</EM><EM>c</EM><EM>l</EM><EM>a</EM><EM>u</EM><EM>s</EM><EM>e</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > ) 
+</TT></PRE>
+<P>
+(centered ellipses indicate repeated patterns). The expression
+ <EM>s</EM><EM>u</EM><EM>p</EM><EM>e</EM><EM>r</EM><EM>c</EM><EM>l</EM><EM>a</EM><EM>s</EM><EM>s</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM> determines the superclass for the new class,
+ and the <EM>i</EM><EM>n</EM><EM>t</EM><EM>e</EM><EM>r</EM><EM>f</EM><EM>a</EM><EM>c</EM><EM>e</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>s specify the interfaces implemented
+ by the class.  The <EM>i</EM><EM>n</EM><EM>i</EM><EM>t</EM><EM>-</EM><EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM>s receive instance-specific
+ initialization values when the class is instantiated (like the
+ arguments supplied with <B>new</B> in Java).  Finally, the
+ <EM>i</EM><EM>n</EM><EM>s</EM><EM>t</EM><EM>a</EM><EM>n</EM><EM>c</EM><EM>e</EM><EM>-</EM><EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM><EM>-</EM><EM>c</EM><EM>l</EM><EM>a</EM><EM>u</EM><EM>s</EM><EM>e</EM>s define the instance variables of
+ the class, plus expressions to be evaluated for each instance.  For
+ example, a <B>public</B> clause declares public instance variables
+ and methods.
+<P>
+Thus, the definition
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>
+  (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>n</I><I>u</I><I>l</I><I>l</I>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(<EM>w</EM><EM>i</EM><EM>d</EM><EM>t</EM><EM>h</EM><EM>h</EM><EM>e</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>) 
+    (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B> 
+      &#91;<EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>(<B>l</B><B>a</B><B>m</B><B>b</B><B>d</B><B>a</B>(<EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><EM>x</EM><EM>y</EM>) <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > )&#93;))) 
+</TT></PRE>
+<P>
+introduces the base class <I>Rectangle</I>. The <I>null</I>
+ indicates that <I>Rectangle</I> is not derived from any class,
+ (<I>Shape</I>) indicates that it implements the <I>Shape</I>
+ interface, and (<EM>w</EM><EM>i</EM><EM>d</EM><EM>t</EM><EM>h</EM> <EM>h</EM><EM>e</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>) indicates that two
+ initialization arguments are consumed for initializing an
+ instance. There is one <EM>i</EM><EM>n</EM><EM>s</EM><EM>t</EM><EM>a</EM><EM>n</EM><EM>c</EM><EM>e</EM><EM>-</EM><EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM><EM>-</EM><EM>c</EM><EM>l</EM><EM>a</EM><EM>u</EM><EM>s</EM><EM>e</EM> that defines
+ a public method: <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>.
+<P>
+MzScheme's object system does not distinguish between instance
+ variables and methods. Instead, procedure-valued instance variables
+ act like methods. The <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM> declaration in <I>Rectangle</I>
+ defines an instance variable, and (<B>lambda</B> (<EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM> <EM>x</EM> <EM>y</EM>)  <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8842" SRC="img6.gif"  > )
+ is its initial value expression, evaluated once per instance. When
+ <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM> is called as the method of some object, <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>
+ may refer to the object via <EM>t</EM><EM>h</EM><EM>i</EM><EM>s</EM>. In most object-oriented
+ languages, <EM>t</EM><EM>h</EM><EM>i</EM><EM>s</EM> is passed in as an implicit argument to a
+ method; in MzScheme, <EM>t</EM><EM>h</EM><EM>i</EM><EM>s</EM> is part of the environment for
+ evaluating initialization expression, so each ``method'' in an object
+ is a closure containing the correct value of
+ <EM>t</EM><EM>h</EM><EM>i</EM><EM>s</EM>.<A NAME="tex2html7" HREF="#6881"><IMG SRC="footnote.gif" WIDTH=15 HEIGHT=15 BORDER=0 ALIGN=BOTTOM ALT="[footnote]"></A>
+<P>
+An instance of <I>Rectangle</I> is created using the
+ <I>make-object</I> primitive. Along with the class to instantiate,
+ <I>make-object</I> takes any initialization arguments that
+ are expected for the class. In the case of <I>Rectangle</I>,
+ two initialization arguments specify the size of the shape:
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <EM>r</EM><EM>e</EM><EM>c</EM><EM>t</EM>(<I>m</I><I>a</I><I>k</I><I>e</I><I>-</I><I>o</I><I>b</I><I>j</I><I>e</I><I>c</I><I>t</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I><I>5</I><I>0</I><I>1</I><I>0</I><I>0</I>))
+</TT></PRE>
+<P>
+The value of an instance variable is extracted from an object using
+ <B>ivar</B>. The following expression calls the <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>
+ ``method'' of <EM>r</EM><EM>e</EM><EM>c</EM><EM>t</EM> by extracting the value of <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>
+ and applying it as a procedure:
+<PRE><TT>((<B>i</B><B>v</B><B>a</B><B>r</B><EM>r</EM><EM>e</EM><EM>c</EM><EM>t</EM><EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>)<EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><I>0</I><I>0</I>)
+</TT></PRE>
+<P>
+Since method calls of this form are common, MzScheme provides a
+ <B>send</B> macro. The following <B>send</B> expression is
+ equivalent to the above <B>ivar</B> expression:
+<PRE><TT>(<B>s</B><B>e</B><B>n</B><B>d</B><EM>r</EM><EM>e</EM><EM>c</EM><EM>t</EM><EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM><EM>w</EM><EM>i</EM><EM>n</EM><EM>d</EM><EM>o</EM><EM>w</EM><I>0</I><I>0</I>)
+</TT></PRE><H2><A NAME="SECTION000112000000000000000">Interfaces</A></H2>
+<P>
+An interface is declared in MzScheme using the <B>interface</B> form:
+<PRE><TT>(<B>i</B><B>n</B><B>t</B><B>e</B><B>r</B><B>f</B><B>a</B><B>c</B><B>e</B>(<EM>s</EM><EM>u</EM><EM>p</EM><EM>e</EM><EM>r</EM><EM>i</EM><EM>n</EM><EM>t</EM><EM>e</EM><EM>r</EM><EM>f</EM><EM>a</EM><EM>c</EM><EM>e</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > )
+   <EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > ) 
+</TT></PRE>
+<P>
+The <EM>s</EM><EM>u</EM><EM>p</EM><EM>e</EM><EM>r</EM><EM>i</EM><EM>n</EM><EM>t</EM><EM>e</EM><EM>r</EM><EM>f</EM><EM>a</EM><EM>c</EM><EM>e</EM><EM>-</EM><EM>e</EM><EM>x</EM><EM>p</EM><EM>r</EM>s specify all of the superinterfaces
+ for the new interface, and the <EM>v</EM><EM>a</EM><EM>r</EM><EM>i</EM><EM>a</EM><EM>b</EM><EM>l</EM><EM>e</EM>s are the instance
+ variables required by the interface (in addition to variables declared
+ by the superinterfaces). For example, the definition
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>(<B>i</B><B>n</B><B>t</B><B>e</B><B>r</B><B>f</B><B>a</B><B>c</B><B>e</B>()<EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>))
+</TT></PRE>
+<P>
+creates an interface named <I>Shape</I> with one variable:
+ <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM>. Every class that implements <I>Shape</I> must
+ declare a <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM> instance variable. The definition
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>(<B>i</B><B>n</B><B>t</B><B>e</B><B>r</B><B>f</B><B>a</B><B>c</B><B>e</B>(<I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)<EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM>))
+</TT></PRE>
+<P>
+creates an interface named <I>BB-Shape</I> with two variables:
+ <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM> and <EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM>. Since <I>Shape</I> is the
+ superinterface of <I>BB-Shape</I>, every class that implements
+ <I>BB-Shape</I> also implements <I>Shape</I>.
+<P>
+A class implements an interface only when it specifically declares the
+ implementation (as in Java). Thus, the <I>Rectangle</I> class in
+ the previous section only implements the <I>Shape</I> interface.
+<P>
+<H2><A NAME="SECTION000113000000000000000">Derived Classes</A></H2>
+<P>
+The definition
+<PRE><TT>(<B>d</B><B>e</B><B>f</B><B>i</B><B>n</B><B>e</B> <I>B</I><I>B</I><I>-</I><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>
+  (<B>c</B><B>l</B><B>a</B><B>s</B><B>s</B><B>*</B><I>R</I><I>e</I><I>c</I><I>t</I><I>a</I><I>n</I><I>g</I><I>l</I><I>e</I>(<I>B</I><I>B</I><I>-</I><I>S</I><I>h</I><I>a</I><I>p</I><I>e</I>)(<EM>w</EM><EM>i</EM><EM>d</EM><EM>t</EM><EM>h</EM><EM>h</EM><EM>e</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>) 
+    (<B>p</B><B>u</B><B>b</B><B>l</B><B>i</B><B>c</B>&#91;<EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM> <IMG WIDTH=15 HEIGHT=2 ALIGN=BOTTOM ALT="tex2html_wrap_inline8896" SRC="img6.gif"  > &#93;) 
+    (<B>s</B><B>e</B><B>q</B><B>u</B><B>e</B><B>n</B><B>c</B><B>e</B>(<I>s</I><I>u</I><I>p</I><I>e</I><I>r</I><I>-</I><I>i</I><I>n</I><I>i</I><I>t</I><EM>w</EM><EM>i</EM><EM>d</EM><EM>t</EM><EM>h</EM><EM>h</EM><EM>e</EM><EM>i</EM><EM>g</EM><EM>h</EM><EM>t</EM>)))) 
+</TT></PRE>
+<P>
+derives a <I>BB-Rectangle</I> class that implements
+ <I>BB-Shape</I>. The <EM>d</EM><EM>r</EM><EM>a</EM><EM>w</EM> method, required to implement
+ <I>BB-Shape</I>, is inherited from <I>Rectangle</I>.
+<P>
+The <I>BB-Rectangle</I> class declares the new <EM>b</EM><EM>o</EM><EM>u</EM><EM>n</EM><EM>d</EM><EM>i</EM><EM>n</EM><EM>g</EM><EM>-</EM><EM>b</EM><EM>o</EM><EM>x</EM>
+ method. It also includes a <B>sequence</B> clause that calls
+ <I>super-init</I>. A <B>sequence</B> clause declares expressions
+ to be evaluated for each instance. It is commonly used to call the
+ special <I>super-init</I> procedure, which initializes the part of
+ the instance defined by the superclass (like calling <B>super</B> in a
+ Java constructor); a derived class must call <I>super-init</I>
+ exactly once for every instance. In the case of
+ <I>BB-Rectangle</I>, calling <I>super-init</I> performs
+ <I>Rectangle</I>'s initialization for the
+ instance. <I>BB-Rectangle</I> provides two arguments to
+ <I>super-init</I> because the <I>Rectangle</I> class
+ consumes two initialization arguments.
+<P>
+
+<H1><A NAME="SECTION000120000000000000000">  About this document ... </A></H1>
+<P>
+ <STRONG>Modular Object-Oriented Programming with Units and Mixins</STRONG><P>
+This document was generated using the <A HREF="http://www-dsed.llnl.gov/files/programs/unix/latex2html/manual/"><STRONG>LaTeX</STRONG>2<tt>HTML</tt></A> translator Version 96.1 (Feb 5, 1996) Copyright &#169; 1993, 1994, 1995, 1996,  <A HREF="http://cbl.leeds.ac.uk/nikos/personal.html">Nikos Drakos</A>, Computer Based Learning Unit, University of Leeds, with bug fixes and extensions by Matthew. <P> The command line arguments were: <BR>
+<STRONG>latex2html</STRONG> <tt>-split 0 u+m.sub.tex</tt>. <P>The translation was initiated by  on Sat Jul 18 14:02:42 DST 1998<DL> <DT><A NAME="5">...Science</A><DD>This research was partially supported             by a Lodieska Stockbridge Vaughan Fellowship, NSF grants CCR-9619756,             CDA-9713032, and CCR-9708957,              and a Texas ATP grant.
+<PRE>
+</PRE><DT><A NAME="2762">...link.</A><DD>Factory Method  is a related pattern where an extra operation in the datatype is used  to create instances instead of a separate factory object.  Factory  Method applies to an interesting special case: the datatype client  and the datatype implementation are the same, thus making the  datatype implementation extensible.
+<PRE>
+</PRE><DT><A NAME="3801">...position.</A><DD>In MzScheme's extended  unit language with signatures, linking matches variables by name  rather than by position. When the number of imports is small, linking  by position is simpler because it avoids complex machinery for  renaming variables.
+<PRE>
+</PRE><DT><A NAME="3823">...clause.</A><DD>The implementation of linking is equivalent to this  reduction, but far more efficient. In particular, it is not necessary  to extract expressions from the constituent units, which would break  separate compilation. 
+<PRE>
+</PRE><DT><A NAME="8334">...names,</A><DD>The simplified description of  <B>compound-unit</B> in Section&nbsp;<A HREF="paper.shtml#sectionlinking">4.2</A> did not cover  the syntax for renaming exports. For a complete description of  <B>compound-unit</B>, see the MzScheme manual&nbsp;[<A HREF="paper.shtml#MzScheme">12</A>].
+<PRE>
+</PRE><DT><A NAME="8236">...<A HREF="paper.shtml#Queinnec97fj">33</A>].</A><DD>Quinnec's&nbsp;[<A HREF="paper.shtml#Queinnec97fj">33</A>]  system actually provides generic function extensions that are  parameterized over a generic function, rather than parameterized  class extensions. While the system does not provide mixins <I>per  se</I>, it follows the principle of separating connections from  definitions.
+<PRE>
+</PRE><DT><A NAME="6881">...<EM>t</EM><EM>h</EM><EM>i</EM><EM>s</EM>.</A><DD>MzScheme's approach to methods avoids  duplicating the functionality of procedures with methods. However,  this design incurs a substantial cost in practice because each object  record must provide a slot for every method in the class, and a  closure is created for each method per object. Adding true methods to  the object system, like methods in most object-oriented languages,  would improve the run-time performance of the object system and  would not affect the essence of our presentation.
+<PRE>
+</PRE> </DL>
+<BR> <HR>
+<P><ADDRESS>
+<I> <BR>
+Sat Jul 18 14:02:42 DST 1998</I>
+</ADDRESS>
+</BODY>
+</HTML>

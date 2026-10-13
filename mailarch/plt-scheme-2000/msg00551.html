@@ -1,0 +1,137 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 103d100 -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Fri, 8 Sep 2000 10:37:40 &#45;0600 (MDT) -->
+<!--X-Message-Id: p04320407b5debeeb0054@[128.42.2.124] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>103d100</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00550.html">Date Prev</a>][<a href="msg00552.html">Date Next</a>][<a href="msg00549.html">Thread Prev</a>][<a href="msg00552.html">Thread Next</a>][<a href="maillist.html#00551">Date Index</a>][<a href="threads.html#00551">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>103d100</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 103d100</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 8 Sep 2000 11:37:36 -0500</li>
+<li><em>Organization</em>: PLT, Rice University (http://www.cs.rice.edu/CS/PLT/)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+We have changed our version numbering Scheme for intermediate 
+releases a little bit. Now, instead of counting up _from_ the version 
+to be released, we are going to count up _to_ the version to be 
+released. So, the next series of binary releases will be:
+
+   103.1, 103.2, 103.3, ..., 103.3421, 104 (release version)
+
+Since this means that we are repeating the &quot;103&quot; prefix as from last 
+time, the Scheme code releases will begin with 100. So, the first 
+Scheme code release after version 103 is 103d100.
+
+Hope that isn't too too confusing...
+
+;; --
+
+The code in CVS is now version: 103d100
+
+  PRS
+
+  FUNCTIONALITY CHANGES
+
+  - there is a replacement for the info.ss file in town, now.
+    Instead of the info.ss file, consider using an info-table.ss
+    file. This file is designed to be computer editable and eventually
+    the project manager will have an editor for that (with an
+    integrated help system).
+
+    If an info-table.ss file is present and an info.ss file is also
+    present, the info-table.ss file is consulted first and the info.ss
+    file is consulted if the info-table.ss file doesn't have that
+    binding.
+
+  - please do not load info.ss files directly anymore. Use
+    the get-info.ss library in the setup collection. I have already
+    changed these uses:
+     - zo compiler
+     - help desk (blurb stuff)
+     - setup
+    I know only of this use that must be changed:
+     - mzc
+
+   - separated searchable-mixin into two pieces:
+     - searchable-mixin, and searchable-text-mixin.
+
+  MINOR CHANGES AND BUG FIXES
+
+   - added control-x o as a keybinding that switches the focus
+     between the interactions and definitions windows.
+
+   - when drscheme frame is associated with a project, clicking the
+     execute button will prompt the user about executing the project.
+
+   - language dialog now has a parent.
+
+   - drscheme:language:language-dialog procedure accepts an optional
+     second argument specifing the parent of the dialog
+     (defaults to #f)
+
+Robby
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00550.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00552.html">Trouble installing MrSpidey</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00549.html">Re: keyboard shortcut</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00552.html">Trouble installing MrSpidey</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00551"><strong>Date</strong></a></li>
+<li><a href="threads.html#00551"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

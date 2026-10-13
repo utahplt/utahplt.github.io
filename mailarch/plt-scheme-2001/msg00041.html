@@ -1,0 +1,120 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Another threading question -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Mon, 15 Jan 2001 15:18:47 &#45;0700 (MST) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C676701522064@thresher.corp.xpsystems.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Another threading question</title>
+<link rev="made" href="mailto:brent.fulgham@xpsystems.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00040.html">Date Prev</a>][<a href="msg00042.html">Date Next</a>][<a href="msg00043.html">Thread Prev</a>][<a href="msg00038.html">Thread Next</a>][<a href="maillist.html#00041">Date Index</a>][<a href="threads.html#00041">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Another threading question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Another threading question</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 15 Jan 2001 14:18:18 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Does exn_catching_apply run the thunk, or does it return a new thunk?
+&gt;
+
+Yes -- it runs the thunk.
+ 
+&gt; More specifically, I'm guessing that you have
+&gt; 
+&gt;  (thread (exn-catching-apply (lambda () ... do work ...)))
+&gt; 
+&gt; and you need to thunk the application:
+&gt; 
+&gt;  (thread (lambda () (exn-catching-apply (lambda () ... do work ...))))
+&gt; 
+&gt; Probably you'll need to use scheme_make_closed_prim to implement the
+&gt; outer thunk.
+&gt;
+
+I'll give that a shot.  Based on your description I'm optimistic that
+this will resolve the issue.
+ 
+&gt; It would also explain the crash, since scheme_thread() gets a
+&gt; non-procedure.
+&gt; 
+
+I must admit to being a bit confused, due to my stronger familiarity
+with procedural programming.  I would have assumed that:
+
+( (+ 1 2))
+
+would be equivalent to:
+
+(+ 1 2)
+
+With the outer parenthesis being ignored.  But now I recognize that the
+first example is actually asking the interpreter to evaluate the 
+function (3), which is obviously in error.
+
+Yes, that's probably Scheme (pre-Kindergarten) but oh well.
+
+Thanks,
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00040.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00042.html">Threading Challenges Continue....</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00043.html">Re: Another threading question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00038.html">loading a bitmap into a cursor</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00041"><strong>Date</strong></a></li>
+<li><a href="threads.html#00041"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

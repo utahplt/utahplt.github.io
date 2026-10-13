@@ -1,0 +1,170 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: XLink implementation on Scheme -->
+<!--X-From-R13: Rzvgel Zvmbexva <yvmbexvaNubgobk.eh> -->
+<!--X-Date: Fri, 5 Apr 2002 05:02:18 &#45;0700 (MST) -->
+<!--X-Message-Id: 200204051204.g35C4Wl37576@www3.mailru.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>XLink implementation on Scheme</title>
+<link rev="made" href="mailto:lizorkin@hotbox.ru">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00689.html">Date Prev</a>][<a href="msg00691.html">Date Next</a>][<a href="msg00695.html">Thread Prev</a>][<a href="msg00691.html">Thread Next</a>][<a href="maillist.html#00690">Date Index</a>][<a href="threads.html#00690">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>XLink implementation on Scheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: XLink implementation on Scheme</li>
+<li><em>From</em>: Dmitry Lizorkin &lt;<A HREF="mailto:lizorkin@hotbox.ru">lizorkin@hotbox.ru</A>&gt;</li>
+<li><em>Date</em>: Fri, 5 Apr 2002 16:04:32 +0400 (MSD)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello!
+
+I'm working on implementation of XLink on Scheme. 
+I have currently made a prototype of an extension to 
+a SSAX parser which understands XLink markup. The
+source code for Gambit, PLT, Chicken and Guile is
+available at
+<A  HREF="http://www196.pair.com/lisovsky/download/contrib/xlink/">http://www196.pair.com/lisovsky/download/contrib/xlink/</A>
+
+The xlink-parser is a specialized SSAX parser. In
+fact, it uses Oleg Kiselyov's SSAX:XML-&gt;SXML function
+as a ptototype, adding some extra features to it. The
+xlink-parser function has the same arguments as a 
+SSAX:XML-&gt;SXML function, i.e.
+ port - an input port for an XML document
+ namespace-prefix-assig - namespace prefixes
+
+The result is presented as a list of two elements:
+ (sxml-tree  remote-resources-participating-in-links)
+where
+ sxml-tree is an SXML presentation of a document (the
+   result is equal to the result of SSAX:XML-&gt;SXML 
+   function, if applyed to the same document) 
+ remote-resources-participating-in-links is itself a
+   list, it contains all remote resources which are
+   declared by XLink markup presented in a document
+   (it is a null list if there are no XLink elements
+   in a document):
+
+remote-resources-participating-in-links = 
+  (remote-resource remote-resource ...)
+remote-resource = (URI role? linkbase? XPointer-path
+  position element)
+URI - URI of a remote resource
+role? - a boolean value: whether the URI denotates a
+  role
+linkbase? - a boolean value: whether the URI is a
+  linkbase
+XPointer-path - a path within a remote document (a
+  string in a current version)
+position - a position in a parsed file where this
+  resource was encountered (for error messages)
+element - an SXML list representing the element where
+  this URI was declared
+
+xlink-parser also has a side effect. It checks XLink
+constraints and reports of an error if some constraint
+is not fulfilled (the parsing is not terminated,
+i.e. it can report of multiple errors). The current
+version of the program is able to check the following
+XLink constraints:
+
+ Constraint: Attributes on Locator Element
+ The locator-type element must have the locator
+ attribute (see 5.4 Locator Attribute (href)). The
+ locator attribute (href) must have a value supplied.
+
+ Constraint: No Arc Duplication
+ Each arc-type element must have a pair of from and to
+ values that does not repeat the from and to values
+ (respectively) for any other arc-type element in
+ the same extended link; that is, each pair in a link
+ must be unique.
+
+ Constraint: type Value
+ The value of the type attribute must be supplied. The
+ value must be one of &quot;simple&quot;, &quot;extended&quot;, &quot;locator&quot;,
+ &quot;arc&quot;, &quot;resource&quot;, &quot;title&quot;, or &quot;none&quot;.
+
+ Constraint: show Value
+ If a value is supplied for a show attribute, it must
+ be one of the values &quot;new&quot;, &quot;replace&quot;, &quot;embed&quot;, 
+ &quot;other&quot;, and &quot;none&quot;.
+
+ Constraint: actuate Value
+ If a value is supplied for an actuate attribute, it
+ must be be one of the values &quot;onLoad&quot;, &quot;onRequest&quot;,
+ &quot;other&quot;, and &quot;none&quot;.
+
+ Constraint: label, from, and to Values
+ The value of a label, from, or to attribute must be
+ an NCName. If a value is supplied for a from or to
+ attribute, it must correspond to the same value for 
+ some label attribute on a locator- or resource-type
+ element that appears as a direct child inside the
+ same extended-type element as does the arc-type
+ element.
+
+The xlink-parser is unable to read any DTD yet.
+I would be extremely grateful for your suggestions
+and considerations.   
+
+Dmitry Lizorkin
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00689.html">[shootout] strcat</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00691.html">mzscheme103 profiler</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00695.html">Re: [shootout] strcat</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00691.html">mzscheme103 profiler</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00690"><strong>Date</strong></a></li>
+<li><a href="threads.html#00690"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

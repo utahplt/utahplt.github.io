@@ -1,0 +1,128 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: (/ 0 0.0) ==> 0 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 21 Jan 2000 08:11:05 &#45;0700 (MST) -->
+<!--X-Message-Id: 200001211511.IAA09716@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200001211440.PAA24407@sally.ifm.uni&#45;kiel.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: (/ 0 0.0) ==&gt; 0</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00387.html">Date Prev</A>][<A HREF="msg00389.html">Date Next</A>][<A HREF="msg00387.html">Thread Prev</A>][<A HREF="msg00389.html">Thread Next</A>][<A HREF="maillist.html#00388">Date Index</A>][<A HREF="threads.html#00388">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: (/ 0 0.0) ==&gt; 0</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Wolfgang Hukriede &lt;<A HREF="mailto:whukriede@ifm.uni%2Dkiel.de">whukriede@ifm.uni-kiel.de</A>&gt;</LI>
+<LI><em>Subject</em>: Re: (/ 0 0.0) ==&gt; 0</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 21 Jan 2000 08:11:00 -0700 (MST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00387.html">200001211440.PAA24407@sally.ifm.uni-kiel.de</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00387.html">200001211440.PAA24407@sally.ifm.uni-kiel.de</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Wolfgang Hukriede:
+&gt; Hello!
+&gt; 
+&gt;     Welcome to MzScheme version 100alpha1, 
+&gt;     Copyright (c) 1995-99 PLT (Matthew Flatt)
+&gt; 
+&gt;     &gt; (/ 0 0.0)
+&gt;     0
+&gt; 
+&gt; Is this result intented? 
+
+Yes.
+
+Inexact zero is interpreted as "a positive number arbitrarily close to
+zero, but not quite zero". Similarly, -0.0 is "a negative number
+arbitrarily close to zero". Hence, (/ 1 0.0) is not undefined, but
+rather an arbitrarily large positive number, +inf.0, and so on.
+
+You can find holes in this interpretation easily. For example, why
+should (+ 0.0 -0.0) be 0.0?
+
+For summary of the issues, see Brad Lucier's notes from the '98
+workshop:
+  <A  HREF="http://www.neci.nj.nec.com/homepages/kelsey/lucier.txt">http://www.neci.nj.nec.com/homepages/kelsey/lucier.txt</A>
+
+I believe the only way that MzScheme disagrees with Brad's
+recommendation is that (real? +0.0i) = #t. Chez and Gambit take
+essentially the same position, as far as I can tell, including the
+concession in `real?'.
+
+One final note --- I found an inconsistency in MzScheme that survived
+in version 101: (angle 0.0) reports an error. (angle 0.0) should
+instead be 0, and (angle -0.0) should be pi. This is consistent with
+MzScheme's distinction between 0.0+0i and 0.0+0.0i, and with the notion
+of 0.0 as "infinitesimally small". Also, (angle +nan.0) didn't return
++nan.0.
+
+Obviously, almost none of this is documented in the MzScheme manual at
+the moment...
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00387" HREF="msg00387.html">(/ 0 0.0) ==&gt; 0</A></STRONG>
+<UL><LI><EM>From:</EM> Wolfgang Hukriede &lt;whukriede@ifm.uni-kiel.de&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00387.html">(/ 0 0.0) ==&gt; 0</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00389.html">Re: (/ 0 0.0) ==&gt; 0</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00387.html">(/ 0 0.0) ==&gt; 0</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00389.html">Re: (/ 0 0.0) ==&gt; 0</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00388"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00388"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

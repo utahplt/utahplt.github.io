@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: scsh in PLT Scheme? -->
+<!--X-From-R13: Oagba ina Egenngra <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Tue, 2 Apr 2002 22:19:19 &#45;0700 (MST) -->
+<!--X-Message-Id: 3CAA90DA.5070509@appsolutions.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: NBBBLCLOKKHAGMJBNHDMGEKOFKAA.apeake@comac.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: scsh in PLT Scheme?</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00676.html">Date Prev</a>][<a href="msg00678.html">Date Next</a>][<a href="msg00682.html">Thread Prev</a>][<a href="msg00679.html">Thread Next</a>][<a href="maillist.html#00677">Date Index</a>][<a href="threads.html#00677">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: scsh in PLT Scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Alex Peake &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Subject</em>: Re: scsh in PLT Scheme?</li>
+<li><em>From</em>: Anton van Straaten &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 03 Apr 2002 00:19:22 -0500</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>References</em>: &lt;<a href="msg00674.html">NBBBLCLOKKHAGMJBNHDMGEKOFKAA.apeake@comac.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.8) Gecko/20020207</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Also, you should ask yourself &quot;what data 
+&gt; do I need and why&quot;? Think about why your 
+&gt; query asked for a large recordset.
+
+One of the points I was making is that sometimes, you'd have to extend this logic to the end user to make it work.  And that's not always valid - you're basically telling them &quot;no, you can't use the system the way you'd like to&quot;.  In heavily loaded environments, you might be forced to say this because of load and performance considerations, but in many other cases, it's perfectly doable, and the only thing standing in the way of such capabilities are developer sensibilities, which may often be misapplied.  Developers often want to micromanage how end users use a system, which can get in the way of usability.
+
+For example, database connections aren't noticeably wasteful in an environment where the database isn't overstressed.  Gearing APIs and architectures for the most large-scale environments can be actively hostile to smaller-scale development.
+
+&gt; What fits on the page is not necessarily correlated with what is downloaded.
+&gt; You can easily display subsets of what you have doanloaded. 
+
+See my comment about the need for asynchronous download.  If you don't have that, then you have to wait for the entire set to download before display can begin.  This can be a problem at multiple levels.
+
+&gt; I would not advocate a single pattern of access. Just remember that the
+&gt; costs are mostly associated with keeping connections open, not with
+&gt; dowloading data. 
+
+That's a bit contradictory: costs aren't all absolute, they can depend on access patterns and be relative to system resources.  Downloading data can be a major concern over a slow link, but open connections aren't necessarily a concern for a departmental application as opposed to e.g. a public web site.
+
+In fact, with multi-CPU, multi-gigahertz servers with gigabytes of RAM being available for a few $1000, database performance is often much less of an issue than it once was, for many applications.  Big public web sites or large organizations are a highly visible exception to this, and to a large extent they're driving the conventional wisdom on these issues.  That &quot;wisdom&quot; may not be universally applicable, though.
+
+Anton
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00679" href="msg00679.html">RE: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Alex Peake&quot; &lt;apeake@comac.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00674" href="msg00674.html">RE: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Alex Peake&quot; &lt;apeake@comac.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00676.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00678.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00682.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00679.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00677"><strong>Date</strong></a></li>
+<li><a href="threads.html#00677"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

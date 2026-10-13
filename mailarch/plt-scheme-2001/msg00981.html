@@ -1,0 +1,131 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: DrScheme as Emacs&#45;like kitchen sink -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Thu, 4 Oct 2001 12:38:40 &#45;0600 (MDT) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B91023B874D@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: DrScheme as Emacs-like kitchen sink</title>
+<link rev="made" href="mailto:GregP@bsquare.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00980.html">Date Prev</a>][<a href="msg00982.html">Date Next</a>][<a href="msg00990.html">Thread Prev</a>][<a href="msg00983.html">Thread Next</a>][<a href="maillist.html#00981">Date Index</a>][<a href="threads.html#00981">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: DrScheme as Emacs-like kitchen sink</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: RE: DrScheme as Emacs-like kitchen sink</li>
+<li><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 4 Oct 2001 11:37:58 -0700 </li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+As long as we're wish-listing for DrScheme, I thought
+I'd add my own vapour-ware to the mix:
+
+To make it more convenient to browse large Scheme files,
+it would be nice if you could take advantage of the natural
+hierarchical nature of s-expressions in order to collapse/expand
+your code, like a tree-widget, but right on the page.
+
+This is exactly the way that Internet Explorer *displays* XML,
+but without being an editor.
+
+For example consider the following Scheme code:
+
+(define rev-append
+  (lambda (ls1 ls2)
+    (if (null? ls1)
+        ls2
+        (rev-append (cdr ls1) (cons (car ls1) ls2)))))
+
+Imagine that the editor could be configured to insert a '+' widget
+into strategic locations in the code:
+
+(define rev-append
+  ([+]...)) ; here the &quot;[+]&quot; is just text representation of a hypothetical
+[+]-widget.
+
+When you clicked on the &quot;[+]&quot; it would change to a &quot;[-]&quot; and
+expand out the expression:
+
+(define rev-append
+  ([-]lambda (ls1 ls2)
+    (if (null? ls1)
+        ls2
+        (rev-append (cdr ls1) (cons (car ls1) ls2)))))
+
+
+
+(The widget would, of course, only be a feature of the editor and
+would not add anything to the real code.)
+
+&quot;Strategic locations&quot; for the [+]-widget might be, for example,
+the list following the symbol in a define, or analogous
+clause in a letrec.
+
+In fact, you could use the pattern matching stuff to make
+it easily customizable...
+
+
+Cheers.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00983" href="msg00983.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00980.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00982.html">Re: list of email in spanish</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00990.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00983.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00981"><strong>Date</strong></a></li>
+<li><a href="threads.html#00981"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

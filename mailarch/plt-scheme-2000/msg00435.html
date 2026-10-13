@@ -1,0 +1,426 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Hello from a new user interested in shipping applications -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Mon, 31 Jul 2000 20:37:35 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39863931.658AA72@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 39810A7F.A4101259@kurtz&#45;fernhout.com -->
+<!--X-Reference: 3981E513.7F18F855@kurtz&#45;fernhout.com -->
+<!--X-Reference: 14725.30582.33503.346072@saker.dai.ed.ac.uk -->
+<!--X-Reference: 3985B7DC.A85F84D5@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Hello from a new user interested in shipping applications</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00434.html">Date Prev</a>][<a href="msg00436.html">Date Next</a>][<a href="msg00432.html">Thread Prev</a>][<a href="msg00434.html">Thread Next</a>][<a href="maillist.html#00435">Date Index</a>][<a href="threads.html#00435">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Hello from a new user interested in shipping applications</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Hello from a new user interested in shipping applications</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 31 Jul 2000 22:42:57 -0400</li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00421.html">39810A7F.A4101259@kurtz-fernhout.com</a>&gt;		&lt;<a href="msg00426.html">3981E513.7F18F855@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00429.html">14725.30582.33503.346072@saker.dai.ed.ac.uk</a>&gt; &lt;<a href="msg00432.html">3985B7DC.A85F84D5@kurtz-fernhout.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Thanks again for all the comments (public and private).
+
+Well, just to take DrScheme out for a spin, I coded up something that
+can translate the simple numerical Scheme-&gt;C example I presented. I
+think the hardest part was actually writing &quot;for-each-between&quot;, which I
+am used to from iterating over Smalltalk collections. 
+
+This is my first major Scheme program beyond a few GUI tests, and some
+turtle drawing, so be kind! :-) I haven't used Lisp like languages for
+about a dozen years. Suggestions for improvements or pointers to
+libraries or other code in MzScheme to make this easier appreciated.
+Since this was just for fun and to learn a bit, I haven't tried to
+figure out how mzc works yet or even looked at the code, for example --
+assuming it is in Scheme? Presumably it would be more efficient to
+modify mzc instead.
+
+Notice the beginner approach of bypassing I/O -- just like TeachScheme!
+advocates. Just copy and paste your C program from the DrScheme
+evaluation window after executing. You need to insert your program to be
+converted at the top in place of what's there. [Under NT 4.0 Edit|Copy
+seems to not work until I do it first by the menu selections -- I'm
+using 102 with the patch.]
+
+First, here is the output program which compiles under Visual C++ 5.0. I
+threw in a &quot;(sin 1.0)&quot; in the source program just for an added test.
+
+Mzc choked with an internal error for me on trying to link in the
+mzdyn.obj file when I tested it or I'd try automating this more. Maybe
+mzdyn.obj was compiled under 6.0 and I need to set a flag?
+
+==== Sample output (some blank lines removed) =========
+
+//code converted from Scheme to C by ConverterToCCode.scm
+#include &lt;math.h&gt;
+#include &lt;stdio.h&gt;
+
+//Scheme: (define (foo a b) (* a b))
+float foo(float a, float b) {
+return a*b;
+}
+
+//Scheme: (define (bar a b) (/ a b))
+float bar(float a, float b) {
+return a/b;
+}
+
+//Scheme: (define (baz a b) (+ (foo a b) (bar a b) (sin 1.0)))
+float baz(float a, float b) {
+return foo(a, b)+bar(a, b)+sin(1.0);
+}
+
+//Scheme: (define (main) (print (baz 10 20)))
+void main() {
+printf(&quot;%f\n&quot;, baz(10, 20));
+}
+
+//main
+
+==== the MzScheme code -- feel free to use it under an X/MIT License
+======
+
+;example of converting MzScheme to numerical C
+;Paul Fernhout pdfernhout@kurtz-fernhout.co
+;2000 07 31
+;Proof of concept -- no doubt function names should be better,
+;and probably mzc could provide more useful code!
+
+;define the program here
+;restricted to simple function evaluations which each return one value
+(define code-to-convert '(
+                          
+(define (foo a b) (* a b))
+(define (bar a b) (/ a b))
+(define (baz a b) (+ (foo a b) (bar a b) (sin 1.0)))
+;(define (baz a b) (+ (foo a b) (bar a b)))
+(define (main) (print (baz 10 20)))
+(main)
+
+))
+  
+;define various code generation functions
+
+(define (for-each-between func-each func-between args)
+  (if (null? args) 
+      '()
+      (begin
+       (func-each (car args))
+       (if (not (null? (cdr args)))
+           (begin
+            (func-between args)
+            (for-each-between func-each func-between (cdr args)))))))
+
+(define (print-type-and-name name)
+  (if (eq? name 'main)
+      (printf &quot;void main&quot;)
+      (printf &quot;float ~s&quot; name)))
+
+(define (print-arg arg)
+  (printf &quot;float ~s&quot; arg))
+
+(define (print-comma args)
+ (printf &quot;, &quot;))
+
+(define (print-args args)
+  (printf &quot;(&quot;)
+  (for-each-between print-arg print-comma args)
+  (printf &quot;)&quot;))
+  
+(define (infix? operator)
+  (not (char-alphabetic? (car (string-&gt;list (symbol-&gt;string
+operator))))) 
+  )
+
+(define (print-infix-call-arg arg)
+  (if (list? arg)
+      (print-call arg)
+      (print arg)))
+      
+(define (print-infix-call call)
+  (for-each-between print-infix-call-arg 
+                    (lambda (x) (print (car call)))
+                        (cdr call))
+  )
+
+(define (print-functional-call-arg arg)
+  (if (list? arg)
+      (print-call arg)
+      (printf &quot;~s&quot; arg)))
+
+(define (print-function-name name)
+  (if (eq? name 'print) 
+      (printf &quot;printf(\&quot;%f\\n\&quot;, &quot;)
+      (printf &quot;~s(&quot; name)))
+
+(define (print-functional-call call)
+  (print-function-name (car call))
+  (for-each-between print-functional-call-arg print-comma (cdr call))
+  (printf &quot;)&quot;)
+  )
+
+(define (print-call call)
+  (if (infix? (car call))
+     (print-infix-call call)
+     (print-functional-call call)))
+
+(define (print-calls calls has-return)
+  (printf &quot; {&quot;)
+  (newline)
+  (if has-return
+      (printf &quot;return &quot;))
+  (for-each print-call calls)
+  (printf &quot;;&quot;)
+  (newline)
+  (printf &quot;}&quot;)
+  (newline)
+  )
+
+(define (define-c-function definition)
+  (let ((name (caadr definition))
+        (args (cdadr definition))
+        (calls (cddr definition)))
+    (printf &quot;//Scheme: &quot;)
+    (print definition)
+    (newline)
+    (print-type-and-name name)
+    (print-args args)
+    (print-calls calls (not (eq? name 'main)))
+    (newline))
+  )
+
+;(print input)
+(define (convert-to-c-code definition)
+  ; toss the main invocation
+  (if (eq? (car definition) 'main)  
+      (print '//main)
+      (define-c-function definition))
+  (newline))
+
+(define (generate-c-code-for-program program)
+  (printf &quot;//code converted from Scheme to C by ConverterToCCode.scm&quot;)
+  (newline)
+  (printf &quot;#include &lt;math.h&gt;&quot;)
+  (newline)
+  (printf &quot;#include &lt;stdio.h&gt;&quot;)
+  (newline)
+  (newline)
+  (for-each convert-to-c-code program)
+  )
+
+(generate-c-code-for-program code-to-convert)
+
+============== end code ======================
+
+Definitely seems easier than type inferencing to me (if less robust).
+Problem is, I don't do loops or if-then yet, so maybe this approach will
+run out of steam as it gets more elaborate.
+
+Squeak Smalltalk has some tools to do Smalltalk-&gt;C, but they consist of
+about twenty classes and many methods. This code is definitely much more
+concise, of course largely because Scheme is easier to parse.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+Paul Fernhout wrote:
+&gt; 
+&gt; Noel-
+&gt; 
+&gt; Thanks for the great pointers and suggestions.
+&gt; 
+&gt; Certainly improving MzScheme numerical performance automatically by
+&gt; analyzing the program would be fantastic. I'm not sure I'm personally up
+&gt; to spending time doing this though (given limited time).
+&gt; 
+&gt; However, Squeak does translation of Smalltalk to C and I think the type
+&gt; hinting it uses is not that bad. What follows is inspired in part by
+&gt; that.
+&gt; 
+&gt; One of the things that appeals to me in Scheme (over say Python or
+&gt; Smalltalk) is that it is somewhat more straightforward to process Scheme
+&gt; programs with hints or assumptions.
+&gt; 
+&gt; For example, if I write this in MzScheme and save it in the file:
+&gt; 
+&gt;   (define (foo a b) (* a b))
+&gt;   (define (bar a b) (/ a b))
+&gt;   (define (baz a b) (+ (foo a b) (bar a b)))
+&gt;   (define (main) (print (baz 10 20)))
+&gt;   (main)
+&gt; 
+&gt; there is little to then stop me from easily parsing the input file as a
+&gt; list and then running my own operations on it to generate C code with an
+&gt; assumption that all arguments are floats unlest specifed otherwise, to
+&gt; get:
+&gt; 
+&gt;   float foo(float a, float b) {return a * b;}
+&gt;   float bar(float a, float b) {return a / b;}
+&gt;   float baz(float a, float b) {return foo(a, b) + bar(a, b);}
+&gt;   void main(void) {printf(&quot;%f&quot;, baz(10, 20));}
+&gt; 
+&gt; Then I can almost trivially have a list of variable names to treat
+&gt; otherwise.
+&gt; Ex. '((int p q r) (string s t u) (float-array l m n))
+&gt; Obviously, you need to work in a subset of MzScheme to do this (no &quot;car&quot;
+&gt; or &quot;cdr&quot; use for example) but in practice the core numerical parts of
+&gt; something like a simulation are often mainly loops, tests, array
+&gt; references, and numerical operations. [Note: I did this conversion by
+&gt; hand.]
+&gt; 
+&gt; This is very different from compiling these functions to code that would
+&gt; work generically with MzScheme, where a and b might be strings or lists
+&gt; or objects.
+&gt; To optimize that sort of code, you definitely would need a system for
+&gt; inferring types.
+&gt; 
+&gt; Obvious limitations of this approach are that it won't neccesarily give
+&gt; the same exact results under MzScheme -- for example, MzScheme prints
+&gt; &quot;401/2&quot; as the answer to the above, whereas the C program prints
+&gt; &quot;200.500000&quot;. They are equivalent mathematically in this case, but might
+&gt; not be in others.
+&gt; 
+&gt; The important point to make here is that because the algorithm is
+&gt; encoded in MzScheme, there are all sorts of interesting things that are
+&gt; easy to do with it (analyze interdependencies, variable useages, browse
+&gt; it, generate assembler code directly, etc.). C is a much more difficult
+&gt; informational container to extract algorithm related information from,
+&gt; because you need to have a C parser, etc.
+&gt; 
+&gt; -Paul Fernhout
+&gt; Kurtz-Fernhout Software
+&gt; =========================================================
+&gt; Developers of custom software and educational simulations
+&gt; Creators of the Garden with Insight(TM) garden simulator
+&gt; <A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+&gt; 
+&gt; Noel Welsh wrote:
+&gt; &gt;
+&gt; &gt; Paul Fernhout writes:
+&gt; &gt; &gt; On Numerical performance. This does appear to be an issue for further
+&gt; &gt; &gt; consideration. It looks like I would then need to improve this area
+&gt; &gt; &gt; myself
+&gt; &gt; &gt; (similar to the library for Gambit or NumPy for Python) if I was to use
+&gt; &gt; &gt; MzScheme for numerical work. Or alternatively, I could generate C code
+&gt; &gt; &gt; to do number crunching from Scheme with type hints. Either of these
+&gt; &gt; &gt; might be doable with a reasonable effort (perhaps leveraging off the
+&gt; &gt; &gt; approach done for say Python's NumPy) -- assuming the other parts of
+&gt; &gt; &gt; the system work well enough for my purposes.
+&gt; &gt;
+&gt; &gt; I've just looked at NumPy, and it appears that they've written some C
+&gt; &gt; code to do the basic matrix operations in reasonable time, and then
+&gt; &gt; interfaced to the Netlib (<A  HREF="http://www.netlib.org/">http://www.netlib.org/</A>) libraries for all
+&gt; &gt; the hard algorithms. You could certainly follow this approach in
+&gt; &gt; MzScheme, and get respectable performance.
+&gt; &gt;
+&gt; &gt; More interesting is the second approach you mention - generating C
+&gt; &gt; code with(out) type hints. I think almost all the basic research has
+&gt; &gt; been done to get great numerical performance in Scheme. The following
+&gt; &gt; pointers may help:
+&gt; &gt;
+&gt; &gt; - Andrew Wright's soft scheme system for infering types (no need for
+&gt; &gt; type hints. See
+&gt; &gt; <A  HREF="http://www.intertrust.com/star/wright/personal-index.html">http://www.intertrust.com/star/wright/personal-index.html</A>) This would
+&gt; &gt; be doubly useful if a distinction is made between fixnums and bignums
+&gt; &gt;
+&gt; &gt; - Unboxing of floats (e.g: <A  HREF="http://www-fp.dcs.st-and.ac.uk/~kh/papers/pseudoknot/subsubsection3_5_6_4.html">http://www-fp.dcs.st-and.ac.uk/~kh/papers/pseudoknot/subsubsection3_5_6_4.html</A>)
+&gt; &gt;
+&gt; &gt; - It should be possible to avoid most index out-of-bounds checks by
+&gt; &gt; inducing the range of index variables. I don't know if anyone has done
+&gt; &gt; this. I suppose it would require adding invariant properties to the
+&gt; &gt; type system, so that the compiler could deduce any variable in the
+&gt; &gt; range [0 (vector-length)) doesn't require an out-of-bounds check.
+&gt; &gt;
+&gt; &gt; Finally, I read somewhere that researchers in Aspect-Orientated
+&gt; &gt; Programming (<A  HREF="http://www.parc.xerox.com/csl/projects/aop/">http://www.parc.xerox.com/csl/projects/aop/</A>
+&gt; &gt; <A  HREF="http://www.acl.lanl.gov/iscope97/papers/lamping.html">http://www.acl.lanl.gov/iscope97/papers/lamping.html</A>
+&gt; &gt; <A  HREF="http://www.diku.dk/research-groups/topps/activities/PartialEvaluation.html">http://www.diku.dk/research-groups/topps/activities/PartialEvaluation.html</A>)
+&gt; &gt; developed a system that collapsed operations on arrays into a single
+&gt; &gt; loops. Eg, if one is doing something like Ax + b, the multiplication
+&gt; &gt; and addition are collapsed into one loop without the programmer having
+&gt; &gt; to write special purpose code. The good thing is, this work was
+&gt; &gt; originally done in Scheme. &quot;All are academic projects, with promising
+&gt; &gt; results so far. The Scheme systems are the most mature.&quot;
+&gt; &gt;
+&gt; &gt; cya,
+&gt; &gt; Noel
+&gt; &gt; --
+&gt; &gt; Noel Welsh
+&gt; &gt; <A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00421" href="msg00421.html">Hello from a new user interested in shipping applications</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00426" href="msg00426.html">Re: Hello from a new user interested in shipping applications</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00429" href="msg00429.html">Re: Hello from a new user interested in shipping applications</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</li></ul></li>
+<li><strong><a name="00432" href="msg00432.html">Re: Hello from a new user interested in shipping applications</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00434.html">Re: Hello from a new user interested in shipping applications</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00436.html">About Embedding MzScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00432.html">Re: Hello from a new user interested in shipping applications</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00434.html">Re: Hello from a new user interested in shipping applications</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00435"><strong>Date</strong></a></li>
+<li><a href="threads.html#00435"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

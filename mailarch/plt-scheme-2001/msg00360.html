@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.2 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 6 Mar 2001 18:39:16 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010307013838.YZLH2502.femail1.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.2</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00359.html">Date Prev</a>][<a href="msg00361.html">Date Next</a>][<a href="msg00359.html">Thread Prev</a>][<a href="msg00361.html">Thread Next</a>][<a href="maillist.html#00360">Date Index</a>][<a href="threads.html#00360">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.2</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.2</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 6 Mar 2001 17:38:39 -0800</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The v200-tagged code in CVS for MzScheme and MrEd is now version 199.2.
+
+Changes:
+
+ * `syntax-&gt;datum' renamed to `syntax-object-&gt;datum' (for compatibility
+   with Chez).
+
+ * `datum-&gt;syntax' renamed to `datum-&gt;syntax-object', and arguments
+   reordered (for compatibility):
+
+      (datum-&gt;syntax-object cxtx-stx datum [src-stx])
+
+ * The `struct' form is gone, replaced by the `make-struct-type'
+   procedure.
+
+   The `define-struct' form works as before, but also supports an
+   optional inspector expression after the field list. 
+
+ * Added a `make-struct-type' procedure, struct type properties, and
+   inspectors.
+
+   Properties let a programmer attach static information to a
+   structure type. Using properties, structure-based classes can be
+   implemented more efficiently.
+
+   Inspectors provide debugging access, with a custodian-like hierarchy
+   for opacity. The form
+
+    (define-struct s (f ...))
+
+   creates a type for structs that are effectively opaque. Use
+
+    (define-struct s (f ...) (make-inspector))
+
+   for transparent structs.
+
+ * Fixed a bug in immediate modules that use module paths.
+
+ * Started migrating docs to SLaTeX and tex2page formatting of code.
+
+Temporary docs are at
+
+ <A  HREF="http://www.cs.utah.edu/~mflatt/tmp/mzscheme.pdf">http://www.cs.utah.edu/~mflatt/tmp/mzscheme.pdf</A>
+ <A  HREF="http://www.cs.utah.edu/~mflatt/tmp/mzlib.pdf">http://www.cs.utah.edu/~mflatt/tmp/mzlib.pdf</A>
+
+Next stop: revised class system.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00359.html">Re: abstract classes?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00361.html">About error catching</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00359.html">Re: abstract classes?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00361.html">About error catching</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00360"><strong>Date</strong></a></li>
+<li><a href="threads.html#00360"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

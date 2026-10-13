@@ -1,0 +1,260 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] assertions and the learning of macro&#45;fu -->
+<!--X-From-R13: Rba Pynurgn <qcoNpf.oebja.rqh> -->
+<!--X-Date: Sun, 12 May 2002 20:38:23 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020513023750.GA8096@vanyel.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] assertions and the learning of macro-fu</title>
+<link rev="made" href="mailto:dpb@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00883.html">Date Prev</a>][<a href="msg00885.html">Date Next</a>][<a href="msg00883.html">Thread Prev</a>][<a href="msg00885.html">Thread Next</a>][<a href="maillist.html#00884">Date Index</a>][<a href="threads.html#00884">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] assertions and the learning of macro-fu</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: [plt-scheme] assertions and the learning of macro-fu</li>
+<li><em>From</em>: Don Blaheta &lt;<A HREF="mailto:dpb@cs.brown.edu">dpb@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 12 May 2002 22:37:50 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.27i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+mzscheme seems to be lacking one construct that is key to (my style of)
+good software engineering: assertions.  (If they are in fact present,
+well, I had fun and learned a lot writing the following, so it's not
+like it's lost time. :)  I submit the following as useful to include in
+code, if not necessarily in mzscheme itself:
+
+;; assert: does roughly what you'd expect: evaluates its argument, and if
+;; arg returns non-false value, continues silently.  Otherwise, abort with
+;; assorted useful info.  If you are asserting the negation of something,
+;; use (assert not (...)) instead of (assert (not (...))).
+;; CAVEAT PROGRAMMOR: Currently, (assert (f x ...)) will evaluate x ... twice
+;; in the case of assertion failure.  This does not affect program correctness,
+;; but if x ... has side effects, error output may be incorrect.  On the other 
+;; hand, using a side-effecty function in an assertion is probably a REALLY BAD
+;; IDEA anyway, so I'm not too worried.
+(define-syntax (assert stx)
+  (let ([handle-assert 
+          (lambda (src-stx positive stx)
+            (let ([src (syntax-source src-stx)]
+                  [line (syntax-line src-stx)])
+              (with-syntax ([pfx (lambda (form)
+                                   (printf &quot;Assertion failed at ~a~a: ~a~s~n&quot;
+                                           src
+                                           (if line (format &quot;:~a&quot; line) &quot;&quot;)
+                                           (if positive &quot;&quot; &quot;not &quot;)
+                                           form))]
+                            [sfx (lambda () (error &quot;Aborting execution&quot;))]
+                            [id-or-not (if positive (lambda (x) x) not)]
+                            [print-arg (lambda (x y)
+                                         (printf &quot;Value of ~s is ~s~n&quot; x y))])
+                (syntax-case stx (assert)
+                  [(assert (a b ...))
+                   (syntax (unless (id-or-not (a b ...))
+                             (pfx '(a b ...))
+                             (let ([eargs (list b ...)])  ; b is evaled twice
+                               (for-each print-arg '(b ...) eargs))
+                             (sfx)))]
+                  [(assert a)
+                   (syntax
+                     (unless (id-or-not a) (pfx 'a) (print-arg 'a a) (sfx)))]))))])
+    (syntax-case stx (assert not)
+      [(assert not x) (handle-assert stx #f (syntax (assert x)))]
+      [(assert x)     (handle-assert stx #t (syntax (assert x)))])))
+
+#| Example/test cases: all but the first should fail with useful info
+(assert 3)
+(assert #f)
+(assert not 3)
+(assert (zero? 3))
+(define foo 4)
+(assert (zero? foo))
+(assert (&lt; 5 foo))
+(assert (not (zero? 0)))
+(assert not (zero? 0))
+(let ((quux 5)) (assert (zero? quux)))
+(let ((quux 0)) (assert not (&lt; quux 4)))
+(assert (or #f #f))
+(let ((meef zero?)) (assert (meef 3)))
+|#
+
+Getting those last four cases to all work at the same time was the
+trickiest part of this; the tradeoff I made was that arguments end up
+getting evaled twice.  That's because the thing being asserted could
+itself be a macro, so we can't use 'apply' to apply the predicate to its
+arguments; there seems to be no way to get macros (e.g. or) to work here
+with a singly-evaluated set of arguments, at least not without a great
+deal more work.  (I could be wrong, obviously. :)
+
+Anyway, here is the output of those test cases:
+&gt; (assert 3)
+&gt; (assert #f)
+Assertion failed at STDIN: #f
+Value of #f is #f
+Aborting execution
+&gt; (assert not 3)
+Assertion failed at STDIN: not 3
+Value of 3 is 3
+Aborting execution
+&gt; (assert (zero? 3))
+Assertion failed at STDIN: (zero? 3)
+Value of 3 is 3
+Aborting execution
+&gt; (define foo 4)
+&gt; (assert (zero? foo))
+Assertion failed at STDIN: (zero? foo)
+Value of foo is 4
+Aborting execution
+&gt; (assert (&lt; 5 foo))
+Assertion failed at STDIN: (&lt; 5 foo)
+Value of 5 is 5
+Value of foo is 4
+Aborting execution
+&gt; (assert (not (zero? 0)))
+Assertion failed at STDIN: (not (zero? 0))
+Value of (zero? 0) is #t
+Aborting execution
+&gt; (assert not (zero? 0))
+Assertion failed at STDIN: not (zero? 0)
+Value of 0 is 0
+Aborting execution
+&gt; (let ((quux 5)) (assert (zero? quux)))
+Assertion failed at STDIN: (zero? quux)
+Value of quux is 5
+Aborting execution
+&gt; (let ((quux 0)) (assert not (&lt; quux 4)))
+Assertion failed at STDIN: not (&lt; quux 4)
+Value of quux is 0
+Value of 4 is 4
+Aborting execution
+&gt; (assert (or #f #f))
+Assertion failed at STDIN: (or #f #f)
+Value of #f is #f
+Value of #f is #f
+Aborting execution
+&gt; (let ((meef zero?)) (assert (meef 3)))
+Assertion failed at STDIN: (meef 3)
+Value of 3 is 3
+Aborting execution
+
+
+
+Ok, now here's the weird thing that's got me completely stumped.  If you
+paste this into a mzscheme session directly, it works fine.  If you load
+it into mzscheme, it works fine.  If you put this into a module, and you
+require it from the interpreter prompt, then positive assertions (e.g.
+(assert 3)) work fine, but negative assertions give a syntax error:
+
+Welcome to MzScheme version 200alpha12, Copyright (c) 1995-2002 PLT
+&gt; (require &quot;util.sch&quot;)
+&gt; (assert #f)
+Assertion failed at STDIN: #f
+Value of #f is #f
+Aborting execution
+&gt; (assert not 3)
+STDIN::53: assert: bad syntax in: (assert not 3)
+
+
+*However*, if you require it in another module, it works fine again:
+
+(module temp
+        mzscheme
+        (provide (all-defined))
+(require &quot;util.sch&quot;) ; includes assert
+
+  (define (meef x)
+    (assert x)
+    (assert not x))
+
+) ; end module
+
+
+
+Welcome to MzScheme version 200alpha12, Copyright (c) 1995-2002 PLT
+&gt; (require &quot;temp2.sch&quot;)
+&gt; (meef 3)
+Assertion failed at /Users/blahedo/274/units/temp2.sch:8: not x
+Value of x is 3
+Aborting execution
+
+
+So to recap, this assert macro works great *except* when it is in a
+module *and* directly required from the repl, but even then, it works in
+one syntactic form but not the other.  So obviously the macro is
+available (if I haven't required the module containing assert, then it
+just complains that assert is an unbound identifier).  Now, clearly my
+macro-fu is not at the level of some of the people on this list, but I'm
+totally baffled by this behaviour and would love not just a fix but (a
+pointer to) an explanation of why this one specific case doesn't work.
+
+-- 
+-=-Don Blaheta-=-=-dpb@cs.brown.edu-=-=-&lt;<A  HREF="http://www.cs.brown.edu/~dpb/">http://www.cs.brown.edu/~dpb/</A>&gt;-=-
+When your hammer is C++, everything begins to look like a thumb.
+					--Steve Hoflich, comp.lang.c++
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00885" href="msg00885.html">Re: [plt-scheme] assertions and the learning of macro-fu</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00886" href="msg00886.html">Re: [plt-scheme] assertions and the learning of macro-fu</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+<li><strong><a name="00888" href="msg00888.html">Re: [plt-scheme] assertions and the learning of macro-fu</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00883.html">Re: [plt-scheme] Printf and display</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00885.html">Re: [plt-scheme] assertions and the learning of macro-fu</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00883.html">Re: [plt-scheme] Printf and display</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00885.html">Re: [plt-scheme] assertions and the learning of macro-fu</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00884"><strong>Date</strong></a></li>
+<li><a href="threads.html#00884"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

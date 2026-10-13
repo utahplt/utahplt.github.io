@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Re: webserver and print&#45;struct -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNppf.arh.rqh> -->
+<!--X-Date: Thu, 2 May 2002 19:59:20 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205030159.TAA01338@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 021a01c1f142$c8d19b00$0500000a@Lr30JS -->
+<!--X-Reference: 20020502124405.QTAI4412.rwcrmhc52.attbi.com@localhost -->
+<!--X-Reference: 009f01c1f21f$e70a3b80$0500000a@Lr30JS -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Re: webserver and print-struct</title>
+<link rev="made" href="mailto:matthias@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00830.html">Date Prev</a>][<a href="msg00832.html">Date Next</a>][<a href="msg00829.html">Thread Prev</a>][<a href="msg00839.html">Thread Next</a>][<a href="maillist.html#00831">Date Index</a>][<a href="threads.html#00831">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Re: webserver and print-struct</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Re: webserver and print-struct</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 2 May 2002 19:59:17 -0600 (MDT)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00829.html">009f01c1f21f$e70a3b80$0500000a@Lr30JS</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00817.html">021a01c1f142$c8d19b00$0500000a@Lr30JS</a>&gt; &lt;<a href="msg00820.html">20020502124405.QTAI4412.rwcrmhc52.attbi.com@localhost</a>&gt;	&lt;<a href="msg00829.html">009f01c1f21f$e70a3b80$0500000a@Lr30JS</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Have you tried generating an executable from DrScheme? 
+If you are within a teaching language, your exectuable
+should in principle have the exact same behavior as 
+from within DrScheme. You can inspect the launcher (unless
+you compile it) easily and figure which language is being 
+require'd and then construct mzscheme scripts in the future
+without the luxury of DrScheme. -- Matthias
+
+
+At Thu, 2 May 2002 23:25:35 +0200, Jens_Axel_Søgaard wrote:
+&gt; Paul Graunke wrote:
+&gt; &gt; Check help-desk for print-convert.  You might get it to do what you
+&gt; &gt; need with the right hooks installed (current-print-convert-hook
+&gt; &gt; [hook]).
+&gt; 
+&gt; This is quite clever. I will add it to the good old bag'o'tricks.
+&gt; 
+&gt; But - I still have problems now. I end up with stuff like this in output
+&gt; file
+&gt; 
+&gt; (quasiquote ((unquote #&lt;struct:entry&gt;) (unquote #&lt;struct:entry&gt;)))
+&gt; 
+&gt; The #&lt;struct:entry&gt; ought to be (make-struct ..)-thingies.
+&gt; 
+&gt; Now the behaviour in DrScheme and in the web-server are not the same.
+&gt; It has proably something to do with language settings or parametrizations.
+&gt; Reading the manual the solution ought to be to use (print-struct #t),
+&gt; but for some reason the web-server does not respect it.
+&gt; (Or at least: that's way it seems - I could have missed something)
+&gt; 
+&gt; My functions are
+&gt; 
+&gt; (define (load-book)
+&gt;   (let* ([port (open-input-file filnavn)]
+&gt;          [book (eval (read port))])
+&gt;     (close-input-port port)
+&gt;     (map convert-entry book)))
+&gt; 
+&gt; (define (save-book)
+&gt;   (let ([port (open-output-file filename 'replace)])
+&gt;     ;  (print-struct #t)
+&gt;     (write (print-convert book) port)
+&gt;    ; (pretty-print (print-convert bog) port)  ; this is no better
+&gt;     (close-output-port port)))
+&gt; 
+&gt; [ The pconvert.ss documentation has a small bug:
+&gt;    &quot;In addition to print-convert, this library provides print-convert, ...
+&gt; &quot; ]
+&gt; 
+&gt; --
+&gt; Jens Axel Søgaard
+&gt; 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00817" href="msg00817.html">webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+<li><strong><a name="00820" href="msg00820.html">Re: webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Paul Graunke &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00829" href="msg00829.html">[plt-scheme] Re: webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00830.html">[plt-scheme] 200alpha18</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00832.html">[plt-scheme] keyboard shortcuts check-syntax button</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00829.html">[plt-scheme] Re: webserver and print-struct</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00839.html">Re: [plt-scheme] Re: webserver and print-struct</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00831"><strong>Date</strong></a></li>
+<li><a href="threads.html#00831"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

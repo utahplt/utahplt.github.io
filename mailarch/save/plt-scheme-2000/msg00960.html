@@ -1,0 +1,105 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: message loop for &#45;&#45;gui&#45;exe compiled code? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 9 Oct 2000 21:27:27 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20001010032723.DYUF10425.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 39E19DB2.DF31787A@chollian.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: message loop for --gui-exe compiled code?</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00959.html">Date Prev</A>][<A HREF="msg00961.html">Date Next</A>][<A HREF="msg00959.html">Thread Prev</A>][<A HREF="msg00961.html">Thread Next</A>][<A HREF="maillist.html#00960">Date Index</A>][<A HREF="threads.html#00960">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: message loop for --gui-exe compiled code?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Jong-Kyou Kim &lt;<A HREF="mailto:jkkim@chollian.net">jkkim@chollian.net</A>&gt;</LI>
+<LI><em>Subject</em>: Re: message loop for --gui-exe compiled code?</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 9 Oct 2000 20:27:23 -0700</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00959.html">39E19DB2.DF31787A@chollian.net</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00959.html">39E19DB2.DF31787A@chollian.net</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Jong-Kyou Kim:
+&gt; I wrote and compiled the following code using `mzc --gui-exe'. The
+&gt; program, however, didn't wait any input. It terminated immediately.
+
+Was this is 102 or 103?
+
+In 102, you'd have to use something like
+ (yield (make-sepahore))
+at the end of your program, and then explicitly exit in response to
+some event.
+
+In 103, however, we changed MrEd to behave the way you'd expect. More
+specifically, we extended `yield' to accept a 'wait flag, and changed
+MrEd to implicitly add
+  (yield 'wait)
+at the end of programs.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00959" HREF="msg00959.html">message loop for --gui-exe compiled code?</A></STRONG>
+<UL><LI><EM>From:</EM> Jong-Kyou Kim &lt;jkkim@chollian.net&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00959.html">message loop for --gui-exe compiled code?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00961.html">compilation</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00959.html">message loop for --gui-exe compiled code?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00961.html">compilation</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00960"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00960"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

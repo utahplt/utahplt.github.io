@@ -1,0 +1,207 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: functional programming is great, but why lists? -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.abegujrfgrea.rqh> -->
+<!--X-Date: Fri, 12 Oct 2001 21:17:02 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110130316.f9D3GIa10701@poincare.math.northwestern.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110102329.f9ANTnH19850@wrath.cs.utah.edu -->
+<!--X-Reference: 200110110342.WAA00959@banach.math.nwu.edu -->
+<!--X-Reference: 200110111325.f9BDPJw28502@sualocin.ccs.neu.edu -->
+<!--X-Reference: 200110120129.UAA00361@banach.math.nwu.edu -->
+<!--X-Reference: 20011012042559.A27541@cs.utexas.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: functional programming is great, but why lists?</title>
+<link rev="made" href="mailto:richter@math.northwestern.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01050.html">Date Prev</a>][<a href="msg01052.html">Date Next</a>][<a href="msg01049.html">Thread Prev</a>][<a href="msg01052.html">Thread Next</a>][<a href="maillist.html#01051">Date Index</a>][<a href="threads.html#01051">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: functional programming is great, but why lists?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:bogo@cs.utexas.edu">bogo@cs.utexas.edu</A></li>
+<li><em>Subject</em>: Re: functional programming is great, but why lists?</li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 12 Oct 2001 22:16:18 -0500</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01046.html">20011012042559.A27541@cs.utexas.edu</a>&gt; (message from MichaelBogomolny on Fri, 12 Oct 2001 04:25:59 -0500)</li>
+<li><em>References</em>: &lt;<a href="msg01024.html">200110102329.f9ANTnH19850@wrath.cs.utah.edu</a>&gt; &lt;<a href="msg01025.html">200110110342.WAA00959@banach.math.nwu.edu</a>&gt; &lt;<a href="msg01028.html">200110111325.f9BDPJw28502@sualocin.ccs.neu.edu</a>&gt; &lt;<a href="msg01037.html">200110120129.UAA00361@banach.math.nwu.edu</a>&gt; &lt;<a href="msg01046.html">20011012042559.A27541@cs.utexas.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   I'm not sure what is &quot;strange&quot; about cons as a data structure. 
+
+   (reverse (a (b (c (d)))))      =&gt; ((b (c (d))) a) 
+
+Oops!  Thanks to everyone who wrote today.  This probably isn't worth
+a long thread, but I'd like to clarify, since I really garbled my
+original message, many apologies.
+
+I'm glad to know why `cons' should be a separate data type, for
+`cons?' reasons (I liked MF's Expressive Power paper), but my real
+question wasn't why we use `cons' instead of stripped down LC_v where
+you'd have to use a procedure def of `cons'.
+
+My real question was why use such a rigid data structure as `cons',
+rather than a more flexible vector type of data structure.  To an
+algebraic (i.e. linear algebra) topologist like me, it's really hard
+to junk vectors and just use lists.  In particular, we're always
+letting permutations (bijections of {1,...,n}) act on R^n.  That's the
+sort of thing that's trivial to do with vectors, but with lists, you
+have to write recursive functions to do it.
+
+I suppose one answer is it would be harder to teach high school
+students linear algebra and permutation groups than lists + recursion.
+Perhaps there are other answers.  But let me explain anyway...
+
+I wrote a trivial 1-line nonrecursive function
+
+(define (scramble-fun lat-fun)
+  (lambda (n)
+    (lat-fun (add1 (- n (lat-fun n))))))
+
+that's essentially does the same thing as what still seems like a gem
+to me, on p 15 of TSS:
+
+   (define (pick n lat)
+     (if (= n 1)
+	 (car lat)
+	 (pick (- n 1) (cdr lat))))
+
+   (define (scramble-br lat rev-pre)
+     (cons (pick (car lat) rev-pre)
+	   (if (null? (cdr lat))
+	       '()
+	       (scramble-br (cdr lat)
+			    (cons (cadr lat) rev-pre)))))
+
+   (define (scrambler lat)
+     (if (null? lat)
+	 '()
+	 (scramble-br lat (cons (car lat) '()))))
+
+When I say gem, I mean something I would not have figured out, because
+I already know the trivial solution.   And I'm perfectly capable
+(after reading this much of TSS &amp; TLS) to translate my trivial
+function solution into a trivial list solution:
+
+   (define (make-function-into-lat f n)
+     (if (= n 0)
+	 '()
+	 (cons (f 1) 
+	       (make-function-into-lat 
+		(lambda (n) (f (add1 n))) (sub1 n))))) 
+
+   (define (make-lat-into-function lat)
+     (lambda (n) (pick n lat)))
+
+Those 2 functions wrote themselves, it was boring as Shriram said, and
+that's good, and now I can rewrite my original trivial 1-line
+nonrecursive function. It's now 3 lines, but 2 of the lines are duds:
+
+   (define (scramble-foobar lat)
+     (let* ((f (make-lat-into-function lat))
+	    (g (lambda (n)
+		 (f (add1 (- n (f n)))))))
+       (make-function-into-lat g (length lat))))
+
+
+   (scrambler       '(1 2 3 4 5 6 7 8 9))
+   (scramble-foobar '(1 2 3 4 5 6 7 8 9))
+
+   (scrambler       '(1 2 3 1 2 3 4 1 8 2 10))
+   (scramble-foobar '(1 2 3 1 2 3 4 1 8 2 10))
+
+   (scrambler       '(1 1 1 3 4 2 1 1 9 2))
+   (scramble-foobar '(1 1 1 3 4 2 1 1 9 2))
+
+and it seems to be the same:
+
+   Welcome to DrScheme, version 103p1.
+   Language: Graphical Full Scheme (MrEd).
+   (1 1 1 1 1 1 1 1 1)
+   (1 1 1 1 1 1 1 1 1)
+   (1 1 1 1 1 1 1 1 2 8 2)
+   (1 1 1 1 1 1 1 1 2 8 2)
+   (1 1 1 1 1 4 1 1 1 9)
+   (1 1 1 1 1 4 1 1 1 9)
+   &gt; 
+
+So here's the pedagogical problem.  If I were to teach a TLS or HTDP
+course, or coach nephews &amp; nieces on it, it seems like I've got to be
+able to forget a lot of permutation + vector techniques that I use all
+the time.  I'm sure there are folks here who are pretty good at
+permutation + vector techniques themselves, there must be a way.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01052" href="msg01052.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01024" href="msg01024.html">199.25</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="01025" href="msg01025.html">functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01028" href="msg01028.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01037" href="msg01037.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01046" href="msg01046.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Michael Bogomolny &lt;bogo@cs.utexas.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01050.html">Check Syntax Question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01052.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01049.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01052.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01051"><strong>Date</strong></a></li>
+<li><a href="threads.html#01051"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

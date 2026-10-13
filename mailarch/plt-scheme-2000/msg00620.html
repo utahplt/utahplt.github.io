@@ -1,0 +1,149 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: MysterX changes exp&#45;tagged -->
+<!--X-From-R13: "Bnhy O. Egrpxyre" <fgrpxNpf.evpr.rqh> -->
+<!--X-Date: Wed, 18 Oct 2000 16:23:05 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000001c03951$ed243080$6a032a80@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E4C0D8267DAA6141B77F1A4EAAEB2B912AF576@seapriv1 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>MysterX changes exp-tagged</title>
+<link rev="made" href="mailto:steck@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00619.html">Date Prev</a>][<a href="msg00621.html">Date Next</a>][<a href="msg00619.html">Thread Prev</a>][<a href="msg00621.html">Thread Next</a>][<a href="maillist.html#00620">Date Index</a>][<a href="threads.html#00620">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>MysterX changes exp-tagged</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: MysterX changes exp-tagged</li>
+<li><em>From</em>: &quot;Paul A. Steckler&quot; &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 18 Oct 2000 17:22:39 -0500</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00617.html">E4C0D8267DAA6141B77F1A4EAAEB2B912AF576@seapriv1</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+If you use COM, you probably know that COM
+uses a reference-counting mechanism.  Every
+COM class supports the AddRef and Release
+methods to increment and decrement its count.
+When an object's reference count goes to zero,
+its resources can be reclaimed.
+
+While developing MysterX, I found it necessary
+to call AddRef() on some COM objects obtained from 
+functions; otherwise, all kinds of funny things 
+(like crashes) would happen.
+
+But calling AddRef() should not have been necessary.
+Indeed, most of the time, this works fine.
+
+The solution used in recent versions of MysterX 
+was to *always* call AddRef() on obtained COM objects.
+Of course, that means that COM objects that 
+are correctly reference-counted are not 
+deallocated when a GC occurs.  So that approach
+leaves a lot of junk around.
+
+I've exp-tagged some changes to the MysterX code.
+I've removed the automatic AddRef.  Instead,
+there are two new procedures
+
+	com-add-ref
+	com-ref-count
+
+The first of these forces an AddRef on the COM
+object supplied as an argument.  The second returns
+the current reference count for a COM object.
+
+Yes, exposing the reference-counting mechanism
+at the Scheme level is ugly, but I can't think of a better
+way to deal with this problem.  Most of the time, it 
+should not be necessary to use these procedures.
+
+If you're a MysterX user, please try out this new 
+code.  I'd like to know if your programs remain stable
+with the new code.  I've tried it out with three 
+programs here, and things seem fine.  I'd like
+some assurance from others before releasing a new
+version.
+
+-- Paul
+
+ ----------------------------------------------------------------
+| Paul Steckler, Ph.D.       |     Rice University PLT           | 
+| steck@cs.rice.edu          |     DrScheme Project              |
+| Tel:  713/348-3814         |     <A  HREF="http://www.cs.rice.edu/~steck">http://www.cs.rice.edu/~steck</A> |
+| FAX:  713/348-5930         |     *** Ad astra per hackera ***  |
+ ---------------------------------------------------------------- 
+
+
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00621" href="msg00621.html">Re: MysterX changes exp-tagged</a></strong>
+<ul><li><em>From:</em> sperber@informatik.uni-tuebingen.de (Michael Sperber [Mr. Preprocessor])</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00617" href="msg00617.html">RE: Adding a New &quot;primitive&quot; Method.</a></strong>
+<ul><li><em>From:</em> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00619.html">RE: Adding a New &quot;primitive&quot; Method.</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00621.html">Re: MysterX changes exp-tagged</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00619.html">RE: Adding a New &quot;primitive&quot; Method.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00621.html">Re: MysterX changes exp-tagged</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00620"><strong>Date</strong></a></li>
+<li><a href="threads.html#00620"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

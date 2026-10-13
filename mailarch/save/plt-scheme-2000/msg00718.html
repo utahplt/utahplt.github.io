@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Testing Framework -->
+<!--X-From-R13: @bry Iryfu <abryjNqnv.rq.np.hx> -->
+<!--X-Date: Fri, 7 Jul 2000 09:49:50 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14693.63960.435766.416386@harrier.dai.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Testing Framework</TITLE>
+<LINK REV="made" HREF="mailto:noelw@dai.ed.ac.uk">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00717.html">Date Prev</A>][<A HREF="msg00719.html">Date Next</A>][<A HREF="msg00717.html">Thread Prev</A>][<A HREF="msg00719.html">Thread Next</A>][<A HREF="maillist.html#00718">Date Index</A>][<A HREF="threads.html#00718">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Testing Framework</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Testing Framework</LI>
+<LI><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Date</em>: Fri,  7 Jul 2000 16:49:38 +0100 (BST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:andrew@dai.ed.ac.uk">andrew@dai.ed.ac.uk</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi folks,
+
+This email is to announce the preliminary release of a testing
+framework based on that described on Wiki
+[<A  HREF="http://www.c2.com/cgi/wiki?TestingFramework">http://www.c2.com/cgi/wiki?TestingFramework</A>]. I say preliminary
+'cause it doesn't have much in the way of documentation, and it isn't
+yet packaged into units.
+
+Features:
+- Assertions to making creating test easier
+- Test-case and test-suite objects
+- A simple GUI to run tests from
+
+Todo:
+- Improve a few names
+- Unitify
+- Document
+- Make a MzGTK GUI
+- Suggestions?
+
+The URL: <A  HREF="http://www.dai.ed.ac.uk/daidb/people/homes/noelw/test.tar.gz">http://www.dai.ed.ac.uk/daidb/people/homes/noelw/test.tar.gz</A>
+
+An example of usage:
+
+;; Make some tests
+(define tests
+  (list ;;expected to fail 
+	(make-test-failure 'assert (lambda () (assert = 1 2))) 
+        (make-test 'assert-eq? (lambda () (assert-eq? 1 1)))
+	;;will fail unexpectedly
+        (make-test 'assert-eqv? (lambda () (assert-eqv? "a" "a"))) 
+        (make-test 'assert-equal? (lambda ()
+				     (assert-equal? '(1 2 3) '(1 2 3))))))
+
+;; A test suite is a collection of test cases
+(define test-suite (apply make-test-suite 'test-suite tests))
+
+;; Make a simple GUI
+(define gui (test-gui test-suite))
+
+;; Run the GUI
+(gui)
+
+cya,
+Noel
+-- 
+Noel Welsh
+<A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00717.html">CVS release tag</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00719.html">Macros and DrScheme</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00717.html">CVS release tag</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00719.html">Macros and DrScheme</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00718"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00718"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

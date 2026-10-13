@@ -1,0 +1,405 @@
+;; -*- scheme -*-
+
+;;(require-library current-library-collection-paths  pretty)
+
+;;(require-library "errortrace.ss" "errortrace")
+
+;; general utilities
+
+;;(define gensym generate-uninterned-symbol)
+
+(require-library "pretty.ss")
+
+(define-signature mutils^ (id curry foldr compose compose*))
+
+(define mutils@
+  (unit/sig 
+      mutils^ 
+    (import ;(pretty-print)
+     )
+    (define (print x) 
+      (newline)
+      (display (list '>>> x)))
+    
+    (define (id x) x)
+    
+    (define (curry f a)
+      (lambda (b)
+        (f a b)))
+    
+    (define (foldr op state list)
+      (if (null? list)
+          state
+          (foldr op
+                 (op (car list)
+                     state)
+                 (cdr list))))
+    
+    (define (compose f g)
+      (lambda x
+        (f (apply g x))))
+    
+    (define (compose* . args)
+      (foldr compose id args))
+    ))
+;;; building up monads
+
+(define-signature functor^
+  (fmap))
+
+(define-signature monad^
+  (fmap join const bind))
+
+(define-signature +monad^
+  (+fmap +join +bind))
+
+(define +monad@
+  (unit/sig
+      +monad^
+    (import monad^)
+    
+    (define (+join arg)
+      (bind (lambda (x)
+              (bind (lambda (y)
+                      (const y))
+                    x))
+            arg))
+    
+    (define (+fmap f)
+      (lambda (arg)
+        (bind (lambda (v)
+                (const (f v)))
+              arg)))
+    
+    (define (+bind f arg)
+      (join ((fmap f) arg)))
+    ))
+
+
+(define monad-compose0@
+  (unit/sig
+      monad^
+    (import mutils^
+            +monad^
+            (J :(join))
+            (M : monad^)
+            (N : monad^))
+    (rename)
+   ;;(define fmap (compose M:fmap N:fmap))
+    (define bind +bind)
+    (define fmap +fmap)
+    (define join J:join)
+    (define const (compose M:const N:const))))
+
+(define monad-compose@
+  (compound-unit/sig
+    (import (J : (join))
+            (M : monad^)
+            (N : monad^))
+    (link (MN : monad^ (monad-compose0@ U MN+ J M N))
+          (MN+ : +monad^ (+monad@ MN))
+          (U : mutils^ (mutils@)))
+    (export (open MN))))
+
+;;; Jonea&Dconstoncheel: Composing Monads
+;;; using units instead of type classes
+
+(define prod2join@
+  (unit/sig
+      (join)
+    (import mutils^
+            (prod)
+            (M : monad^)
+            (N : monad^)) 
+    (define join (compose M:join (M:fmap prod)))
+    ))
+
+(define dorp2join@
+  (unit/sig
+      (join)
+    (import mutils^
+            (dorp)
+            (M : monad^)
+            (N : monad^)) 
+    (define join (compose M:fmap (N:join dorp)))
+    ))
+
+(define swap2other@
+  (unit/sig
+      (join prod dorp)
+    (import mutils^
+            (swap)
+            (M : monad^)
+            (N : monad^))
+    (define join
+      (compose* (M:fmap N:join)
+                M:join
+                (M:fmap swap)))
+    (define prod 
+      (compose (M:fmap N:join)
+	       swap))
+    (define dorp 
+      (compose M:join
+               (M:fmap swap)))
+    ))
+
+(define monad-compose-prod@
+  (compound-unit/sig
+    (import (P : (prod))
+            (M : monad^)
+            (N : monad^))
+    (link (MN : monad^ (monad-compose@ J M N))
+          (J : (join) (prod2join@ U P M N))
+          (U : mutils^ (mutils@)))
+    (export (open MN))))
+
+(define monad-compose-dorp@
+  (compound-unit/sig
+    (import (D : (dorp))
+            (M : monad^)
+            (N : monad^))
+    (link (MN : monad^ (monad-compose@ J M N))
+          (J : (join) (dorp2join@ U D M N))
+          (U : mutils^ (mutils@)))
+    (export (open MN))))
+
+(define monad-compose-swap@
+  (compound-unit/sig
+    (import (S : (swap))
+            (M : monad^)
+            (N : monad^))
+    (link (MN : monad^ (monad-compose@ J M N))
+          (J : (join) (swap2other@ U S M N))
+          (U : mutils^ (mutils@)))
+    (export (open MN))))
+
+;; naive list implementation nondeterminism
+(define-signature amb^ ((open monad^) amb none))
+
+(define list0@
+  (unit/sig
+      amb^
+    (import mutils^ +monad^)
+    (define const list)
+    (define (fmap f)
+      (lambda (l) map f l))
+    (define (join l) (foldr append () l))
+    (define bind +bind)
+    (define amb append)
+    (define none ())))
+
+(define list@
+  (compound-unit/sig
+    (import)
+    (link (L : amb^ (list0@ U +M))
+          (U : mutils^ (mutils@))
+          (+M : +monad^ (+monad@ (L : monad^)))
+          )
+    (export (open L)
+            )))
+
+;;; data monad
+
+(define-signature interp-pub^ (;val fn err 
+                               binop unop @))
+(define-signature interp^ ((open monad^) (open interp-pub^) val? fn? err?))
+
+(define interp0@
+  (unit/sig
+      interp^
+    (import mutils^
+            +monad^)
+    
+   ;;; generic operations
+    (define (const x)
+     ;;(pretty-print `(+++ ,x))
+      (cons 'val x))
+    
+    (define (join x)
+      (if (val? x)
+          (cdr x)
+          (err 'join x)))
+    
+    (define (fmap f)
+      (lambda (x)
+        (if (val? x)
+            (const (f x))
+            (err 'fmap x))))
+    
+    (define bind +bind)
+    
+   ;;; interp specific operations
+    (define (val? x)
+      (and (pair? x)
+           (eq? (car x) 'val)))
+   ;;(define (val? x) #t)
+    
+    (define (fn? x)
+      (and (pair? x)
+           (eq? (car x) 'fun)))
+   ;;(define (fn? x) #t)
+    
+    (define (err? x)
+      (and (pair? x)
+           (eq? (car x) 'err)))
+    
+    (define (err . body)
+      (display `(!!! ,@ body))
+      (list 'err body))
+    
+    (define (fn body)
+      (cons 'fun body))
+    
+    (define val const)
+    
+    (define (binop op)
+      (lambda (a b)
+        (if (and (val? a)
+                 (val? b))
+            (val (op a b))
+            (err 'binop a b))))
+    
+    (define (unop op)
+      (lambda (a)
+        (if (val? a)
+            (val (op a))
+            (err 'unop a))))
+    
+    (define (@ fun arg)
+      (if (fn? fun)
+          ((fmap (cdr fun)) arg)
+          (err '@ arg)))
+    ))
+
+(define interp@
+  (compound-unit/sig
+    (import)
+    (link (I : interp^ (interp0@ U +M))
+          (+M : +monad^ (+monad@ (I : monad^)))
+          (U : mutils^ (mutils@)))
+    (export (open I))))
+
+(define interp-extend0@
+  (unit/sig
+      (prod (open interp-pub^))
+    (import mutils^
+            (I : interp^)
+            (M : amb^))
+    
+    (define (prod x)
+      (if (I:val? x)
+          (cdr x)
+          M:none))
+    
+    (define (binop op)
+      (let ((op2 (I:binop op)))
+        (lambda (d e)
+          (M:bind (lambda (v)
+                    (if (I:val? v)
+                        (M:bind (lambda (w)
+                                  (if (I:val? w)
+                                      (let ((res  (op2 v w)))
+                                        (display res)
+                                        (M:const res))
+                                      M:none))
+                                e)
+                        M:none))
+                  d))))
+    
+    
+    (define (unop op)
+      (let ((op2 (I:unop op)))
+        (lambda (d)
+          (M:bind (lambda (v)
+                    (if (I:val? v)
+                        (let ((res  (op2 v)))
+                          (print res)
+                          (M:const res))
+                        M:none))
+                  d))))
+    
+    (define (@ fun arg)
+      (M:bind (lambda (f)
+                (if (I:fn? f)
+                    ((M:fmap f) arg)
+                    M:none))
+              arg))
+    
+    ;(define val (M:fmap I:val))
+    ;(define err (M:fmap I:err))
+    ;(define fn (M:fmap I:fn))
+    
+    ))
+
+(define interp-extend@
+  (compound-unit/sig
+   (import (I : interp^)
+	   (M : amb^))
+   (link (X : (prod (open interp-pub^))
+	    (interp-extend0@ U I M))
+	 (U : mutils^
+	    (mutils@)))
+   (export (open X))))
+  
+(define interp-transform@
+  (compound-unit/sig
+    (import (M : amb^))
+    (link (X : (prod (open interp-pub^)) 
+	     (interp-extend@ I M))
+          (N : monad^ 
+	     (monad-compose-prod@ (X : (prod))
+				  (M : monad^)
+				  (I : monad^)))
+          (I : interp^
+	     (interp@)))
+    (export (open N)
+            (open (X : interp-pub^))
+            )))
+
+
+(define list-interp@
+  (compound-unit/sig
+    (import)
+    (link (N : ((open amb^) (open interp-pub^))
+             (interp-transform@ L))
+          (L : amb^
+             (list@)))
+    (export (open N)
+            (open L))))
+
+;
+;
+(define test0@
+  (unit/sig
+      (kons null x)
+    (import (A : amb^) (I : interp-pub^))
+    (define kons (I:binop cons))
+    (define null (I:val ()))
+    (define x
+      (kons (kons (I:val 1)
+                  (kons (I:val 2)
+                        (kons  (kons (A:amb (I:val 3)
+                                          (I:val 4))
+                                     (I:val 5)
+                                     )
+                               (I:val 6)))
+                  )
+            (kons (kons (I:val 'a)
+                        (kons (I:val 7)
+                              (kons (A:amb (I:val 8)
+                                         (I:val 9))
+                                    (I:val 10))))
+                  (I:val 11))))
+    (display x)))
+     
+     
+(define test@
+  (compound-unit/sig
+    (import)
+    (link (T : (kons null x) (test0@ L I))
+          (L : amb^ (list@))
+          (I : interp-pub^ (list-interp@)))
+  (export (open T))))
+
+;; (invoke-unit/sig test@)
+      

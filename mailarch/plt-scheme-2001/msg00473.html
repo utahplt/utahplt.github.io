@@ -1,0 +1,137 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: reading, escapism, and astrology -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Fri, 11 May 2001 09:32:24 &#45;0600 (MDT) -->
+<!--X-Message-Id: p05010402b721b5ce6c34@[192.168.1.100] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200105110324.XAA06331@world.std.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: reading, escapism, and astrology</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00472.html">Date Prev</a>][<a href="msg00474.html">Date Next</a>][<a href="msg00472.html">Thread Prev</a>][<a href="msg00474.html">Thread Next</a>][<a href="maillist.html#00473">Date Index</a>][<a href="threads.html#00473">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: reading, escapism, and astrology</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:Deinst@world.std.com">Deinst@world.std.com</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: reading, escapism, and astrology</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 11 May 2001 10:32:25 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00471.html">200105110324.XAA06331@world.std.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00471.html">200105110324.XAA06331@world.std.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+In general, yes, you can change the reader in DrScheme, but sadly, 
+the mechanism for doing that will change radically in the next 
+release. Also, as Shriram points out, the reader that you are 
+modifying won't even part of the next release.
+
+For 103, yes the reader's are settable, but only from &quot;inside&quot; 
+DrScheme, or from a tool. So, see the tools manual for an explanation 
+of how to create a tool and then how to set the reader with that 
+tool. You don't need to make a new unit -- you can just set the 
+zodiac reader's parameter to call your new reader (implemented 
+however). (Of course, since this won't port to 200 anyway, you can 
+just hack directly on the reader's code).
+
+Hope that helps.
+
+Robby
+
+At 11:24 PM -0400 5/10/01, Deinst@world.std.com wrote:
+&gt;	My questions about escape sequences in strings was motivated by
+&gt;attempting to get the test cases in Oleg Kiselyov's SSAX parser to work.
+&gt;After spending far too long mindlessly typing in format statements, making
+&gt;the excuse that I should look at the code and the tests anyway, I decided
+&gt;that I should really do this task automatically. Thinking that there had to be
+&gt;a complete functioning scheme reader somewhere in all of the DrScheme code
+&gt;(there is) I decided that I would mangle it to emit a modified version of the
+&gt;code.  Suddenly a light came on, and I thought that since DrScheme switches
+&gt;languages, it should be possible to switch readers.
+&gt;	I think it is possible to switch readers, maybe even easy to
+&gt;do so.  I do have a few questions. 
+&gt;
+&gt;One: There appear to be two readers, one a raw reader, and the other a
+&gt;zodiac reader.  It appears that the raw reader is only called when one
+&gt;is in either MzScheme or MrEd non debug modes, but I am less than
+&gt;certain of that.  Is that true?  Experiment has shown that mangling
+&gt;the zodiac scanner makes a reader which seems to work nicely in MrEd
+&gt;debug mode.  (Cringe if you must, I do promise not to inflict my
+&gt;experiments on anyone but myself until I have at least a vague idea of
+&gt;what I am doing. 
+&gt;
+&gt;Two: It appears that the readers are parameters, but are they settable
+&gt;from the outside of DrScheme?  If not (as I suspect), what would be
+&gt;the archiecturaly soundest way to add a new language that has and
+&gt;improved scaqnner?
+&gt;
+&gt;Three: I am not completely understanding how zodiac gets linked and inserted
+&gt;into DrScheme.  All I really need is to make a new unit with the signature
+&gt;of zodiac-scanner-code^ and relink everything, but I'm not even going to try
+&gt;anything like that until I have something like a rented clue.
+&gt;
+&gt;	Thanks,
+&gt;		Deinst
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00471" href="msg00471.html">reading, escapism, and astrology</a></strong>
+<ul><li><em>From:</em> Deinst@world.std.com</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00472.html">reading, escapism, and astrology</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00474.html">web tools for s-expressions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00472.html">reading, escapism, and astrology</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00474.html">web tools for s-expressions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00473"><strong>Date</strong></a></li>
+<li><a href="threads.html#00473"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

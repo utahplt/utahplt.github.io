@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 26 Feb 2000 23:08:12 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000227060809.FVPH21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002270435.UAA20217@balu.qualcomm.com -->
+<!--X-Reference: 200002270457.WAA08093@africa.cs.rice.edu -->
+<!--X-Reference: 20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 200002270548.VAA21089@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] HOWTO redirect a i/o-port in Unix??</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00501.html">Date Prev</A>][<A HREF="msg00503.html">Date Next</A>][<A HREF="msg00501.html">Thread Prev</A>][<A HREF="msg00503.html">Thread Next</A>][<A HREF="maillist.html#00502">Date Index</A>][<A HREF="threads.html#00502">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] HOWTO redirect a i/o-port in Unix??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></LI>
+<LI><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 26 Feb 2000 22:08:09 -0800</LI>
+<LI><em>CC</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A>, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00501.html">200002270548.VAA21089@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00496.html">200002270435.UAA20217@balu.qualcomm.com</A>&gt;	&lt;<A HREF="msg00497.html">200002270457.WAA08093@africa.cs.rice.edu</A>&gt; &lt;<A HREF="msg00500.html">20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost</A>&gt;	&lt;<A HREF="msg00501.html">200002270548.VAA21089@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Leo Razoumov:
+&gt; Your solution would not work (in general) if you are redirecting more
+&gt; than one port at once because it may cause a dead-lock situation.
+&gt; [...]
+&gt; The dead-lock symptoms are:
+&gt; 1). MzScheme will block in the myprog's stderr read/write loop when there is
+&gt;     nothing to read from the stderr.
+&gt; 2). "myprog" will block at the same time if it fills up the output buffer
+&gt;     of its stdout pipe. This pipe is not being consumed at the MzScheme end
+&gt;     because MzScheme is blocked by item 1).
+
+I don't think your example quite captures a problem. In MzScheme, when
+one thread is blocked on a read, other threads can proceed. In the
+above example, when the stderr-reading thread is blocked, the
+stdout-reading thread can proceed.
+
+However, in 101 and previous versions, a MzScheme thread blocked on a
+*write* would actually block all MzScheme threads. This has been fixed
+in 102, so that pipelines can be implemented reliably. (The build
+process for MzScheme2k uses a pipeline.)
+
+&gt; However, a much simplier solution would be to provide a primitive
+&gt; function like (redirect-port! FROM TO) which essentially does dup2
+&gt; and let Operating System handle all the gory details of I/O
+&gt; operations.
+
+Operating systems aren't as good at this as you might think :), at
+least not in my opinion. While getting [non-]blocking output to work
+right in MzScheme, I had to learn about all the ways that Unix's
+select() and the non-blocking flags are broken, particularly when TTYs
+are involved. 
+
+Probably dup2 really would work well in Unix for many purposes, but
+then there are arbitrary ports (not to mention Windows and MacOS) to
+worry about. I speculate that a `redirect-port!' that worked precisely
+like dup2 on file descriptions would be hard to define for other kinds
+of ports; we would implement the general case like the code I sent out,
+but unless that code is exposed by the definition of `redirect-port!',
+its definition would have to tackle messy issues related to thread and
+resource control with custodians, etc.
+
+Maybe something like `redirect-port!' will be possible in the future,
+but we'll have to think about it even more than we already have...
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00503" HREF="msg00503.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00496" HREF="msg00496.html">[Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00497" HREF="msg00497.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00500" HREF="msg00500.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00501" HREF="msg00501.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00501.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00503.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00501.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00503.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00502"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00502"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

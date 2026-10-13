@@ -1,0 +1,107 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Pseudo&#45;random numbers -->
+<!--X-From-R13: Xreml Ynepmznepmhx <xnepmznNvasb.havpnra.se> -->
+<!--X-Date: Fri, 16 Mar 2001 03:12:31 &#45;0700 (MST) -->
+<!--X-Message-Id: 3AB1F4BF.E11A622@info.unicaen.fr -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 1BF8DC62C04D7449A77B91240E17F2DC094882@CSNT.inf.upol.cz -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Pseudo-random numbers</title>
+<link rev="made" href="mailto:karczma@info.unicaen.fr">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00388.html">Date Prev</a>][<a href="msg00390.html">Date Next</a>][<a href="msg00390.html">Thread Prev</a>][<a href="msg00392.html">Thread Next</a>][<a href="maillist.html#00389">Date Index</a>][<a href="threads.html#00389">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Pseudo-random numbers</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Pseudo-random numbers</li>
+<li><em>From</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</li>
+<li><em>Date</em>: Fri, 16 Mar 2001 11:10:55 +0000</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: University of Caen, France</li>
+<li><em>References</em>: &lt;<a href="msg00387.html">1BF8DC62C04D7449A77B91240E17F2DC094882@CSNT.inf.upol.cz</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+David Skoupil wrote:
+
+&gt; is there a (fast) way in Dr.Scheme to generate random numbers with
+&gt; arbitrary upper bound. The implemented random number generator gives
+&gt; numbers in the range from 0 to 2^31. I am playing with RSA and I need to
+&gt; generate say 100 digits long randoms.
+
+Hm. What do you mean by &quot;fast&quot;?
+The manipulation of arbitrarily long numbers is as fast as it
+can be, no faster...
+
+You can always implement a simple congruential RN generator
+X -&gt; A X + C (mod M) in Scheme using arbitrary A and M, and, of
+course, verifying whether your generator is &quot;sane&quot; (a good place
+to start is the second volume (Seminumerical algorithms) of Knuth.
+
+Another way is to generate a list of random digits (in any positional
+system, e.g. random bits). This is extensively covered by the 
+literature as well.
+
+Jerzy Karczmarczuk
+Caen, France.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00387" href="msg00387.html">Pseudo-random numbers</a></strong>
+<ul><li><em>From:</em> &quot;David Skoupil&quot; &lt;Skoupil@inf.upol.cz&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00388.html">Re: Pseudo-random numbers</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00390.html">Re: Pseudo-random numbers</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00390.html">Re: Pseudo-random numbers</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00392.html">199.4</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00389"><strong>Date</strong></a></li>
+<li><a href="threads.html#00389"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

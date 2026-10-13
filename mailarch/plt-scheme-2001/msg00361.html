@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: About error catching -->
+<!--X-From-R13: Epbemryyv Uvbetvb <fpe.tvbetvbNpbtrfvp.vg> -->
+<!--X-Date: Wed, 7 Mar 2001 10:09:20 &#45;0700 (MST) -->
+<!--X-Message-Id: 5.0.0.25.0.20010307180410.00a8dbd8@mpop.netlink.co.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>About error catching</title>
+<link rev="made" href="mailto:scr.giorgio@cogesic.it">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00360.html">Date Prev</a>][<a href="msg00362.html">Date Next</a>][<a href="msg00360.html">Thread Prev</a>][<a href="msg00362.html">Thread Next</a>][<a href="maillist.html#00361">Date Index</a>][<a href="threads.html#00361">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>About error catching</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: About error catching</li>
+<li><em>From</em>: Scorzelli Giorgio &lt;<A HREF="mailto:scr.giorgio@cogesic.it">scr.giorgio@cogesic.it</A>&gt;</li>
+<li><em>Date</em>: Wed, 07 Mar 2001 18:11:49 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi all,
+
+I would like to know if the following code (see &quot;insizemz.pdf&quot; document):
+
+void MyFunction(){
+
+         [...]
+
+         Scheme_Object *curout 
+=scheme_get_param(scheme_config,MZCONFIG_OUTPUT_PORT);
+
+         if (scheme_setjmp(scheme_error_buf)){
+                 //ERROR-&gt;I simply ignore it at the moment!
+         }else {
+                 Scheme_Object *v=scheme_eval_string(str, mySchemeEnv);
+                 scheme_display(v,curout);
+                 scheme_eval_string(&quot;(newline)&quot;,mySchemeEnv);
+         }
+
+         return;
+}
+
+could case strange thinks to my program. I mean: in windows (2000) I get an 
+error message (first by the debugger, finally by a &quot;fatal error&quot;) when I 
+exit from &quot;Myfunction&quot; method.
+
+It seems that scheme_setjmp isn't able to recover correctly the contents of 
+the stack so the last &quot;return&quot; instruction jumps to a wrong address.
+
+Do you think it is possible?
+How can I check this think?
+Or probably I'm suppose to recompile mzsrc library with some specific define?
+
+Thank you
+
+
+
+*************************************
+Giorgio Scorzelli
+scr.giorgio@cogesic.it
+*************************************
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00362" href="msg00362.html">Re: About error catching</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00360.html">199.2</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00362.html">Re: About error catching</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00360.html">199.2</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00362.html">Re: About error catching</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00361"><strong>Date</strong></a></li>
+<li><a href="threads.html#00361"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

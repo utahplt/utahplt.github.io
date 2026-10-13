@@ -1,0 +1,210 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: A message from the Scheme Underground ... -->
+<!--X-From-R13: Perag Thytunz <oshytunzNqrovna.bet> -->
+<!--X-Date: Mon, 27 Nov 2000 22:21:27 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001127213224.A1996@earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>A message from the Scheme Underground ...</title>
+<link rev="made" href="mailto:bfulgham@debian.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00755.html">Date Prev</a>][<a href="msg00757.html">Date Next</a>][<a href="msg00755.html">Thread Prev</a>][<a href="msg00757.html">Thread Next</a>][<a href="maillist.html#00756">Date Index</a>][<a href="threads.html#00756">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>A message from the Scheme Underground ...</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT-Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: A message from the Scheme Underground ...</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 27 Nov 2000 21:32:24 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:vim-dev@vim.org">vim-dev@vim.org</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.2.5i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Fight the proliferation of ad hoc languages!  Release yourself from
+the shackles of semi-colon terminated languages, the madness of
+infix notation, and the oppressive weight of procedural programming's
+history.  Join the freedom-loving ranks of the programming elite!
+(Joking!)
+
+======================================================================
+
+I have created a patch against Vim60m to embed an MzScheme interpreter.
+You can use MzScheme inside Vim in much the same way as the Python,
+Perl, Ruby, or Tcl interfaces (though of course, with more style).
+
+Be warned, this is fairly embryonic, but I was excited enough that it
+was working that I thought it could benefit from some extra eyes.
+
+If you like Scheme, and you like Vim (the only text editor worth
+using IMHO), this is for you!  (Yes, I realize most MzSchemer's
+enjoy the DrScheme environment, but of course that's only because they
+have not learned Vim!)
+
+The most glaring omission at the moment is the ability to source
+files -- that's coming later this week, but I have some additional
+plans for how this piece will work that aren't ready quite yet.
+Other than that, it supports most things you can do from Python and
+Tcl (the two interfaces that provided most of the structure of how
+to embed the software).
+
+======================================================================
+
+Examples:
+
+So what good is this?  Here are some examples:
+
+1.  If you want a quite calculator, use the command line:
+
+:mzscheme (+ 1 2)
+3
+
+2.  If you want to beep the Vim buzzer:
+:mz (vim-beep)
+*beep!*
+
+3.  If you wish to manipulate some text:
+
+Every good boy does fine.
+All dogs go to heaven.
+The quick brown fox jumped over the lazy dogs.
+
+:mz (vim-set-buff-line 3 (string-append (vim-get-buff-line 3) 
+&quot;  And laughed all the way home&quot;))
+
+Every good boy does fine
+All dogs go to heaven.
+The quick brown fox jumped over the lazy dogs.  And laughed all the way home.
+
+4.  Compare two vim buffers:
+(buffer 1, named &quot;good&quot;)
+That's fine.
+(buffer 2, named &quot;fine&quot;)
+That's fine.
+Plus more text.
+: buffers
+1 &quot;good&quot;
+2 &quot;fine&quot;
+
+:mz (define (a-buf) (vim-get-buff-by-num 1))
+&lt;vim-buffer&gt;
+:mz (define (b-buf) (vim-get-buff-by-num 2))
+&lt;vim-buffer&gt;
+
+:mz (display (cond ((string=? (vim-get-buff-line 1 a-buff) (vim-get-buff-line 1 b-buff)) &quot;Match&quot;)
+(else &quot;Not a Match&quot;))
+Match
+:mz (display (cond ((string=? (vim-get-buff-line 1 a-buff) (vim-get-buff-line 2 b-buff)) &quot;Match&quot;)
+(else &quot;Not a Match&quot;))
+Not a Match.
+
+5.  See what kinds of windows are open:
+:mz (vim-get-win-list)
+(#&lt;vim-window&gt; #&lt;vim-window&gt;)
+
+========================================================================================
+
+As you can see, it should be fairly easy to extend these capabilities to do
+very useful things.  But first, I'm wondering about a few things:
+
+1.  Would it make more sense for Buffers and windows to be full-fledged MzScheme
+classes in all their object-oriented glory?
+2.  What kinds of features are needed in melding scripts/macros to the editor proper?
+(I.e., besides the usual features what do you want?)
+    vim-command                 -- Perform the vim &quot;:Ex&quot; style command
+    vim-eval                    -- evaluate the vim command string
+    vim-range-start(end)        -- Start/End of the range passed with the Scheme command
+    vim-get(set)-buff-line      -- Get/Set a line in a buffer
+    vim-get(set)-buff-line-list -- Get/Set a list of lines in a buffer
+    vim-get-buff-name           -- Get a buffer's text name
+    vim-get-buff-num            -- Get a buffer's number
+    vim-get-buff-size           -- Get buffer line count
+    vim-insert-buff-line-list   -- Insert a list of lines into a buffer
+    vim-curr-buff               -- Get the current buffer
+    vim-buff-count              -- Get count of total buffers in the editor
+    vim-get-next(prev)-buff     -- Get next/previous buffer
+    vim-open-buff               -- Open a new buffer (for file &quot;name&quot;)
+    vim-get-buff-by-name        -- Get a buffer by its filename
+    vim-get-buff-by-num         -- Get a buffer by its number
+    vim-curr-win                -- Get the current window
+    vim-win-count               -- Get count of windows
+    vim-get-win-by-num          -- Get window by its number
+    vim-get-win-buffer          -- Get the buffer for a given window
+    vim-get(set)-win-height     -- Get/Set height of window
+    vim-get(set)-win-width      -- Get/Set width of window
+    vim-get-win-list            -- Get list of windows for a buffer
+    vim-beep                    -- Beep the buzzer
+    vim-get(set)-option         -- Get/Set a Vim option
+
+Anyway, I apologize for the length of this message.  If you want to take a look at
+the code, the diff is at &quot;<A  HREF="http://people.debian.org/~bfulgham&quot">http://people.debian.org/~bfulgham&quot</A>;.
+
+Warning:  While this did build on Windows 95 prior to my Thanksgiving Hacking
+a quick build with this diff today at work failed.  I'll upload a new patch
+later this week to correct the problem.
+
+So, Linux users -- enjoy!
+
+Thanks!
+
+-Brent
+
+P.S.  The True Scheme Underground claims no responsibility for any of
+the above activities....
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00755.html">Re: MzScheme Strings</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00757.html">RE:  Scheme/Vim Interface [was:  A message from the Scheme Underground]</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00755.html">Re: MzScheme Strings</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00757.html">RE:  Scheme/Vim Interface [was:  A message from the Scheme Underground]</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00756"><strong>Date</strong></a></li>
+<li><a href="threads.html#00756"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

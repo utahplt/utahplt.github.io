@@ -1,0 +1,122 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: byte code format -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 6 Jun 2001 02:24:52 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200106060824.f568Ohj26725@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000701c0ee3d$3a5c09e0$153ca8c0@wopr.org -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: byte code format</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00529.html">Date Prev</a>][<a href="msg00531.html">Date Next</a>][<a href="msg00529.html">Thread Prev</a>][<a href="msg00531.html">Thread Next</a>][<a href="maillist.html#00530">Date Index</a>][<a href="threads.html#00530">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: byte code format</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Trevor Clarke&quot; &lt;<A HREF="mailto:trevor@notcows.com">trevor@notcows.com</A>&gt;</li>
+<li><em>Subject</em>: Re: byte code format</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 6 Jun 2001 02:24:44 -0600 (MDT)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00529.html">000701c0ee3d$3a5c09e0$153ca8c0@wopr.org</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00529.html">000701c0ee3d$3a5c09e0$153ca8c0@wopr.org</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Trevor Clarke&quot;:
+&gt; Could someone point me to some information about the format of the
+&gt; byte code in a .zo?
+
+There is none (other than the source, as you point out).
+
+A .zo file is essentially a compacted S-expression. The details are
+complex, including a hash table for symbols (i.e., the first instance
+of a symbol is encoded as a index--symbol pair, and later instances
+just use the index), a vector-like representaton for lists, index-based
+references to primitives, and various S-expression encodings of
+primitive syntactic forms. Furthermore, the details change fairly
+often, either because the primitive indices shift when a new primitive
+is added, because I notice a new trick to make bytecode files more
+compact, or because a new kind of literal is added. As an example of
+the last reason, the v200 format is greatly complicated by the presence
+of syntax objects.
+
+The S-expression encoded in a .zo file, in turn, is an encoding of a
+(fairly small) set of records representing the actual bytecodes that
+MzScheme executes. Those records do not change very often, though they
+can be somewhat complex (e.g., the record representing a module
+declaration) and they are very much tune d to the evaluator's
+achitecture.
+
+So, unfortunately, the .zo format is not remotely friendly as a medium
+for getting MzScheme version XYZ code to anywhere other than MzScheme
+version XYZ.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00531" href="msg00531.html">Macro in teachpack</a></strong>
+<ul><li><em>From:</em> &quot;David Skoupil&quot; &lt;skoupil@upol.cz&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00529" href="msg00529.html">byte code format</a></strong>
+<ul><li><em>From:</em> &quot;Trevor Clarke&quot; &lt;trevor@notcows.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00529.html">byte code format</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00531.html">Macro in teachpack</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00529.html">byte code format</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00531.html">Macro in teachpack</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00530"><strong>Date</strong></a></li>
+<li><a href="threads.html#00530"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

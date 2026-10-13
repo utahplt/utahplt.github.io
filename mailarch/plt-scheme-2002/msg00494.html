@@ -1,0 +1,147 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: quasiquote syntax -->
+<!--X-From-R13: qinaubeaNrzon.hiz.rqh -->
+<!--X-Date: Mon, 25 Mar 2002 13:55:25 &#45;0700 (MST) -->
+<!--X-Message-Id: 1017089722.3c9f8ebaac9b4@webmail.emba.uvm.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>quasiquote syntax</title>
+<link rev="made" href="mailto:dvanhorn@emba.uvm.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00493.html">Date Prev</a>][<a href="msg00495.html">Date Next</a>][<a href="msg00496.html">Thread Prev</a>][<a href="msg00500.html">Thread Next</a>][<a href="maillist.html#00494">Date Index</a>][<a href="threads.html#00494">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>quasiquote syntax</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: quasiquote syntax</li>
+<li><em>From</em>: <A HREF="mailto:dvanhorn@emba.uvm.edu">dvanhorn@emba.uvm.edu</A></li>
+<li><em>Date</em>: Mon, 25 Mar 2002 15:55:22 -0500 (EST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMP/PHP IMAP webmail program 2.2.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello,
+
+I am trying to understand the quasiquote example implementation given in
+\&quot;Writing Hygienic Macros in Scheme with Syntax-Case\&quot;.
+
+The paper states, \&quot;a much simpler version could be defined by replacing calls to
+gen-cons, gen-append, and gen-vector with syntax for calls to cons, append, and
+list-&gt;vector.\&quot; But I am uncertain as to how to do this. I\'ve appended a version
+below, which I have simplified as much as I can. I can\'t seem to get much
+further and any help would be greatly appreciated.
+
+Thanks,
+David
+
+--
+dvanhorn at cs dot uvm dot edu
+<A  HREF="http://www.cs.uvm.edu/~dvanhorn">http://www.cs.uvm.edu/~dvanhorn</A>
+
+
+-- simple quasiquote --
+(define-syntax quasiquote
+  (letrec
+      ((gen-cons
+        (lambda (x y)
+          (syntax-case x ()
+            [x
+             (syntax-case y ()
+               [y (syntax (cons x y))])])))
+       
+       (gen-append
+         (lambda (x y)
+           (syntax-case x ()
+             [x
+              (syntax-case y (quote)
+                [y (syntax (append x y))])])))
+       
+        (gen-vector
+          (lambda (x)
+            (syntax-case x ()
+              [x (syntax (list-&gt;vector x))])))
+        
+        (gen
+          (lambda (p lev)
+            (syntax-case p (unquote unquote-splicing quasi)
+              [(unquote p)
+               (if (= lev 0)
+                   (syntax p)
+                   (gen-cons (syntax (quote unquote))
+                             (gen (syntax (p)) (- lev 1))))]
+              [((unquote-splicing p) . q)
+               (if (= lev 0)
+                   (gen-append (syntax p) (gen (syntax q) lev))
+                   (gen-cons (gen-cons (syntax (quote unquote-splicing))
+                                       (gen (syntax p) (- lev 1)))
+                             (gen (syntax q) lev)))]
+              [(quasi p)
+               (gen-cons (syntax (quote quasi))
+                         (gen (syntax p) (+ 1 lev)))]
+              [(p . q)
+               (gen-cons (gen (syntax p) lev) (gen (syntax q) lev))]
+              [#(x ...) (gen-vector (gen (syntax (x ...)) lev))]
+              [p (syntax (quote p))]))))
+      (lambda (x)
+        (syntax-case x ()
+          [(_ e) (gen (syntax e) 0)]))))
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00493.html">RE: SrPersist pre-release binary</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00495.html">RE: SrPersist pre-release binary</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00496.html">RE: SrPersist pre-release binary</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00500.html">Announce: SchemeQL v.0.03 released!</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00494"><strong>Date</strong></a></li>
+<li><a href="threads.html#00494"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

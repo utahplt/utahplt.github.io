@@ -1,0 +1,215 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Offtopic: How to Design Programming Tests -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Fri, 2 Feb 2001 11:26:42 &#45;0700 (MST) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C67670168312F@THRESHER -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Offtopic: How to Design Programming Tests</title>
+<link rev="made" href="mailto:brent.fulgham@xpsystems.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00198.html">Date Prev</a>][<a href="msg00200.html">Date Next</a>][<a href="msg00263.html">Thread Prev</a>][<a href="msg00204.html">Thread Next</a>][<a href="maillist.html#00199">Date Index</a>][<a href="threads.html#00199">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Offtopic: How to Design Programming Tests</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;,       plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Offtopic: How to Design Programming Tests</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 2 Feb 2001 10:26:27 -0800 </li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Brent, this one wasn't familiar:
+&gt; 
+&gt; &gt; Describe how you might implement &quot;Parasitic&quot; methods
+&gt; &gt; in Java using a mechanism which compiles to valid Java
+&gt; &gt; bytecode capable of running on a compliant JVM.  
+&gt; &gt; Cite references.
+&gt; 
+
+Noel (et. al.):
+
+This is a bad joke based on some researching I was doing on
+an unrelated topic.  I'm probably going to mess up the
+description, but it's basically a modification to the Java
+compiler to help implement multiple dispatch.  It was presented
+at OOPSLA'97 by John Boyland and Giuseppe Castagna, and can
+be downloaded for free from (<A  HREF="http://www.dmi.ens.fr/~castagna/pub.html">http://www.dmi.ens.fr/~castagna/pub.html</A>)
+(Rather than the absurdly expensive ACM &quot;Digital Library&quot;).
+&quot;Parasitic Methods:  An Implementation of Multi-Methods for Java&quot;.
+
+Some obvious answers for a language that better supports this
+would be (obviously) Lisp/Dylan/Scheme, Smalltalk.
+
+I would expect the run-time penalty of this system under Java
+would be fairly significant. 
+
+&gt; Does this refer to mix-ins?  I thought another good
+&gt; test would be to write Java bytecode that the verifier
+&gt; cannot verify and correct or incorrect (i.e. the
+&gt; Goedel statement for Java bytecode), but it then
+&gt; occurred to me that verification probably relies on
+&gt; Java's type system and Java's wimpy type system is
+&gt; decidable.
+&gt;
+
+I think mix-ins and parasitic methods solve the same problem
+in a slightly different manner.  Based on the couple of papers
+I read (most by some combination of Krishnamurthi/Flatt/Felleisen)
+I think mixins are a mechanism for adding new functionality to
+existing classes via small bits of logic.  In contrast, so-called
+&quot;Parasitic Methods&quot; seek to modify the way in which the run-time
+system handles method dispatch and &quot;hijack&quot; certain calls so
+a better &quot;match&quot; can be found for a method call using multiple
+polymorphic objects.
+ 
+&gt; Brent, I completely agree that programmer tests are
+&gt; bogus.  The reason we now have them is that quality of
+&gt; applicants is amazing low, and the quantity amazingly
+&gt; high (it's a symptom of the profession, and
+&gt; particularly contracting).  The test is quick way to
+&gt; separate the wheat from the chaff.
+
+Yes -- you are probably right.  But it comes down to the old
+question:  &quot;How many pairs of animals did Moses take on the
+Ark?&quot;  Sitting in your study you would probably say &quot;Huh?
+Wasn't Noah the one with the Ark?&quot;, but in a stressful
+environment you might spend time trying to solve the &quot;hard&quot;
+problem of assessing how many animals might fit, etc.
+Is that a fair test?  Depends on the ultimate goal of your
+organization -- to solve puzzles under artificial conditions,
+or to solve real-world problems in a meaningful way.  That's
+why I think discussions that involve exploring the process
+a candidate uses to arrive at a solution to be generally
+more helpful.
+
+&gt; Asking them to send in their own programs is a good idea,
+&gt; but I can see two problems with it:
+&gt; 
+&gt; 1.  They might copy from a book/open-source code (this
+&gt; has happened when we let someone do a test at home -
+&gt; but they forgot to change a reference to page number
+&gt; in the original text so it gave them away!)
+&gt; 
+
+Egad!  Well, that's result must have been very helpful
+in assessing their suitability for the job!  ;-)
+
+&gt; 2.  They might do all their coding at work, and hence
+&gt; not have any code they can show us.
+&gt;
+
+Well, I guess that's true.  I can't expect everyone to
+enjoy software engineering enough to do it all day, then go
+home and do it some more (like some of us do).
+ 
+&gt; Michael Bogomolny suggested:
+&gt; 
+&gt; &gt; compare the advantages and disadvantages of arrays
+&gt; versus linked lists.
+&gt; 
+&gt; This is a good question.  My answer would be:
+&gt; 
+&gt; - random access time O(1) vs O(n)
+&gt; - queue/stack operations O(n) vs O(1)
+&gt; - memory usage: array better
+&gt; 
+&gt; Anything I missed?
+&gt;
+
+Just the obvious speed issue.  Ideas that should probably
+occur to the candidate:
+
+1.  Dynamic growth of the linked list is probably better
+performance-wise.
+2.  Large data sets will probably work better with linked
+lists (e.g., I just did something similar for an account
+transaction history, where I needed to &quot;window&quot; the
+history available in core memory from the overall history
+due to memory and performance issues.) 
+ 
+&gt; In Java the only way to do this is to have a thread
+&gt; for each connection.  Under load the machine dies
+&gt; with too many threads open.  In C (at least in
+&gt; AOLserver :-) all the inactive connections are given
+&gt; to a single thread that periodically polls them for
+&gt; activity, and requeues any connections that have become
+&gt; active.
+
+Sounds like a good opportunity to do a native method
+to handle this particular activity.  Are you using
+AOLserver for your platform? (Don't tell me you work
+for aD!)
+
+&gt; Because they didn't write the JVM in Scheme, so the
+&gt; JVM can have memory leaks/resource allocation problems
+&gt; as well?
+&gt;
+
+Bzzt!  They didn't get Matthew Flatt to write the JVM, so
+there are lots of memory leaks/resource problems ;-)
+ 
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00204" href="msg00204.html">Re: Offtopic: How to Design Programming Tests</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00208" href="msg00208.html">RE: Offtopic: How to Design Programming Tests</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00198.html">RE: Databases &amp;/or binary data</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00200.html">Dr Scheme Error</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00263.html">Re: Offtopic: How to Design Programming Tests</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00204.html">Re: Offtopic: How to Design Programming Tests</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00199"><strong>Date</strong></a></li>
+<li><a href="threads.html#00199"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

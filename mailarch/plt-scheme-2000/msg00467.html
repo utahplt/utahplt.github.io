@@ -1,0 +1,646 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: The correct way in a C extension to close a file on GC? (Example Code) -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Tue, 8 Aug 2000 10:12:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: 399032E7.A1B51571@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 398ECD3D.C6867E52@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: The correct way in a C extension to close a file on GC? (Example Cod</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00466.html">Date Prev</a>][<a href="msg00468.html">Date Next</a>][<a href="msg00464.html">Thread Prev</a>][<a href="msg00470.html">Thread Next</a>][<a href="maillist.html#00467">Date Index</a>][<a href="threads.html#00467">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: The correct way in a C extension to close a file on GC? (Example Code)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: The correct way in a C extension to close a file on GC? (Example Code)</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 08 Aug 2000 12:18:47 -0400</li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00464.html">398ECD3D.C6867E52@kurtz-fernhout.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Paul Fernhout wrote:
+&gt; 
+&gt; I'm trying to build a DLL that creates a new type -- a file that can do
+&gt; simultaneous input and output.
+&gt; 
+&gt; The short question is: How can I get a function in C to be called on the
+&gt; garbage collection of a file object? I'm looking for a general outline
+&gt; of the correct and complete process to avoid substantial trial and error
+&gt; -- I can fill in the actual code if I know exactly all the things that
+&gt; need to be done.
+
+Well, thanks especially to Paul A. Steckler, Eli Barzilay, 
+and Greg Pettyjohn (including some example code sent.) 
+I now have something working that defines a FileIOHandle type
+in MzScheme. (Also thanks to others who commented on
+the earlier more general thread on DLL extensions under Win32.)
+
+I thought I'd share this code with the list. 
+Feel free to use it or include it with the distribution.
+To encourage that, I put it under a clear license (MIT/X type).
+
+Any comments or corrections appreciated (public or private).
+Please, please, if you see a bug/problem, let me know!
+I plan on putting an improved version up on my web site
+later in the month (probably with record locking
+and better error handling). I'll send the list a link
+to it if/when I do so. 
+
+I'd love it if this code could be made to work 
+on the Mac and Unix as well..
+
+I used both finalization and custodians.
+I think both are needed -- custodians at shutdown time, and 
+finalization if GC happens before shutdown.
+Any comments to the contrary appreciated.
+
+It seems it would be more elegant to have a single solution --
+like if the custodian called the client shutdown function
+when the object was GC'd if it was weakly held,
+as well as calling the client function at shutdown time too.
+I don't think this is the case (correct me if I'm wrong)
+and thus the need for the finalizer as well, if
+the resource is to be potentially freeable before 
+MzScheme shutdown. The documentation for custodians
+might be made more explicit on this point.
+
+&gt;From looking at the source, I believe MzScheme itself maintains
+a strong hold from a custodian on files, and so they
+are not garbage collected, and so are only closed
+at shutdown -- if you don't close them yourself.
+
+A lot of what I wrote here could be replaced by a generic MzScheme 
+FFI interface like the one Eli Barzilay has worked towards.
+
+Also, as Noel Welsh pointed out to me privately,
+while manipulating buffers maybe sometimes be efficient,
+it's not really quite the Scheme way of doing things.
+Still, I'm impressed that MzScheme can be made to do this 
+as well as the usual more functional programming approach.
+ 
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+
+============= the code =============================
+// MzFile IO.c
+// Copyright 2000 By Paul D. Fernhout 
+// Contact: pdfernhout@kurtz-fenhout.com
+// <A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+// License: X/MIT style
+
+/*
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files
+(the &quot;Software&quot;), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+/* This extension Defines a new type of Scheme data: a file handle
+This is written in VC++ 5.0 for Win32.
+
+I think the correct way to make an object with a protected resource 
+(like a file handle) in MzScheme is to use both a finalizer and a custodian.
+My understanding, which may be incomplete or wrong, is:
+* When an object is garbage collected, a finalizer if any is called.
+* When Scheme shuts down, objects are not garbage collected.
+* Thus, you also need a custodian who will close the resource for you.
+
+The finalizer needs to know about the custodian 
+so it can unhook the custodian if the object
+is finalized before the termination of Scheme.
+Otherwise, the resource could be closed twice.
+
+This approach seems like it would work, but is
+to me a little inelegant. Somehow I'd like to make just
+one call to MzScheme to protect a resource, rather
+than a couple which require defining a couple of functions.
+
+Thanks go to Paul A. Steckler, Eli Barzilay, and Greg Pettyjohn
+for responding to my questions on the MzScheme mailing list.
+These people are naturally not responsible for any errors in my 
+understanding of this. 
+
+To build this after installing MzScheme, put this in a BAT file:
+
+c:\plt\mzc --cc MzFileIO.c
+c:\plt\mzc --ld MzFileIO.dll MzFileIO.obj
+pause
+
+TO DO:
+ Does not properly handle errors yet -- sorry. :-(
+ Does not properly handle long or 64 bit values for seeks and file size.
+ Better names for MzScheme functions (maybe with all dashes?)
+ Add locking function call and test.
+ Low level functions to read and write base types (integers, floats, strings).
+
+*/
+
+// for scheme
+#include &quot;escheme.h&quot;
+// for file open types
+#include &lt;fcntl.h&gt;
+// for file routines
+#include &lt;io.h&gt;
+// for file creation permissions
+#include &lt;sys/stat.h&gt;
+
+// Instances of this FileHandle structure will be the Scheme FileIOHandle values: 
+typedef struct 
+  {
+  // Every Scheme value starts with a type tag.
+  Scheme_Type type;   
+  // The format for the rest of the structure is anything we want to to be
+  int fileHandle;
+  Scheme_Manager_Reference *managerReference;
+  } FileIOHandle;
+
+// The type tag for FileIOHandle, initialized with scheme_make_type
+static Scheme_Type FileIOHandle_type;
+
+void FileIOHandle_privateClose(FileIOHandle *aFileIOHandle)
+  {
+  // assuming null is an invalid file handle
+  if (aFileIOHandle-&gt;fileHandle) 
+    {
+    // call OS file primitive
+    _close(aFileIOHandle-&gt;fileHandle);
+    aFileIOHandle-&gt;fileHandle = 0;
+    }
+  if (aFileIOHandle-&gt;managerReference)
+    {
+    // assuming it is OK to remove self from manager 
+    // while manager is doing shutdown
+    // otherwise this is only needed when finalized 
+    scheme_remove_managed(aFileIOHandle-&gt;managerReference, 
+      (Scheme_Object *)aFileIOHandle);
+    aFileIOHandle-&gt;managerReference = 0;
+    }
+  }
+
+// note these next two functions do the same
+// they were split up to exactly match function call types
+// an in case a future differentiation is needed
+
+void FileIOHandle_privateManagerShutdown(Scheme_Object *o, void *data) 
+  {
+	FileIOHandle *aFileIOHandle = (FileIOHandle *)o;
+	FileIOHandle_privateClose(aFileIOHandle);
+  }
+
+void FileIOHandle_privateFinalizer(void *p, void *data) 
+  {
+	FileIOHandle *aFileIOHandle = (FileIOHandle *)p;
+	FileIOHandle_privateClose(aFileIOHandle);
+  }
+
+Scheme_Object *make_FileIOHandle(int argc, Scheme_Object **argv)
+  {
+  char *filename;
+  FileIOHandle *aFileIOHandle;
+
+  if (!SCHEME_STRINGP(argv[0]))
+    scheme_wrong_type(&quot;make-FileIOHandle&quot;, &quot;string&quot;, 0, argc, argv);
+
+  aFileIOHandle = (FileIOHandle *)scheme_malloc(sizeof(FileIOHandle));
+  aFileIOHandle-&gt;type = FileIOHandle_type;
+
+  // this adds the file handle object to a custodian.
+  // the custodian will ensure this object is closed at program termination.
+  // one could also read the documentation that this custodian will
+  // call this function on GC if held weakly, 
+  // but I wasn't absolutely sure on that.
+  // I specify a weak hold on the object so it can be GC'd 
+  // and the finalizer below invoked..
+  aFileIOHandle-&gt;managerReference = 
+    scheme_add_managed(NULL,
+			      (Scheme_Object *)aFileIOHandle, 
+			      (Scheme_Close_Manager_Client *)FileIOHandle_privateManagerShutdown, 
+			      NULL, 0);
+
+  // add a finalizer if the object is garabage collected.
+  // one could instead do a scheme_register_finalizer I think.
+  // the difference is add adds to a possible list.
+  // I'm not sure whether I should prefer 
+  // the register approach in this case,
+  // because presumably no one will add other finalizers.
+  // This seemed like the safest approach.
+  scheme_add_finalizer(aFileIOHandle, FileIOHandle_privateFinalizer, 0);
+
+  filename = SCHEME_STR_VAL(argv[0]);
+
+  // call OS file primitive
+  aFileIOHandle-&gt;fileHandle = 
+    _open(filename, 
+        _O_RDWR | _O_CREAT | _O_BINARY, 
+        _S_IREAD | _S_IWRITE);
+
+  return (Scheme_Object *)aFileIOHandle;
+  }
+
+Scheme_Object *FileIOHandle_close(int argc, Scheme_Object **argv)
+  {
+  char *name = &quot;FileIOHandle_close&quot;;
+  FileIOHandle *aFileIOHandle;
+
+  if (SCHEME_TYPE(argv[0]) != FileIOHandle_type)
+    scheme_wrong_type(name, &quot;FileIOHandle&quot;, 0, argc, argv);
+
+  aFileIOHandle = (FileIOHandle *)argv[0];
+  FileIOHandle_privateClose(aFileIOHandle);
+
+  return scheme_void;
+  }
+
+// varying args -- file bufferString [writeBytesIfNotEntireBuffer]
+Scheme_Object *FileIOHandle_writeString(int argc, Scheme_Object **argv)
+  {
+  char *name = &quot;FileIOHandle_writeString&quot;;
+  FileIOHandle *aFileIOHandle;
+  char* buffer = 0;
+  int writeSize = 0;
+  int maxBufferSize = 0;
+  int result = 0;
+
+  if (SCHEME_TYPE(argv[0]) != FileIOHandle_type)
+    scheme_wrong_type(name, &quot;FileIOHandle&quot;, 0, argc, argv);
+
+  if (!SCHEME_STRINGP(argv[1]))
+    scheme_wrong_type(name, &quot;string&quot;, 1, argc, argv);
+
+  if ((argc &gt; 2) &amp;&amp; (!SCHEME_INTP(argv[2])))
+    scheme_wrong_type(name, &quot;integer&quot;, 2, argc, argv);
+
+  aFileIOHandle = (FileIOHandle *)argv[0];
+
+  buffer = SCHEME_STR_VAL(argv[1]);
+  maxBufferSize = SCHEME_STRLEN_VAL(argv[1]);
+  if (argc &gt; 2) 
+    writeSize = SCHEME_INT_VAL(argv[2]);
+  else
+    writeSize = maxBufferSize;
+  if (writeSize &gt; maxBufferSize) writeSize = maxBufferSize;
+  if (writeSize &lt; 0) writeSize = 0;
+
+  // call OS file primitive
+  _write(aFileIOHandle-&gt;fileHandle, buffer, writeSize);
+
+  return scheme_void;
+  }
+
+// takes two or three arg -- file bufferString [readCountIfNotEntireBUffer]
+// returns number of bytes read
+Scheme_Object *FileIOHandle_readString(int argc, Scheme_Object **argv)
+  {
+  char *name = &quot;FileIOHandle_readString&quot;;
+  FileIOHandle *aFileIOHandle;
+  char* buffer = 0;
+  int readSize = 0;
+  int maxBufferSize = 0;
+  int result = 0;
+
+  if (SCHEME_TYPE(argv[0]) != FileIOHandle_type)
+    scheme_wrong_type(name, &quot;FileIOHandle&quot;, 0, argc, argv);
+
+  if (!SCHEME_STRINGP(argv[1]))
+    scheme_wrong_type(name, &quot;string&quot;, 1, argc, argv);
+
+  if ((argc &gt; 2) &amp;&amp; (!SCHEME_INTP(argv[2])))
+    scheme_wrong_type(name, &quot;integer&quot;, 2, argc, argv);
+
+  aFileIOHandle = (FileIOHandle *)argv[0];
+
+  buffer = SCHEME_STR_VAL(argv[1]);
+  maxBufferSize = SCHEME_STRLEN_VAL(argv[1]);
+  if (argc &gt; 2) 
+    readSize = SCHEME_INT_VAL(argv[2]);
+  else
+    readSize = maxBufferSize;
+  if (readSize &gt; maxBufferSize) readSize = maxBufferSize;
+  if (readSize &lt; 0) readSize = 0;
+
+  // call OS file primitive
+  result = _read(aFileIOHandle-&gt;fileHandle, buffer, readSize);
+
+  return scheme_make_integer(result);
+  }
+
+// variable number of args -- file offset [originIfNotFromStart]
+Scheme_Object *FileIOHandle_seek(int argc, Scheme_Object **argv)
+  {
+  char *name = &quot;FileIOHandle_writeString&quot;;
+  FileIOHandle *aFileIOHandle;
+  int result = 0;
+  int offset = 0;
+  int origin = 0;
+
+  if (SCHEME_TYPE(argv[0]) != FileIOHandle_type)
+    scheme_wrong_type(name, &quot;FileIOHandle&quot;, 0, argc, argv);
+
+  if (!SCHEME_INTP(argv[1]))
+    scheme_wrong_type(name, &quot;integer&quot;, 1, argc, argv);
+
+  if ((argc &gt; 2) &amp;&amp; (!SCHEME_INTP(argv[2])))
+    scheme_wrong_type(name, &quot;integer&quot;, 2, argc, argv);
+
+  aFileIOHandle = (FileIOHandle *)argv[0];
+
+  offset = SCHEME_INT_VAL(argv[1]);
+  if (argc &gt; 2)
+    origin = SCHEME_INT_VAL(argv[2]);
+  else
+    // from start
+    origin = 0; 
+
+  // call OS file primitive
+  result = _lseek(aFileIOHandle-&gt;fileHandle, offset, origin);
+
+  return scheme_make_integer_value(result);
+  }
+
+Scheme_Object *FileIOHandle_flush(int argc, Scheme_Object **argv)
+  {
+  char *name = &quot;FileIOHandle_close&quot;;
+  int result = 0;
+  FileIOHandle *aFileIOHandle;
+
+  if (SCHEME_TYPE(argv[0]) != FileIOHandle_type)
+    scheme_wrong_type(name, &quot;FileIOHandle&quot;, 0, argc, argv);
+
+  aFileIOHandle = (FileIOHandle *)argv[0];
+
+  // call OS file primitive
+  result = _commit(aFileIOHandle-&gt;fileHandle);
+
+  return scheme_make_integer_value(result);
+  }
+
+Scheme_Object *FileIOHandle_getFileLength(int argc, Scheme_Object **argv)
+  {
+  char *name = &quot;FileIOHandle_close&quot;;
+  int result = 0;
+  FileIOHandle *aFileIOHandle;
+
+  if (SCHEME_TYPE(argv[0]) != FileIOHandle_type)
+    scheme_wrong_type(name, &quot;FileIOHandle&quot;, 0, argc, argv);
+
+  aFileIOHandle = (FileIOHandle *)argv[0];
+
+  // call OS file primitive
+  result = _filelength(aFileIOHandle-&gt;fileHandle);
+  // maybe should be long?
+
+  return scheme_make_integer_value(result);
+  }
+
+Scheme_Object *FileIOHandle_setFileLength(int argc, Scheme_Object **argv)
+  {
+  char *name = &quot;FileIOHandle_writeString&quot;;
+  FileIOHandle *aFileIOHandle;
+  int result = 0;
+  int size = 0;
+
+  if (SCHEME_TYPE(argv[0]) != FileIOHandle_type)
+    scheme_wrong_type(name, &quot;FileIOHandle&quot;, 0, argc, argv);
+
+  if (!SCHEME_INTP(argv[1]))
+    scheme_wrong_type(name, &quot;integer&quot;, 1, argc, argv);
+
+  aFileIOHandle = (FileIOHandle *)argv[0];
+
+  size = SCHEME_INT_VAL(argv[1]);
+
+  // call OS file primitive
+  result = _chsize(aFileIOHandle-&gt;fileHandle, size);
+  // size should be long
+
+  return scheme_make_integer_value(result);
+  }
+
+// unfinished -- for locking
+// int _locking( int handle, int mode, long nbytes );
+
+Scheme_Object *scheme_reload(Scheme_Env *env)
+  {
+  // Define our new primitives:
+
+  scheme_add_global(&quot;make-FileIOHandle&quot;,
+		    scheme_make_prim_w_arity(make_FileIOHandle,
+					     &quot;make-FileIOHandle&quot;,
+					     1, 1),
+		    env);
+
+  scheme_add_global(&quot;FileIOHandle-close&quot;,
+		    scheme_make_prim_w_arity(FileIOHandle_close,
+					     &quot;FileIOHandle-close&quot;,
+					     1, 1),
+		    env);
+
+  scheme_add_global(&quot;FileIOHandle-writeString&quot;,
+		    scheme_make_prim_w_arity(FileIOHandle_writeString,
+					     &quot;FileIOHandle-writeString&quot;,
+					     2, 3),
+		    env);
+
+  scheme_add_global(&quot;FileIOHandle-readString&quot;,
+		    scheme_make_prim_w_arity(FileIOHandle_readString,
+					     &quot;FileIOHandle-readString&quot;,
+					     2, 3),
+		    env);
+
+  scheme_add_global(&quot;FileIOHandle-seek&quot;,
+		    scheme_make_prim_w_arity(FileIOHandle_seek,
+					     &quot;FileIOHandle-seek&quot;,
+					     2, 3),
+		    env);
+
+  scheme_add_global(&quot;FileIOHandle-flush&quot;,
+		    scheme_make_prim_w_arity(FileIOHandle_flush,
+					     &quot;FileIOHandle-flush&quot;,
+					     1, 1),
+		    env);
+
+  scheme_add_global(&quot;FileIOHandle-getFileLength&quot;,
+		    scheme_make_prim_w_arity(FileIOHandle_getFileLength,
+					     &quot;FileIOHandle-getFileLength&quot;,
+					     1, 1),
+		    env);
+
+  scheme_add_global(&quot;FileIOHandle-setFileLength&quot;,
+		    scheme_make_prim_w_arity(FileIOHandle_setFileLength,
+					     &quot;FileIOHandle-setFileLength&quot;,
+					     2, 2),
+		    env);
+
+  return scheme_void;
+  }
+
+Scheme_Object *scheme_initialize(Scheme_Env *env)
+  {
+  FileIOHandle_type = scheme_make_type(&quot;&lt;FileIOHandle&gt;&quot;);
+
+  return scheme_reload(env);
+  }
+
+/*
+Useage:
+
+(make-FileIOHandle)
+Returns new file handle.
+File is read/write.
+File is created as read/write if it does not exist.
+No error checking!
+
+(FileIOHandle-close aFilehandle)
+Closes a file handle.
+Will also be closed if garbage collected or on shut down.
+Note, conservative garbage collector may not always collect...
+
+(FileIOHandle-writeString aFilehandle stringBuffer [optionalWriteSize])
+Writes what is in buffer to disk. 
+Can optionally set write size to less than the entire buffer size.
+
+(FileIOHandle-readString aFilehandle stringBuffer [optionalReadSize])
+Reads buffer from disk. 
+Can optionally set read size to less than the entire buffer size.
+
+(FileIOHandle-seek aFilehandle offset [optionalOrigin])
+Seeks to a position in the file. 
+Can specify origin if not start (0 = start, 1 = current, 2 = end).
+
+(FileIOHandle-flush aFilehandle)
+Commits an file buffers to disk.
+
+(FileIOHandle-getFileLength aFilehandle)
+Returns file size.
+
+(FileIOHandle-setFileLength aFilehandle newSize)
+Sets file size.
+
+*/
+
+/*
+; You should change the directory in this test script
+; from &quot;c:/PdfScheme/&quot; to something on your system
+
+;test script for mzfileio.dll
+(load-extension &quot;c:/pdfscheme/mzfileio.dll&quot;)
+(define myfile (make-FileIOHandle &quot;C:/PdfScheme/hello.dat&quot;))
+(FileIOHandle-writeString myfile &quot;first test&quot;)
+(FileIOHandle-writeString myfile &quot;second test&quot;)
+(FileIOHandle-writeString myfile &quot;third test&quot;)
+(define buffer (make-string 16)) 
+(FileIOHandle-seek myfile 0)
+(FileIOHandle-readString myfile buffer)
+buffer
+(FileIOHandle-seek myfile 0)
+(FileIOHandle-readString myfile buffer)
+buffer
+buffer
+(FileIOHandle-seek myfile 0)
+(FileIOHandle-writeString myfile &quot;third test&quot;)
+(FileIOHandle-seek myfile 0)
+(FileIOHandle-readString myfile buffer)
+buffer
+(FileIOHandle-close myfile)
+
+; more tests
+(print &quot;opening new file&quot;)(newline)
+(define aFilehandle (make-FileIOHandle &quot;C:/PdfScheme/newfile.dat&quot;))
+(FileIOHandle-writeString aFilehandle &quot;Hello World Again!&quot;)
+(FileIOHandle-seek aFilehandle 0)
+(FileIOHandle-readString aFilehandle buffer 16)
+buffer
+(FileIOHandle-seek aFilehandle 6)
+(FileIOHandle-readString aFilehandle buffer 16)
+buffer
+(FileIOHandle-seek aFilehandle 0 2)
+(FileIOHandle-writeString aFilehandle &quot;|Should be at end&quot;)
+(FileIOHandle-flush aFilehandle)
+(FileIOHandle-getFileLength aFilehandle)
+(FileIOHandle-setFileLength aFilehandle 31)
+(FileIOHandle-close aFilehandle)
+*/
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00464" href="msg00464.html">The correct way in a C extension to close a file on GC?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00466.html">Scheme and Functional Programming 2000</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00468.html">Re: Top window garbage collected in standalone?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00464.html">The correct way in a C extension to close a file on GC?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00470.html">102d2</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00467"><strong>Date</strong></a></li>
+<li><a href="threads.html#00467"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Slow scheme_basic_env on Win2000 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 14 May 2002 06:59:30 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205141259.g4ECxDP05239@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000f01c1fa89$083ddca0$910000c0@tgs.fr -->
+<!--X-Reference: 001f01c1fa9f$b24ed760$900000c0@tgs.fr -->
+<!--X-Reference: 200205131719.LAA18398@fast.cs.utah.edu -->
+<!--X-Reference: 00a701c1fb14$ed2076d0$900000c0@tgs.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Slow scheme_basic_env on Win2000</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00893.html">Date Prev</a>][<a href="msg00895.html">Date Next</a>][<a href="msg00893.html">Thread Prev</a>][<a href="msg00896.html">Thread Next</a>][<a href="maillist.html#00894">Date Index</a>][<a href="threads.html#00894">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Slow scheme_basic_env on Win2000</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Pascal Doux&quot; &lt;<A HREF="mailto:Pascal.Doux@europe.tgs.com">Pascal.Doux@europe.tgs.com</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Slow scheme_basic_env on Win2000</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 14 May 2002 06:59:13 -0600 (MDT)</li>
+<li><em>CC</em>: &quot;Mickael Gasrel&quot; &lt;<A HREF="mailto:Mickael.Gasrel@europe.tgs.com">Mickael.Gasrel@europe.tgs.com</A>&gt;,       &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00893.html">00a701c1fb14$ed2076d0$900000c0@tgs.fr</a>&gt;</li>
+<li><em>References</em>: &lt;000f01c1fa89$083ddca0$910000c0@tgs.fr&gt;	&lt;001f01c1fa9f$b24ed760$900000c0@tgs.fr&gt; &lt;200205131719.LAA18398@fast.cs.utah.edu&gt;	&lt;<a href="msg00893.html">00a701c1fb14$ed2076d0$900000c0@tgs.fr</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Tue, 14 May 2002 08:59:43 +0200, &quot;Pascal Doux&quot; wrote:
+&gt; BTW: should i keep the address of the first parameter in a static variable
+&gt; or can I leave it as is ?
+
+If your application is Windows-specific, you can probably just pass
+NULL as the first argument to scheme_set_stack_base(). The
+Windows-specific GC code that finds the stack base seems reliable.
+
+Otherwise, to be safe, you actually should put all Scheme work in a
+procedure that is called after scheme_set_stack_base():
+
+ void go() {
+   unsigned long toto;
+   scheme_set_stack_base(&amp;toto, 1);
+
+   really_go();
+ }
+
+ void really_go() {
+   // Create a scheme session
+   m_schemeEnv = scheme_basic_env();
+
+   doTheWork(m_schemeEnv);
+ }
+
+Without the extra procedure (and its associated stack frame), some
+pointers on the stack might be missed by the collector.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00893" href="msg00893.html">Re: [plt-scheme] Slow scheme_basic_env on Win2000</a></strong>
+<ul><li><em>From:</em> &quot;Pascal Doux&quot; &lt;Pascal.Doux@europe.tgs.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00893.html">Re: [plt-scheme] Slow scheme_basic_env on Win2000</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00895.html">Re: [plt-scheme] assertions and the learning of macro-fu</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00893.html">Re: [plt-scheme] Slow scheme_basic_env on Win2000</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00896.html">[plt-scheme] Macros and scope</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00894"><strong>Date</strong></a></li>
+<li><a href="threads.html#00894"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

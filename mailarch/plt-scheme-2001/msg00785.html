@@ -1,0 +1,184 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: bytecode unification for scripting (and other!) languages -->
+<!--X-From-R13: "Oyrk Brnxr" <ncrnxrNpbznp.pbz> -->
+<!--X-Date: Tue, 14 Aug 2001 11:33:43 &#45;0600 (MDT) -->
+<!--X-Message-Id: NBBBLCLOKKHAGMJBNHDMKEOKFGAA.apeake@comac.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010814164627.40703.qmail@web11205.mail.yahoo.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: bytecode unification for scripting (and other!) languages</title>
+<link rev="made" href="mailto:apeake@comac.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00784.html">Date Prev</a>][<a href="msg00786.html">Date Next</a>][<a href="msg00784.html">Thread Prev</a>][<a href="msg00786.html">Thread Next</a>][<a href="maillist.html#00785">Date Index</a>][<a href="threads.html#00785">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: bytecode unification for scripting (and other!) languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Noel Welsh&quot; &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;,       &quot;plt-scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: bytecode unification for scripting (and other!) languages</li>
+<li><em>From</em>: &quot;Alex Peake&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 14 Aug 2001 10:33:39 -0700</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00784.html">20010814164627.40703.qmail@web11205.mail.yahoo.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Just a perspective from someone who writes business apps (traditional web
+based as well as web-services oriented).
+
+With PLT (and other) Scheme it is difficult to access such facilities as
+Databases, Message Queuing, SOAP, ... all of which would be more available
+with .NET
+
+
+Alex
+
+
+(It would also be nice to write Scheme as the language behind (MS) Internet
+Information Server (IIS))
+
+BTW, SML and Haskell are coming into .NET (not sure about the Scheme Hotdog
+compiler?)
+
+-----Original Message-----
+From: owner-plt-scheme@fast.cs.utah.edu
+[<A  HREF="mailto:owner-plt-scheme@fast.cs.utah.edu]On">mailto:owner-plt-scheme@fast.cs.utah.edu]On</A> Behalf Of Noel Welsh
+Sent: Tuesday, August 14, 2001 9:46 AM
+To: plt-scheme
+Subject: RE: bytecode unification for scripting (and other!) languages
+
+
+I can't help adding my 2p to this discussion (which is
+US$0.0285!  value!)
+
+Now I've read more on the CIL I see that .NET is a
+reasonable target for a Scheme compiler.  However I'm
+not sure what it gains (PLT) Scheme.
+
+Consider three classes of applications:
+- web apps
+- numeric apps
+- general end-user apps
+
+For web apps, playing with .NET doesn't win you much.
+In fact it is probably a net loss (unintentional pun)
+when considering the time it would take to create the
+compiler.  PLT Scheme already plays fine with today's
+Web protocols.  Tomorrow's web protocol (in the MS
+vision) is XML-RPC.  It is much easier to create an
+XML-RPC library than a compiler.  So no win.
+
+Numeric apps want speed!  This includes any multimedia
+(audio, graphics - anything that manipulates big
+matrices).  I don't see any win for .NET here.  I
+doubt the .NET runtime will be as fast a native code
+and I doubt it will optimise for matrix manipulations.
+
+General end-user apps.  A big win for .NET here, if
+you restrict yourself to Windows (or the Linux ports
+happen).  You can play with all the runtime features
+that other languages can.
+
+I think the CLR is a bit of a red herring from MS.
+End users pay for goods and services, not for the
+language you write in.  A service to book airline
+seats has the same value to the consumer whether it
+runs in Perl, C or Scheme.  In MS's vision, Passport
+is the real key to Internet services.  Open source can
+embrace and extend Passport on the level of XML-RPC -
+the CLR is not required!  Implementing the CLR
+irresistable to hackers  - it's big and tech-heavy and
+cutting edge (kinda).  But it is also a sink of time
+that could be spent writing services that users
+actually use and care about.  The dotGNU project
+understands at least some of this, and is implementing
+a similar service to Passport in addition to cloning
+the CLR.
+Should PLT Scheme use the CLR?  Well, it depends what
+the users (that's us!) want.  I identified the end
+user apps as the one big win for .NET integration.  Do
+Schemers want to write these sorts of applications?  I
+doubt it.  The majority of end-user application
+development is done in cubicle farms where VB, Java,
+C++ and probably C# are corporate policy.  I don't see
+how having Scheme as a viable alternative would
+suddenly lead to a change of policy and an explosion
+of end user apps written in Scheme.  I'm all for
+interacting with .NET, COM, XPCOM and the Linux
+desktop environments but I don't think .NET is the
+best use of the limited avaiable hacker time (but I'd
+love to see an optimising native code compiler ;)
+
+cya,
+Noel
+
+__________________________________________________
+Do You Yahoo!?
+Make international calls for as low as $.04/minute with Yahoo! Messenger
+<A  HREF="http://phonecard.yahoo.com/">http://phonecard.yahoo.com/</A>
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00786" href="msg00786.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00784" href="msg00784.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00784.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00786.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00784.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00786.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00785"><strong>Date</strong></a></li>
+<li><a href="threads.html#00785"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

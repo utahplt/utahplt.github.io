@@ -1,0 +1,127 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: No Subject -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNppf.arh.rqh> -->
+<!--X-Date: Mon, 25 Mar 2002 20:05:37 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020326030532.A7325206F6@sualocin.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: F123OSbsShdbRMy6wGb0000d6a4@hotmail.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>No Subject</title>
+<link rev="made" href="mailto:matthias@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00500.html">Date Prev</a>][<a href="msg00502.html">Date Next</a>][<a href="msg00489.html">Thread Prev</a>][<a href="msg00821.html">Thread Next</a>][<a href="maillist.html#00501">Date Index</a>][<a href="threads.html#00501">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>No Subject</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:saly5nlf@hotmail.com">saly5nlf@hotmail.com</A></li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Mar 2002 22:05:32 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00484.html">F123OSbsShdbRMy6wGb0000d6a4@hotmail.com</a>&gt; (saly5nlf@hotmail.com)</li>
+<li><em>References</em>: &lt;<a href="msg00484.html">F123OSbsShdbRMy6wGb0000d6a4@hotmail.com</a>&gt;</li>
+<li><em>Reply-To</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Close enough: 
+
+; String -&gt; (listof String)
+(define (string-&gt;words s)
+  (map symbol-&gt;string
+       (read
+        (open-input-string
+         (list-&gt;string
+          ; turn s into a parenthesized expression: assume s doesn't contain parens
+          (append '(#\() (string-&gt;list s) '(#\))))))))
+
+; (listof X) (X -&gt; Boolean) -&gt; (listof (listof X))
+(define (split-by sample pred?)
+  (foldr (lambda (fst rst)
+           (if (pred? fst)
+               (cons '() rst)
+               (cons (cons fst (first rst)) (rest rst))))
+         '(())
+         sample))
+               
+;; Tests: 
+(define sample 
+  '(#\o #\n #\e #\space #\l #\i #\n #\e #\newline #\space #\w #\i #\t #\h 
+     #\space #\m #\a #\n #\y #\space #\w #\o #\r #\d #\newline #\newline #\space 
+     #\a #\n #\d #\space #\w #\h #\i #\t #\e #\s #\p #\a #\c #\e #\s #\newline))
+
+(define list-of-lines
+  (map string-&gt;words
+       (map list-&gt;string (split-by sample (lambda (ch) (char=? ch #\newline))))))
+list-of-lines
+
+(define list-of-words
+  (apply append list-of-lines))
+list-of-words
+
+(define list-of-paras
+  (split-by list-of-lines empty?))
+list-of-paras
+
+You can figure out the rest. Who assigned this homework? -- Matthias
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00484" href="msg00484.html">No Subject</a></strong>
+<ul><li><em>From:</em> &quot;saly5 brown&quot; &lt;saly5nlf@hotmail.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00500.html">Announce: SchemeQL v.0.03 released!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00502.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00489.html">RE: your mail</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00821.html">No Subject</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00501"><strong>Date</strong></a></li>
+<li><a href="threads.html#00501"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

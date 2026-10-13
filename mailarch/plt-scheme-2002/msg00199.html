@@ -1,0 +1,167 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SOS. No garbage&#45;collection on exit! -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Mon, 4 Feb 2002 12:43:43 &#45;0700 (MST) -->
+<!--X-Message-Id: iss.4bd6.3c5ee465.33939.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200202041729.KAA06618@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SOS. No garbage-collection on exit!</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00198.html">Date Prev</a>][<a href="msg00200.html">Date Next</a>][<a href="msg00198.html">Thread Prev</a>][<a href="msg00192.html">Thread Next</a>][<a href="maillist.html#00199">Date Index</a>][<a href="threads.html#00199">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SOS. No garbage-collection on exit!</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matthew Flatt&quot; &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: SOS. No garbage-collection on exit!</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Mon, 04 Feb 2002 20:43:31 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00198.html">200202041729.KAA06618@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello again,
+
+
+&gt; I'm still a bit puzzled, because the default `exit' calls C exit(),
+&gt; which means that some process somewhere is terminated in your
+current
+&gt; setup.
+
+... which process do you mean? 
+- Matlab is surely running afterwards because I can enter the
+command-window and type 'testvar' which is the name of the variable
+that I did send from MzScheme to Matlab before exiting MzScheme and it
+gives me the string &quot;Sorry, I'm still here.&quot; which was the value I
+gave it in the Scheme-Environment.
+- MzScheme is surely closed because I called (exit).
+
+
+I've tried using scheme_exit, like so:
+
+void my_exit_function (int i) 
+{ 
+  scheme_close_managed (extn_master_custodian);
+}
+scheme_exit = my_exit_function;
+
+
+and got this compiler warning:
+
+Anzahl der Dereferenzierungen bei 'int' und 'void (__cdecl *)(int )'
+unterschiedlich.
+
+which means that scheme_exit is an 'int', which puzzled me and it did
+not work, too. &quot;Inside PLT Scheme&quot; says 'scheme_exit' is available
+when MzScheme is embedded ... maybe meaning &quot;only when MzScheme is
+embedded&quot; ... but then: why should it be declared at all and as 'int'
+and not as 'void*'?
+No matter what ... I do not intend to waste your time with this
+trivial matter. MzScheme is a fantastic program and I will wait till
+v200 is out and then I'll port the whole thing and use the
+scheme_add_atexit_closer() which anyway - by creating a strawman
+custodian - might be abused to do anything i want.
+For now, I must open and close process-interaction explicitly in my
+scheme-program and assign some additional custodians ... this is not
+too much a drawback and as well already implemented. I only thought it
+could be done a little smarter.
+
+Thank you,
+Sebastian
+
+
+
+------------------
+&gt; Quoting Sebastian H Seidel:
+&gt; &gt; When MzScheme exits, I would like to clear the instances of all
+&gt; &gt; formerly globally defined variables out of the Matlab-environment
+and
+&gt; &gt; it would be sooo easy if there was an exit-hook! Simply calling
+&gt; &gt; (collect-garbage).
+&gt; 
+&gt; I'm still a bit puzzled, because the default `exit' calls C exit(),
+&gt; which means that some process somewhere is terminated in your
+current
+&gt; setup.
+&gt; 
+&gt; But, in any case, the hook you want exists: scheme_exit is a global
+&gt; variable in C that you can redirect to your own exit function.
+&gt; 
+&gt; &gt; PS: I would like to learn about the behaviour of the
+&gt; &gt; MzScheme-garbage-collector because I'm rather unsure how to
+interact
+&gt; &gt; with it. Many functions that have to do with garbage-collection
+are
+&gt; &gt; not at all clear to me ...
+&gt; 
+&gt; I'm not sure where to point you at this time other than Inside
+MzScheme
+&gt; (and this mailing list for specific questions).
+&gt; 
+&gt; Matthew
+&gt; 
+&gt; 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00198" href="msg00198.html">Re: SOS. No garbage-collection on exit!</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00198.html">Re: SOS. No garbage-collection on exit!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00200.html">RE: 100% CPU utilization in Windows XP</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00198.html">Re: SOS. No garbage-collection on exit!</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00192.html">SOS. No garbage-collection on exit!</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00199"><strong>Date</strong></a></li>
+<li><a href="threads.html#00199"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

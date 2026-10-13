@@ -1,0 +1,137 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: 103/1 -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Thu, 27 Jul 2000 14:16:20 &#45;0600 (MDT) -->
+<!--X-Message-Id: 8666pr1g6j.fsf@beta.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20000725151335.KGXH21972.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: 103/1</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00415.html">Date Prev</a>][<a href="msg00417.html">Date Next</a>][<a href="msg00403.html">Thread Prev</a>][<a href="msg00417.html">Thread Next</a>][<a href="maillist.html#00416">Date Index</a>][<a href="threads.html#00416">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: 103/1</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: 103/1</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: 27 Jul 2000 15:17:24 -0500</li>
+<li><em>In-Reply-To</em>: Matthew Flatt's message of &quot;Tue, 25 Jul 2000 08:13:35 -0700&quot;</li>
+<li><em>Mail-Copies-To</em>: never</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma de México</li>
+<li><em>References</em>: &lt;<a href="msg00403.html">20000725151335.KGXH21972.mail.rdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0808 (Gnus v5.8.8) XEmacs/21.1 (Canyonlands)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+&gt; For those of you using CVS, the currently exp-tagged version of
+&gt; MzScheme and MrEd is now 103/1 (i.e., the 1st pre-release step towards
+&gt; version 103).
+
+MzScheme, and MrEd worked out of the box.  Nevertheless, most
+collections won't work because the .zos were compiled for 102, and the
+`install' (setup-plt, and setup.ss) script does not help here.
+
+I had to delete the .zos by hand:
+
+find . -name &quot;*.zo&quot; -print  -exec rm {} \;
+
+and run `install' again, which is fairly easy, but WIBNI the setup
+procedure took care of this?  Or maybe adding a `-force' argument to
+the install script to re-build all the .zos?
+
+Finally, DrScheme doesn't work because (I believe) these problems with
+the .zos creations:
+
+,--------------------
+| setup-plt: Making .zos for stepper at /usr/home/solsona/scheme/plt/collects/stepper
+| make: Failed to make compiled/reconstructr.zo; unit/sig: signature &quot;plt:basis^&quot; not defined in: (unit/sig stepper:reconstruct^ (impor...
+| [...]
+| setup-plt: Done setting up
+| setup-plt:
+| setup-plt: Error during Making .zos for stepper (/usr/home/solsona/scheme/plt/collects/stepper)
+| setup-plt:   make: Failed to make compiled/reconstructr.zo; unit/sig: signature &quot;plt:basis^&quot; not defined in: (unit/sig stepper:reconstruct^ (impor...
+`--------------------
+
+here's the error message:
+
+,--------------------
+| % drscheme
+| compound-unit/sig: 13th linkage (basis signature) for rep is missing a value name `set-setting-primitives!', required by rep unit's 13th import (basis signature)
+`--------------------
+
+I don't really use DrScheme (only MzScheme), so I might have forgotten
+something, anyway I hope this helps.
+
+--Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00417" href="msg00417.html">RE: 103/1</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00419" href="msg00419.html">Re: 103/1</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00403" href="msg00403.html">103/1</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00415.html">PR 1574 URL (was: new Mac MrEd binaries)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00417.html">RE: 103/1</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00403.html">103/1</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00417.html">RE: 103/1</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00416"><strong>Date</strong></a></li>
+<li><a href="threads.html#00416"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

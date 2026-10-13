@@ -1,0 +1,193 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Wed, 6 Sep 2000 07:39:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: p04320400b5dbf8f21945@[128.42.2.124] -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: 14738.52293.108392.678928@sun.cs.rice.edu -->
+<!--X-Reference: 3999D17B.8B30BA66@kurtz&#45;fernhout.com -->
+<!--X-Reference: p04320409b5c073ea0057@[128.42.2.124] -->
+<!--X-Reference: 39B5A123.DD4EC6A8@kurtz&#45;fernhout.com -->
+<!--X-Reference: 39B63DA3.B5D0F991@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Specialized input parsing for code/REPL in DrScheme?</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00540.html">Date Prev</a>][<a href="msg00542.html">Date Next</a>][<a href="msg00540.html">Thread Prev</a>][<a href="msg00542.html">Thread Next</a>][<a href="maillist.html#00541">Date Index</a>][<a href="threads.html#00541">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Specialized input parsing for code/REPL in DrScheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 6 Sep 2000 08:39:26 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00540.html">39B63DA3.B5D0F991@kurtz-fernhout.com</a>&gt;</li>
+<li><em>Organization</em>: PLT, Rice University (http://www.cs.rice.edu/CS/PLT/)</li>
+<li><em>References</em>: &lt;<a href="msg00471.html">399207D9.5F451CC@kurtz-fernhout.com</a>&gt;		&lt;<a href="msg00475.html">14738.52293.108392.678928@sun.cs.rice.edu</a>&gt;		&lt;<a href="msg00498.html">3999D17B.8B30BA66@kurtz-fernhout.com</a>&gt;&lt;<a href="msg00499.html">p04320409b5c073ea0057@[128.42.2.124]</a>&gt;&lt;<a href="msg00538.html">39B5A123.DD4EC6A8@kurtz-fernhout.com</a>&gt;&lt;<a href="msg00540.html">39B63DA3.B5D0F991@kurtz-fernhout.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Apologies, this was indeed a bug in the tool that I sent you (I 
+didn't read my own interfaces carefully enough!). The attached 
+good-unit.ss should solve the problems you were having. It works in 
+both debug and non-debug modes (and the teaching languages as well).
+
+Hope that helps,
+Robby
+
+At 8:50 AM -0400 9/6/00, Paul Fernhout wrote:
+&gt;All-
+&gt;
+&gt;Robby just pointed out that I should be running MrEd without debugging
+&gt;to use this feature.  I changed the language/debug setting to &quot;Graphical
+&gt;without Debugging&quot;, reloaded, and now both good-unit and bad-unit
+&gt;examples work.
+&gt;
+&gt;-Paul Fernhout
+&gt;Kurtz-Fernhout Software
+&gt;=========================================================
+&gt;Developers of custom software and educational simulations
+&gt;Creators of the Garden with Insight(TM) garden simulator
+&gt;<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+&gt;
+&gt;Paul Fernhout wrote:
+&gt;&gt;  I tried the good unit you sent earlier as a tool under the just released
+&gt;&gt;  103 (by creating under c:/plt/collects/drscheme/tools&quot; an &quot;indentation&quot;
+&gt;&gt;  directory with a &quot;unit.ss&quot; file  in it from renaming &quot;good-unit.ss&quot;). I
+&gt;&gt;  got this error message when I tried to execute any code:
+</PRE>
+<PRE>
+(unit/sig ()
+    (import mred^
+            mzlib:core^
+            framework^
+            [print-convert : mzlib:print-convert^]
+            [drscheme : drscheme:export^]
+            [zodiac : zodiac:system^])
+
+    (define (my-reader port)
+      (message-box &quot;my reader!&quot; &quot;my reader!&quot;)
+      (read port))
+
+    (drscheme:get/extend:extend-interactions-text
+     (lambda (%)
+       (class % args
+         (inherit run-in-evaluation-thread)
+         (rename [super-reset-console reset-console])
+         (override
+           [reset-console
+	  (lambda ()
+              (super-reset-console)
+              (run-in-evaluation-thread
+               (lambda ()
+                 (drscheme:basis:raw-reader my-reader)
+
+                 ;; this just sets all source locations to 0,0
+                 ;; so the debugging information is all useless
+                 ;; it would be better to develop a reader that
+                 ;; returns the zodiac structures directly,
+                 ;; instead of using zodiac:structurize-syntax
+                 (drscheme:basis:zodiac-reader
+                  (opt-lambda ([port/thunk (current-input-port)]
+                               [loc (zodiac:make-zodiac 1 1 #f)]
+                               [script? #t]
+                               [first-column 1])
+                    ;; we ignore the script? field for now
+                    (lambda ()
+                      (let ([ans
+                             (my-reader
+                              (if (port? port/thunk)
+                                  port/thunk
+                                  (make-input-port
+                                   (lambda ()
+                                     (let ([ans (port/thunk)])
+                                       (cond
+                                         [(char? ans) ans]
+                                         [(eof-object? ans) eof]
+                                         [else #\.])))
+                                   (lambda () #t)
+                                   void)))])
+                        (if (eof-object? ans)
+                            (zodiac:make-eof loc)
+                            (zodiac:structurize-syntax
+                             ans
+                             (zodiac:make-zodiac (zodiac:make-origin 
+'source 'source)
+                                                 loc loc))))))))))])
+         (sequence (apply super-init args))))))</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00542" href="msg00542.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00471" href="msg00471.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00475" href="msg00475.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00498" href="msg00498.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00499" href="msg00499.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00538" href="msg00538.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00540" href="msg00540.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00540.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00542.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00540.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00542.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00541"><strong>Date</strong></a></li>
+<li><a href="threads.html#00541"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

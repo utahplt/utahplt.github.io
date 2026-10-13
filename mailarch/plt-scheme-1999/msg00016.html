@@ -1,0 +1,143 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: require&#45;library in a standalone Mzscheme script. -->
+<!--X-From-R13: BX Rhenv <qhenvcNrkgraqflf.pbz> -->
+<!--X-Date: Wed, 29 Dec 1999 10:27:34 &#45;0700 (MST) -->
+<!--X-Message-Id: F059D54E5785D31180D200508B550E29903694@postal.extendsys.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: require-library in a standalone Mzscheme script.</title>
+<link rev="made" href="mailto:duraip@extendsys.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00015.html">Date Prev</a>][<a href="msg00017.html">Date Next</a>][<a href="msg00014.html">Thread Prev</a>][<a href="msg00017.html">Thread Next</a>][<a href="maillist.html#00016">Date Index</a>][<a href="threads.html#00016">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: require-library in a standalone Mzscheme script.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: RE: require-library in a standalone Mzscheme script.</li>
+<li><em>From</em>: PJ Durai &lt;<A HREF="mailto:duraip@extendsys.com">duraip@extendsys.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 29 Dec 1999 10:27:25 -0700</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+wow! Its working now.
+
+The actual problem was this: 
+
+I was running mzscheme as an alias in the bash shell.
+{My config: NT 4.0 SP4, DrScheme 101, VC++ 6 SP3, Cygnus b21}
+
+I had an alias like this
+alias mzm='&quot;//C/Program Files/PLT/MzScheme.exe&quot;'
+
+All this time, I was running it as &quot;mzm -r foo.scm&quot;.
+It failed with &quot;require-library: collection not found: &quot;mzlib&quot; in any of:
+()&quot;.
+
+When I run it as &quot;mzscheme -r foo.scm&quot; 
+it works like a charm :-)
+
+Thanks for all the tips.
+
+pj
+
+
+&gt; -----Original Message-----
+&gt; From: Matthias Felleisen [<A  HREF="mailto:matthias@cs.rice.edu">mailto:matthias@cs.rice.edu</A>]
+&gt; Sent: Tuesday, December 28, 1999 8:52 PM
+&gt; To: duraip@extendsys.com
+&gt; Cc: plt-scheme@fast.cs.utah.edu
+&gt; Subject: Re: require-library in a standalone Mzscheme script.
+&gt; 
+&gt; 
+&gt; 
+&gt; I tried three things: 
+&gt; 
+&gt; 1. In DrScheme 
+&gt;    language: MzScheme
+&gt;    def wind: 
+&gt;    (require-library &quot;file.ss&quot;)
+&gt;    execute 
+&gt; 
+&gt; 2. In MzScheme 
+&gt; 
+&gt;    europa.rice.edu 1&gt; mzscheme
+&gt;    Welcome to MzScheme version 101, Copyright (c) 1995-99 PLT 
+&gt; (Matthew Flatt)
+&gt;    &gt; (require-library &quot;file.ss&quot;)
+&gt;    &gt; 
+&gt; 
+&gt; 3. In MzScheme -r: 
+&gt; 
+&gt;    create foo.ss:
+&gt;    (require-library &quot;file.ss&quot;)
+&gt;    (printf &quot;hello world~n&quot;)
+&gt; 
+&gt;    then
+&gt; 
+&gt;    europa.rice.edu 3&gt; mzscheme -r foo.ss
+&gt;    hello world
+&gt;    europa.rice.edu 4&gt; 
+&gt; 
+&gt; All three behave identically (require-library's evaluation terminates,
+&gt; and the next expression is okay). Could you describe your 
+&gt; problem in more
+&gt; detail? 
+&gt; 
+&gt; -- Matthias
+&gt; 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00015.html">Re: require-library in a standalone Mzscheme script.</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00017.html">multi-thread in windows</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00014.html">Re: require-library in a standalone Mzscheme script.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00017.html">multi-thread in windows</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00016"><strong>Date</strong></a></li>
+<li><a href="threads.html#00016"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Macros: One expression => more than one expression? -->
+<!--X-From-R13: Rbht Aeyrnaf <qbhtbNppf.arh.rqh> -->
+<!--X-Date: Mon, 1 Apr 2002 13:03:22 &#45;0700 (MST) -->
+<!--X-Message-Id: 15528.48383.630877.239002@vega.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 61AC3AD3E884D411836F0050BA8FE9F3903535@franklin.jenkon.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Macros: One expression =&gt; more than one expression?</title>
+<link rev="made" href="mailto:dougo@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00633.html">Date Prev</a>][<a href="msg00635.html">Date Next</a>][<a href="msg00631.html">Thread Prev</a>][<a href="msg00647.html">Thread Next</a>][<a href="maillist.html#00634">Date Index</a>][<a href="threads.html#00634">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Macros: One expression =&gt; more than one expression?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:brk@jenkon.com">brk@jenkon.com</A></li>
+<li><em>Subject</em>: Re: Macros: One expression =&gt; more than one expression?</li>
+<li><em>From</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 1 Apr 2002 15:03:11 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00631.html">61AC3AD3E884D411836F0050BA8FE9F3903535@franklin.jenkon.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00631.html">61AC3AD3E884D411836F0050BA8FE9F3903535@franklin.jenkon.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+brk@jenkon.com writes:
+ &gt; What I wanted was to be able to type:
+ &gt; 
+ &gt; (class object%
+ &gt; 	(init-fields foo bar baz))
+ &gt; 
+ &gt; and get:
+ &gt; 
+ &gt; (class object%
+ &gt; 	(init-field foo)
+ &gt; 	(init-field bar)
+ &gt; 	(init-field baz))
+
+ &gt; I can't see any way to have the one expression expand into multiple
+ &gt; expressions.
+
+I don't think there is in the general case, but in this particular
+case you can wrap them in &quot;begin&quot;:
+
+(require (lib &quot;class.ss&quot;))
+(define-syntax init-fields
+  (syntax-rules ()
+    ((_ fname ...)
+     (begin (init-field fname) ...))))
+(define a-class
+  (class object%
+    (init-fields foo bar baz)
+    (define/public (sum) (+ foo bar baz))
+    (super-instantiate ())))
+(send (make-object a-class 1 2 3) sum)
+
+=&gt; 6
+
+This doesn't appear to be documented-- the syntax for &quot;class-clause&quot;
+(<A  HREF="http://download.plt-scheme.org/doc/200alpha12/html/mzlib/mzlib-Z-H-3.html#%_sec_3.3">http://download.plt-scheme.org/doc/200alpha12/html/mzlib/mzlib-Z-H-3.html#%_sec_3.3</A>) 
+should include:
+
+    (begin class-clause ...)
+
+although it's clear that this works from the example expansions of
+&quot;public*&quot; and &quot;define/public&quot;.
+
+--dougo@ccs.neu.edu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00631" href="msg00631.html">Macros: One expression =&gt; more than one expression?</a></strong>
+<ul><li><em>From:</em> brk@jenkon.com</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00633.html">RE: a new port of oleg's ssax xml parser to plt</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00635.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00631.html">Macros: One expression =&gt; more than one expression?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00647.html">Re: a new port of oleg's ssax xml</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00634"><strong>Date</strong></a></li>
+<li><a href="threads.html#00634"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

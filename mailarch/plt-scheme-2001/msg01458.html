@@ -1,0 +1,127 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: module questions -->
+<!--X-From-R13: [vpunry Hnavre <zinavreNooo.pnygrpu.rqh> -->
+<!--X-Date: Sat, 29 Dec 2001 21:11:47 &#45;0700 (MST) -->
+<!--X-Message-Id: 20011230041143.071D25E0ED@sith.bbb.caltech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011228084333.D6FC85E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 20011228135708.D467C206FC@sualocin.ccs.neu.edu -->
+<!--X-Reference: 20011229045552.C74D05E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 15405.20970.837068.682480@mojave.cs.cornell.edu -->
+<!--X-Reference: 20011229053102.A7AEC5E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 15405.23818.125535.741602@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: module questions</title>
+<link rev="made" href="mailto:mvanier@bbb.caltech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01457.html">Date Prev</a>][<a href="msg01459.html">Date Next</a>][<a href="msg01450.html">Thread Prev</a>][<a href="msg01462.html">Thread Next</a>][<a href="maillist.html#01458">Date Index</a>][<a href="threads.html#01458">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: module questions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A></li>
+<li><em>Subject</em>: Re: module questions</li>
+<li><em>From</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 29 Dec 2001 20:11:43 -0800 (PST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;15405.23818.125535.741602@mojave.cs.cornell.edu&gt; (message fromEli Barzilay on Sat, 29 Dec 2001 01:04:58 -0500)</li>
+<li><em>References</em>: &lt;<a href="msg01439.html">20011228084333.D6FC85E0ED@sith.bbb.caltech.edu</a>&gt;&lt;<a href="msg01442.html">20011228135708.D467C206FC@sualocin.ccs.neu.edu</a>&gt;&lt;<a href="msg01449.html">20011229045552.C74D05E0ED@sith.bbb.caltech.edu</a>&gt;&lt;<a href="msg01450.html">15405.20970.837068.682480@mojave.cs.cornell.edu</a>&gt;&lt;20011229053102.A7AEC5E0ED@sith.bbb.caltech.edu&gt; &lt;15405.23818.125535.741602@mojave.cs.cornell.edu&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; From: Eli Barzilay &lt;eli@barzilay.org&gt;
+&gt; Content-Type: text/plain; charset=us-ascii
+&gt; Date: Sat, 29 Dec 2001 01:04:58 -0500
+&gt; Sender: eli@CS.Cornell.EDU
+&gt; 
+&gt; BTW, if it really bothers you to do a define/provide for every
+&gt; definition, you can define a macro that will do it for you -- you can
+&gt; even override the normal define by that one so it'll even look the
+&gt; same, but I think this will require using your own module as a
+&gt; primitive one (the thing which is normally `mzscheme').
+&gt; -- 
+&gt;           ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+&gt;                   <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+&gt; 
+
+I hadn't thought of this; thanks for bringing it up.  It's like
+`define-public' in guile.  OTOH I don't see why, given that you are allowed
+to export all the bindings from an imported module with a single line in
+the provide statement, you can't also export all the bindings in the
+current module, or (better) all but some selected internal functions, which
+is normally what I'd want to do.  It sounds like an oversight to me.
+
+Mike
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01462" href="msg01462.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01439" href="msg01439.html">module questions</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="01442" href="msg01442.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01449" href="msg01449.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="01450" href="msg01450.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01457.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01459.html">Re: module questions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01450.html">Re: module questions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01462.html">Re: module questions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01458"><strong>Date</strong></a></li>
+<li><a href="threads.html#01458"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

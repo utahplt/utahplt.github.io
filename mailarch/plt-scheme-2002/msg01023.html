@@ -1,0 +1,217 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Divisions -->
+<!--X-From-R13: cbpzNeay.vfg.hgy.cg (Bnhyb X. [ngbf) -->
+<!--X-Date: Sat, 1 Jun 2002 10:02:24 &#45;0600 (MDT) -->
+<!--X-Message-Id: 87r8jrgf3n.fsf@localhost.localdomain -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 873cw7j535.fsf@localhost.localdomain -->
+<!--X-Reference: p05111701b91e6d6ee1a1@[10.0.1.5] -->
+<!--X-Reference: 037801c20974$b8e580e0$0500000a@Lr30JS -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Divisions</title>
+<link rev="made" href="mailto:pocm@rnl.ist.utl.pt">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01022.html">Date Prev</a>][<a href="msg01024.html">Date Next</a>][<a href="msg01022.html">Thread Prev</a>][<a href="msg01025.html">Thread Next</a>][<a href="maillist.html#01023">Date Index</a>][<a href="threads.html#01023">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Divisions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;,       <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>, <A HREF="mailto:clements@brinckerhoff.org">clements@brinckerhoff.org</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] Divisions</li>
+<li><em>From</em>: <A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A> (Paulo J. Matos)</li>
+<li><em>Date</em>: 01 Jun 2002 17:04:28 +0100</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01022.html">037801c20974$b8e580e0$0500000a@Lr30JS</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01020.html">873cw7j535.fsf@localhost.localdomain</a>&gt;&lt;<a href="msg01021.html">p05111701b91e6d6ee1a1@[10.0.1.5]</a>&gt;&lt;<a href="msg01022.html">037801c20974$b8e580e0$0500000a@Lr30JS</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.09 (Gnus v5.9.0) Emacs/21.2</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; 
+&gt; I predict that the next question from Paulo is how to get rid of the extra
+&gt; multiplication. :-)
+
+Indeed... :) I'd like it to be faster...
+Anyway, meanwhile I've implemented a version of it:
+
+;Returns a list with three elements: 
+;the gcd of a and b, 
+;the multiplicative coeficient of (max a b) 
+;and the multiplicative coeficient of (min a b)
+(define ext-gcd
+  (lambda (a b)
+    (define ext-gcd-aux
+      (lambda (a b q x1 x2 y1 y2)
+        (let ((r (remainder a b))
+              (id (floor (/ a b))))
+          (if (zero? r)
+              (list b x2 y2)
+              (ext-gcd-aux b
+                           r
+                           id
+                           x2 
+                           (- x1 (* id x2))
+                           y2 
+                           (- y1 (* id y2)))))))
+    (ext-gcd-aux (max a b) (min a b) 0 1 0 0 1)))
+
+I get these result for bigger numbers:
+&gt; (time (gcd 2341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394192306192374197324917239461476512893742341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394192306234173284723941923061923741973249172394614765128937419237419732491723946147651289374234173284723941923061923741973249172394614765128937412341234 249172394614765128937423417328472394192306192374197324917239461476512893742341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394249172394614765128937423417328472394192306192374197324917239461476512893742341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394))
+cpu time: 0 real time: 2 gc time: 0
+2
+
+&gt; (time (ext-gcd 2341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394192306192374197324917239461476512893742341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394192306234173284723941923061923741973249172394614765128937419237419732491723946147651289374234173284723941923061923741973249172394614765128937412341234 249172394614765128937423417328472394192306192374197324917239461476512893742341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394249172394614765128937423417328472394192306192374197324917239461476512893742341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394))
+cpu time: 840 real time: 837 gc time: 360
+(2
+ -41197154655173832587064954268624743092022135716832520557927007541172097204423073946484596355229020829444480605448311257646728435925159716050005045674243507999429188158810442586737506581272270680938206111665025452731472528937542081002243375535894793162505640858394864255183049357413457699045437450549580895716926260667997483128623671605759595274524313896951925534893931992537469778599
+ 387172625675389562580840348830899029571167923796088777060487379495035263506624857239058810939356454542673806923367141508267365940642301568498249241331563765015878882823006933367052477949223113000170543414488365791523414499418544773850680864916716438593558573703454787650807285998237649105627749723486941457868225846107392623651642772599817583127041489006709558854091060011515652825716898389697137950671179649098530290340272)
+
+With that simple hack of a = b * q + r that I forgot about... I
+get much better results using:
+(define ext-gcd-ndiv
+  (lambda (a b)
+    (define ext-gcd-aux
+      (lambda (a b q x1 x2 y1 y2)
+        (let* ((id (quotient a b))
+               (r (- a (* b id))))
+          (if (zero? r)
+              (list b x2 y2)
+              (ext-gcd-aux b
+                           r
+                           id
+                           x2 
+                           (- x1 (* id x2))
+                           y2 
+                           (- y1 (* id y2)))))))
+    (ext-gcd-aux (max a b) (min a b) 0 1 0 0 1)))
+
+&gt; (time (ext-gcd-ndiv 2341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394192306192374197324917239461476512893742341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394192306234173284723941923061923741973249172394614765128937419237419732491723946147651289374234173284723941923061923741973249172394614765128937412341234 249172394614765128937423417328472394192306192374197324917239461476512893742341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394249172394614765128937423417328472394192306192374197324917239461476512893742341732847239419230619237419732491723946147651289374234173284723941923061923741973249172394614765128937423417328472394))
+cpu time: 10 real time: 11 gc time: 0
+(2
+ -41197154655173832587064954268624743092022135716832520557927007541172097204423073946484596355229020829444480605448311257646728435925159716050005045674243507999429188158810442586737506581272270680938206111665025452731472528937542081002243375535894793162505640858394864255183049357413457699045437450549580895716926260667997483128623671605759595274524313896951925534893931992537469778599
+ 387172625675389562580840348830899029571167923796088777060487379495035263506624857239058810939356454542673806923367141508267365940642301568498249241331563765015878882823006933367052477949223113000170543414488365791523414499418544773850680864916716438593558573703454787650807285998237649105627749723486941457868225846107392623651642772599817583127041489006709558854091060011515652825716898389697137950671179649098530290340272)
+
+:)
+
+&gt; 
+&gt; Since mzscheme uses the GMP library one could use
+&gt; 
+
+Hummm, didn't know bout that... :) 
+Seems that it is a pretty interesting detail... Always thought
+that mzscheme implemented its own bignum library!
+
+&gt;     void mpz_tdiv_qr (mpz_t q, mpz_t r, mpz_t n, mpz_t d)
+&gt;     Divide n by d, forming a quotient q and/or remainder r.
+&gt; 
+&gt; which calculates the quotient and the remainder at the same time, to
+&gt; implement a quotient-remainder function.
+&gt; 
+&gt;     (let-values ([(q r) (quotient-remainder 42 5)]))
+&gt;        ...)
+&gt; 
+&gt; The file to hack must be &quot;mzscheme/src/numarith.c&quot;.
+&gt; 
+
+I'm going to check it. :)
+hehehe, it seems fun!
+Anyway, do you think that if it is hardcoded, it will get much
+faster as the scheme implemened one?
+Anyway, let's try... what will we lose anyway?
+eheh
+
+&gt; If anyone has the energy (Paulo, Matthew?) one could add the extended gcd
+&gt; algorithm at the same time:
+&gt; 
+&gt;     <A  HREF="http://www.swox.com/gmp/manual/Extended-GCD.html#Extended%20GCD">http://www.swox.com/gmp/manual/Extended-GCD.html#Extended%20GCD</A>
+&gt;
+
+I know it... :)
+I'm studying number theory and I'm implementing some number
+theoretic functions and some crypt algorithms... it's extremely
+fun! ehehe
+ 
+&gt; Yours,
+&gt; --
+&gt; Jens Axel Søgaard
+&gt; 
+
+Best regards,
+
+-- 
+Paulo J. Matos : pocm(_at_)rnl.ist.utl.pt
+Instituto Superior Tecnico - Lisbon    
+Software &amp; Computer Engineering - A.I.
+ - &gt; <A  HREF="http://www.rnl.ist.utl.pt/~pocm">http://www.rnl.ist.utl.pt/~pocm</A> 
+ ---	
+	Yes, God had a deadline...
+		So, He wrote it all in Lisp!
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01025" href="msg01025.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01020" href="msg01020.html">[plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+<li><strong><a name="01021" href="msg01021.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+<li><strong><a name="01022" href="msg01022.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01022.html">Re: [plt-scheme] Divisions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01024.html">Re: [plt-scheme] Adding a language</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01022.html">Re: [plt-scheme] Divisions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01025.html">Re: [plt-scheme] Divisions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01023"><strong>Date</strong></a></li>
+<li><a href="threads.html#01023"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

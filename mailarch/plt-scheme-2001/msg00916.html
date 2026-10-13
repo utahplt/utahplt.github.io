@@ -1,0 +1,97 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: SrPersist, sql&#45;c&#45;wchar, and unicode/wide&#45;characters -->
+<!--X-From-R13: "Bnhy Egrpxyre" <fgrpxNppf.arh.rqh> -->
+<!--X-Date: Fri, 21 Sep 2001 09:33:38 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000201c142b2$c54b68b0$70730a81@NORTHEASDX5RFA -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 001b01c142a6$fb384da0$850a0a0a@amp2k -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: SrPersist, sql-c-wchar, and unicode/wide-characters</title>
+<link rev="made" href="mailto:steck@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00915.html">Date Prev</a>][<a href="msg00917.html">Date Next</a>][<a href="msg00912.html">Thread Prev</a>][<a href="msg00918.html">Thread Next</a>][<a href="maillist.html#00916">Date Index</a>][<a href="threads.html#00916">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: SrPersist, sql-c-wchar, and unicode/wide-characters</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;'Masoud Pirnazar'&quot; &lt;<A HREF="mailto:amp@apptek.com">amp@apptek.com</A>&gt;</li>
+<li><em>Subject</em>: RE: SrPersist, sql-c-wchar, and unicode/wide-characters</li>
+<li><em>From</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 21 Sep 2001 11:33:32 -0400</li>
+<li><em>Cc</em>: &quot;'PLT Scheme'&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;001b01c142a6$fb384da0$850a0a0a@amp2k&gt;</li>
+<li><em>Reply-To</em>: &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; i think the (make-buffer 'sql-c-wchar 100) call is causing the error
+
+It looks like that should cause a Scheme error, because the switch in sizeofCDataType() in srpersist.cxx doesn't have an entry for SQL_C_WCHAR.  I don't understand why it would cause a bad instruction error.
+
+If you're feeling adventurous, you might try adding:
+
+  ...
+  SQL_C_WCHAR : return sizeof(wchar_t);
+  ...
+
+and recompiling.  I'm adding that for the 200 release.
+
+-- Paul
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00915.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00917.html">Re: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00912.html">RE: SrPersist, sql-c-wchar, and unicode/wide-characters</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00918.html">RE: SrPersist, sql-c-wchar, and unicode/wide-characters</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00916"><strong>Date</strong></a></li>
+<li><a href="threads.html#00916"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Re: webserver and print&#45;struct -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Sat, 4 May 2002 05:53:40 &#45;0600 (MDT) -->
+<!--X-Message-Id: 05ca01c1f361$818fd970$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 021a01c1f142$c8d19b00$0500000a@Lr30JS -->
+<!--X-Reference: 20020502124405.QTAI4412.rwcrmhc52.attbi.com@localhost -->
+<!--X-Reference: 009f01c1f21f$e70a3b80$0500000a@Lr30JS -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Re: webserver and print-struct</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00838.html">Date Prev</a>][<a href="msg00840.html">Date Next</a>][<a href="msg00831.html">Thread Prev</a>][<a href="msg00843.html">Thread Next</a>][<a href="maillist.html#00839">Date Index</a>][<a href="threads.html#00839">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Re: webserver and print-struct</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;,       &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Re: webserver and print-struct</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Sat, 4 May 2002 13:47:44 +0200</li>
+<li><em>References</em>: &lt;<a href="msg00817.html">021a01c1f142$c8d19b00$0500000a@Lr30JS</a>&gt; &lt;<a href="msg00820.html">20020502124405.QTAI4412.rwcrmhc52.attbi.com@localhost</a>&gt; &lt;<a href="msg00829.html">009f01c1f21f$e70a3b80$0500000a@Lr30JS</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello all
+
+I finally got it to work (printing structures in the web-server that is).
+
+It was a question of rereading the manually very carefully.
+
+The manual says:
+
+    ... , but the vector exposes only as much information about the
+structure as the current inspector can access (see section 4.5).
+
+Thus the problem was that the inspectors were behaving differently in
+DrScheme and in the web-server.
+(I can't figure out why.)
+
+All I had to do was to change
+    (define-struct entry (name date contents))
+to
+    (define-struct entry (name date contents) (make-inspector))
+in order to make everything work.
+
+Thanks for all the suggestions.
+
+[By the way - I can't get the launcher to work in winXP - but maybe they're
+not supposed to?]
+
+--
+Jens Axel Søgaard
+
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00843" href="msg00843.html">Re: [plt-scheme] Re: webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00817" href="msg00817.html">webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+<li><strong><a name="00820" href="msg00820.html">Re: webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Paul Graunke &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00829" href="msg00829.html">[plt-scheme] Re: webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00838.html">Re: [plt-scheme] Changes/Some Errors w/latest CVS</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00840.html">[plt-scheme] Some questions about DrScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00831.html">Re: [plt-scheme] Re: webserver and print-struct</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00843.html">Re: [plt-scheme] Re: webserver and print-struct</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00839"><strong>Date</strong></a></li>
+<li><a href="threads.html#00839"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

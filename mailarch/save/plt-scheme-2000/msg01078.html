@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: Scheme acceptance [no flames] -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Wed, 8 Nov 2000 17:39:41 &#45;0700 (MST) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C67670117941D@THRESHER -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: Scheme acceptance [no flames]</TITLE>
+<LINK REV="made" HREF="mailto:brent.fulgham@xpsystems.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01077.html">Date Prev</A>][<A HREF="msg01079.html">Date Next</A>][<A HREF="msg01076.html">Thread Prev</A>][<A HREF="msg01079.html">Thread Next</A>][<A HREF="maillist.html#01078">Date Index</A>][<A HREF="threads.html#01078">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: Scheme acceptance [no flames]</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;,       plt-scheme &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: RE: Scheme acceptance [no flames]</LI>
+<LI><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 8 Nov 2000 16:36:15 -0800 </LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; 
+&gt; More constructively than Greg (-:, let me suggest that you fix a
+&gt; semantics first, and figure out a syntax second.  Is the intended
+&gt; semantics for == binding or assignment?
+&gt; 
+
+The semantics are already defined in Perl.  The "=~" operator
+binds a pattern match to a string.  Depending on the form of the
+pattern match, modification of the string may take place:
+
+$foo =~ s/"a"/"b"/;
+
+Would replace 'a' with 'b' in $foo, while:
+
+$foo =~ /"a"/;
+
+Would return "true" if $foo contains the character 'a' at least once.
+
+Now, you might argue that we should have separate operators for
+separate meanings, and of course you are right.  I'm just pointing
+out the way Perl handles these meanings, and that this seems to
+be popular with those types... :-)
+
+It's basically an extension of the way sed, awk, grep, etc., all work,
+so it's very familiar to UNIX-types.  It's not mathematical, it's
+not elegant, and it's not pretty.  But it *is* familiar.
+
+A side note -- Matthias has written to me off-list regarding MzScheme's
+existing regexp handling, which seems to provide most of the features
+one would ever need.
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01079" HREF="msg01079.html">RE: Scheme acceptance [no flames]</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@barzilay.org&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01077.html">RE: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01079.html">RE: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01076.html">RE: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01079.html">RE: Scheme acceptance [no flames]</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01078"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01078"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

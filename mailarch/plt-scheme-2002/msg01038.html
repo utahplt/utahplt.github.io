@@ -1,0 +1,180 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] AppleEvent question -->
+<!--X-From-R13: Xbua Qyrzragf <pyrzragfNoevapxreubss.bet> -->
+<!--X-Date: Mon, 3 Jun 2002 14:31:39 &#45;0600 (MDT) -->
+<!--X-Message-Id: p05111703b9217e49f341@[10.0.1.4] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.44.0205302323500.13541&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] AppleEvent question</title>
+<link rev="made" href="mailto:clements@brinckerhoff.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01037.html">Date Prev</a>][<a href="msg01039.html">Date Next</a>][<a href="msg01033.html">Thread Prev</a>][<a href="msg01034.html">Thread Next</a>][<a href="maillist.html#01038">Date Index</a>][<a href="threads.html#01038">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] AppleEvent question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matt Jadud &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;,       PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] AppleEvent question</li>
+<li><em>From</em>: John Clements &lt;<A HREF="mailto:clements@brinckerhoff.org">clements@brinckerhoff.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 3 Jun 2002 16:32:18 -0400</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01032.html">Pine.GSO.4.44.0205302323500.13541-100000@velvetbelly.cs.indiana.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01032.html">Pine.GSO.4.44.0205302323500.13541-100000@velvetbelly.cs.indiana.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 12:00 PM -0500 6/3/02, Matt Jadud wrote:
+&gt;Hello,
+&gt;
+&gt;	First, many thanks for the OSX native build. Very cool.
+&gt;
+&gt;	I downloaded &quot;Script Debugger&quot; from Late Night Software to browse
+&gt;application dictionaries by AppleEvent. This only helps so much; for example,
+&gt;for the Finder:
+&gt;
+&gt;eject: Eject the specified disk(s), or every ejectable disk if no
+&gt;parameter is specified (from Finder items)
+&gt;«event fndrejct» [«class obj »]  -- the disk(s) to eject
+&gt;
+&gt;	I don't know how to divine more information about an application than
+&gt;this. So, I assume the receiver is &quot;FNDR&quot;, the event class is ... &quot;OBJ &quot;, and
+&gt;the event ID is &quot;EJCT&quot;. I think I've exhausted the combinations of these on
+&gt;OSX, and I get the same obscure errors. I scanned through the Mz source, and
+&gt;found that I should delve into AppleLand to find out more.
+&gt;
+&gt;	When I get back to Indiana, I'll hit the web for more info on
+&gt;AppleEvents; in the meantime, am I barking up the right tree?
+
+Yes, you're very close to the answer.  First off, searching the web for information on the apple events supported by the Finder is a complete nightmare.  I believe that this information is not deliberately hidden, but rather a part of the body of documentation that appears every few months on Apple's series of Developer CD's, which is received by every Apple developer in the world... except us.  And you.
+
+Second, you're a little mistaken about the specifics of the event you're looking at:
+the Finder's descriptor is &quot;MACS&quot; (don't ask me why), the event class (or suite
+name) is &quot;fndr&quot;, and the event ID is &quot;ejct&quot;.  These things are case sensitive, by
+the way.
+
+Next, you've found a slightly better tool than the one I have; I usually browse the
+dictionary info with the &quot;Open Dictionary&quot; menu in ProjectBuilder, and then I
+go to the bits to see the actual descriptor bits, like this:
+
+[localhost:~] clements% cd /System/Library/CoreServices/Finder.app/Contents/Resources/
+[localhost:Finder.app/Contents/Resources] clements% /Developer/Tools/DeRez -UseDF Finder.rsrc | less
+data 'aete' (0) {
+        $&quot;0090 0000 0000 0009 0E53 7461 6E64 6172&quot;            /* .&lt;90&gt;.....&lt;C6&gt;.Standar *
+/
+        $&quot;6420 5375 6974 6532 436F 6D6D 6F6E 2074&quot;            /* d Suite2Common t */
+        $&quot;6572 6D73 2074 6861 7420 6D6F 7374 2061&quot;            /* erms that most a */
+        $&quot;7070 6C69 6361 7469 6F6E 7320 7368 6F75&quot;            /* pplications shou */
+        $&quot;6C64 2073 7570 706F 7274 436F 5265 0001&quot;            /* ld supportCoRe.. */
+        $&quot;0001 000C 046F 7065 6E1C 4F70 656E 2074&quot;            /* .....open.Open t */
+        $&quot;6865 2073 7065 6369 6669 6564 206F 626A&quot;            /* he specified obj */
+        $&quot;6563 7428 7329 6165 7674 6F64 6F63 6E75&quot;            /* ect(s)aevtodocnu */
+        $&quot;6C6C 0000 8000 6F62 6A20 176C 6973 7420&quot;            /* ll..&lt;80&gt;.obj .list  */
+        $&quot;6F66 206F 626A 6563 7473 2074 6F20 6F70&quot;            /* of objects to op */
+        $&quot;656E 1000 0002 0575 7369 6E67 7573 696E&quot;            /* en.....usingusin */
+        $&quot;6F62 6A20 2C74 6865 2061 7070 6C69 6361&quot;            /* obj ,the applica */
+        $&quot;7469 6F6E 2066 696C 6520 746F 206F 7065&quot;            /* tion file to ope */
+        $&quot;6E20 7468 6520 6F62 6A65 6374 2077 6974&quot;            /* n the object wit */
+        $&quot;6800 8000 0F77 6974 6820 7072 6F70 6572&quot;            /* h.&lt;80&gt;..with proper */
+        $&quot;7469 6573 7072 6474 7265 636F 8074 6865&quot;            /* tiesprdtreco&lt;80&gt;the */
+        $&quot;2069 6E69 7469 616C 2076 616C 7565 7320&quot;            /*  initial values  */
+        $&quot;666F 7220 7468 6520 7072 6F70 6572 7469&quot;            /* for the properti */
+        $&quot;6573 2C20 746F 2062 6520 696E 636C 7564&quot;            /* es, to be includ */
+        $&quot;6564 2077 6974 6820 7468 6520 6F70 656E&quot;            /* ed with the open */
+        $&quot;2063 6F6D 6D61 6E64 2073 656E 7420 746F&quot;            /*  command sent to */
+        $&quot;2074 6865 2061 7070 6C69 6361 7469 6F6E&quot;            /*  the application */
+        $&quot;2074 6861 7420 6F70 656E 7320 7468 6520&quot;            /*  that opens the  */
+        $&quot;6469 7265 6374 206F 626A 6563 7400 8000&quot;            /* direct object.&lt;80&gt;. */
+        $&quot;0570 7269 6E74 1D50 7269 6E74 2074 6865&quot;            /* .print.Print the */
+        $&quot;2073 7065 6369 6669 6564 206F 626A 6563&quot;            /*  specified objec */
+        $&quot;7428 7329 6165 7674 7064 6F63 6E75 6C6C&quot;            /* t(s)aevtpdocnull */
+                                                                     ^^^^^^^^
+        $&quot;0000 8000 6F62 6A20 186C 6973 7420 6F66&quot;            /* ..&lt;80&gt;.obj .list of */
+        $&quot;206F 626A 6563 7473 2074 6F20 7072 696E&quot;            /*  objects to prin */
+        $&quot;7400 0000 0001 0F77 6974 6820 7072 6F70&quot;            /* t......with prop */
+        $&quot;6572 7469 6573 7072 6474 7265 636F 6F6F&quot;            /* ertiesprdtrecooo */
+        $&quot;7074 696F 6E61 6C20 7072 6F70 6572 7469&quot;            /* ptional properti */
+        $&quot;6573 2074 6F20 6265 2069 6E63 6C75 6465&quot;            /* es to be include */
+        $&quot;6420 7769 7468 2074 6865 2070 7269 6E74&quot;            /* d with the print */
+        $&quot;2063 6F6D 6D61 6E64 2073 656E 7420 746F&quot;            /*  command sent to */
+        $&quot;2074 6865 2061 7070 6C69 6361 7469 6F6E&quot;            /*  the application */
+        $&quot;2074 6861 7420 7072 696E 7473 2074 6865&quot;            /*  that prints the */
+        $&quot;2064 6972 6563 7420 6F62 6A65 6374 8000&quot;            /*  direct object&lt;80&gt;. */
+
+...
+
+I'm assuming you know that every OS X application is actually a directory with a name
+ending in &quot;.app&quot;.
+
+The AETE (Apple Event TErminology) resource is the source of the information
+that you saw, and also tells you what four-character codes to use, if you inspect
+the resource directly.
+
+So, for instance, the Print apple event is in suite &quot;aevt&quot;, and the event's descriptor
+is &quot;pdoc&quot;.  Even more information about the types of descriptors that the thing
+accepts as arguments can be divined by a more thorough inspection of this
+goop.
+
+Hope this helps,
+
+john clements
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01032" href="msg01032.html">[plt-scheme] AppleEvent question</a></strong>
+<ul><li><em>From:</em> Matt Jadud &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01037.html">Re: [plt-scheme] 200alpha20</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01039.html">Re: [plt-scheme] where to put extensions?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01033.html">Re: [plt-scheme] AppleEvent question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01034.html">[plt-scheme] Linux pre-release binaries</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01038"><strong>Date</strong></a></li>
+<li><a href="threads.html#01038"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

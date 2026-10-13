@@ -1,0 +1,201 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Another threading question -->
+<!--X-From-R13: Perag Thytunz <oshytunzNqrovna.bet> -->
+<!--X-Date: Thu, 11 Jan 2001 22:43:20 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010111215617.A3193@debian.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Another threading question</title>
+<link rev="made" href="mailto:bfulgham@debian.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00035.html">Date Prev</a>][<a href="msg00037.html">Date Next</a>][<a href="msg00035.html">Thread Prev</a>][<a href="msg00037.html">Thread Next</a>][<a href="maillist.html#00036">Date Index</a>][<a href="threads.html#00036">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Another threading question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Another threading question</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Date</em>: Thu, 11 Jan 2001 21:56:17 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.12i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm still having some trouble working with threads from within
+C.  Here's the rough flow of the program, along with bits from the
+server log to illustrate:
+
+1.  An HTTP request comes in for a scheme script.  The contents of the
+file are read from disk (the first time), read into a Scheme input
+port, compiled to bytecode, and then stored (in string form) for
+later use.
+
+[11/Jan/2001:21:24:47][3074.6151][-conn0-] Debug: MV_PageGet: url /test.ss
+[11/Jan/2001:21:24:47][3074.6151][-conn0-] Debug: MachV: Loading &quot;/var/www/Fulghams/www/test.ss&quot; from disk
+[11/Jan/2001:21:24:47][3074.6151][-conn0-] Debug: Internal String: (begin(begin
+(display &quot;Content-type: text/html&quot;)
+(newline)
+(newline)
+(display &quot;&lt;HTML&gt;&lt;HEAD&gt;&quot;)
+(display &quot;&lt;TITLE&gt;Big Fun Test&lt;/TITLE&gt;&quot;)
+(display &quot;&lt;BODY&gt;&lt;H1&gt;Another Exciting Moment&lt;/H1&gt;&quot;)
+(display &quot;Another Great Test!&quot;)
+(display &quot;&lt;B&gt;&quot;)
+(display &quot;Did I work?&quot;)
+(display &quot;&lt;/HTML&gt;&quot;))
+)
+[11/Jan/2001:21:24:47][3074.6151][-conn0-] Debug: Waiting for completion
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: MachV:  Must compile string to a thunk.
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: MachV: Here it is: #`ý^_^A, len=294
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: MV_out_buffer::&lt;create-type&gt;
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: MV_out_buffer: Initializing values
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: AOLbuffer: Class constructor
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: AOLbuffer: Initializing values
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: MV_out_buffer::gOutputPort
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Notice: MachV:  Handle a request...
+
+2.  An exception handling thunk (that calls-back to C when it
+finishes evaluating) is created:
+
+static char* exn_thunk =
+ &quot;(#%lambda (thunk) &quot;
+    &quot;(mv-special-signal (current-thread)&quot;
+        &quot;(#%with-handlers ([#%void (#%lambda (exn) (#%cons #f exn))]) &quot;
+			        	&quot;(#%cons #t (thunk)))))&quot;;
+
+&quot;mv-special-signal&quot; passes the thread ID and the result of the
+evaluation back to C when finished.
+
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: Apply thunk/catch-excn (Enter)
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: Init_exn_catching
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: Creating thunk.
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: Init_exn_catching (Exit)
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: do_eval
+
+3.  I create the new thread (for the request) like this:
+
+Scheme_Object* thrd_id = scheme_thread(
+  _scheme_apply(exn_catching_apply, 1, &amp;thunk), NULL);
+
+Which applies the wrapper code from #2 (above) to the compiled
+thunk.
+
+The main thread then continues and stores the value of thrd_id
+for later use.  Or, at least that's the theory.
+
+In practice, the new thread runs merrily along, producing all the
+output it should, jumping into the &quot;mv-special-signal&quot; as
+expected with the thread ID and result.  However it segfaults at
+this point (or I suspect, it segfaults once the thread finishes
+running):
+
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: AOLbuffer::write
+[11/Jan/2001:21:24:47][3074.4101][MachV Intrp Svr] Debug: AOLbuffer: About to write string: Content-type: text/html
+
+[ ... snip ... ]
+
+[11/Jan/2001:21:36:51][3169.4101][MachV Intrp Svr] Debug: AOLbuffer: About to write string: &lt;/HTML&gt;
+[11/Jan/2001:21:36:51][3169.4101][MachV Intrp Svr] Debug: AOLbuffer: Putting message.
+[11/Jan/2001:21:36:51][3169.4101][MachV Intrp Svr] Debug: Special-signal: The thread ID is 1076686876
+[11/Jan/2001:21:36:51][3169.4101][MachV Intrp Svr] Debug: Init_exn_catching
+[11/Jan/2001:21:36:51][3169.4101][MachV Intrp Svr] Debug: Creating thunk.
+[11/Jan/2001:21:36:51][3169.4101][MachV Intrp Svr] Debug: Init_exn_catching (Exit)
+[11/Jan/2001:21:36:51][3169.4101][MachV Intrp Svr] Debug: No return value.
+
+Program received signal SIGSEGV, Segmentation fault.
+Switching to Thread 4101 (LWP 3176)]
+(gdb) 
+0x4022f88e in is_stack_too_shallow2 () at ./process.c:1610
+1610      scheme_check_stack_ok(s);
+(gdb) bt
+#0  0x4022f88e in is_stack_too_shallow2 () at ./process.c:1610
+#1  0x4022f8b5 in is_stack_too_shallow () at ./process.c:1620
+#2  0x4022f927 in scheme_thread_w_manager (thunk=0x4034e7e8, config=0x0, 
+    mgr=0x0) at ./process.c:1669
+#3  0x4022f71e in scheme_thread (thunk=0x4034e7e8, config=0x0)
+    at ./process.c:1525
+#4  0x40200915 in handle_request (request=0x8150278) at mv_interps.cc:285
+#5  0x40200bb2 in Run (arg=0x8161e20) at mv_interps.cc:353
+#6  0x811910b in NsThreadMain ()
+#7  0x4002cce5 in pthread_start_thread () from /lib/libpthread.so.0
+#8  0x4002cd2d in pthread_start_thread_event () from /lib/libpthread.so.0
+(gdb) p s
+Cannot access memory at address 0xbf1f9828
+
+So, somehow I'm screwing up the stack.  Am I passing it some kind
+of incomplete environment?
+
+At any rate, it seems almost like the call to scheme_thread doesn't
+really create a new thread to execute the thunk, since it doesn't
+print out a mark point that would indicate that processing continues
+in the main thread.
+
+I'm getting close to getting it to work, but it's not quite there
+yet....
+
+Help!
+
+Thanks,
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00037" href="msg00037.html">Re: Another threading question</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00035.html">RE: Simple gl-canvas% prototype</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00037.html">Re: Another threading question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00035.html">RE: Simple gl-canvas% prototype</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00037.html">Re: Another threading question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00036"><strong>Date</strong></a></li>
+<li><a href="threads.html#00036"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Webserver question re: servlets -->
+<!--X-From-R13: "[ngg 'ZSUA Uhl' Xnqhq" <zwnqhqNpf.vaqvnan.rqh> -->
+<!--X-Date: Thu, 14 Feb 2002 09:09:30 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.GSO.4.40.0202141031280.27911&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020214150905.GA9895@subra.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Webserver question re: servlets</title>
+<link rev="made" href="mailto:mjadud@cs.indiana.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00252.html">Date Prev</a>][<a href="msg00254.html">Date Next</a>][<a href="msg00252.html">Thread Prev</a>][<a href="msg00254.html">Thread Next</a>][<a href="maillist.html#00253">Date Index</a>][<a href="threads.html#00253">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Webserver question re: servlets</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Paul T. Graunke&quot; &lt;<A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Webserver question re: servlets</li>
+<li><em>From</em>: &quot;Matt 'LEGO Guy' Jadud&quot; &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 14 Feb 2002 11:08:57 -0500 (EST)</li>
+<li><em>cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00252.html">20020214150905.GA9895@subra.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+	To see if I understand correctly: the current import signature for
+servlets is
+
+(make-request method uri headers bindings host-ip client-ip)
+
+where bindings are name/value pairs from the form or query part of the
+URL. You are suggesting a second/alternative import that would look
+something like '(make-request method uri headers big-ol-string host-ip
+client-ip)'?
+
+	If 'big-ol-string' included (or was limited to) the body of the
+POST, then yes. An example XML-RPC call might look like
+
+POST /Some/URI HTTP/1.0
+User-Agent: FooClient 1.1
+Host: foo.host.com
+Content-Type: text/xml
+Content-length: 175
+
+&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;methodCall&gt;
+   &lt;methodName&gt;remoteMethodName&lt;/methodName&gt;
+   &lt;params&gt;
+      &lt;param&gt;
+         &lt;value&gt;&lt;i4&gt;0&lt;/i4&gt;&lt;/value&gt;
+         &lt;/param&gt;
+      &lt;/params&gt;
+   &lt;/methodCall&gt;
+
+Being able to snag the XML structure from the body is what I'm looking
+for a way to do; if it comes in as a string, I can work with that. I think
+all the other necessary mechanisms are already in place in the webserver
+to allow me to return similar structures without difficulty.
+
+	Just being verbose enough to see if we're on the same page.
+
+	Thanks,
+	Matt
+
+________________________________________________________________________
+Matt Jadud                          mjadud at indiana dot edu
+Current Temperature Outside Lindley Hall                 35.2 F /  1.8 C
+
+On Thu, 14 Feb 2002, Paul T. Graunke wrote:
+
+&gt; Servlets always parse the post data as if it came from an HTML form.
+&gt; Would an interface that replaced the bindings argument with a unparsed string
+&gt; suit your needs?  I would be happy to add such an interface.
+&gt;
+&gt; Paul
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00252" href="msg00252.html">Re: Webserver question re: servlets</a></strong>
+<ul><li><em>From:</em> &quot;Paul T. Graunke&quot; &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00252.html">Re: Webserver question re: servlets</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00254.html">core dumped while scheme_apply</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00252.html">Re: Webserver question re: servlets</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00254.html">core dumped while scheme_apply</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00253"><strong>Date</strong></a></li>
+<li><a href="threads.html#00253"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

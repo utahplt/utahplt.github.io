@@ -1,0 +1,162 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: 200alpha15 (security guards) -->
+<!--X-From-R13: "@rvy I. Hna Rlxr" <ajiNarvyinaqlxr.bet> -->
+<!--X-Date: Mon, 25 Mar 2002 14:57:31 &#45;0700 (MST) -->
+<!--X-Message-Id: 15519.40278.895598.134006@winona.neilvandyke.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200203251626.JAA15614@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: 200alpha15 (security guards)</title>
+<link rev="made" href="mailto:nwv@neilvandyke.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00496.html">Date Prev</a>][<a href="msg00498.html">Date Next</a>][<a href="msg00490.html">Thread Prev</a>][<a href="msg00499.html">Thread Next</a>][<a href="maillist.html#00497">Date Index</a>][<a href="threads.html#00497">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: 200alpha15 (security guards)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: 200alpha15 (security guards)</li>
+<li><em>From</em>: &quot;Neil W. Van Dyke&quot; &lt;<A HREF="mailto:nwv@neilvandyke.org">nwv@neilvandyke.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Mar 2002 16:57:42 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00481.html">200203251626.JAA15614@fast.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00481.html">200203251626.JAA15614@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+These security guards sound like they may be useful.
+
+A few quick comments that come to mind (perhaps naive, and certainly
+incomplete, since I know only a little about security):
+
+1. Complementing the ability to restrict access to file and network
+   resources would be the ability to limit access to memory and CPU
+   resources.  This would eliminate some obvious denial-of-service
+   attacks against the Scheme and/or OS host environments.
+
+   This limiting might be implemented by running untrusted code in a
+   thread that has per-thread memory and CPU resource limits.  The
+   limits would be set in such a way that untrusted code could not
+   increase the limits of its threads.
+
+   If the untrusted code running in the limited thread had the ability
+   to create new threads, there should probably be an upper limit on the
+   number of new threads that can be thus created.  Also, creation of
+   subthreads should not substantially increase the total amount of
+   memory&amp;CPU resources available to the untrusted code.
+
+2. It seems that, for a lot of situations in which we'd have untrusted
+   code running in a thread, there would be other code in the same
+   &quot;mzscheme&quot;/&quot;mred&quot;/etc. process from which we'd want to restrict
+   references.
+
+   For one example, if a student is using DrScheme's Help Desk to browse
+   interactive illustrations on arbitrary Web pages (HTML pages with
+   MzScheme code embeded for client-side execution), then the untrusted
+   code should not be able to access arbitrary DrScheme GUI objects,
+   since that would likely permit the untrusted code to execute arbitrary
+   code (with or without tricking the human user into assisting it).
+
+   For another example, a Scheme environment executing two threads of
+   untrusted code from different sources -- say, a server hosting two
+   hunks of mobile agent code representing two different parties in a
+   financial transaction or carrying privacy-sensitive information --
+   should restrict the two threads of untrusted code from examining each
+   other.
+
+3. I haven't looked into how the the installable &quot;.plt&quot; add-on
+   collection packages work, but a few simple safeguards there would be
+   helpful.
+
+   For new students, it might be good if the Help Desk did not make it
+   *too* easy for new students to install &quot;.plt&quot; files from *arbitrary*
+   Web pages.
+
+   For more experienced PLT users, it would be good if &quot;.plt&quot; files from
+   untrusted sources could write only to a newly-created collection
+   directory (i.e., &quot;&lt;PersonalPLTDir&gt;/collects/&lt;NonexistentDir&gt;/&quot;) and
+   that no unrestricted code be executed by the installation process
+   without offering the user the opportunity to examine the files that
+   have just been installed.
+
+   The latter may mean allowing examination of the files *before* &quot;.zo&quot;
+   compilation occurs.  This would both relieve us from some of the
+   responsibility of restricting the compilation process, and also
+   defeat a class of evidence-hiding trick wherein the `source' files
+   that go into the compiler are not the 'source' files the user sees
+   after the compilation occurs.
+
+None of these are showstopper issues for most uses of PLT, of course.
+
+Best regards,
+
+Neil
+
+-- 
+                                                        Neil W. Van Dyke
+                                             <A  HREF="http://www.neilvandyke.org/">http://www.neilvandyke.org/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00499" href="msg00499.html">Re: 200alpha15 (security guards)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00481" href="msg00481.html">200alpha15 (security guards)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00496.html">RE: SrPersist pre-release binary</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00498.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00490.html">Re: 200alpha15 (security guards)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00499.html">Re: 200alpha15 (security guards)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00497"><strong>Date</strong></a></li>
+<li><a href="threads.html#00497"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

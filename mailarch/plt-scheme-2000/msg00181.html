@@ -1,0 +1,138 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 12 Mar 2000 14:54:14 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000312215411.TMX14285.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002270435.UAA20217@balu.qualcomm.com -->
+<!--X-Reference: 200002270457.WAA08093@africa.cs.rice.edu -->
+<!--X-Reference: 20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 14540.3932.744537.731539@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [Q] HOWTO redirect a i/o-port in Unix??</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00180.html">Date Prev</a>][<a href="msg00182.html">Date Next</a>][<a href="msg00180.html">Thread Prev</a>][<a href="msg00182.html">Thread Next</a>][<a href="maillist.html#00181">Date Index</a>][<a href="threads.html#00181">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [Q] HOWTO redirect a i/o-port in Unix??</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;</li>
+<li><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 12 Mar 2000 13:54:11 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00180.html">14540.3932.744537.731539@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00133.html">200002270435.UAA20217@balu.qualcomm.com</a>&gt;&lt;<a href="msg00134.html">200002270457.WAA08093@africa.cs.rice.edu</a>&gt;&lt;<a href="msg00137.html">20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost</a>&gt;	&lt;<a href="msg00180.html">14540.3932.744537.731539@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Eli Barzilay:
+&gt; I got stuck trying to use this with two processes where the first one
+&gt; gets input from Scheme:
+
+I should have been more careful in my original post.
+
+The bottom line is that you want to use `read-line' instead of
+`read-string!':
+
+(define (copy-stream/lines input-port output-port name)
+  (thread (lambda ()
+	    (let loop ()
+	      (let ((l (read-line s input-port)))
+		(unless (eof-object? l)
+		  (display l output-port)
+		  (newline output-port)
+		  (loop))))
+	    (close-input-port input-port)
+	    (close-output-port output-port))))
+
+The problem is that `read-string!' waits until it can fill the string
+or until EOF, but your application relies on line-based
+question--response I/O.
+
+Previously in this thread (I think), I mentioned that MzScheme needs a
+primitive like `read-string', except that it returns immediately if
+there's something to read, and blocks only if nothing's available. With
+that, we could have a truly general and reasonably efficient
+`copy-stream'. The next verison of MzScheme will likely have such a
+primitive.
+
+Without it, we need at least `copy-stream', as before, and
+`copy-stream/lines', as above.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00182" href="msg00182.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00184" href="msg00184.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00133" href="msg00133.html">[Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+<li><strong><a name="00134" href="msg00134.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00137" href="msg00137.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00180" href="msg00180.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00180.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00182.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00180.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00182.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00181"><strong>Date</strong></a></li>
+<li><a href="threads.html#00181"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

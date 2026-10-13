@@ -1,0 +1,79 @@
+
+1. Here is a data definition and structure definition:
+
+    ; An ant is
+    ;  (make-ant num posn)
+    (define-struct ant (weight loc))
+
+  We also have
+
+    ; A posn is
+    ;  (make-posn num num)
+
+  Which of the following are example ants?
+
+    a) (make-ant 0.001 12 13)
+    b) (make-ant (make-posn 12 13) 0.001)
+    c) (make-ant 0.002 (make-posn 12 13))
+    d) (make-posn 0.003 (make-ant 12 13))
+    e) (make-ant 0.004 (make-posn 0 -1))
+  
+
+2. Which of the following is a suitable template (or templates)
+   for a function that takes an ant?
+
+   a) ; func-for-ant : ant -> ...
+      (define (func-for-ant a)
+         ... (ant-x a) 
+         ... (ant-y a) ...)
+
+   b) ; func-for-ant : ant -> ...
+      (define (func-for-ant a)
+         ... (ant-weight a) 
+         ... (ant-x a) 
+         ... (ant-y a) ...)
+
+   c) ; func-for-ant : ant -> ...
+      (define (func-for-ant a)
+         ... (ant-weight a) 
+         ... (posn-x (ant-loc a)) 
+         ... (posn-y (ant-loc a)) ...)
+
+   d) ; func-for-ant : ant -> ...
+      (define (func-for-ant a)
+         ... (ant-weight a) 
+         ... (func-for-ant (ant-loc a)) ...)
+
+   e) ; func-for-ant : ant -> ...
+      (define (func-for-ant a)
+         ... (func-for-num (ant-weight a))
+         ... (func-for-posn (ant-loc a)) ...)
+
+      ; func-for-num : num -> 
+      (define (func-for-num n)
+         ... (func-for-num n) ...)
+
+      ; func-for-posn : posn -> 
+      (define (func-for-posn p)
+         ... (posn-x p)
+         ... (posn-y p) ...)
+
+   f) ; func-for-ant : ant -> ...
+      (define (func-for-ant a)
+         ... (ant-weight a)
+         ... (func-for-posn (ant-loc a)) ...)
+
+      ; func-for-posn : posn -> 
+      (define (func-for-posn p)
+         ... (posn-x p)
+         ... (posn-y p) ...)
+
+3. What's wrong with each wrong "template" above?
+
+4. Here's a data definition:
+
+      ; A list-of-bool is either
+      ;   - empty
+      ;   - (cons bool list-of-bool)
+
+   Write the template for this data definition.

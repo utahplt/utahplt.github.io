@@ -1,0 +1,151 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: bytecode unification for scripting (and other!) languages -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNppf.arh.rqh> -->
+<!--X-Date: Wed, 15 Aug 2001 08:53:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108151453.f7FErGg13314@alya.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: BCEOLHKHFMDPNMEKEAECGEFGCAAA.sk@cs.brown.edu -->
+<!--X-Reference: 20010815054908.DBAD45E0EC@sith.bbb.caltech.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: bytecode unification for scripting (and other!) languages</title>
+<link rev="made" href="mailto:matthias@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00790.html">Date Prev</a>][<a href="msg00792.html">Date Next</a>][<a href="msg00789.html">Thread Prev</a>][<a href="msg00795.html">Thread Next</a>][<a href="maillist.html#00791">Date Index</a>][<a href="threads.html#00791">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: bytecode unification for scripting (and other!) languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: bytecode unification for scripting (and other!) languages</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 15 Aug 2001 10:53:16 -0400 (EDT)</li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00789.html">20010815054908.DBAD45E0EC@sith.bbb.caltech.edu</a>&gt; (message fromMichael Vanier on Tue, 14 Aug 2001 22:49:08 -0700 (PDT))</li>
+<li><em>References</em>: &lt;<a href="msg00788.html">BCEOLHKHFMDPNMEKEAECGEFGCAAA.sk@cs.brown.edu</a>&gt; &lt;<a href="msg00789.html">20010815054908.DBAD45E0EC@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+After an intensive workshop on Scheme and FP for high school teachers, I
+have been catching up with my email and have been especially &quot;amused&quot; by
+the discussion on scripting languages, etc. Fortunately, Shriram has
+replaced me both in spirit and in energetic character, so I won't have to
+say much :).
+
+Shriram has boiled the discussion down to type systems for scripting.
+That's mostly correct. What &quot;amuses&quot; me is the lack of knowledge about
+history. When I flamed away in the 80s and early 90s at Schemers on cls, I
+found the level of knowledge lacking, esp on the side of certain East
+Coasters :). I eventually stopped posting because I couldn't handle their
+lack of respect for the research literature. So here it goes. 
+
+1. As Michael finally pointed out, types don't require typing
+   (keyboarding). A programming environment can elaborate surface syntax to
+   explicitly typed syntax for sufficiently interesting language and type
+   language designs. 
+
+2. Having said that, I believe that programmers should actually think about
+   their types, in all situations. As Michael also points out, if you
+   understand the types of your program well, you avoid many mistakes. Many
+   errors manifest themselves in violations of data invariants, and that's
+   what these simple proof systems called type systems are good at. 
+
+3. Still, when I write one-line scripts, I don't want to write down types,
+   because the typing of my program is so obvious that it just slows me
+   down. Then again, some scripts contain some really hairy pieces of code,
+   and perhaps I should write down types right there so that *I* the
+   scripter can figure out what I mean. 
+
+4. Because many scripts evolve into &quot;real&quot; programs, that means scripting
+   languages need a (partial) type reconstructing environments.
+
+5. The problem with ML's version of this idea is that it is too rigid. It
+   is about a system of disjoint types (claims about value flow) and in our
+   daily experience of script programming, we need more. We also need more
+   because we tend to extend the data sets of programs over time, and ML
+   won't let us do this without major editing. 
+
+6. This reasoning led Cartwright, Fagan and myself to a discussion of soft
+   typing -- in 1988. Over the following 13 years, Cartwright and I
+   supervised three dissertations on this topic. I believe in working
+   systems and we produced two distinct soft typers with different
+   interfaces and different underlying mechanisms. If you don't know, take
+   a look at PLT's publication site 
+
+     <A  HREF="http://www.cs.rice.edu/CS/PLT/Publications/">http://www.cs.rice.edu/CS/PLT/Publications/</A>
+
+   Look for our PDLI 96 paper (lead author: Cormac Flanagan). Even
+   flame-throwing theory eaters will be able to read this introductory
+   paper. There is more there, and I am willing to report on my
+   experiences, if there is interest, because I am by far the most diligent
+   user of all these soft typing systems over the past 13 years. 
+
+PLT is returning to this topic. Stay tuned. -- Matthias
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00795" href="msg00795.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> &quot;Shriram Krishnamurthi&quot; &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00788" href="msg00788.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> &quot;Shriram Krishnamurthi&quot; &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00789" href="msg00789.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00790.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00792.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00789.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00795.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00791"><strong>Date</strong></a></li>
+<li><a href="threads.html#00791"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

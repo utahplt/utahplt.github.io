@@ -1,0 +1,202 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: embedding mzscheme into a C++ application -->
+<!--X-From-R13: Quevf Gmqnivavf <puevfNngqrfx.pbz> -->
+<!--X-Date: Wed, 21 Nov 2001 06:26:11 &#45;0700 (MST) -->
+<!--X-Message-Id: 200111211326.fALDQ8B09759@plover.atdesk.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: HIELJDHMBBPJBHNEHGIKOEEICCAA.mcandrews@larocquetrading.com -->
+<!--X-Reference: 200111141854.fAEIs8B26047@plover.atdesk.com -->
+<!--X-Reference: 200111210355.fAL3t5T10336@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: embedding mzscheme into a C++ application</title>
+<link rev="made" href="mailto:chris@atdesk.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01230.html">Date Prev</a>][<a href="msg01232.html">Date Next</a>][<a href="msg01230.html">Thread Prev</a>][<a href="msg01232.html">Thread Next</a>][<a href="maillist.html#01231">Date Index</a>][<a href="threads.html#01231">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: embedding mzscheme into a C++ application</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: embedding mzscheme into a C++ application</li>
+<li><em>From</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 21 Nov 2001 08:26:08 -0500</li>
+<li><em>Cc</em>: &quot;Brian McAndrews&quot; &lt;<A HREF="mailto:mcandrews@larocquetrading.com">mcandrews@larocquetrading.com</A>&gt;,       &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: Matthew Flatt's message of &quot;Tue, 20 Nov 2001 20:55:05 -0700 (MST)&quot;</li>
+<li><em>Organization</em>: Automated Trading Desk, Inc.</li>
+<li><em>References</em>: &lt;<a href="msg01203.html">HIELJDHMBBPJBHNEHGIKOEEICCAA.mcandrews@larocquetrading.com</a>&gt;&lt;<a href="msg01204.html">200111141854.fAEIs8B26047@plover.atdesk.com</a>&gt;&lt;<a href="msg01230.html">200111210355.fAL3t5T10336@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/21.1</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+&gt; Sorry for the delay. (Sometimes mail gets buried.)
+
+No problem.  :)  Thanks for your answers!
+
+ 
+&gt; One possibility is to diallow the jump.
+
+What consequences follow when this route is taken?  (Other than not
+being able to jump?)
+
+&gt; When you use the non-underscored versions of the MzScheme entry points
+&gt; (e.g., scheme_apply() instead of _scheme_apply()), full-continuation
+&gt; jumps in either direction are already disabled. That provides minimal
+&gt; sanity from the point of view of C/C++ code, which expects a single
+&gt; return from the Scheme code.
+
+I didn't realize there was an underscore and a non-underscored version
+of _scheme_apply.  That's good to know.
+ 
+&gt; To block the remaining jumps (i.e., escape continuation jumps), you can
+&gt; catch the longjump and ignore it. [This turns out not to be a special
+&gt; power of C code. Jumps can be blocked in Scheme, too, using
+&gt; `dynamic-wind'.]
+
+This is what I've been doing and so far it has been working to my
+satisfaction.  However, I don't really use continuations very often
+yet, as they're still kind of a fuzzy thought.  Though The Seasoned
+Schemer helped clairify the concpet with the let/cc calls.  :)  
+
+&gt; MrEd (implemented in C++) used to ignore escapes that way. But we've
+&gt; eliminated the need for any clean-up actions --- it helps to depend on
+&gt; GC --- so MrEd allows the jump.
+
+I thought about using the GC to hold &quot;local&quot; variables, so that they
+will properly get cleaned up.  This was the only solution I found to
+embedding Ruby in C++ (and I think Ruby borrowed some of MzScheme
+code, or ideas, as the implementation of many things is remarkably the
+same.)  But it's a pain to do. 
+
+&gt; Now, I suppose you want to allow escaping jumps (e.g., for raising
+&gt; exceptions) and you really need destructor-based clean-up...
+
+That would be ideal, but using scheme as a configuration language for
+a C++ application doesn't require a lot of complex routines.  Probably
+the most common exception would be a syntax error, which would mean
+the program is misconfigured anyway and probably shouldn't run.
+
+Therefore I've just had a single setjmp in main, which is a way to
+exit the program and dump an error message.  Crude but effective.
+(And I'm not terribly worried about leaks from a program shutting
+down, since the OS will take care of it.)
+
+&gt; &gt; Basically, what needs to be done in every C++ routine that interacts
+&gt; &gt; with scheme (especially if it's reentrant from scheme, as in 1-&gt;2
+&gt; &gt; above), it needs to catch any long jumps, clean up all local objects,
+&gt; &gt; and then re-jump to wherever the original long jump was headed.
+&gt; &gt; 
+&gt; &gt; But I am not sure how to do that cleanly, since mzscheme encapsulates
+&gt; &gt; the setjmp/longjmp routines, and I haven't bothered yet to look at
+&gt; &gt; what they do.
+&gt; 
+&gt; I'm not up-to-date on C++: has the exception mechanism become widely
+&gt; implemented?
+
+Depending on your compiler, yes.  g++ is very good, as are a few
+others.  (I mainly use g++, though on Windows we use Borland, who also
+has a decent exception implementation.)
+
+&gt; If so, couldn't you catch the longjmp at the C++-&gt;Scheme boundary,
+&gt; raise a C++ exception, catch the exception at the Scheme-&gt;C++ entry
+&gt; point, and longjmp again?
+
+I think that would work.  But there is an uncertainty of what the
+stack variables values are when the longjmp is &quot;caught&quot;.  Do they
+revert to the value they had at the time setjmp was called, or do they
+retain their value from when they called into the next function (which
+eventually lead up to the longjmp)?  We need to make sure that the
+values are not rolled back, so additionally, we must declare all the
+stack-based objects as being &quot;volatile.&quot;
+
+&gt; That's the only idea I have at the moment.
+
+There is still a problem with temporary variables if they exist while
+scheme code executes.  But that's more of a closet-corner case, since
+you'd have to code in such a way that scheme_apply() were called in
+the middle of an expression that created temporary C++ objects.  But
+that's just not likely to happen, unless scheme_apply() itself was
+encapsulated in a C++ object, which isn't a bad idea until you think
+of the potential consequences of temporaries.  :)
+
+
+One final question on this issue then: if I want to implement your
+suggestion, by re-longjmp-ing at the end of my C++ function, how do I
+know which jump-buffer to longjmp into?  (I'm not terribly familiar
+with longjmp, as it's fairly strongly discouraged in C++.)  Is there a
+way to ask for the &quot;next higher&quot; jump buffer... which is where the
+jump would have gone had I not intercepted it?
+
+-- 
+Chris
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01232" href="msg01232.html">Re: embedding mzscheme into a C++ application</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01203" href="msg01203.html">embedding mzscheme into a C++ application</a></strong>
+<ul><li><em>From:</em> &quot;Brian McAndrews&quot; &lt;mcandrews@larocquetrading.com&gt;</li></ul></li>
+<li><strong><a name="01204" href="msg01204.html">Re: embedding mzscheme into a C++ application</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+<li><strong><a name="01230" href="msg01230.html">Re: embedding mzscheme into a C++ application</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01230.html">Re: embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01232.html">Re: embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01230.html">Re: embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01232.html">Re: embedding mzscheme into a C++ application</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01231"><strong>Date</strong></a></li>
+<li><a href="threads.html#01231"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

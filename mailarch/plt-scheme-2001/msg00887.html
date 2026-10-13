@@ -1,0 +1,173 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: need help with syntax&#45;case/syntax/datum&#45;>syntax&#45;object -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 10 Sep 2001 15:04:40 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200109102104.PAA19619@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15260.48588.398273.30402@vega.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: need help with syntax-case/syntax/datum-&gt;syntax-object</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00886.html">Date Prev</a>][<a href="msg00888.html">Date Next</a>][<a href="msg00880.html">Thread Prev</a>][<a href="msg00884.html">Thread Next</a>][<a href="maillist.html#00887">Date Index</a>][<a href="threads.html#00887">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: need help with syntax-case/syntax/datum-&gt;syntax-object</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: need help with syntax-case/syntax/datum-&gt;syntax-object</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 10 Sep 2001 15:04:06 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00880.html">15260.48588.398273.30402@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00880.html">15260.48588.398273.30402@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Doug Orleans:
+&gt; My (shaky) understanding of syntax-case makes me believe this should
+&gt; instead be:
+&gt; 
+&gt; 	 (lambda (stx)
+&gt; 	   (syntax-case stx (literal-identifier ···)
+&gt; 	     ((generated-identifier . pattern) (syntax template))
+&gt; 	     ···))
+
+Yep - thanks.
+
+&gt; Okay, here's what I'm trying to do [...]
+
+Condensed version: 
+
+ * The macro `lambda-foo' introduces a binding that is supposed to
+   capture variables introduced at the use-site of `lambda-foo' (i.e.,
+   it's intentially breaking hygiene).
+
+ * The macro `traced-lambda-foo-1' expands to a use of `lambda-foo'.
+
+ * The binding introduced by `lambda-foo' via `traced-lambda-foo-1'
+   doesn't capture variables introduced at the use-site of
+   `traced-lambda-foo-1'.
+
+Here's the reason: `lambda-foo' does capture variables at the use-site
+of `lambda-foo'. But, in the case of `traced-lambda-foo-1', the
+use-site is in the implementation of the `traced-lambda-foo-1' macro,
+*not* the original use-site of `traced-lambda-foo-1'.
+
+So, it captures the `foo' in `(display foo)' here:
+
+&gt;   (define-syntax traced-lambda-foo-1
+&gt;     (lambda (x)
+&gt;       (syntax-case x ()
+&gt; 	((_ body ...)
+&gt; 	 (syntax (lambda-foo (display foo) (newline) body ...))))))
+
+but not the `foo' in `(+ foo 1)' here:
+
+&gt;   &gt; (define add1 (traced-lambda-foo-1 (+ foo 1)))
+
+
+&gt; Is there a way to get this to work right?
+
+Not a good one that I've found.
+
+Since `lambda-foo' is trying to discover the original context through
+the leading keyword at the use-site, you could do something like this:
+
+  (define-syntax traced-lambda-foo-3
+    (lambda (x)
+      (syntax-case x ()
+	((_ body ...)
+	 (with-syntax ((lambda-foo (datum-&gt;syntax-object (syntax _) 
+                                                         'lambda-foo))
+                       (foo (datum-&gt;syntax-object (syntax _) 'foo)))
+	   (syntax (lambda-foo (display foo) (newline) body ...)))))))
+
+but `traced-lambda-foo-3' will only work in a context where
+`lambda-foo' is also bound. That may be good enough for your puposes,
+but it's not a nice solution in general.
+
+In general, the only way I know to avoid the problem is to avoid macros
+that expand into uses of hygiene-breaking macros. For example,
+`class-100' expands to `class*/names' (hygienic) instead of `class'
+(which introduces non-hygienic `this', `super-instantiate', and
+`super-make-object' bindings).
+
+&gt; Why does it seem to do the right thing when expanded incrementally,
+&gt; but not when it's expanded all at once?
+
+Unfortunately, `expand' is not the fixpoint of `expand-once'. (I see
+that the documentation neglects to mention that important fact. Oops!)
+
+As far as I can tell, the underlying expansion mechanism isn't actually
+compatible with `expand-once'. To make it almost work --- usually
+enough for debugging --- MzScheme's `expand-once' loses a bit of &quot;mark&quot;
+information, which traces the introduction of variables by macros. It's
+exactly that loss that makes `traced-lambda-foo-1' work piecewise.
+
+[BTW, multiple calls to `expand' do work reliably, without flattening
+the syntax to an S-expression, thanks to the way that &quot;mark&quot;
+information is lost.]
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00880" href="msg00880.html">need help with syntax-case/syntax/datum-&gt;syntax-object</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00886.html">print-struct?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00888.html">Re: Negative time</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00880.html">need help with syntax-case/syntax/datum-&gt;syntax-object</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00884.html">This week's &quot;Hard of thinking using schemeql&quot;</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00887"><strong>Date</strong></a></li>
+<li><a href="threads.html#00887"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

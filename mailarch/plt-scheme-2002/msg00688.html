@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [shootout] moment.scm -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Thu, 4 Apr 2002 19:12:15 &#45;0700 (MST) -->
+<!--X-Message-Id: 044901c1dc46$73c89070$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[shootout] moment.scm</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00687.html">Date Prev</a>][<a href="msg00689.html">Date Next</a>][<a href="msg00687.html">Thread Prev</a>][<a href="msg00689.html">Thread Next</a>][<a href="maillist.html#00688">Date Index</a>][<a href="threads.html#00688">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[shootout] moment.scm</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [shootout] moment.scm</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Fri, 5 Apr 2002 04:06:08 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+;; Moments.scm
+
+(require (lib &quot;list.ss&quot;))  ; quiksort and mergesort
+
+(define (main args)
+  (let* ((sum 0.0)
+  (numlist (let loop ((line (read-line)) (numlist '()))
+      (cond ((eof-object? line) numlist)
+     (else
+      (let ((num (string-&gt;number line)))
+        (set! sum (+ num sum))
+        (loop (read-line) (cons num numlist))))))))
+    (let ((n (length numlist)))
+      (let ((mean (/ sum n))
+     (average_deviation 0.0)
+     (standard_deviation 0.0)
+     (variance 0.0)
+     (skew 0.0)
+     (kurtosis 0.0)
+     (median 0.0)
+     (deviation 0.0))
+ (let loop ((nums numlist))
+      (if (not (null? nums))
+   (begin
+     (set! deviation (- (car nums) mean))
+     (set! average_deviation (+ average_deviation (abs deviation)))
+     (set! variance (+ variance (expt deviation 2.0)))
+     (set! skew (+ skew (expt deviation 3.0)))
+     (set! kurtosis (+ kurtosis (expt deviation 4)))
+     (loop (cdr nums)))))
+
+ (set! average_deviation (/ average_deviation (exact-&gt;inexact n)))
+ (set! variance (/ variance (- n 1)))
+ (set! standard_deviation (sqrt variance))
+
+ (cond ((&gt; variance 0.0)
+        (set! skew (/ skew (* n variance standard_deviation)))
+        (set! kurtosis (- (/ kurtosis (* n variance variance))
+     3.0))))
+
+ (set! numlist (quicksort numlist (lambda (x y) (&lt; x y))))
+
+ (let ((mid (quotient n 2)))
+   (if (zero? (modulo n 2))
+       (set! median (/ (+ (car (list-tail numlist mid))
+     (car (list-tail numlist (- mid 1))))
+         2.0))
+     (set! median (car (list-tail numlist mid)))))
+
+
+ (set! standard_deviation (/ (round (* standard_deviation 1000000))
+1000000))
+
+ (for-each display
+                  `(&quot;n:                  &quot; ,n                   &quot;\n&quot;
+                    &quot;median:             &quot; ,median              &quot;\n&quot;
+                    &quot;mean:               &quot; ,mean                &quot;\n&quot;
+                    &quot;average_deviation:  &quot; ,average_deviation   &quot;\n&quot;
+                    &quot;standard_deviation: &quot; ,standard_deviation  &quot;\n&quot;
+                    &quot;variance:           &quot; ,variance            &quot;\n&quot;
+                    &quot;skew:               &quot; ,skew                &quot;\n&quot;
+                    &quot;kurtosis:           &quot; ,kurtosis            &quot;\n&quot; ))))))
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00687.html">[shootout] matrix.scm</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00689.html">[shootout] strcat</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00687.html">[shootout] matrix.scm</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00689.html">[shootout] strcat</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00688"><strong>Date</strong></a></li>
+<li><a href="threads.html#00688"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

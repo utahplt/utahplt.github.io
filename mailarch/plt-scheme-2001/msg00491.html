@@ -1,0 +1,242 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: question about DrScheme -->
+<!--X-From-R13: "jvy ng ubzr" <jvyNqernql.bet> -->
+<!--X-Date: Fri, 25 May 2001 04:18:52 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000201c0e503$9c818390$0100a8c0@dready.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3.0.32.20010525151440.006b5d0c@elang.stts.ac.id -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: question about DrScheme</title>
+<link rev="made" href="mailto:wil@dready.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00490.html">Date Prev</a>][<a href="msg00492.html">Date Next</a>][<a href="msg00489.html">Thread Prev</a>][<a href="msg00492.html">Thread Next</a>][<a href="maillist.html#00491">Date Index</a>][<a href="threads.html#00491">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: question about DrScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: question about DrScheme</li>
+<li><em>From</em>: &quot;wil at home&quot; &lt;<A HREF="mailto:wil@dready.org">wil@dready.org</A>&gt;</li>
+<li><em>Date</em>: Fri, 25 May 2001 18:07:14 +0800</li>
+<li><em>References</em>: &lt;<a href="msg00489.html">3.0.32.20010525151440.006b5d0c@elang.stts.ac.id</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The error message is what you would get for doing this:
+
+('(+ (4) (* (3) (2))))
+
+It happened in line 102.  I haven't thoroughly read your program but the '+'
+is a symbol and not an procedure, you cannot 'apply' it.
+
+wil
+----- Original Message -----
+From: &quot;Chuen Ching&quot; &lt;tjioe@elang.stts.ac.id&gt;
+To: &lt;matthias@rice.edu&gt;
+Cc: &lt;plt-scheme@fast.cs.utah.edu&gt;
+Sent: Friday, May 25, 2001 4:18 PM
+Subject: Re: question about DrScheme
+
+
+&gt; Hi, thanks for the responds.
+&gt; I don't know I should ask this questions to you or not, but in case if
+&gt; there is any of you who know the answer. I am trying to run this program,
+&gt; the infix to prefix artihmatic parsing, but it can't work. This is what
+&gt; happenned :
+&gt; &gt; (parse '(4 + 3 * 2))
+&gt; procedure application: expected procedure, given: (+ (4) (* (3) (2))) (no
+&gt; arguments)
+&gt;
+&gt; Is there any of you know why ? Below is the complete listing program :
+&gt;
+&gt; (define word?
+&gt;   (let ((number? number?)
+&gt; (symbol? symbol?)
+&gt; (string? string?))
+&gt;     (lambda (x)
+&gt;       (or (symbol? x) (number? x) (string? x)))))
+&gt; (define whoops
+&gt;   (let ((string? string?)
+&gt; (string-append string-append)
+&gt; (error error)
+&gt; (cons cons)
+&gt; (map map)
+&gt; (apply apply))
+&gt;     (define (error-printform x)
+&gt;       (if (string? x)
+&gt;   (string-append &quot;\&quot;&quot; x &quot;\&quot;&quot;)
+&gt;   x))
+&gt;     (lambda (string . args)
+&gt;       (apply error (cons string (map error-printform args))))))
+&gt;
+&gt; (define word-&gt;string
+&gt;   (let ((number? number?)
+&gt; (string? string?)
+&gt; (number-&gt;string number-&gt;string)
+&gt; (symbol-&gt;string symbol-&gt;string))
+&gt;     (lambda (wd)
+&gt;       (cond ((string? wd) wd)
+&gt;     ((number? wd) (number-&gt;string wd))
+&gt;     (else (symbol-&gt;string wd))))))
+&gt;
+&gt; (define empty?
+&gt;   (let ((null? null?)
+&gt; (string? string?)
+&gt; (string=? string=?))
+&gt;     (lambda (x)
+&gt;       (or (null? x)
+&gt;   (and (string? x) (string=? x &quot;&quot;))))))
+&gt;
+&gt; (define member?
+&gt;   (let ((&gt; &gt;) (- -) (&lt; &lt;)
+&gt; (null? null?)
+&gt; (symbol? symbol?)
+&gt; (eq? eq?)
+&gt; (car car)
+&gt; (not not)
+&gt; (symbol-&gt;string symbol-&gt;string)
+&gt; (string=? string=?)
+&gt; (cdr cdr)
+&gt; (equal? equal?)
+&gt; (word-&gt;string word-&gt;string)
+&gt; (string-length string-length)
+&gt; (whoops whoops)
+&gt; (string-ref string-ref)
+&gt; (char=? char=?)
+&gt; (list? list?)
+&gt; (number? number?)
+&gt; (empty? empty?)
+&gt; (word? word?)
+&gt; (string? string?))
+&gt;     (define (symbol-in-list? symbol string lst)
+&gt;       (cond ((null? lst) #f)
+&gt;     ((and (symbol? (car lst))
+&gt;   (eq? symbol (car lst))))
+&gt;     ((string? (car lst))
+&gt;      (cond ((not string)
+&gt;     (symbol-in-list? symbol (symbol-&gt;string symbol) lst))
+&gt;    ((string=? string (car lst)) #t)
+&gt;    (else (symbol-in-list? symbol string (cdr lst)))))
+&gt;     (else (symbol-in-list? symbol string (cdr lst)))))
+&gt;     (define (word-in-list? wd lst)
+&gt;       (cond ((null? lst) #f)
+&gt;     ((equal? wd (car lst)) #t)
+&gt;     (else (word-in-list? wd (cdr lst)))))
+&gt;     (define (word-in-word? small big)
+&gt;       (let ((one-letter-str (word-&gt;string small)))
+&gt; (if (&gt; (string-length one-letter-str) 1)
+&gt;     (whoops &quot;Invalid arguments to MEMBER?: &quot; small big)
+&gt;     (let ((big-str (word-&gt;string big)))
+&gt;       (char-in-string? (string-ref one-letter-str 0)
+&gt;        big-str
+&gt;        (- (string-length big-str) 1))))))
+&gt;     (define (char-in-string? char string i)
+&gt;       (cond ((&lt; i 0) #f)
+&gt;     ((char=? char (string-ref string i)) #t)
+&gt;     (else (char-in-string? char string (- i 1)))))
+&gt;     (lambda (x stuff)
+&gt;       (cond ((empty? stuff) #f)
+&gt;     ((word? stuff) (word-in-word? x stuff))
+&gt;     ((not (list? stuff))
+&gt;      (whoops &quot;Invalid second argument to MEMBER?: &quot; stuff))
+&gt;     ((symbol? x) (symbol-in-list? x #f stuff))
+&gt;     ((or (number? x) (string? x))
+&gt;      (word-in-list? x stuff))
+&gt;     (else (whoops &quot;Invalid first argument to MEMBER?: &quot; x))))))
+&gt;
+&gt; (define (parse expr)
+&gt;   (parse-helper expr '() '()))
+&gt;
+&gt; (define (parse-helper expr operators operands)
+&gt;   (cond ((null? expr)
+&gt;          (if (null? operators)
+&gt;              ((car operands))
+&gt;              (handle-op '() operators operands)))
+&gt;         ((number? (car expr))
+&gt;          ((parse-helper (cdr expr)
+&gt;                        operators
+&gt;                        (cons (cons (car expr) '()) operands))))
+&gt;         ((list? (car expr))
+&gt;          (parse-helper (cdr expr)
+&gt;                        operators
+&gt;                        (cons (parse (car expr)) operands)))
+&gt;         (else (if (or (null? operators)
+&gt;                       (&gt; (precedence (car expr))
+&gt;                          (precedence (car operators))))
+&gt;                   (parse-helper (cdr expr)
+&gt;                                 (cons (car expr) operators)
+&gt;                                  operands)
+&gt;                   (handle-op expr operators operands)))))
+&gt;
+&gt; (define (handle-op expr operators operands)
+&gt;  (  (parse-helper expr
+&gt;                 (cdr operators)
+&gt;                 (cons (cons (car operators)
+&gt;                                  (list (cadr operands) (car operands)))
+&gt;                       (cddr operands))))
+&gt; )
+&gt; (define (precedence oper)
+&gt;   (if (member? oper '(+ -)) 1 2))
+&gt;
+&gt;
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00489" href="msg00489.html">Re: question about DrScheme</a></strong>
+<ul><li><em>From:</em> Chuen Ching &lt;tjioe@elang.stts.ac.id&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00490.html">Help: Looking at the Sun makes you blind...</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00492.html">Re: question about DrScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00489.html">Re: question about DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00492.html">Re: question about DrScheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00491"><strong>Date</strong></a></li>
+<li><a href="threads.html#00491"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Parallel builds don't work -->
+<!--X-From-R13: Vnaah Ybvivfgb <nmherNvxv.sv> -->
+<!--X-Date: Wed, 11 Oct 2000 08:47:14 &#45;0600 (MDT) -->
+<!--X-Message-Id: 874s2jo2pa.fsf@senstation.vvf.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Parallel builds don't work</TITLE>
+<LINK REV="made" HREF="mailto:azure@iki.fi">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00972.html">Date Prev</A>][<A HREF="msg00974.html">Date Next</A>][<A HREF="msg00971.html">Thread Prev</A>][<A HREF="msg00974.html">Thread Next</A>][<A HREF="maillist.html#00973">Date Index</A>][<A HREF="threads.html#00973">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Parallel builds don't work</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Parallel builds don't work</LI>
+<LI><em>From</em>: Hannu Koivisto &lt;<A HREF="mailto:azure@iki.fi">azure@iki.fi</A>&gt;</LI>
+<LI><em>Date</em>: 11 Oct 2000 17:46:41 +0300</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>User-Agent</em>: Gnus/5.0808 (Gnus v5.8.8) Emacs/20.7</LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Greetings,
+
+FWIW, DrScheme v103.1 from CVS around 2000-10-11T13:30Z builds fine
+with just `make' but cannot be built in parallel, i.e. with GNU
+make's option -j with more than one job allowed at once.  With -j 5
+I get:
+
+make[2]: Leaving directory `.../src/mred/wxme'
+make mred
+make[2]: Entering directory `.../src/mred'
+make[2]: *** No rule to make target `../mzscheme/libmzscheme.a', needed by `mred'. 
+ Stop.
+make[2]: Leaving directory `.../src/mred'
+make[1]: *** [all] Error 2
+make[1]: Leaving directory `.../src/mred'
+make: *** [mr] Error 2
+make: *** Waiting for unfinished jobs....
+
+This would seem to reveal that dependencies aren't correct; mred
+doesn't depend on libmzscheme.a.  Peter Miller's Recursive Make
+Considered Harmful
+&lt;URL:<A  HREF="http://www.canb.auug.org.au/~millerp/rmch/recu-make-cons-harm.html">http://www.canb.auug.org.au/~millerp/rmch/recu-make-cons-harm.html</A>&gt;
+is suggested reading for those who haven't read it yet.
+
+-- 
+Hannu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00972.html">RE: Adding a New "primitive" Method.</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00974.html">split-path weirdness on Windows with UNC paths</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00971.html">vertical scrol / trashing</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00974.html">split-path weirdness on Windows with UNC paths</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00973"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00973"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: GC Errors in Embedded Program -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 27 Dec 2000 09:47:44 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001227164709.ERMO17226.femail1.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20001227085419.A6666@earthlink.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: GC Errors in Embedded Program</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01186.html">Date Prev</A>][<A HREF="msg01188.html">Date Next</A>][<A HREF="msg01186.html">Thread Prev</A>][<A HREF="msg01196.html">Thread Next</A>][<A HREF="maillist.html#01187">Date Index</A>][<A HREF="threads.html#01187">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: GC Errors in Embedded Program</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</LI>
+<LI><em>Subject</em>: Re: GC Errors in Embedded Program</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 27 Dec 2000 08:47:09 -0800</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01186.html">20001227085419.A6666@earthlink.net</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01186.html">20001227085419.A6666@earthlink.net</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; A backtrace:
+&gt; 
+&gt; [...]
+&gt; #20 0x4031f4fa in scheme_eval_string (str=0x40366357 "(+ 1 2)", env=0x8334dc0)
+&gt;     at ./eval.c:3286
+&gt; #21 0x40310ac7 in MV_PageGet (ignored=0x0, conn=0x81dc670) at ns_machv.cc:489
+&gt; #22 0x8077d2a in Ns_ConnRunRequest (conn=0x81dc670) at op.c:196
+&gt; #23 0x807e5ee in ConnRun (connPtr=0x81dc670) at serv.c:810
+&gt; #24 0x807df1e in NsConnThread (arg=0x81f7af8) at serv.c:609
+&gt; #25 0x81190bb in NsThreadMain (arg=0x8254b80) at thread.c:241
+&gt; #26 0x4002ccb5 in pthread_start_thread () from /lib/libpthread.so.0
+&gt; #27 0x4002ccfd in pthread_start_thread_event () from /lib/libpthread.so.0
+&gt; 
+&gt; Is there any problem with multi-threaded programs embedding MzScheme?
+
+MzScheme does not like to be called from a thread that is not the one
+used to call scheme_basic_env(), and not an OS-level thread that
+MzScheme itself creates. In the trace above, it looks like MzScheme was
+called from a new thread created by the embedding program.
+
+I think the particular crash you're seeing is because the GC is
+prepared to work on the C stack from the thread that called
+scheme_basic_env(), and it gets confused because the stack has moved.
+
+The usual solution to this problem is to create a server (OS-level)
+thread for evaluating MzScheme expressions. The server thread might
+spawn MzScheme threads to handle requests.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01196" HREF="msg01196.html">Re: GC Errors in Embedded Program</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;bfulgham@debian.org&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01197" HREF="msg01197.html">More GC Errors (New, Improved, In Senora GC!)</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;bfulgham@debian.org&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01186" HREF="msg01186.html">GC Errors in Embedded Program</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;bfulgham@debian.org&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01186.html">GC Errors in Embedded Program</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01188.html">Re: Distribution of MrEd-based apps</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01186.html">GC Errors in Embedded Program</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01196.html">Re: GC Errors in Embedded Program</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01187"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01187"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

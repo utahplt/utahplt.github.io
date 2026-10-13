@@ -1,0 +1,117 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: 199.14 -->
+<!--X-From-R13: Oyrkrl [nubgxva <nyrkzNwrg.zfx.fh> -->
+<!--X-Date: Wed, 13 Jun 2001 02:56:36 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15143.10903.540203.497371@david.jet.msk.su -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200106121736.LAA28518@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: 199.14</title>
+<link rev="made" href="mailto:alexm@jet.msk.su">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00535.html">Date Prev</a>][<a href="msg00537.html">Date Next</a>][<a href="msg00535.html">Thread Prev</a>][<a href="msg00539.html">Thread Next</a>][<a href="maillist.html#00536">Date Index</a>][<a href="threads.html#00536">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: 199.14</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: 199.14</li>
+<li><em>From</em>: Alexey Mahotkin &lt;<A HREF="mailto:alexm@jet.msk.su">alexm@jet.msk.su</A>&gt;</li>
+<li><em>Date</em>: Wed, 13 Jun 2001 12:55:51 +0400 (MSD)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00534.html">200106121736.LAA28518@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Organization</em>: http://www.jet.msk.su/</li>
+<li><em>References</em>: &lt;<a href="msg00534.html">200106121736.LAA28518@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;&gt;&gt;&gt;&gt; &quot;MF&quot; == Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+    MF&gt; The v200-tagged code in CVS for MzScheme and MrEd is now
+    MF&gt; version 199.14.  
+
+Btw, I've successfully built v199.14 on
+
+HP-UX alpha B.11.00 U 9000/800 unknown
+
+The only trouble was with the gmp library.  I had to go to
+<A  HREF="http://hpux.connect.org.uk/">http://hpux.connect.org.uk/</A>, take fresh gmp-3.1.1 from there, and
+include hppa/udiv_qrnnd.s (obviously renaming subroutine there) to the
+list of objects included in libmzscheme.a.  Otherwise
+`scheme_gmpn_udiv_qrnnd' symbol was undefined.  
+
+I cannot provide patch because do not understand fully MzScheme's
+build system.  I've just hand-edited Makefile.
+
+Also, ./gc/hpux_test_and_clear.s could not be compiled by as from GNU
+binutils, only by native as.  I've had a hard time not believing that
+:)
+
+
+We have not tested it extensively, but it loads up and correctly
+calculates `(+ 2 2)' :)
+
+
+Thanks,
+
+--alexm
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00534" href="msg00534.html">199.14</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00535.html">Re: 199.14</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00537.html">BE A MILLIONAIRE LIKE OTHERS WITHIN A  YEAR!</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00535.html">Re: 199.14</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00539.html">Re: 199.14</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00536"><strong>Date</strong></a></li>
+<li><a href="threads.html#00536"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

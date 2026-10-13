@@ -1,0 +1,183 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: good books on scheme? -->
+<!--X-From-R13: Dvpuneq Qboor <pboorNqverpgyvax.arg> -->
+<!--X-Date: Wed, 7 Feb 2001 08:00:27 &#45;0700 (MST) -->
+<!--X-Message-Id: 14977.25283.974814.519025@minbar.directlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: F127TmIClmpcQABZTW500001dc3@hotmail.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: good books on scheme?</title>
+<link rev="made" href="mailto:cobbe@directlink.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00239.html">Date Prev</a>][<a href="msg00241.html">Date Next</a>][<a href="msg00239.html">Thread Prev</a>][<a href="msg00241.html">Thread Next</a>][<a href="maillist.html#00240">Date Index</a>][<a href="threads.html#00240">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: good books on scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Immanuel Litzroth&quot; &lt;<A HREF="mailto:immanuel_litzroth@hotmail.com">immanuel_litzroth@hotmail.com</A>&gt;</li>
+<li><em>Subject</em>: Re: good books on scheme?</li>
+<li><em>From</em>: Richard Cobbe &lt;<A HREF="mailto:cobbe@directlink.net">cobbe@directlink.net</A>&gt;</li>
+<li><em>Date</em>: Wed, 7 Feb 2001 08:59:15 -0600 (CST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00234.html">F127TmIClmpcQABZTW500001dc3@hotmail.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00234.html">F127TmIClmpcQABZTW500001dc3@hotmail.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Lo, on Wednesday, February 7, Immanuel Litzroth did write:
+
+&gt; &gt;Let me point out though that using the terminoloy 'closure' makes sense
+&gt; &gt;when you discuss first-class procedures with an uneducated C hacker who
+&gt; &gt;thinks that pointers to functions are first-class procedures. Decades
+&gt; &gt;after &quot;LISPers&quot; understood this point, C hackers still don't see the
+&gt; &gt;difference.
+
+&gt; Not being a C hacker, but definitely uneducated I wonder if the greatest 
+&gt; difference between C function pointers and first-class procedures is not the 
+&gt; fact that they cannot be created at runtime because you have neither the 
+&gt; compiler nor the symboltable present?
+
+Creating a new closure at runtime doesn't actually require the compiler.
+You can emit the object code for the closure at compile time, then bind
+that object code with an environment at run-time.  (I suspect this may get
+much more complex in the face of ML-like polymorphic types, but that is
+more than I know.)
+
+&gt; Aren't C functions closures in the sense mr Hailperin described?
+
+Not in the sense in which I understand the word `closure', no.
+
+To take a fairly silly example in Scheme:
+
+(define make-adder
+  (lambda (x)
+    (lambda (y)
+      (+ x y))))
+
+The result of applying make-adder to an argument is a procedure which
+remembers the value of x at the time when the procedure was created (i.e.,
+the value originally supplied as the argument to make-adder).  In other
+words, it's a procedure closed over x.
+
+Now, you can't do this in C, at least not directly.  First, in standard C,
+you can't nest function declarations.  However, some compilers (like
+earlier versions of gcc; don't know if they still do this) did allow you do
+it, but with one big caveat:
+
+typedef int (*int2intfunc)(int);    // pointer to int-&gt;int---*ob*viously!
+
+int2intfunc make_adder(int x)
+{
+    int adder_result(int y)
+    {
+        return x + y;
+    }
+
+    return &amp;adder_result;
+}
+
+In C, x's lifetime ends when make_adder returns.  So, even if you've
+managed to get a pointer to adder_result to last beyond make_adder's
+return, invoking it will produce undefined results, because x's value is
+now garbage.  (In implementation terms, adder_result usually refers to
+make_adder's stack frame, which no longer exists after make_adder returns.)
+
+You *can* do closures in C++, although it's not as convenient as in Scheme:
+
+class Adder
+{
+private:
+    int a;
+public:
+    Adder(int _a) : a(_a) { }
+
+    int add(int b) { return a + y; }
+
+    // or, if you don't mind the ugly notation,
+    int operator()(int b) { return a + b; }
+};
+
+Adder make_adder(int x)
+{
+    return Adder(x);
+}
+
+The Adder object, which represents a closure, carries not only the
+operation (the body of the add method) but also the value of x, so invoking
+its add method is well defined.
+
+This is the best, if verbose, way I've found to do callbacks, for
+instance.
+
+(Of course, since you can do object-oriented programming in C, you can also
+use this trick in C as well.  You just have to write all of the object
+infrastructure, like virtual method dispatch, yourself.)
+
+Richard
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00241" href="msg00241.html">RE: good books on scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00256" href="msg00256.html">Re: good books on scheme?</a></strong>
+<ul><li><em>From:</em> Reini Urban &lt;rurban@x-ray.at&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00234" href="msg00234.html">Re: good books on scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Immanuel Litzroth&quot; &lt;immanuel_litzroth@hotmail.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00239.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00241.html">RE: good books on scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00239.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00241.html">RE: good books on scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00240"><strong>Date</strong></a></li>
+<li><a href="threads.html#00240"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

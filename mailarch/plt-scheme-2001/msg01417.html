@@ -1,0 +1,208 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Conway's Game of Life (cellular automata) -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Sun, 23 Dec 2001 20:33:57 &#45;0700 (MST) -->
+<!--X-Message-Id: 00d001c18c2c$23c57f80$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200112240224.fBO2O2i04768@poincare.math.northwestern.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Conway's Game of Life (cellular automata)</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01416.html">Date Prev</a>][<a href="msg01418.html">Date Next</a>][<a href="msg01415.html">Thread Prev</a>][<a href="msg01418.html">Thread Next</a>][<a href="maillist.html#01417">Date Index</a>][<a href="threads.html#01417">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Conway's Game of Life (cellular automata)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Bill Richter&quot; &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Conway's Game of Life (cellular automata)</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Sun, 23 Dec 2001 22:36:14 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01415.html">200112240224.fBO2O2i04768@poincare.math.northwestern.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; you left open the question of how
+&gt; HTDP would propose to design the Life program.
+
+I think my comments about abstraction relate to something HtDP says about
+the importance of creating abstractions, which should have well-defined
+contracts.  The section &quot;Abstracting Designs&quot; covers this.  Also, related to
+my points about generalized functions, HtDP says &quot;In many cases, an abstract
+function is useful in a much broader array of contexts than we first
+anticipate and makes functions easier to read, understand, and maintain&quot;
+(from &quot;Abstracting from Examples&quot;).  I'll relate to this below.
+
+But I can't speak for the authors of HtDP.
+
+&gt; Sure did!  That's what I think the TLS/TSS functional programming
+&gt; style is: consume lists.
+
+Perhaps I'm wrong, but I would generalize that to say that what they're
+really teaching is to think and solve problems recursively.  In Scheme,
+lists make sense for this purpose.  Nevertheless, once again, the approach I
+described could be adapted to lists.  I think it's more important to try to
+separate the design from the low-level implementation details.  Perhaps this
+isn't covered in TLS/TSS; I've never worked through them from beginning to
+end.
+
+&gt; But I ran into all kinds of
+&gt; mutability problems, so the list of list functional version was easier
+&gt; to code up!
+
+If you want to build a vector recursively, without mutation, you're pretty
+much going to have to use a list (or something a lot like it) while
+building, then convert it to a vector when you're done.  That shouldn't be
+difficult (list-&gt;vector), and you'll still benefit from the addressability
+of the &quot;matrix&quot; once you're done.  In fact, this ought to give the best of
+both the list &amp; vector worlds.
+
+It should be recognized that the requirement to use lists here is really an
+artifact of lower-level implementation issues; it's easy to imagine a vector
+that can be built recursively, but it so happens that Scheme's vectors don't
+allow it.
+
+&gt; Your `count-surrounding-black-cells' is maybe too cute, why not
+&gt; redefine `matrix-sum' to not add up the &quot;origin&quot; of your range, then
+&gt; `count-surrounding-black-cells'  doesn't need `cell-value' as an
+&gt; argument.
+
+There are reasons for that.  First, I like to write code that's going to be
+useful to me in other contexts (see HtDP quote above); a matrix-sum that
+doesn't add the origin might or might not be, but I guessed it wouldn't be.
+
+The cell-value argument is actually there as part of a convention.  When
+you're writing routines which map over things like vectors and matrices, it
+tends to be useful to pass through both the value of the current location
+and its coordinates.  You're correct that this isn't essential in the
+'count-surrounding-black-cells' case; the subtraction could actually be
+moved up a level, to new-cell-state, or as you say, it could be handled in
+(a possibly less generic) matrix-sum.
+
+&gt; BTW I think cellular automata all use the nearest neighbors, so we
+&gt; wouldn't be summing over a larger range.
+
+Again, I was thinking more generally than that.  In fact, I do have a
+matrix-map function in a financial analysis system that I work on, and
+that's part of what led me in that direction.  I like inventing wheels as
+few times as possible, and the sorts of solutions one chooses make a big
+difference to how often one has to do that.
+
+&gt; But much different functions
+&gt; are used on the nearest neighbors.  Just keeping it to 0s and 1s, I'm
+&gt; thinking of 2^{2^9} such `new-cell-state' functions, there are 2^9 0/1
+&gt; configurations for the cell &amp; its nearest neighbors, and each
+&gt; configuration get sent by `new-cell-state' to either 0 or 1.
+&gt;
+&gt; This shows an inelegancy of the x/y approach: your function
+&gt; `new-cell-state' does &quot;the same thing&quot; no matter what x &amp; y are.  Of
+&gt; course, the cell &amp; its nearest neighbors change as x &amp; y vary, but the
+&gt; function in 2^{2^9} is the same everywhere on the board.  It's not
+&gt; like we calculate one way in Germany and a different way in the US.
+
+I'm not sure I follow you.  x &amp; y is simply a concise way to specify a set o
+f nine cells, in this case, and potentially, a larger set, although you're
+saying that for this specific application a larger set isn't needed.
+
+What's a better alternative?  Presumably passing the nine individual cell
+values through isn't any better.
+
+If you're saying that you want to parameterize the behavior of the
+new-cell-state function, I can go along with that, but that doesn't have
+much to do with x &amp; y being passed to new-cell-state.  Simply decide on the
+parameters needed by the functions you want to be able to support - in the
+case of Life, it's just 'count' - and make sure that the appropriate
+function is provided at some level, perhaps as a parameter to
+'next-generation' or at an even higher level, such as in the overall
+iteration function.  Then new-cell-state can become something like:
+
+  (define (new-cell-state cell-value x y)
+    (decide-cell-state cell-value (count-surrounding-black-cells cell-value
+x y)))
+
+Then for Life, we have:
+
+  (define (decide-cell-state-for-Life cell-value count)
+    (if (or (= count 3) (and (isblack? cell-value) (= count 2)))
+        black-cell-value
+        white-cell-value)))
+
+At some level, 'decide-cell-state' would be set to
+'decide-cell-state-for-Life', presumably by passing the latter through as a
+parameter.
+
+Were you saying that what I've turned into decide-cell-state didn't need x &amp;
+y?  I don't see that as an &quot;inelegancy&quot;, although by my own reuse criterion,
+the separated version is better.
+
+Anton
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01418" href="msg01418.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01419" href="msg01419.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01415" href="msg01415.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01416.html">Re: really, really dumb DrScheme question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01418.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01415.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01418.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01417"><strong>Date</strong></a></li>
+<li><a href="threads.html#01417"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

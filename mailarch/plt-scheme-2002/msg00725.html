@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: should definitions introduced by macros be gensymmed? -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Wed, 10 Apr 2002 10:38:53 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020410163848.842711AB16@amber.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15539.62988.911303.89702@vega.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: should definitions introduced by macros be gensymmed?</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00724.html">Date Prev</a>][<a href="msg00726.html">Date Next</a>][<a href="msg00722.html">Thread Prev</a>][<a href="msg00726.html">Thread Next</a>][<a href="maillist.html#00725">Date Index</a>][<a href="threads.html#00725">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: should definitions introduced by macros be gensymmed?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: should definitions introduced by macros be gensymmed?</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 10 Apr 2002 12:38:48 -0400 (EDT)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00722.html">15539.62988.911303.89702@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00722.html">15539.62988.911303.89702@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+This appears to be a bug in DrScheme (or, perhaps a bug in mzscheme
+that DrScheme tickles but that raw mzscheme and raw mred don't). I'm
+looking into it, but haven't been able to narrow things down yet. For
+now, I'd suggest that you use mzscheme or generate-temporaries.
+
+Sorry,
+Robby
+
+At Wed, 10 Apr 2002 04:21:32 -0400 (EDT), Doug Orleans wrote:
+&gt; I was under the impression that if a macro produced a definition whose
+&gt; variable did not come from the pattern, then the definition would
+&gt; define a gensymmed dummy variable, i.e. there would be no way to refer
+&gt; to the value bound by this definition.  I use this trick to make
+&gt; macros that can appear in definition position, i.e. at the beginning
+&gt; of a body before other definitions, even if they don't have anything
+&gt; to define:
+&gt; 
+&gt;   (define-syntax define-foo
+&gt;     (syntax-rules ()
+&gt;       ((_ expr) (define foo expr))))
+&gt; 
+&gt;   (let ()
+&gt;     (define-foo (display 'f))
+&gt;     (define-foo (display 'o))
+&gt;     (define o 'o)
+&gt;     o)
+&gt; 
+&gt; When I evaluate these in MzScheme (v200alpha15), everything works fine 
+&gt; (it displays &quot;foo&quot;).  But when I evaluate these in DrScheme (language
+&gt; &quot;Textual (MzScheme)&quot;), it complains:
+&gt; 
+&gt;   def-foo.scm:3:23: letrec-values: duplicate binding name in: foo
+&gt; 
+&gt; Why do MzScheme and DrScheme behave differently, and which is the
+&gt; right behavior?  Do I have to rewrite this macro with syntax-case and
+&gt; use generate-temporaries?
+&gt; 
+&gt; --dougo@ccs.neu.edu
+&gt; 
+&gt; P.S. If you use a definition in the middle of a body, after an
+&gt; expression, the error message says:
+&gt; 
+&gt;   define-values: illegal use (not at top-level)
+&gt; 
+&gt; It should probably say &quot;not at top-level or beginning of body&quot; or
+&gt; something like that.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00722" href="msg00722.html">should definitions introduced by macros be gensymmed?</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00724.html">change to `make-input-port' and `make-output-port'</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00726.html">Re: should definitions introduced by macros be gensymmed?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00722.html">should definitions introduced by macros be gensymmed?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00726.html">Re: should definitions introduced by macros be gensymmed?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00725"><strong>Date</strong></a></li>
+<li><a href="threads.html#00725"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

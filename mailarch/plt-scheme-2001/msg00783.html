@@ -1,0 +1,115 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Any Examples of COM (and perhaps ADO)? -->
+<!--X-From-R13: "Bnhy Egrpxyre" <fgrpxNppf.arh.rqh> -->
+<!--X-Date: Tue, 14 Aug 2001 08:18:16 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000e01c124cb$fbc41fe0$70730a81@NORTHEASDX5RFA -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 001c01c12418$00269c70$0100a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Any Examples of COM (and perhaps ADO)?</title>
+<link rev="made" href="mailto:steck@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00782.html">Date Prev</a>][<a href="msg00784.html">Date Next</a>][<a href="msg00779.html">Thread Prev</a>][<a href="msg00759.html">Thread Next</a>][<a href="maillist.html#00783">Date Index</a>][<a href="threads.html#00783">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Any Examples of COM (and perhaps ADO)?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;'Anton van Straaten'&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;,       &quot;'Alex Peake'&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;,       &quot;'PLT Scheme'&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Any Examples of COM (and perhaps ADO)?</li>
+<li><em>From</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 14 Aug 2001 10:18:26 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00779.html">001c01c12418$00269c70$0100a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; This replaces the chaining version of com-get-property with the native
+&gt; one,
+&gt; which supports the access to indexed properties required by the ADO
+&gt; Fields
+&gt; collection.  Existing calls to com-get-property will continue to work,
+&gt; unless they involve multiple property names.  (I'm not suggesting that
+&gt; this
+&gt; should be the definitive change to MysterX - I'll leave that to Paul).
+&gt; Here's a diff for the above change:
+&gt; 
+&gt; 17a18
+&gt; &gt;   (define com-get-property mxprims:com-get-property)
+&gt; 77c78
+&gt; &lt;   (define (com-get-property obj . path)
+&gt; ---
+&gt; &gt;   (define (com-get-property-chain obj . path)
+
+I think these can be made one procedure by using lists for indexed
+properties.  So you might have something like
+
+	(com-get-property my-com-object &quot;Foo&quot; (&quot;Bar&quot; 3) &quot;Baz&quot;)
+
+For unindexed properties, you just provide the name of the property.
+For indexed properties, you put the name of the property followed by its
+indices in a list.  Only a small change to the implementation of
+com-get-property is needed.  I can send a patch, if needed.
+
+-- Paul
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00779" href="msg00779.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00782.html">CICLOPS'01 -- Call for Papers</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00784.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00779.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00759.html">Looking for lexer</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00783"><strong>Date</strong></a></li>
+<li><a href="threads.html#00783"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

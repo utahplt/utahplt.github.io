@@ -1,0 +1,142 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Recursion and structure (aka Shriram's quiz) -->
+<!--X-From-R13: Praqrewt2Nnby.pbz -->
+<!--X-Date: Sat, 27 Jan 2001 22:34:50 &#45;0700 (MST) -->
+<!--X-Message-Id: 87.62087f5.27a50957@aol.com -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Recursion and structure (aka Shriram's quiz)</title>
+<link rev="made" href="mailto:Benderjg2@aol.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00149.html">Date Prev</a>][<a href="msg00151.html">Date Next</a>][<a href="msg00140.html">Thread Prev</a>][<a href="msg00169.html">Thread Next</a>][<a href="maillist.html#00150">Date Index</a>][<a href="threads.html#00150">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Recursion and structure (aka Shriram's quiz)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Recursion and structure (aka Shriram's quiz)</li>
+<li><em>From</em>: <A HREF="mailto:Benderjg2@aol.com">Benderjg2@aol.com</A></li>
+<li><em>Date</em>: Sun, 28 Jan 2001 00:34:15 EST</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<FONT FACE=arial,helvetica><FONT  SIZE=2>I often use factorial (in either the tree recursive or tail recursive form) 
+<BR>as a basic test of a new interpreter or compiler. It tells me that recursion 
+<BR>"worked".
+<BR>
+<BR>However, when I look at my own _programming_, it is recursion over a data 
+<BR>structure, especially lists, which I use most. With respect to SICP, which is 
+<BR>far more numerical in its orientation--at least in early chapters--than my 
+<BR>own programming: factorial would not be how I would teach recursion in the 
+<BR>first week(s) of an introductory programming course.
+<BR>
+<BR>One great beauty of Scheme/Lisp is that I can teach someone to build a list 
+<BR>from the beginning. From there, the structure of the data leads to the 
+<BR>structure of a function processing that data structure. I would feel guilty 
+<BR>if I did not show a recursive structure for traversing/processing that list. 
+<BR>Thus my own answer to this question is that I would teach construction of 
+<BR>lists _with_ recursive traversal of those lists. That would be how I would 
+<BR>teach recursion. [I must grant that I am not a teacher.]
+<BR>
+<BR>(With respect to whether one teaches while/for/repeat/do-style iteration 
+<BR>constructs before recursion, I can not help but feel that the _language_ 
+<BR>taught often shapes what is an "advanced" topic in this country's intro CS 
+<BR>courses. Recursion over a linked list in Pascal (which I had for intro CS) or 
+<BR>C/C++ is tough. One first has to know memory management. One also has to know 
+<BR>about struct or classes--i.e. about "complicated" mechanisms for creating 
+<BR>data structures. In C/C++/Pascal, iteration over an array is the only _easy_ 
+<BR>structure that can be taught. Another sad fact is that, while that iteration 
+<BR>over an array _could_ be taught as tail recursion, for/while/do/repeat is 
+<BR>used because it is "fast"/"cheap", while recusion is "slow"/"expensive".)
+<BR>
+<BR>jim
+<BR>
+<BR>[Jim Bender (benderjg@aol.com)]
+<BR>
+<BR>
+<BR>
+<BR>In a message dated 1/27/01 10:15:27 PM Central Standard Time, 
+<BR>mvanier@bbb.caltech.edu writes:
+<BR>
+<BR>
+<BR><BLOCKQUOTE TYPE=CITE style="BORDER-LEFT: #0000ff 2px solid; MARGIN-LEFT: 5px; MARGIN-RIGHT: 0px; PADDING-LEFT: 5px">&gt; &gt; Even recursion is an advanced topic, and thanksfully nobody is
+<BR>&gt; &gt; forced to write recursive in lisp/scheme.
+<BR>&gt; 
+<BR>&gt; Quick quiz: If you had to teach recursion, what is the first example
+<BR>&gt; you would use? &nbsp;(You may give multiple examples, but they must all be
+<BR>&gt; ones you would cover in the first week of teaching it.)
+<BR>&gt; 
+<BR>&gt; Shriram
+<BR>&gt; 
+<BR>
+<BR>Factorial, no doubt. &nbsp;The way it's handled in SICP is particularly elegant,
+<BR>contrasting the obviously recursive way of writing factorial e.g.
+<BR>
+<BR>(define (factorial n)
+<BR> &nbsp;(if (= n 1)
+<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1
+<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(* n (factorial (- n 1)))))
+<BR>
+<BR>with the tail-recursive way:
+<BR>
+<BR>(define (factorial n)
+<BR> &nbsp;(define (fact-iter n r)
+<BR> &nbsp;&nbsp;&nbsp;(if (= n 1)
+<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;r
+<BR> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(fact-iter (- n 1) (* r n))))
+<BR> &nbsp;(fact-iter n 1))
+<BR></BLOCKQUOTE>
+<BR>
+<BR></FONT>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00149.html">Re: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00151.html">Re: peasant revolt against DrScheme!</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00140.html">Re: Running external programs asynchronously with no need to handle output?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00169.html">Entire text of SICP now online</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00150"><strong>Date</strong></a></li>
+<li><a href="threads.html#00150"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

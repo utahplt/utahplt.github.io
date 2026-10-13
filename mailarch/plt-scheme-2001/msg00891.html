@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: print&#45;struct? -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Sun, 16 Sep 2001 18:20:33 &#45;0600 (MDT) -->
+<!--X-Message-Id: p05100308b7caf208dc78@[166.90.71.29] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15260.63573.182725.887288@vega.ccs.neu.edu -->
+<!--X-Reference: 200109102143.PAA20865@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: print-struct?</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00890.html">Date Prev</a>][<a href="msg00892.html">Date Next</a>][<a href="msg00889.html">Thread Prev</a>][<a href="msg00893.html">Thread Next</a>][<a href="maillist.html#00891">Date Index</a>][<a href="threads.html#00891">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: print-struct?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: print-struct?</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 16 Sep 2001 19:20:56 -0500</li>
+<li><em>Cc</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00889.html">200109102143.PAA20865@fast.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00886.html">15260.63573.182725.887288@vega.ccs.neu.edu</a>&gt;&lt;<a href="msg00889.html">200109102143.PAA20865@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+In the current (or maybe next, I forget exactly) CVS release of 
+DrScheme, the REPL printer properly handles such values, but you will 
+still need to follow Matthew's advice if you want to use things like 
+`write' or `display' on your structs.
+
+Robby
+
+At 3:43 PM -0600 9/10/01, Matthew Flatt wrote:
+&gt;Quoting Doug Orleans:
+&gt;&gt;  Is this a bug, or does print-struct not work like I think it should?
+&gt;&gt;  [...]
+&gt;&gt;  Shouldn't it print the field values with print-struct turned on?
+&gt;
+&gt;It's not a bug, but the documentation for `print-struct' doesn't
+&gt;provide enough information for v200.
+&gt;
+&gt;Short answer:
+&gt;
+&gt;  (define-struct foo (bar baz) (make-inspector))
+&gt;
+&gt;creates a transparent `foo' structure.
+&gt;
+&gt;Long answer:
+&gt;
+&gt;Structs are now used for values in the DrScheme implementation that
+&gt;must be protected from malicious code, even to the point of preventing
+&gt;inspection via printing.
+&gt;
+&gt;So MzScheme provides inspectors for controlling access to struct
+&gt;fields. When a struct type is created, it becomes protected by the
+&gt;current inspector (as determined by the `current-inspector' parameter).
+&gt;Printing can expose the content of a struct only if the inspector at
+&gt;the time of printing is a supervisor of the inspector that protects the
+&gt;struct's type.
+&gt;
+&gt;The optional last expression for `define-struct' selects a protecting
+&gt;inspector; `(make-inspector)' creates a new inspector under the current
+&gt;one.
+&gt;
+&gt;Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00886" href="msg00886.html">print-struct?</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00889" href="msg00889.html">Re: print-struct?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00890.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00892.html">[E-CFP] AGP'01 2nd CFP</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00889.html">Re: print-struct?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00893.html">199.22</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00891"><strong>Date</strong></a></li>
+<li><a href="threads.html#00891"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Newbie Mr.Ed question -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Wed, 29 Nov 2000 20:47:56 &#45;0700 (MST) -->
+<!--X-Message-Id: 200011300347.TAA15159@gull.prod.itd.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3A25BE8B.19468ED@po&#45;box.mcgill.ca -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Newbie Mr.Ed question</TITLE>
+<LINK REV="made" HREF="mailto:robby@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01122.html">Date Prev</A>][<A HREF="msg01124.html">Date Next</A>][<A HREF="msg01122.html">Thread Prev</A>][<A HREF="msg01124.html">Thread Next</A>][<A HREF="maillist.html#01123">Date Index</A>][<A HREF="threads.html#01123">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Newbie Mr.Ed question</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Jon Craven &lt;<A HREF="mailto:jcrave@po%2Dbox.mcgill.ca">jcrave@po-box.mcgill.ca</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Newbie Mr.Ed question</LI>
+<LI><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 29 Nov 2000 19:47:44 -0800 (PST)</LI>
+<LI><em>CC</em>: plt scheme &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01121.html">3A25BE8B.19468ED@po-box.mcgill.ca</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01121.html">3A25BE8B.19468ED@po-box.mcgill.ca</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The refreshing behvaior is a little bit platform dependant. When you
+call the set-label method, the underlying GUI system may choose to
+update the message right then, or it may just queue anupdate event. If
+it does queue an update event, your code is starving the update, since
+you are issuing a sleep on the event handling thread.
+
+More generally, there is one thread that handles all GUI events (for a
+particular but eventspaces are a story for another day -- for now
+assume that there is only one eventspace -- then everything I am about
+to write is true) in your program. When the user clicks and a callback
+is called, or you evealuate something in the REPL, that all happens on
+the same thread. In fact, all user input is queue'd in an event queue
+and the event handling thread reads items out the queue and processes
+them (both for repl interactions and for button callbacks and the
+like).
+
+That means that a sleep is a Bad Thing(tm). Instead, either have a
+button that the user clicks to move to the next question, or use this
+technique:
+
+(define right-answer
+  (lambda ()
+    (begin
+      (send message1 set-label "You're right!") ;message% object
+      (thread
+        (lambda ()
+          (sleep 2)
+          (queue-callback
+            (lambda ()
+              (send message1 next-question))))))))
+
+This version, instead of causing the main thread to block, some other
+thread blocks and two seconds later that thread uses `queue-callback'
+to run an event back on the main event-handling thread. Queue-callback installs it's argument onto the end of the event queue.
+
+Matthias's solution is more complex to explain -- with his solution,
+events may be handled (in a nested fashion) during the call to
+sleep/yield; this means that the update event is handled, but so are
+other events, such as button clicks, etc. This may have trigger race
+conditions, depending on the rest of your program.
+
+Of course, my solution also may need some tweaking depending on the
+rest of your program. I suspect that you may need to disable part of
+the interface while you are waiting the two seconds for the next
+question to appear.
+
+Hope that helps.
+
+Robby
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01121" HREF="msg01121.html">Newbie Mr.Ed question</A></STRONG>
+<UL><LI><EM>From:</EM> Jon Craven &lt;jcrave@po-box.mcgill.ca&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01122.html">Re: Newbie Mr.Ed question</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01124.html">does mrspidey require the gui?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01122.html">Re: Newbie Mr.Ed question</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01124.html">does mrspidey require the gui?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01123"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01123"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

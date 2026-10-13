@@ -1,0 +1,161 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: module questions -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 2 Jan 2002 14:34:23 &#45;0700 (MST) -->
+<!--X-Message-Id: 200201022134.OAA21656@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011228084333.D6FC85E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 20011228135708.D467C206FC@sualocin.ccs.neu.edu -->
+<!--X-Reference: 20011229045552.C74D05E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 15405.20970.837068.682480@mojave.cs.cornell.edu -->
+<!--X-Reference: 20011229053102.A7AEC5E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 15405.23818.125535.741602@mojave.cs.cornell.edu -->
+<!--X-Reference: 20011230041143.071D25E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 15407.41483.381848.260915@mojave.cs.cornell.edu -->
+<!--X-Reference: 20011231041136.9BA635E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 200201022120.OAA21450@fast.cs.utah.edu -->
+<!--X-Reference: 20020102212416.334BF5E0ED@sith.bbb.caltech.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: module questions</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00002.html">Date Prev</a>][<a href="msg00004.html">Date Next</a>][<a href="msg00002.html">Thread Prev</a>][<a href="msg00004.html">Thread Next</a>][<a href="maillist.html#00003">Date Index</a>][<a href="threads.html#00003">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: module questions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: module questions</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 2 Jan 2002 14:34:20 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00002.html">20020102212416.334BF5E0ED@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>References</em>: &lt;20011228084333.D6FC85E0ED@sith.bbb.caltech.edu&gt;&lt;20011228135708.D467C206FC@sualocin.ccs.neu.edu&gt;&lt;20011229045552.C74D05E0ED@sith.bbb.caltech.edu&gt;&lt;15405.20970.837068.682480@mojave.cs.cornell.edu&gt;&lt;20011229053102.A7AEC5E0ED@sith.bbb.caltech.edu&gt;&lt;15405.23818.125535.741602@mojave.cs.cornell.edu&gt;&lt;20011230041143.071D25E0ED@sith.bbb.caltech.edu&gt; &lt;15407.41483.381848.260915@mojave.cs.cornell.edu&gt;	&lt;20011231041136.9BA635E0ED@sith.bbb.caltech.edu&gt; &lt;<a href="msg00001.html">200201022120.OAA21450@fast.cs.utah.edu</a>&gt;	&lt;<a href="msg00002.html">20020102212416.334BF5E0ED@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Michael Vanier:
+&gt; By using &quot;load&quot; or the module system, right?  If the latter, then how does
+&gt; one use units to avoid the mutual-recursion-between-modules problem
+&gt; described previously if the units are in different modules?  I may be
+&gt; missing something obvious here, so be gentle :-)
+
+Units that are linked together don't refer to each other. Instead, they
+both refer to a set of signatures, and then some third bit of code
+refers to both units to link them together. Example below.
+
+If unit `A' wants to dynamically invoke unit `B', and unit `B' wants to
+dynamically invoke unit `A', then you're back to square one. You'd have
+to abstract over one of the invocations --- the one in `B', say --- and
+let some other bit of code choose a specific invovation --- of `A',
+say. That seems like an unusual situation, though.
+
+Matthew
+
+----------------------------------------
+
+(module a mzscheme
+  (require (lib &quot;unitsig.ss&quot;)
+           sigs)
+  
+  (provide a@)
+  
+  (define a@
+    (unit/sig a^
+      (import b^)
+      (define (odd n)
+        (if (zero? n)
+            #f
+            (even (sub1 n)))))))
+
+(module b mzscheme
+  (require (lib &quot;unitsig.ss&quot;)
+           sigs)
+
+  (provide b@)
+  
+  (define b@
+    (unit/sig b^
+      (import a^)
+      (define (even n)
+        (if (zero? n)
+            #t
+            (odd (sub1 n)))))))
+
+(module oe mzscheme
+  (require (lib &quot;unitsig.ss&quot;)
+           sigs
+           a
+           b)
+  (provide odd even)
+  
+  (define-values/invoke-unit/sig
+   ((open a^) (open b^))
+   (compound-unit/sig
+     (import)
+     (link [A : a^ (a@ B)]
+           [B : b^ (b@ A)])
+     (export (open A) (open B)))))
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00001" href="msg00001.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00002" href="msg00002.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00002.html">Re: module questions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00004.html">200alpha7</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00002.html">Re: module questions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00004.html">200alpha7</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00003"><strong>Date</strong></a></li>
+<li><a href="threads.html#00003"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

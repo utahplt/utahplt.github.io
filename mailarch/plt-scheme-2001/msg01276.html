@@ -1,0 +1,104 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: problems with with&#45;syntax -->
+<!--X-From-R13: Rbht Aeyrnaf <qbhtbNppf.arh.rqh> -->
+<!--X-Date: Mon, 3 Dec 2001 17:01:28 &#45;0700 (MST) -->
+<!--X-Message-Id: 15372.4689.318705.163086@vega.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>problems with with-syntax</title>
+<link rev="made" href="mailto:dougo@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01275.html">Date Prev</a>][<a href="msg01277.html">Date Next</a>][<a href="msg01277.html">Thread Prev</a>][<a href="msg01278.html">Thread Next</a>][<a href="maillist.html#01276">Date Index</a>][<a href="threads.html#01276">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>problems with with-syntax</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: problems with with-syntax</li>
+<li><em>From</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 3 Dec 2001 19:01:21 -0500 (EST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm trying to make a macro that does some computation at expansion
+time.  I defined a helper function at the top level, but when I call
+it in a binding clause in with-syntax, MzScheme says it's undefined.
+Here's a boiled-down version of the code:
+
+  (define (id x) x)
+
+  (define-syntax (foobar x)
+    (syntax-case x ()
+      ((_ expr)
+       (with-syntax ((q (id (syntax expr))))
+	 (syntax q)))))
+
+  &gt; (foobar 2)
+  reference to undefined identifier: id
+
+What environment is the &quot;stx-expr&quot; part of a with-syntax construct
+evaluated in?  What's a better way to write this sort of thing?
+
+(This is from v200alpha1, by the way.)
+
+--dougo@ccs.neu.edu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01278" href="msg01278.html">Re: problems with with-syntax</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01275.html">Re: Procedure definition</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01277.html">Re: Procedure definition</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01277.html">Re: Procedure definition</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01278.html">Re: problems with with-syntax</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01276"><strong>Date</strong></a></li>
+<li><a href="threads.html#01276"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

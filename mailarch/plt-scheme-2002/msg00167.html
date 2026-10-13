@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Embedding Scheme in C -->
+<!--X-From-R13: fgrpxNppf.arh.rqh (Bnhy Egrpxyre) -->
+<!--X-Date: Tue, 29 Jan 2002 08:41:26 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020129154120.1D65A4DD31@sulafat.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: IAEJKDEPCMMIJOCMNCMIKEGOCAAA.fomichev_andrei@mail.ru -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Embedding Scheme in C</title>
+<link rev="made" href="mailto:steck@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00166.html">Date Prev</a>][<a href="msg00168.html">Date Next</a>][<a href="msg00165.html">Thread Prev</a>][<a href="msg00168.html">Thread Next</a>][<a href="maillist.html#00167">Date Index</a>][<a href="threads.html#00167">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Embedding Scheme in C</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:fomichev_andrei@mail.ru">fomichev_andrei@mail.ru</A> (Andrei Fomichev)</li>
+<li><em>Subject</em>: Re: Embedding Scheme in C</li>
+<li><em>From</em>: <A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A> (Paul Steckler)</li>
+<li><em>Date</em>: Tue, 29 Jan 2002 10:41:20 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00165.html">IAEJKDEPCMMIJOCMNCMIKEGOCAAA.fomichev_andrei@mail.ru</a>&gt; from &quot;Andrei Fomichev&quot; at Jan 29, 2002 05:58:40 PM</li>
+<li><em>Reply-To</em>: <A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Andrei Fomichev wrote:
+&gt; Is anybody have an example of using PLT Scheme as 
+&gt; an embedding entity in C program? More precisely,
+&gt; I need to call scheme function from C program passing
+&gt; some value to it (not something complex, just string),
+&gt; receive the result (string too) and continue to execute
+&gt; C program.
+&gt; 
+&gt; Additional clause. This Scheme function must work in
+&gt; different threads, created earlier by system call to OS
+&gt; (Windows, Solaris, etc.). But this threads don't interact 
+&gt; with each other. 
+
+You can look at the MzCOM code for an example.  It's for
+Windows, and contains some COM goop, but basically it's
+just an embedded MzScheme.
+
+Probably you should look at the latest CVS version.  Look
+at <A  HREF="http://www.cs.utah.edu/plt/anoncvs/">http://www.cs.utah.edu/plt/anoncvs/</A>.  The MzCOM sources
+are in plt/src/mzcom/, and the file of interest is
+mzobj.cxx.
+
+Also, there are basic embedding instructions in the Inside PLT MzScheme
+manual.
+
+-- Paul
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00165" href="msg00165.html">Embedding Scheme in C</a></strong>
+<ul><li><em>From:</em> &quot;Andrei Fomichev&quot; &lt;fomichev_andrei@mail.ru&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00166.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00168.html">dumb DrScheme rational # question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00165.html">Embedding Scheme in C</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00168.html">dumb DrScheme rational # question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00167"><strong>Date</strong></a></li>
+<li><a href="threads.html#00167"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

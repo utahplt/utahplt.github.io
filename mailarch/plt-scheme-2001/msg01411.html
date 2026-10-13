@@ -1,0 +1,178 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Using continuations in user&#45;interfaces -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Sun, 23 Dec 2001 17:16:33 &#45;0700 (MST) -->
+<!--X-Message-Id: p05100300b84c1e8136cb@[163.32.228.186] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 002b01c18a77$a7e37e90$647ba8c0@pcupstairs -->
+<!--X-Reference: p05100300b849c7ec41b7@[163.32.226.179] -->
+<!--X-Reference: 001301c18afa$5db16b10$647ba8c0@pcupstairs -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Using continuations in user-interfaces</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01410.html">Date Prev</a>][<a href="msg01412.html">Date Next</a>][<a href="msg01406.html">Thread Prev</a>][<a href="msg01408.html">Thread Next</a>][<a href="maillist.html#01411">Date Index</a>][<a href="threads.html#01411">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Using continuations in user-interfaces</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Jamie Elliott&quot; &lt;<A HREF="mailto:jamie-e@blueyonder.co.uk">jamie-e@blueyonder.co.uk</A>&gt;</li>
+<li><em>Subject</em>: Re: Using continuations in user-interfaces</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 23 Dec 2001 18:16:50 -0600</li>
+<li><em>Cc</em>: &quot;PLT Scheme Mailing List&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01406.html">001301c18afa$5db16b10$647ba8c0@pcupstairs</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01403.html">002b01c18a77$a7e37e90$647ba8c0@pcupstairs</a>&gt;&lt;<a href="msg01405.html">p05100300b849c7ec41b7@[163.32.226.179]</a>&gt;&lt;<a href="msg01406.html">001301c18afa$5db16b10$647ba8c0@pcupstairs</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 3:07 PM +0000 12/22/01, Jamie Elliott wrote:
+&gt;Is it simply that the GUI library used in MrEd can't cope with continuations
+&gt;that are invoked across module boundries, or would this continuation thing
+&gt;fail to work in *any* UI system?  I would be bitterly disappointed if the
+&gt;latter were true - when I first realised that there was a connection between
+&gt;continuations and interactive programs, I experienced one of those great
+&gt;&quot;Aha!&quot; moments that all programmers live for.
+
+No, rest assured that it is not intrinsic to a UI system; but there 
+are more obstacles to overcome if you want to do this with DrScheme.
+
+There are the two problems with your implementation, as it stands. 
+First, the currently visible list of windows is not part of the 
+control state, so it isn't grabbed by call/cc. In other words, 
+changing the visibility of a window is an imperative action.  To fix 
+this, I suggest that you make each of the steps in your wizard appear 
+in the same frame and then use dynamic-wind when changing the 
+visibility (restoring the old visibility in the post-thunk).
+
+The second problem is a little more subtle, but the solution to the 
+first problem also overcomes this problem -- read on if you want to 
+understand that continuation invocation error message.
+
+There are dynamic barriers to continuation invocation installed 
+during evaluation. For example, if you grab a continuation on one 
+thread and try to invoke it on another thread, the invocation will 
+fail. The continuation grabbed the control state of the original 
+thread and DrScheme decrees that it can only be restored on that one 
+thread. In principle, this is a bug (or at least a missing feature) 
+but (as I understand it) fixing this is quite complex, due to the 
+implementation technique used for threads. Matthew Flatt can probably 
+explain these details better than I could.
+
+There is a similar barrier installed during nested event handling. To 
+see what that means, I have to tell a little more about how GUI 
+events are handled in DrScheme. For simplicity, what I say below 
+assumes that there is one single eventspace. Once you understand the 
+below, multiple eventspaces are not too hard to generalize to.
+
+There is a single thread that handles all of the events that are 
+triggered. This one thread blocks until an event is ready in the 
+event queue. When an event appears, it finds the corresponding 
+callback, invokes it and blocks again until a new event appears. If 
+you were to grab a continuation on one event callback and invoke it 
+on a subsequent event callback, this would work fine -- the 
+continuation would be delimited at the original event handler and 
+would restore that context on the event where it was invoked (this is 
+what happens when you grab and invoke continuations across prompts in 
+DrScheme's repl).
+
+There is another mode for handling events, however. When a dialog is 
+created or when `yield' is called, DrScheme creates a nested event 
+loop. For example, consider this button's callback:
+
+   (define button% (make-object button% &quot;label&quot; frame (lambda (x y) 
+... (yield) ...))
+
+When the button is clicked, first DrScheme will evaluate the code in 
+the first ellipses. Then, when it gets to the `yield', it starts a 
+nested event handler. This handles some number of events 
+(unspecified, but see the docs on yield for how to control that) and 
+returns. Then, the second set of ellipses is evaluated.
+
+This is how dialogs work. Imagine you choose the file|open menu item 
+of DrScheme. That invokes the menu item callback. It does some work 
+and creates a dialog to ask the user which file to open. But, in 
+order to ask which file, we have to handle more events. Then, when 
+the user has chosen a file, the dialog closes and the rest of the 
+original event (the file|open menu callback) is completed and the 
+window is opened.
+
+There is another barrier installed around the nested event callback. 
+That is, if you grab a continuation and try to invoke it on a nested 
+event callback, the invocation will fail. That's why your program was 
+failing. Here's a shorter example to see what is going on.
+
+;; grab a continuation
+(let ([k (call/cc (lambda (x) x))])
+;; queue an event to invoke the continuation
+   (queue-callback
+    (lambda ()
+      (k #f)))
+;; start a nested event handler (and fail when the queue'd event is handled)
+   (yield (make-semaphore 0)))
+
+Robby
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01403" href="msg01403.html">Using continuations in user-interfaces</a></strong>
+<ul><li><em>From:</em> &quot;Jamie Elliott&quot; &lt;jamie-e@blueyonder.co.uk&gt;</li></ul></li>
+<li><strong><a name="01405" href="msg01405.html">Re: Using continuations in user-interfaces</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="01406" href="msg01406.html">Re: Using continuations in user-interfaces</a></strong>
+<ul><li><em>From:</em> &quot;Jamie Elliott&quot; &lt;jamie-e@blueyonder.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01410.html">Hallo!!!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01412.html">RE: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01406.html">Re: Using continuations in user-interfaces</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01408.html">Re: Using continuations in user-interfaces</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01411"><strong>Date</strong></a></li>
+<li><a href="threads.html#01411"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

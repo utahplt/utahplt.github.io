@@ -1,0 +1,194 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Conway's Game of Life (cellular automata) -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.abegujrfgrea.rqh> -->
+<!--X-Date: Tue, 25 Dec 2001 14:23:44 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112252122.fBPLMLg08076@poincare.math.northwestern.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 00d601c18c3c$02ed5840$0100a8c0@femto -->
+<!--X-Reference: 200112250345.fBP3jRa07123@poincare.math.northwestern.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Conway's Game of Life (cellular automata)</title>
+<link rev="made" href="mailto:richter@math.northwestern.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01426.html">Date Prev</a>][<a href="msg01428.html">Date Next</a>][<a href="msg01426.html">Thread Prev</a>][<a href="msg01428.html">Thread Next</a>][<a href="maillist.html#01427">Date Index</a>][<a href="threads.html#01427">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Conway's Game of Life (cellular automata)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>, <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Subject</em>: Re: Conway's Game of Life (cellular automata)</li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 25 Dec 2001 15:22:21 -0600</li>
+<li><em>cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01426.html">200112250345.fBP3jRa07123@poincare.math.northwestern.edu</a>&gt;(message from Bill Richter on Mon, 24 Dec 2001 21:45:27 -0600)</li>
+<li><em>References</em>: &lt;<a href="msg01423.html">00d601c18c3c$02ed5840$0100a8c0@femto</a>&gt; &lt;<a href="msg01426.html">200112250345.fBP3jRa07123@poincare.math.northwestern.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+    (board-map new-cell-state game-board))
+
+Thanks, Anton &amp; Matthias, I understand now.  I blew 2 principles:
+
+1] Make the high level abstractions independent of the low-level
+implementation details.
+
+2] Solve the Math problem first!
+
+Here's the high-level code, a variation on Anton's, then a Math
+discussion.  This isn't a trivial C program, as I falsely claimed.
+
+(define (next-generation-Life game-board)
+  (let* ((padded-game-board (add-double-white-border game-board))
+         
+         (padded-next-generation (board-map-interior Conway 
+						     padded-game-board)))
+        (trim-blank-borders padded-next-generation)))
+
+
+`add-double-white-border' takes a NxM-dimensional game board and
+returns the (N+4)x(M+4)-dimensional game board obtained by padding
+with 2 layers of white cells on all sides.
+
+`board-map-interior' applies a local cellular automata function (a
+function from 3x3-dimensional game boards to colors) to the compute
+the next generation of the interior of a game board.
+
+`trim-blank-borders game-board' strips off any blank edges (top,
+bottom, left or right) of the border of game-board.
+
+Conway is our local cellular automata function, with possibly this
+implementation-specific definition:
+
+(define (Conway nw n ne
+                w cell e
+                sw s se)
+  ;; Returns new cell value in Conway Game of Life iteration on the cell 
+  ;; whose value is `cell', using Anton's simplified formula:
+  (let ((count (count-surrounding-black-cells nw n ne
+                                               w    e
+                                               sw s se)))  
+    (if (or (= count 3)
+            (and (= count 2) 
+                 (cell-black? here)))
+        black-cell-value
+        white-cell-value)))
+
+
+And then the implementation of game boards &amp; board-map can be done
+either as lists of lists (as I did), or vectors of vectors (matrices),
+or OOP-ishly, where a cell has a state and functions `north', `east'
+... which returns it's nearest neighbors.   
+
+The Math jaw:
+
+A *game board* is a rectangular array of *cells*, and each cell has a
+state (for us, black or white).  A game board is a disjoint union of
+its *border* (union of the edges on top, bottom, left &amp; right) and its
+*interior* (everything else).  Note that an interior cell has 8
+nearest neighbors, and a cell on the border has either 5 (edge) or 3
+(corner) nearest neighbors.  A game board can be &quot;padded&quot; with white
+cells, by adding in a larger border of white cells.
+
+A local cellular automata function takes a 3x3 game board and returns
+the next generation state for the one interior cell.  The local
+function is required to return white for an all-white 3x3 game board.
+
+A cellular automata takes a game board and returns the next
+generation, which is a game board of possibly larger size, by applying
+the local cellular automata function to each cell.  
+
+By the `white-&gt;white' local function requirement, we can embed the
+game board is a larger game board obtained by padding the game board
+with extra white cells.  
+
+We must pad the game board with extra white cells in order to handle
+the border of the game board, and also in order for the game board to
+&quot;grow&quot;: Possibly a cell that's just off the game board (by definition
+white) should change colors on account of the states of cells on the
+border.
+
+My `three-in-row-real?' testing was of marginal value.  Essentially
+the only way to see if the border must be expanded is to compute just
+past the border.  So might as well do that, and then strip off the
+blank edges.  And for a general local cellular automata function, it's
+not clear how to generalize `three-in-row-real?'.  
+
+
+
+So thanks for explaining, and sorry for posting my ignorance so often.
+I was whining I couldn't handle the low-level implementation details,
+and you guys pointed out that my problems were high-level!  Part of it
+was that I assumed that CS folks would know cellular automata much
+better than a pure mathist like me.  I'll post the code when I get it
+finished, or just put it on my web site if I can figure out how.  I
+need to learn Dorai's Slitex or something like that.
+
+I liked the Michelangelo Sistine Chapel Christmas picture in DrScheme!
+Merry Christmas and Happy Hanukkah!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01428" href="msg01428.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01423" href="msg01423.html">RE: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+<li><strong><a name="01426" href="msg01426.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01426.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01428.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01426.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01428.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01427"><strong>Date</strong></a></li>
+<li><a href="threads.html#01427"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

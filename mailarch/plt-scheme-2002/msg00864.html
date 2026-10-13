@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Embebed Mzscheme -->
+<!--X-From-R13: Quevf Gmqnivavf <puevfNngqrfx.pbz> -->
+<!--X-Date: Tue, 7 May 2002 17:17:42 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205072317.g47NHcr11978@plover.atdesk.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87lmavq08j.fsf@localhost.localdomain -->
+<!--X-Reference: 15576.18129.568497.867553@vimes.home.rcc -->
+<!--X-Reference: 878z6vppog.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Embebed Mzscheme</title>
+<link rev="made" href="mailto:chris@atdesk.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00863.html">Date Prev</a>][<a href="msg00865.html">Date Next</a>][<a href="msg00863.html">Thread Prev</a>][<a href="msg00866.html">Thread Next</a>][<a href="maillist.html#00864">Date Index</a>][<a href="threads.html#00864">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Embebed Mzscheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A> (Paulo J. Matos)</li>
+<li><em>Subject</em>: Re: [plt-scheme] Embebed Mzscheme</li>
+<li><em>From</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 7 May 2002 19:17:38 -0400</li>
+<li><em>Cc</em>: Richard Cobbe &lt;<A HREF="mailto:cobbe@airmail.net">cobbe@airmail.net</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: pocm@rnl.ist.utl.pt's message of &quot;07 May 2002 23:18:39 +0100&quot;</li>
+<li><em>Organization</em>: Automated Trading Desk, Inc.</li>
+<li><em>References</em>: &lt;<a href="msg00859.html">87lmavq08j.fsf@localhost.localdomain</a>&gt;&lt;<a href="msg00862.html">15576.18129.568497.867553@vimes.home.rcc</a>&gt;&lt;<a href="msg00863.html">878z6vppog.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/21.1</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+I don't see anywhere where the actual scheme lib is added to your
+compiler options.  (Usually this is with -l, such as -lmzscheme.)
+
+-- 
+Chris
+
+
+
+pocm@rnl.ist.utl.pt (Paulo J. Matos) writes:
+
+&gt; Thx alot Richard... Somehow I think mzscheme and mzgc libs are
+&gt; not enough... I get:
+&gt; bash-2.05$ gcc -o scheme scheme.o -L/usr/local/plt/lib/mzscheme -L/usr/local/plt/lib/mzgc
+&gt; scheme.o: In function `main':
+&gt; scheme.o(.text+0x7): undefined reference to `scheme_basic_env'
+&gt; scheme.o(.text+0x11): undefined reference to `scheme_current_thread'
+&gt; scheme.o(.text+0x36): undefined reference to `scheme_current_thread'
+&gt; scheme.o(.text+0x6e): undefined reference to `scheme_eval_string'
+&gt; scheme.o(.text+0x86): undefined reference to `scheme_display'
+&gt; scheme.o(.text+0x95): undefined reference to `scheme_char_constants'
+&gt; scheme.o(.text+0xa0): undefined reference to `scheme_display'
+&gt; collect2: ld returned 1 exit status
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00866" href="msg00866.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00859" href="msg00859.html">[plt-scheme] Embebed Mzscheme</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+<li><strong><a name="00862" href="msg00862.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+<ul><li><em>From:</em> Richard Cobbe &lt;cobbe@airmail.net&gt;</li></ul></li>
+<li><strong><a name="00863" href="msg00863.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00863.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00865.html">[plt-scheme] scheme for microcontrollers</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00863.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00866.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00864"><strong>Date</strong></a></li>
+<li><a href="threads.html#00864"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [shootout] matrix.scm -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Thu, 4 Apr 2002 18:45:27 &#45;0700 (MST) -->
+<!--X-Message-Id: 043b01c1dc42$8b79c490$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[shootout] matrix.scm</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00686.html">Date Prev</a>][<a href="msg00688.html">Date Next</a>][<a href="msg00692.html">Thread Prev</a>][<a href="msg00688.html">Thread Next</a>][<a href="maillist.html#00687">Date Index</a>][<a href="threads.html#00687">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[shootout] matrix.scm</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [shootout] matrix.scm</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Fri, 5 Apr 2002 03:38:09 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Another bigloo port. Note this is a &quot;do the same thing&quot; test.
+So there are room for MzScheme specific improvements.
+
+/ Jens Axel
+
+
+;; Matrix.scm
+
+(define size 30)
+
+(define (1+ x) (+ x 1))
+
+(define (mkmatrix rows cols)
+  (let ((mx (make-vector rows 0))
+ (count 1))
+    (do ((i 0 (1+ i)))
+ ((= i rows))
+      (let ((row (make-vector cols 0)))
+ (do ((j 0 (1+ j)))
+     ((= j cols))
+   (vector-set! row j count)
+   (set! count (+ count 1)))
+ (vector-set! mx i row)))
+    mx))
+
+(define (num-cols mx)
+  (let ((row (vector-ref mx 0)))
+    (vector-length row)))
+
+(define (num-rows mx)
+  (vector-length mx))
+
+(define (mmult rows cols m1 m2)
+  (let ((m3 (make-vector rows 0)))
+    (do ((i 0 (1+ i)))
+ ((= i rows))
+      (let ((m1i (vector-ref m1 i))
+     (row (make-vector cols 0)))
+ (do ((j 0 (1+ j)))
+     ((= j cols))
+   (let ((val 0))
+     (do ((k 0 (1+ k)))
+  ((= k cols))
+       (set! val (+ val (* (vector-ref m1i k)
+      (vector-ref (vector-ref m2 k) j)))))
+     (vector-set! row j val)))
+ (vector-set! m3 i row)))
+    m3))
+
+(define (matrix-print m)
+  (do ((i 0 (1+ i)))
+      ((= i (num-rows m)))
+    (let ((row (vector-ref m i)))
+      (do ((j 0 (1+ j)))
+   ((= j (num-cols m)))
+ (display (vector-ref row j))
+ (if (&lt; j (num-cols m))
+     (display &quot; &quot;)))
+      (newline))))
+
+(define (print-list . items) (for-each display items) (newline))
+
+(define (main args)
+  (let ((n (or (and (= (vector-length args) 1) (string-&gt;number (vector-ref
+args 0)))
+               1)))
+    (let ((mm 0)
+   (m1 (mkmatrix size size))
+   (m2 (mkmatrix size size)))
+      (let loop ((iter n))
+ (cond ((&gt; iter 0)
+        (set! mm (mmult size size m1 m2))
+        (loop (- iter 1)))))
+      (let ((r0 (vector-ref mm 0))
+     (r2 (vector-ref mm 2))
+     (r3 (vector-ref mm 3))
+     (r4 (vector-ref mm 4)))
+ (print-list (vector-ref r0 0) &quot; &quot; (vector-ref r2 3) &quot; &quot;
+      (vector-ref r3 2) &quot; &quot; (vector-ref r4 4))))))
+
+(main (current-command-line-arguments))
+
+; &gt; matrix 10
+; 270165 1061760 1453695 1856025
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00686.html">[shootout] heapsort.scm</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00688.html">[shootout] moment.scm</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00692.html">Re: [shootout] heapsort.scm</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00688.html">[shootout] moment.scm</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00687"><strong>Date</strong></a></li>
+<li><a href="threads.html#00687"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

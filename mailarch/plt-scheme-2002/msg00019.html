@@ -1,0 +1,157 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: SXML (was: Re: loading additional code) -->
+<!--X-From-R13: Yvevyy Zvfbifxl <yvfbifxlNnpz.bet> -->
+<!--X-Date: Sun, 6 Jan 2002 10:06:54 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.LNX.4.21.0201061156560.1237&#45;100000@elm -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020106115537.A5027@freebsd.hbz.pl -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>SXML (was: Re: loading additional code)</title>
+<link rev="made" href="mailto:lisovsky@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00018.html">Date Prev</a>][<a href="msg00020.html">Date Next</a>][<a href="msg00018.html">Thread Prev</a>][<a href="msg00014.html">Thread Next</a>][<a href="maillist.html#00019">Date Index</a>][<a href="threads.html#00019">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>SXML (was: Re: loading additional code)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Wojciech Sobczuk &lt;<A HREF="mailto:sopel@freebsd.hbz.pl">sopel@freebsd.hbz.pl</A>&gt;</li>
+<li><em>Subject</em>: SXML (was: Re: loading additional code)</li>
+<li><em>From</em>: Kirill Lisovsky &lt;<A HREF="mailto:lisovsky@acm.org">lisovsky@acm.org</A>&gt;</li>
+<li><em>Date</em>: Sun, 6 Jan 2002 12:44:11 +0300 (MSK)</li>
+<li><em>cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00017.html">20020106115537.A5027@freebsd.hbz.pl</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello!
+
+On Sun, 6 Jan 2002, Wojciech Sobczuk wrote:
+
+&gt; 	&lt;mz:sometag a &quot;bcd&quot; e &quot;fgh&quot;&gt; content &lt;/mz:sometag&gt;
+&gt; translates to:
+&gt; 	(sometag 'a &quot;bcd&quot; 'e &quot;fgh&quot; content)
+&gt; 
+
+You may consider SXML also:
+<A  HREF="http://okmij.org/ftp/Scheme/SXML.html">http://okmij.org/ftp/Scheme/SXML.html</A>
+In SXML attribute names may be bound to functions (and evaluated) as well as tag names,
+it provides support for Namespaces and PIs, it is highly suitable for XPath queries, etc.
+An example is below.
+
+On 6 Jan 2002, David N. Welton wrote:
+
+&gt; Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt; writes:
+&gt; 
+&gt; &gt; *AND* i need a nice environment to complete two large web projects
+&gt; &gt; (and i also need to convince others that it's better than PHP which
+&gt; &gt; 'everyone knows')..
+&gt; 
+&gt; If the group here will pardon some slightly off topic comments, I
+&gt; think you need to look at what people like about PHP - to wit, that
+&gt; it's easy to get aquainted with and start using, especially for people
+&gt; who don't have a lot of programming experience, or for those who have
+&gt; seen a little bit of this and that and want to get started quickly.
+SXML proves itself really useful for &quot;quick-start&quot; XML-related projects.
+I'm using it in production for two years, usually with SXPath and SSAX parser.
+
+XML element (which is also valid XHTML element)
+
+&lt;tr align=&quot;left&quot; valign=&quot;top&quot;&gt;
+  &lt;td&gt;&lt;i&gt;First&lt;/i&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;b&gt;Second&lt;/b&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;b&gt;Third&lt;/b&gt;&lt;/td&gt;
+  &lt;td&gt;&lt;a href=&quot;<A  HREF="http://ssax.sf.net&quot">http://ssax.sf.net&quot</A>;&gt;link&lt;/a&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+may be represented in SXML as 
+
+'(tr 
+   (@ (align &quot;left&quot;)       ; List of 
+      (valign &quot;top&quot;))      ; attributes
+   (td (i &quot;First&quot;))  
+   (td (b &quot;Second&quot;))       ; Empty list of attributes may be omitted
+   (td (@) (b &quot;Third&quot;))    ; ... or present, it doesn't matter.
+   (td (a (@ (href &quot;<A  HREF="http://ssax.sf.net&quot">http://ssax.sf.net&quot</A>;)) &quot;link&quot;)))
+
+It may be also queried using SXPath:
+(&quot;node&quot; is S-expression above)
+
+((sxpath '(td b)) node)
+=&gt;  ((b &quot;Second&quot;) (b &quot;Third&quot;))
+
+((sxpath '(td a @ href *text*)) node)
+=&gt;  (&quot;<A  HREF="http://ssax.sf.net&quot">http://ssax.sf.net&quot</A>;)
+
+
+Libraries necessary:
+<A  HREF="http://pair.com/lisovsky/download/ssax/ssax-plt-49.tgz">http://pair.com/lisovsky/download/ssax/ssax-plt-49.tgz</A>
+(it provides a _minimalistic_ example also)
+<A  HREF="http://pair.com/lisovsky/download/SXPathlib.scm">http://pair.com/lisovsky/download/SXPathlib.scm</A>
+
+More information may be found at 
+<A  HREF="http://ssax.sf.net">http://ssax.sf.net</A>
+
+Best regards,
+          Kirill.
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00017" href="msg00017.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00018.html">Re: loading additional code</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00020.html">objects, databases</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00018.html">Re: loading additional code</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00014.html">Re: loading additional code</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00019"><strong>Date</strong></a></li>
+<li><a href="threads.html#00019"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

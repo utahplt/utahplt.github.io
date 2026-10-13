@@ -1,0 +1,265 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Compiling DrScheme 103p1 on Tru64... -->
+<!--X-From-R13: Yra Yyrvare <xraNpf.hzy.rqh> -->
+<!--X-Date: Tue, 28 Aug 2001 09:04:48 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108281504.f7SF4aw263214@saturn.cs.uml.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Compiling DrScheme 103p1 on Tru64...</title>
+<link rev="made" href="mailto:ken@cs.uml.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00837.html">Date Prev</a>][<a href="msg00839.html">Date Next</a>][<a href="msg00847.html">Thread Prev</a>][<a href="msg00839.html">Thread Next</a>][<a href="maillist.html#00838">Date Index</a>][<a href="threads.html#00838">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Compiling DrScheme 103p1 on Tru64...</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Compiling DrScheme 103p1 on Tru64...</li>
+<li><em>From</em>: Ken Kleiner &lt;<A HREF="mailto:ken@cs.uml.edu">ken@cs.uml.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 28 Aug 2001 11:04:36 -0400 (EDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello...
+
+  I was directed to this list by Shiram Krishnamurthi for help with compiling DrScheme on
+Tru64 5.0a/5.1 with the Compaq C/C++ compiler.
+
+  To begin with, I had to modify the plt/src/configure script to take the '-iee_with_inexact' out of
+the CFLAGS definition for OSF1.  Not doing that left me with the following output:
+
+-----
+
+cd mzscheme; make
+make g-c
+cd gc; make gc.a 
+cc  -DNO_SIGNALS -g -iee_with_inexact  -DNO_EXECUTE_PERMISSION -DSILENT -DOLD_BLOCK_ALLOC -DLARGE_CONFIG -o if_mach ./if_mach.c
+ld:
+-iee_with_inexact: Unknown flag
+ld: Usage: ld [options] file [...]
+*** Exit 1
+Stop.
+*** Exit 1
+Stop.
+*** Exit 1
+Stop.
+*** Exit 1
+Stop.
+
+------
+
+  Before I did the configure, I set CC=cc and CXX=cxx to force Compaq C/C++ usage.
+
+  Once I commented out the above CFLAGS def and did a re-configure, the compile chugged along but then
+failed with :
+
+-------------
+
+Script started on Tue Aug 28 11:03:42 2001
+make
+cd mzscheme; make
+make g-c
+cd gc; make gc.a 
+`gc.a' is up to date.
+make libgc.a
+`libgc.a' is up to date.
+make normal-bin
+make dynlib
+cd src; make mzheaders
+cd dynsrc; make dynlib 
+make ../mzdyn.o
+`../mzdyn.o' is up to date.
+make mzlibrary
+cd src; make all 
+make  mzheaders
+make  mzobjects
+make libmzscheme.a
+`libmzscheme.a' is up to date.
+make mzscheme 
+`mzscheme' is up to date.
+cd mred; make
+make wx
+cd ../wxxt/src/x; make
+cd ..; make
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/Application.o ./Utilities/Application.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/Assert.o ./Utilities/Assert.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/BusyCursor.o ./Utilities/BusyCursor.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/Date+Time.o ./Utilities/Date+Time.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/Directory.o ./Utilities/Directory.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/Error.o ./Utilities/Error.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/GDI.o ./Utilities/GDI.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/Home.o ./Utilities/Home.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/Misc.o ./Utilities/Misc.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/Net.o ./Utilities/Net.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/Path.o ./Utilities/Path.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/Resources.o ./Utilities/Resources.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/String.o ./Utilities/String.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Utilities/TempFile.o ./Utilities/TempFile.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Button.o ./Windows/Button.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Canvas.o ./Windows/Canvas.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/CheckBox.o ./Windows/CheckBox.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Choice.o ./Windows/Choice.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/DialogBox.o ./Windows/DialogBox.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Frame.o ./Windows/Frame.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Gauge.o ./Windows/Gauge.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Item.o ./Windows/Item.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Layout.o ./Windows/Layout.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/ListBox.o ./Windows/ListBox.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Menu.o ./Windows/Menu.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/MenuBar.o ./Windows/MenuBar.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Message.o ./Windows/Message.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Panel.o ./Windows/Panel.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/RadioBox.o ./Windows/RadioBox.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Slider.o ./Windows/Slider.cc
+cc -c  -I./../../mzscheme/gc -I./../../wxxt/src/AIAI-include -I./../../wxxt/src -I./../../mred/wxme/ -I./../../mzscheme/include/ -DOPERATOR_NEW_ARRAY -Dwx_xt -g -I./XWidgets -o Windows/Window.o ./Windows/Window.cc
+ar ruv libwx_xt.a XWidgets/xwTabString.o XWidgets/xwTools3d.o XWidgets/xwscroll.o  XWidgets/xwMenu.o  XWidgets/xwMultiList.o XWidgets/xwScrollText.o XWidgets/xwCommon.o XWidgets/xwFrame.o XWidgets/xwBoard.o XWidgets/xwLabel.o XWidgets/xwButton.o XWidgets/xwToggle.o  XWidgets/xwCanvas.o XWidgets/xwEnforcer.o XWidgets/xwGroup.o XWidgets/xwRowCol.o  XWidgets/xwArrow.o XWidgets/xwSlider2.o XWidgets/xwHScrollb.o XWidgets/xwVScrollb.o XWidgets/xwScrollbar.o  XWidgets/xwScrollWin.o Application/AppMain.o Application/GlobalData.o  DataStructures/Object.o DataStructures/TypeTree.o DataStructures/wb_hash.o DataStructures/wb_list.o  DeviceContexts/DC.o DeviceContexts/MemoryDC.o DeviceContexts/PSDC.o DeviceContexts/WindowDC.o  Dialogs/FileDialog.o Dialogs/MessageBox.o  EventHandling/wb_sysev.o EventHandling/wb_stdev.o EventHandling/EvtHandler.o  GDI-Classes/Bitmap.o GDI-Classes/Colour.o GDI-Classes/Font.o GDI-Classes/FontDirectory.o GDI-Classes/Pen+Brush.o  Misc/Clipboard.o Misc/Timer.o !
+ Utilities/Application.o Utilities/Assert.o Utilities/BusyCursor.o Utilities/Date+Time.o Utilities/Directory.o Utilities/Error.o Utilities/GDI.o Utilities/Home.o Utilities/Misc.o Utilities/Net.o Utilities/Path.o Utilities/Resources.o Utilities/String.o Utilities/TempFile.o  Windows/Button.o Windows/Canvas.o Windows/CheckBox.o Windows/Choice.o Windows/DialogBox.o  Windows/Frame.o Windows/Gauge.o Windows/Item.o Windows/Layout.o Windows/ListBox.o Windows/Menu.o Windows/MenuBar.o Windows/Message.o Windows/Panel.o Windows/RadioBox.o Windows/Slider.o Windows/Window.o
+a - Utilities/Application.o
+ar: Error: Utilities/Application.o cannot open
+a - Utilities/Assert.o
+ar: Error: Utilities/Assert.o cannot open
+a - Utilities/BusyCursor.o
+ar: Error: Utilities/BusyCursor.o cannot open
+a - Utilities/Date+Time.o
+ar: Error: Utilities/Date+Time.o cannot open
+a - Utilities/Directory.o
+ar: Error: Utilities/Directory.o cannot open
+a - Utilities/Error.o
+ar: Error: Utilities/Error.o cannot open
+a - Utilities/GDI.o
+ar: Error: Utilities/GDI.o cannot open
+a - Utilities/Home.o
+ar: Error: Utilities/Home.o cannot open
+a - Utilities/Misc.o
+ar: Error: Utilities/Misc.o cannot open
+a - Utilities/Net.o
+ar: Error: Utilities/Net.o cannot open
+a - Utilities/Path.o
+ar: Error: Utilities/Path.o cannot open
+a - Utilities/Resources.o
+ar: Error: Utilities/Resources.o cannot open
+a - Utilities/String.o
+ar: Error: Utilities/String.o cannot open
+a - Utilities/TempFile.o
+ar: Error: Utilities/TempFile.o cannot open
+a - Windows/Button.o
+ar: Error: Windows/Button.o cannot open
+a - Windows/Canvas.o
+ar: Error: Windows/Canvas.o cannot open
+a - Windows/CheckBox.o
+ar: Error: Windows/CheckBox.o cannot open
+a - Windows/Choice.o
+ar: Error: Windows/Choice.o cannot open
+a - Windows/DialogBox.o
+ar: Error: Windows/DialogBox.o cannot open
+a - Windows/Frame.o
+ar: Error: Windows/Frame.o cannot open
+a - Windows/Gauge.o
+ar: Error: Windows/Gauge.o cannot open
+a - Windows/Item.o
+ar: Error: Windows/Item.o cannot open
+a - Windows/Layout.o
+ar: Error: Windows/Layout.o cannot open
+a - Windows/ListBox.o
+ar: Error: Windows/ListBox.o cannot open
+a - Windows/Menu.o
+ar: Error: Windows/Menu.o cannot open
+a - Windows/MenuBar.o
+ar: Error: Windows/MenuBar.o cannot open
+a - Windows/Message.o
+ar: Error: Windows/Message.o cannot open
+a - Windows/Panel.o
+ar: Error: Windows/Panel.o cannot open
+a - Windows/RadioBox.o
+ar: Error: Windows/RadioBox.o cannot open
+a - Windows/Slider.o
+ar: Error: Windows/Slider.o cannot open
+a - Windows/Window.o
+ar: Error: Windows/Window.o cannot open
+*** Exit 1
+Stop.
+*** Exit 1
+Stop.
+*** Exit 1
+Stop.
+*** Exit 1
+Stop.
+*** Exit 1
+Stop.
+script done on Tue Aug 28 11:03:45 2001
+
+
+  Can anybody help with this debugging?  Thanks in advance...
+
+-- 
+Ken Kleiner
+System Manager
+Computer Science Department
+Umass Lowell
+
+voice : 978 934 3645
+fax : 978 934 3551
+
+cell : 603 930 5582 (emergencies only, please)
+
+ken@cs.uml.edu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00839" href="msg00839.html">Re: Compiling DrScheme 103p1 on Tru64...</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00837.html">ICFP Writeup</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00839.html">Re: Compiling DrScheme 103p1 on Tru64...</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00847.html">Re: ICFP Writeup</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00839.html">Re: Compiling DrScheme 103p1 on Tru64...</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00838"><strong>Date</strong></a></li>
+<li><a href="threads.html#00838"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

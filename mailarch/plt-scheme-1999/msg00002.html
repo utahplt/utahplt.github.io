@@ -1,0 +1,194 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Speech extension for DrScheme -->
+<!--X-From-R13: Unel Pvfubc <toNpf.hap.rqh> -->
+<!--X-Date: Wed, 22 Dec 1999 14:08:37 &#45;0700 (MST) -->
+<!--X-Message-Id: 4.2.2.19991222160422.00c43550@imap.cs.unc.edu -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Derived: zip00000.zip -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Speech extension for DrScheme</title>
+<link rev="made" href="mailto:gb@cs.unc.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00001.html">Date Prev</a>][<a href="msg00003.html">Date Next</a>][<a href="msg00001.html">Thread Prev</a>][<a href="msg00003.html">Thread Next</a>][<a href="maillist.html#00002">Date Index</a>][<a href="threads.html#00002">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Speech extension for DrScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Speech extension for DrScheme</li>
+<li><em>From</em>: Gary Bishop &lt;<A HREF="mailto:gb@cs.unc.edu">gb@cs.unc.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 22 Dec 1999 16:08:29 -0500</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I have attached a zip file to this mail message containing source and dlls 
+for a simple extension to DrScheme and friends. This package provides 
+fairly primitive access to the text-to-speech capabilities of the Microsoft 
+Speech API. Here is the doc.txt file, it is also included in the archive.
+
+Anyone is free to use this in any way.
+gb
+
+doc.txt --------------------------------------------------------------------
+An extension to provide a simple interface to the Microsoft Speech API. 
+Specifically,
+the CSTTTSQueue object.
+
+This can probably be done better! I know almost nothing about MzScheme and 
+not much
+more about the SAPI. Suggestions for improvement will be gladly received. I 
+tried to
+mimic the &quot;style&quot; I saw in some other packages as far as function naming 
+and such. If
+these names violate some rules, let me know.
+
+You'll need the Speech SDK 4.0 to compile and use these. It can be 
+downloaded from
+<A  HREF="http://microsoft.com/iit/download/default.htm">http://microsoft.com/iit/download/default.htm</A>
+
+Gary Bishop
+bishop@cs.unc.edu
+
+======================================
+
+PROCEDURES
+
+ &gt; (load-extension &quot;Release/SchemeSpeak.dll&quot;) ; running from the project 
+directory
+
+   Loads the extension and initializes the COM stuff. Returns #t to signal 
+success, #f for
+   failure.
+
+ &gt; (add-voice string)
+
+   Adds a text-to-speech engine to the TTSQueue object. The string names 
+the engine. For
+   example, (add-voice &quot;Mary&quot;) adds the MS TTS engine named Mary to the 
+queue. You need to
+   do this before calling speak if you expect to hear anything. You can do 
+it anytime that
+   speech is stopped. Returns #t for success, #f for failure. Failure is 
+likely caused by
+   either calling it while speech was happening or with the name of an 
+engine that doesn't
+   exist.
+
+ &gt; (speak string1 string2)
+
+   String2 is the text to speak. It should be a complete sentence or 
+paragraph because
+   the engine will assume it is a complete sentence and pause at the end. 
+String1 is the
+   voice to use. This voice should have been previously added. Returns an 
+exact integer
+   sequence number that increases with each call to speak. This function 
+returns immediately,
+   the text is queued and spoken ASAP. You can use the sequence number with 
+functions
+   described below to determine which text has been or is being spoken.
+
+ &gt; (stop-speech)
+
+   Interrupts the speech output and clears the queue. Returns an exact 
+integer that is
+   the sequence number (see speak) of the last buffer thought to have been 
+completely
+   spoken.
+
+ &gt; (speaking?)
+
+   Returns #t if the engine is currently speaking, #f if not.
+
+ &gt; (last-spoken)
+
+   Returns the sequence number of the last text that is thought to have 
+been fully spoken.
+
+ &gt; (now-speaking)
+
+   Returns the sequence number of the text currently being spoken. #f if 
+(speaking?) is #f.
+
+ &gt; (speech-error-message)
+
+   Returns a string that is the last internal error message from the speech 
+system. You can
+   query this when a function returns #f to see what happened.
+
+ &gt; (speech-speed string [ integer ])
+
+   Returns the previous speaking speed in words per minute for the voice 
+specified by the
+   string. If the optional integer is supplied, it sets the new speech speed.
+
+ &gt; (speech-pitch string [ integer ])
+
+   Returns the baseline speech pitch in Hertz. If the optional integer is 
+supplied it sets the
+   new baseline pitch.
+
+ &gt; (speech-volume string [ integer ])
+
+   Returns the baseline speaking volume (0==silent, 65535=full volume). If 
+the optional integer
+   is supplied sets the new baseline volume.</PRE>
+<P><A HREF="zip00000.zip" >ship.zip</A></P>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00003" href="msg00003.html">Speech extension for DrScheme</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00001.html">test again</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00003.html">Speech extension for DrScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00001.html">test again</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00003.html">Speech extension for DrScheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00002"><strong>Date</strong></a></li>
+<li><a href="threads.html#00002"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

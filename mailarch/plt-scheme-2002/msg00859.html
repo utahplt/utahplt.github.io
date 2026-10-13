@@ -1,0 +1,125 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] Embebed Mzscheme -->
+<!--X-From-R13: cbpzNeay.vfg.hgy.cg (Bnhyb X. [ngbf) -->
+<!--X-Date: Tue, 7 May 2002 12:29:28 &#45;0600 (MDT) -->
+<!--X-Message-Id: 87lmavq08j.fsf@localhost.localdomain -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] Embebed Mzscheme</title>
+<link rev="made" href="mailto:pocm@rnl.ist.utl.pt">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00858.html">Date Prev</a>][<a href="msg00860.html">Date Next</a>][<a href="msg00857.html">Thread Prev</a>][<a href="msg00862.html">Thread Next</a>][<a href="maillist.html#00859">Date Index</a>][<a href="threads.html#00859">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] Embebed Mzscheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: [plt-scheme] Embebed Mzscheme</li>
+<li><em>From</em>: <A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A> (Paulo J. Matos)</li>
+<li><em>Date</em>: 07 May 2002 19:30:36 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.09 (Gnus v5.9.0) Emacs/21.2</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi all,
+
+Following the manual &quot;Inside MzScheme&quot; I've passed the example
+in the first pages just to test if embebeding mzscheme is fine in
+my PC... (I mean, if configs are ok) and I've found out that they
+are not. After compiling DrScheme to get libmzscheme.a and
+libmzgc.a as mentioned in the manual I've added
+/usr/local/plt/lib to LD_LIBRARY_PATH and ran ldconfig as root.
+Then I've tried to compile scheme.c (the file containing the
+example) and I get:
+bash-2.05$ gcc -o scheme scheme.o -lmzscheme -lmzgc
+/usr/i386-slackware-linux/bin/ld: cannot find -lmzscheme
+
+This is indeed strange.
+However if I try to solve this by creating symbolic links to:
+libmzscheme.a, libmzscheme.la, libmzgc.a, libmzgc.la I get a LOT
+of undefined reference... I've pasted a few:
+/usr/local/lib/libmzscheme.a(number.o): In function `exp_prim':
+/home/pdestroy/src/plt/src/mzscheme/src/./number.c:1375: undefined reference to `exp'
+/usr/local/lib/libmzscheme.a(number.o): In function `log_prim':
+/home/pdestroy/src/plt/src/mzscheme/src/./number.c:1376: undefined reference to `log'
+&lt;snip&gt;
+/home/pdestroy/src/plt/src/mzscheme/src/./dynext.c:235: undefined reference to `dlopen'
+/home/pdestroy/src/plt/src/mzscheme/src/./dynext.c:237: undefined reference to `dlerror'
+/home/pdestroy/src/plt/src/mzscheme/src/./dynext.c:251: undefined reference to `dlsym'
+
+The other are similar to this one. Anyway, I'm running slackware
+8.0, DrScheme 200alpha12 and plt was installed to /usr/local/plt
+
+Any ideas?
+
+Best regards,
+
+-- 
+Paulo J. Matos : pocm(_at_)rnl.ist.utl.pt
+Instituto Superior Tecnico - Lisbon    
+Software &amp; Computer Engineering - A.I.
+ - &gt; <A  HREF="http://www.rnl.ist.utl.pt/~pocm">http://www.rnl.ist.utl.pt/~pocm</A> 
+ ---	
+	Yes, God had a deadline...
+		So, He wrote it all in Lisp!
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00862" href="msg00862.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+<ul><li><em>From:</em> Richard Cobbe &lt;cobbe@airmail.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00858.html">Re: [plt-scheme] Errors in Release Notes Doc.</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00860.html">[plt-scheme] Documentation System</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00857.html">Re: [plt-scheme] MZScheme on Mac OS</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00862.html">Re: [plt-scheme] Embebed Mzscheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00859"><strong>Date</strong></a></li>
+<li><a href="threads.html#00859"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

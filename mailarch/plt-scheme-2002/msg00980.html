@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Binary file access -->
+<!--X-From-R13: "Elyinva Prhpyre"<flyinva.orhpyre.snpNyvoreglfhes.se> -->
+<!--X-Date: Mon, 27 May 2002 10:57:00 &#45;0600 (MDT) -->
+<!--X-Message-Id: GWS4DJ$6969AE13EBD71DD98CCD96E110630CBA@tiscali.fr -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Binary file access</title>
+<link rev="made" href="mailto:sylvain.beucler.fac@libertysurf.fr">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00979.html">Date Prev</a>][<a href="msg00981.html">Date Next</a>][<a href="msg00985.html">Thread Prev</a>][<a href="msg00996.html">Thread Next</a>][<a href="maillist.html#00980">Date Index</a>][<a href="threads.html#00980">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Binary file access</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] Binary file access</li>
+<li><em>From</em>: &quot;Sylvain Beucler&quot;&lt;<A HREF="mailto:sylvain.beucler.fac@libertysurf.fr">sylvain.beucler.fac@libertysurf.fr</A>&gt;</li>
+<li><em>Date</em>: Mon, 27 May 2002 18:56:07 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The code for binary reading was really interesting (I was
+about to multiply each 'character' by 2^8, 2^16, etc,
+while you used binary left shift on one byte and then
+applied a OR to them).
+
+I do not need to use float numbers, but I also checked
+binary-io.c; I noticed though, that the u32_t hv_read_u32
+function is not complete, and I could not find the
+datatypes.h file needed for compiling. I am not very good
+(even bad) using C so maybe I am wrong.
+
+Now I just have to make Scheme write to files the same way
+- or maybe just try to adapt
+'integer-&gt;integer-byte-string' to v103 if this function
+source is written in Scheme.
+
+
+Thanks for the help,
+
+-- 
+Sylvain Beucler
+sylvain.beucler.fac@libertysurf.fr
+
+&gt; ---------- Initial message -----------
+&gt; 
+&gt; From    : Noel Welsh &lt;noelwelsh@yahoo.com&gt;
+&gt; To      : Sylvain Beucler
+&lt;sylvain.beucler.fac@libertysurf.fr&gt;, 
+plt-scheme@fast.cs.utah.edu
+&gt; Cc      : 
+&gt; Date    : Sat, 25 May 2002 00:42:54 -0700 (PDT)
+&gt; Subject : Re: [plt-scheme] Binary file access
+&gt; 
+&gt; Attached is some code I wrote a while ago to interface
+&gt; with Matlab.  It never got that far but there is some
+&gt; binary IO code for v103 (binary-io.ss).  You need a C
+&gt; compiler to get it all working.
+&gt; 
+&gt; I'd recommend updating to v200 if at all possible. 
+&gt; Otherwise this code may do the job.
+&gt; 
+&gt; Noel
+&gt;   
+&gt; --- Sylvain Beucler
+&gt; &lt;sylvain.beucler.fac@libertysurf.fr&gt; wrote:
+&gt; &gt; Thanks for the reply.
+&gt; &gt; I guess I will have to use v200 then; when is the OS
+&gt; &gt; X 
+&gt; &gt; release planned?
+--------------
+Profitez des 2 offres exceptionnelles Tiscali !
+&quot;Internet Gratuit le Jour&quot; et &quot;Modem ADSL remboursé&quot;
+Cliquez ici, <A  HREF="http://register.tiscali.fr/forfaits_ls/">http://register.tiscali.fr/forfaits_ls/</A>
+Offres soumises à conditions.
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00979.html">[plt-scheme] Problems with srpersist</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00981.html">[plt-scheme] Calling C from Scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00985.html">Re: [plt-scheme] Binary file access</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00996.html">Re: [plt-scheme] Binary file access</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00980"><strong>Date</strong></a></li>
+<li><a href="threads.html#00980"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

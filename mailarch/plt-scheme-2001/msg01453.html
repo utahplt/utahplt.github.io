@@ -1,0 +1,122 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: module questions -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Sat, 29 Dec 2001 12:59:51 &#45;0700 (MST) -->
+<!--X-Message-Id: 15406.8371.987438.495119@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011228084333.D6FC85E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 20011228135708.D467C206FC@sualocin.ccs.neu.edu -->
+<!--X-Reference: 20011229045552.C74D05E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 200112291303.fBTD3kn23767@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: module questions</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01452.html">Date Prev</a>][<a href="msg01454.html">Date Next</a>][<a href="msg01451.html">Thread Prev</a>][<a href="msg01456.html">Thread Next</a>][<a href="maillist.html#01453">Date Index</a>][<a href="threads.html#01453">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: module questions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: module questions</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Sat, 29 Dec 2001 14:59:47 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01451.html">200112291303.fBTD3kn23767@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01439.html">20011228084333.D6FC85E0ED@sith.bbb.caltech.edu</a>&gt;&lt;<a href="msg01442.html">20011228135708.D467C206FC@sualocin.ccs.neu.edu</a>&gt;&lt;<a href="msg01449.html">20011229045552.C74D05E0ED@sith.bbb.caltech.edu</a>&gt;&lt;<a href="msg01451.html">200112291303.fBTD3kn23767@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Dec 29, Matthew Flatt wrote:
+&gt; A way around this problem would be a `require' form that gets only
+&gt; non-syntax from some module, and where all imported names are listed
+&gt; explicitly. In that case, it would not be necessary to consult the
+&gt; imported module at all (until invocation time, to check that the named
+&gt; variables are really exported).
+&gt; 
+&gt; But for now, as we explore the balance between modules and units (just
+&gt; as we continue to explore the balance between functions and objects),
+&gt; leaving mutual recursion to units seems best.
+
+So, wouldn't it be correct to say that the basic reason you can get
+mutual dependencies with units is that they don't handle syntax?  If
+this is true, then it looks like a good reason for allowing some form
+of non-syntax require...
+
+(BTW, wouldn't some implicit way look more elegant? -- like allowing
+such dependency if when tracing the modules there is no dependency
+cycle that involves exported syntax.)
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01456" href="msg01456.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01439" href="msg01439.html">module questions</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="01442" href="msg01442.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01449" href="msg01449.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="01451" href="msg01451.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01452.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01454.html">200alpha6</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01451.html">Re: module questions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01456.html">Re: module questions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01453"><strong>Date</strong></a></li>
+<li><a href="threads.html#01453"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

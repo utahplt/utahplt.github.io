@@ -1,0 +1,125 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: define&#45;macro bug? -->
+<!--X-From-R13: Wggnv Pnynona <vggnvNzey.alh.rqh> -->
+<!--X-Date: Tue, 23 Apr 2002 11:55:02 &#45;0600 (MDT) -->
+<!--X-Message-Id: 1019584744.22964.83.camel@ittai.nyc.rr.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.44.0204231525500.20804&#45;100000@duch.mimuw.edu.pl -->
+<!--X-Reference: 20020423141753.BAA59206F6@sualocin.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: define-macro bug?</title>
+<link rev="made" href="mailto:ittai@mrl.nyu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00785.html">Date Prev</a>][<a href="msg00787.html">Date Next</a>][<a href="msg00783.html">Thread Prev</a>][<a href="msg00775.html">Thread Next</a>][<a href="maillist.html#00786">Date Index</a>][<a href="threads.html#00786">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: define-macro bug?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: define-macro bug?</li>
+<li><em>From</em>: Ittai Balaban &lt;<A HREF="mailto:ittai@mrl.nyu.edu">ittai@mrl.nyu.edu</A>&gt;</li>
+<li><em>Date</em>: 23 Apr 2002 13:59:04 -0400</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00783.html">20020423141753.BAA59206F6@sualocin.ccs.neu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00782.html">Pine.LNX.4.44.0204231525500.20804-100000@duch.mimuw.edu.pl</a>&gt; &lt;<a href="msg00783.html">20020423141753.BAA59206F6@sualocin.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Things are clearer (excluding the 'S-expression macros from the
+alchemists days of macro usage', which, I assume is from before my
+time).
+
+Thanks.
+
+Ittai
+
+&gt;   Welcome to DrScheme, version 200alpha17-cvs23apr2002.
+&gt;   Language: Full.
+&gt;   &gt; (module a mzscheme 
+&gt;       (require (lib &quot;defmacro.ss&quot;))
+&gt;       (provide egg)
+&gt;       (define foo 'in-a)
+&gt;       (define-macro egg (lambda (x) 'foo)))
+&gt;   &gt; (module b mzscheme
+&gt;       (require a)
+&gt;       (define foo 'in-b-because-these-macros-are-neither-hygienic-nor-scope)
+&gt;       (display (egg 5))
+&gt;       (newline))
+&gt;   &gt; (require b)
+&gt;   in-b-because-these-macros-are-neither-hygienic-nor-scope
+&gt; 
+&gt; or 
+&gt;  
+&gt;   Welcome to DrScheme, version 200alpha17-cvs23apr2002.
+&gt;   Language: Full.
+&gt;   &gt; (define foo 'in-b-because-these-macros-are-neither-hygienic-nor-scope)
+&gt;   &gt; (define-macro egg (lambda (x) 'foo))
+&gt;   &gt; (display (egg 5))
+&gt;   in-b-because-these-macros-are-neither-hygienic-nor-scope
+&gt; 
+&gt; Again the key is that macros and values are phase separated. If you want
+&gt; foo, think S-expression macros from the alchemists days of macro usage. 
+&gt; 
+&gt; -- Matthias
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00782" href="msg00782.html">Re: define-macro bug?</a></strong>
+<ul><li><em>From:</em> Zbyszek Jurkiewicz &lt;zbyszek@duch.mimuw.edu.pl&gt;</li></ul></li>
+<li><strong><a name="00783" href="msg00783.html">Re: define-macro bug?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00785.html">SAS'02 CFP Reminder -- Submission Deadline May 5, 2002</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00787.html">Re: module: How to specify indirect exports positively?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00783.html">Re: define-macro bug?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00775.html">SREIS 2002, CFP</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00786"><strong>Date</strong></a></li>
+<li><a href="threads.html#00786"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

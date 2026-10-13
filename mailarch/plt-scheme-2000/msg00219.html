@@ -1,0 +1,104 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [Q] units and macros in MzScheme -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fuevenzNpf.evpr.rqh> -->
+<!--X-Date: Sat, 25 Mar 2000 09:41:23 &#45;0700 (MST) -->
+<!--X-Message-Id: 14556.60345.177121.531155@sun.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200003250327.TAA22277@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[Q] units and macros in MzScheme</title>
+<link rev="made" href="mailto:shriram@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00218.html">Date Prev</a>][<a href="msg00220.html">Date Next</a>][<a href="msg00218.html">Thread Prev</a>][<a href="msg00220.html">Thread Next</a>][<a href="maillist.html#00219">Date Index</a>][<a href="threads.html#00219">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[Q] units and macros in MzScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></li>
+<li><em>Subject</em>: [Q] units and macros in MzScheme</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 25 Mar 2000 10:41:19 -0600 (CST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00216.html">200003250327.TAA22277@balu.qualcomm.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00216.html">200003250327.TAA22277@balu.qualcomm.com</a>&gt;</li>
+<li><em>Reply-To</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Leo,
+
+&gt; Can one define a macro inside a unit and then export/import it to another
+&gt; unit or into the global namespace?
+
+This isn't a dumb question at all.  The problem is what to do with the 
+names that the macro depends on.  For instance, the `delay' macro
+depends on `make-promise'.  If you export one and not the other, the
+macro will no longer work.  Furthermore, it's not clear what it means
+to export a *macro* (as opposed to the procedure that implements a
+macro), because macros are compile-time entities, whereas units import 
+and export run-time values (roughly).
+
+If you want more details on the problems and want to read a draft
+paper on the solution, send me email and I'll point you to it.
+
+'shirram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00216" href="msg00216.html">[Q] units and macros in MzScheme</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00218.html">Re: [Q] units and macros in MzScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00220.html">change in the stepper / cvs archive</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00218.html">Re: [Q] units and macros in MzScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00220.html">change in the stepper / cvs archive</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00219"><strong>Date</strong></a></li>
+<li><a href="threads.html#00219"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

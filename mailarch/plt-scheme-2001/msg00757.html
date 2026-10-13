@@ -1,0 +1,203 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: bytecode unification for scripting languages -->
+<!--X-From-R13: "Euevenz Yevfuanzheguv" <fxNpf.oebja.rqh> -->
+<!--X-Date: Thu, 9 Aug 2001 18:46:16 &#45;0600 (MDT) -->
+<!--X-Message-Id: BCEOLHKHFMDPNMEKEAECKEEMCAAA.sk@cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 009501c11fc7$5bb758e0$0100a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: bytecode unification for scripting languages</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00756.html">Date Prev</a>][<a href="msg00758.html">Date Next</a>][<a href="msg00749.html">Thread Prev</a>][<a href="msg00780.html">Thread Next</a>][<a href="maillist.html#00757">Date Index</a>][<a href="threads.html#00757">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: bytecode unification for scripting languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;plt-scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: bytecode unification for scripting languages</li>
+<li><em>From</em>: &quot;Shriram Krishnamurthi&quot; &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 9 Aug 2001 20:48:02 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00749.html">009501c11fc7$5bb758e0$0100a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi Anton and others,
+
+&gt; &gt; Lookit, the same goes for standard hardware, but I don't see anyone
+&gt; &gt; arguing that the x86 or SPARC is inappropriate for Scheme.
+&gt;
+&gt; Actually, people have argued that, which is why they bothered trying to
+&gt; build, for example, LISP chips.
+
+Yes, I know, which is why I keep a LISP machine in my office
+(<A  HREF="http://www.cs.rice.edu/~shriram/LispM/">http://www.cs.rice.edu/~shriram/LispM/</A>), and parade my undergrads
+before it regularly -- to remind them of this possibility and to tweak
+their notions of what's underneath.
+
+But their &quot;relative failure&quot; has as much to do with technical failure
+as marketing failure.  My LispM was built a year before the seminal
+paper on generational GC was written.  Guess what the most effective
+GC technique on my machine is?  Power cycling.  Likewise, if someone
+had invented a Scheme chip in 1989, they would have missed out on
+Dybvig, Hieb and Bruggeman's amortized-constant-time CALL/CC
+implementation.  Etc, etc.  But that's hardware, with very high base
+costs for production, which isn't germane to this discussion.
+
+&gt; When you compile something to machine code, it becomes difficult for it to
+&gt; interoperate with things compiled to machine code by other languages or
+&gt; tools, primarily because of the lack of commonality between the compilers
+&gt; and runtimes of different languages.
+
+I could be missing something huge, but no, I don't think that's true
+at all.
+
+What is interoperability?  It's the ability to share DATA between
+programs in different languages.  Data are values in a run-time system
+(at least in value-oriented languages, such as scripting languages).
+So what does it take to share these?  The languages (really, their
+implementations) need to agree on a common space in which to create
+values, a common technique for reclaiming values, and a common manner
+for representing values that can be shared between these languages.
+
+Machine code vs bytecode is entirely orthogonal to this capability.
+That is simply a question of how code is distributed and run.  A VM
+could just as well dynamically load DLLs or .o files or whatever --
+binaries, in short, that can reside in the same address space.  So
+long as it provides them with consistent allocators, and the compilers
+that generated these binaries agreed on value representation, and they
+all register appropriately with the GC, these binary code fragments
+could just as easily interoperate.
+
+What role does bytecode play here?  It makes it a *heck* of a lot
+easier to implement this system, especially in a cross-platform
+manner.  It also makes it possible to generate a single object program
+that works on all platforms.  Well, the latter problem can be solved
+with a level of indirection.  And the former?  Heck, if this is going
+to be the single run-time system I use, I don't *want* it to be easy
+for the implementor to write!  I want it to be extremely hard, so long
+as that complexity buys me something (which it does, here).
+
+&gt;					Enormous and complex standards have
+&gt; been developed to address this problem from the outside: CORBA,
+&gt; for example.
+
+CORBA does something much more complex.  It lets programs interoperate
+*across* address spaces, even permitting them to interoperate across
+physical machines and networks.  I don't think its complexity is
+comparable to what we're talking about.
+
+&gt; This point was raised in the original post in this thread, by Michael
+&gt; Vanier:
+&gt;
+&gt; &gt; A unified bytecode could be an enormous win for everyone; imagine being
+&gt; able
+&gt; &gt; to seamlessly use libraries for other scripting languages from within
+&gt; DrScheme,
+&gt; &gt; for instance.
+&gt;
+&gt; [Perhaps the term &quot;unified bytecode&quot; should be changed to
+&gt; &quot;unified runtime&quot;,
+&gt; which includes the bytecode.]
+
+(1) A runtime does not automatically presume a bytecode.  If I'm not
+mistaken, Xerox's PCR did not use any special bytecode representation.
+(Even if it did, the primary point stands.)
+
+(2) The real problem here is coming up with a unified bytecode that
+includes enough to please everyone.
+
+&gt; &gt; In the end, what's the point here?
+&gt;
+&gt; One point, I would have thought, is to advance the state of the art.
+
+Obviously, I have no objection to advancing the state of the art;
+indeed, my job offer letter may very well have said I'm expected to do
+something of the sort (-:.  But please, tell me where the innovation
+is here.  Designing a VM is a surprisingly painful and difficult
+experience.  Even all the expertise of Sun and MS haven't dealt with
+the many complex issues that arise (see Bill Pugh's amazing work on
+memory models, for instance) -- and that's even when dealing
+explicitly with only one language (as in the JVM case).  It seems a
+lot more productive to copy the hard work than try to create a new
+context in which *the same work* needs to be done all over again.
+
+I'll tell you where I think the win is going to be: in designing
+domain-specific VMs.  Look at what the Curl folks have done; it's very
+neat work.  Or pick another programming language -- Macromedia Flash.
+(Indeed, Flash is reputed to now be in 97% of the world's browsers.)
+I just don't see &quot;scripting&quot; (which I think is a bogus notion anyway)
+as a driving domain.  You're much more likely to get far by picking
+something interesting and creating a VM for it.  Use a *use*, rather
+than some (particularly in this case, ill-defined) *technology*, as
+the driving force.
+
+Cheers,
+Shriram
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00780" href="msg00780.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00749" href="msg00749.html">RE: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00756.html">RE: lisp v. scheme macros</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00758.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00749.html">RE: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00780.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00757"><strong>Date</strong></a></li>
+<li><a href="threads.html#00757"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

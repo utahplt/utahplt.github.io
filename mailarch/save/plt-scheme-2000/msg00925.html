@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Environments vs. Namespaces -->
+<!--X-From-R13: "Rnivq Exbhcvy" <fxbhcvyNhcby.pm> -->
+<!--X-Date: Wed, 27 Sep 2000 08:41:58 &#45;0600 (MDT) -->
+<!--X-Message-Id: 002501c02891$11b88c10$9c50c29e@inf.upol.cz -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Environments vs. Namespaces</TITLE>
+<LINK REV="made" HREF="mailto:skoupil@upol.cz">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00924.html">Date Prev</A>][<A HREF="msg00926.html">Date Next</A>][<A HREF="msg00924.html">Thread Prev</A>][<A HREF="msg00926.html">Thread Next</A>][<A HREF="maillist.html#00925">Date Index</A>][<A HREF="threads.html#00925">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Environments vs. Namespaces</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Environments vs. Namespaces</LI>
+<LI><em>From</em>: "David Skoupil" &lt;<A HREF="mailto:skoupil@upol.cz">skoupil@upol.cz</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 27 Sep 2000 16:41:49 +0200</LI>
+<LI><em>Organization</em>: Palacky Univeristy</LI>
+<LI><em>Reply-To</em>: "David Skoupil" &lt;<A HREF="mailto:skoupil@upol.cz">skoupil@upol.cz</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi,
+
+at our university, we are switching from MIT-Scheme to Dr.Scheme. We got
+quite confused about the notion "namespace" and its relation to
+"environment". For example, in the following case we expect to get answer
+"10" but we get answer "1".
+
+(define a 1)
+(define e
+    (let ((a 10))
+       (current-namespace)))
+(eval 'a e)
+
+Clearly, current-namespace in PLT is not the same thing as
+the-environment in MIT Scheme.
+
+What are we missing?
+
+Thanks for any help.
+
+David.
+-----------------------------------------------
+David Skoupil
+Palacky University
+skoupil@upol.cz
+www.upol.cz/~skoupil
+
+
+&gt; 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00926" HREF="msg00926.html">Re: Environments vs. Namespaces</A></STRONG>
+<UL><LI><EM>From:</EM> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00924.html">103.1</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00926.html">Re: Environments vs. Namespaces</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00924.html">103.1</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00926.html">Re: Environments vs. Namespaces</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00925"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00925"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

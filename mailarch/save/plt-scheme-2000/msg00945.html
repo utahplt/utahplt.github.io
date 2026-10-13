@@ -1,0 +1,105 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: MzScheme in a multi&#45;threading environment -->
+<!--X-From-R13: Pynxr [pPevqr <oynxrNsybevqn&#45;fbsgjner.pbz> -->
+<!--X-Date: Wed, 4 Oct 2000 09:42:45 &#45;0600 (MDT) -->
+<!--X-Message-Id: 4.1.20001004103903.03d3f740@florida&#45;software.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>MzScheme in a multi-threading environment</TITLE>
+<LINK REV="made" HREF="mailto:blake@florida-software.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00944.html">Date Prev</A>][<A HREF="msg00946.html">Date Next</A>][<A HREF="msg00944.html">Thread Prev</A>][<A HREF="msg00948.html">Thread Next</A>][<A HREF="maillist.html#00945">Date Index</A>][<A HREF="threads.html#00945">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>MzScheme in a multi-threading environment</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: MzScheme in a multi-threading environment</LI>
+<LI><em>From</em>: Blake McBride &lt;<A HREF="mailto:blake@florida%2Dsoftware.com">blake@florida-software.com</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 04 Oct 2000 10:43:02 -0500</LI>
+<LI><em>Cc</em>: "Gary L. Pendleton" &lt;<A HREF="mailto:GPendleton@integra%2Donline.com">GPendleton@integra-online.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+We use MzScheme as a scripting extension language for our Windows
+based C application (i.e. MzScheme is embedded in our application).  
+We have been using it for several years with a lot of success.  Recently, 
+we had a need to use native threads within our application so we rebuilt 
+MzScheme with WIN32 Threads.  Unfortunately, once we did this when 
+we called MzScheme from within the app as we've always done the 
+system would bomb.  
+
+After considerable effort and time we discovered that if MzScheme is called
+by an application and Win32 Threads is used the application must call
+DllMain in order to initialize the system for multi thread use.  Now that we
+call that first the system seems to work fine.  This leads me to some
+questions.
+
+1.  Are we doing it correctly now?  Is there anything else we should be doing?
+
+2.  Is this documented somewhere?
+
+Thanks!
+
+Blake McBride 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00948" HREF="msg00948.html">Re: MzScheme in a multi-threading environment</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00944.html">RE: international users</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00946.html">WX_XT</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00944.html">RE: international users</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00948.html">Re: MzScheme in a multi-threading environment</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00945"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00945"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

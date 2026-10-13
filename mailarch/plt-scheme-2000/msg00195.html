@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Error with WITH&#45;HANDLER+UNIT? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 14 Mar 2000 09:22:59 &#45;0700 (MST) -->
+<!--X-Message-Id: 200003141622.JAA13576@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000b01bf8dce$4b3d4830$11969fd0@fitzgerald_nt -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Error with WITH-HANDLER+UNIT?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00194.html">Date Prev</a>][<a href="msg00196.html">Date Next</a>][<a href="msg00193.html">Thread Prev</a>][<a href="msg00196.html">Thread Next</a>][<a href="maillist.html#00195">Date Index</a>][<a href="threads.html#00195">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Error with WITH-HANDLER+UNIT?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:fitzgerald@neodesic.com">fitzgerald@neodesic.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Error with WITH-HANDLER+UNIT?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 14 Mar 2000 09:22:55 -0700 (MST)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00193.html">000b01bf8dce$4b3d4830$11969fd0@fitzgerald_nt</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00193.html">000b01bf8dce$4b3d4830$11969fd0@fitzgerald_nt</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Will Fitzgerald&quot;:
+&gt; 
+&gt; This code fragment catches an error and returns it:
+&gt; 
+&gt; &gt; (with-handlers
+&gt;     ((identity identity))
+&gt;      (/ 1 0))
+&gt; #&lt;struct:exn:application:divide-by-zero&gt;
+
+Divide-by-zero is a run-time error. Similarly, in plain old Scheme,
+detection of an undefined global is performed only when the variable is
+referenced at run-time:
+
+ &gt; (with-handlers
+     ((identity identity))
+     nodefined)
+ #&lt;struct:exn:variable&gt;
+
+However, the `unit' form *syntactically* disallows free variables.
+
+&gt; But this doesn't catch the error UNIT throws
+&gt; 
+&gt; &gt; (with-handlers
+&gt;     ((identity identity))
+&gt;      (unit (import) (export) some-unknown-variable))
+&gt; 
+&gt; unit: used an unbound or non-primitive global in: some-unknown-variable
+
+In this case, the exception is raised by the compiler when it sees the
+`(with-handlers ...)' expression, not when evaluating the `(unit ...)'
+sub-expression or the body of the unit. The exception is raised and
+passed to the REPL, which was trying to eval the `(with-handlers ...)'
+expression.
+
+Compare to
+
+ &gt; (with-handlers
+     ((identity identity))
+     (eval '(unit (import) (export) some-unknown-variable)))
+ #&lt;struct:exn:syntax&gt;
+
+In this case, the `(with-handlers ...)' expression is succesfully
+compiled and then evaluated. In the process of evaluation, the
+expression asks that `(unit ...)' is compiled and evaluated. But the
+`(unit ...)' experssion is syntactically ill-formed, so an exception is
+raised in the call to `eval'.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00196" href="msg00196.html">A utility for checking for unbound variables.</a></strong>
+<ul><li><em>From:</em> &quot;Will Fitzgerald&quot; &lt;fitzgerald@neodesic.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00193" href="msg00193.html">Error with WITH-HANDLER+UNIT?</a></strong>
+<ul><li><em>From:</em> &quot;Will Fitzgerald&quot; &lt;fitzgerald@neodesic.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00194.html">exceptions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00196.html">A utility for checking for unbound variables.</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00193.html">Error with WITH-HANDLER+UNIT?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00196.html">A utility for checking for unbound variables.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00195"><strong>Date</strong></a></li>
+<li><a href="threads.html#00195"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

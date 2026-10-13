@@ -1,0 +1,121 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Undesired behaviour of current&#45;directory parameter -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 2 Oct 2001 10:28:50 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110021628.KAA08750@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87itdz325f.fsf@lynx.ionific.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Undesired behaviour of current-directory parameter</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00955.html">Date Prev</a>][<a href="msg00957.html">Date Next</a>][<a href="msg00945.html">Thread Prev</a>][<a href="msg00950.html">Thread Next</a>][<a href="maillist.html#00956">Date Index</a>][<a href="threads.html#00956">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Undesired behaviour of current-directory parameter</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Undesired behaviour of current-directory parameter</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 2 Oct 2001 10:28:47 -0600 (MDT)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00945.html">87itdz325f.fsf@lynx.ionific.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00945.html">87itdz325f.fsf@lynx.ionific.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Hannu Koivisto:
+&gt; It seems that current-directory parameter works so that setting the
+&gt; parameter doesn't actually change process' current directory
+&gt; immediately but it is changed when one, for example, runs an
+&gt; external application. 
+
+True. The reason is that `current-directory' is thread-specific, but
+Windows's working directory is process-specific.
+
+&gt; This seems to fall apart in the following
+&gt; situation:
+&gt; 
+&gt; (define temp-dir &quot;some-directory-that-does-not-exist-yet&quot;)
+&gt; (make-directory temp-dir)
+&gt; (parameterize ((current-directory temp-dir))
+&gt;   (system* ...))
+&gt; (delete-directory temp-dir)
+&gt;
+&gt; What happens is that delete-directory fails because mzscheme
+&gt; process is using the directory that is being deleted.
+
+Yep.
+
+&gt; Perhaps delete-directory should be modified to set process' current
+&gt; directory from the corresponding parameter or the whole method
+&gt; should be changed so that the current directory of the process is
+&gt; changed immediately when the parameter is set?
+
+That sounds like a good idea.
+
+I don't suppose anyone can think of other OS-level operations that are
+sensitive to the current directory setting? (I would never have thought
+of `delete-directory'.)
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00945" href="msg00945.html">Undesired behaviour of current-directory parameter</a></strong>
+<ul><li><em>From:</em> Hannu Koivisto &lt;azure@iki.fi&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00955.html">Re: Webserver &amp; Server Side Includes</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00957.html">Re: reader config (was 199.22)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00945.html">Undesired behaviour of current-directory parameter</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00950.html">Webserver &amp; Server Side Includes</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00956"><strong>Date</strong></a></li>
+<li><a href="threads.html#00956"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

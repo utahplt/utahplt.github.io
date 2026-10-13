@@ -1,0 +1,142 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Introductory material on hygienic macros in dr scheme -->
+<!--X-From-R13: "Bvrecnbyb PSD@ODRW" <oreaneqcNQZW.RW.Gavcv.WF> -->
+<!--X-Date: Tue, 29 Jan 2002 06:36:52 &#45;0700 (MST) -->
+<!--X-Message-Id: 009801c1a8c9$c7d4f600$02fed8d4@c1p4e3 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 030001c1a879$3b61aa10$450c1eac@icu19 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Introductory material on hygienic macros in dr scheme</title>
+<link rev="made" href="mailto:bernardp@CLI.DI.Unipi.IT">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00162.html">Date Prev</a>][<a href="msg00164.html">Date Next</a>][<a href="msg00161.html">Thread Prev</a>][<a href="msg00164.html">Thread Next</a>][<a href="maillist.html#00163">Date Index</a>][<a href="threads.html#00163">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Introductory material on hygienic macros in dr scheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Chris Wright&quot; &lt;<A HREF="mailto:caw@cs.mu.oz.au">caw@cs.mu.oz.au</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Introductory material on hygienic macros in dr scheme</li>
+<li><em>From</em>: &quot;Pierpaolo BERNARDI&quot; &lt;<A HREF="mailto:bernardp@CLI.DI.Unipi.IT">bernardp@CLI.DI.Unipi.IT</A>&gt;</li>
+<li><em>Date</em>: Tue, 29 Jan 2002 14:35:02 +0100</li>
+<li><em>References</em>: &lt;<a href="msg00159.html">030001c1a879$3b61aa10$450c1eac@icu19</a>&gt;</li>
+<li><em>Reply-To</em>: &quot;Pierpaolo BERNARDI&quot; &lt;<A HREF="mailto:bernardp@CLI.DI.Unipi.IT">bernardp@CLI.DI.Unipi.IT</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+From: &quot;Chris Wright&quot; &lt;caw@cs.mu.oz.au&gt;
+&gt; I guess I'm looking for something a little more gentle than what's in the
+&gt; help desk, that might show show some &quot;old-style&quot;  common lisp macros would
+&gt; look if converted to the r5 style:
+
+'The Scheme Programming Language' and
+'Chez Scheme User Guide'  contains two good
+chapters on macros. Both are available from
+www.scheme.com.
+
+&gt; eg:
+&gt;
+&gt; (defmacro while (test &amp;rest body)
+&gt;     `(do ()
+&gt;         ((not ,test))
+&gt;        ,@body))
+
+(define-syntax while
+  (syntax-rules ()
+    ((_ test expr ...)
+     (do ()
+  ((not test))
+       expr ...))))
+
+===========
+
+I have a question myself on macros.
+mzscheme 200alpha9 gives:
+
+&gt; (let-syntax ((foo
+  (syntax-rules ()
+    ((_ x) (bar x)))))
+    (define x 33))
+begin (possibly implicit): no expression after a sequence of internal
+definitions in: ((define x 33))
+
+While the same expression works in Chez, where the (define x ...) is
+considered
+top level.
+
+&gt;From reading the r5rs is not clear to me which behaviour is correct.
+
+I have some code that depends on the Chez behaviour, and I am
+wondering if I had it working only by luck.
+
+Cheers,
+  Pierpaolo
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00164" href="msg00164.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+<ul><li><em>From:</em> &quot;Pierpaolo BERNARDI&quot; &lt;bernardp@CLI.DI.Unipi.IT&gt;</li></ul></li>
+<li><strong><a name="00166" href="msg00166.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00159" href="msg00159.html">Introductory material on hygienic macros in dr scheme</a></strong>
+<ul><li><em>From:</em> &quot;Chris Wright&quot; &lt;caw@cs.mu.oz.au&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00162.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00164.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00161.html">RE: Introductory material on hygienic macros in dr scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00164.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00163"><strong>Date</strong></a></li>
+<li><a href="threads.html#00163"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

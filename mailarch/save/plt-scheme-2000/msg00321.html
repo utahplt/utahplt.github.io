@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: cgi.ss, fastcgi.scm, and environment variables -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fuevenzNpf.evpr.rqh> -->
+<!--X-Date: Wed, 7 Jun 2000 15:38:34 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14654.49167.315508.631179@sun.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: m1og5dshhb.fsf@biblio08.fciencias.unam.mx -->
+<!--X-Reference: 14654.38402.445431.314145@sun.cs.rice.edu -->
+<!--X-Reference: m1ln0hnrtq.fsf@biblio08.fciencias.unam.mx -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: cgi.ss, fastcgi.scm, and environment variables</TITLE>
+<LINK REV="made" HREF="mailto:shriram@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00320.html">Date Prev</A>][<A HREF="msg00322.html">Date Next</A>][<A HREF="msg00320.html">Thread Prev</A>][<A HREF="msg00322.html">Thread Next</A>][<A HREF="maillist.html#00321">Date Index</A>][<A HREF="threads.html#00321">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: cgi.ss, fastcgi.scm, and environment variables</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</LI>
+<LI><em>Subject</em>: Re: cgi.ss, fastcgi.scm, and environment variables</LI>
+<LI><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Wed,  7 Jun 2000 16:38:26 -0500 (CDT)</LI>
+<LI><em>Cc</em>: PLT &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00320.html">m1ln0hnrtq.fsf@biblio08.fciencias.unam.mx</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00318.html">m1og5dshhb.fsf@biblio08.fciencias.unam.mx</A>&gt;&lt;<A HREF="msg00319.html">14654.38402.445431.314145@sun.cs.rice.edu</A>&gt;&lt;<A HREF="msg00320.html">m1ln0hnrtq.fsf@biblio08.fciencias.unam.mx</A>&gt;</LI>
+<LI><em>Reply-To</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Francisco Solsona wrote:
+
+&gt; Every word you say here is true, but I bet that most people who will
+&gt; try to use fastcgi.ss will also want to use the CGI collection. And
+&gt; WIBNI the README accompanying fastcgi had a warning message or
+&gt; something? or even better: WIBNI there were a "PLT Scheme: contributed
+&gt; code FAQ" answering most of the questions people find when using
+&gt; non-standard extensions? :-)
+
+It would indeed all be nice.  For now, I have added the following
+blurb to the CGI library's documentation:
+
+  INTERACTIONS ---------------------------------------------------------
+
+  The CGI library expects to be run in a certain context as defined by
+  the CGI standard.  This means, for instance, that certain environment
+  variables will be bound.  Unfortunately, not all CGI environments
+  provide this.  For instance, the FastCGI library, despite its name,
+  does not bind the environment variables required of the standard.
+  Users of FastCGI will need to bind REQUEST_METHOD and possibly also
+  QUERY_STRING to successfully employ the CGI library.  The FastCGI
+  library ought to provide a way to extract the values bound to
+  these variables; the user can then put these into the CGI program's
+  environment using PLT Scheme's `putenv' function.
+
+It's not much, but I hope it helps.
+
+You should probably write to the authors of FastCGI and complain about
+their documentation ...
+
+'shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00318" HREF="msg00318.html">cgi.ss, fastcgi.scm, and environment variables</A></STRONG>
+<UL><LI><EM>From:</EM> Francisco Solsona &lt;solsona@acm.org&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00319" HREF="msg00319.html">cgi.ss, fastcgi.scm, and environment variables</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00320" HREF="msg00320.html">Re: cgi.ss, fastcgi.scm, and environment variables</A></STRONG>
+<UL><LI><EM>From:</EM> Francisco Solsona &lt;solsona@acm.org&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00320.html">Re: cgi.ss, fastcgi.scm, and environment variables</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00322.html">102/16</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00320.html">Re: cgi.ss, fastcgi.scm, and environment variables</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00322.html">102/16</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00321"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00321"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

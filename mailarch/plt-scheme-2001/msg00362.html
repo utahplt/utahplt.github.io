@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: About error catching -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 7 Mar 2001 18:29:42 &#45;0700 (MST) -->
+<!--X-Message-Id: 200103080129.f281TRj25785@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 5.0.0.25.0.20010307180410.00a8dbd8@mpop.netlink.co.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: About error catching</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00361.html">Date Prev</a>][<a href="msg00363.html">Date Next</a>][<a href="msg00361.html">Thread Prev</a>][<a href="msg00363.html">Thread Next</a>][<a href="maillist.html#00362">Date Index</a>][<a href="threads.html#00362">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: About error catching</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Scorzelli Giorgio &lt;<A HREF="mailto:scr.giorgio@cogesic.it">scr.giorgio@cogesic.it</A>&gt;</li>
+<li><em>Subject</em>: Re: About error catching</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 7 Mar 2001 18:29:27 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00361.html">5.0.0.25.0.20010307180410.00a8dbd8@mpop.netlink.co.uk</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00361.html">5.0.0.25.0.20010307180410.00a8dbd8@mpop.netlink.co.uk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Scorzelli Giorgio:
+&gt;          if (scheme_setjmp(scheme_error_buf)){
+&gt;                  //ERROR-&gt;I simply ignore it at the moment!
+&gt;          }else {
+&gt;                  Scheme_Object *v=scheme_eval_string(str, mySchemeEnv);
+&gt;                  scheme_display(v,curout);
+&gt;                  scheme_eval_string(&quot;(newline)&quot;,mySchemeEnv);
+&gt;          }
+&gt; [...]
+&gt; 
+&gt; could case strange thinks to my program. I mean: in windows (2000) I get an 
+&gt; error message (first by the debugger, finally by a &quot;fatal error&quot;) when I 
+&gt; exit from &quot;Myfunction&quot; method.
+
+I imagine it only crashes when there's a Scheme error, so a longjmp
+happens?
+
+It's possible that MzScheme's setjmp doesn't get along with the setjmp
+that your embedding application uses (perhaps if it relies on C++
+exceptions or Windows's exception mechanism).
+
+It's not a problem that I've seen before, though.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00361" href="msg00361.html">About error catching</a></strong>
+<ul><li><em>From:</em> Scorzelli Giorgio &lt;scr.giorgio@cogesic.it&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00361.html">About error catching</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00363.html">&quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00361.html">About error catching</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00363.html">&quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00362"><strong>Date</strong></a></li>
+<li><a href="threads.html#00362"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

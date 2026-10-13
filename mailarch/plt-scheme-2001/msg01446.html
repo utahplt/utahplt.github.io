@@ -1,0 +1,191 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [Q] How to do Simple Port&#45;Based Input&#45;Process&#45;Output? -->
+<!--X-From-R13: "Rnir Rhpurfarnh" <qnirNfpehgval.pbz> -->
+<!--X-Date: Fri, 28 Dec 2001 12:46:36 &#45;0700 (MST) -->
+<!--X-Message-Id: 041901c18fd9$49309380$4000a8c0@davestation -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200112281239.FAA01807@fast.cs.utah.edu -->
+<!--X-Reference: 200112281259.fBSCx3n19775@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [Q] How to do Simple Port-Based Input-Process-Output?</title>
+<link rev="made" href="mailto:dave@scrutiny.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01445.html">Date Prev</a>][<a href="msg01447.html">Date Next</a>][<a href="msg01448.html">Thread Prev</a>][<a href="msg01454.html">Thread Next</a>][<a href="maillist.html#01446">Date Index</a>][<a href="threads.html#01446">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [Q] How to do Simple Port-Based Input-Process-Output?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matthew Flatt&quot; &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [Q] How to do Simple Port-Based Input-Process-Output?</li>
+<li><em>From</em>: &quot;Dave Duchesneau&quot; &lt;<A HREF="mailto:dave@scrutiny.com">dave@scrutiny.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 28 Dec 2001 11:53:13 -0800</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01440.html">200112281239.FAA01807@fast.cs.utah.edu</a>&gt; &lt;<a href="msg01441.html">200112281259.fBSCx3n19775@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Thanks for the excellent tips and examples, Matthew.  I'll refer to the
+MzScheme manual as suggested.
+
+I'm also looking for UDP send/receive support, and to determine what kind of
+client &amp; server mechanisms there are for multicasting, both traditional ASM
+(any source multicasting) and SSM (source-specific multicasting).  I'd
+especially like to create long-running UDP listener threads for both unicast
+and multicast, rather than per-session TCP threads.  If you know of specific
+limitations along these lines and can share them, or if you can point me to
+appropriate reading material, I'd appreciate it greatly.
+
+Thanks again,
+
+Dave Duchesneau
+dave@scrutiny.com
+
+
+----- Original Message -----
+From: &quot;Matthew Flatt&quot; &lt;mflatt@cs.utah.edu&gt;
+To: &quot;Dave Duchesneau&quot; &lt;daveduchesneau@scrutiny.com&gt;
+Cc: &lt;plt-scheme@fast.cs.utah.edu&gt;
+Sent: Friday, December 28, 2001 4:59 AM
+Subject: Re: [Q] How to do Simple Port-Based Input-Process-Output?
+
+
+&gt; Quoting &quot;Dave Duchesneau&quot;:
+&gt; &gt; Assuming that I want to do the processing portion of the following
+&gt; &gt; sequence in Scheme, is there a standard idiom for doing the I/O portion
+&gt; &gt; of sequence in Scheme also?
+&gt;
+&gt; I think you're looking for `tcp-listen', `tcp-accept', and
+&gt; `tcp-connect'. See the MzScheme manual for details.
+&gt;
+&gt; As an example, here's a simple server-running function:
+&gt;
+&gt;  (define (run-simple-server port-number session-proc)
+&gt;   (let ([l (tcp-listen port-number)])
+&gt;     (let loop ()
+&gt;       (let-values ([(in out) (tcp-accept l)])
+&gt;         ;; read from `in', write to `out'
+&gt;         (session-proc in out)
+&gt;
+&gt;         (close-input-port in)
+&gt;         (close-output-port out)
+&gt;         (loop)))))
+&gt;
+&gt; And here's a use:
+&gt;
+&gt;  ;; A &quot;hello&quot; server on 40001
+&gt;  (run-simple-server 40001 (lambda (in out)
+&gt;                            (let ([name (read in)])
+&gt;                              (display &quot;Hello &quot; out)
+&gt;                              (display name out)
+&gt;                              (newline out))))
+&gt;
+&gt;
+&gt; In version 200, MzLib provides a more sophisticated `run-server'
+&gt; procedure that handles each session in its own thread (so multiple
+&gt; sessions can be active), gracefully deals with exceptions, prevents
+&gt; resource leaks, and supports session timeouts. The implementation is
+&gt; four times as long, included below.
+&gt;
+&gt; Matthew
+&gt;
+&gt; ----------------------------------------
+&gt;
+&gt;   (define (run-server port-number handler connection-timeout)
+&gt;     (let ([l (tcp-listen port-number)]
+&gt;   [can-break? (break-enabled)])
+&gt;       (dynamic-wind
+&gt;        void
+&gt;        (lambda ()
+&gt;          ;; loop to handle connections
+&gt;          (let loop ()
+&gt;            (with-handlers ([not-break-exn? void])
+&gt;              ;; Make a custodian for the next session:
+&gt;              (let ([c (make-custodian)])
+&gt;                (parameterize ([current-custodian c])
+&gt;                  ;; disable breaks during session set-up...
+&gt;                  (parameterize ([break-enabled #f])
+&gt;                    ;; ... but enable breaks while blocked on an accept:
+&gt;                    (let-values ([(r w) ((if can-break?
+&gt;                                             tcp-accept/enable-break
+&gt;                                             tcp-accept)
+&gt;                                         l)])
+&gt;                      ;; Handler thread:
+&gt;                      (let ([t (thread (lambda ()
+&gt;                                         (when can-break?
+&gt;                                           (break-enabled #t))
+&gt;                                         (handler r w)))])
+&gt;                        ;; Clean-up and timeout thread:
+&gt;                        (thread (lambda ()
+&gt;                                  (object-wait-multiple connection-timeout
+t)
+&gt;                                  (when (thread-running? t)
+&gt;                                    ;; Only happens if timeout is not #f
+&gt;                                    (break-thread t))
+&gt;                                  (object-wait-multiple connection-timeout
+t)
+&gt;                                  (custodian-shutdown-all c)))))))))
+&gt;            (loop)))
+&gt;        (lambda () (tcp-close l))))))
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01440" href="msg01440.html">[Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+<ul><li><em>From:</em> &quot;Dave Duchesneau&quot; &lt;daveduchesneau@scrutiny.com&gt;</li></ul></li>
+<li><strong><a name="01441" href="msg01441.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01445.html">MzScheme on Sharp Zaurus PDA</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01447.html">Re: MzScheme on Sharp Zaurus PDA</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01448.html">Re: MzScheme on Sharp Zaurus PDA</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01454.html">200alpha6</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01446"><strong>Date</strong></a></li>
+<li><a href="threads.html#01446"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

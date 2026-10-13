@@ -1,0 +1,115 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Return from do -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Sun, 9 Jun 2002 08:29:01 &#45;0600 (MDT) -->
+<!--X-Message-Id: 007101c20fc1$46627e80$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87zny8koma.fsf@localhost.localdomain -->
+<!--X-Reference: 87sn3xx317.fsf@ortler.iwr.uni&#45;heidelberg.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Return from do</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01090.html">Date Prev</a>][<a href="msg01092.html">Date Next</a>][<a href="msg01085.html">Thread Prev</a>][<a href="msg01079.html">Thread Next</a>][<a href="maillist.html#01091">Date Index</a>][<a href="threads.html#01091">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Return from do</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Return from do</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Sun, 9 Jun 2002 16:23:49 +0200</li>
+<li><em>References</em>: &lt;<a href="msg01074.html">87zny8koma.fsf@localhost.localdomain</a>&gt; &lt;<a href="msg01085.html">87sn3xx317.fsf@ortler.iwr.uni-heidelberg.de</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+ Nicolas Neuss wrote:
+&gt; pocm@rnl.ist.utl.pt (Paulo J. Matos) writes:
+&gt;
+&gt;&gt; Hi all,
+&gt;&gt;
+&gt;&gt; How can I get out of do before iteration ends?
+&gt;&gt; In CL I use return and return-from, how can I do it in
+&gt;&gt; PLT Scheme?
+
+Use let/ec if you only need to escape.
+This example multiplies the numbers in a list.
+There a premature exit if, the product becoms 0.
+
+&gt; (let/ec return
+    (do  ([numbers  (list 1 2 3 0 7 9) (cdr numbers)]
+          [factor  1                  (car numbers)]
+          [product 1                  (* product factor)])
+      ((or (= product 0) (empty? numbers))
+       (return product))
+      (display factor) (newline)))
+
+This evaluates to 0. During the evaluation
+it prints 1,1,2,3 and 0.
+
+--
+Jens Axel Søgaard
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01074" href="msg01074.html">[plt-scheme] Return from do</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+<li><strong><a name="01085" href="msg01085.html">Re: [plt-scheme] Return from do</a></strong>
+<ul><li><em>From:</em> Nicolas Neuss &lt;Nicolas.Neuss@IWR.Uni-Heidelberg.De&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01090.html">[plt-scheme] 200 plan?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01092.html">[plt-scheme] Annotative forms in expand-program?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01085.html">Re: [plt-scheme] Return from do</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01079.html">[plt-scheme] 200alpha21</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01091"><strong>Date</strong></a></li>
+<li><a href="threads.html#01091"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

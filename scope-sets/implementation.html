@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><title>4&nbsp;Implementation and Experience</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="footnote.css" title="default"/><link rel="stylesheet" type="text/css" href="racket.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script><!--[if IE 6]><style type="text/css">.SIEHidden { overflow: hidden; }</style><![endif]--></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9660;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">Binding as Sets of Scopes</a></td></tr></table></div><div class="tocviewsublisttop" style="display: block;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">1&nbsp;</td><td><a href="background.html" class="tocviewlink" data-pltdoc="x">Background:<span class="mywbr"> &nbsp;</span> Scope and Macros</a></td></tr><tr><td align="right">2&nbsp;</td><td><a href="pattern-macros.html" class="tocviewlink" data-pltdoc="x">Scope Sets for Pattern-<wbr></wbr>Based Macros</a></td></tr><tr><td align="right">3&nbsp;</td><td><a href="general-macros.html" class="tocviewlink" data-pltdoc="x">Scope Sets for Procedural Macros and Modules</a></td></tr><tr><td align="right">4&nbsp;</td><td><a href="" class="tocviewselflink" data-pltdoc="x">Implementation and Experience</a></td></tr><tr><td align="right">5&nbsp;</td><td><a href="model.html" class="tocviewlink" data-pltdoc="x">Model</a></td></tr><tr><td align="right">6&nbsp;</td><td><a href="hygiene.html" class="tocviewlink" data-pltdoc="x">Defining Hygiene</a></td></tr><tr><td align="right">7&nbsp;</td><td><a href="related.html" class="tocviewlink" data-pltdoc="x">Other Related Work</a></td></tr><tr><td align="right">8&nbsp;</td><td><a href="end.html" class="tocviewlink" data-pltdoc="x">Conclusion</a></td></tr><tr><td align="right"></td><td><a href="Acknowledgments.html" class="tocviewlink" data-pltdoc="x">Acknowledgments</a></td></tr><tr><td align="right"></td><td><a href="doc-bibliography.html" class="tocviewlink" data-pltdoc="x">References</a></td></tr></table></div></div><div class="tocviewlist"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_1&quot;);">&#9658;</a></td><td>4&nbsp;</td><td><a href="" class="tocviewselflink" data-pltdoc="x">Implementation and Experience</a></td></tr></table><div class="tocviewsublistbottom" style="display: none;" id="tocview_1"><table cellspacing="0" cellpadding="0"><tr><td align="right">4.1&nbsp;</td><td><a href="#%28part._compat-init%29" class="tocviewlink" data-pltdoc="x">Initial Compatibility Results</a></td></tr><tr><td align="right">4.2&nbsp;</td><td><a href="#%28part._compat%29" class="tocviewlink" data-pltdoc="x">Longer-<wbr></wbr>Term Compatibility Considerations</a></td></tr><tr><td align="right">4.3&nbsp;</td><td><a href="#%28part._new-macros%29" class="tocviewlink" data-pltdoc="x">Benefits for New Macros</a></td></tr><tr><td align="right">4.4&nbsp;</td><td><a href="#%28part._debugging%29" class="tocviewlink" data-pltdoc="x">Debugging Support</a></td></tr><tr><td align="right">4.5&nbsp;</td><td><a href="#%28part._sweet..js%29" class="tocviewlink" data-pltdoc="x">Scope Sets for Java<span class="mywbr"> &nbsp;</span>Script</a></td></tr></table></div></div></div><div class="tocsub"><div class="tocsubtitle">On this page:</div><table class="tocsublist" cellspacing="0"><tr><td><span class="tocsublinknumber">4.1<tt>&nbsp;</tt></span><a href="#%28part._compat-init%29" class="tocsubseclink" data-pltdoc="x">Initial Compatibility Results</a></td></tr><tr><td><span class="tocsublinknumber">4.2<tt>&nbsp;</tt></span><a href="#%28part._compat%29" class="tocsubseclink" data-pltdoc="x">Longer-<wbr></wbr>Term Compatibility Considerations</a></td></tr><tr><td><span class="tocsublinknumber">4.3<tt>&nbsp;</tt></span><a href="#%28part._new-macros%29" class="tocsubseclink" data-pltdoc="x">Benefits for New Macros</a></td></tr><tr><td><span class="tocsublinknumber">4.4<tt>&nbsp;</tt></span><a href="#%28part._debugging%29" class="tocsubseclink" data-pltdoc="x">Debugging Support</a></td></tr><tr><td><span class="tocsublinknumber">4.5<tt>&nbsp;</tt></span><a href="#%28part._sweet..js%29" class="tocsubseclink" data-pltdoc="x">Scope Sets for Java<span class="mywbr"> &nbsp;</span>Script</a></td></tr></table></div></div><div class="maincolumn"><div class="main"><div class="navsettop"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;</span><span class="navright">&nbsp;&nbsp;<a href="general-macros.html" title="backward to &quot;3 Scope Sets for Procedural Macros and Modules&quot;" data-pltdoc="x">&larr; prev</a>&nbsp;&nbsp;<a href="index.html" title="up to &quot;Binding as Sets of Scopes
+
+Notes on a new model of macro expansion for Racket&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="model.html" title="forward to &quot;5 Model&quot;" data-pltdoc="x">next &rarr;</a></span>&nbsp;</div><h3>4<tt>&nbsp;</tt><a name="(part._implementation)"></a>Implementation and Experience</h3><p>Scope sets have an intuitive appeal as a model of binding, but a true
+test of the model is whether it can accommodate a Racket-scale use of
+macros&#8212;<wbr></wbr>for constructing everything from simple syntactic abstractions
+to entirely new languages. Indeed, the set-of-scopes model
+was motivated in part by a fraying of Racket&rsquo;s old macro expander at
+the frontiers of its implementation, e.g., for
+submodules&nbsp;(<a href="doc-bibliography.html#%28autobib._.Matthew._.Flatt.Submodules._in._.Racket~3a._.You._.Want._it._.When%2C._.Again~3f.In._.Proc..._.Generative._.Programming~3a._.Concepts._and._.Experiences2013%29" data-pltdoc="x">Flatt</a> <a href="doc-bibliography.html#%28autobib._.Matthew._.Flatt.Submodules._in._.Racket~3a._.You._.Want._it._.When%2C._.Again~3f.In._.Proc..._.Generative._.Programming~3a._.Concepts._and._.Experiences2013%29" data-pltdoc="x">2013</a>).<span class="NoteBox"><span class="NoteContent">For an example of a bug report about
+submodules, see
+<a href="http://bugs.racket-lang.org/query/?debug=&amp;database=default&amp;cmd=view+audit-trail&amp;cmd=view&amp;pr=14521">problem report 14521</a>.
+The example program fails with the old expander, due to
+problems meshing mark-oriented module scope with renaming-oriented
+local scope, but the example works with the set-of-scopes expander.</span></span></p><p>We released the new macro expander as part of Racket version 6.3
+(released November 2015), while Racket developers started using the
+expander about four months earlier. Compared to the previous release,
+build times, memory use, and bytecode footprint were essentially
+unchanged compared to the old expander. Getting performance on par
+with the previous system required about two weeks of performance tuning, which
+we consider promising in comparison to a system that has been tuned
+over the past 15 years.</p><h4>4.1<tt>&nbsp;</tt><a name="(part._compat-init)"></a>Initial Compatibility Results</h4><p>At the time that Racket developers switched to the new expander,
+packages in Racket&rsquo;s main distribution had been adjusted to build
+without error (including all documentation), and most tests in the
+corresponding test suite passed; 43 out of 7501 modules failed.
+Correcting those failures before version 6.3 required small changes to
+accommodate the new macro expander.</p><blockquote class="refpara"><blockquote class="refcolumn"><blockquote class="refcontent"><p>See the
+<a href="http://www.cs.utah.edu/plt/popl16/">POPL&rsquo;16
+artifact</a> for a detailed record of the initial
+compatibility results.</p></blockquote></blockquote></blockquote><p><div class="SIntrapara">Achieving the initial level of success required small changes to 15
+out of about 200 packages in the distribution, plus several
+substantial macro rewrites in the core package:
+</div><div class="SIntrapara"><ul><li><p>Changed macros in the core package include the <span class="RktSym"><a href="http://doc.racket-lang.org/reference/creatingunits.html#%28form._%28%28lib._racket%2Funit..rkt%29._unit%29%29" class="RktStxLink" data-pltdoc="x">unit</a></span>,
+<span class="RktSym"><a href="http://doc.racket-lang.org/reference/createclass.html#%28form._%28%28lib._racket%2Fprivate%2Fclass-internal..rkt%29._class%29%29" class="RktStxLink" data-pltdoc="x">class</a></span>, and <span class="RktSym"><a href="http://doc.racket-lang.org/reference/struct-generics.html#%28form._%28%28lib._racket%2Fgeneric..rkt%29._define-generics%29%29" class="RktStxLink" data-pltdoc="x">define-generics</a></span> macros, all of
+which manipulate scope in unusual ways.</p></li><li><p>The Typed Racket implementation, which is generally sensitive
+to the details of macro expansion, required a handful of
+adjustments to deal with changed expansions of macros and the
+new scope-pruning behavior of <span class="RktSym"><a href="http://doc.racket-lang.org/reference/Syntax_Quoting__quote-syntax.html#%28form._%28%28quote._~23~25kernel%29._quote-syntax%29%29" class="RktStxLink" data-pltdoc="x">quote-syntax</a></span>.</p></li><li><p>Most other package changes involve languages implementations
+that generate modules or submodules and rely on a
+non-composable treatment of module scopes by the old
+expander (which creates trouble for submodules in other
+contexts). </p></li></ul></div><div class="SIntrapara">In about half of all cases, the adjustments for set-of-scopes
+expansion are compatible with the existing expander. In the other
+half, the macro adjustments were incompatible with the previous
+expander and the two separate implementations seem substantially
+easier to produce than one unified implementation.</div></p><p>Besides porting the main Racket distribution to a set-of-scopes
+expander, we tried building and testing all packages registered at
+<a href="http://pkgs.racket-lang.org/"><span class="url">http://pkgs.racket-lang.org/</span></a>. There were 46 failures out of about 400 packages, as opposed to
+to 21 failures for the same set of packages with the previous
+Racket release. Many failures involved
+packages that implement non-S-expression <span style="font-style: italic">readers</span> and relied on
+namespace-interaction details (as discussed in <a href="general-macros.html#%28part._top-level%29" data-pltdoc="x">The Top Level</a>)
+that change with scope sets; the language implementations were
+adjusted to use a different technique that is compatible with both
+expanders.<span class="NoteBox"><span class="NoteContent">See the
+<a href="https://groups.google.com/d/msg/racket-dev/6khgHKygmS4/cDIfw5cimDEJ">discussion
+on compatibility of a reader implementation on the Racket mailing
+list</a>.</span></span> All of those packages were repaired before the version 6.3
+release.</p><h4>4.2<tt>&nbsp;</tt><a name="(part._compat)"></a>Longer-Term Compatibility Considerations</h4><p>As the initial experiments confirmed, most Racket programs expand and
+run the same with a set-of-scope expander as with the old
+expander. Pattern-based macros are rarely affected. When changes are needed to accommodate the
+set-of-scopes expander, those changes often can be made compatible
+with the existing expander. In a few cases,
+incompatibilities appear unavoidable.</p><p><div class="SIntrapara">Macros that manipulate bindings or scope in unusual ways can easily
+expose the difference between the macro systems.
+As an example, the following program produces <span class="RktVal">1</span> with
+Racket&rsquo;s old expander, but it provokes an ambiguous-binding error
+with the set-of-scopes expander:
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fmisc..rkt%29._define-syntax-rule%29%29" class="RktStxLink" data-pltdoc="x">define-syntax-rule</a></span><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktSym">define1</span><span class="hspace">&nbsp;</span><span class="RktSym">id</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/begin.html#%28form._%28%28quote._~23~25kernel%29._begin%29%29" class="RktStxLink" data-pltdoc="x">begin</a></span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/define.html#%28form._%28%28lib._racket%2Fprivate%2Fbase..rkt%29._define%29%29" class="RktStxLink" data-pltdoc="x">define</a></span><span class="hspace">&nbsp;</span><span class="RktSym">x</span><span class="hspace">&nbsp;</span><span class="RktVal">1</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;</span><span class="RktCmt">;</span><span class="RktCmt">&nbsp;</span><span class="RktCmt">stash a reference to the introduced identifier:</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/define.html#%28form._%28%28lib._racket%2Fprivate%2Fbase..rkt%29._define-syntax%29%29" class="RktStxLink" data-pltdoc="x">define-syntax</a></span><span class="hspace">&nbsp;</span><span class="RktSym">id</span><span class="hspace">&nbsp;</span><span class="RktRdr">#'</span><span class="RktSym">x</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;</span></td></tr><tr><td><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/define.html#%28form._%28%28lib._racket%2Fprivate%2Fbase..rkt%29._define-syntax%29%29" class="RktStxLink" data-pltdoc="x">define-syntax</a></span><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktSym">use</span><span class="hspace">&nbsp;</span><span class="RktSym">stx</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fstxcase-scheme..rkt%29._syntax-case%29%29" class="RktStxLink" data-pltdoc="x">syntax-case</a></span><span class="hspace">&nbsp;</span><span class="RktSym">stx</span><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktPn">[</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fstxcase-scheme..rkt%29.__%29%29" class="RktStxLink" data-pltdoc="x">_</a></span><span class="hspace">&nbsp;</span><span class="RktSym">id</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fstxcase-scheme..rkt%29._with-syntax%29%29" class="RktStxLink" data-pltdoc="x">with-syntax</a></span><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktPn">[</span><span class="RktSym">old-id</span><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxtrans.html#%28def._%28%28quote._~23~25kernel%29._syntax-local-value%29%29" class="RktValLink" data-pltdoc="x">syntax-local-value</a></span><span class="hspace">&nbsp;</span><span class="RktRdr">#'</span><span class="RktSym">id</span><span class="RktPn">)</span><span class="RktPn">]</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktRdr">#'</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/begin.html#%28form._%28%28quote._~23~25kernel%29._begin%29%29" class="RktStxLink" data-pltdoc="x">begin</a></span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/define.html#%28form._%28%28lib._racket%2Fprivate%2Fbase..rkt%29._define%29%29" class="RktStxLink" data-pltdoc="x">define</a></span><span class="hspace">&nbsp;</span><span class="RktSym">x</span><span class="hspace">&nbsp;</span><span class="RktVal">2</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktCmt">;</span><span class="RktCmt">&nbsp;</span><span class="RktCmt">reference to <span class="RktSym">old-id</span> ends up ambiguous:</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktSym">old-id</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">]</span><span class="RktPn">)</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;</span></td></tr><tr><td><span class="RktPn">(</span><span class="RktSym">define1</span><span class="hspace">&nbsp;</span><span class="RktSym">foo</span><span class="RktPn">)</span></td></tr><tr><td><span class="RktPn">(</span><span class="RktSym">use</span><span class="hspace">&nbsp;</span><span class="RktSym">foo</span><span class="RktPn">)</span></td></tr></table></blockquote></div><div class="SIntrapara">In the set-of-scopes model, <span class="RktSym">define1</span> and <span class="RktSym">use</span>
+introduce bindings from two separate macro expansions, and they also
+arrange for a reference to be introduced by <span style="font-style: italic">both</span> of those
+macros, hence the ambiguity. Arguably, in this case, the <span class="RktSym">use</span>
+macro is broken, as illustrated in a variant of the program without
+<span class="RktSym">define1</span> that produces <span class="RktVal">2</span> with both expanders:
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/begin.html#%28form._%28%28quote._~23~25kernel%29._begin%29%29" class="RktStxLink" data-pltdoc="x">begin</a></span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/define.html#%28form._%28%28lib._racket%2Fprivate%2Fbase..rkt%29._define%29%29" class="RktStxLink" data-pltdoc="x">define</a></span><span class="hspace">&nbsp;</span><span class="RktSym">x</span><span class="hspace">&nbsp;</span><span class="RktVal">1</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/define.html#%28form._%28%28lib._racket%2Fprivate%2Fbase..rkt%29._define-syntax%29%29" class="RktStxLink" data-pltdoc="x">define-syntax</a></span><span class="hspace">&nbsp;</span><span class="RktSym">foo</span><span class="hspace">&nbsp;</span><span class="RktRdr">#'</span><span class="RktSym">x</span><span class="RktPn">)</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;</span></td></tr><tr><td><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/define.html#%28form._%28%28lib._racket%2Fprivate%2Fbase..rkt%29._define-syntax%29%29" class="RktStxLink" data-pltdoc="x">define-syntax</a></span><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktSym">use</span><span class="hspace">&nbsp;</span><span class="RktSym">stx</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fstxcase-scheme..rkt%29._syntax-case%29%29" class="RktStxLink" data-pltdoc="x">syntax-case</a></span><span class="hspace">&nbsp;</span><span class="RktSym">stx</span><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktPn">[</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fstxcase-scheme..rkt%29.__%29%29" class="RktStxLink" data-pltdoc="x">_</a></span><span class="hspace">&nbsp;</span><span class="RktSym">id</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fstxcase-scheme..rkt%29._with-syntax%29%29" class="RktStxLink" data-pltdoc="x">with-syntax</a></span><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktPn">[</span><span class="RktSym">old-id</span><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxtrans.html#%28def._%28%28quote._~23~25kernel%29._syntax-local-value%29%29" class="RktValLink" data-pltdoc="x">syntax-local-value</a></span><span class="hspace">&nbsp;</span><span class="RktRdr">#'</span><span class="RktSym">id</span><span class="RktPn">)</span><span class="RktPn">]</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktRdr">#'</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/begin.html#%28form._%28%28quote._~23~25kernel%29._begin%29%29" class="RktStxLink" data-pltdoc="x">begin</a></span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/define.html#%28form._%28%28lib._racket%2Fprivate%2Fbase..rkt%29._define%29%29" class="RktStxLink" data-pltdoc="x">define</a></span><span class="hspace">&nbsp;</span><span class="RktSym">x</span><span class="hspace">&nbsp;</span><span class="RktVal">2</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="RktSym">old-id</span><span class="RktPn">)</span><span class="RktPn">)</span><span class="RktPn">]</span><span class="RktPn">)</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;</span></td></tr><tr><td><span class="RktPn">(</span><span class="RktSym">use</span><span class="hspace">&nbsp;</span><span class="RktSym">foo</span><span class="RktPn">)</span></td></tr></table></blockquote></div><div class="SIntrapara">The <span class="RktSym">use</span> macro can be fixed for both expanders and both
+contexts by applying <span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxtrans.html#%28def._%28%28quote._~23~25kernel%29._syntax-local-introduce%29%29" class="RktValLink" data-pltdoc="x">syntax-local-introduce</a></span> to the result of
+<span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxtrans.html#%28def._%28%28quote._~23~25kernel%29._syntax-local-value%29%29" class="RktValLink" data-pltdoc="x">syntax-local-value</a></span><span class="stt"> </span><span class="RktRdr">#'</span><span class="RktSym">id</span><span class="RktPn">)</span>, which cancels the macro-introduction scope on the identifier, since the identifier conceptually
+exists outside of this macro&rsquo;s expansion. Such an application of
+<span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxtrans.html#%28def._%28%28quote._~23~25kernel%29._syntax-local-introduce%29%29" class="RktValLink" data-pltdoc="x">syntax-local-introduce</a></span> is typically needed and typically
+present in existing Racket macros that bring stashed identifiers into
+a new context.</div></p><p><div class="SIntrapara">The example above illustrates a typical level of macro complexity
+needed to expose differences between the existing and set-of-scopes expanders.
+Here are some specific other ways in with existing Racket code may fail with
+           a set-of-scopes expander:
+</div><div class="SIntrapara"><ul><li><p>In the old macro system, a <span class="RktSym"><a href="http://doc.racket-lang.org/reference/module.html#%28form._%28%28quote._~23~25kernel%29._module%29%29" class="RktStxLink" data-pltdoc="x">module</a></span> form for a
+submodule is expanded by first discarding <span style="font-style: italic">all</span> lexical
+context. The set-of-scopes expander instead removes only the
+scope of the enclosing module. As a result, some macros that
+expand to submodules must more precisely manage their contexts.</p><p>In the old expander, removing all lexical context ensures
+that no binding outside the module can be referenced directly,
+but to support re-expansion of the submodule, a property is
+added on a module to disable context stripping on future
+expansions and to skip over the module when adding context for
+an enclosing module. No special treatment is needed for
+re-expansion in the set-of-scopes expander, but the more
+limited context stripping means that certain (non-hygienic)
+submodule-producing macros no longer work.</p><p><div class="SIntrapara">For example, the macro
+</div><div class="SIntrapara"><blockquote class="SCodeFlow"><table cellspacing="0" cellpadding="0" class="RktBlk"><tr><td><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fmisc..rkt%29._define-syntax-rule%29%29" class="RktStxLink" data-pltdoc="x">define-syntax-rule</a></span><span class="hspace">&nbsp;</span><span class="RktPn">(</span><span class="RktSym">gen</span><span class="hspace">&nbsp;</span><span class="RktSym">e</span><span class="RktPn">)</span></td></tr><tr><td><span class="hspace">&nbsp;&nbsp;</span><span class="RktPn">(</span><span class="RktSym"><a href="http://doc.racket-lang.org/reference/module.html#%28form._%28%28quote._~23~25kernel%29._module%29%29" class="RktStxLink" data-pltdoc="x">module</a></span><span class="hspace">&nbsp;</span><span class="RktSym">generated</span><span class="hspace">&nbsp;</span><span class="RktSym">racket/base</span><span class="hspace">&nbsp;</span><span class="RktSym">e</span><span class="RktPn">)</span><span class="RktPn">)</span></td></tr></table></blockquote></div><div class="SIntrapara">used to expand so that <span class="RktSym">racket/base</span> is available for
+reference by <span class="RktSym">e</span>, but with the set-of-scopes expander,
+<span class="RktSym">racket/base</span> retains its macro-introduced scope and
+does not bind the use-site replacement for <span class="RktSym">e</span>.</div></p><p>At the same time, with the set-of-scopes expander, a macro from
+one module that expands to a submodule in another module runs
+the risk of provoking an out-of-context error, since the
+macro&rsquo;s module context is not removed form the generated
+submodule.</p></li><li><p>Along the same lines as expanding to a submodule form, a
+pattern-matching macro that expands to a <span class="RktSym"><a href="http://doc.racket-lang.org/reference/creatingunits.html#%28form._%28%28lib._racket%2Funit..rkt%29._unit%29%29" class="RktStxLink" data-pltdoc="x">unit</a></span> form
+can behave differently if a mentioned signature or definition
+are not both introduced by the macro or from the macro use
+site. In other words, adjustments to the <span class="RktSym"><a href="http://doc.racket-lang.org/reference/creatingunits.html#%28form._%28%28lib._racket%2Funit..rkt%29._unit%29%29" class="RktStxLink" data-pltdoc="x">unit</a></span> macro to
+work with the set-of-scopes expander have regularized
+questionable scoping behavior of the <span class="RktSym"><a href="http://doc.racket-lang.org/reference/creatingunits.html#%28form._%28%28lib._racket%2Funit..rkt%29._unit%29%29" class="RktStxLink" data-pltdoc="x">unit</a></span> form itself,
+ particularly as it interacts with other macros.</p></li><li><p>Macros that use explicit internal-definition contexts are among
+the most likely to need adaptation. As described in
+<a href="general-macros.html#%28part._fc-intdef%29" data-pltdoc="x">First-Class Definition Contexts</a>, such macros typically need to use
+<span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxtrans.html#%28def._%28%28quote._~23~25kernel%29._syntax-local-identifier-as-binding%29%29" class="RktValLink" data-pltdoc="x">syntax-local-identifier-as-binding</a></span> on identifiers that
+are inspected and manipulated as bindings. Macros that use
+internal-definition contexts to create unusual binding patterns
+(e.g., <span class="RktSym">splicing-let-syntax</span>) may need more radical
+changes, since internal-definition contexts formerly made
+distinctions among specific identifiers&#8212;<wbr></wbr>the ones explicitly
+registered to create renamings&#8212;<wbr></wbr>while the distinction now is
+more uniform. Some such macros can switch to a simpler creation
+of a fresh scope (formerly &ldquo;mark&rdquo;), while others require a
+completely different strategy.</p></li><li><p>In the old macro system, if unbound identifiers with the
+same symbolic name are pulled from different modules into a new
+one, and if the introducing macros arrange for the identifiers
+to have no distinct macro-introduction marks (e.g., by using
+<span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxtrans.html#%28def._%28%28quote._~23~25kernel%29._syntax-local-introduce%29%29" class="RktValLink" data-pltdoc="x">syntax-local-introduce</a></span>), then either of those
+identifiers can bind the other (since neither had a binding).
+With the set-of-scopes system, the two identifiers do no bind
+each other, since they have different scopes from their
+original modules.</p></li><li><p>With the old macro expander, the <span class="RktSym"><a href="http://doc.racket-lang.org/reference/__top.html#%28form._%28%28quote._~23~25kernel%29._~23~25top%29%29" class="RktStxLink" data-pltdoc="x">#%top</a></span> form is
+implicitly wrapped around any use of an identifier outside a
+module when the identifier does not refer to a macro. The new
+expander uses <span class="RktSym"><a href="http://doc.racket-lang.org/reference/__top.html#%28form._%28%28quote._~23~25kernel%29._~23~25top%29%29" class="RktStxLink" data-pltdoc="x">#%top</a></span> only for identifiers that have no
+binding (which makes top-level expansion slightly more
+consistent with module expansion).</p></li></ul></div></p><p>The documentation for Racket&rsquo;s old macro system avoids references
+to the underlying mark-and-rename model. As a result, the documentation is often too
+imprecise to expose differences created by a change to set-of-scope
+binding. One goal of the new model is to allow the specification and
+documentation of Racket&rsquo;s macro expander to be tightened; scope sets
+are precise enough for specification, but abstract enough to allow
+high-level reasoning.</p><h4>4.3<tt>&nbsp;</tt><a name="(part._new-macros)"></a>Benefits for New Macros</h4><p>Certain existing macros in the Racket distribution had to be
+reimplemented wholesale for the set-of-scopes expander. A notable
+example is the <span class="RktSym">package</span> macro, which simulates the module
+system of Chez Scheme&nbsp;(<a href="doc-bibliography.html#%28autobib._.Oscar._.Waddell._and._.R..._.Kent._.Dybvig.Extending._the._.Scope._of._.Syntactic._.Abstraction.In._.Proc..._.Principles._of._.Programming._.Languages1999%29" data-pltdoc="x">Waddell and Dybvig</a> <a href="doc-bibliography.html#%28autobib._.Oscar._.Waddell._and._.R..._.Kent._.Dybvig.Extending._the._.Scope._of._.Syntactic._.Abstraction.In._.Proc..._.Principles._of._.Programming._.Languages1999%29" data-pltdoc="x">1999</a>). The implementation of
+<span class="RktSym">package</span> for the old Racket macro expander uses
+first-class definition contexts, rename transformers, and a facility
+for attaching mark changes to a rename transformer (to make an
+introduced name have marks similar to the reference). The
+implementation with the set-of-scopes expander is considerably
+simpler, using only scope-set operations and basic rename
+transformers. Scope sets more directly implement the idea of packages
+as nested lexical environments. The new implementation is 345 lines
+versus 459 lines for the original implementation; both versions share
+much of the same basic structure, and the extra 100 lines of the old
+implementation represent especially complex pieces.</p><p>A similar example was discussed on the Racket mailing list. The
+<span class="RktSym">in-package</span> form is intended to simulate Common Lisp
+namespaces, where definitions are implicitly prefixed with a package
+name, a package can import unprefixed names from a different package
+with <span class="RktSym">use-package</span>, and a package can <span style="font-style: italic">stop</span> using
+unprefixed names for the remainder its body with
+<span class="RktSym">unuse-package</span>. In this case, an implementation for the
+old expander (<a href="in-package.rkt">in-package.rkt</a>) uses marks, but the
+implementation is constrained so that macros exported by one package
+cannot expand to definitions in another package. Again, the
+set-of-scopes expander (<a href="in-package-scopes.rkt">in-package-scopes.rkt</a>) is
+conceptually simpler, more directly reflects binding regions with
+scopes, and allows definition-producing macros to be used across
+package boundaries. The version for the old expander also works
+with the set-of-scopes expander, although with the same limitations as
+for the old expander; in fact, debugging output from the
+set-of-scopes expander was instrumental in making that version of
+<span class="RktSym">in-package</span> work.</p><p>These two anecdotes involve similar macros that better fit the
+set-of-scopes model for essentially the same reason, but out
+experience with others macros&#8212;<wbr></wbr>the <span class="RktSym"><a href="http://doc.racket-lang.org/reference/creatingunits.html#%28form._%28%28lib._racket%2Funit..rkt%29._unit%29%29" class="RktStxLink" data-pltdoc="x">unit</a></span> macro,
+<span class="RktSym"><a href="http://doc.racket-lang.org/reference/createclass.html#%28form._%28%28lib._racket%2Fprivate%2Fclass-internal..rkt%29._class%29%29" class="RktStxLink" data-pltdoc="x">class</a></span> macro, and <span class="RktSym"><a href="http://doc.racket-lang.org/reference/struct-generics.html#%28form._%28%28lib._racket%2Fgeneric..rkt%29._define-generics%29%29" class="RktStxLink" data-pltdoc="x">define-generics</a></span> macro&#8212;<wbr></wbr>has been
+similarly positive. In all cases, the set-of-scopes model has felt
+easier to reason about, and the expander could more readily provide
+tooling in support of the conceptual model.</p><h4>4.4<tt>&nbsp;</tt><a name="(part._debugging)"></a>Debugging Support</h4><p>Although the macro debugger&nbsp;(<a href="doc-bibliography.html#%28autobib._.Ryan._.Culpepper._and._.Matthias._.Felleisen.Debugging._.Hygienic._.Macros.Science._of._.Computer._.Programming._75%287%292010%29" data-pltdoc="x">Culpepper and Felleisen</a> <a href="doc-bibliography.html#%28autobib._.Ryan._.Culpepper._and._.Matthias._.Felleisen.Debugging._.Hygienic._.Macros.Science._of._.Computer._.Programming._75%287%292010%29" data-pltdoc="x">2010</a>) has proven to be a
+crucial tool for macro implementors, binding resolution in Racket&rsquo;s
+old macro expander is completely opaque to macro implementers.
+When something goes wrong, the expander or macro debugger can report
+little more than &ldquo;unbound identifier&rdquo; or &ldquo;out of context&rdquo;, because
+the process of replaying renamings and the encodings used for the
+renamings are difficult to unpack and relate to the programmer.</p><p>A set-of-scopes expander is more frequently in a position to report
+&ldquo;unbound identifier, but here are the identifier&rsquo;s scopes, and here
+are some bindings that are connected to those scopes.&rdquo; In the case of
+ambiguous bindings, the expander can report the referencing
+identifier&rsquo;s scopes and the scopes of the competing bindings. These
+details are reported in a way similar to stack traces: subject to
+optimization and representation choices, and underspecified as a
+result, but invaluable for debugging purposes.</p><p><div class="SIntrapara">For example, when placed in a module named <span class="RktSym">m</span>, the
+ambigious-reference error from <a href="#%28part._compat%29" data-pltdoc="x">Longer-Term Compatibility Considerations</a> produces an error
+like this one:
+</div><div class="SIntrapara"><table cellspacing="0" cellpadding="0"><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt">x: identifier's binding is ambiguous</span></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt"></span><span class="hspace">&nbsp;&nbsp;</span><span class="stt">context...:</span></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt"></span><span class="hspace">&nbsp;&nbsp;&nbsp;</span><span class="stt">#(1772 module) #(1773 module m 0) #(2344 macro)</span></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt"></span><span class="hspace">&nbsp;&nbsp;&nbsp;</span><span class="stt">#(2358 macro)</span></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt"></span><span class="hspace">&nbsp;&nbsp;</span><span class="stt">matching binding...:</span></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt"></span><span class="hspace">&nbsp;&nbsp;&nbsp;</span><span class="stt">#&lt;module-path-index:()&gt;</span></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt"></span><span class="hspace">&nbsp;&nbsp;&nbsp;</span><span class="stt">#(1772 module) #(1773 module m 0) #(2344 macro)</span></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt"></span><span class="hspace">&nbsp;&nbsp;</span><span class="stt">matching binding...:</span></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt"></span><span class="hspace">&nbsp;&nbsp;&nbsp;</span><span class="stt">#&lt;module-path-index:()&gt;</span></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt"></span><span class="hspace">&nbsp;&nbsp;&nbsp;</span><span class="stt">#(1772 module) #(1773 module m 0) #(2358 macro)</span></p></td></tr><tr><td><p><span class="hspace">&nbsp;&nbsp;</span><span class="stt"></span><span class="hspace">&nbsp;&nbsp;</span><span class="stt">in: x</span></p></td></tr></table></div><div class="SIntrapara">Each scope is printed as a Racket vector, where the vector starts with
+a number that is distinct for every scope. A symbol afterward provides
+a hint at the scope&rsquo;s origin: <span class="RktVal">'</span><span class="RktVal">module</span> for a <span class="RktSym"><a href="http://doc.racket-lang.org/reference/module.html#%28form._%28%28quote._~23~25kernel%29._module%29%29" class="RktStxLink" data-pltdoc="x">module</a></span>
+scope, <span class="RktVal">'</span><span class="RktVal">macro</span> for a macro-introduction scope,
+<span class="RktVal">'</span><span class="RktVal">use-site</span> for a macro use-site scope, or <span class="RktVal">'</span><span class="RktVal">local</span> for
+a local binding form. In the case of a <span class="RktVal">'</span><span class="RktVal">module</span> scope that
+corresponds to the inside edge, the module&rsquo;s name and a phase (since
+an inside-edge scope is generated for each phase) are shown.</div></p><p>The <span class="stt">#&lt;module-path-index:()&gt;</span>s in the error correspond to the
+binding, and they mean &ldquo;in this module.&rdquo; Overall, the message shows
+that <span class="RktSym">x</span> has scopes corresponding to two different macro
+expansions, and it&rsquo;s bound by definitions that were produced by
+the expansions separately.</p><h4>4.5<tt>&nbsp;</tt><a name="(part._sweet..js)"></a>Scope Sets for JavaScript</h4><p>Although the set-of-scopes model of binding was developed with Racket
+as a target, it is also intended as a more understandable model of
+macros to facilitate the creation of macro systems for other
+languages. In fact, the Racket implementation was not the first
+implementation of the model to become available.
+Based on an early draft of this report, Tim Disney revised the
+Sweet.js macro implementation for JavaScript&nbsp;(<a href="doc-bibliography.html#%28autobib._.Tim._.Disney%2C._.Nathan._.Faubion%2C._.David._.Herman%2C._and._.Cormac._.Flanagan.Sweeten._your._.Java.Script~3a._.Hygienic._.Macros._for._.E.S5.In._.Proc..._.Symposium._on._.Dynamic._.Languages2014%29" data-pltdoc="x">Disney et al.</a> <a href="doc-bibliography.html#%28autobib._.Tim._.Disney%2C._.Nathan._.Faubion%2C._.David._.Herman%2C._and._.Cormac._.Flanagan.Sweeten._your._.Java.Script~3a._.Hygienic._.Macros._for._.E.S5.In._.Proc..._.Symposium._on._.Dynamic._.Languages2014%29" data-pltdoc="x">2014</a>; <a href="doc-bibliography.html#%28autobib._.Tim._.Disney._et._al...Sweet..js2015http~3a%2F%2Fsweetjs..org%2F%29" data-pltdoc="x">Disney et al.</a> <a href="doc-bibliography.html#%28autobib._.Tim._.Disney._et._al...Sweet..js2015http~3a%2F%2Fsweetjs..org%2F%29" data-pltdoc="x">2015</a>)<span class="NoteBox"><span class="NoteContent">See
+<a href="https://github.com/mozilla/sweet.js/pull/461">pull
+request 461</a>.</span></span> to use scope sets even before the initial Racket
+prototype was complete. Disney reports that the implementation of
+hygiene for the macro expander is now &ldquo;mostly understandable&rdquo; and
+faster.</p><div class="navsetbottom"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;</span><span class="navright">&nbsp;&nbsp;<a href="general-macros.html" title="backward to &quot;3 Scope Sets for Procedural Macros and Modules&quot;" data-pltdoc="x">&larr; prev</a>&nbsp;&nbsp;<a href="index.html" title="up to &quot;Binding as Sets of Scopes
+
+Notes on a new model of macro expansion for Racket&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="model.html" title="forward to &quot;5 Model&quot;" data-pltdoc="x">next &rarr;</a></span>&nbsp;</div></div></div><div id="contextindicator">&nbsp;</div></body></html>

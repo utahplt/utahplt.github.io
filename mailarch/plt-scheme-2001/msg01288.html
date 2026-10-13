@@ -1,0 +1,150 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: mzscheme daemon? -->
+<!--X-From-R13: "Bnhy F. Uenhaxr" <cgtNppf.arh.rqh> -->
+<!--X-Date: Wed, 5 Dec 2001 10:28:31 &#45;0700 (MST) -->
+<!--X-Message-Id: 20011205122826.H12222@subra.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15373.47839.744894.225369@mojave.cs.cornell.edu -->
+<!--X-Reference: 00cf01c17d58$247e3710$0100a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: mzscheme daemon?</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01287.html">Date Prev</a>][<a href="msg01289.html">Date Next</a>][<a href="msg01287.html">Thread Prev</a>][<a href="msg01281.html">Thread Next</a>][<a href="maillist.html#01288">Date Index</a>][<a href="threads.html#01288">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: mzscheme daemon?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: mzscheme daemon?</li>
+<li><em>From</em>: &quot;Paul T. Graunke&quot; &lt;<A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 5 Dec 2001 12:28:26 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01286.html">00cf01c17d58$247e3710$0100a8c0@femto</a>&gt;; from anton@appsolutions.com on Wed, Dec 05, 2001 at 01:43:26AM -0500</li>
+<li><em>References</em>: &lt;<a href="msg01285.html">15373.47839.744894.225369@mojave.cs.cornell.edu</a>&gt; &lt;<a href="msg01286.html">00cf01c17d58$247e3710$0100a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Under unix redirecting the standard in, out, and error ports and running
+the process in the background works fine.  If you don't redirect the ports
+then I think the terminal sends mzscheme a SIGHUP (for signal hangup)
+which causes mzscheme to exit.
+
+Paul
+
+On Wed, Dec 05, 2001 at 01:43:26AM -0500, Anton van Straaten wrote:
+&gt; Thanks - that's probably fine, I just don't know enough about it.  I ran
+&gt; into trouble when I tested starting mzscheme in the background from a shell
+&gt; prompt - when I logged out, the task was automatically terminated.  I
+&gt; realize now that this might have been because I didn't think to redirect the
+&gt; i/o, so it was probably terminating when it lost that.
+&gt; 
+&gt; I thought that simply using &quot;&amp;&quot; in init.d might end up doing the same thing,
+&gt; although I didn't try it.  So I figured if sendmail has a -bd option, why
+&gt; can't mzscheme? :)
+&gt; 
+&gt; Anyway, thanks - I'll give it a try your way.
+&gt; 
+&gt; Anton
+&gt; 
+&gt; 
+&gt; &gt; -----Original Message-----
+&gt; &gt; From: Eli Barzilay [<A  HREF="mailto:eli@barzilay.org">mailto:eli@barzilay.org</A>]
+&gt; &gt; Sent: Wednesday, December 05, 2001 1:13 AM
+&gt; &gt; To: Anton van Straaten
+&gt; &gt; Cc: plt-scheme@fast.cs.utah.edu
+&gt; &gt; Subject: Re: mzscheme daemon?
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; On Dec  5, Anton van Straaten wrote:
+&gt; &gt; &gt; This worked fine, and my mzscheme daemon is now running happily.  I
+&gt; &gt; &gt; wondered, though, whether there was some other solution that doesn't
+&gt; &gt; &gt; require patching mzscheme.
+&gt; &gt;
+&gt; &gt; What's wrong with just running it in the background?  -- For my server
+&gt; &gt; I have this tiny script:
+&gt; &gt;
+&gt; &gt; | #!/bin/sh
+&gt; &gt; | cd /home/eli/scheme/webserver
+&gt; &gt; |
+&gt; &gt; | /home/eli/bin/mzscheme -mf server -e -start- -- `hostname` '80' \
+&gt; &gt; |  &lt; /dev/null &gt; /tmp/webserver-log 2&gt;&amp;1 &amp;
+&gt; &gt; | echo $! &gt; /var/run/scheme-webserver.pid
+&gt; &gt;
+&gt; &gt; and then I hacked a quick scheme-webserver script in /etc/init.d (its
+&gt; &gt; a RedHat) and life has been more fun since.  It even starts much
+&gt; &gt; faster than Apache.
+&gt; &gt;
+&gt; &gt;
+&gt; &gt; &gt; I realize that a cross-platform daemon/service solution is more
+&gt; &gt; &gt; complex (especially on Windows, beentheredonethat), [...]
+&gt; &gt;
+&gt; &gt; Not that I know anything about starting a service on Windows, but
+&gt; &gt; isn't the whole concept something that falls nicely into the
+&gt; &gt; OS-dependant world?
+&gt; &gt;
+&gt; &gt; --
+&gt; &gt;           ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+&gt; &gt;                   <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+&gt; &gt;
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01285" href="msg01285.html">Re: mzscheme daemon?</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+<li><strong><a name="01286" href="msg01286.html">RE: mzscheme daemon?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01287.html">RE: mzscheme daemon?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01289.html">Sorting list of symbols</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01287.html">RE: mzscheme daemon?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01281.html">Re: problems with with-syntax</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01288"><strong>Date</strong></a></li>
+<li><a href="threads.html#01288"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

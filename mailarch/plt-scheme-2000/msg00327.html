@@ -1,0 +1,105 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: more on file: URLs -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fuevenzNpf.evpr.rqh> -->
+<!--X-Date: Thu, 15 Jun 2000 14:03:30 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14665.13652.688395.760422@sun.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>more on file: URLs</title>
+<link rev="made" href="mailto:shriram@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00326.html">Date Prev</a>][<a href="msg00328.html">Date Next</a>][<a href="msg00340.html">Thread Prev</a>][<a href="msg00328.html">Thread Next</a>][<a href="maillist.html#00327">Date Index</a>][<a href="threads.html#00327">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>more on file: URLs</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: more on file: URLs</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 15 Jun 2000 15:03:27 -0500 (CDT)</li>
+<li><em>Reply-To</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Okay, it's changed again, this time hopefully for the long haul ...
+
+This is with reference to the URL library in the net collection.
+
+The path section of a URL structure is now
+
+- a path as per the RFC if the scheme is not &quot;file&quot;
+
+- a platform-dependent path if the scheme is &quot;file&quot;
+
+When combining URLs, you still use an RFC-style (slash-separated) path 
+for the relative URL.  The benefit to this is that it allows a
+consistent specification for both the Web and the local filesystem
+(eg, the PLT documentation).
+
+People using this code should be sure to read the documentation for
+combine-url/relative, which is now quite elaborate.  Note especially
+that this procedure can now (in rare cases) raise an exception.
+
+I have also indexed documentation under the tag &quot;file:&quot;, so if you
+type that in Help Desk, you'll get some information on how to build
+such a URL and what other documentation to read.
+
+exp-tagged and released.  Please feel free to contact me with
+questions and comments.
+
+'shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00326.html">Windows 2000 users</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00328.html">bug in keypad</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00340.html">RE: Windows 2000 users</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00328.html">bug in keypad</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00327"><strong>Date</strong></a></li>
+<li><a href="threads.html#00327"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

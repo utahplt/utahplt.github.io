@@ -1,0 +1,167 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] eval question -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Thu, 6 Jun 2002 15:29:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: iss.6956.3cffd41a.9be3a.1@merkur.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: p05111700b92512d5d233@[129.10.115.111] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] eval question</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01072.html">Date Prev</a>][<a href="msg01074.html">Date Next</a>][<a href="msg01068.html">Thread Prev</a>][<a href="msg01063.html">Thread Next</a>][<a href="maillist.html#01073">Date Index</a>][<a href="threads.html#01073">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] eval question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: John Clements &lt;<A HREF="mailto:clements@brinckerhoff.org">clements@brinckerhoff.org</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] eval question</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Thu, 06 Jun 2002 23:28:58 +0200</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01068.html">p05111700b92512d5d233@[129.10.115.111]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.3 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; &gt;what, exactly, should be documented?
+
+&gt; What's not documented is the settings that are stored in the file 
+&gt; that you're loading. I can see this causing a bunch of problems 
+&gt; down the line. Let me use the first person, to make this less 
+&gt; acerbic. 
+
+Uninformative, destructive, non-reflective ... that would have been
+more to the point than acerbic. But let's see about this one ...
+
+&gt; I've written code like this before, and I always end up forgetting 
+&gt; what settings were in the file, and having to go back and check it. 
+&gt; If I have more than one such file, I'm really in the soup.
+
+The settings-file is manipulated by the program, exclusively. The user
+doesn't worry about it. What's more, there are only two settings: a
+string and a list of strings, hardly difficult to remember.
+
+&gt; In essence, I think a solution using modules (or units, if you 
+&gt; prefer them) is more robust and inherently better-documented.
+
+... but less standard. Nevertheless, I'm already reading up on units
+and on match-lambda which both seemed very interesting and powerful
+solutions to this particular problem ... so I might change my point of
+view (and my code, maybe) during the next hours.
+
+&gt; You'll have to pardon my knee-jerk reaction; 
+
+Forgiven. Forgotten.
+
+&gt; I've just spent a few weeks grading assignments for our software 
+&gt; design class, and I've seen a lot of extremely non-portable, non-
+&gt; modular, non-documented, poorly designed code.
+
+Do you believe in self-fulfilling prophecy?
+
+---------------------------------------------------------------------
+
+Toy example about my use of eval/load.
+
+I can't rip the relevant parts out of the program because they don't
+perform out of context - that's why I didn't do that in my initial
+message. If you want to see the original code, look at www.biont.org 
+file: installer.ss - I'll add a tarball later that night).
+
+
+;; One of the two installation-parameters
+;; the options-file remembers for future use.
+(define include-directory
+  (let ((data #f))
+    (lambda x
+      (case (length x)
+        ((0) data)
+        ((1) (set! data (car x)))
+        (else (error 'wrong-arity))))))
+
+;; Save installation-parameters to file.
+(define saveopts
+  (lambda ()
+    (with-output-to-file &quot;c:/x/options.ss&quot;
+      (lambda ()
+        (write (list 'include-directory (include-directory))))
+      'replace)))
+
+;; Read installation-parameters from file.
+(define loadopts
+  (lambda () (load &quot;c:/x/options.ss&quot;)))
+
+;; Saving the settings.
+(include-directory) ;; =&gt; #f
+(include-directory &quot;c:/x/include&quot;)
+(include-directory) ;; =&gt; &quot;c:/x/include&quot;
+(saveopts)
+
+;; Deleting the settings.
+(include-directory #f)
+(include-directory) ;; =&gt; #f
+
+;; Resurrecting the settings.
+(loadopts)
+(include-directory) ;; =&gt; &quot;c:/x/include&quot;
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01068" href="msg01068.html">Re: [plt-scheme] eval question</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01072.html">[plt-scheme] another test</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01074.html">[plt-scheme] Return from do</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01068.html">Re: [plt-scheme] eval question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01063.html">Re: [plt-scheme] eval question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01073"><strong>Date</strong></a></li>
+<li><a href="threads.html#01073"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

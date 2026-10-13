@@ -1,0 +1,147 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: need help with macros (again) -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 11 Apr 2002 08:54:43 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200204111454.IAA27298@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15540.47672.289970.400949@vega.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: need help with macros (again)</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00731.html">Date Prev</a>][<a href="msg00733.html">Date Next</a>][<a href="msg00727.html">Thread Prev</a>][<a href="msg00735.html">Thread Next</a>][<a href="maillist.html#00732">Date Index</a>][<a href="threads.html#00732">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: need help with macros (again)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: need help with macros (again)</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 11 Apr 2002 08:54:36 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00727.html">15540.47672.289970.400949@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00727.html">15540.47672.289970.400949@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Wed, 10 Apr 2002 18:18:32 -0400 (EDT), Doug Orleans wrote:
+&gt;   (module env mzscheme
+&gt;     (provide make-environment-syntax [...])
+&gt;     [...]
+&gt;     (define (make-environment-syntax stx)
+&gt;       (let ((fv (free-variables-syntax stx)))
+&gt; 	(with-syntax (((var ...) fv))
+&gt; 	  (syntax (lambda (msg)
+&gt; 		    (case msg
+&gt; 		      ((var) var)
+&gt; 		      ...
+&gt; 		      ))))))
+&gt;    [...]
+&gt; 
+&gt;   )
+&gt;
+&gt; [...]
+&gt; 
+&gt;   (module keep-source mzscheme
+&gt;     (require-for-syntax env)
+&gt;      [...]
+&gt;   )
+&gt; 
+&gt;  [...]
+&gt;
+&gt;   &gt; (require keep-source)
+&gt;   &gt; (define foo (let ((x 3)) (lambda (y) (+ x y))))
+&gt;   proc-info.scm:9:9: compile: bad syntax; function application is not allowed, 
+&gt; because no #%app syntax transformer is bound in: (lambda (msg) (case msg ((+) 
+&gt; +) ((x) x)))
+&gt; 
+&gt; What's going on here?
+
+The `env' module imports MzScheme at both run time and compile time.
+Let's call run time &quot;phase 0&quot; and compile time &quot;phase 1&quot;.
+
+The `keep-source' module import `env' for syntax. As a result, phase 1
+expressions in `keep-source' use &quot;phase 0&quot; expressions in `env'. Put
+another way, require-for-syntax shifts the phase of a module by one.
+
+Thus, relative to `keep-source', syntax in `env' has bindings for phase
+1 and phase 2, but not phase 0.
+
+In the above example, the error is that some syntax originating in
+`env' has no phase 0 binding for `#%app' relative to `keeps-source'.
+
+----------------------------------------
+
+One solution is to fold everything into a single module;
+`define-syntax-set' in &quot;etc.ss&quot; makes this reasonble, but not great.
+
+Another solution is to abandon `syntax' in `env', have the caller of
+`make-environment-syntax' provide a lexical-context object, and use
+`datum-&gt;syntax-object' directly.
+
+Neither solution is nice, and everyone who tries something complex runs
+into this problem. Maybe the next iteration of the module system should
+support something like `require-for-???' that imports into phase -1.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00727" href="msg00727.html">need help with macros (again)</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00731.html">RE: Scheme on the Web?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00733.html">Re: Scheme on the Web?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00727.html">need help with macros (again)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00735.html">200alpha16</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00732"><strong>Date</strong></a></li>
+<li><a href="threads.html#00732"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

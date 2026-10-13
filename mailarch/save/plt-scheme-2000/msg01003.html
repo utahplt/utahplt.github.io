@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Src question -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Tue, 24 Oct 2000 11:34:18 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200010241734.MAA13753@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 0101e53422317a0FE5@mail5.nc.rr.com -->
+<!--X-Reference: 200010240111.TAA20178@fast.cs.utah.edu -->
+<!--X-Reference: 08dcd46260118a0FE4@mail4.nc.rr.com -->
+<!--X-Reference: 200010240152.UAA13401@africa.cs.rice.edu -->
+<!--X-Reference: 200010241708.LAA11058@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Src question</TITLE>
+<LINK REV="made" HREF="mailto:matthias@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01002.html">Date Prev</A>][<A HREF="msg01004.html">Date Next</A>][<A HREF="msg01002.html">Thread Prev</A>][<A HREF="msg01004.html">Thread Next</A>][<A HREF="maillist.html#01003">Date Index</A>][<A HREF="threads.html#01003">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Src question</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: Src question</LI>
+<LI><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 24 Oct 2000 12:34:19 -0500 (CDT)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-reply-to</em>: &lt;<A HREF="msg01002.html">200010241708.LAA11058@fast.cs.utah.edu</A>&gt; (message from MatthewFlatt on Tue, 24 Oct 2000 11:08:32 -0600 (MDT))</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00994.html">0101e53422317a0FE5@mail5.nc.rr.com</A>&gt; &lt;<A HREF="msg00995.html">200010240111.TAA20178@fast.cs.utah.edu</A>&gt; &lt;<A HREF="msg00996.html">08dcd46260118a0FE4@mail4.nc.rr.com</A>&gt;	&lt;<A HREF="msg00997.html">200010240152.UAA13401@africa.cs.rice.edu</A>&gt; &lt;<A HREF="msg01002.html">200010241708.LAA11058@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+   X-Authentication-Warning: fast.cs.utah.edu: majordom set sender to owner-plt-scheme@flux.cs.utah.edu using -f
+   Date: Tue, 24 Oct 2000 11:08:32 -0600 (MDT)
+   From: Matthew Flatt &lt;mflatt@cs.utah.edu&gt;
+   Sender: owner-plt-scheme@fast.cs.utah.edu
+   Precedence: bulk
+
+   Quoting Matthias Felleisen:
+   &gt;    Ever think about having a function like scheme_make_vector that doesn't
+   &gt;    take a fill?  I know for my cases that I am going to have to refill the
+   &gt;    vector with specific values and doing it twice doesn't buy me anything. 
+   &gt;
+   &gt; [...]
+   &gt; 
+   &gt; That would make Scheme unsafe because someone could accidentally
+   &gt; dereference the vector before putting something in. 
+
+   Since RJA is asking about the C-level interface, maybe he means the
+   vector is going to be filled by the allocating C function before being
+   exposed to Scheme code.
+
+Then he needs to make sure his C functions don't mess up and don't allocate
+while they fill. 
+
+   For the next release, I've made scheme_make_vector treat a NULL fill
+   value specially: it doesn't walk the vector installing NULLs. The GC
+   will ensure that the vector is initially filled with NULL, anyway.
+
+I dont understand that part. If we fill it with NULL, we might as well fill
+it with other stuff. He doesn't save anything. 
+
+-- Matthias
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00994" HREF="msg00994.html">Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Robert John Andersen &lt;anderman@anderware.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00995" HREF="msg00995.html">Re: Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00996" HREF="msg00996.html">Re: Re: Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Robert John Andersen &lt;anderman@anderware.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00997" HREF="msg00997.html">Re: Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01002" HREF="msg01002.html">Re: Src question</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01002.html">Re: Src question</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01004.html">Re: Re: Src question</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01002.html">Re: Src question</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01004.html">Re: Re: Src question</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01003"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01003"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

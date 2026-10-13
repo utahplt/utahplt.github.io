@@ -1,0 +1,117 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] Macros and scope -->
+<!--X-From-R13: [ngg Xnqhq <zwnqhqNpf.vaqvnan.rqh> -->
+<!--X-Date: Tue, 14 May 2002 09:41:47 &#45;0600 (MDT) -->
+<!--X-Message-Id: Pine.GSO.4.40.0205141027260.29467&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] Macros and scope</title>
+<link rev="made" href="mailto:mjadud@cs.indiana.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00895.html">Date Prev</a>][<a href="msg00897.html">Date Next</a>][<a href="msg00894.html">Thread Prev</a>][<a href="msg00897.html">Thread Next</a>][<a href="maillist.html#00896">Date Index</a>][<a href="threads.html#00896">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] Macros and scope</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [plt-scheme] Macros and scope</li>
+<li><em>From</em>: Matt Jadud &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 14 May 2002 10:41:13 -0500 (EST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Hello,
+
+	I've encountered a Chezism that I'm not sure how to circumnavigate.
+
+	(define-syntax letrec
+	  (lambda (x)
+            (import scheme)  ;;Right here.
+	    (syntax-case x ()
+	      [(_ ((var val) ...) body)
+	      .... (syntax (foo (letrec ((var val) ...) body))) .... ])))
+
+   In the Chez module system, you can &quot;(import scheme)&quot; when it becomes
+convenient to lexically refresh the namespace with clean, top-level bindings.
+In this case, this allows 'letrec' to be redefined to the outside world, but
+within the scope of the binding lambda, 'letrec' takes on the default Chez
+semantics.
+
+	In short, I need to redefine 'letrec', but not within the scope of the
+macro.
+
+	Hints or suggestions appreciated. I'll keep at the manual re Mz's
+modules, macro expansion, and namespaces.
+
+	Thanks,
+	Matt
+
+________________________________________________________________________
+Matt Jadud                            <A  HREF="http://www.cs.indiana.edu/~mjadud/">http://www.cs.indiana.edu/~mjadud/</A>
+Current Temperature Outside Lindley Hall                 55.6 F / 13.1 C
+Canterbury Weather: High 57 F / 14 C, Low 46 F / 8 C, Sunny intervals
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00897" href="msg00897.html">Re: [plt-scheme] Macros and scope</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.uchicago.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00895.html">Re: [plt-scheme] assertions and the learning of macro-fu</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00897.html">Re: [plt-scheme] Macros and scope</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00894.html">Re: [plt-scheme] Slow scheme_basic_env on Win2000</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00897.html">Re: [plt-scheme] Macros and scope</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00896"><strong>Date</strong></a></li>
+<li><a href="threads.html#00896"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

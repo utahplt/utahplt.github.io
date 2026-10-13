@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Compiling DrScheme 103p1 on Tru64... -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 28 Aug 2001 09:18:52 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108281518.JAA16641@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200108281504.f7SF4aw263214@saturn.cs.uml.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Compiling DrScheme 103p1 on Tru64...</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00838.html">Date Prev</a>][<a href="msg00840.html">Date Next</a>][<a href="msg00838.html">Thread Prev</a>][<a href="msg00842.html">Thread Next</a>][<a href="maillist.html#00839">Date Index</a>][<a href="threads.html#00839">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Compiling DrScheme 103p1 on Tru64...</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Ken Kleiner &lt;<A HREF="mailto:ken@cs.uml.edu">ken@cs.uml.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Compiling DrScheme 103p1 on Tru64...</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 28 Aug 2001 09:18:42 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00838.html">200108281504.f7SF4aw263214@saturn.cs.uml.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00838.html">200108281504.f7SF4aw263214@saturn.cs.uml.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Ken Kleiner:
+&gt; a - Utilities/Application.o
+&gt; ar: Error: Utilities/Application.o cannot open
+&gt; ...
+
+I notice that the files `ar' can't open are the ones that appear after
+a &quot;!-newline&quot; combination in your message.
+
+Any idea where the &quot;!&quot; comes from? (Is it just in the display from
+`make', or is it something real that confuses ar?)
+
+
+In any case, you might try to avoid the problem by breaking up the call
+to `ar' in plt/src/wxxt/src/Makefile.in:
+
+	$(AR) $(ARFLAGS) lib$(LIBNAME).a $(OBJS)
+
+changed to
+
+	$(AR) $(ARFLAGS) lib$(LIBNAME).a $(COBJS) $(WOBJS)
+	$(AR) $(ARFLAGS) lib$(LIBNAME).a $(CCOBJS)
+
+I'm not sure whether that's enough, though. You might have to break up
+the CCOBJS list into a couple of pieces.
+
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00838" href="msg00838.html">Compiling DrScheme 103p1 on Tru64...</a></strong>
+<ul><li><em>From:</em> Ken Kleiner &lt;ken@cs.uml.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00838.html">Compiling DrScheme 103p1 on Tru64...</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00840.html">Re: how to link CGI scripts and PLT libraries?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00838.html">Compiling DrScheme 103p1 on Tru64...</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00842.html">Hard of thinking using schemeql</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00839"><strong>Date</strong></a></li>
+<li><a href="threads.html#00839"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

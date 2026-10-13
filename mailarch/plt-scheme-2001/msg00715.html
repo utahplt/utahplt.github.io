@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: GC and portability issues -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 23 Jul 2001 06:39:58 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200107231239.f6NCdrr01685@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010717154546.B1266@apocalypse -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: GC and portability issues</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00714.html">Date Prev</a>][<a href="msg00716.html">Date Next</a>][<a href="msg00673.html">Thread Prev</a>][<a href="msg00676.html">Thread Next</a>][<a href="maillist.html#00715">Date Index</a>][<a href="threads.html#00715">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: GC and portability issues</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Eric Dorland &lt;<A HREF="mailto:dorland@lords.com">dorland@lords.com</A>&gt;</li>
+<li><em>Subject</em>: Re: GC and portability issues</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 23 Jul 2001 06:39:53 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00673.html">20010717154546.B1266@apocalypse</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00673.html">20010717154546.B1266@apocalypse</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Eric Dorland:
+&gt; The main problem seems to stem from the version of gc that is
+&gt; distributed  with the drscheme source is horribly out of date, and
+&gt; doesn't work on various architectures. I tried to get it to build with a
+&gt; more current version (5.3) as a shared lib, but there there were too
+&gt; many symbol differences between that one and the alpha version
+&gt; distributed with your sources.
+
+There are also some changes that we've made to the library, mainly to
+support a specialized finalization mode. I'm working on eliminating the
+need for the special finalization, so evenatually MzScheme should work
+with the standard collector library.
+
+&gt; Because of these problems (and it seems to broken on linux-m68k as well)
+&gt; drscheme will likely not make it into the next stable release of Debian
+&gt; (woody). I understand that v200 is rapidly approaching, and it would be
+&gt; a real boon if it would be possible to build it with a shared libgc as
+&gt; opposed to a static one.
+
+It's going to take a little while longer to remove the special
+finalization. Meanwhile, we're at least using the most recent version
+of the GC.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00673" href="msg00673.html">GC and portability issues</a></strong>
+<ul><li><em>From:</em> Eric Dorland &lt;dorland@lords.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00714.html">Re: mzscheme extension problems</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00716.html">SAC '02 - 2002 ACM SYMPOSIUM ON APPLIED COMPUTING - Call for</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00673.html">GC and portability issues</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00676.html">MysterX Message Loop?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00715"><strong>Date</strong></a></li>
+<li><a href="threads.html#00715"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

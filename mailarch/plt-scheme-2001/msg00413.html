@@ -1,0 +1,145 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Looking for advice/opinions -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 31 Mar 2001 15:40:29 &#45;0700 (MST) -->
+<!--X-Message-Id: 200103312240.f2VMeL905953@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200103191822.SAA27216@holyrood.ed.ac.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Looking for advice/opinions</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00412.html">Date Prev</a>][<a href="msg00414.html">Date Next</a>][<a href="msg00397.html">Thread Prev</a>][<a href="msg00419.html">Thread Next</a>][<a href="maillist.html#00413">Date Index</a>][<a href="threads.html#00413">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Looking for advice/opinions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Eddie Corns &lt;<A HREF="mailto:eddie@holyrood.ed.ac.uk">eddie@holyrood.ed.ac.uk</A>&gt;</li>
+<li><em>Subject</em>: Re: Looking for advice/opinions</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 31 Mar 2001 15:40:22 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00397.html">200103191822.SAA27216@holyrood.ed.ac.uk</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00397.html">200103191822.SAA27216@holyrood.ed.ac.uk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Sorry for the delay.
+
+Quoting Eddie Corns:
+&gt; I realise there would be a place for threads here but at the same
+&gt; time it seems like it might be expensive to invoke a thread for each
+&gt; individual request, especially as it is not uncommon to poll hundreds
+&gt; or even thousands of devices in one go. It seems natural to me
+&gt; (because I've used them before probably) to use callbacks. So
+&gt; (simplifying a bit) I would attach a 2 arg procedure to the outgoing
+&gt; request (to pass back the return value and success code) to be called
+&gt; after the response arrives (detected using SIGIO). Rather than trying
+&gt; to handle callbacks being invoked at an arbitrary time I think it
+&gt; might be easier to have a wait procedure that suspends the thread,
+&gt; handles all responses that have arrived and that continue to arrive
+&gt; until there's none left outstanding and then return.
+
+Overall, that makes sense.
+
+I recommend avoiding SIGIO. MzScheme's C interface will let you
+register a set of file descriptors to be used with select(). In
+particular, scheme_block_until() takes two functions: one to check
+whether to stop blocking, and one to register file descriptors for
+select() when MzScheme discovers that no thread wants to run.
+
+&gt; Does anyone have pointers to anything similar I can learn from/steal?
+
+MzScheme's implementation contains lots of examples, though many are
+fairly elaborate. The implementation of fd-based input and output might
+be a reasonable thing to look at (in &quot;port.c&quot;, look for &quot;fd input port&quot;
+and &quot;fd output port&quot;).
+
+&gt; Can I achieve this without getting involved in the internals of mzscheme?
+&gt; Making it an add-on would be better.
+
+Yes: everything you want to do is supported by the C interface.
+
+&gt; Can I use SIGIO without affecting the normal operation of mzscheme?
+&gt;
+&gt; (Does SIGIO actually work? nobody seems keen to use it.  Actually I'm still
+&gt; investigating alternatives here such as aio.)
+
+Since MzScheme wants to sleep with select(), SIGIO isn't going to be
+much use. (And I could go on and on about problems with signals...)
+
+&gt; A pragmatic issue - the leading contender for the actual SNMP library
+&gt; uses glib (the gtk/gnome C library) is anyone aware of
+&gt; interoperability problems with mzscheme? I've removed the code which
+&gt; depends on the glib event loop (I hope). Initial experiments were
+&gt; encouraging.
+
+Don't know offhand.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00419" href="msg00419.html">Re: Looking for advice/opinions</a></strong>
+<ul><li><em>From:</em> Eddie Corns &lt;eddie@holyrood.ed.ac.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00397" href="msg00397.html">Looking for advice/opinions</a></strong>
+<ul><li><em>From:</em> Eddie Corns &lt;eddie@holyrood.ed.ac.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00412.html">IT SCHOLARSHIPS</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00414.html">Re: Java JNI &amp;&amp; MzScheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00397.html">Looking for advice/opinions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00419.html">Re: Looking for advice/opinions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00413"><strong>Date</strong></a></li>
+<li><a href="threads.html#00413"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

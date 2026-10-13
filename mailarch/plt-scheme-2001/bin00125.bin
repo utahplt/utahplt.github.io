@@ -1,0 +1,151 @@
+#| The use of continuations for co-routines is not trivial. In fact continuations tends to pollute the code proper with set!, let/cc and call/cc. This pollution distracts the attention of the reader from the essential issues. As an attempt to simplify the notation of co-routines I have concocted a hygienic macro.
+
+My own version of co-lamda is slightly simpler than the one below, because it uses other macros and definitions in my private customization of MzScheme.
+
+Macro co-lambda is simple in the sense that it has one rewrite rule only.
+
+Co-lambda is sensitive to redefinitions of the names of primitive syntax and procedures. For readability I did not #% these.
+
+I have tested the macro with MzScheme, but it should also work in other R5RS conformant Schemes including define-syntax.
+
+-------------------------------------------------------------------------------
+Coroutines
+
+syntax (co-lambda name return/resume stop stop-signal formals body ...1)
+;                       --> proc producing a co-routine in the shape of a thunk
+
+<name>          ::= symbol
+<return/resume> ::= symbol
+<stop>          ::= symbol
+<formals>       ::= list of formal arguments acceptable for lambda
+
+co-lambda produces a proc that produces a co-routine in the form of a thunk. In the body, the following symbols have special meaning:
+
+<name>          ::= name for recursive calls in the co-routine. @name@ is a
+;                   proc with <formals> for its arguments and (<body> ...1) for
+;                   its body.
+<return/resume> ::= name for a one-argument proc.
+;                   Use (<return/resume> <result>) for returning a @result@ to
+;                   the calling proc. If the calling proc calls the
+;                   co-routine again, evaluation is resumed right after the
+;                   the (<return/resume> <result>) form.
+<stop>          ::= name for a thunk. Use (<stop>) to return to the calling
+;                   proc in order to signal that the co-routine has finished.
+;                   After an exit via @stop@ the co-routine cannot be called
+;                   again. At normal exit from the highest level of resursive
+;                   calls, (<stop>) is implied.
+<stop-signal>   ::= an expr that is evaluated once before the co-routine is
+;                   constructed but after the formal arguments have been
+;                   bound. During the evaluation of <stop-signal> the symbols
+;                   <name>, <return/resume> and stop> do not yet have their
+;                   special meaning. @stop-signal@ is returned by @stop@.
+;                   I am considering to replace this by a thunk. This would
+;                   require one trivial modification only.
+<formals>       ::= list of formal args that can be referred to in the body of
+;                   the co-routine. |#
+
+(require-library "synrule.ss")
+
+(define-syntax co-lambda
+ (syntax-rules ()
+  ((co-lambda name return/resume stop stop-signal formals body ...)
+   (lambda formals ; this is the co-routine maker
+    (let
+     ((proc ; this is central part of the co-routine: a thunk
+       (lambda ()
+        ((lambda x ; central part of the co-routine: it has arguments <formals>
+          (let ((stop-sign stop-signal)) ; evaluate <stop-signal>
+           (call/cc        ; define-syntax of MzScheme does not treat let/cc,
+            (lambda (exit) ; so we use call/cc; define exit for flow control
+             (letrec
+              ((return/resume ; make proc @return/resume@
+                (lambda (x)
+                 (set! exit (call/cc (lambda (cc) (exit (list x cc)))))))
+               (stop (lambda () (exit (list stop-sign))))) ; make proc @stop@
+              (apply ; at top level apply internal co-routine to args x
+               (letrec ((name (lambda formals body ...))) name)
+               x)
+              (stop)))))) ; (<stop> implied after normal return
+         x)))) ; make actual args available to the co-routine
+     (lambda () ; initial thunk for the co-routine proper. replaced by
+      (let ((result+cc (proc))) ; return/resume and stop. result+cc =
+       (if (null? (cdr result+cc)) ; (result continuation) or (stop-signal)
+        (begin      ; return made by stop:
+         (set! proc ; disable co-routine and return stop-signal
+          (lambda () (error "co-routine" 'name "called after finishing.")))
+         (car result+cc)) ; return stop-signal
+        (begin ; return via return/resume: replace proc by a thunk containing
+         (set! proc (lambda () (call/cc (cadr result+cc)))) ; the continuation
+         (car result+cc)))))))))) ; return one result
+
+#|=============================================================================
+Example: same-edge? (inspired by EPL)
+
+same-edge? takes an equality predicate eq and two exprs x and y. It returns true iff x and y have the same edge, i.e. the same sequence of non-null atoms after removing all parentheses and dots. Multiple occurrences of the same atom are relevant. For comparison of the atoms eq is used. For simplicity everything else than a pair is considered to be an atom, even if it is a composit thing like a struct, a vector, a box or a hash-table.|#
+
+(define same-edge? 
+ (lambda (eq x y)
+  (let       
+   ((next-x (make-fritter x))   ; co-routine for fritting x
+    (next-y (make-fritter y)))  ; co-routine for fritting y
+    (let/cc exit
+     (do () (#f)                ; loop until exit is choosen
+      (let
+       ((bx (next-x))           ; get next atom of x
+        (by (next-y)))          ; get next atom of y
+       ; trace the functioning of same-edge?. comment this out if you like.
+       (write (list "same-edge: next-x =" bx "next-y =" by)) (newline)
+       (cond                    ; body proper of same-edge?
+        ((null? bx)       (exit (null? by))) ; finish if x is exhausted.
+        ((null? by)       (exit #f))         ; finish if y is exhausted.
+        ((not (eq bx by)) (exit #f)))))))))  ; finish if atoms are not equal.
+;                                              iterate in all other cases.
+
+#| make-fritter produces a fritter given an instance of <x>. A fritter is a thunk that looks for the left-most non-null atom in expr <x> and returns that atom. After resuming it looks for the next non-null atom. It returns () if no more non-null atoms can be found.|#
+
+(define make-fritter
+ (co-lambda
+  fritter                    ; internal name of the fritter
+  r/r                        ; return/resume
+  stop-not-used-explicitly   ; stop is not used explicitly, only implicitly
+  '()                        ; stop signal
+  (x)                        ; formal argument: the expr to be fritted
+  (cond                      ; body of the co-routine
+   ((null? x))               ; return to higher level of recursion
+   ((not (pair? x)) (r/r x)) ; return atom and resume here
+   (else                     ; make recursive call for the car and the cdr of x
+    (fritter (car x))
+    (fritter (cdr x))))))    ; stop is implied after normal return from
+;                              highest level of recursion
+
+#| If x is a proper list, (for-each fritter x) can be used. The above fritter also works for improper lists and therefore does not use for-each.
+
+Some tests:|#
+
+(same-edge? eq? '(a b c) '(a () b c))                     ; --> true
+
+(same-edge? eq?
+'(a (b (c () (  d () () ((e))    f ) g) () h) () i)
+'((((a  b) c () () d ((() e () ( f ) g)    h ()) i ())))) ; --> true
+
+(same-edge? eq?
+'(a (b (c () (  d () () ((e))    f ) g) () h) () i)
+'((((a b)  c () () d ((() e () (fff) g)    h ()) i ())))) ; --> false
+
+(same-edge? eq? '() '())                                  ; --> true
+
+(same-edge? eq?
+'(() () () (((((()()()())())())())())())
+'())                                                      ; --> true
+
+(same-edge? eq? '(a b) '(a))                              ; --> false
+
+(same-edge? eq? '(#t . #f) '(#t . #f))                    ; --> true
+
+(same-edge? eq? '(#t . #f) '(#f . #f))                    ; --> false
+
+(same-edge? eq? 'a 'a)                                    ; --> true
+
+(same-edge? eq? 'a '(a))                                  ; --> true
+
+(same-edge? eq? 'a 'b)                                    ; --> false

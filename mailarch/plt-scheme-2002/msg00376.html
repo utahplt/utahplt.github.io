@@ -1,0 +1,155 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Wed, 20 Mar 2002 16:38:37 &#45;0700 (MST) -->
+<!--X-Message-Id: 15513.7545.780882.905162@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: BE6EE24E3C118B4CAF54769CDA66F3617FA688@ivory.corp.xpsystems.com -->
+<!--X-Reference: 200203202241.g2KMfhT22353@orchestra.cs.caltech.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00375.html">Date Prev</a>][<a href="msg00377.html">Date Next</a>][<a href="msg00375.html">Thread Prev</a>][<a href="msg00378.html">Thread Next</a>][<a href="maillist.html#00376">Date Index</a>][<a href="threads.html#00376">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Wed, 20 Mar 2002 18:38:33 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00375.html">200203202241.g2KMfhT22353@orchestra.cs.caltech.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00372.html">BE6EE24E3C118B4CAF54769CDA66F3617FA688@ivory.corp.xpsystems.com</a>&gt;&lt;<a href="msg00375.html">200203202241.g2KMfhT22353@orchestra.cs.caltech.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+[Also off-topic...]
+
+On Mar 20, Michael Vanier wrote:
+&gt; My observations are that different programmers react differently to
+&gt; this situation.  The strongest proponents of so-called dynamic
+&gt; languages typically claim that
+&gt; 
+&gt; a) they don't make many type errors anyway
+&gt; b) type systems are not powerful enough to do anything really
+&gt;    interesting
+&gt; 
+&gt; The strongest proponents of static languages say the opposite.
+
+In my experience, using dynamic typing means more responsibility on
+the programmer since the language allows doing more.  This can be
+considered as a point in favor of static typing, but people who are
+comfortable in the dynamic world tend to feel like they constantly
+have to fight against the system of a static world.
+
+Also, static programmers rely on the typing so much that you can see
+whole sections in the OCaml documentation (which is supposed to be the
+ML with the best documentation AFAIK) where there is nothing more than
+just type specifications -- in a language like Scheme you need to be
+more disciplined.
+
+Another point - since you spend so much time on types (in a static
+world), you're getting used to that help and you would not feel bad
+&quot;spreading&quot; code -- for example, in an OCaml system we have here I
+once tried tracing the code that does something (very specific:
+printing terms) -- pretty soon I had around 25 open files in Emacs,
+each had something involved.  When I talked to the guy who wrote it
+about this problem, he didn't see any problem since the type system
+protected him by letting him know how to propagate changes around, but
+my personal opinion is that this dangerous -- I don't believe that all
+changes that need to be propagated will manifest themselves as type
+changes.
+
+Of course there is another factor which is the fact that dynamic
+languages tend to *be* dynamic which allows you to keep yourself in
+the environment, where in static language the REPL is usually an ugly
+hack that might give you a dynamic illusion until you try redefining
+stuff.  You can do the define-test-debug-redefine-test... cycle only
+for tiny standalone functions but you can't have the freedom you have
+in Scheme.  (There is a project called &quot;Efuns&quot; that makes an
+Emacs-like editor and a window manager using OCaml -- if you read what
+they did, the dynamic redefinition was one of the first problems they
+had, IIRC, they hacked OCaml to be able to do things.)
+
+The last point that the static world raise is that for big projects
+with many people, a static world is better at handling things, which
+might be true.
+
+I think that the best would be to get the advantages of both, which is
+why I like the fact that the PLT people respect types (instead of
+blind flamewars).  (I had infinite discussions with the local static
+representative and I think that the static world would benefit too
+from being a bit more dynamic.)  I think would be nice if ML would
+somehow substitute C as the foundation things are built upon.
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00378" href="msg00378.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@cs.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00372" href="msg00372.html">Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> &quot;Brent Fulgham&quot; &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+<li><strong><a name="00375" href="msg00375.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@cs.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00375.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00377.html">Re: how to store and load mzscheme objects ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00375.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00378.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00376"><strong>Date</strong></a></li>
+<li><a href="threads.html#00376"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

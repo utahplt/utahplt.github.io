@@ -1,0 +1,118 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fuevenzNpf.evpr.rqh> -->
+<!--X-Date: Thu, 10 Aug 2000 09:41:34 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14738.52293.108392.678928@sun.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Specialized input parsing for code/REPL in DrScheme?</TITLE>
+<LINK REV="made" HREF="mailto:shriram@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00837.html">Date Prev</A>][<A HREF="msg00839.html">Date Next</A>][<A HREF="msg00841.html">Thread Prev</A>][<A HREF="msg00846.html">Thread Next</A>][<A HREF="maillist.html#00838">Date Index</A>][<A HREF="threads.html#00838">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Specialized input parsing for code/REPL in DrScheme?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Subject</em>: Specialized input parsing for code/REPL in DrScheme?</LI>
+<LI><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 10 Aug 2000 10:41:30 -0500 (CDT)</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00834.html">399207D9.5F451CC@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00834.html">399207D9.5F451CC@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Reply-To</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Paul,
+
+There have been lots of efforts to create "less parenthesized"
+Schemes.  (Rob Warnock, who should be on this list, made a valiant
+attempt not very long ago.)  Most die painful deaths.  I don't,
+however, know that anyone has gone down the indentation-is-significant
+route.  I'm certainly interested in seeing the results.
+
+If you need help with the vagaries of parsing Scheme (certainly, you
+shouldn't mess with atomic syntax like that of numbers), you'll find
+people here that can help (Matthew wrote the C parser, I wrote much of
+the Scheme parser).  You may be able to profitably reuse the C and
+Scheme parsers for atomic data, which can save you a lot of work.
+
+Finally, a good Henry Baker quote (comp.compilers, 10/28/94):
+
+  &gt;5. Cleverness on the part of the language designer: anybody looking
+  &gt;for a really frustrating student project might consider building a
+  &gt;parser for Occam, in which there are no explicit brackets for compound
+  &gt;statements but nesting is indicated by indentation.
+
+  Cut yourself on Occam's razor, I see.  :-)
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00846" HREF="msg00846.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> John Clements &lt;clements@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00861" HREF="msg00861.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00834" HREF="msg00834.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00837.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00839.html">Any Other Lists?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00841.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00846.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00838"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00838"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

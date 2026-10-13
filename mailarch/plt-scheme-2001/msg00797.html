@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: bytecode unification for scripting (and other!) languages -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNppf.arh.rqh> -->
+<!--X-Date: Wed, 15 Aug 2001 21:48:35 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108160348.f7G3mUD14607@alya.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: BCEOLHKHFMDPNMEKEAECMEFJCAAA.sk@cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: bytecode unification for scripting (and other!) languages</title>
+<link rev="made" href="mailto:matthias@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00796.html">Date Prev</a>][<a href="msg00798.html">Date Next</a>][<a href="msg00798.html">Thread Prev</a>][<a href="msg00799.html">Thread Next</a>][<a href="maillist.html#00797">Date Index</a>][<a href="threads.html#00797">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: bytecode unification for scripting (and other!) languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A></li>
+<li><em>Subject</em>: Re: bytecode unification for scripting (and other!) languages</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 15 Aug 2001 23:48:30 -0400 (EDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00795.html">BCEOLHKHFMDPNMEKEAECMEFJCAAA.sk@cs.brown.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00795.html">BCEOLHKHFMDPNMEKEAECMEFJCAAA.sk@cs.brown.edu</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+  &gt; From: &quot;Shriram Krishnamurthi&quot; &lt;sk@cs.brown.edu&gt;
+  &gt; Date: Wed, 15 Aug 2001 23:37:45 -0400
+  &gt; Content-Type: text/plain;
+  &gt; 	charset=&quot;iso-8859-1&quot;
+  &gt; X-Priority: 3 (Normal)
+  &gt; X-MSMail-Priority: Normal
+  &gt; Importance: Normal
+  &gt; X-MimeOLE: Produced By Microsoft MimeOLE V5.50.4522.1200
+  &gt; 
+  &gt; &gt; 2. Having said that, I believe that programmers should actually think
+  &gt; about
+  &gt; &gt;    their types, in all situations. As Michael also points out, if you
+  &gt; &gt;    understand the types of your program well, you avoid many mistakes.
+  &gt; Many
+  &gt; &gt;    errors manifest themselves in violations of data invariants, and that's
+  &gt; &gt;    what these simple proof systems called type systems are good at.
+  &gt; 
+  &gt; I disagree with the implication of this.  The implication is that, when a
+  &gt; programmer reasons incorrectly about their types, they should get slapped
+  &gt; on the hand -- whether as a static rejection, a la ML, or as a dynamic check
+  &gt; failure, a la Scheme, is irrelevant.
+  &gt; 
+  &gt; I believe there is a very useful way of relaxing this restriction to capture
+  &gt; the essence of scripting, while still recovering it when programs grow to
+  &gt; engineer software.  PLT Scheme needs a &quot;scripting&quot; language level, where
+  &gt; operators coerce heavily: APPEND consumes strings as well as lists; FIRST
+  &gt; works on vectors, not just pairs; and so on.
+  &gt; MrSpidey then needs a scripting analysis level, where it flags these coerced
+  &gt; uses in ultra-special-red, meaning &quot;this may have worked for you earlier,
+  &gt; but
+  &gt; it sure won't work now&quot;.  Based on the coercions
+  &gt; 
+
+It plain doesn't matter what your types are as long as you have types. 
+Typing append in some overloaded manner is okay. 
+
+Saying that (/ 1 0) is 5 is not okay. Saying that (5 10) is 22 is not
+okay. And (car '()) = '() is probably counter-productive in any context
+even though some Lisps implemented exactly that. 
+
+-- Matthias
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00795" href="msg00795.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> &quot;Shriram Krishnamurthi&quot; &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00796.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00798.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00798.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00799.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00797"><strong>Date</strong></a></li>
+<li><a href="threads.html#00797"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

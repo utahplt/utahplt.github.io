@@ -1,0 +1,131 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: focus problem &#45; what's wrong? -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?X=T6et?= Yvccr <xvcNvvgo.sut.qr> -->
+<!--X-Date: Tue, 25 Sep 2001 01:50:57 &#45;0600 (MDT) -->
+<!--X-Message-Id: 3BB03759.9EE6FF2E@iitb.fhg.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>focus problem - what's wrong?</title>
+<link rev="made" href="mailto:kip@iitb.fhg.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00929.html">Date Prev</a>][<a href="msg00931.html">Date Next</a>][<a href="msg00928.html">Thread Prev</a>][<a href="msg00931.html">Thread Next</a>][<a href="maillist.html#00930">Date Index</a>][<a href="threads.html#00930">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>focus problem - what's wrong?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: focus problem - what's wrong?</li>
+<li><em>From</em>: Jörg Kippe &lt;<A HREF="mailto:kip@iitb.fhg.de">kip@iitb.fhg.de</A>&gt;</li>
+<li><em>Date</em>: Tue, 25 Sep 2001 09:50:49 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi all,
+I'm using DrScheme 103 and I've some problems to control the focus by
+program. From a bigger application I have extracted this short example.
+The buttons are simulating other parts which have to set the focus to
+certain input areas. All works fine with the buttons &quot;focus to second&quot;
+and &quot;focus to third&quot;, but if the window is hidden and shown again, it
+will not set the focus.
+What's wrong?
+
+(make-object
+  (class* dialog% () initvars
+    (private (the-panel void)
+             (ed1 void)
+             (ed2 void))
+    (sequence (super-init &quot;TEST&quot; #f 200 200 200 200 null)
+              (set! the-panel (make-object vertical-panel% this
+'(border)))
+              (set! ed1 (make-object editor-canvas% the-panel
+                          (make-object text% 1.0 null)
+                          '(no-hscroll no-vscroll) 1))
+              (set! ed2 (make-object editor-canvas% the-panel
+                          (make-object text% 1.0 null)
+                          '(no-hscroll no-vscroll) 1))
+              (make-object button% &quot;test&quot; the-panel
+                (lambda (x y)
+                  (send this show #f)
+                  (send this show #t)
+                  (send ed1 focus))
+                null)
+              (make-object button% &quot;focus to third&quot; the-panel
+                (lambda (x y) (send ed1 focus)) null)
+              (make-object button% &quot;focus to second&quot; the-panel
+                (lambda (x y) (send ed2 focus)) null)
+              (send this show #t))))
+
+--
+****************************************************************
+   Joerg KIPPE
+   Fraunhofer-Institut fuer Informations- und Datenverarbeitung
+   Fraunhoferstr. 1
+   D-76131 Karlsruhe
+   Email:        <A  HREF="mailto:kip@iitb.fhg.de">mailto:kip@iitb.fhg.de</A>
+   Telephone:    +49-721-6091-337
+   FAX:          +49-721-6091-413
+****************************************************************
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00931" href="msg00931.html">Re: focus problem - what's wrong?</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+<li><strong><a name="01152" href="msg01152.html">Re: focus problem - what's wrong?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00929.html">Re: debug, break, single-step</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00931.html">Re: focus problem - what's wrong?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00928.html">Re: compiling drscheme on mac</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00931.html">Re: focus problem - what's wrong?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00930"><strong>Date</strong></a></li>
+<li><a href="threads.html#00930"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

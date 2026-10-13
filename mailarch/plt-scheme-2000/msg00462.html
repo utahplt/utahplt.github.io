@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Top window garbage collected in standalone? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 5 Aug 2000 11:18:50 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000805171845.HYWU10370.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 398C4C03.54C8F2B6@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Top window garbage collected in standalone?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00461.html">Date Prev</a>][<a href="msg00463.html">Date Next</a>][<a href="msg00461.html">Thread Prev</a>][<a href="msg00468.html">Thread Next</a>][<a href="maillist.html#00462">Date Index</a>][<a href="threads.html#00462">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Top window garbage collected in standalone?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Top window garbage collected in standalone?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 5 Aug 2000 10:18:45 -0700</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00461.html">398C4C03.54C8F2B6@kurtz-fernhout.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00461.html">398C4C03.54C8F2B6@kurtz-fernhout.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Paul Fernhout:
+&gt; It appears the top level window seems to be immediately garbage
+&gt; collected because it opens up and then closes right away.
+
+MrEd exits if its main thread runs out of expressions to evaluate,
+regardless of whether any window is visible or any events are in the
+event queue.
+
+This is a consistent source of confusion, but we don't currently know a
+better overall convention.
+
+Some ways to fix the program:
+
+ * Use dialog% instead of frame%. This works because the `show' menthod
+   for dialog% blocks until the dialog is closed.
+
+ * Put `(yield (make-semaphore 0))' at the end of the program, and
+   explicitly call `(exit)' when the user closes the window (i.e.,
+   override the `on-close' method of the frame%).
+
+ * Use the -V command-line flag, which does the same thing as putting
+   `(yield (make-semaphore 0))' at the end of the program.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00461" href="msg00461.html">Top window garbage collected in standalone?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00461.html">Top window garbage collected in standalone?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00463.html">xctocc documentation link bad?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00461.html">Top window garbage collected in standalone?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00468.html">Re: Top window garbage collected in standalone?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00462"><strong>Date</strong></a></li>
+<li><a href="threads.html#00462"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

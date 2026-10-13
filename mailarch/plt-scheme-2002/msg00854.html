@@ -1,0 +1,101 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] embarrasing question -->
+<!--X-From-R13: Praqrewt2Nnby.pbz -->
+<!--X-Date: Sun, 5 May 2002 23:01:24 &#45;0600 (MDT) -->
+<!--X-Message-Id: 9b.2709c12d.2a0767fb@aol.com -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] embarrasing question</title>
+<link rev="made" href="mailto:Benderjg2@aol.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00853.html">Date Prev</a>][<a href="msg00855.html">Date Next</a>][<a href="msg00855.html">Thread Prev</a>][<a href="msg00856.html">Thread Next</a>][<a href="maillist.html#00854">Date Index</a>][<a href="threads.html#00854">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] embarrasing question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:caw@cs.mu.oz.au">caw@cs.mu.oz.au</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] embarrasing question</li>
+<li><em>From</em>: <A HREF="mailto:Benderjg2@aol.com">Benderjg2@aol.com</A></li>
+<li><em>Date</em>: Mon, 6 May 2002 01:00:43 EDT</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<FONT FACE=arial,helvetica><FONT  SIZE=2>In a message dated 5/5/2002 11:47:13 PM Central Daylight Time, caw@cs.mu.oz.au writes:<BR>
+<BR>
+<BR>
+<BLOCKQUOTE TYPE=CITE style="BORDER-LEFT: #0000ff 2px solid; MARGIN-LEFT: 5px; MARGIN-RIGHT: 0px; PADDING-LEFT: 5px">I'm trying to do this:<BR>
+<BR>
+(for-each (lambda (sym fn)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (hash-table-put! *function-table* sym fn))<BR>
+&nbsp;&nbsp;&nbsp; '(+ - blurp) '(+ - (lambda (x) (+ x 1))))<BR>
+<BR>
+with the idea being, obviously, storing the procedure + under the key +, and<BR>
+the proc to add one to a number under the key blurp.<BR>
+<BR>
+Equally obviously, it doesn't work</BLOCKQUOTE><BR>
+<BR>
+You want to use quasiquote and unquote:<BR>
+(for-each (lambda (sym fn)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (hash-table-put! *function-table* sym fn))<BR>
+&nbsp;&nbsp;&nbsp; '(+ - blurp) `(,+ ,- ,(lambda (x) (+ x 1))))<BR>
+<BR>
+Or even just list:<BR>
+(for-each (lambda (sym fn)<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (hash-table-put! *function-table* sym fn))<BR>
+&nbsp;&nbsp;&nbsp; '(+ - blurp) (list + - (lambda (x) (+ x 1))))<BR>
+<BR>
+Jim<BR>
+<BR>
+</FONT>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00853.html">[plt-scheme] embarrasing question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00855.html">Re: [plt-scheme] embarrasing question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00855.html">Re: [plt-scheme] embarrasing question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00856.html">[plt-scheme] MZScheme on Mac OS</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00854"><strong>Date</strong></a></li>
+<li><a href="threads.html#00854"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

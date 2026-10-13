@@ -1,0 +1,117 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Error with WITH&#45;HANDLER+UNIT? -->
+<!--X-From-R13: "Ivyy Tvgmtrenyq" <svgmtrenyqNarbqrfvp.pbz> -->
+<!--X-Date: Tue, 14 Mar 2000 08:59:37 &#45;0700 (MST) -->
+<!--X-Message-Id: 000b01bf8dce$4b3d4830$11969fd0@fitzgerald_nt -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20000312220315.XLV14285.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Error with WITH-HANDLER+UNIT?</title>
+<link rev="made" href="mailto:fitzgerald@neodesic.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00192.html">Date Prev</a>][<a href="msg00194.html">Date Next</a>][<a href="msg00183.html">Thread Prev</a>][<a href="msg00195.html">Thread Next</a>][<a href="maillist.html#00193">Date Index</a>][<a href="threads.html#00193">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Error with WITH-HANDLER+UNIT?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Error with WITH-HANDLER+UNIT?</li>
+<li><em>From</em>: &quot;Will Fitzgerald&quot; &lt;<A HREF="mailto:fitzgerald@neodesic.com">fitzgerald@neodesic.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 14 Mar 2000 10:59:35 -0500</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00182.html">20000312220315.XLV14285.mail.rdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>Reply-To</em>: &lt;<A HREF="mailto:fitzgerald@neodesic.com">fitzgerald@neodesic.com</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+This code fragment catches an error and returns it:
+
+&gt; (with-handlers
+    ((identity identity))
+     (/ 1 0))
+#&lt;struct:exn:application:divide-by-zero&gt;
+
+But this doesn't catch the error UNIT throws
+
+&gt; (with-handlers
+    ((identity identity))
+     (unit (import) (export) some-unknown-variable))
+
+unit: used an unbound or non-primitive global in: some-unknown-variable
+
+Similarly,
+
+(ignore-errors (lambda () (unit (import) (export)
+some-unknown-variable)))
+unit: used an unbound or non-primitive global in: some-unknown-variable
+
+Is this a bug, or am I misunderstanding something?
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00195" href="msg00195.html">Re: Error with WITH-HANDLER+UNIT?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00197" href="msg00197.html">Re: Error with WITH-HANDLER+UNIT?</a></strong>
+<ul><li><em>From:</em> robby &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00182" href="msg00182.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00192.html">RE: how to create .exe files from a drscheme program ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00194.html">exceptions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00183.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00195.html">Re: Error with WITH-HANDLER+UNIT?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00193"><strong>Date</strong></a></li>
+<li><a href="threads.html#00193"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

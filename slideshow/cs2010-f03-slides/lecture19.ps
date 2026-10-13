@@ -1,0 +1,8958 @@
+%!PS-Adobe-2.0
+%%Creator: MrEd
+%%CreationDate: Thu Jul  8 18:37:19 2004
+%%For: mflatt@localhost.localdomain (Matthew Flatt)
+%%BoundingBox:  00016  00016  00596  00775
+%%Pages:  00021
+%%Orientation: Landscape
+%%EndComments
+
+/ellipsedict 8 dict def
+ellipsedict /mtrx matrix put
+/ellipse
+{ ellipsedict begin
+  /endangle exch def
+  /startangle exch def
+  /yrad exch def
+  /xrad exch def
+  /y exch def
+  /x exch def
+  /savematrix mtrx currentmatrix def
+  x y translate
+  xrad yrad scale
+  0 0 1 endangle startangle arcn
+  savematrix setmatrix
+  end
+  } def
+1 1 1 setrgbcolor
+0 setlinewidth
+0 0 0 setrgbcolor
+%%Page: 1
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+222.363281 666.156250 moveto
+(Designing Generative Recusion) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+113.034668 584.794861 moveto
+(When you discover that the design recipe isn) show
+<a9> show
+(t working,) show
+0 setlinewidth
+[] 0 setdash
+1 0 0 setrgbcolor
+/Helvetica-Bold findfont
+29.625000 scalefont setfont
+351.541534 546.830444 moveto
+(stop writing code) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 444.061340 moveto
+(Instead, ) show
+<ae> show
+(gure out the) show
+305.319611 444.061340 moveto
+( ) show
+/Helvetica-Oblique findfont
+29.625000 scalefont setfont
+313.561890 444.061340 moveto
+(algorithm) show
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 385.729706 moveto
+<b7> show
+40.025391 385.729706 moveto
+(What is the trivial case?) show
+18.530273 327.398071 moveto
+<b7> show
+40.025391 327.398071 moveto
+(What are the smaller sub-problems, and how are their solutions) show
+40.025391 289.433655 moveto
+(combined?) show
+0 setlinewidth
+[] 0 setdash
+0 0 1 setrgbcolor
+50.958252 208.883286 moveto
+(Generating sub-problems or combining the answers may require) show
+50.958252 170.918854 moveto
+(additional) show
+177.853577 170.918854 moveto
+( ) show
+186.095825 170.918854 moveto
+(functions) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+910.750000 22.070007 moveto
+(1-3) show
+showpage
+%%Page: 2
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+267.762451 666.156250 moveto
+(Generating Sub-Problems) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 584.794861 moveto
+(The key to a sub-problem is that it looks like the original problem) show
+18.530273 546.830444 moveto
+<28> show
+(only) show
+82.778442 546.830444 moveto
+( ) show
+91.020706 546.830444 moveto
+(smaller) show
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 1 setrgbcolor
+18.530273 488.498840 moveto
+(Example:) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+142.104965 488.498840 moveto
+( ) show
+150.347229 488.498840 moveto
+(In) show
+175.074036 488.498840 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+183.316284 488.498840 moveto
+(odd-items) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+343.417847 488.498840 moveto
+(, the sub-problem is a smaller list from which) show
+18.530273 449.408630 moveto
+(we) show
+56.420975 449.408630 moveto
+( ) show
+64.663239 449.408630 moveto
+(want) show
+127.280746 449.408630 moveto
+( ) show
+135.523010 449.408630 moveto
+(the) show
+176.734329 449.408630 moveto
+( ) show
+184.976593 449.408630 moveto
+(odd) show
+234.430191 449.408630 moveto
+( ) show
+242.672440 449.408630 moveto
+(items) show
+0 setlinewidth
+[] 0 setdash
+0 0 1 setrgbcolor
+18.530273 391.077026 moveto
+(Homework:) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+168.432785 391.077026 moveto
+( ) show
+176.675049 391.077026 moveto
+(In) show
+201.401840 391.077026 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+209.644104 391.077026 moveto
+(colors->list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+423.112854 391.077026 moveto
+(, the sub-problem should be a smaller) show
+18.530273 351.986847 moveto
+(list) show
+54.760666 351.986847 moveto
+( ) show
+63.002930 351.986847 moveto
+(from) show
+122.299805 351.986847 moveto
+( ) show
+130.542068 351.986847 moveto
+(which) show
+206.323486 351.986847 moveto
+( ) show
+214.565735 351.986847 moveto
+(to) show
+239.292542 351.986847 moveto
+( ) show
+247.534805 351.986847 moveto
+(extract) show
+336.509766 351.986847 moveto
+( ) show
+344.752045 351.986847 moveto
+(rows) show
+0 setlinewidth
+[] 0 setdash
+0.196078 0.803922 0.196078 setrgbcolor
+18.530273 271.436462 moveto
+(Guideline:) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+152.007538 271.436462 moveto
+( ) show
+160.249802 271.436462 moveto
+(When the result is a list, try to generate the) show
+723.836975 271.436462 moveto
+( ) show
+732.079285 271.436462 moveto
+<ae> show
+(rst item in the) show
+18.530273 233.472031 moveto
+(list,) show
+63.002930 233.472031 moveto
+( ) show
+71.245193 233.472031 moveto
+(then) show
+128.941055 233.472031 moveto
+( ) show
+137.183319 233.472031 moveto
+(create) show
+219.576340 233.472031 moveto
+( ) show
+227.818588 233.472031 moveto
+(a) show
+244.303116 233.472031 moveto
+( ) show
+252.545380 233.472031 moveto
+(sub-problem) show
+417.301758 233.472031 moveto
+( ) show
+425.544037 233.472031 moveto
+(for) show
+460.143768 233.472031 moveto
+( ) show
+468.386017 233.472031 moveto
+(the) show
+509.597321 233.472031 moveto
+( ) show
+517.839600 233.472031 moveto
+(rest) show
+567.263550 233.472031 moveto
+( ) show
+575.505798 233.472031 moveto
+(of) show
+600.232666 233.472031 moveto
+( ) show
+608.474915 233.472031 moveto
+(the) show
+649.686218 233.472031 moveto
+( ) show
+657.928467 233.472031 moveto
+(list) show
+/Courier findfont
+10 scalefont setfont
+910.750000 22.070007 moveto
+(4-5) show
+showpage
+%%Page: 3
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+365.972900 666.156250 moveto
+(New Example) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 539.548279 moveto
+(Suppose that instead of rows, we want to convert an image into a list) show
+18.530273 501.583832 moveto
+(of) show
+43.257069 501.583832 moveto
+( ) show
+51.499336 501.583832 moveto
+(columns) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+82.459717 443.252197 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+100.248779 443.252197 moveto
+(colors->columns) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+367.084717 443.252197 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+384.873779 443.252197 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+402.662842 443.252197 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+473.819092 443.252197 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 443.252197 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.342529 443.252197 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.131592 443.252197 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 443.252197 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 443.252197 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 404.162018 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.342529 404.162018 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.131592 404.162018 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 404.162018 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 404.162018 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+847.389404 404.162018 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+384.873779 365.071838 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 365.071838 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+82.459717 325.981628 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+278.139404 325.981628 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+295.928467 325.981628 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+313.717529 325.981628 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+384.873779 325.981628 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 325.981628 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 325.981628 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 325.981628 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 325.981628 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 325.981628 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 325.981628 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 325.981628 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 286.891449 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 286.891449 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 286.891449 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 286.891449 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 286.891449 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 286.891449 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 286.891449 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+295.928467 247.801270 moveto
+(      ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 247.801270 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 247.801270 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 247.801270 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 247.801270 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 247.801270 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 247.801270 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 247.801270 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.444092 247.801270 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 1 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+228.848877 166.125122 moveto
+(Structural recursion doesn) show
+<a9> show
+(t work well) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+922.750000 22.070007 moveto
+(6) show
+showpage
+%%Page: 4
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+213.098145 666.156250 moveto
+(Designing the Column Converter) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+82.459717 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+100.248779 584.794861 moveto
+(colors->columns) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+367.084717 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+384.873779 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+402.662842 584.794861 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+473.819092 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 584.794861 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.342529 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.131592 584.794861 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 584.794861 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 545.704712 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.342529 545.704712 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.131592 545.704712 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 545.704712 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 545.704712 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+847.389404 545.704712 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+384.873779 506.614532 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 506.614532 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+82.459717 467.524323 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+278.139404 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+295.928467 467.524323 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+313.717529 467.524323 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+384.873779 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 467.524323 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 467.524323 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 467.524323 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 467.524323 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 467.524323 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 428.434143 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 428.434143 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 428.434143 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 428.434143 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 428.434143 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+295.928467 389.343964 moveto
+(      ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 389.343964 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 389.343964 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 389.343964 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 389.343964 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.444092 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 329.886566 moveto
+(The result is a list of columns:) show
+18.530273 271.554962 moveto
+<b7> show
+40.025391 271.554962 moveto
+(Can we get the ) show
+<ae> show
+(rst column?) show
+18.530273 213.223328 moveto
+<b7> show
+40.025391 213.223328 moveto
+(Can we create a list with only the other columns?) show
+/Courier findfont
+10 scalefont setfont
+922.750000 22.070007 moveto
+(7) show
+showpage
+%%Page: 5
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+213.098145 666.156250 moveto
+(Designing the Column Converter) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+82.459717 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+100.248779 584.794861 moveto
+(colors->columns) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+367.084717 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+384.873779 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+402.662842 584.794861 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+473.819092 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 584.794861 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.342529 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.131592 584.794861 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 584.794861 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 545.704712 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.342529 545.704712 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.131592 545.704712 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 545.704712 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 545.704712 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+847.389404 545.704712 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+384.873779 506.614532 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 506.614532 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+82.459717 467.524323 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+278.139404 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+295.928467 467.524323 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+313.717529 467.524323 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+384.873779 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 467.524323 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 467.524323 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 467.524323 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 467.524323 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 467.524323 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 428.434143 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 428.434143 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 428.434143 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 428.434143 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 428.434143 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+295.928467 389.343964 moveto
+(      ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 389.343964 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 389.343964 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 389.343964 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 389.343964 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.444092 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.196078 0.803922 0.196078 setrgbcolor
+0 setlinewidth
+newpath
+132.491455 358.585785 moveto
+816.258545 358.585785 lineto
+stroke
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+82.459717 306.742035 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+100.248779 306.742035 moveto
+(colors->columns) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+367.084717 306.742035 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+384.873779 306.742035 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+402.662842 306.742035 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+473.819092 306.742035 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 306.742035 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.342529 306.742035 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.131592 306.742035 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 306.742035 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 306.742035 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 267.651855 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.342529 267.651855 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.131592 267.651855 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 267.651855 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 267.651855 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+847.389404 267.651855 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+384.873779 228.561676 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 228.561676 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Symbol findfont
+29.625000 scalefont setfont
+82.459717 189.471481 moveto
+<ae> show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+82.459717 149.314819 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+100.248779 149.314819 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+171.405029 149.314819 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+189.194107 149.314819 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+206.983170 149.314819 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+278.139404 149.314819 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+295.928497 149.314819 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+402.662842 149.314819 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451935 149.314819 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+527.186279 149.314819 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+189.194107 110.224632 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+206.983170 110.224632 moveto
+(colors->columns) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+473.819092 110.224632 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+491.608124 110.224632 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 110.224632 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+580.553528 110.224632 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+598.342529 110.224632 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+705.076904 110.224632 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+722.865967 110.224632 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+598.342529 71.134445 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+705.076904 71.134445 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+722.865967 71.134445 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+829.600342 71.134445 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+491.608124 32.044258 moveto
+(2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+509.397217 32.044258 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+527.186279 32.044258 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+922.750000 22.070007 moveto
+(8) show
+showpage
+%%Page: 6
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+213.098145 666.156250 moveto
+(Designing the Column Converter) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+82.459717 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+100.248779 584.794861 moveto
+(colors->columns) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+367.084717 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+384.873779 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+402.662842 584.794861 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+473.819092 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 584.794861 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.342529 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.131592 584.794861 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 584.794861 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 545.704712 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.342529 545.704712 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.131592 545.704712 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 545.704712 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 545.704712 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+847.389404 545.704712 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+384.873779 506.614532 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 506.614532 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+82.459717 467.524323 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+278.139404 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+295.928467 467.524323 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+313.717529 467.524323 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+384.873779 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 467.524323 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 467.524323 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 467.524323 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 467.524323 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 467.524323 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 428.434143 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 428.434143 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 428.434143 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 428.434143 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 428.434143 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+295.928467 389.343964 moveto
+(      ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 389.343964 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+420.451904 389.343964 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.608124 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+509.397217 389.343964 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 389.343964 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.655029 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.444092 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.196078 0.803922 0.196078 setrgbcolor
+0 setlinewidth
+newpath
+132.491455 358.585785 moveto
+816.258545 358.585785 lineto
+stroke
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+136.197510 306.742035 moveto
+(; ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+136.197510 267.651855 moveto
+(; ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+171.775635 306.742035 moveto
+(extract-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+527.556885 306.742035 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+545.345947 306.742035 moveto
+(:) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+171.775635 267.651855 moveto
+( ) show
+189.564697 267.651855 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+207.353760 267.651855 moveto
+(list-of-color) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+438.611603 267.651855 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+456.400635 267.651855 moveto
+(num) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+509.767822 267.651855 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+527.556885 267.651855 moveto
+(->) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+563.135010 267.651855 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+580.924072 267.651855 moveto
+(list-of-color) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+136.197510 228.561676 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+136.197510 189.471481 moveto
+(; ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+136.197510 150.381302 moveto
+(; ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+171.775635 189.471481 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+474.189697 189.471481 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+491.978760 189.471481 moveto
+(:) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+171.775635 150.381302 moveto
+( ) show
+189.564697 150.381302 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+207.353760 150.381302 moveto
+(list-of-color) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+438.611603 150.381302 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+456.400635 150.381302 moveto
+(num) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+509.767822 150.381302 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+527.556885 150.381302 moveto
+(->) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+563.135010 150.381302 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+580.924072 150.381302 moveto
+(list-of-color) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+922.750000 22.070007 moveto
+(9) show
+showpage
+%%Page: 7
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+185.302734 666.156250 moveto
+(Implementing the Column Converter) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+55.590820 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+73.379883 584.794861 moveto
+(define) show
+0 setlinewidth
+[] 0 setdash
+180.114258 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+197.903320 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+215.692383 584.794861 moveto
+(colors->columns) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+482.528320 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+500.317383 584.794861 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+518.106445 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+535.895508 584.794861 moveto
+(n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+553.684570 584.794861 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+55.590820 545.704712 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+91.168945 545.704712 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+108.958015 545.704712 moveto
+(cond) show
+0 setlinewidth
+[] 0 setdash
+91.168945 506.614532 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+126.747070 506.614532 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+144.536133 506.614532 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+162.325211 506.614532 moveto
+(empty?) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+269.059570 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+286.848633 506.614532 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+304.637695 506.614532 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+322.426758 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+340.215820 506.614532 moveto
+(empty) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+429.161133 506.614532 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+91.168945 467.524323 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+126.747070 467.524323 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+144.536133 467.524323 moveto
+(else) show
+0 setlinewidth
+[] 0 setdash
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+144.536133 428.434143 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+162.325211 428.434143 moveto
+(local) show
+0 setlinewidth
+[] 0 setdash
+251.270523 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+269.059570 428.434143 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+286.848633 428.434143 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+304.637726 428.434143 moveto
+(define) show
+0 setlinewidth
+[] 0 setdash
+411.372070 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+429.161133 428.434143 moveto
+(c1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+286.848633 389.343964 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+322.426758 389.343964 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+340.215820 389.343964 moveto
+(extract-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+695.997070 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+713.786133 389.343964 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+731.575256 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+749.364258 389.343964 moveto
+(n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+767.153320 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+784.942383 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+286.848633 350.253754 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+304.637726 350.253754 moveto
+(define) show
+0 setlinewidth
+[] 0 setdash
+411.372070 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+429.161133 350.253754 moveto
+(rl) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+286.848633 311.163574 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+322.426758 311.163574 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+340.215820 311.163574 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+642.629883 311.163574 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+660.418945 311.163574 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+678.208008 311.163574 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+695.997070 311.163574 moveto
+(n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+713.786133 311.163574 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+731.575195 311.163574 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+749.364258 311.163574 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+144.536133 272.073395 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+180.114273 272.073395 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+197.903320 272.073395 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+269.059601 272.073395 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+286.848633 272.073395 moveto
+(c1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+286.848633 232.983200 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+304.637726 232.983200 moveto
+(colors->columns) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+571.473633 232.983200 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+589.262695 232.983200 moveto
+(rl) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+624.840820 232.983200 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+642.629944 232.983200 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+660.418945 232.983200 moveto
+(sub1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+731.575256 232.983200 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+749.364319 232.983200 moveto
+(n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+767.153320 232.983200 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+784.942383 232.983200 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+802.731445 232.983200 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+820.520569 232.983200 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+838.309631 232.983200 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+856.098633 232.983200 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+873.887695 232.983200 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+1 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+579.241516 129.088333 moveto
+(W) show
+0 0 rmoveto
+(ith two pending wishes...) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(10) show
+showpage
+%%Page: 8
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+331.691895 666.156250 moveto
+(Designing Extract) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 584.794861 moveto
+(Now to satisfy our wish for) show
+364.527527 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+372.769806 584.794861 moveto
+(extract-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+728.551025 584.794861 moveto
+(...) show
+0.833862 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+26.662500 scalefont setfont
+81.533203 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+97.543358 528.299988 moveto
+(extract-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+417.746490 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+433.756653 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+449.766815 528.299988 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+513.807434 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+529.817627 528.299988 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+625.878479 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+641.888672 528.299988 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+737.949585 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+753.959778 528.299988 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+529.817627 493.118835 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+625.878479 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+641.888672 493.118835 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+737.949585 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+753.959778 493.118835 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+850.020691 493.118835 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+433.756653 457.937683 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+449.766815 457.937683 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+81.533203 422.756500 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+257.644928 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+273.655060 422.756500 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+289.665222 422.756500 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+353.705841 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+369.716003 422.756500 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+465.776947 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+481.787109 422.756500 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+577.848022 422.756500 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.926514 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 1 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+185.302734 341.841736 moveto
+(Again, structural recursion doesn) show
+<a9> show
+(t work well) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+18.530273 261.291382 moveto
+<b7> show
+40.025391 261.291382 moveto
+(Can we get the ) show
+<ae> show
+(rst item in the column?) show
+18.530273 202.959732 moveto
+<b7> show
+40.025391 202.959732 moveto
+(Can we create a list whose ) show
+<ae> show
+(rst column is the rest of the column?) show
+/Courier findfont
+10 scalefont setfont
+898.750000 22.070007 moveto
+(11-12) show
+showpage
+%%Page: 9
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+331.691895 666.156250 moveto
+(Designing Extract) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 584.794861 moveto
+(Now to satisfy our wish for) show
+364.527527 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+372.769806 584.794861 moveto
+(extract-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+728.551025 584.794861 moveto
+(...) show
+0.833862 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+26.662500 scalefont setfont
+81.533203 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+97.543358 528.299988 moveto
+(extract-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+417.746490 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+433.756653 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+449.766815 528.299988 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+513.807434 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+529.817627 528.299988 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+625.878479 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+641.888672 528.299988 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+737.949585 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+753.959778 528.299988 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+529.817627 493.118835 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+625.878479 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+641.888672 493.118835 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+737.949585 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+753.959778 493.118835 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+850.020691 493.118835 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+433.756653 457.937683 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+449.766815 457.937683 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+81.533203 422.756500 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+257.644928 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+273.655060 422.756500 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+289.665222 422.756500 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+353.705841 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+369.716003 422.756500 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+465.776947 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+481.787109 422.756500 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+577.848022 422.756500 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.926514 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.196078 0.803922 0.196078 setrgbcolor
+0 setlinewidth
+newpath
+132.491455 392.759705 moveto
+816.258545 392.759705 lineto
+stroke
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.833862 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+81.533203 343.878479 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+97.543358 343.878479 moveto
+(extract-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+417.746490 343.878479 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+433.756653 343.878479 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+449.766815 343.878479 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+513.807434 343.878479 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+529.817627 343.878479 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+625.878479 343.878479 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+641.888672 343.878479 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+737.949585 343.878479 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+753.959778 343.878479 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+529.817627 308.697296 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+625.878479 308.697296 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+641.888672 308.697296 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+737.949585 308.697296 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+753.959778 308.697296 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+850.020691 308.697296 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+433.756653 273.516144 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+449.766815 273.516144 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Symbol findfont
+26.662500 scalefont setfont
+81.533203 238.334961 moveto
+<ae> show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+26.662500 scalefont setfont
+81.533203 202.193924 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+97.543358 202.193924 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+161.583984 202.193924 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+177.594147 202.193924 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+177.594147 167.012741 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+193.604294 167.012741 moveto
+(extract-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+193.604294 131.831573 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+209.614456 131.831573 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+273.655090 131.831573 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+289.665222 131.831573 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+385.726196 131.831573 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+401.736328 131.831573 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+497.797272 131.831573 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+513.807434 131.831573 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+609.868408 131.831573 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+177.594147 96.650414 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+193.604294 96.650414 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+209.614456 96.650414 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+225.624619 96.650414 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.926514 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+144.536133 15.735670 moveto
+(; ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+180.114258 15.735670 moveto
+(skip-n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+286.848633 15.735670 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+304.637695 15.735670 moveto
+(:) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+322.426758 15.735670 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+340.215820 15.735670 moveto
+(list-of-X) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+500.317383 15.735670 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+518.106445 15.735670 moveto
+(nat) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+571.473633 15.735670 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+589.262695 15.735670 moveto
+(->) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+624.840820 15.735670 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+642.629883 15.735670 moveto
+(list-of-X) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+898.750000 22.070007 moveto
+(13-14) show
+showpage
+%%Page: 10
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+303.896484 666.156250 moveto
+(Implementing Extract) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+55.590820 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+73.379883 584.794861 moveto
+(define) show
+0 setlinewidth
+[] 0 setdash
+180.114258 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+197.903320 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+215.692383 584.794861 moveto
+(extract-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+571.473633 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+589.262695 584.794861 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+607.051758 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+624.840820 584.794861 moveto
+(n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+642.629883 584.794861 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+55.590820 545.704712 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+91.168945 545.704712 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+108.958015 545.704712 moveto
+(cond) show
+0 setlinewidth
+[] 0 setdash
+91.168945 506.614532 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+126.747070 506.614532 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+144.536133 506.614532 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+162.325211 506.614532 moveto
+(empty?) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+269.059570 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+286.848633 506.614532 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+304.637695 506.614532 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+322.426758 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+340.215820 506.614532 moveto
+(empty) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+429.161133 506.614532 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+91.168945 467.524323 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+126.747070 467.524323 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+144.536133 467.524323 moveto
+(else) show
+0 setlinewidth
+[] 0 setdash
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+144.536133 428.434143 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+162.325211 428.434143 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+162.325211 389.343964 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+180.114273 389.343964 moveto
+(first) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+269.059570 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+286.848633 389.343964 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+304.637726 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+144.536133 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+162.325211 350.253754 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+180.114273 350.253754 moveto
+(extract-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+535.895508 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+553.684570 350.253754 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+571.473633 350.253754 moveto
+(skip-n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+678.208008 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+695.997070 350.253754 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+713.786133 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+731.575195 350.253754 moveto
+(n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+749.364258 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+767.153320 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+784.942383 350.253754 moveto
+(n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+802.731445 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+820.520569 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+838.309570 350.253754 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+856.098633 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+873.887695 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 246.358887 moveto
+(Implementing) show
+196.480194 246.358887 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+204.722458 246.358887 moveto
+(skip-n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+311.456848 246.358887 moveto
+( ) show
+319.699097 246.358887 moveto
+(is an exercise in structural recursion on) show
+833.773376 246.358887 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+842.015625 246.358887 moveto
+(nat) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(15) show
+showpage
+%%Page: 11
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+349.295654 666.156250 moveto
+(Designing Drop) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 584.794861 moveto
+(Finally) show
+-2.19225 0 rmoveto
+(, to satisfy our wish for) show
+396.933258 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+405.175537 584.794861 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+707.589600 584.794861 moveto
+(...) show
+0.833862 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+26.662500 scalefont setfont
+105.622559 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+121.632713 528.299988 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+393.805359 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+409.815521 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+425.825684 528.299988 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 528.299988 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+617.947571 528.299988 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+714.008484 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 528.299988 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 493.118835 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+617.947571 493.118835 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+714.008484 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 493.118835 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+826.079590 493.118835 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+409.815521 457.937683 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+425.825684 457.937683 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+105.622559 422.756500 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+281.734283 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+297.744415 422.756500 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+313.754578 422.756500 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+377.795227 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+393.805359 422.756500 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 422.756500 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+393.805359 387.575348 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 387.575348 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 387.575348 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+601.937378 387.575348 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.926514 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 1 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+162.310364 306.660583 moveto
+(Y) show
+-2.7255 0 rmoveto
+(et again, structural recursion doesn) show
+<a9> show
+(t work well) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+18.530273 248.328964 moveto
+<b7> show
+40.025391 248.328964 moveto
+(Can we get the ) show
+<ae> show
+(rst item in the result?) show
+18.530273 189.997314 moveto
+<b7> show
+40.025391 189.997314 moveto
+(Can we create a list where dropping the ) show
+<ae> show
+(rst column is the rest of) show
+40.025391 152.032883 moveto
+(the) show
+81.236717 152.032883 moveto
+( ) show
+89.478981 152.032883 moveto
+(answer?) show
+/Courier findfont
+10 scalefont setfont
+898.750000 22.070007 moveto
+(16-17) show
+showpage
+%%Page: 12
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+349.295654 666.156250 moveto
+(Designing Drop) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 584.794861 moveto
+(Finally) show
+-2.19225 0 rmoveto
+(, to satisfy our wish for) show
+396.933258 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+405.175537 584.794861 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+707.589600 584.794861 moveto
+(...) show
+0.833862 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+26.662500 scalefont setfont
+105.622559 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+121.632713 528.299988 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+393.805359 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+409.815521 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+425.825684 528.299988 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 528.299988 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+617.947571 528.299988 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+714.008484 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 528.299988 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 493.118835 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+617.947571 493.118835 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+714.008484 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 493.118835 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+826.079590 493.118835 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+409.815521 457.937683 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+425.825684 457.937683 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+105.622559 422.756500 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+281.734283 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+297.744415 422.756500 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+313.754578 422.756500 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+377.795227 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+393.805359 422.756500 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 422.756500 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+393.805359 387.575348 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 387.575348 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 387.575348 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+601.937378 387.575348 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.926514 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.196078 0.803922 0.196078 setrgbcolor
+0 setlinewidth
+newpath
+132.491455 335.359802 moveto
+816.258545 335.359802 lineto
+stroke
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.833862 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+105.622559 286.478546 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+121.632713 286.478546 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+393.805359 286.478546 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+409.815521 286.478546 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+425.825684 286.478546 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 286.478546 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 286.478546 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 286.478546 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+617.947571 286.478546 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+714.008484 286.478546 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 286.478546 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 251.297363 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 251.297363 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+617.947571 251.297363 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+714.008484 251.297363 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 251.297363 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+826.079590 251.297363 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+409.815521 216.116196 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+425.825684 216.116196 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Symbol findfont
+26.662500 scalefont setfont
+105.622559 180.935028 moveto
+<ae> show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+26.662500 scalefont setfont
+105.622559 144.794037 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+121.632713 144.794037 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+185.673340 144.794037 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+201.683502 144.794037 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+201.683502 109.612862 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+217.693665 109.612862 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 109.612862 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-BoldOblique findfont
+26.662500 scalefont setfont
+505.876495 109.612862 moveto
+(???) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier-Bold findfont
+26.662500 scalefont setfont
+553.906921 109.612862 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+569.917114 109.612862 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+585.927246 109.612862 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+601.937378 109.612862 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.926514 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(18) show
+showpage
+%%Page: 13
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+349.295654 666.156250 moveto
+(Designing Drop) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 584.794861 moveto
+(Finally) show
+-2.19225 0 rmoveto
+(, to satisfy our wish for) show
+396.933258 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+405.175537 584.794861 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+707.589600 584.794861 moveto
+(...) show
+0.833862 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+26.662500 scalefont setfont
+105.622559 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+121.632713 528.299988 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+393.805359 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+409.815521 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+425.825684 528.299988 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 528.299988 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+617.947571 528.299988 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+714.008484 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 528.299988 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 493.118835 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+617.947571 493.118835 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+714.008484 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 493.118835 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+826.079590 493.118835 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+409.815521 457.937683 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+425.825684 457.937683 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+105.622559 422.756500 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+281.734283 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+297.744415 422.756500 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+313.754578 422.756500 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+377.795227 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+393.805359 422.756500 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 422.756500 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+393.805359 387.575348 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 387.575348 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 387.575348 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+601.937378 387.575348 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.926514 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.196078 0.803922 0.196078 setrgbcolor
+0 setlinewidth
+newpath
+132.491455 335.359802 moveto
+816.258545 335.359802 lineto
+stroke
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 283.516052 moveto
+<b7> show
+40.025391 283.516052 moveto
+(Can we create a list where dropping the ) show
+<ae> show
+(rst column is the rest of) show
+40.025391 245.551620 moveto
+(the) show
+81.236717 245.551620 moveto
+( ) show
+89.478981 245.551620 moveto
+(answer?) show
+0 setlinewidth
+[] 0 setdash
+1 0 0 setrgbcolor
+43.546143 187.219971 moveto
+(No) show
+81.436844 187.219971 moveto
+( ) show
+/Symbol findfont
+29.625000 scalefont setfont
+89.679108 187.219971 moveto
+gsave
+/Courier-Bold findfont
+29.625 scalefont setfont
+<d0> show
+grestore
+/Helvetica findfont
+29.625000 scalefont setfont
+107.468178 187.219971 moveto
+( ) show
+115.710442 187.219971 moveto
+(getting just the ) show
+<ae> show
+(rst item doesn) show
+<a9> show
+(t make a similar sub-problem) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(19) show
+showpage
+%%Page: 14
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+349.295654 666.156250 moveto
+(Designing Drop) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 584.794861 moveto
+(Finally) show
+-2.19225 0 rmoveto
+(, to satisfy our wish for) show
+396.933258 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+405.175537 584.794861 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+707.589600 584.794861 moveto
+(...) show
+0.833862 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+26.662500 scalefont setfont
+105.622559 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+121.632713 528.299988 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+393.805359 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+409.815521 528.299988 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+425.825684 528.299988 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 528.299988 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+617.947571 528.299988 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+714.008484 528.299988 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 528.299988 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 493.118835 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+617.947571 493.118835 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+714.008484 493.118835 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 493.118835 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+826.079590 493.118835 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+409.815521 457.937683 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+425.825684 457.937683 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+105.622559 422.756500 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+281.734283 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+297.744415 422.756500 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+313.754578 422.756500 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+377.795227 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+393.805359 422.756500 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 422.756500 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 422.756500 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+393.805359 387.575348 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+489.866302 387.575348 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+505.876495 387.575348 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+601.937378 387.575348 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.926514 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.196078 0.803922 0.196078 setrgbcolor
+0 setlinewidth
+newpath
+132.491455 335.359802 moveto
+816.258545 335.359802 lineto
+stroke
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 283.516052 moveto
+(Need to grab an entire row) show
+-1.629375 0 rmoveto
+(, then skip the row to recur) show
+0.741211 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+23.700001 scalefont setfont
+61.149902 231.109436 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+75.381149 231.109436 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+317.312408 231.109436 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+331.543640 231.109436 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+345.774902 231.109436 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+402.699890 231.109436 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+416.931152 231.109436 moveto
+(color1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+502.318665 231.109436 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+516.549927 231.109436 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 231.109436 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.168640 231.109436 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+416.931152 199.837280 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+502.318665 199.837280 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+516.549927 199.837280 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+601.937378 199.837280 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+616.168640 199.837280 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+701.556152 199.837280 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+331.543640 168.565125 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+345.774902 168.565125 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Symbol findfont
+23.700001 scalefont setfont
+61.149902 137.292984 moveto
+<ae> show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+23.700001 scalefont setfont
+61.149902 105.167603 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+75.381149 105.167603 moveto
+(append) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+160.768646 105.167603 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+174.999908 105.167603 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+189.231155 105.167603 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+246.156158 105.167603 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+260.387390 105.167603 moveto
+(color2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+345.774902 105.167603 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+360.006165 105.167603 moveto
+(color3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+445.393677 105.167603 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+174.999908 73.895447 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+189.231155 73.895447 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+431.162415 73.895447 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+445.393677 73.895447 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+459.624878 73.895447 moveto
+(list) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+516.549927 73.895447 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+530.781128 73.895447 moveto
+(color4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.168640 73.895447 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+630.399902 73.895447 moveto
+(color5) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+715.787415 73.895447 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+730.018677 73.895447 moveto
+(color6) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+815.406128 73.895447 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+829.637451 73.895447 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+843.868652 73.895447 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+858.099854 73.895447 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+872.331177 73.895447 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0.926514 setlinewidth
+[] 0 setdash
+1 1 1 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(20) show
+showpage
+%%Page: 15
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+321.500244 666.156250 moveto
+(Implementing Drop) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+100.063477 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+117.852539 584.794861 moveto
+(define) show
+0 setlinewidth
+[] 0 setdash
+224.586914 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+242.375977 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+260.165039 584.794861 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+562.579102 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+580.368164 584.794861 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.157227 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+615.946289 584.794861 moveto
+(n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+633.735352 584.794861 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+100.063477 545.704712 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+135.641602 545.704712 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+153.430664 545.704712 moveto
+(cond) show
+0 setlinewidth
+[] 0 setdash
+135.641602 506.614532 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+171.219727 506.614532 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+189.008789 506.614532 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+206.797867 506.614532 moveto
+(empty?) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+313.532227 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+331.321289 506.614532 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+349.110352 506.614532 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+366.899414 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+384.688477 506.614532 moveto
+(empty) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+473.633789 506.614532 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+135.641602 467.524323 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+171.219727 467.524323 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+189.008789 467.524323 moveto
+(else) show
+0 setlinewidth
+[] 0 setdash
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+189.008789 428.434143 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+206.797867 428.434143 moveto
+(append) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+206.797867 389.343964 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+224.586929 389.343964 moveto
+(first-n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+349.110352 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+366.899414 389.343964 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+384.688477 389.343964 moveto
+(rest) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+455.844727 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+473.633789 389.343964 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+491.422882 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+509.211884 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+527.000977 389.343964 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+544.790039 389.343964 moveto
+(sub1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+615.946289 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.735352 389.343964 moveto
+(n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+651.524414 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+669.313477 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+189.008789 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+206.797867 350.253754 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+224.586929 350.253754 moveto
+(drop-first-column) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+527.000977 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+544.790039 350.253754 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+562.579102 350.253754 moveto
+(skip-n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+669.313477 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+687.102539 350.253754 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+704.891602 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+722.680664 350.253754 moveto
+(n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.469727 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.258789 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+776.047852 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+793.836914 350.253754 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+811.625977 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+829.415039 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+100.063477 311.163574 moveto
+( ) show
+100.063477 272.073395 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+100.063477 232.983200 moveto
+(; ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+135.641602 232.983200 moveto
+(first-n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+260.165039 232.983200 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+277.954102 232.983200 moveto
+(:) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+295.743164 232.983200 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+313.532227 232.983200 moveto
+(list-of-X) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+473.633789 232.983200 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+491.422882 232.983200 moveto
+(nat) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+544.790039 232.983200 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+562.579102 232.983200 moveto
+(->) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.157227 232.983200 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+615.946289 232.983200 moveto
+(list-of-X) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+100.063477 193.893021 moveto
+(; ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+135.641602 193.893021 moveto
+(snip-n) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+242.375977 193.893021 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+260.165039 193.893021 moveto
+(:) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+277.954102 193.893021 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+295.743164 193.893021 moveto
+(list-of-X) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+455.844727 193.893021 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+473.633789 193.893021 moveto
+(nat) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+527.000977 193.893021 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+544.790039 193.893021 moveto
+(->) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+580.368164 193.893021 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+598.157227 193.893021 moveto
+(list-of-X) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 112.216888 moveto
+(The leftover wishes are strightforward) show
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(21) show
+showpage
+%%Page: 16
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+336.324463 666.156250 moveto
+(Another Example) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+18.530273 584.794861 moveto
+<b7> show
+/Times-Roman findfont
+29.625000 scalefont setfont
+40.025391 584.794861 moveto
+(Implement) show
+168.492065 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+175.904175 584.794861 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Times-Roman findfont
+29.625000 scalefont setfont
+407.162018 584.794861 moveto
+(, which takes a list, two numbers) show
+795.853027 584.794861 moveto
+( ) show
+/Times-Italic findfont
+29.625000 scalefont setfont
+803.265137 584.794861 moveto
+(star) show
+0 0 rmoveto
+(t) show
+/Times-Roman findfont
+29.625000 scalefont setfont
+857.640381 584.794861 moveto
+( ) show
+865.052490 584.794861 moveto
+(and) show
+/Times-Italic findfont
+29.625000 scalefont setfont
+40.025391 545.704712 moveto
+(end) show
+/Times-Roman findfont
+29.625000 scalefont setfont
+82.837730 545.704712 moveto
+(, and a value) show
+232.680939 545.704712 moveto
+( ) show
+/Times-Italic findfont
+29.625000 scalefont setfont
+240.093033 545.704712 moveto
+(v) show
+/Times-Roman findfont
+29.625000 scalefont setfont
+253.256943 545.704712 moveto
+(; the result is a list like the given one, except that) show
+833.002502 545.704712 moveto
+( ) show
+/Times-Italic findfont
+29.625000 scalefont setfont
+840.414612 545.704712 moveto
+(v) show
+/Times-Roman findfont
+29.625000 scalefont setfont
+40.025391 507.799530 moveto
+(replaces) show
+137.153671 507.799530 moveto
+( ) show
+144.565781 507.799530 moveto
+(the) show
+180.796173 507.799530 moveto
+( ) show
+188.208282 507.799530 moveto
+(elements) show
+293.608459 507.799530 moveto
+( ) show
+301.020569 507.799530 moveto
+(in) show
+324.087067 507.799530 moveto
+( ) show
+331.499176 507.799530 moveto
+(positions) show
+438.589355 507.799530 moveto
+( ) show
+/Times-Italic findfont
+29.625000 scalefont setfont
+446.001465 507.799500 moveto
+(star) show
+0 0 rmoveto
+(t) show
+/Times-Roman findfont
+29.625000 scalefont setfont
+500.376709 507.799530 moveto
+( ) show
+507.788818 507.799530 moveto
+(to) show
+530.855286 507.799530 moveto
+( ) show
+/Times-Italic findfont
+29.625000 scalefont setfont
+538.267395 507.799500 moveto
+(end) show
+/Times-Roman findfont
+29.625000 scalefont setfont
+581.079773 507.799530 moveto
+( ) show
+588.491882 507.799530 moveto
+(inclusive) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+153.801270 427.308380 moveto
+(; ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+153.801270 388.218201 moveto
+(; ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+189.379395 427.308380 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+420.637207 427.308380 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+438.426270 427.308380 moveto
+(:) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+189.379395 388.218201 moveto
+( ) show
+207.168457 388.218201 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+224.957520 388.218201 moveto
+(list-of-X) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+385.059082 388.218201 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.848175 388.218201 moveto
+(num) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+456.215332 388.218201 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+474.004395 388.218201 moveto
+(num) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+527.371582 388.218201 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+545.160645 388.218201 moveto
+(X) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+562.949707 388.218201 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+580.738770 388.218201 moveto
+(->) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.316895 388.218201 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+634.105957 388.218201 moveto
+(list-of-X) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+153.801270 349.128021 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+153.801270 310.037811 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+171.590332 310.037811 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+402.848175 310.037811 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+420.637207 310.037811 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+438.426270 310.037811 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+456.215363 310.037811 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+474.004395 310.037811 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+491.793457 310.037811 moveto
+(b) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+509.582520 310.037811 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+527.371582 310.037811 moveto
+(c) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+545.160645 310.037811 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+562.949768 310.037811 moveto
+(d) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+580.738770 310.037811 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+598.527832 310.037811 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+616.316895 310.037811 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+634.105957 310.037811 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+651.895081 310.037811 moveto
+(1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+669.684143 310.037811 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+687.473145 310.037811 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+705.262207 310.037811 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+723.051270 310.037811 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+740.840393 310.037811 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.629456 310.037811 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+153.801270 270.947632 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+153.801270 231.857452 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+171.590332 231.857452 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+189.379395 231.857452 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+207.168457 231.857452 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+224.957520 231.857452 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+242.746582 231.857452 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+260.535645 231.857452 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+278.324707 231.857452 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+296.113770 231.857452 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+313.902863 231.857452 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+331.691895 231.857452 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+349.480957 231.857452 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+898.750000 22.070007 moveto
+(22-23) show
+showpage
+%%Page: 17
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+284.439697 666.156250 moveto
+(Designing Replacement) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+162.139893 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+179.928955 584.794861 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+411.186798 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+428.975830 584.794861 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+446.764893 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+464.553986 584.794861 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+482.343048 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+500.132080 584.794861 moveto
+(b) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+517.921143 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+535.710205 584.794861 moveto
+(c) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+553.499268 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+571.288391 584.794861 moveto
+(d) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+589.077393 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+606.866455 584.794861 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+624.655518 584.794861 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+642.444580 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+660.233704 584.794861 moveto
+(1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+678.022766 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+695.811768 584.794861 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+713.600830 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+731.389893 584.794861 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+749.179016 584.794861 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+766.968079 584.794861 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+162.139893 545.704712 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+162.139893 506.614532 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+179.928955 506.614532 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+197.718018 506.614532 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+215.507080 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+233.296143 506.614532 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+251.085205 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+268.874268 506.614532 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+286.663330 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+304.452393 506.614532 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+322.241486 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+340.030518 506.614532 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+357.819580 506.614532 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.196078 0.803922 0.196078 setrgbcolor
+0 setlinewidth
+newpath
+132.491455 475.856354 moveto
+816.258545 475.856354 lineto
+stroke
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+64.855957 424.012604 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+82.645020 424.012604 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+313.902863 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+331.691895 424.012604 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+349.480957 424.012604 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+367.270050 424.012604 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+385.059082 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+402.848175 424.012604 moveto
+(b) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+420.637207 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+438.426270 424.012604 moveto
+(c) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+456.215363 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+474.004395 424.012604 moveto
+(d) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.793457 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+509.582520 424.012604 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+527.371582 424.012604 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+545.160645 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+562.949768 424.012604 moveto
+(1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+580.738831 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+598.527832 424.012604 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.316895 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+634.105957 424.012604 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+651.895081 424.012604 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+669.684143 424.012604 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Symbol findfont
+29.625000 scalefont setfont
+64.855957 384.922424 moveto
+<ae> show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+64.855957 344.765747 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+82.645020 344.765747 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+153.801270 344.765747 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+171.590347 344.765747 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+189.379410 344.765747 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+171.590347 305.675568 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+189.379410 305.675568 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+420.637207 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+438.426270 305.675568 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+456.215363 305.675568 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+474.004395 305.675568 moveto
+(b) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.793457 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+509.582520 305.675568 moveto
+(c) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+527.371582 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+545.160645 305.675568 moveto
+(d) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+562.949768 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+580.738831 305.675568 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+598.527832 305.675568 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.316895 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+634.105957 305.675568 moveto
+(0) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+651.895081 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+669.684143 305.675568 moveto
+(2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+687.473145 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+705.262207 305.675568 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+723.051270 305.675568 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.840393 305.675568 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.629456 305.675568 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(24) show
+showpage
+%%Page: 18
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+284.439697 666.156250 moveto
+(Designing Replacement) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+162.139893 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+179.928955 584.794861 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+411.186798 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+428.975830 584.794861 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+446.764893 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+464.553986 584.794861 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+482.343048 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+500.132080 584.794861 moveto
+(b) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+517.921143 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+535.710205 584.794861 moveto
+(c) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+553.499268 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+571.288391 584.794861 moveto
+(d) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+589.077393 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+606.866455 584.794861 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+624.655518 584.794861 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+642.444580 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+660.233704 584.794861 moveto
+(1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+678.022766 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+695.811768 584.794861 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+713.600830 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+731.389893 584.794861 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+749.179016 584.794861 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+766.968079 584.794861 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+162.139893 545.704712 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+162.139893 506.614532 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+179.928955 506.614532 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+197.718018 506.614532 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+215.507080 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+233.296143 506.614532 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+251.085205 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+268.874268 506.614532 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+286.663330 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+304.452393 506.614532 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+322.241486 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+340.030518 506.614532 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+357.819580 506.614532 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.196078 0.803922 0.196078 setrgbcolor
+0 setlinewidth
+newpath
+132.491455 475.856354 moveto
+816.258545 475.856354 lineto
+stroke
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+64.855957 424.012604 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+82.645020 424.012604 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+313.902863 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+331.691895 424.012604 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+349.480957 424.012604 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+367.270050 424.012604 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+385.059082 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+402.848175 424.012604 moveto
+(b) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+420.637207 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+438.426270 424.012604 moveto
+(c) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+456.215363 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+474.004395 424.012604 moveto
+(d) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.793457 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+509.582520 424.012604 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+527.371582 424.012604 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+545.160645 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+562.949768 424.012604 moveto
+(1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+580.738831 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+598.527832 424.012604 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.316895 424.012604 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+634.105957 424.012604 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+651.895081 424.012604 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+669.684143 424.012604 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Symbol findfont
+29.625000 scalefont setfont
+64.855957 384.922424 moveto
+<ae> show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+64.855957 344.765747 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+82.645020 344.765747 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+153.801270 344.765747 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+171.590347 344.765747 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+189.379410 344.765747 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+171.590347 305.675568 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+189.379410 305.675568 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+420.637207 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+438.426270 305.675568 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+456.215363 305.675568 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+474.004395 305.675568 moveto
+(b) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+491.793457 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+509.582520 305.675568 moveto
+(c) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+527.371582 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+545.160645 305.675568 moveto
+(d) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+562.949768 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+580.738831 305.675568 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+598.527832 305.675568 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.316895 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+634.105957 305.675568 moveto
+(0) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+651.895081 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+669.684143 305.675568 moveto
+(2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+687.473145 305.675568 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+705.262207 305.675568 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+723.051270 305.675568 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+740.840393 305.675568 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.629456 305.675568 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Symbol findfont
+29.625000 scalefont setfont
+64.855957 266.585388 moveto
+<ae> show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+64.855957 226.428680 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+82.645020 226.428680 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+153.801270 226.428680 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+171.590347 226.428680 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+189.379410 226.428680 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+171.590347 187.338470 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+189.379410 187.338470 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+260.535645 187.338470 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+278.324738 187.338470 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+296.113770 187.338470 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+278.324738 148.248276 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+296.113770 148.248276 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+527.371582 148.248276 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+545.160645 148.248276 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+562.949768 148.248276 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+580.738831 148.248276 moveto
+(c) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+598.527832 148.248276 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+616.316895 148.248276 moveto
+(d) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+634.105957 148.248276 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+651.895081 148.248276 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+669.684143 148.248276 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+687.473145 148.248276 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+705.262207 148.248276 moveto
+(-1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+740.840393 148.248276 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+758.629456 148.248276 moveto
+(1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+776.418457 148.248276 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+794.207520 148.248276 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+811.996582 148.248276 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+829.785706 148.248276 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+847.574768 148.248276 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+865.363770 148.248276 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(25) show
+showpage
+%%Page: 19
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+284.439697 666.156250 moveto
+(Designing Replacement) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+162.139893 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+179.928955 584.794861 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+411.186798 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+428.975830 584.794861 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+446.764893 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+464.553986 584.794861 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+482.343048 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+500.132080 584.794861 moveto
+(b) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+517.921143 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+535.710205 584.794861 moveto
+(c) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+553.499268 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+571.288391 584.794861 moveto
+(d) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+589.077393 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+606.866455 584.794861 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+624.655518 584.794861 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+642.444580 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+660.233704 584.794861 moveto
+(1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+678.022766 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+695.811768 584.794861 moveto
+(3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+713.600830 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+731.389893 584.794861 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+749.179016 584.794861 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+766.968079 584.794861 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+162.139893 545.704712 moveto
+("should be") show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+162.139893 506.614532 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+179.928955 506.614532 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+197.718018 506.614532 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+215.507080 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+233.296143 506.614532 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+251.085205 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+268.874268 506.614532 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+286.663330 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+304.452393 506.614532 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+322.241486 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+340.030518 506.614532 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+357.819580 506.614532 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.196078 0.803922 0.196078 setrgbcolor
+0 setlinewidth
+newpath
+132.491455 475.856354 moveto
+816.258545 475.856354 lineto
+stroke
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Symbol findfont
+29.625000 scalefont setfont
+64.855957 424.012604 moveto
+<ae> show
+116.355293 424.012604 moveto
+<ae> show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+64.855957 383.855927 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+82.645020 383.855927 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+153.801270 383.855927 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+171.590347 383.855927 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+189.379410 383.855927 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+171.590347 344.765747 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+189.379410 344.765747 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+260.535645 344.765747 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+278.324738 344.765747 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+296.113770 344.765747 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+278.324738 305.675568 moveto
+(...) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+171.590347 266.585388 moveto
+(      ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+278.324707 266.585388 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+296.113770 266.585388 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+527.371582 266.585388 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+545.160645 266.585388 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+562.949768 266.585388 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+580.738770 266.585388 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+598.527832 266.585388 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.316895 266.585388 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+634.105957 266.585388 moveto
+(-3) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+669.684082 266.585388 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+687.473145 266.585388 moveto
+(-1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+723.051270 266.585388 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+740.840393 266.585388 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+758.629456 266.585388 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+776.418457 266.585388 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+794.207520 266.585388 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+811.996582 266.585388 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Symbol findfont
+29.625000 scalefont setfont
+64.855957 227.495193 moveto
+<ae> show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+64.855957 187.338470 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+82.645020 187.338470 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+153.801270 187.338470 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+171.590347 187.338470 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+189.379410 187.338470 moveto
+(a) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+171.590347 148.248276 moveto
+(...) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+224.957520 148.248276 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+242.746582 148.248276 moveto
+(...) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+64.855957 109.158096 moveto
+(      ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+171.590332 109.158096 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+189.379395 109.158096 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+260.535645 109.158096 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+278.324707 109.158096 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+296.113770 109.158096 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+278.324707 70.067909 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+296.113770 70.067909 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+527.371582 70.067909 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+545.160645 70.067909 moveto
+(empty) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+634.105957 70.067909 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+651.895081 70.067909 moveto
+(-4) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+687.473145 70.067909 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+705.262207 70.067909 moveto
+(-2) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+740.840393 70.067909 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+758.629395 70.067909 moveto
+<a9> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+776.418457 70.067909 moveto
+(x) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+794.207520 70.067909 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+811.996582 70.067909 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+829.785706 70.067909 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(26) show
+showpage
+%%Page: 20
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+256.644287 666.156250 moveto
+(Implementing Replacement) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+/Courier-Bold findfont
+29.625000 scalefont setfont
+82.459717 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+100.248779 584.794861 moveto
+(define) show
+0 setlinewidth
+[] 0 setdash
+206.983154 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+224.772217 584.794861 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+242.561264 584.794861 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+473.819092 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+491.608124 584.794861 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+509.397217 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+527.186279 584.794861 moveto
+(s) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+544.975342 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+562.764404 584.794861 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+580.553528 584.794861 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+598.342529 584.794861 moveto
+(v) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+616.131592 584.794861 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+82.459717 545.704712 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+118.037842 545.704712 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+135.826904 545.704712 moveto
+(cond) show
+0 setlinewidth
+[] 0 setdash
+118.037842 506.614532 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+153.615967 506.614532 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+171.405029 506.614532 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+189.194107 506.614532 moveto
+(empty?) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+295.928467 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+313.717529 506.614532 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+331.506592 506.614532 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+349.295654 506.614532 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+367.084717 506.614532 moveto
+(empty) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+456.030029 506.614532 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+118.037842 467.524323 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+153.615967 467.524323 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+171.405029 467.524323 moveto
+(else) show
+0 setlinewidth
+[] 0 setdash
+242.561295 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+260.350342 467.524323 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+278.139404 467.524323 moveto
+(cons) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+349.295654 467.524323 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+367.084717 467.524323 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+384.873810 467.524323 moveto
+(cond) show
+0 setlinewidth
+[] 0 setdash
+367.084717 428.434143 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 428.434143 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+420.451935 428.434143 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+438.240967 428.434143 moveto
+(and) show
+0 setlinewidth
+[] 0 setdash
+491.608185 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+509.397217 428.434143 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+527.186279 428.434143 moveto
+(<) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+544.975342 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+562.764404 428.434143 moveto
+(s) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+580.553528 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+598.342590 428.434143 moveto
+(1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+616.131592 428.434143 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+633.920654 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+651.709717 428.434143 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+669.498840 428.434143 moveto
+(>) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+687.287903 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+705.076904 428.434143 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.200000 0.529412 0.152941 setrgbcolor
+740.655029 428.434143 moveto
+(-1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+776.233215 428.434143 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+794.022217 428.434143 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+811.811279 428.434143 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+829.600342 428.434143 moveto
+(v) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+847.389465 428.434143 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+367.084717 389.343964 moveto
+(  ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+402.662842 389.343964 moveto
+<5b> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+420.451935 389.343964 moveto
+(else) show
+0 setlinewidth
+[] 0 setdash
+491.608185 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+509.397247 389.343964 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+527.186279 389.343964 moveto
+(first) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 389.343964 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 389.343964 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+651.709717 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+669.498840 389.343964 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+687.287903 389.343964 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+367.084717 350.253754 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+384.873810 350.253754 moveto
+(replace-range) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+616.131592 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+633.920654 350.253754 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+651.709717 350.253754 moveto
+(rest) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 350.253754 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 350.253754 moveto
+(l) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.444153 350.253754 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+633.920654 311.163574 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+651.709717 311.163574 moveto
+(sub1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 311.163574 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 311.163574 moveto
+(s) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.444153 311.163574 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+367.084717 272.073395 moveto
+(               ) show
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+633.920654 272.073395 moveto
+<28> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+651.709717 272.073395 moveto
+(sub1) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+722.865967 272.073395 moveto
+( ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+740.655029 272.073395 moveto
+(e) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+758.444153 272.073395 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+367.084717 232.983200 moveto
+(               ) show
+0 setlinewidth
+[] 0 setdash
+0 0 0.501961 setrgbcolor
+633.920654 232.983200 moveto
+(v) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+651.709717 232.983200 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+669.498840 232.983200 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+687.287842 232.983200 moveto
+<5d> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+705.076904 232.983200 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.647059 0.164706 0.164706 setrgbcolor
+722.865967 232.983200 moveto
+<29> show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(27) show
+showpage
+%%Page: 21
+%%BeginPageSetup
+596 16 translate
+0.800000 0.800000 scale
+90 rotate
+2 setlinecap
+%%EndPageSetup
+0 0 0 setrgbcolor
+0 setlinewidth
+[] 0 setdash
+0.133333 0.545098 0.133333 setrgbcolor
+/Helvetica-Bold findfont
+33.328125 scalefont setfont
+215.877686 666.156250 moveto
+(Designing Generative Recursion) show
+0 setlinewidth
+[] 0 setdash
+0 0 0 setrgbcolor
+/Helvetica findfont
+29.625000 scalefont setfont
+183.449707 422.277710 moveto
+(Finding the recursive sub-problem is the key) show
+18.530273 341.727325 moveto
+<b7> show
+40.025391 341.727325 moveto
+(Think ) show
+<ae> show
+(rst, write code second) show
+18.530273 283.395691 moveto
+<b7> show
+40.025391 283.395691 moveto
+(W) show
+-0.53325 0 rmoveto
+(riting down example steps can help) show
+/Courier findfont
+10 scalefont setfont
+916.750000 22.070007 moveto
+(28) show
+showpage

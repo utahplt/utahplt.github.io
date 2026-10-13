@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: &#45;geometry option ignored? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 1 Jul 2000 09:38:47 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000701153844.GYAC28505.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 8aBcORyhV7MFOyeJ2ziQTg+TXAyP@4ax.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: -geometry option ignored?</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00712.html">Date Prev</A>][<A HREF="msg00714.html">Date Next</A>][<A HREF="msg00711.html">Thread Prev</A>][<A HREF="msg00714.html">Thread Next</A>][<A HREF="maillist.html#00713">Date Index</A>][<A HREF="threads.html#00713">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: -geometry option ignored?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Paolo Amoroso &lt;<A HREF="mailto:amoroso@mclink.it">amoroso@mclink.it</A>&gt;</LI>
+<LI><em>Subject</em>: Re: -geometry option ignored?</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 1 Jul 2000 08:38:44 -0700</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00711.html">8aBcORyhV7MFOyeJ2ziQTg+TXAyP@4ax.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00711.html">8aBcORyhV7MFOyeJ2ziQTg+TXAyP@4ax.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Paolo Amoroso:
+&gt; DrScheme for Linux seems to ignore the standard -geometry X command line
+&gt; option. 
+
+That's true. 
+
+&gt; Why? Does the graphics toolkit (wxWindows?) on which the system is
+&gt; based support it?
+
+It's a bit more complex than that. While the low-level toolbox provides
+support for the -geometry flag, there are a few layers of widgets
+leading to a frame in the MrEd toolbox.
+
+Thus, an X resource setting with a "*", like this:
+  mred*geometry: 900x900
+makes all DrScheme windows initially large. But a setting
+with a ".", like this:
+  mred.geometry: 900x900
+would not affect any MrEd/DrScheme frame. The -geometry flag
+corresponds to a "." resource, so it does nothing.
+
+In neither case above would an offet like +50+50 work, because MrEd
+tends to override frame placement settings.
+
+We haven't worried about this too much, because the trend seems to be
+smarter window managers that take care of these details in a
+user-friendly way (including overriding MrEd's placement of frames).
+More generally, trying to make sense of X resources in the context of a
+multi-platform GUI didn't seem worthwhile (which is not to say that we
+didn't try for a while!).
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00711" HREF="msg00711.html">-geometry option ignored?</A></STRONG>
+<UL><LI><EM>From:</EM> Paolo Amoroso &lt;amoroso@mclink.it&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00712.html">Re: Are release notes included with DrScheme binaries?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00714.html">MzScheme Extension on Mac?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00711.html">-geometry option ignored?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00714.html">MzScheme Extension on Mac?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00713"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00713"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

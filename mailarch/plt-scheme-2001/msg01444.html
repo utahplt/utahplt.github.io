@@ -1,0 +1,492 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [Q] How to do Simple Port&#45;Based Input&#45;Process&#45;Output? -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Fri, 28 Dec 2001 08:38:52 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112281537.KAA00690@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200112281239.FAA01807@fast.cs.utah.edu -->
+<!--X-Reference: 200112281259.fBSCx3n19775@wrath.cs.utah.edu -->
+<!--X-Reference: 200112281513.KAA00675@bosch.cs.brown.edu -->
+<!--X-Reference: 200112281525.fBSFPqn26844@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [Q] How to do Simple Port-Based Input-Process-Output?</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01443.html">Date Prev</a>][<a href="msg01445.html">Date Next</a>][<a href="msg01443.html">Thread Prev</a>][<a href="msg01445.html">Thread Next</a>][<a href="maillist.html#01444">Date Index</a>][<a href="threads.html#01444">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [Q] How to do Simple Port-Based Input-Process-Output?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [Q] How to do Simple Port-Based Input-Process-Output?</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 28 Dec 2001 10:37:50 -0500 (EST)</li>
+<li><em>In-Reply-To</em>: &lt;200112281525.fBSFPqn26844@wrath.cs.utah.edu&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01440.html">200112281239.FAA01807@fast.cs.utah.edu</a>&gt;&lt;<a href="msg01441.html">200112281259.fBSCx3n19775@wrath.cs.utah.edu</a>&gt;&lt;<a href="msg01443.html">200112281513.KAA00675@bosch.cs.brown.edu</a>&gt;&lt;200112281525.fBSFPqn26844@wrath.cs.utah.edu&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew helpfully pointed out two sources for improvement, which I
+have now made.  Please use this version instead.
+
+Shriram
+
+----------------------------------------------------------------------
+
+Networking in PLT Scheme
+========================
+
+PLT Scheme has simple yet powerful primitives for establishing network
+connections.  Learn more about them by searching on &quot;TCP/IP&quot; in Help
+Desk.
+
+We will build a few applications in this tutorial, starting with
+something mind-numbingly simple, and growing to something that begins
+to approach a useful application.  [NOTE: Tutorial hasn't grown all
+the way out that far yet.]
+
+The Ping-Pong Duet
+------------------
+
+The first application is a client-server combination of staggering
+simplicity.  The client issues requests that consist of the symbol
+'ping.  The server, upon receipt of this request, responds with the
+symbol 'pong.  One time.  The client prints the server's response.
+That's all.
+
+First, the two programs must agree on a common port where the server
+will listen so the client can connect.
+
+  (define SERVICE-PORT 2000)
+  (define SERVER-HOST &quot;localhost&quot;)
+
+To test your programs, pick a &quot;random&quot; port number between 1025 and
+65535.  The bigger numbers are more barren, so you are less likely to
+interfere with another service that already exists on your machine.
+
+The client is easier to write.  It simply uses TCP-CONNECT to
+establish a connection to the server.
+
+  (define (client)
+    (let-values ([(server-&gt;me me-&gt;server)
+                  (tcp-connect SERVER-HOST SERVICE-PORT)])
+      (write 'ping me-&gt;server)
+      (close-output-port me-&gt;server)
+      (let ([response (read server-&gt;me)])
+        (display response) (newline)
+        (close-input-port server-&gt;me))))
+
+This defines CLIENT as a procedure of no arguments (so the body
+doesn't evaluate until we invoke the procedure).  TCP-CONNECT returns
+two values (look up &quot;multiple return values&quot; in Help Desk).  The first 
+is an input port, to which the server writes data, and the second an
+output port, from which the server reads data.  The naming convention
+used above helps me keep them straight.  The WRITE statement writes
+'ping to the port being read by the server.  Having written the
+message, the client closes its ports and exits.
+
+In the above example, we assume both client and server reside on the
+same machine (hence the use of the hostname &quot;localhost&quot;).  The client
+can reside on an entirely different machine, however -- you simply
+need to change the value bound to SERVER-HOST.
+
+The server's definition is slightly more complex.  Here's the server:
+
+  (define (server)
+    (let ([listener (tcp-listen SERVICE-PORT)])
+      (let-values ([(client-&gt;me me-&gt;client)
+                    (tcp-accept listener)])
+	(if (eq? (read client-&gt;me) 'ping)
+            (write 'pong me-&gt;client)
+            (write 'who-are-you? me-&gt;client))
+        (close-output-port me-&gt;client)
+        (close-input-port client-&gt;me))))
+
+The server must first create a &quot;listener&quot;.  The listener is woken up
+when a network connection comes in on the chosen port.  TCP-ACCEPT
+accepts responses queued at the server.
+
+If we combine these three code fragments (constants, client and
+server) and run them in a single Scheme session, we ... can't.
+There's a problem.
+
+If we run the client first, it tries to connect with the server, which 
+isn't yet running, and we get an error saying there's no response from 
+the common port.
+
+If we run the server first, it creates a listener, then executes the
+TCP-ACCEPT expression.  This blocks on a request before it can
+continue.  But we need it to return control to the prompt so we can
+start the client.
+
+In short, we can't run either one first.
+
+There are four ways out of this jam.
+
+First, we can just use DrScheme, open up two separate windows (File |
+New will open a new DrScheme window), and control the client and
+server separately in each.  This is simple, quick, easy and avoids any
+explicit wrangling with threads.  We recommend this.
+
+Second, we use two separate copies of Scheme (i.e., separate
+processes).  The first process runs the server.  The second one runs
+the client.  Note that each process must have the definition of its
+procedure and the constant definitions.  When run after starting the
+server, the client will return the value 'pong.
+
+Third, we can just run client and server on different machines.  This
+is really just a special case of the first solution, but it also lets
+you experiment with connecting to different machines.  To do this,
+you'd have to edit the value associated with SERVER-HOST to be the
+name of the machine running the server.
+
+Fourth, we can use threads.  (If you don't know about threads, our
+best advice would be to just use two DrScheme windows instead.  If you
+need more information on threads in PLT Scheme, search for &quot;threads&quot;
+in Help Desk.)  We can thus invoke both the client and server in the
+same Scheme process by running
+
+  &gt; (load &lt;code&gt;)
+  &gt; (thread server)
+  &gt;     [back to the Scheme prompt; server runs in separate thread]
+
+THREAD expects a procedure of no arguments as its first argument,
+which is exactly what SERVER is.
+
+  &gt; (client)
+  pong
+
+In both cases, SERVER exits as soon as it has serviced its request.
+If you invoke SERVER with THREAD you won't notice this.  If you run
+the client and server in two separate processes, you will.
+
+That concludes our first example.
+
+----------------------------------------------------------------------
+
+Queueing up for Tokens
+----------------------
+
+The server and client in the first example ran only once.  Typical
+servers run forever, accepting and servicing requests as they arrive.
+We'll create such a server as our second example.
+
+We will once again build a client-server combination.  The server
+generates token numbers, much like the machines that issue serial
+numbers to people in queues.  The server initializes at zero, and each
+request generates the next token number.  The client is a function
+that consumes one argument, which is the number of tokens to receive.
+It contacts the server as many times as specified in its argument, and
+returns a list of the resulting tokens.
+
+If we were writing this program without networking, it would look as
+follows:
+
+  (define serve-next-token
+    (let ([next-token -1])  ;; so first value return is 0
+      (lambda ()
+	(set! next-token (+ next-token 1))
+	next-token)))
+
+  (define token-client
+    (lambda (how-many-tokens)
+      (if (&lt;= how-many-tokens 0)
+	  '()
+	  (cons (serve-next-token)
+		(token-client (- how-many-tokens 1))))))
+
+This program behaves as follows:
+
+  (token-client 5)  ==&gt;  '(0 1 2 3 4)
+  (token-client 3)  ==&gt;  '(5 6 7)
+
+Make sure you understand this code before proceeding.
+
+First, establish the server's locus:
+
+  (define SERVICE-PORT 2005)
+  (define SERVER-HOST &quot;localhost&quot;)
+
+The client is again pretty simple:
+
+  (define token-client
+    (lambda (how-many-tokens)
+      (if (&lt;= how-many-tokens 0)
+	  '()
+	  (let-values ([(server-&gt;me me-&gt;server)
+			(tcp-connect SERVER-HOST SERVICE-PORT)])
+	    (let ([token (read server-&gt;me)])
+	      (close-input-port server-&gt;me)
+	      (close-output-port me-&gt;server)
+	      (cons token
+		    (token-client (- how-many-tokens 1))))))))
+
+The server's basic structure looks the same:
+
+  (define (server)
+    (let ([listener (tcp-listen SERVICE-PORT)])
+      ...))
+
+except it must do two things: (1) keep track of the last token number, 
+and loop to handle multiple requests.  Thus:
+
+  (define server
+    (let ([next-token -1])
+      (lambda ()
+	(let ([listener (tcp-listen SERVICE-PORT)])
+          (let loop ()
+	    (let-values ([(client-&gt;me me-&gt;client)
+			  (tcp-accept listener)])
+              (set! next-token (+ next-token 1))
+	      (close-input-port client-&gt;me)
+	      (write next-token me-&gt;client)
+	      (close-output-port me-&gt;client))
+            (loop))))))
+
+Note that the server does *not* need to create multiple listeners.  It 
+creates the listener for that service just once.  It accepts
+connections from the listener multiple times.  Now, assuming the
+server is running (either in a separate process, on a separate
+machine, or in its own thread), running the client returns the
+expected values:
+ 
+  &gt; (token-client 5)
+  (0 1 2 3 4)
+  &gt; (token-client 3)
+  (5 6 7)
+
+Note the very subtle yet critical difference between the server above
+and this one:
+
+  (define server
+    (let ([next-token -1])
+      (lambda ()
+        (let loop ()                                   ;; order of these 
+	  (let ([listener (tcp-listen SERVICE-PORT)])  ;; 2 lines swapped
+	    (let-values ([(client-&gt;me me-&gt;client)
+			  (tcp-accept listener)])
+              (set! next-token (+ next-token 1))
+	      (close-input-port client-&gt;me)
+	      (write next-token me-&gt;client)
+	      (close-output-port me-&gt;client))
+            (loop))))))
+
+The above server is *buggy*!  Each time through the loop it tries to
+create a new listener.  The first time it succeeds; on the second
+attempt, the invocation of TCP-LISTEN fails because there is already a 
+listener on that port -- created by this very server!
+
+----------------------------------------------------------------------
+
+Variations on the Token Server:
+Reusing a Connection and Obtaining Consecutive Numbers
+------------------------------------------------------
+
+There are potentially two problems with the token server above.  We
+address both these problems in this section.
+
+First, the sample interactions with the token server before this
+section suggest that the tokens will always be consecutive, as they
+are in the sequential world.  In fact, however, the server lives in a
+concurrent universe.  Each time through the loop, TOKEN-CLIENT
+establishes a *fresh* connection with the server.  Besides being
+somewhat inefficient, this also means that a different client may
+connect between two consecutive connections by your client, and may
+thus grab one or more of the intermediate numbers.  So you might see
+an interaction like
+
+  &gt; (token-client 5)
+  (0 1 3 4 6)
+
+(You probably won't for small numbers of tokens, but if you set off
+two processes each requesting a large number of tokens -- say 1,000
+each -- from the same server, you ought to find that they aren't all
+consecutive.)
+
+A related problem is that the client connects to the server each time
+through its loop.  This wastes network resources by repeatedly
+re-establishing connections.  A better solution is for the client and
+server to have a &quot;dialog&quot;: once connected, the server keeps providing
+the client with tokens until the client has exhausted its demand.
+
+In this rewrite, the client sends the server one of two messages:
+'more, as long as it needs more numbers, and 'enough, when it no
+longer needs any more numbers.  The server responds appropriately.
+
+  (define token-client
+    (lambda (how-many-tokens)
+      (let-values ([(server-&gt;me me-&gt;server)
+	            (tcp-connect SERVER-HOST SERVICE-PORT)])
+        (let loop ([how-many-more how-many-tokens])
+          (if (&lt;= how-many-more 0)
+            (begin
+              (close-input-port server-&gt;me)
+              (write 'enough me-&gt;server)
+              (close-output-port me-&gt;server)
+              '())
+            (begin
+              (write 'more me-&gt;server)
+              (newline me-&gt;server)
+              (flush-output me-&gt;server)
+              (cons (read server-&gt;me)
+                    (loop (- how-many-more 1)))))))))
+
+  (define server
+    (let ([next-token -1])
+      (lambda ()
+	(let ([listener (tcp-listen SERVICE-PORT)])
+          (let server-loop ()
+	    (let-values ([(client-&gt;me me-&gt;client)
+			  (tcp-accept listener)])
+              (let per-client-loop ()
+                (let ([request (read client-&gt;me)])
+                  (case request
+                    [(enough)
+     	             (close-input-port client-&gt;me)
+	             (close-output-port me-&gt;client)
+                     (server-loop)]
+                    [(more)
+                     (set! next-token (+ next-token 1))
+                     (write next-token me-&gt;client)
+                     (newline me-&gt;client)
+                     (per-client-loop)])))))))))
+
+The NEWLINE makes it clear that the token is complete.
+
+This program also guarantees that the tokens will be consecutive,
+because the server does not service a new client until it is done
+responding to the current one.
+
+Another way to make more effective use of a connection and to ensure
+consecutive tokens is to have your server return several (consecutive)
+tokens at once.  How to package up the tokens?  All our examples
+thusfar have transmitted only symbols and numbers.  In fact, however,
+as with i/o operations on any other port, you may use any readable and
+writeable datum [NOTE: insert Help Desk reference here].  As a simple
+example, here's a rewrite of the token server and client where the
+client simply informs the server of how many tokens it needs, and the
+server returns a list of that many tokens.
+
+  (define token-client
+    (lambda (how-many-tokens)
+      (let-values ([(server-&gt;me me-&gt;server)
+	            (tcp-connect SERVER-HOST SERVICE-PORT)])
+	(write how-many-tokens me-&gt;server)
+        (newline me-&gt;server)
+        (flush-output me-&gt;server)
+        (let ([tokens (read server-&gt;me)])
+          (close-input-port server-&gt;me)
+          (close-output-port me-&gt;server)
+          tokens))))
+
+  (define server
+    (let ([next-token -1])
+      (lambda ()
+	(let ([listener (tcp-listen SERVICE-PORT)])
+          (let server-loop ()
+	    (let-values ([(client-&gt;me me-&gt;client)
+			  (tcp-accept listener)])
+              (write
+		(let count-loop ([how-many-more (read client-&gt;me)])
+		  (if (&lt;= how-many-more 0)
+		      '()
+		      (begin
+			(set! next-token (+ next-token 1))
+			(cons next-token 
+			      (count-loop (- how-many-more 1))))))
+                me-&gt;client)
+              (close-output-port me-&gt;client)
+              (close-input-port client-&gt;me)
+              (server-loop)))))))
+
+Notice that the first argument to WRITE is a loop that computes a
+sequence of tokens.  
+
+Both servers in this section come at a price.  One long request can
+tie this server down and make it unable to service other requests.
+Eventually, the number of pending requests may become too large and
+new client requests may be denied.  (See the second parameter to
+TCP-LISTEN.)
+
+----------------------------------------------------------------------
+
+
+TO DO
+
+- warn: close all ports
+- use custodians
+- how to handle situation where port number is already taken
+- what values can be read/written
+- create a protocol to identify your service
+- show example with eval
+- warn of use of eval
+- have server spawn thread per request
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01445" href="msg01445.html">MzScheme on Sharp Zaurus PDA</a></strong>
+<ul><li><em>From:</em> Kirill Lisovsky &lt;lisovsky@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01440" href="msg01440.html">[Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+<ul><li><em>From:</em> &quot;Dave Duchesneau&quot; &lt;daveduchesneau@scrutiny.com&gt;</li></ul></li>
+<li><strong><a name="01441" href="msg01441.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="01443" href="msg01443.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01443.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01445.html">MzScheme on Sharp Zaurus PDA</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01443.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01445.html">MzScheme on Sharp Zaurus PDA</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01444"><strong>Date</strong></a></li>
+<li><a href="threads.html#01444"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

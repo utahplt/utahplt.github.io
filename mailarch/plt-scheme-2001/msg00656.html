@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: type_writer problem -->
+<!--X-From-R13: Pvyy Epubggfgnrqg <ovyNppezn.fgnasbeq.rqh> -->
+<!--X-Date: Fri, 13 Jul 2001 06:31:43 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200107131231.FAA19752@cmn14.stanford.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>type_writer problem</title>
+<link rev="made" href="mailto:bil@ccrma.stanford.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00655.html">Date Prev</a>][<a href="msg00657.html">Date Next</a>][<a href="msg00662.html">Thread Prev</a>][<a href="msg00657.html">Thread Next</a>][<a href="maillist.html#00656">Date Index</a>][<a href="threads.html#00656">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>type_writer problem</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: type_writer problem</li>
+<li><em>From</em>: Bill Schottstaedt &lt;<A HREF="mailto:bil@ccrma.stanford.edu">bil@ccrma.stanford.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 13 Jul 2001 05:31:36 -0700</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm using MzScheme (version 103) as an embedded language in my
+sound editor (Snd), and would like to specialize the way some
+types are displayed; I've tried something along these lines:
+
+typedef struct {
+#if HAVE_MZSCHEME
+  Scheme_Type mztype;
+#endif
+  int length;
+  Float *data;
+  int dont_free;
+} vct;
+
+static Scheme_Object *vct_write(Scheme_Object *obj)
+{
+  fprintf(stderr,&quot;in writer&quot;);
+  return(scheme_make_string(&quot;Vct...&quot;));
+}
+
+Scheme_Type vct_tag;
+
+vct_tag = scheme_make_type(&quot;Vct&quot;);
+
+scheme_install_type_writer(vct_tag, vct_write);
+
+but the vct_write procedure is never called.  Everything
+else appears to be fine with the new vct type (i.e. type
+checks, etc).
+
+
+
+&gt; We actually looked into this a few months ago.  We concluded,
+&gt; unfortunately, that the package was still not polished
+&gt; enough at that time to link into Mz/DrScheme.  Perhaps
+&gt; that will change now.
+
+Hmmm... I am very tempted to respond to this pompous asshole,
+but I guess I'll give him a chance to fix the bug mentioned
+above.  Polish your code, buster!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00657" href="msg00657.html">RE: type_writer problem</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;psteckler@earthlink.net&gt;</li></ul></li>
+<li><strong><a name="00659" href="msg00659.html">Re: type_writer problem</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00655.html">Re: web-server.ss debugging support?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00657.html">RE: type_writer problem</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00662.html">Re: web-server.ss debugging support?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00657.html">RE: type_writer problem</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00656"><strong>Date</strong></a></li>
+<li><a href="threads.html#00656"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: 200alpha13 -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Thu, 7 Mar 2002 13:05:11 &#45;0700 (MST) -->
+<!--X-Message-Id: 15495.51185.103144.88360@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020307051122.79CD5BDC8@panacea.canonical.org -->
+<!--X-Reference: 200203071546.IAA24676@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: 200alpha13</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00334.html">Date Prev</a>][<a href="msg00336.html">Date Next</a>][<a href="msg00334.html">Thread Prev</a>][<a href="msg00336.html">Thread Next</a>][<a href="maillist.html#00335">Date Index</a>][<a href="threads.html#00335">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: 200alpha13</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: 200alpha13</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Thu, 7 Mar 2002 15:05:05 -0500</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00333.html">200203071546.IAA24676@fast.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00329.html">20020307051122.79CD5BDC8@panacea.canonical.org</a>&gt;&lt;<a href="msg00333.html">200203071546.IAA24676@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Mar  7, Matthew Flatt wrote:
+&gt; I like the idea of adding `string-locale&lt;?', etc., instead of changing
+&gt; `string&lt;?'. The new functions would be
+&gt; [...]
+
+IMO, this is not a good idea:
+
+1. As you said, there is still a parameter needed.
+
+2. Each of these functions would do a system call to set the locale,
+   and I don't trust these to be cheap enough (I can easily imagine a
+   super smart OS flipping libraries around whenever the locale is
+   changed, or even popping up windows to ask you to download support
+   etc).  In any case, I think that writing them in Scheme, adding
+   only the weight of parameterize wouldn't be much more expensive.
+
+3. If the goal is avoiding using parameterize, then I don't think it
+   saves much, since the normal scenario is big chunks of code working
+   in the same locale setting so when parameterize would be used to
+   change it, it would be with higher-level functions.
+
+4. And the most important thing -- doing this will force either
+   writing programs that are hard-wired to using or not using locales,
+   or to pass around yet another argument (or use the parameter!) to
+   know what function to use.  Combined with the above, a program that
+   does a lot of string processing would end up doing something silly
+   like checking the parameter to choose a function to call, and the
+   function itself would do the system call which can mean a
+   significant overhead.
+
+I like the idea of the parameter since it reflects the way I interact
+with the OS now -- I change the environment variable, and programs
+like ls do things differently.  If I wanted a version of ls that
+doesn't change, I'd wrap it in a script that would unset it locally
+(AFAIK, ls doesn't even have a command-line argument to avoid
+locales).
+
+I think that the argument of doing things in a more Scheme-ish way is
+not too strong since I don't see any problems with parameters, but
+more than that -- since locales are something relatively new, I think
+it is better to stay as close to the C model since that is not likely
+to change too much.
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00336" href="msg00336.html">locales (was Re: 200alpha13)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00329" href="msg00329.html">Re: 200alpha13</a></strong>
+<ul><li><em>From:</em> kragen@pobox.com (Kragen Sitaker)</li></ul></li>
+<li><strong><a name="00333" href="msg00333.html">Re: 200alpha13</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00334.html">Re: 200alpha13</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00336.html">locales (was Re: 200alpha13)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00334.html">Re: 200alpha13</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00336.html">locales (was Re: 200alpha13)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00335"><strong>Date</strong></a></li>
+<li><a href="threads.html#00335"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

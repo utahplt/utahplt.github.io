@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: This week's "Hard of thinking using schemeql" -->
+<!--X-From-R13: [X Dnl <znexwNpybnxrq.serrfreir.pb.hx> -->
+<!--X-Date: Mon, 10 Sep 2001 08:56:15 &#45;0600 (MDT) -->
+<!--X-Message-Id: 87pu9178jj.fsf@cloaked.freeserve.co.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>This week's &quot;Hard of thinking using schemeql&quot;</title>
+<link rev="made" href="mailto:markj@cloaked.freeserve.co.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00882.html">Date Prev</a>][<a href="msg00883.html">Date Next</a>][<a href="msg00887.html">Thread Prev</a>][<a href="msg00885.html">Thread Next</a>][<a href="maillist.html#00884">Date Index</a>][<a href="threads.html#00884">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>This week's &quot;Hard of thinking using schemeql&quot;</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: This week's &quot;Hard of thinking using schemeql&quot;</li>
+<li><em>From</em>: MJ Ray &lt;<A HREF="mailto:markj@cloaked.freeserve.co.uk">markj@cloaked.freeserve.co.uk</A>&gt;</li>
+<li><em>Date</em>: 08 Sep 2001 21:05:20 +0100</li>
+<li><em>Organization</em>: Cat-killingly bad</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0803 (Gnus v5.8.3) XEmacs/21.1 (Capitol Reef)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+*sigh* Once again, I'm trying to do things to the database.  Now I'm
+actually trying to add to it from MzScheme.  The database is wse
+running on postgreSQL which I access via unixodbc.  It all seems to
+work and I can do finds on it OK.  However, I can't do an insert-row
+because I can't get-table.  Here's a sample session showing the
+problem:
+
+Welcome to MzScheme version 103, Copyright (c) 1995-2000 PLT (Matthew Flatt)
+&gt; (define odbc-version 2.5)
+&gt; (require-library &quot;schemeql.ss&quot; &quot;schemeql&quot;)
+SisterPersist extension for MzScheme, Copyright (c) 1999-2000 Rice PLT (Paul Steckler)
+This is SchemeQL v.0.05/4.
+&gt; (define db (connect-to-database &quot;wse&quot; &quot;user&quot; &quot;&quot;))
+&gt; (get-table &quot;users&quot;)
+get-table: Unable to get table `users', you haven't selected a database yet!
+Try `use-database', or `(get-table table db)'
+
+&gt; (get-table &quot;users&quot; db)
+get-table: Unable to get table `users', you haven't selected a database yet!
+Try `use-database', or `(get-table table db)'
+
+&gt; (use-database &quot;tsw&quot;)
+Executing: USE tsw
+uncaught exception: #&lt;struct:general-sql-error&gt;
+
+Can anyone help me again, please?  TIA.
+
+-- 
+MJR                                                   Thesis watch: 27%
+      This is my personal web site =-&gt; <A  HREF="http://mjr.towers.org.uk/">http://mjr.towers.org.uk/</A>
+         <A  HREF="http://www.alug.org.uk/">http://www.alug.org.uk/</A> &lt;-- This is the LUG I go to
+I work for this clever internet developer ==&gt; <A  HREF="http://www.luminas.co.uk/">http://www.luminas.co.uk/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00882.html">Re: Bugs &amp; Such</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00883.html">Re: Activity Report of FSF China (fwd)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00887.html">Re: need help with syntax-case/syntax/datum-&gt;syntax-object</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00885.html">Negative time</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00884"><strong>Date</strong></a></li>
+<li><a href="threads.html#00884"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: I/O bugs -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 25 Jul 2000 12:51:05 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200007251851.MAA24233@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>I/O bugs</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00766.html">Date Prev</A>][<A HREF="msg00768.html">Date Next</A>][<A HREF="msg00782.html">Thread Prev</A>][<A HREF="msg00768.html">Thread Next</A>][<A HREF="maillist.html#00767">Date Index</A>][<A HREF="threads.html#00767">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>I/O bugs</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: I/O bugs</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 25 Jul 2000 12:51:03 -0600 (MDT)</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+JFYI, a couple of bugs in I/O (especially Unix I/O) in versions 102 and
+103/1:
+
+ 1) process/ports and process*/ports are broken. See problem report
+    1584 for details.
+
+    The main fix will be reversing the order of the first two arguments
+    to process[*]/ports, which are currently backwards. Other problems
+    have to be fixed, too.
+
+ 2) MzScheme does not correctly handle interrupted system calls (where
+    the MzScheme process receives a signal during certain I/O
+    operations).
+
+    One consequence is that I/O can become flaky in a program that
+    starts many short-lived subprocesses (inducing many SIGCHLD
+    signals). For example, I discovered the problem while running a
+    test of MzLib's new `gzip' function, comparing the output to that
+    of regular `gzip' on a large set of files.
+
+Both problems will be corrected in 103/2.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00768" HREF="msg00768.html">process* in MSDOS (Win 95) ?</A></STRONG>
+<UL><LI><EM>From:</EM> John Clonts &lt;jclonts@mastnet.net&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00766.html">103/1</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00768.html">process* in MSDOS (Win 95) ?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00782.html">Re: 103/1</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00768.html">process* in MSDOS (Win 95) ?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00767"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00767"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

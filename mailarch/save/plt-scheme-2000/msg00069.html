@@ -1,0 +1,121 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Multithreading? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 12 Feb 2000 14:44:16 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000212214412.YCFK13463.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.BSF.4.05.10002091357490.73269&#45;100000@shell.aros.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Multithreading?</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00068.html">Date Prev</A>][<A HREF="msg00070.html">Date Next</A>][<A HREF="msg00065.html">Thread Prev</A>][<A HREF="msg00077.html">Thread Next</A>][<A HREF="maillist.html#00069">Date Index</A>][<A HREF="threads.html#00069">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Multithreading?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: ender &lt;<A HREF="mailto:ender@shell.aros.net">ender@shell.aros.net</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Multithreading?</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 12 Feb 2000 13:44:13 -0800</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00065.html">Pine.BSF.4.05.10002091357490.73269-100000@shell.aros.net</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00065.html">Pine.BSF.4.05.10002091357490.73269-100000@shell.aros.net</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting ender:
+&gt; I'm using mzscheme embedded in a fairly complex c++ application that
+&gt; is itself multithreaded. That is, the c++ app handles its own
+&gt; threading. What kinds of issues arise in embedding mzscheme in this
+&gt; environment?
+
+Compiled in the normal way, MzScheme cannot be called from multiple
+threads at once. But if a multi-threaded C++ app calls MzScheme
+functions from only one thread at a time, and only that thread's stack
+points to GCable objects, then everything's fine (modulo a Windows GC
+problem described below).
+
+For a few OSes, MzScheme can also be compiled to use OS-defined threads
+for Scheme threads, and in that case it can be called from multiple
+threads at once --- but only if MzScheme itself created the threads via
+scheme_thread(). Because of the scheme_thread() restriction, it's not a
+solution for all applications.
+
+
+The Windows GC problem: even if MzScheme functions are only used in a
+single OS thread, the conservative garbage collector can get tripped up
+by threads under Windows. The collector finds static variables by
+scanning all mapped memory pages. If one thread unmaps a page while
+another one is running the collector, the collector can segfault. To
+solve this problem, the collector needs to be compiled for multiple
+threads and as a DLL. Then, the collector can see all threads ever
+created, and it can stop them while collecting.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00077" HREF="msg00077.html">Re: Multithreading?</A></STRONG>
+<UL><LI><EM>From:</EM> ender &lt;ender@shell.aros.net&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00065" HREF="msg00065.html">Multithreading?</A></STRONG>
+<UL><LI><EM>From:</EM> ender &lt;ender@shell.aros.net&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00068.html">RE: [Q] archive for this mailing list</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00070.html">CVS</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00065.html">Multithreading?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00077.html">Re: Multithreading?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00069"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00069"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

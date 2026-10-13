@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: how to read "structs" from disk file ? -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Thu, 30 Dec 1999 19:06:32 &#45;0700 (MST) -->
+<!--X-Message-Id: 199912310206.UAA03799@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: F059D54E5785D31180D200508B550E299036F6@postal.extendsys.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: how to read &quot;structs&quot; from disk file ?</title>
+<link rev="made" href="mailto:matthias@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00019.html">Date Prev</a>][<a href="msg00021.html">Date Next</a>][<a href="msg00019.html">Thread Prev</a>][<a href="msg00021.html">Thread Next</a>][<a href="maillist.html#00020">Date Index</a>][<a href="threads.html#00020">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: how to read &quot;structs&quot; from disk file ?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:duraip@extendsys.com">duraip@extendsys.com</A></li>
+<li><em>Subject</em>: Re: how to read &quot;structs&quot; from disk file ?</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 30 Dec 1999 20:06:29 -0600 (CST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00019.html">F059D54E5785D31180D200508B550E299036F6@postal.extendsys.com</a>&gt;(message from PJ Durai on Thu, 30 Dec 1999 17:51:53 -0700)</li>
+<li><em>References</em>: &lt;<a href="msg00019.html">F059D54E5785D31180D200508B550E299036F6@postal.extendsys.com</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Here is about the only way to read and write structures: 
+
+  (print-struct #t) 
+
+  (define-struct posn (x y))
+
+  (define (vector-&gt;posn v)
+    (apply make-posn (cdr (vector-&gt;list v))))
+
+  (with-output-to-file &quot;foo.txt&quot;
+    (lambda ()
+      (printf &quot;~a~n&quot; (list (make-posn 1 2) (make-posn 3 4)))))
+
+  (define x (map vector-&gt;posn (with-input-from-file &quot;foo.txt&quot; read)))
+
+That's what I do in a similar context (maintaining &quot;Daddy's bank accounts&quot;
+for my kids :-). 
+
+Explanation: It is impossible to read structures back properly because
+define-struct is generative. That is, every evaluation of define-struct
+creates a different class of structured data. Furthermore, reading may
+happen in a context where the structure hasn't been defined, so read cannot
+call make-s.
+
+-- Matthias
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00021" href="msg00021.html">Re: how to read &quot;structs&quot; from disk file ?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00019" href="msg00019.html">how to read &quot;structs&quot; from disk file ?</a></strong>
+<ul><li><em>From:</em> PJ Durai &lt;duraip@extendsys.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00019.html">how to read &quot;structs&quot; from disk file ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00021.html">Re: how to read &quot;structs&quot; from disk file ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00019.html">how to read &quot;structs&quot; from disk file ?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00021.html">Re: how to read &quot;structs&quot; from disk file ?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00020"><strong>Date</strong></a></li>
+<li><a href="threads.html#00020"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

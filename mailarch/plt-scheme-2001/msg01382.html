@@ -1,0 +1,150 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: 200alpha5 -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Thu, 20 Dec 2001 20:23:10 &#45;0700 (MST) -->
+<!--X-Message-Id: 002f01c189cf$1e4309b0$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011221013957.94DAA172B9@denali.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: 200alpha5</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01381.html">Date Prev</a>][<a href="msg01383.html">Date Next</a>][<a href="msg01381.html">Thread Prev</a>][<a href="msg01383.html">Thread Next</a>][<a href="maillist.html#01382">Date Index</a>][<a href="threads.html#01382">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: 200alpha5</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: 200alpha5</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 20 Dec 2001 22:25:20 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:markj@cloaked.freeserve.co.uk">markj@cloaked.freeserve.co.uk</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01381.html">20011221013957.94DAA172B9@denali.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Apologies for polluting the wide-area mailing list with my suggestion. We
+&gt; have discussed this internally and have come to a conclusion. -- Matthias
+
+Please forgive me for responding to this, but I'm interested in the topic.
+We've just been discussing this issue on c.l.s, buried in the long-running
+thread &quot;Scheme advocacy: scheme vs. perl&quot;.
+
+The JScheme paper which Jim Bender referenced seems to be solving a general
+problem in an overly specific way.  The paper begins by identifying the
+problem too specifically: &quot;The motivating problem it that *when generating
+HTML* in Scheme...&quot;.  However, the problems mentioned, that quotes require
+quoting, and that nested string-appends may be needed to build strings
+containing dynamic content, are both general problems that can apply to any
+kind of generated content.  The discussion about this on c.l.s. began
+talking about embedding SQL, not HTML.  Other content types are also
+possible.  Certainly, it might be possible to use &lt;xml&gt;&lt;/xml&gt; as a marker
+regardless of the type of content, but I'm not sure how appropriate that is,
+and it may lead to erroneous assumptions and unnecessary limitations.
+
+An additional problem with the JScheme solution is the verbosity of the
+tags.  Embedding Scheme code within &lt;scheme&gt;&lt;/scheme&gt; elements will quickly
+become tedious, and in addition, XML tags do not stand out very well when
+embedded in HTML or XML.
+
+In the c.l.s thread, Bruce Lewis pointed out that much of what is needed can
+be achieved simply by providing an alias for the double-quote character, as
+he does in BRL.  In BRL's case, the quotation alias is &quot;][&quot;, which
+presumably wouldn't work for PLT.  Bruce has an interesting point, though,
+and it may be worth examining BRL to get a feel for this in action.
+
+David Rush pointed out that SRFI 10, the sharp-comma external form, might be
+applicable.  I'm not familiar enough with it yet to evaluate that, but it
+seems plausible.
+
+David Rush prompted me to suggest a macro-like form with abitrary block
+delimiters e.g.
+
+	(template-expand end-marker
+arbitrary template text goes here, with embedded code using some kind of tag
+end-marker)
+
+Felix of Chicken (don't know his last name, so he gets to be named like
+William of Occam) made a suggestion which I haven't absorbed yet, for a kind
+of extended read-macro.
+
+If your decision was to add such a feature to PLT Scheme, please consider
+making it more general than the JScheme solution.  It doesn't seem to be in
+the Scheme spirit to be so specific, especially if one is talking about a
+change which actually affects the behavior of the default reader (?)
+
+And if you decided not to add a feature like this, well, why the heck not?
+;o)
+
+Anton
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01383" href="msg01383.html">RE: 200alpha5</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="01384" href="msg01384.html">Re: 200alpha5</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01392" href="msg01392.html">Re: 200alpha5</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01381" href="msg01381.html">Re: 200alpha5</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01381.html">Re: 200alpha5</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01383.html">RE: 200alpha5</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01381.html">Re: 200alpha5</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01383.html">RE: 200alpha5</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01382"><strong>Date</strong></a></li>
+<li><a href="threads.html#01382"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Problems with process* -->
+<!--X-From-R13: Syv Pnemvynl <ryvNQE.Qbearyy.SRG> -->
+<!--X-Date: Sun, 2 Apr 2000 22:00:42 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14568.5991.267984.81424@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14567.63092.415086.878914@mojave.cs.cornell.edu -->
+<!--X-Reference: 20000403020318.GDHM19529.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Problems with process*</title>
+<link rev="made" href="mailto:eli@CS.Cornell.EDU">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00225.html">Date Prev</a>][<a href="msg00227.html">Date Next</a>][<a href="msg00225.html">Thread Prev</a>][<a href="msg00230.html">Thread Next</a>][<a href="maillist.html#00226">Date Index</a>][<a href="threads.html#00226">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Problems with process*</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Problems with process*</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;</li>
+<li><em>Date</em>: Mon, 3 Apr 2000 00:00:39 -0400 (EDT)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00225.html">20000403020318.GDHM19529.mail.rdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00224.html">14567.63092.415086.878914@mojave.cs.cornell.edu</a>&gt;&lt;<a href="msg00225.html">20000403020318.GDHM19529.mail.rdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Apr  2, Matthew Flatt wrote:
+&gt; As far as I can tell, this requires that fdopen() returns NULL. Why
+&gt; would it do that? Maybe you could change the null-file-pointer error
+&gt; in port.c to include the value of errno; it might provide a useful
+&gt; hint.
+
+It's not too bad so I can live with this now...
+
+
+&gt; In any case, the specific symptom should go away in 102 (starting
+&gt; with 102/10), which doesn't use fdopen() anymore. But I wonder
+&gt; whether it will be replaced by an error when reading/writing to the
+&gt; port.
+
+So, what I'll do is keep an eye for problems once I start using the
+next version (can't do it now due to work on the thing our students
+use) and in case I get any problem with 102, I'll do some better
+testing.
+
+I wonder if debugging something like this is going to be easier or
+harder with fd's instead of FILE*'s...  But I'll do it if I get to
+that point and this problem doesn't go away.
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+         <A  HREF="http://www.cs.cornell.edu/eli/meaning.html">http://www.cs.cornell.edu/eli/meaning.html</A>        Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00224" href="msg00224.html">Problems with process*</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</li></ul></li>
+<li><strong><a name="00225" href="msg00225.html">Re: Problems with process*</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00225.html">Re: Problems with process*</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00227.html">What is an object?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00225.html">Re: Problems with process*</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00230.html">RPM's</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00226"><strong>Date</strong></a></li>
+<li><a href="threads.html#00226"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] eval question -->
+<!--X-From-R13: Pvyy Ibbq <jgjNzngufgne.pbz> -->
+<!--X-Date: Wed, 5 Jun 2002 12:55:04 &#45;0600 (MDT) -->
+<!--X-Message-Id: 3CFE5306.1D072AD4@mathstar.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3CFD080D.5040601@entricom.com -->
+<!--X-Reference: 200206041930.PAA00680@bosch.cs.brown.edu -->
+<!--X-Reference: E17FeEy&#45;0004Ic&#45;00@logrus.dnsalias.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] eval question</title>
+<link rev="made" href="mailto:wtw@mathstar.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01052.html">Date Prev</a>][<a href="msg01055.html">Date Next</a>][<a href="msg01053.html">Thread Prev</a>][<a href="msg01058.html">Thread Next</a>][<a href="maillist.html#01054">Date Index</a>][<a href="threads.html#01054">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] eval question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: [plt-scheme] eval question</li>
+<li><em>From</em>: Bill Wood &lt;<A HREF="mailto:wtw@mathstar.com">wtw@mathstar.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 05 Jun 2002 13:05:58 -0500</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: MathStar, Inc.</li>
+<li><em>References</em>: &lt;<a href="msg01043.html">3CFD080D.5040601@entricom.com</a>&gt; &lt;<a href="msg01044.html">200206041930.PAA00680@bosch.cs.brown.edu</a>&gt; &lt;<a href="msg01053.html">E17FeEy-0004Ic-00@logrus.dnsalias.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+  . . .
+&gt; One consideration is that Scheme has closures and macros.  These two
+&gt; tools will cover the majority of cases you'd use eval in a more
+&gt; rudimentary language.
+
+I think there are at least two rather different situations that
+might call for &quot;eval&quot;.  Some more traditional languages (I don't want
+to say &quot;old-fashioned&quot; :-) utterly divorce data and code, and have
+nothing like closures, but implement an &quot;eval&quot; operation to bridge the
+gap.  For example, SNOBOL, Perl, and Python all have &quot;eval&quot; operations
+that interpret string arguments.
+  Members of the the lisp family, on the other hand, have traditionally
+unified code and data.  People have found lisp convenient for embedding
+languages and building interpreters, and these applications sometimes
+need &quot;eval&quot; to get through several levels of indirect reference, as well
+as to evaluate a constructed lambda expression.  You may recall that
+Common Lisp and some of its ancestors have both &quot;set&quot; and &quot;setq&quot;, only
+differing in that &quot;set&quot; evaluates its first argument (the target) while
+&quot;setq&quot; does not.  The &quot;set&quot; form is useful for setting a variable bound
+to another, which can occur when an interpreter binds embedded language
+variables to interpreter variables.  When other operations beside
+setting are desired, &quot;eval&quot; is useful.  For example, pass-by-reference
+might be implemented this way, with dereferencing done by &quot;eval&quot;-ing the
+formal.
+  I suspect that &quot;eval-twice&quot; macro expansion was invented to regularize
+and hide this sort of thing.  I've written a fair amount of lisp over
+the
+years; I can count the number of times I've really *needed* &quot;set&quot; on
+both
+hands, and the times I've needed &quot;eval&quot; on one.
+
+FWIW,
+
+ -- Bill Wood
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01058" href="msg01058.html">Re: [plt-scheme] eval question</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01043" href="msg01043.html">[plt-scheme] eval question</a></strong>
+<ul><li><em>From:</em> Bruce Butterfield &lt;bab@entricom.com&gt;</li></ul></li>
+<li><strong><a name="01044" href="msg01044.html">[plt-scheme] eval question</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="01053" href="msg01053.html">Re: [plt-scheme] eval question</a></strong>
+<ul><li><em>From:</em> &quot;Lex Spoon&quot; &lt;lex@cc.gatech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01052.html">RE: [plt-scheme] Linux pre-release binaries</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01055.html">Re: [plt-scheme] eval question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01053.html">Re: [plt-scheme] eval question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01058.html">Re: [plt-scheme] eval question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01054"><strong>Date</strong></a></li>
+<li><a href="threads.html#01054"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

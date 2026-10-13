@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Compiled S&#45;Expressions -->
+<!--X-From-R13: Perag Thytunz <oshytunzNqrovna.bet> -->
+<!--X-Date: Mon, 1 Jan 2001 19:35:23 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010101184742.A1906@debian.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Compiled S-Expressions</title>
+<link rev="made" href="mailto:bfulgham@debian.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00003.html">Date Prev</a>][<a href="msg00005.html">Date Next</a>][<a href="msg00024.html">Thread Prev</a>][<a href="msg00007.html">Thread Next</a>][<a href="maillist.html#00004">Date Index</a>][<a href="threads.html#00004">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Compiled S-Expressions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Compiled S-Expressions</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 1 Jan 2001 18:47:42 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.12i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+When an s-expression has a side effect, such as
+
+&quot;(display &quot;foo&quot;)&quot;
+
+and it is compiled using the C API's scheme_compile
+function, are the side effects still generated when
+the resulting compiled expression is evaluated?
+
+Second, how does one get access to the actual syntax
+form to compile?
+
+For example, if you do something like:
+
+Scheme_Object* s_expr = scheme_make_string(&quot;(+ 1 2)&quot;);
+Scheme_Object* cpld = scheme_compile(s_expr, env, 0);
+
+Simply compiles the string as a symbol, so a later
+call to:
+
+Scheme_Object* v = scheme_eval_compiled(cpld, env);
+
+Just returns v = the Scheme String &quot;(+ 1 2)&quot;.
+
+To evaluate properly, you need to create a syntax form,
+which (drawing from eval.c):
+
+Scheme_Object* port = scheme_make_string_input_port(&quot;(+ 1 2)&quot;);
+Scheme_Object* expr = scheme_read_syntax(port, scheme_false);
+Scheme_Object* cpld = scheme_compile(expr, env, 0);
+Scheme_Object* v = scheme_eval_compiled(thnk, env);
+
+However, this doesn't compile because scheme_read_syntax is
+not exported in scheme.h.
+
+Should this be a publicly-accessible method?  I suppose I
+could kludge around it by declaring it &quot;extern&quot;, but there's
+probably a good reason it's not accessible.
+
+How can I create compiled S-expressions from arbitrary text
+files so I can cache them for later reuse?
+
+Thanks,
+
+-Brent
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00007" href="msg00007.html">Re: Compiled S-Expressions</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00003.html">Senora GC ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00005.html">(Withdrawn!): Question on multi-statement &quot;Applying&quot;</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00024.html">Re: Senora GC ?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00007.html">Re: Compiled S-Expressions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00004"><strong>Date</strong></a></li>
+<li><a href="threads.html#00004"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

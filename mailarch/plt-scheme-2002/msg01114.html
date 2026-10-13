@@ -1,0 +1,113 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] Call/cc problem -->
+<!--X-From-R13: Sevpu Dnfg <Sevpu.DnfgNg&#45;bayvar.qr> -->
+<!--X-Date: Wed, 12 Jun 2002 13:11:21 &#45;0600 (MDT) -->
+<!--X-Message-Id: a05111b00b92d471a8a09@[217.230.213.254] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] Call/cc problem</title>
+<link rev="made" href="mailto:Erich.Rast@t-online.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01113.html">Date Prev</a>][<a href="msg01115.html">Date Next</a>][<a href="msg01110.html">Thread Prev</a>][<a href="msg01115.html">Thread Next</a>][<a href="maillist.html#01114">Date Index</a>][<a href="threads.html#01114">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] Call/cc problem</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: [plt-scheme] Call/cc problem</li>
+<li><em>From</em>: Erich Rast &lt;<A HREF="mailto:Erich.Rast@t-online.de">Erich.Rast@t-online.de</A>&gt;</li>
+<li><em>Date</em>: Wed, 12 Jun 2002 21:11:00 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Sorry for asking such a general question on this list...I have 
+troubles with my ISP sending to comp.lang.scheme, so I hope perhaps 
+here someone can help me:
+
+My MzScheme application A communicates with the front-end B (written in
+another language) by exchanging commands. In order to do that, B can
+call a top-level receiver function of A in a modified
+read-eval-print-loop, while A has a function (send-command cmd) for
+sending something to B.
+
+The problem: Both A and B are non-blocking, independent operating system
+processes, but I need A to be able to send commands synchronously, ie. I
+need a function (send/sync-command cmd) that sends cmd to B, waits until
+B has replied with another command, returns the reply and then continues
+like if an ordinary function had been called.
+
+I've tried to store continuations in an object and let them be called by
+the receiver function, but I get &quot;continuation application: attempted to
+cross a continuation boundary&quot; when using call/cc, and &quot;continuation
+application: attempt to jump into an escape continuation&quot; when using
+call/ec.
+
+I've taken a look at  Ferguson/Deugo: &quot;Call with Current Continuation 
+Patterns&quot;, 2001, but  unfortunately, the paper is already a little 
+above my head. Could anyone outline me how to tackle this problem?
+
+Regards,
+
+Erich
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01115" href="msg01115.html">Re: [plt-scheme] Call/cc problem</a></strong>
+<ul><li><em>From:</em> Paul Graunke &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01116" href="msg01116.html">Re: [plt-scheme] Call/cc problem</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01113.html">Re: [plt-scheme] define-structure question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01115.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01110.html">[plt-scheme] Suggested improvement to net/nntp-unit.ss</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01115.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01114"><strong>Date</strong></a></li>
+<li><a href="threads.html#01114"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

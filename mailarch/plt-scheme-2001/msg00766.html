@@ -1,0 +1,151 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Any Examples of COM (and perhaps ADO)? -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Fri, 10 Aug 2001 13:42:04 &#45;0600 (MDT) -->
+<!--X-Message-Id: 001601c121d4$9ad97350$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000101c121ca$c5832060$70730a81@NORTHEASDX5RFA -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Any Examples of COM (and perhaps ADO)?</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00765.html">Date Prev</a>][<a href="msg00767.html">Date Next</a>][<a href="msg00764.html">Thread Prev</a>][<a href="msg00767.html">Thread Next</a>][<a href="maillist.html#00766">Date Index</a>][<a href="threads.html#00766">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Any Examples of COM (and perhaps ADO)?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;,       &quot;'PLT Scheme'&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Any Examples of COM (and perhaps ADO)?</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 10 Aug 2001 15:42:35 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00764.html">000101c121ca$c5832060$70730a81@NORTHEASDX5RFA</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Is that &quot;103-p3&quot; or something else?
+
+My version of DrScheme and MzScheme are plain old &quot;103&quot;, according to the
+About box and the &quot;(version)&quot; function.  I downloaded MysterX 103-p3 much
+more recently.  Should I upgrade DrScheme?
+
+&gt; Have you tried the same experiement in plain MzScheme?
+
+I just did.  You'll be pleased to know I haven't been able to duplicate the
+error under MzScheme.  The problem seems to only happen on the second and
+subsequent presses of the Execute button in DrScheme.  Since MzScheme
+doesn't have an equivalent to the Execute button (does it?), I can't
+duplicate the error.  Repeatedly loading the same file using (load
+&quot;adotest.scm&quot;) in MzScheme did not cause a problem.
+
+However, I can do the same thing in DrScheme - load the same file multiple
+times, either in the definitions or interactions window - and it works fine.
+The problem doesn't occur until an ADO Connection object has been
+instantiated and opened one or more times, whether in the definitions or
+interactions window.  After that's happened, any subsequent presses of
+Execute will fail.
+
+&gt; You might instead try putting the program in the definitions
+&gt; window, and hitting the Execute button.
+
+That's what I've been doing all along, except for the last test above which
+I tried in both windows.  The strange thing is I would expect that pressing
+Execute would clear all traces of the previous execution, but when an opened
+ADO Connection object is involved, that's not happening.  Hence my attempt
+to use (exit) earlier.
+
+I also tried the following code, while attempting to duplicate the error
+under MzScheme.  Again, MzScheme works, and DrScheme fails on the second
+execution:
+
+	(require-library &quot;mysterx.ss&quot; &quot;mysterx&quot;)
+
+	(define (test-ado)
+		(let [(conn (cci/progid &quot;ADODB.Connection&quot;))]
+			(com-invoke conn &quot;Open&quot; &quot;DSN=epas;UID=sa;PWD=###&quot;)
+			(com-invoke conn &quot;Close&quot;)))
+	(test-ado)
+
+Under DrScheme, I can use Execute with the above in the definitions window,
+and then call test-ado multiple times in the interaction window without a
+problem.  As soon as I press Execute for the second time, I get the error
+when (test-ado) executes.
+
+&gt; I've used MysterX mostly with Excel, and haven't experienced the kinds
+&gt; of problems you and Alex have found.
+
+One difference is that the ADO objects are using external resources, like
+database connections through an ODBC or OLE DB driver.  Most Excel objects
+would not be doing anything comparable, and would only be using resources
+internal to the Excel COM servers.  How that relates to the behavior I'm
+seeing, I have no idea...
+
+Anton
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00767" href="msg00767.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00769" href="msg00769.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00764" href="msg00764.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00765.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00767.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00764.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00767.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00766"><strong>Date</strong></a></li>
+<li><a href="threads.html#00766"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

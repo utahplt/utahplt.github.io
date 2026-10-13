@@ -1,0 +1,162 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: telnet to MzScheme -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Mon, 5 Mar 2001 13:48:44 &#45;0700 (MST) -->
+<!--X-Message-Id: 15011.64414.370067.329174@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 5.0.0.25.0.20010305210025.00a7d3e8@mpop.netlink.co.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: telnet to MzScheme</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00355.html">Date Prev</a>][<a href="msg00357.html">Date Next</a>][<a href="msg00355.html">Thread Prev</a>][<a href="msg00357.html">Thread Next</a>][<a href="maillist.html#00356">Date Index</a>][<a href="threads.html#00356">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: telnet to MzScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Scorzelli Giorgio &lt;<A HREF="mailto:scr.giorgio@cogesic.it">scr.giorgio@cogesic.it</A>&gt;</li>
+<li><em>Subject</em>: Re: telnet to MzScheme</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 5 Mar 2001 15:48:30 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00355.html">5.0.0.25.0.20010305210025.00a7d3e8@mpop.netlink.co.uk</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00355.html">5.0.0.25.0.20010305210025.00a7d3e8@mpop.netlink.co.uk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Mar  5, Scorzelli Giorgio wrote:
+&gt; Hy all,
+&gt; 
+&gt; I have defined the following script to make MzScheme usable by a simple 
+&gt; telnet connection:
+&gt; 
+&gt; (define (server port)
+&gt;      (let ([l (tcp-listen port)])
+&gt;        (let-values ([(r w) (tcp-accept l)])
+&gt;          (current-output-port w)
+&gt;          (current-input-port r)
+&gt;          (current-error-port w))))
+&gt; 
+&gt; but I have a problem: how can I reset MzScheme input port to reset
+&gt; (as I normally do with CTRL+C) its contents.
+
+The problem is that the telnet protocol is not too trivial...  I once
+wanted a remote-scheme (actually, Swindle) thing similar to what
+you're trying to do, but with user logins, background jobs (and C-z to
+kick the current evaluation to the bg) etc etc.  After some digging I
+managed to get basic functionality, here is the relevant piece of
+code:
+
+    ;; some constants for telnet protocol
+    (define telnet-escape-ch (integer-&gt;char 255))
+    (define eof-ch (integer-&gt;char 4))
+
+    ;; this function manage telnet input processing
+    (define (filter-proc in out)
+      ;; get a character
+      (define ch (read-char in))
+      (cond
+       ;; end-of-file (eof-object? shouldn't be #t)
+       ((or (eof-object? ch) (eq? ch eof-ch))
+        ;; suffocate eval's input
+        (close-output-port out))
+       ((eq? ch telnet-escape-ch)
+        ;; handle telnet escapes
+        (case (char-&gt;integer (read-char in))
+          ((244) ; C-c
+           (if (thread-running? eval-thread)
+             ;; break the thread
+             (break-thread eval-thread)
+             ;; if eval-thread is dead - we're waiting for background
+             ;; expressions, kill all
+             (for-each break-thread background-exprs)))
+          ((236) ; C-d
+           ;; this is what telnet is supposed to send on an end-of-file
+           (close-output-port out))
+          ((237) ; C-z
+           ;; mark this interrupt as suspension
+           (set! suspending? #t)
+           (break-thread eval-thread))
+          ((253)
+           ;; Telnet protocol: DO X --&gt; WON'T X, except for DO ECHO
+           (set! ch (read-char in))
+           (unless (= 1 (char-&gt;integer ch))
+             (write-char telnet-escape-ch telnet-out)
+             (write-char (integer-&gt;char 252) telnet-out)
+             (write-char ch telnet-out)))
+          ((251 252 254)
+           ;; ignore WILL/WONT/DONT
+           (read-char in))
+          ((255)
+           ;; escape escape is escape
+           (write-char ch telnet-out))
+          (else #f)))
+       (else
+        ;; out shouldn't be dead but be safe
+        (no-errors (write-char ch out))))
+      ;; loop forever
+      (filter-proc in out))
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00355" href="msg00355.html">telnet to MzScheme</a></strong>
+<ul><li><em>From:</em> Scorzelli Giorgio &lt;scr.giorgio@cogesic.it&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00355.html">telnet to MzScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00357.html">abstract classes?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00355.html">telnet to MzScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00357.html">abstract classes?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00356"><strong>Date</strong></a></li>
+<li><a href="threads.html#00356"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

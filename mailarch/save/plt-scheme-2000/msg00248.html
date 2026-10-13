@@ -1,0 +1,180 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Help on help -->
+<!--X-From-R13: Xreml Ynepmznepmhx <xnepmznNvasb.havpnra.se> -->
+<!--X-Date: Thu, 13 Apr 2000 06:32:32 &#45;0600 (MDT) -->
+<!--X-Message-Id: 38F58D78.23B27052@info.unicaen.fr -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001bf937e$3d82ae00$6a032a80@cs.rice.edu -->
+<!--X-Reference: 200003212225.OAA23170@balu.qualcomm.com -->
+<!--X-Reference: 38DA2B60.6C911FE@info.unicaen.fr -->
+<!--X-Reference: 20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 38DB4F28.A4A0EEDB@info.unicaen.fr -->
+<!--X-Reference: 14555.19213.467566.25039@kintore.dai.ed.ac.uk -->
+<!--X-Reference: 38EB9A40.DE8B823F@info.unicaen.fr -->
+<!--X-Reference: 200004052130.PAA21847@fast.cs.utah.edu -->
+<!--X-Reference: 38F1B692.5E320D7D@info.unicaen.fr -->
+<!--X-Reference: 20000412140556.CABH27789.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Help on help</TITLE>
+<LINK REV="made" HREF="mailto:karczma@info.unicaen.fr">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00247.html">Date Prev</A>][<A HREF="msg00249.html">Date Next</A>][<A HREF="msg00243.html">Thread Prev</A>][<A HREF="msg00249.html">Thread Next</A>][<A HREF="maillist.html#00248">Date Index</A>][<A HREF="threads.html#00248">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Help on help</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>Subject</em>: Help on help</LI>
+<LI><em>From</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 13 Apr 2000 10:03:52 +0100</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Organization</em>: University of Caen, France</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00208.html">000001bf937e$3d82ae00$6a032a80@cs.rice.edu</A>&gt;			&lt;<A HREF="msg00209.html">200003212225.OAA23170@balu.qualcomm.com</A>&gt;			&lt;<A HREF="msg00214.html">38DA2B60.6C911FE@info.unicaen.fr</A>&gt;			&lt;<A HREF="msg00215.html">20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost</A>&gt;			&lt;<A HREF="msg00218.html">38DB4F28.A4A0EEDB@info.unicaen.fr</A>&gt; &lt;<A HREF="msg00219.html">14555.19213.467566.25039@kintore.dai.ed.ac.uk</A>&gt;			&lt;<A HREF="msg00232.html">38EB9A40.DE8B823F@info.unicaen.fr</A>&gt; &lt;<A HREF="msg00234.html">200004052130.PAA21847@fast.cs.utah.edu</A>&gt;		&lt;<A HREF="msg00239.html">38F1B692.5E320D7D@info.unicaen.fr</A>&gt; &lt;<A HREF="msg00243.html">20000412140556.CABH27789.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Could you please explain how can I use the unit-ized
+start-help-desk?
+
+I am probably doing some nonsense, but I try to learn it softly.
+First I thought about pulling out of the unit/sig all the 
+definitions, using
+
+;============
+
+(define-signature help:drscheme-interface^
+  (help-desk))
+;;; The doc says: start-help-desk, but there is no such function. 
+;;;   The file export.ss  suggests help-desk
+
+
+(define-values/invoke-unit/sig help:drscheme-interface^
+  (require-library "start-help-desk.ss" "help")
+  #f
+  mzlib:function^
+  mzlib:string^
+  mzlib:file^
+  mzlib:url^
+  mred^
+  framework^
+  [drscheme:frame : drscheme:frame^]
+  )
+
+;;; as necessary. I still don't know what is the usage of the first
+;;;  argument after (req...). YES, I know that it should be the
+;;;  prefix, ("help" or what???) but, anyway, I don't get anywhere 
+;;;  with your "cheesy" macro. French cheese is different...
+
+;;; Of course all that is preceded by required-libraries such as
+;;;  frame, urls, etc.
+
+; ===========================
+
+The result is invariably:
+
+invoke-unit: cannot link to undefined identifier: drscheme:frame:mixin
+
+This function is used in unit.ss : def. of super-frame%
+but this is all I could find out myself. Its definition must be well
+hidden, probably the prefix is added dynamically.
+
+Anyway, having together such close names as
+frame:basic-mixin and frame:basics-mixin
+
+and frame:basic-mixin% which is documented on a page whose header has
+*no* "%", and which apparently does not exist, because it is created
+dynamically by the function without "%")...
+
+seeing frame:mixin and not too far from it:  frame-mixin, --
+
+
+-- all that is difficult to digest, and finally I will shoot myself,
+and you will be sorry. 
+
+Thank you.
+
+Jerzy Karczmarczuk
+Caen, France
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00249" HREF="msg00249.html">Re: Help on help</A></STRONG>
+<UL><LI><EM>From:</EM> robby &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00208" HREF="msg00208.html">Distributing PLT Scheme with RedHat</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00209" HREF="msg00209.html">Re: Distributing PLT Scheme with RedHat</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00214" HREF="msg00214.html">Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00215" HREF="msg00215.html">Re: Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00218" HREF="msg00218.html">Re: Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00219" HREF="msg00219.html">Re: Sound &amp; Testing</A></STRONG>
+<UL><LI><EM>From:</EM> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00232" HREF="msg00232.html">What is an object?</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00234" HREF="msg00234.html">Re: What is an object?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00239" HREF="msg00239.html">Object access</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00243" HREF="msg00243.html">Re: Object access</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00247.html">Re: About MrEd ..... ?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00249.html">Re: Help on help</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00243.html">Re: Object access</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00249.html">Re: Help on help</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00248"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00248"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

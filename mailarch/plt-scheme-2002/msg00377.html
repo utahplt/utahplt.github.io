@@ -1,0 +1,102 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: how to store and load mzscheme objects ? -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Wed, 20 Mar 2002 16:50:29 &#45;0700 (MST) -->
+<!--X-Message-Id: 15513.8258.389498.155901@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15512.15724.20182.77211@dhs2.alcatel.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: how to store and load mzscheme objects ?</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00376.html">Date Prev</a>][<a href="msg00378.html">Date Next</a>][<a href="msg00371.html">Thread Prev</a>][<a href="msg00372.html">Thread Next</a>][<a href="maillist.html#00377">Date Index</a>][<a href="threads.html#00377">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: how to store and load mzscheme objects ?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Philippe GIACINTI &lt;<A HREF="mailto:Philippe.Giacinti@sxb.bsf.alcatel.fr">Philippe.Giacinti@sxb.bsf.alcatel.fr</A>&gt;</li>
+<li><em>Subject</em>: Re: how to store and load mzscheme objects ?</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Wed, 20 Mar 2002 18:50:26 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00371.html">15512.15724.20182.77211@dhs2.alcatel.fr</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00371.html">15512.15724.20182.77211@dhs2.alcatel.fr</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Mar 20, Philippe GIACINTI wrote:
+&gt; I was wondering if there is a common way to save mzscheme objects
+&gt; (i.e.: from class.ss) to file (or whatever) and then to restore them
+&gt; keeping the eq?-ability.
+
+I don't know if this is what you're looking for, but I have some piece
+of code I wrote once, where you `register' some values and then you
+can save them (recursively, including everything they point to) to a
+file so when you load it from there it preserves pointer equality of
+the loaded objects (it does require having code that will tell it how
+to `serialize' objects, to use the MSVC jargon I faintly remember...).
+It is done using my Swindle thing but I don't think it would be hard
+to make it work for standard MzScheme.
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00371" href="msg00371.html">how to store and load mzscheme objects ?</a></strong>
+<ul><li><em>From:</em> Philippe GIACINTI &lt;Philippe.Giacinti@sxb.bsf.alcatel.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00376.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00378.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00371.html">how to store and load mzscheme objects ?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00372.html">Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00377"><strong>Date</strong></a></li>
+<li><a href="threads.html#00377"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

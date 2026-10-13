@@ -1,0 +1,218 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Hello from a new user interested in shipping applications -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Mon, 31 Jul 2000 11:25:45 &#45;0600 (MDT) -->
+<!--X-Message-Id: 3985B7DC.A85F84D5@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 39810A7F.A4101259@kurtz&#45;fernhout.com -->
+<!--X-Reference: 3981E513.7F18F855@kurtz&#45;fernhout.com -->
+<!--X-Reference: 14725.30582.33503.346072@saker.dai.ed.ac.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Hello from a new user interested in shipping applications</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00431.html">Date Prev</a>][<a href="msg00433.html">Date Next</a>][<a href="msg00431.html">Thread Prev</a>][<a href="msg00435.html">Thread Next</a>][<a href="maillist.html#00432">Date Index</a>][<a href="threads.html#00432">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Hello from a new user interested in shipping applications</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Hello from a new user interested in shipping applications</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 31 Jul 2000 13:31:08 -0400</li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00421.html">39810A7F.A4101259@kurtz-fernhout.com</a>&gt;	&lt;<a href="msg00426.html">3981E513.7F18F855@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00429.html">14725.30582.33503.346072@saker.dai.ed.ac.uk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Noel-
+
+Thanks for the great pointers and suggestions.
+
+Certainly improving MzScheme numerical performance automatically by
+analyzing the program would be fantastic. I'm not sure I'm personally up
+to spending time doing this though (given limited time).
+
+However, Squeak does translation of Smalltalk to C and I think the type
+hinting it uses is not that bad. What follows is inspired in part by
+that. 
+
+One of the things that appeals to me in Scheme (over say Python or
+Smalltalk) is that it is somewhat more straightforward to process Scheme
+programs with hints or assumptions. 
+
+For example, if I write this in MzScheme and save it in the file:
+
+  (define (foo a b) (* a b))
+  (define (bar a b) (/ a b))
+  (define (baz a b) (+ (foo a b) (bar a b)))
+  (define (main) (print (baz 10 20)))
+  (main)
+
+there is little to then stop me from easily parsing the input file as a
+list and then running my own operations on it to generate C code with an
+assumption that all arguments are floats unlest specifed otherwise, to
+get:
+
+  float foo(float a, float b) {return a * b;}
+  float bar(float a, float b) {return a / b;}
+  float baz(float a, float b) {return foo(a, b) + bar(a, b);}
+  void main(void) {printf(&quot;%f&quot;, baz(10, 20));}
+
+Then I can almost trivially have a list of variable names to treat
+otherwise.
+Ex. '((int p q r) (string s t u) (float-array l m n))
+Obviously, you need to work in a subset of MzScheme to do this (no &quot;car&quot;
+or &quot;cdr&quot; use for example) but in practice the core numerical parts of
+something like a simulation are often mainly loops, tests, array
+references, and numerical operations. [Note: I did this conversion by
+hand.]
+
+This is very different from compiling these functions to code that would
+work generically with MzScheme, where a and b might be strings or lists
+or objects.
+To optimize that sort of code, you definitely would need a system for
+inferring types.
+
+Obvious limitations of this approach are that it won't neccesarily give
+the same exact results under MzScheme -- for example, MzScheme prints
+&quot;401/2&quot; as the answer to the above, whereas the C program prints
+&quot;200.500000&quot;. They are equivalent mathematically in this case, but might
+not be in others.
+
+The important point to make here is that because the algorithm is
+encoded in MzScheme, there are all sorts of interesting things that are
+easy to do with it (analyze interdependencies, variable useages, browse
+it, generate assembler code directly, etc.). C is a much more difficult
+informational container to extract algorithm related information from,
+because you need to have a C parser, etc.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+Noel Welsh wrote:
+&gt; 
+&gt; Paul Fernhout writes:
+&gt; &gt; On Numerical performance. This does appear to be an issue for further
+&gt; &gt; consideration. It looks like I would then need to improve this area
+&gt; &gt; myself
+&gt; &gt; (similar to the library for Gambit or NumPy for Python) if I was to use
+&gt; &gt; MzScheme for numerical work. Or alternatively, I could generate C code
+&gt; &gt; to do number crunching from Scheme with type hints. Either of these
+&gt; &gt; might be doable with a reasonable effort (perhaps leveraging off the
+&gt; &gt; approach done for say Python's NumPy) -- assuming the other parts of
+&gt; &gt; the system work well enough for my purposes.
+&gt; 
+&gt; I've just looked at NumPy, and it appears that they've written some C
+&gt; code to do the basic matrix operations in reasonable time, and then
+&gt; interfaced to the Netlib (<A  HREF="http://www.netlib.org/">http://www.netlib.org/</A>) libraries for all
+&gt; the hard algorithms. You could certainly follow this approach in
+&gt; MzScheme, and get respectable performance.
+&gt; 
+&gt; More interesting is the second approach you mention - generating C
+&gt; code with(out) type hints. I think almost all the basic research has
+&gt; been done to get great numerical performance in Scheme. The following
+&gt; pointers may help:
+&gt; 
+&gt; - Andrew Wright's soft scheme system for infering types (no need for
+&gt; type hints. See
+&gt; <A  HREF="http://www.intertrust.com/star/wright/personal-index.html">http://www.intertrust.com/star/wright/personal-index.html</A>) This would
+&gt; be doubly useful if a distinction is made between fixnums and bignums
+&gt; 
+&gt; - Unboxing of floats (e.g: <A  HREF="http://www-fp.dcs.st-and.ac.uk/~kh/papers/pseudoknot/subsubsection3_5_6_4.html">http://www-fp.dcs.st-and.ac.uk/~kh/papers/pseudoknot/subsubsection3_5_6_4.html</A>)
+&gt; 
+&gt; - It should be possible to avoid most index out-of-bounds checks by
+&gt; inducing the range of index variables. I don't know if anyone has done
+&gt; this. I suppose it would require adding invariant properties to the
+&gt; type system, so that the compiler could deduce any variable in the
+&gt; range [0 (vector-length)) doesn't require an out-of-bounds check.
+&gt; 
+&gt; Finally, I read somewhere that researchers in Aspect-Orientated
+&gt; Programming (<A  HREF="http://www.parc.xerox.com/csl/projects/aop/">http://www.parc.xerox.com/csl/projects/aop/</A>
+&gt; <A  HREF="http://www.acl.lanl.gov/iscope97/papers/lamping.html">http://www.acl.lanl.gov/iscope97/papers/lamping.html</A>
+&gt; <A  HREF="http://www.diku.dk/research-groups/topps/activities/PartialEvaluation.html">http://www.diku.dk/research-groups/topps/activities/PartialEvaluation.html</A>)
+&gt; developed a system that collapsed operations on arrays into a single
+&gt; loops. Eg, if one is doing something like Ax + b, the multiplication
+&gt; and addition are collapsed into one loop without the programmer having
+&gt; to write special purpose code. The good thing is, this work was
+&gt; originally done in Scheme. &quot;All are academic projects, with promising
+&gt; results so far. The Scheme systems are the most mature.&quot;
+&gt; 
+&gt; cya,
+&gt; Noel
+&gt; --
+&gt; Noel Welsh
+&gt; <A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00435" href="msg00435.html">Re: Hello from a new user interested in shipping applications</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00421" href="msg00421.html">Hello from a new user interested in shipping applications</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00426" href="msg00426.html">Re: Hello from a new user interested in shipping applications</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00429" href="msg00429.html">Re: Hello from a new user interested in shipping applications</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00431.html">Re: Hello from a new user interested in shipping applications</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00433.html">RE: A few comments about SchemeQL</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00431.html">Re: Hello from a new user interested in shipping applications</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00435.html">Re: Hello from a new user interested in shipping applications</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00432"><strong>Date</strong></a></li>
+<li><a href="threads.html#00432"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

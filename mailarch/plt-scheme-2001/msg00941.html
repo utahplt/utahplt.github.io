@@ -1,0 +1,180 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: DrScheme as Emacs&#45;like kitchen sink -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.ajh.rqh> -->
+<!--X-Date: Sun, 30 Sep 2001 21:28:57 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110010328.WAA00358@banach.math.nwu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>DrScheme as Emacs-like kitchen sink</title>
+<link rev="made" href="mailto:richter@math.nwu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00940.html">Date Prev</a>][<a href="msg00942.html">Date Next</a>][<a href="msg00940.html">Thread Prev</a>][<a href="msg00942.html">Thread Next</a>][<a href="maillist.html#00941">Date Index</a>][<a href="threads.html#00941">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>DrScheme as Emacs-like kitchen sink</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: DrScheme as Emacs-like kitchen sink </li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.nwu.edu">richter@math.nwu.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 30 Sep 2001 22:28:54 -0500</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'd like to use DrScheme for other purposes than write/interpret/debug
+Scheme code.  I'd like DrScheme to e.g. edit Latex files, things I do
+in Emacs, hence the `Emacs-like kitchen sink' title.
+
+I'm sure DrScheme has no interest in porting all the Emacs Lisp files,
+as badly written as it might be.  But it doesn't follow from that that
+DrScheme is only meant to write/interpret/debug Scheme code.
+
+As to Latex files, let me make a suggestion.   The Scheme indentation
+is of course no good for Latex files, and one get rid of all
+indentation in the menu
+Edit -&gt; Preferences -&gt; Indenting
+
+But of course, that's no good for Scheme files!   Emacs handles this
+sorta problem with modes, a file with extension tex will have
+different indentation etc than a file with extension scm.
+
+Dunno how hard modes would be to implement, and it's only a good idea
+if DrScheme want to handle a Latex mode.  
+
+OK, but in Emacs, you can also read in a file other than your .emacs
+file, as I am right now:
+
+~/emacs-21.0.106/src/emacs  -l  ~/.sparc-linux-gnu.emacs &amp;
+
+DrScheme reads in the .mred.prefs file automatically.  It seems like
+it would be easy to get DrScheme to read in additional files.   Say 
+
+drscheme -q -l .mred.textediting.prefs &amp;
+
+where -q would mean don't read in .mred.prefs, just like Emacs, and
+ .mred.textediting.prefs would be a version I'd create by killing the
+ indentation with the menu
+Edit -&gt; Preferences -&gt; Indenting
+
+That's probably fine for a Latex mode.   Emacs goes to a lot of
+trouble to handle line-breaking/word-wrapping in Latex mode, but it's
+only needed because Emacs doesn't automatically have the Notepad style
+wordwrapping that DrScheme has.    
+
+I'll give you an example, here's an abstract from a latex file that
+Shriram gave me some good advice for whipping into shape:
+
+      
+\begin{abstract}
+Felleisen's Standard Reduction Theorem for the $\l_v$ Calculus yields
+an algorithm that models the Scheme interpreter.  The $\b$-nf $\l$
+Calculus analogue is Barendregt's Normalization Theorem. We give a
+simple proof of this by porting and simplifying Felleisen's proof.
+\end{abstract}
+
+Now it's important in Emacs that M-q (fill-paragraph) doesn't clobber
+this to 
+
+\begin{abstract} Felleisen's Standard Reduction Theorem ... porting
+and simplifying Felleisen's proof.  \end{abstract}
+
+But I think DrScheme solves this problem like this: the user doesn't
+type return when it's &quot;fillable&quot;, so DrScheme shows this
+
+ 
+  
+\begin{abstract}
+Felleisen's Standard Reduction Theorem for the $\l_v$ Calculus yields an algorithm that models the Scheme interpreter.  The $\b$-nf $\l$ Calculus analogue is Barendregt's Normalization Theorem. We give a simple proof of this by porting and simplifying Felleisen's proof.
+\end{abstract}
+
+as 
+
+\begin{abstract}
+Felleisen's Standard Reduction Theorem for the          &lt;-   
+$\l_v$ Calculus yields an algorithm that models the     &lt;-
+Scheme interpreter.  The $\b$-nf $\l$ Calculus          &lt;-
+analogue is Barendregt's Normalization Theorem. We      &lt;- 
+give a simple proof of this by porting and              &lt;-
+simplifying Felleisen's proof.
+\end{abstract}
+
+I can live with the squiggles on the right.   And (I think) the
+problem is solved!  
+
+
+Also, I'd like to use the DrScheme web browser instead of Netscrape,
+maybe read comp.lang.scheme on DrScheme...   I couldn't find any
+documentation.   It works, but I don't know how.
+
+Hey I learned that Felleisen et al. revised their book HTDP through
+the DrScheme web browser!  I somehow hit HTDP and noticed that some
+(actually well-known) typos I found were corrected.  I'd been reading
+an old static Rice version of HTDP, which of course didn't get
+updated.  But then I couldn't figure out *where* the updated HTDP was!
+So I hunted for it in a search engine on Netscrape, and finally found
+it, I'm pretty sure it's &lt;<A  HREF="http://www.htdp.org">http://www.htdp.org</A>&gt;, it oughta be.  So I'll
+go reread the book now.  Anyway, I'm sure there was an easy way to get
+DrScheme to tell me the URL :)
+
+-- 
+Bill 
+&lt;<A  HREF="http://www.math.nwu.edu/~richter">http://www.math.nwu.edu/~richter</A>&gt;
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00942" href="msg00942.html">DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00940.html">Re: Replacing the mzscheme module in a namespace</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00942.html">DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00940.html">Re: Replacing the mzscheme module in a namespace</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00942.html">DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00941"><strong>Date</strong></a></li>
+<li><a href="threads.html#00941"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Thu, 10 Aug 2000 09:09:18 &#45;0600 (MDT) -->
+<!--X-Message-Id: v04220809b5b8730be635@[128.42.2.124] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: v04220805b5b85c578e93@[128.42.2.124] -->
+<!--X-Reference: 3992C26F.B6BDFC3F@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Specialized input parsing for code/REPL in DrScheme?</TITLE>
+<LINK REV="made" HREF="mailto:robby@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00836.html">Date Prev</A>][<A HREF="msg00838.html">Date Next</A>][<A HREF="msg00836.html">Thread Prev</A>][<A HREF="msg00841.html">Thread Next</A>][<A HREF="maillist.html#00837">Date Index</A>][<A HREF="threads.html#00837">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Specialized input parsing for code/REPL in DrScheme?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</LI>
+<LI><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 10 Aug 2000 10:08:28 -0500</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00836.html">3992C26F.B6BDFC3F@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Organization</em>: PLT, Rice University (http://www.cs.rice.edu/CS/PLT/)</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00834.html">399207D9.5F451CC@kurtz-fernhout.com</A>&gt;&lt;<A HREF="msg00835.html">v04220805b5b85c578e93@[128.42.2.124]</A>&gt;&lt;<A HREF="msg00836.html">3992C26F.B6BDFC3F@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Well, for what it's worth, the non-source correlating reader is 
+written in C and the source correlating reader is written in Scheme. 
+Both are just called as library routines so it will not matter if you 
+write your new reader in Scheme or in C.
+
+You will find that DrScheme makes a distinction that Smalltalk does 
+not between the user's program and the programming environment 
+itself. This means that we won't have the same extensibility that 
+Smalltalk has, but it also means you cannot shoot yourself in the 
+foot by updating some definition -- the execute button always starts 
+your program completely afresh.
+
+Thanks for the broken link report. We'll fix that ASAP.
+
+Robby
+
+At 10:55 AM -0400 8/10/00, Paul Fernhout wrote:
+&gt;Robert-
+&gt;
+&gt;Thanks for the information -- it's a start!
+&gt;
+&gt;I also appreciate the offer to expose that part of the base system if
+&gt;sensible/neccessary. I see classes are starting again at Rice real soon,
+&gt;   <A  HREF="http://www.ruf.rice.edu/~reg/calendars/acadcalf00.html">http://www.ruf.rice.edu/~reg/calendars/acadcalf00.html</A>
+&gt;so I'm sure you all will have your hands full with other things shortly
+&gt;(if not now in preparation).
+&gt;
+&gt;I hadn't looked through the tools stuff, so thanks for the pointer
+&gt;By the way, for the "m3" documentation, this link works:
+&gt;   * <A  HREF="http://www.cs.rice.edu/CS/PLT/packages/102/doc/m3/index.htm">http://www.cs.rice.edu/CS/PLT/packages/102/doc/m3/index.htm</A>
+&gt;But this link does not:
+&gt;  * <A  HREF="http://www.cs.rice.edu/CS/PLT/packages/102/DocBundles/m3-doc.plt">http://www.cs.rice.edu/CS/PLT/packages/102/DocBundles/m3-doc.plt</A>.
+&gt;
+&gt;Right now, rather than rush into this, I'm still trying to see just how
+&gt;much work it would be in DrScheme. I'm more used to Smalltalk where
+&gt;typically (Squeak, VisualWorks) the parser, compiler, formatter, etc.
+&gt;are pretty much always written in Smalltalk and are usually easily
+&gt;accessible in source and changeable (including by subclassing). It seems
+&gt;that in the Lisp world (not necessarily DrScheme - I need to understand
+&gt;it more) these things are more often written in C and hidden in the base
+&gt;code. Even when you get hooks, there is still a lot of writing to do to
+&gt;rewrite the C in Lisp or Scheme (or find such already written).
+&gt;
+&gt;However, it might be fun to build a reader as you say, and then if it
+&gt;works, worry about hooking it up later. Since I'm still learning Scheme
+&gt;(and it's strengths and weaknesses), even a failure will be a success
+&gt;(as
+&gt;far as learning).
+&gt;
+&gt;By the way, I found one of the most interesting replies (appropriate to
+&gt;the future of programmming environments like DrScheme) to be one by
+&gt;Chris Page.
+&gt;He points toward how programming can rise above languages and textual
+&gt;representations. He mentions the book "Human Factors and Typography for
+&gt;More Readable Programs" by Ronald M. Baecker &amp; Aaron Marcus. Chris's
+&gt;full comment is available at:
+&gt;<A  HREF="http://x56.deja.com/getdoc.xp?AN=656713307&amp;CONTEXT=965918514.12353537">http://x56.deja.com/getdoc.xp?AN=656713307&amp;CONTEXT=965918514.12353537</A> 
+&gt;0&amp;hitnum=18
+&gt;
+&gt;-Paul Fernhout
+&gt;Kurtz-Fernhout Software
+&gt;=========================================================
+&gt;Developers of custom software and educational simulations
+&gt;Creators of the Garden with Insight(TM) garden simulator
+&gt;<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00841" HREF="msg00841.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00834" HREF="msg00834.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00835" HREF="msg00835.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00836" HREF="msg00836.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00836.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00838.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00836.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00841.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00837"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00837"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

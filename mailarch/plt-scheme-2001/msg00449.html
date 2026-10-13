@@ -1,0 +1,158 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: safe eval -->
+<!--X-From-R13: "jvy ng ubzr" <jvyNqernql.bet> -->
+<!--X-Date: Thu, 26 Apr 2001 09:37:33 &#45;0600 (MDT) -->
+<!--X-Message-Id: 006001c0ce66$4ade69d0$0100a8c0@dready.org -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>safe eval</title>
+<link rev="made" href="mailto:wil@dready.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00448.html">Date Prev</a>][<a href="msg00450.html">Date Next</a>][<a href="msg00448.html">Thread Prev</a>][<a href="msg00450.html">Thread Next</a>][<a href="maillist.html#00449">Date Index</a>][<a href="threads.html#00449">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>safe eval</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: safe eval</li>
+<li><em>From</em>: &quot;wil at home&quot; &lt;<A HREF="mailto:wil@dready.org">wil@dready.org</A>&gt;</li>
+<li><em>Date</em>: Thu, 26 Apr 2001 23:32:10 +0800</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi folks,
+
+I'm a scheme newbie, ambitious one though.
+I'm trying to embed mzscheme into my Windows Jabber (instant messaging)
+client.
+The documents are great, and almost everything is well.
+
+I am having troubles with safely evaluating expressions.  Following the
+suggestion under section 2.6.1 of &quot;Inside PLT MzScheme&quot;, which is to use the
+example in &quot;plt/src/mzscheme/dynsrc/oe.c&quot;, it all seems to work fine.
+However, I experienced random crashes which starts with this.  I managed to
+capture a
+scenario when this happened.
+
+The following are the 3 lines of code being eval'ed since mzscheme was
+started up.
+
+(current-library-collection-paths
+  (path-list-string-&gt;path-list &quot;&quot; '(&quot;c:\\lang\\plt\\collects&quot;)))  ; ok
+(require-library &quot;date.ss&quot; &quot;mzlib&quot;)  ; ok
+(date-&gt;string (seconds-&gt;date (current-seconds)))
+
+At this point my &quot;scheme_console_output&quot; hook is called with the following
+string
+&quot;error trying to display error: exception raised:\n&quot;, int len=50
+The call stack is attached.
+
+I would appreciate any pointers at all, TIA.
+
+Best regards,
+
+wil
+</PRE>
+<PRE>
+interpreter_output_hook(char * 0x00df0bd0, long 50) line 14
+scheme_inescapeable_error(const char * 0x0055fd3c `string', const char * 0x009a9aa0) line 494 + 21 bytes
+call_error(char * 0x009a9aa0, int 77) line 508 + 14 bytes
+do_raise(Scheme_Object * 0x00e031f8, int 0, int 1) line 1586 + 13 bytes
+scheme_raise_exn(int 20) line 1487 + 43 bytes
+tested_file_write_string(char * 0x00000000, long 0, long -1, Scheme_Output_Port * 0x00974f78) line 3545 + 23 bytes
+flush_tested(Scheme_Output_Port * 0x00974f78) line 3565 + 15 bytes
+tested_file_write_string(char * 0x00eb6498, long 81, long 46, Scheme_Output_Port * 0x00974f78) line 3554 + 9 bytes
+scheme_write_offset_string(const char * 0x00eb6498, long 0, long 128, Scheme_Object * 0x00974f78) line 1512 + 19 bytes
+scheme_write_string(const char * 0x00eb6498, long 128, Scheme_Object * 0x00974f78) line 1522 + 19 bytes
+def_error_display_proc(int 1, Scheme_Object * * 0x0012ecec) line 1323 + 27 bytes
+scheme_do_eval(Scheme_Object * 0x00cb0840, int 1, Scheme_Object * * 0x0012ecec, int -1) line 2214 + 14 bytes
+apply_k() line 926 + 19 bytes
+scheme_top_level_do(void * (void)* 0x00437c30 apply_k(void), int 0) line 883 + 3 bytes
+_apply(Scheme_Object * 0x00cb0840, int 1, Scheme_Object * * 0x0012ecec, int 1, int 0) line 954 + 14 bytes
+scheme_apply_multi(Scheme_Object * 0x00cb0840, int 1, Scheme_Object * * 0x0012ecec) line 969 + 21 bytes
+call_error(char * 0x00eb6540, int 128) line 522 + 24 bytes
+def_exn_handler(int 1, Scheme_Object * * 0x0012f1d0) line 1519 + 13 bytes
+scheme_do_eval(Scheme_Object * 0x00cb0f90, int 1, Scheme_Object * * 0x0012f1d0, int 1) line 2214 + 14 bytes
+apply_k() line 928 + 19 bytes
+scheme_top_level_do(void * (void)* 0x00437c30 apply_k(void), int 0) line 883 + 3 bytes
+_apply(Scheme_Object * 0x00cb0f90, int 1, Scheme_Object * * 0x0012f1d0, int 0, int 0) line 954 + 14 bytes
+scheme_apply(Scheme_Object * 0x00cb0f90, int 1, Scheme_Object * * 0x0012f1d0) line 962 + 21 bytes
+now_do_raise(void * 0x00e03210) line 1554 + 24 bytes
+scheme_dynamic_wind(void (void *)* 0x00431e30 pre_raise(void *), Scheme_Object * (void *)* volatile 0x00431e50 now_do_raise(void *), void (void *)* volatile 0x00431e90 post_raise_or_debug(void *), Scheme_Object * (void *)* 0x00000000, void * volatile 0x00e03210) line 2186 + 7 bytes
+do_raise(Scheme_Object * 0x00e03210, int 0, int 1) line 1629 + 26 bytes
+scheme_raise_exn(int 6) line 1487 + 43 bytes
+scheme_wrong_rator(Scheme_Object * 0x0099bdf0, int 1, Scheme_Object * * 0x0012f65c) line 1036 + 46 bytes
+scheme_do_eval(Scheme_Object * 0x0099bdf0, int 1, Scheme_Object * * 0x0012f65c, int 1) line 2546 + 17 bytes
+_apply_thunk_catch_exceptions(Scheme_Object * 0x00e03228, Scheme_Object * * 0x0012f6b0) line 40 + 20 bytes
+eval_string_or_get_exn_message(char * 0x00cb4641) line 82 + 27 bytes
+Interpreter::eval(const std::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt; &gt; &amp; {0x00cb4641 &quot;(date-&gt;string (seconds-&gt;date (current-seconds)))&quot;}) line 37 + 14 bytes
+ABCApp::doInterpreter() line 194 + 53 bytes
+ABCApp::onCommand(unsigned int 40014, long 0) line 50
+ABCMainWin::WindowProc(HWND__ * 0x0005040c, unsigned int 273, unsigned int 40014, long 0) line 52
+ABCApp::dispatchMessages(ABCApp * const 0x0057e760 class ABCApp  abc, HWND__ * 0x0005040c, unsigned int 273, unsigned int 40014, long 0) line 23 + 21 bytes
+ABCWindowProc(HWND__ * 0x0005040c, unsigned int 273, unsigned int 40014, long 0) line 18
+USER32! 77e148dc()
+USER32! 77e14aa7()
+USER32! 77e266fd()
+WinMain(HINSTANCE__ * 0x00400000, HINSTANCE__ * 0x00000000, char * 0x00132b5e, int 1) line 29
+WinMainCRTStartup() line 198 + 54 bytes
+KERNEL32! 77e992a6()
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00450" href="msg00450.html">Re: safe eval</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00448.html">199.9</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00450.html">Re: safe eval</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00448.html">199.9</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00450.html">Re: safe eval</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00449"><strong>Date</strong></a></li>
+<li><a href="threads.html#00449"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

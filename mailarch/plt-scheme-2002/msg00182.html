@@ -1,0 +1,115 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Computed values in a macro -->
+<!--X-From-R13: @bry Iryfu <abryjryfuNlnubb.pbz> -->
+<!--X-Date: Fri, 1 Feb 2002 05:11:13 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020201121111.82175.qmail@web11207.mail.yahoo.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Computed values in a macro</title>
+<link rev="made" href="mailto:noelwelsh@yahoo.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00181.html">Date Prev</a>][<a href="msg00183.html">Date Next</a>][<a href="msg00180.html">Thread Prev</a>][<a href="msg00184.html">Thread Next</a>][<a href="maillist.html#00182">Date Index</a>][<a href="threads.html#00182">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Computed values in a macro</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Computed values in a macro</li>
+<li><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 1 Feb 2002 04:11:11 -0800 (PST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Is it possible to insert computed values into a macro?
+ For example, say I want to turn
+
+  (sexp this that)
+
+into
+
+  (xexpr &quot;this&quot; &quot;that&quot;)
+
+The only way I can see to do this is to go
+
+  (sexp this that)
+
+=&gt;
+  `(xexpr ,(symbol-&gt;string this) ,(symbol-&gt;string
+that))
+
+and then
+
+  (eval `(xexpr ...))
+
+This is a pain as I have to manually include
+(un)quotes into my macros.  Is there a more elegant
+way?
+
+TIA
+Noel
+
+
+__________________________________________________
+Do You Yahoo!?
+Great stuff seeking new owners in Yahoo! Auctions! 
+<A  HREF="http://auctions.yahoo.com">http://auctions.yahoo.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00184" href="msg00184.html">Computed values in a macro</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00181.html">Re: mzscheme as an embedded scripting language</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00183.html">No Subject</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00180.html">mzscheme as an embedded scripting language - 2</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00184.html">Computed values in a macro</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00182"><strong>Date</strong></a></li>
+<li><a href="threads.html#00182"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: define&#45;macro in v200 -->
+<!--X-From-R13: Znhev Oynaxb <ynNvxv.sv> -->
+<!--X-Date: Wed, 28 Nov 2001 16:19:36 &#45;0700 (MST) -->
+<!--X-Message-Id: 20011129011926.A705@la.iki.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>define-macro in v200</title>
+<link rev="made" href="mailto:la@iki.fi">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01266.html">Date Prev</a>][<a href="msg01268.html">Date Next</a>][<a href="msg01264.html">Thread Prev</a>][<a href="msg01268.html">Thread Next</a>][<a href="maillist.html#01267">Date Index</a>][<a href="threads.html#01267">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>define-macro in v200</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: define-macro in v200</li>
+<li><em>From</em>: Lauri Alanko &lt;<A HREF="mailto:la@iki.fi">la@iki.fi</A>&gt;</li>
+<li><em>Date</em>: Thu, 29 Nov 2001 01:19:26 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.23i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello.
+
+Do I take it correctly that there is neither a define-macro or a
+defmacro available by default in v200? Though the new syntax system is
+admittedly Very Cool, lots of old code uses defmacro-style macros, so it
+would be nice as a compatibility feature.
+
+To get acquainted with the new syntax system, I tried to implement
+define-macro. This is what I came up with:
+
+(define-syntax (define-macro stx)
+  (syntax-case stx ()
+   ((_ (macro . args) . body)
+    (syntax (define-macro macro (lambda args . body))))
+   ((_ macro transformer)
+    (syntax
+     (define-syntax (macro stx2)
+       (let ((v (syntax-object-&gt;datum stx2)))
+         (datum-&gt;syntax-object 
+          stx2
+          (apply transformer (cdr v)))))))))
+
+Does this look sensible?
+
+
+Lauri Alanko
+la@iki.fi
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01268" href="msg01268.html">Re: define-macro in v200</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01266.html">RE: Error in Download Page</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01268.html">Re: define-macro in v200</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01264.html">3D rendering and more - new contributions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01268.html">Re: define-macro in v200</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01267"><strong>Date</strong></a></li>
+<li><a href="threads.html#01267"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

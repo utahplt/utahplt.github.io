@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: Adding a New "primitive" Method. -->
+<!--X-From-R13: Drvav Geona <eheonaNknepu.gh&#45;tenm.np.ng> -->
+<!--X-Date: Sun, 15 Oct 2000 02:37:58 &#45;0600 (MDT) -->
+<!--X-Message-Id: Pine.LNX.4.10.10010151027270.28278&#45;100000@xarch.tu&#45;graz.ac.at -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E4C0D8267DAA6141B77F1A4EAAEB2B912AF576@seapriv1 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: Adding a New "primitive" Method.</TITLE>
+<LINK REV="made" HREF="mailto:rurban@xarch.tu-graz.ac.at">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00981.html">Date Prev</A>][<A HREF="msg00983.html">Date Next</A>][<A HREF="msg00981.html">Thread Prev</A>][<A HREF="msg00983.html">Thread Next</A>][<A HREF="maillist.html#00982">Date Index</A>][<A HREF="threads.html#00982">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: Adding a New "primitive" Method.</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Subject</em>: RE: Adding a New "primitive" Method.</LI>
+<LI><em>From</em>: Reini Urban &lt;<A HREF="mailto:rurban@xarch.tu%2Dgraz.ac.at">rurban@xarch.tu-graz.ac.at</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 15 Oct 2000 10:37:47 +0200 (CEST)</LI>
+<LI><em>cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00980.html">E4C0D8267DAA6141B77F1A4EAAEB2B912AF576@seapriv1</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Sat, 14 Oct 2000, Greg Pettyjohn wrote:
+&gt; OK, I know nothing about perl. I found "ActivePerl" or something or the
+&gt; other on the web. It made me jump through an anoying hoop to install, but I
+&gt; have perl now.
+
+fine. 
+you'll see that perl is just a very simple lisp with condensed and
+context dependent syntax.
+
+&gt; The name specified is not recognized as an
+&gt; internal or external command, operable program or batch file.
+&gt; Can't locate parse.pl in @INC (@INC contains: D:/Perl/lib D:/Perl/site/lib .
+&gt; ) at ..\..\mzscheme\uti
+&gt; ls\xctocc line 34.
+
+This is not MS' fault, nor any parse.pl error. It's just a wrong
+installation, the module-path (@INC) is wrong.
+This is the meaning of "Can't locate parse.pl in @INC..." in the very first
+require statement.
+
+either move your perlibs into d:/perl/lib (and subdirs) or fix your
+installation. I guess you installed it into d:/perl/bin but moved it then
+elsewhere. &lt;exe&gt;/../lib/ + &lt;exe&gt;/../site/lib/ is the current INC logic.
+
+INC is 
+1. hardcoded in the exe, 
+2. derived dynamically with the above mentioned logic (/lib parallel dir), 
+and 3. optionally set in a special registry key. 
+(see win32/windows.c in the perl sources if you want to know it exactly)
+
+INC stands for include path.
+
+&gt; "push"'d into @INC. Where @INC is a whatever the fuck some sort of stack or
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00980" HREF="msg00980.html">RE: Adding a New "primitive" Method.</A></STRONG>
+<UL><LI><EM>From:</EM> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00981.html">RE: Adding a New "primitive" Method.</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00983.html">MysterX changes exp-tagged</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00981.html">RE: Adding a New "primitive" Method.</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00983.html">MysterX changes exp-tagged</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00982"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00982"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,135 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: =?iso&#45;8859&#45;1?q?=3F?= -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Sun, 24 Mar 2002 13:54:37 &#45;0700 (MST) -->
+<!--X-Message-Id: iss.3cc5.3c9e3d01.990b8.1@merkur.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c1d360$6d1b2060$0a00a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: ?</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00436.html">Date Prev</a>][<a href="msg00438.html">Date Next</a>][<a href="msg00435.html">Thread Prev</a>][<a href="msg00442.html">Thread Next</a>][<a href="maillist.html#00437">Date Index</a>][<a href="threads.html#00437">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: ?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Subject</em>: RE: ?</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Sun, 24 Mar 2002 21:54:23 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00435.html">000001c1d360$6d1b2060$0a00a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi Anton,
+
+SRFI-6 ... :o))
+
+By the way: Here is - tataaa - another and even shorter and much nicer
+string-&gt;wordlist - function. Or did I forget about SRFI-2341 and
+SRFI-2090775 ?
+
+;; Abbreviations:
+;;     WRD and W:  Word-Constructing-Robots
+;;     LST and L:  List-Constructing-Robots
+;;     iw:         in-word-flag
+(define (STRING-&gt;WORDLIST str)
+  (let ((WRD (lambda (x) (list-&gt;string x)))
+        (LST (lambda (x) x)))
+    (let FUN ((ls (string-&gt;list str))
+              (L LST)
+              (W WRD)
+              (iw #f))
+      (if (pair? ls)
+          (if iw
+              (if (char-whitespace? (car ls))
+                  (FUN (cdr ls) 
+                       (lambda (x) (L (cons (W '() ) x)))
+                       WRD
+                       #f)
+                  (FUN (cdr ls)
+                       L
+                       (lambda (x) (W (cons (car ls) x)))
+                       #t))
+              (if (char-whitespace? (car ls))
+                  (FUN (cdr ls)
+                       L
+                       W
+                       #f)
+                  (FUN (cdr ls)
+                       L
+                       (lambda (x) (WRD (cons (car ls) x)))
+                       #t)))
+          (L (list (W '() )))))))
+
+(string-&gt;wordlist 
+ &quot;This function is interfering with your natural selection&quot;)
+
+=&gt;
+
+(&quot;This&quot; &quot;function&quot; &quot;is&quot; &quot;interfering&quot; &quot;with&quot; &quot;your&quot; &quot;natural&quot;
+&quot;selection&quot;)
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00435" href="msg00435.html">RE: ?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00436.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00438.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00435.html">RE: ?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00442.html">Re: your mail</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00437"><strong>Date</strong></a></li>
+<li><a href="threads.html#00437"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

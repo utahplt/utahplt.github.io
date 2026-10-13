@@ -1,0 +1,137 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: "indexed" COM properties in MysterX? -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Fri, 10 Aug 2001 18:06:21 &#45;0600 (MDT) -->
+<!--X-Message-Id: 002d01c121f9$880d9790$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3B7453BA.49E87721@x&#45;ray.at -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: &quot;indexed&quot; COM properties in MysterX?</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00774.html">Date Prev</a>][<a href="msg00776.html">Date Next</a>][<a href="msg00772.html">Thread Prev</a>][<a href="msg00779.html">Thread Next</a>][<a href="maillist.html#00775">Date Index</a>][<a href="threads.html#00775">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: &quot;indexed&quot; COM properties in MysterX?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Reini Urban&quot; &lt;<A HREF="mailto:rurban@x-ray.at">rurban@x-ray.at</A>&gt;,       &quot;'PLT Scheme'&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: &quot;indexed&quot; COM properties in MysterX?</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 10 Aug 2001 20:06:55 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00771.html">3B7453BA.49E87721@x-ray.at</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Reini Urban wrote:
+&gt; I believe you are wrong here. You just want a macro to chain the
+&gt; com calls.
+&gt;
+&gt; (display (com-get-chained flds &quot;Item&quot; &quot;Name&quot;))
+&gt; =&gt; (display (com-get-property (com-get-property flds &quot;Item&quot;) &quot;Name&quot;))
+
+Paul's already answered this correctly, but I'll expand on that a bit.  The
+value being accessed in my original example would typically be accessed in,
+say, VBScript or JScript using syntax such as the following:
+
+	flds(&quot;Name&quot;)
+
+However, this relies on the default property of the Fields interface,
+&quot;Item&quot;, so the real call is:
+
+	flds.Item(&quot;Name&quot;)
+
+As I pointed out in my original message, &quot;Item&quot; is declared as a property
+which takes one parameter in the COM interface definition, which is as
+follows:
+
+	[id(00000000), propget]
+	HRESULT Item( [in] VARIANT Index, [out, retval] Field** ppvObject );
+
+Calling &quot;Item&quot; without a parameter fails, at the COM level, because Item is
+really a function (declared as a property accessor) which *requires* exactly
+one input argument.  This argument is the index (string or ordinal) of the
+value to be retrieved from a collection internal to the Fields object.  The
+collection object itself is not directly exposed.
+
+It's probably more straightforward to think of Item as a method than a
+property - the difference is a subtlety of the COM semantics which is
+usually fairly unimportant.
+
+&gt; I also forgot which is the default COM property. Isn't it the name?
+
+The default COM property depends on the definition of each interface.  For
+the ADO Fields collection object, the default property is &quot;Item&quot;.  For the
+Recordset object, the default property is &quot;Fields&quot;.  Thus
+MyRecordSet(&quot;Name&quot;) in a client language which supports default COM
+properties actually translates to MyRecordSet.Fields.Item(&quot;Name&quot;).
+
+As far as I can tell, MysterX doesn't currently support default properties
+(but I'm not a MysterX expert).  However, that doesn't affect the issue of
+whether MysterX can access properties that expect parameters.  Currently,
+MysterX doesn't publish an external function that allows this, although the
+internal native (C) property accessor function may allow it - I'll be
+checking that out a bit later, thanks to some help from Paul.
+
+Anton
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00771" href="msg00771.html">Re: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+<ul><li><em>From:</em> Reini Urban &lt;rurban@x-ray.at&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00774.html">Re: Help ! Compile Error under W2K</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00776.html">Re: execute* in MzScheme v199 + loading mzc-compiled files</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00772.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00779.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00775"><strong>Date</strong></a></li>
+<li><a href="threads.html#00775"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

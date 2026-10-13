@@ -1,0 +1,174 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: is too an application -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNppf.arh.rqh> -->
+<!--X-Date: Tue, 23 Oct 2001 07:53:36 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110231353.f9NDrAj16218@sualocin.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 4120011022343715350@earthlink.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: is too an application</title>
+<link rev="made" href="mailto:matthias@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01083.html">Date Prev</a>][<a href="msg01085.html">Date Next</a>][<a href="msg01081.html">Thread Prev</a>][<a href="msg01083.html">Thread Next</a>][<a href="maillist.html#01084">Date Index</a>][<a href="threads.html#01084">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: is too an application</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:dan1625@earthlink.net">dan1625@earthlink.net</A></li>
+<li><em>Subject</em>: Re: is too an application</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 23 Oct 2001 09:53:10 -0400 (EDT)</li>
+<li><em>CC</em>: <A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01081.html">4120011022343715350@earthlink.net</a>&gt; (dan1625@earthlink.net)</li>
+<li><em>References</em>: &lt;<a href="msg01081.html">4120011022343715350@earthlink.net</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Dan, I took a quick look at your code. It now works with the gui.ss
+teachpack though I have only done enough to ensure that lookups for
+phone numbers work out. My edits are marked with MF. I think I marked
+up the whole thing. 
+
+In general, I recommend that you post this kind of message to the teachers
+mailing list, and if interested, cross-post to the mzscheme mailing list. 
+
+-- Matthias
+
+; MF: you shouldn't need the following line for HtDP (ever)
+;(require-library &quot;functio.ss&quot;)
+
+;; Instead: 
+
+;; Author: Dan Anderson, edited by Matthias Felleisen
+;; TeachPack: gui.ss from htdp
+;; Language Level: Advanced 
+
+;; 35.4.1
+;; address book
+
+; (define ab (list))
+; MF: changed the above into the more obvious: 
+(define ab empty) 
+;;
+;
+;;MODEL:
+
+;; add : symbol number -&gt; void 
+;; to add an entry to ab
+;; MF: effect? 
+(define (add name phone) 
+  (set! ab (cons (list name phone) ab)))
+
+(add 'person1 8181234567)
+(add 'Charles 8182244002)
+
+;; lookup : symbol (listof (list symbol number)) -&gt; number
+;; to lookup the phone number for name in ab
+(define (lookup name addb)
+  ; MF: added check and second because assf produces a list or false
+  (local ((define result (assf (lambda(entry)
+                                 (symbol=? name (first entry)))
+                               addb)))
+    (if (boolean? result)
+        0 ; MF : questionable
+        (second result))))
+        
+
+;; MF: the following test fails the HtDP standards: 
+;; where is the expected result? It would have revealed the above bug. 
+(lookup 'person1 ab)
+
+;; remove : symbol -&gt; void  
+;; to remove an entry from ab
+(define (remove name)
+  (set! ab (filter (lambda (x) (not(symbol=? name (first x))))ab)))
+;(remove 'person1)
+
+;;
+;
+;; CONTROL: 
+;; MF: turned lookup-cb into a function of one argument
+(define (lookup-cb x)
+  (draw-message response-msg ;; MF: I added the response-msg argument
+   (number-&gt;string 
+    ; MF: added string-&gt;symbol because text-contents produces a string
+    ; and lookup consumes a symbol
+    (lookup (string-&gt;symbol (text-contents entry-text)) ab))))
+
+;;
+;
+;; VIEW:
+
+(define title-msg (make-message &quot;ADDRESS BOOK&quot;))
+(define entry-text (make-text &quot;Type name here:&quot;))
+(define lookup-button (make-button &quot;Look up name&quot; lookup-cb))
+(define response-msg (make-message &quot;##########&quot;))
+
+;; MF: I turned the list of list of symbols into a list of list of GUI elements
+(create-window
+ (list (list title-msg)
+       (list entry-text response-msg)
+       (list lookup-button)))
+   
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01081" href="msg01081.html">Re: is too an application</a></strong>
+<ul><li><em>From:</em> &quot;Dan Anderson&quot; &lt;dan1625@earthlink.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01083.html">IDPT 2002 Session: Formal Methods in Healthcare [call for paper]</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01085.html">Re: call-with-input-file</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01081.html">Re: is too an application</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01083.html">IDPT 2002 Session: Formal Methods in Healthcare [call for paper]</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01084"><strong>Date</strong></a></li>
+<li><a href="threads.html#01084"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

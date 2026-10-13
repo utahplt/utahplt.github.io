@@ -1,0 +1,235 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Wed, 16 Aug 2000 12:30:38 &#45;0600 (MDT) -->
+<!--X-Message-Id: p04320409b5c073ea0057@[128.42.2.124] -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: 14738.52293.108392.678928@sun.cs.rice.edu -->
+<!--X-Reference: 3999D17B.8B30BA66@kurtz&#45;fernhout.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Specialized input parsing for code/REPL in DrScheme?</TITLE>
+<LINK REV="made" HREF="mailto:robby@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00861.html">Date Prev</A>][<A HREF="msg00863.html">Date Next</A>][<A HREF="msg00861.html">Thread Prev</A>][<A HREF="msg00863.html">Thread Next</A>][<A HREF="maillist.html#00862">Date Index</A>][<A HREF="threads.html#00862">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Specialized input parsing for code/REPL in DrScheme?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</LI>
+<LI><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 16 Aug 2000 13:26:01 -0500</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>, <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00861.html">3999D17B.8B30BA66@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Organization</em>: PLT, Rice University (http://www.cs.rice.edu/CS/PLT/)</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00834.html">399207D9.5F451CC@kurtz-fernhout.com</A>&gt;&lt;<A HREF="msg00838.html">14738.52293.108392.678928@sun.cs.rice.edu</A>&gt;&lt;<A HREF="msg00861.html">3999D17B.8B30BA66@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Okay, I went ahead and wrote the tool that lets you substitute in 
+your own reader for DrScheme's. It turns out that the tool is awkward 
+with the current tools interface. So, I extended the tools interface 
+with two new parameter procedures:
+
+   drscheme:basis:raw-reader
+
+and
+
+   drscheme:basis:zodiac-reader
+
+DrScheme (the version released to CVS) now uses the values of these 
+parameters as the readers. You can set them to your own reader. I am 
+including two files with this post, good-unit.ss that uses the new 
+DrScheme interface and sets the reader and bad-unit.ss that uses the 
+old DrScheme interface to set the reader (probably works with 102). 
+The documentation has been rebuilt, too. See 
+<A  HREF="http://www.cs.utah.edu/plt/anoncvs/">http://www.cs.utah.edu/plt/anoncvs/</A> for instructions on downloading 
+it.
+
+Hope that helps,
+Robby</PRE>
+<PRE>
+(unit/sig ()
+   (import mred^
+           mzlib:core^
+           framework^
+           [print-convert : mzlib:print-convert^]
+           [drscheme : drscheme:export^]
+           [zodiac : zodiac:system^])
+
+   (define (my-reader port)
+     (message-box "my reader!" "my reader!")
+     (read port))
+
+   (drscheme:get/extend:extend-interactions-text
+    (lambda (%)
+      (class % args
+        (inherit run-in-evaluation-thread)
+        (rename [super-reset-console reset-console])
+        (override
+          [reset-console
+	  (lambda ()
+             (super-reset-console)
+             (run-in-evaluation-thread
+              (lambda ()
+                (drscheme:basis:raw-reader my-reader)
+
+                ;; this just sets all source locations to 0,0
+                ;; so the debugging information is all useless
+                ;; it would be better to develop a reader that
+                ;; returns the zodiac structures directly,
+                ;; instead of using zodiac:structurize-syntax
+                (drscheme:basis:zodiac-reader
+                 (opt-lambda ([port (current-input-port)]
+                              [loc (zodiac:make-zodiac 1 1 #f)]
+                              [script? #t]
+                              [first-column 1])
+                   ;; we ignore the script? field for now
+                   (zodiac:structurize-syntax
+                    (read port)
+                    (zodiac:make-zodiac (zodiac:make-origin 'source 'source)
+                                        loc loc)))))))])
+        (sequence (apply super-init args))))))</PRE>
+<PRE>
+(unit/sig ()
+   (import mred^
+           mzlib:core^
+           framework^
+           [print-convert : mzlib:print-convert^]
+           [drscheme : drscheme:export^]
+           [zodiac : zodiac:system^])
+
+   (define (my-reader port)
+     (message-box "my reader!" "my reader!")
+     (read port))
+
+   (define (process-text/no-zodiac/my-reader text f start end)
+     (let* ([buffer-thunk (gui-utils:read-snips/chars-from-text text start end)]
+	   [snip-string (string-&gt;list " 'non-string-snip ")]
+	   [port-thunk (let ([from-snip null])
+			 (rec port-thunk
+                            (lambda ()
+                              (if (null? from-snip)
+                                  (let ([next (buffer-thunk)])
+                                    (if (or (char? next) (eof-object? next))
+                                        next
+                                        (begin (set! from-snip snip-string)
+                                               (port-thunk))))
+                                  (begin0 (car from-snip)
+                                          (set! from-snip (cdr from-snip)))))))]
+	   [port (make-input-port port-thunk (lambda () #t) void)])
+       (drscheme:basis:process/no-zodiac (lambda () (my-reader port)) f)))
+
+   (drscheme:get/extend:extend-interactions-text
+    (lambda (%)
+      (class % args
+        (inherit do-many-evals display-results)
+        (rename [super-do-many-text-evals do-many-text-evals])
+        (private
+          [process-text
+           (lambda (text fn start end annotate? text-is-file?)
+             (if (drscheme:basis:zodiac-vocabulary? 
+(drscheme:basis:current-setting))
+                 (drscheme:load-handler:process-text/zodiac text fn 
+start end annotate? text-is-file?)
+                 (process-text/no-zodiac/my-reader text fn start end)))])
+        (override
+          [do-many-text-evals
+	  (lambda (text start end)
+             (do-many-evals
+              (lambda (single-loop-eval)
+                (process-text
+                 text
+                 (lambda (expr recur) ; =User=, =Handler=, =No-Breaks=
+                   (cond
+                     [(drscheme:basis:process-finish? expr)
+                      (void)]
+                     [else
+                      (single-loop-eval
+                       (lambda ()
+                         (call-with-values
+                          (lambda ()
+                            (if (drscheme:basis:zodiac-vocabulary? 
+(drscheme:basis:current-setting))
+ 
+(drscheme:basis:syntax-checking-primitive-eval expr)
+                                (drscheme:basis:primitive-eval expr)))
+                          (lambda x (display-results x)))))
+                      (recur)]))
+                 start
+                 end
+                 #t
+                 #t))))])
+        (sequence (apply super-init args))))))</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00863" HREF="msg00863.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00864" HREF="msg00864.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00901" HREF="msg00901.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00834" HREF="msg00834.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00838" HREF="msg00838.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00861" HREF="msg00861.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00861.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00863.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00861.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00863.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00862"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00862"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

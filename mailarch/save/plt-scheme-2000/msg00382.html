@@ -1,0 +1,155 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Teachpack setup -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Sat, 15 Jan 2000 11:49:51 &#45;0700 (MST) -->
+<!--X-Message-Id: 3880C13D.BAB99932@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: OFDC48FD1A.69EDBF67&#45;ON86256867.001FA607@cso.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Teachpack setup</TITLE>
+<LINK REV="made" HREF="mailto:robby@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00381.html">Date Prev</A>][<A HREF="msg00383.html">Date Next</A>][<A HREF="msg00381.html">Thread Prev</A>][<A HREF="msg00385.html">Thread Next</A>][<A HREF="maillist.html#00382">Date Index</A>][<A HREF="threads.html#00382">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Teachpack setup</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:emka@cso.com">emka@cso.com</A></LI>
+<LI><em>Subject</em>: Re: Teachpack setup</LI>
+<LI><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 15 Jan 2000 12:49:46 -0600</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>References</em>: &lt;<A HREF="msg00381.html">OFDC48FD1A.69EDBF67-ON86256867.001FA607@cso.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Unfortunately, teachpacks only support procedure defintions, not
+macros. So, the teachpack you are trying to build is impossible to
+build. If you really need those macros defined in the teaching
+language levels, you can, but you will have to write a tool. I can
+help you with that, if you really do need macros. Let me know.
+
+In the meantime, here is the teachpack that provides all of the
+procedure defintions in the compat library plus your version of
+`atom?'. (There are only macros in trace.ss). There is a little
+trickyness because the compat library provides a different defintion
+of atom which must be masked out.
+
+(require-library "compats.ss")
+(require-library "functios.ss")
+
+(compound-unit/sig
+  (import [plt : plt:userspace^])
+  (link [function : mzlib:function^ ((require-library "functior.ss"))]
+        [compat : mzlib:compat^ ((require-library "compatr.ss") function)]
+        [atom : (atom?) ((unit/sig (atom?)
+                           (import)
+                           (define (atom? a)
+                             (or (symbol? a)
+                                 (number? a)
+                                 (string? a)))))])
+  (export
+   (open (compat : (real-time
+                    1+ 1- #%1+ #%1-
+                    &gt;=? &lt;=? &gt;? &lt;? =?
+                    flush-output-port
+                    bound?
+                    sort
+                    gentemp                    
+                    putprop getprop
+                    new-cafe)))
+   (open atom)))
+
+
+Hope that helps,
+Robby
+
+emka@cso.com wrote:
+&gt; 
+&gt; I trying to build what would seem to be a relatively simple teachpack.  I'm
+&gt; struggling to put all of the pieces together from the examples distributed
+&gt; with DrScheme and the HelpDesk documentation.  I wondered if someone might
+&gt; help me get my first one set up?
+&gt; 
+&gt; What I would like to do is add the contents of the trace.ss and compat.ss
+&gt; libraries to the students standard environment.  In addition to this I
+&gt; would like to add the following definition:
+&gt; 
+&gt; (define (atom? a) (or (symbol? a) (number? a) (string? a)))
+&gt; 
+&gt; I was able to add only definition of atom? using the following simple
+&gt; teachpack:
+&gt; 
+&gt; (unit/sig (atom?)
+&gt;   (import plt:userspace^)
+&gt;   (define (atom? a) (or (symbol? a)
+&gt;                         (number? a)
+&gt;                         (string? a))))
+&gt; 
+&gt; I assume that to pull in and export both the trace and compat libraries I
+&gt; need to use  a compound signed unit but I'm not sure how to set it up.  I'd
+&gt; appreciate it if someone could give me a hand.
+&gt; 
+&gt; Thanks,
+&gt; 
+&gt; Eric
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00381" HREF="msg00381.html">Teachpack setup</A></STRONG>
+<UL><LI><EM>From:</EM> emka@cso.com</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00381.html">Teachpack setup</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00383.html">Re: .gz files</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00381.html">Teachpack setup</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00385.html">MzScheme interface for the FastCGI</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00382"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00382"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

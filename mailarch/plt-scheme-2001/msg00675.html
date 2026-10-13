@@ -1,0 +1,120 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Modules and Extensions -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Tue, 17 Jul 2001 20:45:16 &#45;0600 (MDT) -->
+<!--X-Message-Id: p0510031fb77aa61eea8d@[192.168.1.100] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3B436C1B00149F3D@mail.san.yahoo.com -->
+<!--X-Reference: 200107180231.f6I2V1r02802@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Modules and Extensions</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00674.html">Date Prev</a>][<a href="msg00676.html">Date Next</a>][<a href="msg00674.html">Thread Prev</a>][<a href="msg00673.html">Thread Next</a>][<a href="maillist.html#00675">Date Index</a>][<a href="threads.html#00675">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Modules and Extensions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;PLT Scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Modules and Extensions</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 17 Jul 2001 21:43:44 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00674.html">200107180231.f6I2V1r02802@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00672.html">3B436C1B00149F3D@mail.san.yahoo.com</a>&gt; (added bypostmaster@mail.san.yahoo.com)&lt;<a href="msg00674.html">200107180231.f6I2V1r02802@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 8:31 PM -0600 7/17/01, Matthew Flatt wrote:
+&gt;In general, they are to be used together. Modules can replace units
+&gt;where units are used merely for namespace control, but `unit' still has
+&gt;its own place:
+&gt;
+&gt;  * Implementing parameterized components: The `unit' form separates
+&gt;    interface from implementation, unlike `module'. For example, the web
+&gt;    browser is still a unit, so that its base GUI classes and &quot;.plt&quot;
+&gt;    handler can be parameterized.
+&gt;
+&gt;  * Encasulating a program that has &quot;global&quot; state: A unitized program
+&gt;    can be instantiated multiple times. For example, the compiler part
+&gt;    of mzc is still a unit so that it can be run easily by other tools.
+
+DrScheme still uses units for two other reasons:
+
+   * Mutually recursive linking: modules don't allow this.
+
+   * Dynamic linking: the tool-set is not determined at compile
+     time, so DrScheme dynamically loads and links tools.
+     Modules handle some of this with `dynamic-require',
+     but I wanted to provide imports to the dynamically
+     linked component and those imports come from units
+     (which you use, because they were linked recursively).
+     I found the easiest thing was to use units.
+
+DrScheme also uses multiply-invoked units. I'm not sure how mzc is 
+ever invoked multiple times in one mzscheme or mred, but teachpacks 
+certainly are (I'm still working on that, actually -- teachpacks may 
+change...).
+
+Robby
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00672" href="msg00672.html">Modules and Extensions</a></strong>
+<ul><li><em>From:</em> &quot;AnderMan&quot; &lt;anderman@anderware.com&gt;</li></ul></li>
+<li><strong><a name="00674" href="msg00674.html">Re: Modules and Extensions</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00674.html">Re: Modules and Extensions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00676.html">MysterX Message Loop?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00674.html">Re: Modules and Extensions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00673.html">GC and portability issues</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00675"><strong>Date</strong></a></li>
+<li><a href="threads.html#00675"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

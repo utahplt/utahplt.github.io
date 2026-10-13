@@ -1,0 +1,145 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: C++ extension and garbage collection -->
+<!--X-From-R13: Dba Egnabavx <fgnabavxNpbtfpv.hpfq.rqh> -->
+<!--X-Date: Tue, 26 Mar 2002 12:31:29 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.LNX.4.33.0203261059520.16463&#45;100000@cogsci.ucsd.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.33.0203251047290.27853&#45;100000@cogsci.ucsd.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: C++ extension and garbage collection</title>
+<link rev="made" href="mailto:stanonik@cogsci.ucsd.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00512.html">Date Prev</a>][<a href="msg00514.html">Date Next</a>][<a href="msg00492.html">Thread Prev</a>][<a href="msg00517.html">Thread Next</a>][<a href="maillist.html#00513">Date Index</a>][<a href="threads.html#00513">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: C++ extension and garbage collection</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: C++ extension and garbage collection</li>
+<li><em>From</em>: Ron Stanonik &lt;<A HREF="mailto:stanonik@cogsci.ucsd.edu">stanonik@cogsci.ucsd.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 26 Mar 2002 11:31:26 -0800 (PST)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00485.html">Pine.LNX.4.33.0203251047290.27853-100000@cogsci.ucsd.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Mon, 25 Mar 2002, Ron Stanonik wrote:
+&gt; &gt;From wxcommon/wxGC.cxx
+&gt;
+&gt;   void *operator new(size_t size)
+&gt;   {
+&gt;   #ifdef USE_SENORA_GC
+&gt;     if (!cpp_objects)
+&gt;       cpp_objects = GC_new_set(&quot;C++&quot;, NULL, NULL, NULL, NULL, NULL, 0);
+&gt;
+&gt;     return GC_malloc_specific(size, cpp_objects);
+&gt;   #else
+&gt;     return GC_malloc(size);
+&gt;   #endif
+&gt;   }
+&gt;
+&gt; Shouldn't this &quot;new&quot; be calling GC_malloc_uncollectable?
+
+I asked that question because mzscheme/gc/gcc_support.c defined __builtin_new
+to call GC_malloc_uncollectable.  But __builtin_new wasn't getting called,
+even though g++ replaces references to new with references to __builtin_new,
+so that the user can override new!
+
+  void* __builtin_new( size )
+      size_t size;
+      /*
+      For non-gc non-array types, the compiler generates calls to
+      __builtin_new, which allocates non-collected storage via
+      GC_MALLOC_UNCOLLECTABLE.  This ensures that the non-collected
+      storage will be part of the collector's root set, required by the
+      Ellis/Detlefs semantics. */
+  {
+      vfp handler = __new_handler ? __new_handler : __default_new_handler;
+
+      while (1) {
+          void* o = GC_MALLOC_UNCOLLECTABLE( size + sizeof( Descriptor ) );
+          if (o != 0) return o;
+          (*handler) ();}}
+
+
+This caused me to learn more about g++ new.  The compiler replaces
+references to new with references to __builtin_new.  But the linker
+links references to __builtin_new to &quot;void *operator new(size_t size)&quot;,
+if defined.  That is, if the user wants to override new, they must
+define &quot;void *operator new(size_t size)&quot;, not __builtin_new!
+
+Both &quot;void *operator new&quot; and __builtin_new are defined in mzscheme.
+&quot;void *operator new&quot; is getting called and not protecting C++ objects
+from the garbage collector.  __builtin_new looks like it would protect
+C++ objects (calls GC_malloc_uncollectable), but alas isn't getting
+called.
+
+Thanks,
+
+Ron
+stanonik@cogsci.ucsd.edu
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00517" href="msg00517.html">Re: C++ extension and garbage collection</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00485" href="msg00485.html">C++ extension and garbage collection</a></strong>
+<ul><li><em>From:</em> Ron Stanonik &lt;stanonik@cogsci.ucsd.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00512.html">Postdoc positions at CENTRIA</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00514.html">scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00492.html">Re: C++ extension and garbage collection</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00517.html">Re: C++ extension and garbage collection</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00513"><strong>Date</strong></a></li>
+<li><a href="threads.html#00513"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

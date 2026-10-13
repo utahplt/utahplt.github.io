@@ -1,0 +1,156 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: module questions -->
+<!--X-From-R13: [vpunry Hnavre <zinavreNooo.pnygrpu.rqh> -->
+<!--X-Date: Wed, 2 Jan 2002 14:24:19 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020102212416.334BF5E0ED@sith.bbb.caltech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011228084333.D6FC85E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 20011228135708.D467C206FC@sualocin.ccs.neu.edu -->
+<!--X-Reference: 20011229045552.C74D05E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 15405.20970.837068.682480@mojave.cs.cornell.edu -->
+<!--X-Reference: 20011229053102.A7AEC5E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 15405.23818.125535.741602@mojave.cs.cornell.edu -->
+<!--X-Reference: 20011230041143.071D25E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 15407.41483.381848.260915@mojave.cs.cornell.edu -->
+<!--X-Reference: 20011231041136.9BA635E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 200201022120.OAA21450@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: module questions</title>
+<link rev="made" href="mailto:mvanier@bbb.caltech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00001.html">Date Prev</a>][<a href="msg00003.html">Date Next</a>][<a href="msg00001.html">Thread Prev</a>][<a href="msg00003.html">Thread Next</a>][<a href="maillist.html#00002">Date Index</a>][<a href="threads.html#00002">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: module questions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: module questions</li>
+<li><em>From</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Date</em>: Wed,  2 Jan 2002 13:24:16 -0800 (PST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00001.html">200201022120.OAA21450@fast.cs.utah.edu</a>&gt; (message from MatthewFlatt on Wed, 2 Jan 2002 14:20:33 -0700 (MST))</li>
+<li><em>References</em>: &lt;20011228084333.D6FC85E0ED@sith.bbb.caltech.edu&gt;&lt;20011228135708.D467C206FC@sualocin.ccs.neu.edu&gt;&lt;20011229045552.C74D05E0ED@sith.bbb.caltech.edu&gt;&lt;15405.20970.837068.682480@mojave.cs.cornell.edu&gt;&lt;20011229053102.A7AEC5E0ED@sith.bbb.caltech.edu&gt;&lt;15405.23818.125535.741602@mojave.cs.cornell.edu&gt;&lt;20011230041143.071D25E0ED@sith.bbb.caltech.edu&gt; &lt;15407.41483.381848.260915@mojave.cs.cornell.edu&gt;	&lt;20011231041136.9BA635E0ED@sith.bbb.caltech.edu&gt; &lt;<a href="msg00001.html">200201022120.OAA21450@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; Date: Wed, 2 Jan 2002 14:20:33 -0700 (MST)
+&gt; From: Matthew Flatt &lt;mflatt@cs.utah.edu&gt;
+&gt; Cc: plt-scheme@fast.cs.utah.edu
+&gt; 
+&gt; Quoting Michael Vanier:
+&gt; &gt; What I want to do would look something like this:
+&gt; &gt; 
+&gt; &gt; (module foo mzscheme
+&gt; &gt;   (provide all)
+&gt; &gt; 
+&gt; &gt;   (define (func1 x y z) ...)
+&gt; &gt;   (define (func2 x y) ...)
+&gt; &gt; 
+&gt; &gt;   ...
+&gt; &gt; 
+&gt; &gt; )
+&gt; &gt; 
+&gt; &gt; or (more often):
+&gt; &gt; 
+&gt; &gt; (module foo mzscheme
+&gt; &gt;   (provide all-but func1 func10 func99)
+&gt; &gt; 
+&gt; &gt;   (define (func1 x y z) ...)
+&gt; &gt;   (define (func2 x y) ...)
+&gt; &gt; 
+&gt; &gt;   ...
+&gt; &gt; 
+&gt; &gt; )
+&gt; &gt; 
+&gt; &gt; This seems fully in keeping with the current syntax.
+&gt; 
+&gt; Yes. You mean `all-defined', right? (As oppposed to
+&gt; `all-defined-and-imported'?)
+
+Yes.
+
+&gt; 
+&gt; &gt; On a completely unrelated note, I've been going through the unit
+&gt; &gt; documentation, and this question occurred to me: how do you invoke a unit
+&gt; &gt; that is located in a different file?
+&gt; 
+&gt; I'm not sure I understand the question, but I expect that the answer is
+&gt; the same as for the question &quot;how do you call a function that is
+&gt; located in a different file?&quot;
+&gt; 
+&gt; Matthew
+&gt; 
+
+By using &quot;load&quot; or the module system, right?  If the latter, then how does
+one use units to avoid the mutual-recursion-between-modules problem
+described previously if the units are in different modules?  I may be
+missing something obvious here, so be gentle :-)
+
+Mike
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00003" href="msg00003.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00001" href="msg00001.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00001.html">Re: module questions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00003.html">Re: module questions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00001.html">Re: module questions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00003.html">Re: module questions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00002"><strong>Date</strong></a></li>
+<li><a href="threads.html#00002"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

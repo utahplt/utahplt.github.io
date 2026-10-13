@@ -1,0 +1,157 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SchemeQL -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Wed, 24 Oct 2001 21:21:41 &#45;0600 (MDT) -->
+<!--X-Message-Id: 86elnsvip8.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: OF6263204C.ABA91C36&#45;ON85256AEF.006A0062@frogware.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SchemeQL</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01109.html">Date Prev</a>][<a href="msg01111.html">Date Next</a>][<a href="msg01098.html">Thread Prev</a>][<a href="msg01107.html">Thread Next</a>][<a href="maillist.html#01110">Date Index</a>][<a href="threads.html#01110">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SchemeQL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A></li>
+<li><em>Subject</em>: Re: SchemeQL</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: Wed, 24 Oct 2001 21:20:19 +0000</li>
+<li><em>Cc</em>: &quot;PLT Scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01098.html">OF6263204C.ABA91C36-ON85256AEF.006A0062@frogware.com</a>&gt;(MichaelL@frogware.com's message of &quot;Wed, 24 Oct 2001 16:23:48 -0400&quot;)</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma deMéxico</li>
+<li><em>References</em>: &lt;<a href="msg01098.html">OF6263204C.ABA91C36-ON85256AEF.006A0062@frogware.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090004 (Oort Gnus v0.04) XEmacs/21.1 (Cuyahoga Valley)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+MichaelL@frogware.com writes:
+
+&gt; When I try the following in &quot;103.5&quot;:
+&gt;
+&gt;         (define odbc-version 3.51)
+&gt;         (require-library &quot;schemeql.ss&quot; &quot;schemeql&quot;)
+&gt;
+&gt; I get:
+&gt;
+&gt;         unit: used an unbound or non-primitive global in: get-diag-field
+
+[...]
+
+&gt; On a hunch I tried changing odbc-version to 2.5 and it (SchemeQL) worked. 
+&gt; (I actually have 3.52, so the problem isn't on the ODBC side. And FYI 
+&gt; odbc-version 3.0 also fails.)
+
+The problem is that `get-diag-field' is the preferred way to handle
+errors in ODBC drivers level 3.0 and up.  And according to the
+documentation (doc.txt) that comes with SrPersist, both
+`get-diag-field', and `get-diag-rec' are provided if odbc-version is
+greater than 3.0:
+
+,--------------------
+| &gt; (get-diag-field handle recnum field) 
+| 
+|  ODBC 3.0.
+| 
+| &gt; (get-diag-rec handle recnum) 
+|  
+|  ODBC 3.0.
+`--------------------
+
+(Nevertheless, I've never been able to test them, the biggest
+ODBC-level I've used is 2.5 (2.0), sorry.)
+
+I wonder: did you compile yourself SrPersist? Maybe the problem is
+that it was compiled with an ODBCVER less than 0x300, and thus the
+library isn't providing those procedures.  If this is the case, and if
+sql-error is still supported by your ODBC driver:
+
+,--------------------
+| &gt; (sql-error henv hdbc hstmt)
+| 
+|  ODBC 1.0, deprecated in favor of get-diag-rec.
+`--------------------
+
+then, `schemeql-diagnostic-center' should be:
+
+(define schemeql-diagnostic-center
+  (lambda ()
+    (let ((hdbc (gensym)) (henv (gensym)) (hstmt (gensym)))
+      `(lambda (,hdbc ,henv ,hstmt)
+	 (list (sql-error (or ,henv  (database-henv (current-database)))
+			  (or ,hdbc  'sql-null-hdbc)
+			  (or ,hstmt 'sql-null-hstmt)))))))
+
+
+[...]
+
+OTOH, I have found a good number of shortcomings with the way SchemeQL
+works, and I'm planning to re-design, and implement a new SchemeQL,
+taking into consideration much of the things that Noel, and others
+pointed out here a while ago.  Unfortunately, I don't have time right
+now, and that will have to wait until January.
+
+HTH,
+--Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01098" href="msg01098.html">SchemeQL</a></strong>
+<ul><li><em>From:</em> MichaelL@frogware.com</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01109.html">RE: SrPersist</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01111.html">Cannot generate a stand-alone program + other questions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01098.html">SchemeQL</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01107.html">Re: SchemeQL</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01110"><strong>Date</strong></a></li>
+<li><a href="threads.html#01110"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] eval question -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Wed, 5 Jun 2002 15:40:08 &#45;0600 (MDT) -->
+<!--X-Message-Id: iss.367.3cfe8521.ecd3b.1@merkur.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020604202719.76324.qmail@web14007.mail.yahoo.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] eval question</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01054.html">Date Prev</a>][<a href="msg01056.html">Date Next</a>][<a href="msg01045.html">Thread Prev</a>][<a href="msg01057.html">Thread Next</a>][<a href="maillist.html#01055">Date Index</a>][<a href="threads.html#01055">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] eval question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:matrix@alum.mit.edu">matrix@alum.mit.edu</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] eval question</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Wed, 05 Jun 2002 23:39:45 +0200</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01045.html">20020604202719.76324.qmail@web14007.mail.yahoo.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.3 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; &gt; why it is 
+&gt; &gt; considered evil (or at least bad form) to use eval outside of a
+top 
+&gt; &gt; level REPL? 
+&gt; 
+&gt; I think it is fine as long as you execute the quoted code in a fresh
+&gt; environment.  If you execute it in the same environment your program
+
+&gt; is operating in, you can be in for some nasty surprises as it grabs 
+&gt; your local variables.
+
+I found that very practical when saving the settings of a program (the
+installer of the matlab-interface i wrote lately) to the hard-disk. If
+they are needed again I simply do
+
+(with-input-from-file path
+  (lambda ()
+    (eval (read))))
+
+Sebastian
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01057" href="msg01057.html">Re: [plt-scheme] eval question</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01045" href="msg01045.html">Re: [plt-scheme] eval question</a></strong>
+<ul><li><em>From:</em> Morgan McGuire &lt;morgan3d@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01054.html">Re: [plt-scheme] eval question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01056.html">Re: [plt-scheme] eval question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01045.html">Re: [plt-scheme] eval question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01057.html">Re: [plt-scheme] eval question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01055"><strong>Date</strong></a></li>
+<li><a href="threads.html#01055"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

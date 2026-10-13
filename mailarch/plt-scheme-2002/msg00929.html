@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Symbol -->
+<!--X-From-R13: [nk Vnvycreva <znkNtnp.rqh> -->
+<!--X-Date: Sat, 18 May 2002 13:43:05 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205181942.OAA19465@max.mcs.gac.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87vg9l456z.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Symbol</title>
+<link rev="made" href="mailto:max@gac.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00928.html">Date Prev</a>][<a href="msg00930.html">Date Next</a>][<a href="msg00928.html">Thread Prev</a>][<a href="msg00931.html">Thread Next</a>][<a href="maillist.html#00929">Date Index</a>][<a href="threads.html#00929">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Symbol</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] Symbol</li>
+<li><em>From</em>: Max Hailperin &lt;<A HREF="mailto:max@gac.edu">max@gac.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 18 May 2002 14:42:22 -0500</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00928.html">87vg9l456z.fsf@localhost.localdomain</a>&gt; (pocm@rnl.ist.utl.pt)</li>
+<li><em>References</em>: &lt;<a href="msg00928.html">87vg9l456z.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   From: pocm@rnl.ist.utl.pt (Paulo J. Matos)
+   Date: 18 May 2002 20:38:28 +0100
+   Hi all,
+
+   Playing around with symbol names I was surprised with:
+   &gt; '{3, 2}
+   (3 ,2)
+
+   Why?
+
+This is specific to PLT Scheme, not something that will work that way
+in all Schemes.  It is related to the following other examples:
+
+&gt; {+ 3 4}
+7
+&gt; (equal? ',2 (list 'unquote 2))
+#t
+&gt; (equal? '{3, 2}
+          (list 3
+                (list 'unquote 2)))
+#t
+
+In other words:
+
+ (1) PLT Scheme is choosing to read {} as the same as (), .
+
+ (2) The comma is a special character, akin to the quote mark, in that
+     it causes whatever is after it to be wrapped in an unquote form.
+
+ -max
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00928" href="msg00928.html">[plt-scheme] Symbol</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00928.html">[plt-scheme] Symbol</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00930.html">Re: [plt-scheme] Defines in lets</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00928.html">[plt-scheme] Symbol</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00931.html">[plt-scheme] schemeunit and require-library</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00929"><strong>Date</strong></a></li>
+<li><a href="threads.html#00929"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

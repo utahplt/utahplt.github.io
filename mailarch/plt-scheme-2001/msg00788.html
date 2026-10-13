@@ -1,0 +1,195 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: bytecode unification for scripting (and other!) languages -->
+<!--X-From-R13: "Euevenz Yevfuanzheguv" <fxNpf.oebja.rqh> -->
+<!--X-Date: Tue, 14 Aug 2001 23:12:41 &#45;0600 (MDT) -->
+<!--X-Message-Id: BCEOLHKHFMDPNMEKEAECGEFGCAAA.sk@cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010813215332.51F7A5E0EC@sith.bbb.caltech.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: bytecode unification for scripting (and other!) languages</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00787.html">Date Prev</a>][<a href="msg00789.html">Date Next</a>][<a href="msg00781.html">Thread Prev</a>][<a href="msg00789.html">Thread Next</a>][<a href="maillist.html#00788">Date Index</a>][<a href="threads.html#00788">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: bytecode unification for scripting (and other!) languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Michael Vanier&quot; &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: bytecode unification for scripting (and other!) languages</li>
+<li><em>From</em>: &quot;Shriram Krishnamurthi&quot; &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 15 Aug 2001 01:14:16 -0400</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00781.html">20010813215332.51F7A5E0EC@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Michael Vanier asks:
+
+&gt; Just out of curiosity, why do you think scripting is a bogus notion?
+
+Michael defines scripting as a two-language approach: one
+statically-compiled that compiles to fast machine code, and another
+interpreted or bytecode compiled on-the-fly.
+
+There's nothing wrong with scripting per se.  It's nice to have a
+pithy, interactive environment from which to test and write small
+programs atop useful libraries.  Indeed, we recently used Skij as a
+&quot;scripting&quot; environment to test out a few modifications we've made to
+a JVM.
+
+My problem is with the implication of scripting for engineering
+robust, long-standing systems.  While some scripts truly are limited-
+(even single-) use, most of them are not.  I venture that this is
+especially true of scripts that actually use a library in C/C++.  Just
+the work needed to read/remember the documentation for the library is
+enough to make sure you'll try to build a reusable block out of the
+code that uses the library, so you won't have to look up that
+documentation again.
+
+In short, scripts grow up.  They turn into real programs.  They follow
+Jamie Zawinski's Law of Software Envelopment: &quot;All programs eventually
+include a subsystem that reads mail, or get replaced by one that does&quot;
+(paraphrased, since I'm on a commuter rail between Boston and
+Providence, away from my filesystem; he put it somewhat better).  All
+of a sudden, the *scripting* language has to function as a
+*programming* language.  And this is where the cracks become quite
+apparent.
+
+What does a *programming* language need?  It needs to provide and
+enforce abstraction boundaries -- the same things that scripting
+languages tear down (because that's exactly how you can develop
+scripts rapidly).  It needs a real compiler.  It needs static type
+systems.  It needs tool support that help programmers build realistic
+software systems.
+
+Every few years, yet another scripting language's community seems to
+discover soft typing.  Maybe because I'm the PLT loudmouth, they
+inevitably end up in a long thread with me.  I've been through this
+with Guile, Python and Tcl.  Every time, some smart, bright-eyed and
+bushy-tailed person sets out to build a soft typer for their language.
+Every time, a few weeks in, they finally realize why this is such a
+hideously difficult undertaking, and give up.  (You can still find
+some of my posts on soft typing Python in Web archives, dating back
+about four years!)
+
+In some sense, therefore, I think scripting languages are
+fundamentally weak at producing large, robust software systems.  And
+the evidence is very much that people will try to produce large
+software systems in them, simply because the low barriers to entry
+make it very tempting to attempt (the initial steps of) something very
+ambitious.  I still recall recoiling in horror the day in 1994 when
+someone sent me a 1200-line Perl script implementing a Web server.  It
+was clearly something that should never have happened.
+
+So where does this leave PLT Scheme?
+
+One of the things I like about PLT Scheme is that it seems to offer a
+path for growth.  The basic language is pretty simple, and it offers a
+decent set of libraries.  The execution engine is fast.  You have a
+migration path from that to a fairly robust program that passes
+MrSpidey and is compiled by mzc.  This path is not automatic, but
+simply using MrSpidey to help you replace all the generic CONSes with
+structures is a big win.  These are good tools, not phenomenal ones,
+but it's largely better than what the competition has.  So I like this
+point in space.
+
+That said, I don't think of PLT Scheme as a scripting language.  It's
+an *alternative to* a scripting language, but not one itself.  It
+simply doesn't compromise enough.  Its syntax isn't right; its
+semantics are too rigid; there aren't enough libraries; there's no
+overloading; you have to remember too much of a type signature and
+type way too many characters to match a regular expression against a
+line, and do even more to pull out and use the result.
+
+Is that acceptable?  Maybe it is to you.  If so, then we really have
+no disagreement.  But I'm not sure it should be.
+
+I think there is a design space worth exploring.  It sits beneath PLT
+Scheme but doesn't contradict it.  Its syntax is simpler, and it
+provides some conveniences for regexps and the like.  But this is the
+boring stuff.  The fun part is the type system.  
+
+I don't believe that scripting languages should not be typed.  I just
+don't think their programs should be typed *in totality*.  There needs
+to be a useful way of saying &quot;this stuff I know is of this type (and
+tell me if I'm wrong) whereas for that stuff I have no idea of its
+type&quot;.  In particular, this requires a simple yet powerful way of
+typing the myriad of data streams -- whether from files or from
+network sockets -- that scripts must process.  (If you think about it,
+that type information is implicitly there in your program -- it's in
+the regexps that you write!)  I had a PhD student working on this
+using a kind of dependent constraint analysis, but he's taken a leave
+of absence, so the project is on the back-burner awaiting someone to
+resume it.
+
+Hope that helps.
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00789" href="msg00789.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="00799" href="msg00799.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> Nicolas Neuss &lt;nicolas.neuss@IWR.Uni-Heidelberg.De&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00781" href="msg00781.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00787.html">RE: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00789.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00781.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00789.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00788"><strong>Date</strong></a></li>
+<li><a href="threads.html#00788"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

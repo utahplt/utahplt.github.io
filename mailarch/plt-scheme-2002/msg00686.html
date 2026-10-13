@@ -1,0 +1,149 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [shootout] heapsort.scm -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Thu, 4 Apr 2002 18:27:26 &#45;0700 (MST) -->
+<!--X-Message-Id: 042d01c1dc40$0a4c6140$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[shootout] heapsort.scm</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00685.html">Date Prev</a>][<a href="msg00687.html">Date Next</a>][<a href="msg00685.html">Thread Prev</a>][<a href="msg00692.html">Thread Next</a>][<a href="maillist.html#00686">Date Index</a>][<a href="threads.html#00686">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[shootout] heapsort.scm</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [shootout] heapsort.scm</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Fri, 5 Apr 2002 03:20:12 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Another one. This is basically the bigloo version.
+How do control the number of digits of a float to print ?
+I only need 10 digits.
+
+#!/usr/local/bin/mzscheme -r
+
+;;; heapsort.scm
+
+;; Prints 0.9990640717878372 instead of 0.9990640718 when n=1000.
+
+(define IM   139968)
+(define IA     3877)
+(define IC    29573)
+
+(define LAST 42)
+(define (gen_random max)
+  (set! LAST (modulo (+ (* LAST IA) IC) IM))
+  (/ (* max LAST) IM))
+
+(define (heapsort n ra)
+  (let ((ir n)
+        (l (+ (arithmetic-shift n -1) 1))
+        (i 0)
+        (j 0)
+        (rra 0.0))
+    (let/ec return
+      (do ((bar #t))
+        ((= 1 0))
+        (cond ((&gt; l 1)
+               (set! l (- l 1))
+               (set! rra (vector-ref ra l)))
+              (else
+               (set! rra (vector-ref ra ir))
+               (vector-set! ra ir (vector-ref ra 1))
+               (set! ir (- ir 1))
+               (cond ((= ir 1)
+                      (vector-set! ra 1 rra)
+                      (return #t)))))
+        (set! i l)
+        (set! j (arithmetic-shift l 1))
+        (do ((foo #t))
+          ((&gt; j ir))
+          (cond ((and (&lt; j ir) (&lt; (vector-ref ra j) (vector-ref ra (+ j
+1))))
+                 (set! j (+ j 1))))
+          (cond ((&lt; rra (vector-ref ra j))
+                 (vector-set! ra i (vector-ref ra j))
+                 (set! i j)
+                 (set! j (+ j i)))
+                (else
+                 (set! j (+ ir 1)))))
+        (vector-set! ra i rra)))))
+
+(define (main args)
+  (let* ((n (or (and (= (vector-length args) 1) (string-&gt;number (vector-ref
+args 0)))
+                1))
+         (last (+ n 1))
+         (ary (make-vector last 0)))
+    (do ((i 1 (+ i 1)))
+        ((= i last))
+      (vector-set! ary i (gen_random 1.0)))
+    (heapsort n ary)
+    (display (vector-ref ary n))))
+
+(main (current-command-line-arguments))
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00692" href="msg00692.html">Re: [shootout] heapsort.scm</a></strong>
+<ul><li><em>From:</em> Bill Wood &lt;wtw@mathstar.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00685.html">CALL FOR PROPOSALS FOR ORGANIZING ICLP'03</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00687.html">[shootout] matrix.scm</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00685.html">CALL FOR PROPOSALS FOR ORGANIZING ICLP'03</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00692.html">Re: [shootout] heapsort.scm</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00686"><strong>Date</strong></a></li>
+<li><a href="threads.html#00686"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

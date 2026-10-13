@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: MacOS mzc &#45;&#45;embedded problems -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 8 Feb 2000 19:51:29 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000209025054.JTUP18125.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: v04220800b4c5ec65a1a2@[134.21.9.63] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>MacOS mzc --embedded problems</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00055.html">Date Prev</A>][<A HREF="msg00057.html">Date Next</A>][<A HREF="msg00049.html">Thread Prev</A>][<A HREF="msg00063.html">Thread Next</A>][<A HREF="maillist.html#00056">Date Index</A>][<A HREF="threads.html#00056">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>MacOS mzc --embedded problems</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Patrick Hertelendy &lt;<A HREF="mailto:Patrick.Hertelendy@unifr.ch">Patrick.Hertelendy@unifr.ch</A>&gt;</LI>
+<LI><em>Subject</em>: MacOS mzc --embedded problems</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 8 Feb 2000 18:50:54 -0800</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00049.html">v04220800b4c5ec65a1a2@[134.21.9.63]</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00049.html">v04220800b4c5ec65a1a2@[134.21.9.63]</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Patrick Hertelendy:
+&gt; I tried compiling a scheme source file with mzc and the -o and -embbeded flags
+&gt; with CodeWarrior 4.0 on a powermac.
+&gt; I get the following errors: is there something wrong in the scheme 
+&gt; source file or with CodeWarrior?
+&gt;
+&gt; [...]
+&gt; 
+&gt; Error   : data type is incomplete
+&gt; Arinetbuild1.c line 687   Scheme_Object * _consts_[0];
+
+In this case, I'll be the compiler doesn't like zero-sized arrays.
+Indeed, mzc isn't supposed to emit them, and I see the bug.
+
+You can hack around the problem by including a string in your source
+file (somewhere that won't get optimized away).
+
+To actually fix the problem, change `emit-static-variable-fields!' in
+plt/collects/compiler/vm2c.ss, line 168, so that it does nothing when
+it's given an empty list:
+
+ (define (emit-static-variable-fields! port l)
+  (unless (null? l) ; &lt;&lt;&lt;&lt; ADDED &lt;&lt;&lt;&lt;&lt;
+     (fprintf port "  /* Write fields as an array to help C comiplers */~n")
+     ...))
+
+&gt; Error   : undefined identifier 'scheme_fuel_counter'
+&gt; Arinetbuild1.c line 10271   { if ((scheme_fuel_counter -= 1) &lt;= 0) 
+&gt; scheme_process_block(0); }
+
+This is a bug in the MzScheme header files. It's specific to platforms
+that use MzScheme's manual linking table (MacOS is such a platform).
+It's also specific to compiling for embedding.
+
+I've fixed the header for the next release. In line 824 in the file
+plt/collects/mzscheme/include/scheme.h, the lines
+
+ #if !SCHEME_DIRECT_EMBEDDED
+ # ifndef MZ_REAL_THREADS
+ #  ifdef LINK_EXTENSIONS_BY_TABLE
+ #   define scheme_fuel_counter (*scheme_fuel_counter_ptr)
+ #  endif
+ # endif
+ #endif
+
+should be
+
+ #ifndef MZ_REAL_THREADS
+ # if !SCHEME_DIRECT_EMBEDDED
+ #  ifdef LINK_EXTENSIONS_BY_TABLE
+ #   define scheme_fuel_counter (*scheme_fuel_counter_ptr)
+ #  endif
+ # else
+ extern int scheme_fuel_counter;
+ # endif
+ #endif
+
+Hope that helps,
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00049" HREF="msg00049.html">No Subject</A></STRONG>
+<UL><LI><EM>From:</EM> Patrick Hertelendy &lt;Patrick.Hertelendy@unifr.ch&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00055.html">RE: mzc problems with RH 6.1</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00057.html">Re: standalone with embedded MrEd</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00049.html">No Subject</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00063.html">No Subject</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00056"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00056"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

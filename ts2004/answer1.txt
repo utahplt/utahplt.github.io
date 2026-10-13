@@ -1,0 +1,34 @@
+
+ 1. c
+
+    a)  ;; gas-mileage : miles-travelled gas-used -> mpg
+
+    b)  ;; gas-mileage : computes miles-per-gallon for my car
+
+    c)  ;; gas-mileage : num num -> num
+
+    d)  ;; gas-mileage : num num -> num num
+
+ 2. a: "miles-travelled" and "gas-used" are not kinds of data
+       that we agree on or that we have defined
+
+    b: it's a purpose statement, not a contract
+
+    d: the right-hand side of the arrow contains two results,
+       and only one result is allowed
+
+ 3. (mystery 5 'hello) "should be" true
+    (mystery -17.8 'bye) "should be" true
+
+ 4.  (flip-over-x-axis (make-posn 3 -6))
+
+      -> (make-posn (posn-x (make-posn 3 -6))
+                    (- 0 (posn-y (make-posn 3 -6))))
+
+      -> (make-posn 3
+                    (- 0 (posn-y (make-posn 3 -6))))
+
+      -> (make-posn 3
+                    (- 0 -6))
+
+      -> (make-posn 3 6)

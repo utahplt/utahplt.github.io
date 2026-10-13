@@ -1,0 +1,127 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: What is an object? -->
+<!--X-From-R13: "Bnhy O. Egrpxyre" <fgrpxNpf.evpr.rqh> -->
+<!--X-Date: Wed, 5 Apr 2000 13:58:26 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000001bf9f39$3f875810$6a032a80@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 38EB9A40.DE8B823F@info.unicaen.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: What is an object?</TITLE>
+<LINK REV="made" HREF="mailto:steck@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00232.html">Date Prev</A>][<A HREF="msg00234.html">Date Next</A>][<A HREF="msg00232.html">Thread Prev</A>][<A HREF="msg00234.html">Thread Next</A>][<A HREF="maillist.html#00233">Date Index</A>][<A HREF="threads.html#00233">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: What is an object?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "Jerzy Karczmarczuk" &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</LI>
+<LI><em>Subject</em>: RE: What is an object?</LI>
+<LI><em>From</em>: "Paul A. Steckler" &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 5 Apr 2000 14:58:01 -0500</LI>
+<LI><em>Cc</em>: &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Importance</em>: Normal</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00232.html">38EB9A40.DE8B823F@info.unicaen.fr</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; BTW. - this is a slightly related question, but independent, and
+&gt; it isn't even a question...
+&gt; 
+&gt; The compiled, binary code of MrEd contains several dozens, perhaps
+&gt; more than a hundred occurrences of the string "ivar/proc". I wonder
+&gt; why...
+
+OK, I can answer your non-question.
+
+(ivar/proc object symbol) extracts the public member in the object named  
+by the symbol.
+
+'send' is just a macro that eventually expands to a use of ivar/proc.
+Look up ivar/proc in Help Desk.
+
+Sometimes using ivar/proc directly is useful, as in the following
+example from the MysterX Dynamic HTML test suite:
+
+---
+
+(define filter-spec
+  '(glow (strength 99) (enabled #t) (color "#ff00ff")))
+
+(apply (ivar/proc txt 'set-filter!) filter-spec)
+
+(let ([result (send txt filter)])
+  (if (equal? result filter-spec)
+      (printf "Checking filter~n")
+      (error (format "filter test: Expected ~a, got ~a~n"
+                     filter-spec result))))
+
+---
+
+Using ivar/proc allows me to apply the method set-filter! to a list.
+If I'd used send, I'd have to put that information in arguments.
+By using a list, I can put that information in one place, filter-spec, 
+which is used to supply data to set-filter!, and again when 
+checking the result.
+
+-- Paul
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00232" HREF="msg00232.html">What is an object?</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00232.html">What is an object?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00234.html">Re: What is an object?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00232.html">What is an object?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00234.html">Re: What is an object?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00233"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00233"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

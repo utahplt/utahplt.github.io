@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Procedure definition -->
+<!--X-From-R13: [nahry Uvenhq <tvenhqNgvs.vaevn.se> -->
+<!--X-Date: Tue, 4 Dec 2001 08:11:02 &#45;0700 (MST) -->
+<!--X-Message-Id: qs3elmbm35t.fsf@yoko.inria.fr -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: qs3oflgmdxg.fsf@yoko.inria.fr -->
+<!--X-Reference: 200112031748.KAA27878@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Procedure definition</title>
+<link rev="made" href="mailto:giraud@tif.inria.fr">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01276.html">Date Prev</a>][<a href="msg01278.html">Date Next</a>][<a href="msg01275.html">Thread Prev</a>][<a href="msg01276.html">Thread Next</a>][<a href="maillist.html#01277">Date Index</a>][<a href="threads.html#01277">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Procedure definition</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Procedure definition</li>
+<li><em>From</em>: Manuel Giraud &lt;<A HREF="mailto:giraud@tif.inria.fr">giraud@tif.inria.fr</A>&gt;</li>
+<li><em>Date</em>: 04 Dec 2001 16:10:54 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01275.html">200112031748.KAA27878@fast.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01274.html">qs3oflgmdxg.fsf@yoko.inria.fr</a>&gt;&lt;<a href="msg01275.html">200112031748.KAA27878@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.09 (Gnus v5.9.0) Emacs/21.1</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+&gt; Quoting Manuel Giraud:
+&gt; &gt;         Is there a way to retrieve the &quot;definition&quot; of a function in
+&gt; &gt;         MzScheme? I explain : 
+&gt; &gt; 
+&gt; &gt;         &gt; (define (f n) (* n n))
+&gt; &gt;         &gt; (something-like-global-defined-value 'f)
+&gt; &gt;           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+&gt; &gt;         Here, I want to get '(lambda (n) (* n n)) and not just
+&gt; &gt;         #&lt;procedure:f&gt;
+&gt; 
+&gt; No. The best strategy for getting that information depends on what you
+&gt; want to do with it.
+&gt; 
+&gt; Below is one approach in v200. A more general approach would be
+&gt; something like the way errortrace works: set the eval handler to one
+&gt; that expands expressions, then replaces each `lambda' in the expanded
+&gt; expression with something like `wrapper-lambda', then calls the
+&gt; original eval handler.
+&gt; 
+
+Thank you very much. I finally mix both some of your code and the
+approach used in errortrace. I first worried about the fact that
+hash-table's keys are procedures (not just symbols) because every
+lambdas I use was it the hash-table [1] : but I can see that
+everything is correctly garbage-collected, so it's OK.
+
+[1]:
+        ;;; Loading the new eval-handler ...
+        (require-library &quot;record-source.scm&quot; &quot;personal&quot;)
+
+        ;;; ... so the ht hash-table is clean ...
+        (hash-table-map ht (lambda (a b) (display b) (newline)))
+
+        ;;; ... no because I've used a lambda.
+        ---&gt; (#%lambda (a b) (display b) (newline))
+             (#&lt;void&gt;)
+
+-- 
+&quot;Never imagine yourself not to be otherwise than what it might appear
+to others that what you were or might have been was not otherwise than
+what you had been would have appeared to them to be otherwise&quot;
+  The Duchess
+
+_Manuel Giraud_
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01274" href="msg01274.html">Procedure definition</a></strong>
+<ul><li><em>From:</em> Manuel Giraud &lt;giraud@tif.inria.fr&gt;</li></ul></li>
+<li><strong><a name="01275" href="msg01275.html">Re: Procedure definition</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01276.html">problems with with-syntax</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01278.html">Re: problems with with-syntax</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01275.html">Re: Procedure definition</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01276.html">problems with with-syntax</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01277"><strong>Date</strong></a></li>
+<li><a href="threads.html#01277"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

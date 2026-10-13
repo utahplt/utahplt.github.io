@@ -1,0 +1,153 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: A few comments about SchemeQL -->
+<!--X-From-R13: @bry Iryfu <abryjNqnv.rq.np.hx> -->
+<!--X-Date: Fri, 28 Jul 2000 09:21:23 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14721.42146.88050.53853@saker.dai.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>A few comments about SchemeQL</title>
+<link rev="made" href="mailto:noelw@dai.ed.ac.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00422.html">Date Prev</a>][<a href="msg00424.html">Date Next</a>][<a href="msg00424.html">Thread Prev</a>][<a href="msg00425.html">Thread Next</a>][<a href="maillist.html#00423">Date Index</a>][<a href="threads.html#00423">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>A few comments about SchemeQL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: A few comments about SchemeQL</li>
+<li><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;</li>
+<li><em>Date</em>: Fri, 28 Jul 2000 16:21:18 +0100 (BST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Below are a few ideas that popped into my head while looking at
+SchemeQL. I hope they're of help.
+
+Architecture
+------------
+
+SrPersist is the only thing for now, but you don't want to be
+dependent on it. I think there are four layers:
+
+- Driver (SrPersist at the moment)
+- Connection pooling (essential for performance in large systems)
+- Translation from SchemeQL to SQL ('cause you will never model
+vendor-specific SQL quirk in SchemeQL)
+- SchemeQL
+
+Imagine a world where SchemeQL can be used w/ SrPersist, native
+drivers (faster), flat text (convenience) etc.
+
+Selection
+---------
+
+I'd like a query to be first class object that could be parameterised,
+and combined w/ intersection, union, outer join and negation to create
+new queries.
+
+Example:
+
+Two tables in the database, one named programmers, the other
+personnel:
+
+Programmers               Personnel
+employee_id   language    employee_id   employee_name
+----------------------    ---------------------------
+1             Scheme      1             J. A. Hacker
+2             C++         2             M. Leak
+                          3             B. Boss
+
+To select all programmers:
+(define programmers (query 'programmers '(employee_id language)))
+
+To select all personnel:
+(define personnel (query 'personnel '(employee_id employee_name)))
+
+
+To select all (employee_name language) pairs:
+(define personnel-and-language
+	(intersect programmers personnel
+		'(= (programmers employee_id)
+		    (personnel employee_id))))
+
+To select all (employee_name language) pairs for a given
+language. That is, a query parameterised over an argument:
+(define personnel-by-language
+	(query (language) personnel-by-language
+		'(= (personnel-by-language language) language)))
+
+Then proceed to give all the Scheme programmers a raise:
+
+(give-raise-to (db-find (personnel-by-language &quot;Scheme&quot;)))
+
+And send the C++ programmers to eternal damnation...
+	   
+I admit, I'm not sure how this would be implemented...
+
+cya,
+Noel
+-- 
+Noel Welsh
+<A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00425" href="msg00425.html">Re: A few comments about SchemeQL</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+<li><strong><a name="00427" href="msg00427.html">A few comments about SchemeQL</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00422.html">About the Language</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00424.html">Re: About the Language</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00424.html">Re: About the Language</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00425.html">Re: A few comments about SchemeQL</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00423"><strong>Date</strong></a></li>
+<li><a href="threads.html#00423"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

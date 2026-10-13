@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Possible bug w/ internal defines? -->
+<!--X-From-R13: Ibystnat Vhxevrqr <juhxevrqrNvsz.hav&#45;xvry.qr> -->
+<!--X-Date: Wed, 8 Mar 2000 15:53:16 &#45;0700 (MST) -->
+<!--X-Message-Id: 200003082252.XAA04319@sally.ifm.uni&#45;kiel.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Possible bug w/ internal defines?</TITLE>
+<LINK REV="made" HREF="mailto:whukriede@ifm.uni-kiel.de">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00178.html">Date Prev</A>][<A HREF="msg00180.html">Date Next</A>][<A HREF="msg00177.html">Thread Prev</A>][<A HREF="msg00180.html">Thread Next</A>][<A HREF="maillist.html#00179">Date Index</A>][<A HREF="threads.html#00179">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Possible bug w/ internal defines?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Possible bug w/ internal defines?</LI>
+<LI><em>From</em>: Wolfgang Hukriede &lt;<A HREF="mailto:whukriede@ifm.uni%2Dkiel.de">whukriede@ifm.uni-kiel.de</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 8 Mar 2000 23:52:52 +0100 (MET)</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Hi Noel, your definition is illegal because the lambda form contains
+only a definition, no exprs. Essentially something like 
+(lambda (x) (define foo 'bar)).
+
+By the way: When trying out some similar examples, I got the
+following:
+
+  &gt; Welcome to MzScheme version 100alpha1..
+
+  &gt; (lambda (x) (define z 'nix) (begin))
+
+  Process scheme exited abnormally with code 139
+
+  zsh: 5613 segmentation fault  mzscheme
+
+I thought this doesn't look too great, but perhaps it's already lifted
+in the newer versions.
+
+'till then, Wolfgang. 
+
+-----
+Noel Welsh &lt;noelw@dai.ed.ac.uk&gt; wrote:
+
+&gt; MzScheme complains with "define-values: illegal use (not at top-level)
+&gt; in: (#%define-values (extract-all-results..." on the following
+&gt; definition:
+&gt; [...]
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00180" HREF="msg00180.html">Re: Possible bug w/ internal defines?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00181" HREF="msg00181.html">Re: Possible bug w/ internal defines?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00178.html">Doh!</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00180.html">Re: Possible bug w/ internal defines?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00177.html">Possible bug w/ internal defines?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00180.html">Re: Possible bug w/ internal defines?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00179"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00179"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

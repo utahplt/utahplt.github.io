@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: FFI (was Re: Development/Production versions (was RE: CVS)) -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 19 Feb 2000 08:56:20 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000219155618.YCPJ13956.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20000217201300.6891.qmail@web903.mail.yahoo.com -->
+<!--X-Reference: 200002180053.QAA10538@balu.qualcomm.com -->
+<!--X-Reference: 20000218144102.WUXF13956.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 200002181942.LAA24555@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>FFI (was Re: Development/Production versions (was RE: CVS))</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00106.html">Date Prev</a>][<a href="msg00108.html">Date Next</a>][<a href="msg00101.html">Thread Prev</a>][<a href="msg00108.html">Thread Next</a>][<a href="maillist.html#00107">Date Index</a>][<a href="threads.html#00107">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>FFI (was Re: Development/Production versions (was RE: CVS))</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></li>
+<li><em>Subject</em>: FFI (was Re: Development/Production versions (was RE: CVS))</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 19 Feb 2000 07:56:19 -0800</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00101.html">200002181942.LAA24555@balu.qualcomm.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00082.html">20000217201300.6891.qmail@web903.mail.yahoo.com</a>&gt;	&lt;<a href="msg00092.html">200002180053.QAA10538@balu.qualcomm.com</a>&gt; &lt;<a href="msg00098.html">20000218144102.WUXF13956.mail.rdc1.sfba.home.com@localhost</a>&gt;	&lt;<a href="msg00101.html">200002181942.LAA24555@balu.qualcomm.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Leo Razoumov:
+&gt; Do you mean that the inheritance hierarcy of wrapped glue code does
+&gt; not reflect the inheritance hierarchy of the original C++ library?
+&gt; 
+&gt;            BaseClass  &lt;----inhereted---- DerivedClass
+&gt;    WRAPPED_BaseClass  --NOT_inhereted--- WRAPPED_DerivedClass
+
+My little test suggests that this information is preserved.
+
+What I meant is that SWIG's Guile output appears to support creating
+class instances within Scheme, and calling instance methods within
+Scheme, but *not* deriving new subclasses within Scheme. To summarize
+in MzScheme terms:
+
+   (make-object BaseClass ...)   - YES
+   (send a-BaseClass ...)        - YES
+   (class BaseClass ...)         - NO
+
+Depending on how you want to use a C++ library, deriving new subclasses
+within Scheme may not be important. In the case of wxWindows, it
+*would* be important for using the library effectively. For example,
+subclassing is the mechanism for handling canvas events, where a
+subclass overrides the OnEvent() method.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00108" href="msg00108.html">Re: FFI (was Re: Development/Production versions (was RE: CVS))</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00082" href="msg00082.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> see signature &lt;slonika@yahoo.com&gt;</li></ul></li>
+<li><strong><a name="00092" href="msg00092.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+<li><strong><a name="00098" href="msg00098.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00101" href="msg00101.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00106.html">Re: build from the scratch 2</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00108.html">Re: FFI (was Re: Development/Production versions (was RE: CVS))</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00101.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00108.html">Re: FFI (was Re: Development/Production versions (was RE: CVS))</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00107"><strong>Date</strong></a></li>
+<li><a href="threads.html#00107"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

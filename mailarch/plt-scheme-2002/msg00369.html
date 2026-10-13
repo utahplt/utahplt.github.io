@@ -1,0 +1,162 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Case sensitivity in modules? -->
+<!--X-From-R13: cgtNppf.arh.rqh (Bnhy F. Uenhaxr) -->
+<!--X-Date: Tue, 19 Mar 2002 21:55:25 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020320045521.6B36610DEC@subra.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.40.0203192017220.27246&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Case sensitivity in modules?</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00367.html">Date Prev</a>][<a href="msg00368.html">Date Next</a>][<a href="msg00366.html">Thread Prev</a>][<a href="msg00370.html">Thread Next</a>][<a href="maillist.html#00369">Date Index</a>][<a href="threads.html#00369">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Case sensitivity in modules?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A> (Matt 'LEGO Guy' Jadud)</li>
+<li><em>Subject</em>: Re: Case sensitivity in modules?</li>
+<li><em>From</em>: <A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A> (Paul T. Graunke)</li>
+<li><em>Date</em>: Tue, 19 Mar 2002 23:55:21 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00366.html">Pine.GSO.4.40.0203192017220.27246-100000@velvetbelly.cs.indiana.edu</a>&gt; from &quot;Matt 'LEGO Guy' Jadud&quot; at Mar 19, 2002 08:32:31 PM</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+It surprises me that -g doesn't work, especially since this does:
+
+[1]ptg$ mzscheme -g
+Welcome to MzScheme version 200alpha14, Copyright (c) 1995-2002 PLT
+Identifiers and symbols are initially case-sensitive.
+&gt; (module modtest mzscheme
+  (provide foo bar)
+  (define foo (lambda () (equal? 'hello 'hello)))
+  (define bar (lambda () (equal? 'hello 'Hello)))
+)
+&gt; (require modtest)
+&gt; (foo)
+#t
+&gt; (bar)
+#f
+
+
+Perhaps you can't rely on -g for making program text case sensitive since
+it may be compile to bytecode without -g, though it doesn't seem like the
+case here.
+
+It's probably better to use #cs(module modtest ...) for a case sensitive
+module anyway since the module author knows better if it should be case
+sensitive or not.
+
+Paul
+&gt; 
+&gt; 
+&gt; Hello,
+&gt; 
+&gt; 	Why was Scheme made case insensitive in the first place?
+&gt; 
+&gt; I have a module
+&gt; 
+&gt; (module modtest mzscheme
+&gt;   (provide foo bar)
+&gt;   (define foo (lambda () (equal? 'hello 'hello)))
+&gt;   (define bar (lambda () (equal? 'hello 'Hello)))
+&gt; )
+&gt; 
+&gt; I expect (foo) -&gt; #t and (bar) -&gt; #f when running with case sensitivity
+&gt; on.
+&gt; 
+&gt; So, I fire up MzScheme (200a12) with 'mzscheme -g'
+&gt; 
+&gt; Welcome to MzScheme version 200alpha12, Copyright (c) 1995-2002 PLT
+&gt; Identifiers and symbols are initially case-sensitive.
+&gt; &gt; (equal? 'hello 'Hello)
+&gt; #f
+&gt; &gt; (require &quot;modtest.ss&quot;)
+&gt; &gt; (foo)
+&gt; #t
+&gt; &gt; (bar)
+&gt; #t
+&gt; &gt; (equal? 'hello 'Hello)
+&gt; #f
+&gt; 
+&gt; 	Putting a (read-case-sensitive #t) in the module doesn't seem to
+&gt; convince it that I want it to be case sensitive. I have read of the PLT
+&gt; Language Manual concerning modules (5.8) and am at a loss as to how to
+&gt; cajole my module into being a more sensitive partner in my programming.
+&gt; 
+&gt; 	Help?
+&gt; 
+&gt; 	Thanks,
+&gt; 	Matt
+&gt; ________________________________________________________________________
+&gt; Matt Jadud                            <A  HREF="http://www.cs.indiana.edu/~mjadud/">http://www.cs.indiana.edu/~mjadud/</A>
+&gt; Current Temperature Outside Lindley Hall                 50.4 F / 10.2 C
+&gt; Canterbury Weather: High 50 F / 10 C, Low 46 F / 8 C, Light rain
+&gt; 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00370" href="msg00370.html">Re: Case sensitivity in modules?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00366" href="msg00366.html">Case sensitivity in modules?</a></strong>
+<ul><li><em>From:</em> &quot;Matt 'LEGO Guy' Jadud&quot; &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00367.html">Lower your company phone bill every month!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00368.html">Re: Case sensitivity in modules?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00366.html">Case sensitivity in modules?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00370.html">Re: Case sensitivity in modules?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00369"><strong>Date</strong></a></li>
+<li><a href="threads.html#00369"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

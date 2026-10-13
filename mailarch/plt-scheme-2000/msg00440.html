@@ -1,0 +1,313 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: MzScheme Special Form &#45;> Native Numerical Code? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Wed, 2 Aug 2000 06:51:47 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39881AAD.5E3E659D@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14726.42132.123747.888972@kintore.dai.ed.ac.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>MzScheme Special Form -&gt; Native Numerical Code?</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00439.html">Date Prev</a>][<a href="msg00441.html">Date Next</a>][<a href="msg00439.html">Thread Prev</a>][<a href="msg00442.html">Thread Next</a>][<a href="maillist.html#00440">Date Index</a>][<a href="threads.html#00440">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>MzScheme Special Form -&gt; Native Numerical Code?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: MzScheme Special Form -&gt; Native Numerical Code?</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 02 Aug 2000 08:57:17 -0400</li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00437.html">14726.42132.123747.888972@kintore.dai.ed.ac.uk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Inspired by Noel's suggestion of special forms for numerical code:
+
+DrScheme, MrEd, and MzScheme are great as they are.
+  <A  HREF="http://www.cs.rice.edu/CS/PLT/packages/drscheme/index.html">http://www.cs.rice.edu/CS/PLT/packages/drscheme/index.html</A>
+But, it would sure be nice if they could generate native numerical code
+to enable users to get quicker numerical results from numerical
+simulations.
+
+The philosophy of using special forms for numerical code which Noel
+pointed out (as used in Gambit Scheme) is somewhat akin to the Python/C
+philosophy. There the idea is use Python for glue and do the heavy
+lifting in C called from Python. An example of this in supercomputing is
+here:
+  <A  HREF="http://www.python.org/workshops/1997-10/proceedings/beazley.html">http://www.python.org/workshops/1997-10/proceedings/beazley.html</A>
+A MzScheme special form translator approach might instead use general
+MzScheme for glue code (or numerical steering), and do the heavy
+numerical lifting in special restricted forms of MzScheme functions
+designed for intensive floating point computations. The advantage over
+the Python approach is then one is doing all development in one language
+-- MzScheme.
+
+Going a bit further, with a simple cross-platform-ish assembler and call
+approach in MzScheme, one would then getting near C speeds from the
+special numerical forms without the need to depend on a C compiler. And,
+for most numerical code, there is little value in optimizing more than
+the inner computational loops. I'm happy if numerical performance is
+within 2X-5X of C, which I think might be doable with this approach. 
+
+Obviously, while it is easy to generate C code, what I'd really love
+is MzScheme generating platform specific assembler/Forth/binaries for
+the numerical operations which it can dynamically call. Only 68030+,
+PPC, and 80486+ is needed to be useful enough for shipping most
+Mac/PC/Linux apps... I understand the convenience of depending on a C
+compiler, but I'd love to eliminate that so as to make an easily
+installable system for people without one. But first I have to have a
+sensible subset of Scheme numerical operators, perhaps with some more
+easily translatable constructs [probably for looping or array indexing]
+added as well. And it would help if there was a platform independent 
+  (call-native-code someSortOfByteArray) 
+function. I know this could be done indirectly through a loadable code
+module (like a DLL) but I think there is a lot to be said for calling
+code directly.
+
+I have an article squirreled away somewhere on how to do
+dynamic machine code translation with Delphi (translating simple parsed
+code to native code which is jumped to) and it was quite neat and
+relatively straightforward for mainly numerical code under the 80X86.
+This process can be automated somewhat by generating unoptimized machine
+code for simple known C expressions and then reverse engineering the
+machine code.
+(This is to an extent how the Squeak Just-In-Time compiler works...)
+
+If someone can point out code that already does this (assembler,
+call-native-code, other numerical related optimizations) which could be
+easily ported to or integrated with MzScheme, I'd be much obliged. There
+must be something out there with a compatible license. I'm not looking
+for gcc -- I'd really like a primarily Scheme-only solution. 
+
+A much easier approach would be to integrate MzScheme with a Forth with
+good numerical performance and native code generation, like GForth, 
+  <A  HREF="http://www.complang.tuwien.ac.at/projects/forth.html">http://www.complang.tuwien.ac.at/projects/forth.html</A>
+to do the numerical heavy lifting. (Forth implementations are generally
+much smaller in footprint than gcc, and are generally easier to
+understand). Unfortunately, GForth is under the GPL so there are some
+licensing issues if the core is to be kept LGPL (maybe it could be
+installed as a service? although that defeats my goal of tight
+integration). Also, while I think it runs under the PPC, there isn't a
+Mac version I'm aware of. However, in general, translation of a special
+numerical form of MzScheme to Forth would be very easy. However, Forth
+isn't usually optimized for numerical performance.
+
+By the way, the educational motivation for generating and calling native
+code from MzScheme is that then TeachScheme! can then be easily extended
+into classes for advanced students on low level machine architecture.
+Students could learn how a real processor works by poking at it through
+MzScheme interface functions. Need to add a new language level then --
+&quot;crash and burn horribly&quot;. :-) But as I've heard it said, &quot;If you can't
+crash it, you're not the one doing the driving...&quot;
+
+And also keeping in line with the learning notion, to take TeachScheme! 
+    <A  HREF="http://www.cs.rice.edu/CS/PLT/Teaching/">http://www.cs.rice.edu/CS/PLT/Teaching/</A>
+to the next level, learning Scheme can become a gateway into a world of
+modeling -- where students learn about subject materials by building
+their own models. This is going beyond just teaching logical thinking --
+to writing Scheme programs to aid in understanding specific real content
+and specific real processes. 
+
+The point is not to make great models -- just that the students learn a
+lot by designing even poor models. Seymour Papert 
+  <A  HREF="http://papert.www.media.mit.edu/people/papert/">http://papert.www.media.mit.edu/people/papert/</A>
+suggests this, as do others like David Ferguson (coauthor of &quot;Learning
+to Design, Designing to Learn: Using Technology to Transform the
+Curriculum&quot;).
+  <A  HREF="http://www.cvc.sunysb.edu/CELT/profiledir.html">http://www.cvc.sunysb.edu/CELT/profiledir.html</A>
+  <A  HREF="http://www.spir.sunysb.edu/bio/ferguson_david.html">http://www.spir.sunysb.edu/bio/ferguson_david.html</A>
+(David Ferguson was one of my professors in grad school, who along with
+Prof. Thomas Liao, Prof. Lev Ginzburg, and others inspired me and my
+wife to develop educational simulations.)
+
+The reason I bring this up in this context is that if one goes down this
+educational route, good numerical performance is a big plus in an
+educationally-oriented Scheme, because many (not all) interesting models
+use lots of floating point computation to simulate systems with emergent
+properties (i.e. gas molecules colliding to cause pressure, water
+percolation through soil layers, structural integrity of meshes, etc).
+  
+Here is an example of the sort of numerical code I would want to
+translate from Scheme to numerical binaries (taken from our garden
+simulator so it is currently in Delphi Pascal). (Anyone know of a Object
+Pascal -&gt; MzScheme translator?) This computes a simulated relative
+humidity based on a triangular probability distribution involving lower
+and upper limits and a mean.
+(I picked it because it was short... Other code has loops.)
+======================================
+class function EP.RelativeHumidityForDay_frn(meanRelHumForDay_frn:
+single): single;
+  var
+    upperLimit: single;
+    lowerLimit: single;
+  begin
+  try
+  upperLimit :=
+EQ.RelHumTriangularDistUpperLimit_frn(meanRelHumForDay_frn);
+  lowerLimit :=
+EQ.RelHumTriangularDistLowerLimit_frn(meanRelHumForDay_frn);
+  result := Utils_TriangularDistribution(lowerLimit,
+meanRelHumForDay_frn, upperLimit);
+  result := result * (safediv(meanRelHumForDay_frn, (upperLimit +
+meanRelHumForDay_frn + lowerLimit) / 3.0));
+  if (result &gt;= 1.0) then result := 0.99;
+  except on e: Exception do result := errorMessage('Exception in
+EP.RelativeHumidityForDay_frn: ' + e.message); end;
+  end;
+====================================
+Assuming the function it calls were also easily translatable, I would
+think this could be converted fairly easily to reasonably quick
+Scheme-generated machine code even without a lot of fancy optimizations
+done by most C compilers.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+Noel Welsh wrote:
+&gt; 
+&gt; Here are the links to the AOP research that describes the `loop
+&gt; collapsing':
+&gt; 
+&gt; <A  HREF="http://www.stanford.edu/~amitp/Java/amgoyal/aop.html">http://www.stanford.edu/~amitp/Java/amgoyal/aop.html</A>
+&gt; <A  HREF="http://www.parc.xerox.com/csl/groups/sda/publications/papers/Kiczales-ECOOP97/for-web.pdf">http://www.parc.xerox.com/csl/groups/sda/publications/papers/Kiczales-ECOOP97/for-web.pdf</A>
+&gt; 
+&gt; There is a package called SERIES for Common Lisp that appears to do
+&gt; the same sort of thing:
+&gt; 
+&gt; <A  HREF="http://series.sourceforge.net/">http://series.sourceforge.net/</A>
+&gt; 
+&gt; All of the above is Lisp so should be eminently stealable and
+&gt; hackable. It is possible that doing this kind of smart programming
+&gt; would get back the losses from a rather simple minded
+&gt; compiler. Anything that is better than Matlab will get my attention!
+&gt; 
+&gt; -------
+&gt; 
+&gt; Type hinting:
+&gt; 
+&gt; The way Gambit does type hinting (which I think is the same as Common
+&gt; Lisp) is with the declare special form.
+&gt; 
+&gt; <A  HREF="http://www.iro.umontreal.ca/~gambit/doc/gambit-c.html">http://www.iro.umontreal.ca/~gambit/doc/gambit-c.html</A>
+&gt; 
+&gt; &quot;special form: declare declaration...
+&gt; 
+&gt; This form introduces declarations to be used by the compiler(currently
+&gt; the interpreter ignores the declarations). This form can only appear
+&gt; where a define form is acceptable. Declarations are lexically scoped
+&gt; in the same way as macros. The following declarations are accepted by
+&gt; the compiler:
+&gt; 
+&gt; [snip]
+&gt; 
+&gt; (number-type primitive...)
+&gt;             Numeric arguments and result of the specified primitives
+&gt; are known to be of the given type (all primitives if none
+&gt; specified). number-type can be: `generic', `fixnum', or `flonum'.&quot;
+&gt; 
+&gt; -------
+&gt; 
+&gt; Re Paul's simple translation program:
+&gt; 
+&gt; Take a look at the pattern matching system in MzLib (match.ss). I find
+&gt; it makes this sort of code a lot easier.
+&gt; 
+&gt; E.g.
+&gt; 
+&gt; (define (print-infix-call-arg arg)
+&gt;   (if (list? arg)
+&gt;       (print-call arg)
+&gt;       (print arg)))
+&gt; 
+&gt; can be written as
+&gt; 
+&gt; (require-library &quot;match.ss&quot; &quot;mzlib&quot;)
+&gt; 
+&gt; (define print-infix-call-arg
+&gt;   (match-lambda
+&gt;     [(arg . rest) (print-call arg)]
+&gt;     [arg (print arg)]))
+&gt; 
+&gt; Note square brackets [] are equivalent to parentheses ()
+&gt; 
+&gt; DrScheme comes with a parser system called Zodiac, described best in
+&gt; the DrScheme Extension Manual. I suspect its is over-kill if you only
+&gt; want to compile a limited subset of Scheme to C (but maybe the
+&gt; vocabularies will help?)
+&gt; 
+&gt; cya,
+&gt; Noel
+&gt; --
+&gt; Noel Welsh
+&gt; <A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00442" href="msg00442.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00437" href="msg00437.html">AOP/Fast matrices/Type hinting</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00439.html">Re: AOP/Fast matrices/Type hinting</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00441.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00439.html">Re: AOP/Fast matrices/Type hinting</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00442.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00440"><strong>Date</strong></a></li>
+<li><a href="threads.html#00440"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

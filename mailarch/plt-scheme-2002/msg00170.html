@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: dumb DrScheme rational # question -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Tue, 29 Jan 2002 08:57:10 &#45;0700 (MST) -->
+<!--X-Message-Id: E16Vad7&#45;0006ZO&#45;00@hawk.prod.itd.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.SGI.4.33.0201291046370.27459769&#45;100000@buphy.bu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: dumb DrScheme rational # question</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00169.html">Date Prev</a>][<a href="msg00171.html">Date Next</a>][<a href="msg00169.html">Thread Prev</a>][<a href="msg00171.html">Thread Next</a>][<a href="maillist.html#00170">Date Index</a>][<a href="threads.html#00170">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: dumb DrScheme rational # question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brian Gregor &lt;<A HREF="mailto:bgregor@BUPHY.bu.edu">bgregor@BUPHY.bu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: dumb DrScheme rational # question</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 29 Jan 2002 07:57:06 -0800</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00168.html">Pine.SGI.4.33.0201291046370.27459769-100000@buphy.bu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00168.html">Pine.SGI.4.33.0201291046370.27459769-100000@buphy.bu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brian Gregor:
+&gt; 
+&gt; DrScheme (v 200alpha9) returns rational #'s for many
+&gt; division operations.  Is there a way to force it to
+&gt; convert to a floating point number?  Common Lisp
+&gt; has a 'float' function for this, but MzScheme doesn't
+&gt; seem to have any such equivalent.
+
+You can use exact-&gt;inexact, or if you start your computations with
+inexact numbers, they will remain inexact when going thru the division
+operations. To write an inexact constant, prefix the numbers with #i,
+like this:
+
+  #i1.0
+
+Additionally, if you use functions that return real results (sin, sqrt,
+log, etc) you will get inexact numbers from them.
+
+But, you should really only be doing that kind of thing if you are
+running into efficiency issues, I'd say.
+
+Hope that helps,
+Robby
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00171" href="msg00171.html">Re: dumb DrScheme rational # question</a></strong>
+<ul><li><em>From:</em> Richard Cobbe &lt;cobbe@airmail.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00168" href="msg00168.html">dumb DrScheme rational # question</a></strong>
+<ul><li><em>From:</em> Brian Gregor &lt;bgregor@BUPHY.bu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00169.html">Re: dumb DrScheme rational # question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00171.html">Re: dumb DrScheme rational # question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00169.html">Re: dumb DrScheme rational # question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00171.html">Re: dumb DrScheme rational # question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00170"><strong>Date</strong></a></li>
+<li><a href="threads.html#00170"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

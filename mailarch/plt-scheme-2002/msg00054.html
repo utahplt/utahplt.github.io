@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Changes to SrPersist code -->
+<!--X-From-R13: "Bnhy Egrpxyre" <fgrpxNppf.arh.rqh> -->
+<!--X-Date: Tue, 8 Jan 2002 14:59:41 &#45;0700 (MST) -->
+<!--X-Message-Id: 000001c1988f$c3d472f0$70730a81@NORTHEASDX5RFA -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Changes to SrPersist code</title>
+<link rev="made" href="mailto:steck@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00053.html">Date Prev</a>][<a href="msg00055.html">Date Next</a>][<a href="msg00069.html">Thread Prev</a>][<a href="msg00058.html">Thread Next</a>][<a href="maillist.html#00054">Date Index</a>][<a href="threads.html#00054">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Changes to SrPersist code</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;'PLT Scheme'&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Changes to SrPersist code</li>
+<li><em>From</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 8 Jan 2002 16:59:37 -0500</li>
+<li><em>Cc</em>: &quot;'Francisco Solsona'&quot; &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>Reply-To</em>: &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I've exp-tagged a bunch of changes to the SrPersist code.
+
+Changes:
+
+ - all ODBC procedures are available in Scheme regardless of the ODBC 
+    version used to compile the extension.
+ - if a procedure is not defined in the ODBC version used when 
+    compiling, calling it from Scheme raises a not-implemented 
+    exception.
+ - the invoke-n.m.ss files used to load the extension have been 
+    collapsed into one file.  To load the extension, you just run
+    
+	(require (lib &quot;srpersist.ss&quot; &quot;srpersist&quot;))
+
+ - buffers, indicators, lengths, and row-status values may be explicitly
+    freed.  Yes, this approach opens a safety hole, and you may hurl 
+    brickbats: but it was always possible to overflow a buffer, so 
+    safety was already compromised.  Programs that use SrPersist can now
+
+    avoid memory leaks.  In particular, functional layers like SchemeQL 
+    can manage memory for the programmer who (sensibly) doesn't want to 
+    use ODBC directly.
+ - the usual miscellaneous small bug fixes.
+
+I'm told a shiny new version of SchemeQL to match this version of
+SrPersist is due soon.
+
+-- Paul
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00053.html">string-join ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00055.html">Re: Someone else's matcher.</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00069.html">Re: string-join ?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00058.html">Readings in Scheme...</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00054"><strong>Date</strong></a></li>
+<li><a href="threads.html#00054"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

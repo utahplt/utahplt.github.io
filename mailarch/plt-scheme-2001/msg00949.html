@@ -1,0 +1,221 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: DrScheme as Emacs&#45;like kitchen sink -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.ajh.rqh> -->
+<!--X-Date: Mon, 1 Oct 2001 22:17:02 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110020416.XAA00784@banach.math.nwu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110010328.WAA00358@banach.math.nwu.edu -->
+<!--X-Reference: 200110010347.XAA14156@klee.cs.brown.edu -->
+<!--X-Reference: 200110011154.f91BsH420528@denali.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: DrScheme as Emacs-like kitchen sink</title>
+<link rev="made" href="mailto:richter@math.nwu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00948.html">Date Prev</a>][<a href="msg00950.html">Date Next</a>][<a href="msg00979.html">Thread Prev</a>][<a href="msg00951.html">Thread Next</a>][<a href="maillist.html#00949">Date Index</a>][<a href="threads.html#00949">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: DrScheme as Emacs-like kitchen sink</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Subject</em>: Re: DrScheme as Emacs-like kitchen sink</li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.nwu.edu">richter@math.nwu.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 1 Oct 2001 23:16:53 -0500</li>
+<li><em>CC</em>: <A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00944.html">200110011154.f91BsH420528@denali.ccs.neu.edu</a>&gt; (message fromMatthias Felleisen on Mon, 1 Oct 2001 07:54:17 -0400 (EDT))</li>
+<li><em>References</em>: &lt;<a href="msg00941.html">200110010328.WAA00358@banach.math.nwu.edu</a>&gt; &lt;<a href="msg00942.html">200110010347.XAA14156@klee.cs.brown.edu</a>&gt; &lt;<a href="msg00944.html">200110011154.f91BsH420528@denali.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   Will we accept it? Sure, we will distribute it if you do a great
+   job implementing it.
+
+Matthias, I'm not anywhere near ready to give you anything to
+distribute.    I'm a long way from being up-to-speed on DrScheme.  
+
+How about we try something else: I come up with simple requests, and
+you DrScheme folks tell me how to do it.  Idea being that I'm one
+DrScheme user who is trying to use DrScheme to edit Latex files.  I'm
+not at all sure that this is gonna be a successful venture.  Why not
+crank out one paper on DrScheme before rewriting DrScheme?
+
+I realized that I don't really need anything as grandiose as modes, or
+even `-q -l' startup capability.   
+
+It would suffice to run DrScheme and then be able to execute or load
+the kind of code that goes into .mred.prefs.   I don't know how to do
+this.   I bet someone can just tell me, though.
+
+Here's a real kludge, that I *could* live with.    When I want to edit
+a Latex file, I'll add this line in to the bottom of .mred.prefs:
+
+ (framework:tabify ())
+
+Actually the next-to-last line, so I don't have to worry about the
+final paren to match.  
+
+Then I can run DrScheme with most of the indentation features off, and
+that should suffice for just plain text editing.
+
+
+OK, and when I want to work on Scheme, I'll add this expression below
+to the bottom of .mred.prefs.   This sorta crude toggling seems to
+work.   What doesn't work is evaluating these expressions in
+DrScheme.  I get error messages like
+
+Welcome to DrScheme, version 103p1.
+Language: Graphical Full Scheme (MrEd).
+let: malformed expression
+
+with this highlighted:
+
+(let lambda)
+
+So .mred.prefs code seems different from Scheme code.
+
+[1] The last Emacs straw for me was Stallman ruling that a C book like
+K&amp;R was a &quot;proprietary gcc manual&quot;, and so discussing K&amp;R on gnu lists
+violated the &quot;free manuals policy&quot;.  I'm all for lots of Stallman's
+free software revolution ideas, I loved his GNU Manifesto, and I could
+deal with some kinda free manuals policy, but this is ridiculous.
+
+ (framework:tabify
+   ((let lambda)
+    (parameterize lambda)
+    (begin begin)
+    (class/d* lambda)
+    (begin0 begin)
+    (syntax-case lambda)
+    (let-enumerate lambda)
+    (sequence begin)
+    (with-handlers lambda)
+    (override begin)
+    (class*/names lambda)
+    (send* lambda)
+    (unit/lang lambda)
+    (recur lambda)
+    (interface lambda)
+    (rec lambda)
+    (shared lambda)
+    (public begin)
+    (private begin)
+    (define-some lambda)
+    (inherit begin)
+    (let-values lambda)
+    (mixin lambda)
+    (match lambda)
+    (compound-unit begin)
+    (with-input-from-port lambda)
+    (define-values define)
+    (class/d lambda)
+    (unit/sig lambda)
+    (define-macro define)
+    (let-syntax lambda)
+    (cond begin)
+    (letrec-syntax lambda)
+    (let-macro lambda)
+    (let*-values lambda)
+    (case lambda)
+    (do lambda)
+    (class/d*/names lambda)
+    (define define)
+    (class-asi* lambda)
+    (opt-lambda lambda)
+    (local lambda)
+    (letrec lambda)
+    (delay begin)
+    (call-with-output-file lambda)
+    (let* lambda)
+    (let/cc lambda)
+    (catch lambda)
+    (let/ec lambda)
+    (define-record lambda)
+    (class-asi lambda)
+    (when lambda)
+    (call-with-input-file lambda)
+    (unless lambda)
+    (define-signature define)
+    (letcc lambda)
+    (class lambda)
+    (with-output-to-file lambda)
+    (make-object lambda)
+    (class* lambda)
+    (let-struct lambda)
+    (with-output-to-port lambda)
+    (with-input-from-file lambda)
+    (let-signature lambda)
+    (compound-unit/sig begin)
+    (unit begin)
+    (defmacro define)
+    (lambda lambda)
+    (define-syntax define)
+    (define-schema define)
+    (fluid-let lambda)))
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00951" href="msg00951.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00941" href="msg00941.html">DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00942" href="msg00942.html">DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00944" href="msg00944.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00948.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00950.html">Webserver &amp; Server Side Includes</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00979.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00951.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00949"><strong>Date</strong></a></li>
+<li><a href="threads.html#00949"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

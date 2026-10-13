@@ -1,0 +1,135 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: functional programming is great, but why lists? -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Sat, 13 Oct 2001 23:21:03 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110140520.BAA06268@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110102329.f9ANTnH19850@wrath.cs.utah.edu -->
+<!--X-Reference: 200110110342.WAA00959@banach.math.nwu.edu -->
+<!--X-Reference: 200110111325.f9BDPJw28502@sualocin.ccs.neu.edu -->
+<!--X-Reference: 200110120129.UAA00361@banach.math.nwu.edu -->
+<!--X-Reference: 20011012042559.A27541@cs.utexas.edu -->
+<!--X-Reference: 200110130316.f9D3GIa10701@poincare.math.northwestern.edu -->
+<!--X-Reference: 200110130336.XAA26341@bosch.cs.brown.edu -->
+<!--X-Reference: 200110140447.f9E4lmJ12686@poincare.math.northwestern.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: functional programming is great, but why lists?</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01053.html">Date Prev</a>][<a href="msg01055.html">Date Next</a>][<a href="msg01053.html">Thread Prev</a>][<a href="msg01055.html">Thread Next</a>][<a href="maillist.html#01054">Date Index</a>][<a href="threads.html#01054">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: functional programming is great, but why lists?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Bill Richter &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: functional programming is great, but why lists?</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 14 Oct 2001 01:20:25 -0400 (EDT)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01053.html">200110140447.f9E4lmJ12686@poincare.math.northwestern.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01024.html">200110102329.f9ANTnH19850@wrath.cs.utah.edu</a>&gt;&lt;<a href="msg01025.html">200110110342.WAA00959@banach.math.nwu.edu</a>&gt;&lt;<a href="msg01028.html">200110111325.f9BDPJw28502@sualocin.ccs.neu.edu</a>&gt;&lt;<a href="msg01037.html">200110120129.UAA00361@banach.math.nwu.edu</a>&gt;&lt;<a href="msg01046.html">20011012042559.A27541@cs.utexas.edu</a>&gt;&lt;<a href="msg01051.html">200110130316.f9D3GIa10701@poincare.math.northwestern.edu</a>&gt;&lt;<a href="msg01052.html">200110130336.XAA26341@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg01053.html">200110140447.f9E4lmJ12686@poincare.math.northwestern.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+You *could* treat lists the way you do.  Sure, there are some examples 
+for which is't pretty nice -- it removes the asymmetry of FIRST/REST
+by providing a uniform way in which to write what some would think
+should be similar procedures (you picked the canonical pair of
+examples).  But I think that, for the most part, you *don't* want to
+program with indices.  They often (especially in the wrong hands)
+reflect the inability of a programmer (not necessarily you) to treat
+values as values, referring them through surrogate names instead.
+Indeed, teaching lists this way obscures their value-ness.
+
+There's a good reason why lists don't naturally come with indices the
+way vectors do: they're not intended to be accessed at random.  They
+really are intended to be accessed sequentially.  That's their cost
+model.  So what you really want to do is to define an abstract data
+type, call it Indexed, and create primitives that consume and return
+Indexed elements.  You would probably implement Indexed as an
+immutable vector.  Once you provide MAP, FILTER and FOLD over Indexed
+values, there'd be no need to define INDEXED-FIRST and INDEXED-REST.
+
+Shriram
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01055" href="msg01055.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+<li><strong><a name="01056" href="msg01056.html">Error when starting DrScheme ...</a></strong>
+<ul><li><em>From:</em> Steve Graham &lt;skg@sunflower.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01024" href="msg01024.html">199.25</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="01025" href="msg01025.html">functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01028" href="msg01028.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01037" href="msg01037.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01046" href="msg01046.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Michael Bogomolny &lt;bogo@cs.utexas.edu&gt;</li></ul></li>
+<li><strong><a name="01051" href="msg01051.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+<li><strong><a name="01052" href="msg01052.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="01053" href="msg01053.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01053.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01055.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01053.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01055.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01054"><strong>Date</strong></a></li>
+<li><a href="threads.html#01054"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

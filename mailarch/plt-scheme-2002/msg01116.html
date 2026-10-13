@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Call/cc problem -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Wed, 12 Jun 2002 14:28:48 &#45;0600 (MDT) -->
+<!--X-Message-Id: 032701c2124f$a0afd730$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: a05111b00b92d471a8a09@[217.230.213.254] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Call/cc problem</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01115.html">Date Prev</a>][<a href="msg01117.html">Date Next</a>][<a href="msg01119.html">Thread Prev</a>][<a href="msg01117.html">Thread Next</a>][<a href="maillist.html#01116">Date Index</a>][<a href="threads.html#01116">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Call/cc problem</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;, &quot;Erich Rast&quot; &lt;<A HREF="mailto:Erich.Rast@t-online.de">Erich.Rast@t-online.de</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Call/cc problem</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Wed, 12 Jun 2002 22:27:52 +0200</li>
+<li><em>References</em>: &lt;<a href="msg01114.html">a05111b00b92d471a8a09@[217.230.213.254]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+[This was also posted at comp.lang.scheme]
+
+Hobbyist wrote:
+
+&gt; I've tried to store continuations in an object and let
+&gt; them be called by the receiver function, but I get
+&gt; &quot;continuation application: attempted to cross a
+&gt; continuation boundary&quot; when using call/cc, and
+&gt; &quot;continuation application: attempt to jump into an escape
+&gt; continuation&quot; when using call/ec.
+
+The PLT MzScheme: Language Manual says (in 6.3 Continuations)
+this about call/cc:
+    A continuation can only be invoked from the thread
+    (see Chapter 7) in which it was captured.
+Thus B can not use the continuation returned from A.
+
+Since escape continuations only can be for escapes, you
+can not call an escape continuations from another thread.
+
+My feeling is that continuations are the wrong way to go.
+
+&gt; The problem: Both A and B are non-blocking, independent
+&gt; operating system processes, but need A to be able to send
+&gt; commands synchronously, ie. I need a function (send/sync-
+&gt; command cmd) that sends cmd to B, waits until B has
+&gt; replied with another command, returns the reply and then
+&gt; continues like if an ordinary function had been called.
+
+Have you tried using some the thread synchronization mechanisms
+in 7.2 or 7.3?
+
+URL:<A  HREF="http://download.plt-scheme.org/doc/200alpha19/html/mzscheme/mzscheme-Z-H">http://download.plt-scheme.org/doc/200alpha19/html/mzscheme/mzscheme-Z-H</A>
+-7.html#%_chap_7
+
+--
+Jens Axel Søgaard
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01114" href="msg01114.html">[plt-scheme] Call/cc problem</a></strong>
+<ul><li><em>From:</em> Erich Rast &lt;Erich.Rast@t-online.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01115.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01117.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01119.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01117.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01116"><strong>Date</strong></a></li>
+<li><a href="threads.html#01116"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 26 Feb 2000 22:08:23 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002270435.UAA20217@balu.qualcomm.com -->
+<!--X-Reference: 200002270457.WAA08093@africa.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] HOWTO redirect a i/o-port in Unix??</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00141.html">Date Prev</A>][<A HREF="msg00143.html">Date Next</A>][<A HREF="msg00139.html">Thread Prev</A>][<A HREF="msg00143.html">Thread Next</A>][<A HREF="maillist.html#00142">Date Index</A>][<A HREF="threads.html#00142">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] HOWTO redirect a i/o-port in Unix??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></LI>
+<LI><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 26 Feb 2000 21:08:21 -0800</LI>
+<LI><em>CC</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A>, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00139.html">200002270457.WAA08093@africa.cs.rice.edu</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00138.html">200002270435.UAA20217@balu.qualcomm.com</A>&gt;	&lt;<A HREF="msg00139.html">200002270457.WAA08093@africa.cs.rice.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Leo Razoumov:
+&gt; More specifically, I am looking for a way to redirect stdout (and stderr) of a
+&gt; subprocess created with (process "myprog") into a file.
+
+Quoting Matthias Felleisen:
+&gt; 
+&gt; Here is a (stupid) trick that I used in my Web page building scripts: 
+&gt; 
+&gt; (with-output-to-file "date.txt" 
+&gt;   (lambda () 
+&gt;     (display (read-line (car (process "date"))))))
+&gt; 
+&gt; This copies text from the process port to the file "date.txt". 
+
+That works often. But sometimes the data coming from the process isn't
+line-based, and often you want the data to get pushed from one port to
+the other "in the background".
+
+Here's a fairly general and efficient function:
+
+ (define (copy-stream input-port output-port)
+  (thread (lambda ()
+            (let ([s (make-string 4096)])
+              (let loop ()
+                (let ([l (read-string! s input-port)])
+                  (unless (eof-object? l)
+                    (display (if (&lt; l 4096) (substring s 0 l) s)
+                             output-port)
+                    (loop))))
+              
+              ;; For most contexts, it's good to
+              ;; close the ports at this point:
+              (close-input-port input-port)
+              (close-output-port output-port)))))
+
+Here's an example of its use:
+
+ ;; Pipe "ls" output to "wc":
+ (define ls-p (process "ls"))
+ (define wc-p (process "wc"))
+
+ (copy-stream (car ls-p)   ; car is stdout of ls
+              (cadr wc-p)) ; cadr is stdin of wc-p
+ (define t (copy-stream (car wc-p)
+                        (current-output-port)))
+ ;; wait until "wc" is done:
+ (thread-wait t)
+
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00143" HREF="msg00143.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00185" HREF="msg00185.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00138" HREF="msg00138.html">[Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00139" HREF="msg00139.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00141.html">Re: Compund units in extensions</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00143.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00139.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00143.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00142"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00142"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

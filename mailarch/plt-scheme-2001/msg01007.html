@@ -1,0 +1,106 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Problem building a statically linked Mzscheme -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 9 Oct 2001 08:22:35 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110091422.IAA02573@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.33.0110091121290.13551&#45;100000@aton.cs.auc.dk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Problem building a statically linked Mzscheme</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01006.html">Date Prev</a>][<a href="msg01008.html">Date Next</a>][<a href="msg01006.html">Thread Prev</a>][<a href="msg01019.html">Thread Next</a>][<a href="maillist.html#01007">Date Index</a>][<a href="threads.html#01007">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Problem building a statically linked Mzscheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Mikael Hansen &lt;<A HREF="mailto:mhansen@cs.auc.dk">mhansen@cs.auc.dk</A>&gt;</li>
+<li><em>Subject</em>: Re: Problem building a statically linked Mzscheme</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 9 Oct 2001 08:22:25 -0600 (MDT)</li>
+<li><em>CC</em>: Mzscheme mailinglist &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01006.html">Pine.GSO.4.33.0110091121290.13551-100000@aton.cs.auc.dk</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01006.html">Pine.GSO.4.33.0110091121290.13551-100000@aton.cs.auc.dk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Mikael Hansen:
+&gt; I need to be able to use the
+&gt; write-image-to-file functions and can read in the documentation that
+&gt; mzscheme should be linked statically on UNIX.
+
+You'll need to edit plt/src/mzscheme/sconfig.h to turn image dumping
+on. Or add -DUNIX_IMAGE_DUMPS to the compilation command line.
+
+However, I'm sorry to say that it probably won't work. No one has tried
+to use the image-dumping code in ages, and I notice that the current
+version doesn't even build with image dumping in FreeBSD. (I haven't
+tried Solaris.)
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01019" href="msg01019.html">Re: Problem building a statically linked Mzscheme</a></strong>
+<ul><li><em>From:</em> Mikael Hansen &lt;mhansen@cs.auc.dk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01006" href="msg01006.html">Problem building a statically linked Mzscheme</a></strong>
+<ul><li><em>From:</em> Mikael Hansen &lt;mhansen@cs.auc.dk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01006.html">Problem building a statically linked Mzscheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01008.html">RE: Greetings</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01006.html">Problem building a statically linked Mzscheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01019.html">Re: Problem building a statically linked Mzscheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01007"><strong>Date</strong></a></li>
+<li><a href="threads.html#01007"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Wed, 6 Sep 2000 16:53:27 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39B6CC5D.9287C2AF@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: 14738.52293.108392.678928@sun.cs.rice.edu -->
+<!--X-Reference: 3999D17B.8B30BA66@kurtz&#45;fernhout.com -->
+<!--X-Reference: p04320409b5c073ea0057@[128.42.2.124] -->
+<!--X-Reference: 39B5A123.DD4EC6A8@kurtz&#45;fernhout.com -->
+<!--X-Reference: 39B63DA3.B5D0F991@kurtz&#45;fernhout.com -->
+<!--X-Reference: p04320400b5dbf8f21945@[128.42.2.124] -->
+<!--X-Reference: 39B65D2C.B7E1F933@kurtz&#45;fernhout.com -->
+<!--X-Reference: 200009061820.NAA14001@africa.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Specialized input parsing for code/REPL in DrScheme?</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00545.html">Date Prev</a>][<a href="msg00547.html">Date Next</a>][<a href="msg00545.html">Thread Prev</a>][<a href="msg00550.html">Thread Next</a>][<a href="maillist.html#00546">Date Index</a>][<a href="threads.html#00546">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Specialized input parsing for code/REPL in DrScheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></li>
+<li><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 06 Sep 2000 18:59:41 -0400</li>
+<li><em>CC</em>: <A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00471.html">399207D9.5F451CC@kurtz-fernhout.com</a>&gt;			 &lt;<a href="msg00475.html">14738.52293.108392.678928@sun.cs.rice.edu</a>&gt;			 &lt;<a href="msg00498.html">3999D17B.8B30BA66@kurtz-fernhout.com</a>&gt;	 &lt;<a href="msg00499.html">p04320409b5c073ea0057@[128.42.2.124]</a>&gt;	 &lt;<a href="msg00538.html">39B5A123.DD4EC6A8@kurtz-fernhout.com</a>&gt;	 &lt;<a href="msg00540.html">39B63DA3.B5D0F991@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00541.html">p04320400b5dbf8f21945@[128.42.2.124]</a>&gt; &lt;<a href="msg00542.html">39B65D2C.B7E1F933@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00545.html">200009061820.NAA14001@africa.cs.rice.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthias Felleisen wrote:
+&gt; 
+&gt; Embedding languages:
+&gt; 
+&gt; 1. Scheme is expressive enough [in my sense, not Turing's] to cope with
+&gt;    (the core of) all the languages you mention in a non-interpretive
+&gt;    manner. Specifically, we could write direct mappings from Python
+&gt;    constructs to Scheme constructs w/o global compiler technology.
+&gt;
+&gt;    Especially when Shriram finishes unit/lang, we will be able to do
+&gt;    exactly as you wish.
+
+Looking forward to it. Can you point to more details on this work?
+
+Python is a bit tricky since like Forth in a way you are executing a
+program to make another program when you load some code. If some such
+behavior had to be sacrificed though, it might be OK in Python (probably
+not in Forth though). 
+
+Also, watch out for Python 2.0 where they added &quot;import X as Y&quot; which
+lets you rename acquired libraries on the fly. (You could always do this
+in a few lines of Python code, but this makes it easy). I love the level
+of modularity this provides, because you are not stuck using
+(potentially conflicting) names in your code set by the library author
+(except in importing). I'd love to see this with versioning added (i.e.
+&quot;Import X version 1.4+ as Y&quot;).
+
+One value to having all these languages implemented in Scheme and
+relying on comprehensive common libraries is that they could evolve more
+quickly given a commonly understood infrastructure which was easier to
+work with than C (which most of the accessible implementations are
+written in). 
+
+Of course, then one might start looking into a Squeak-like architecture
+for generation of Scheme infrastructure from a Scheme definition
+translated to C...
+
+&gt; 2. We have considered this issue and believe it to be a research issue with
+&gt;    funding promise. If you truly care, we should consider collaborating. We
+&gt;    need someone who prefers non-parenthetical languages; haven't found
+&gt;    anyone with enough experience on both sides of the divide :-)
+
+Well, I'd certainly be quite interested -- if the result was intended to
+be open source. Otherwise it might just compete badly for mindshare with
+Microsoft's common language runtime -- whereas if it is open source it
+could ride that wave as the open source alternative. 
+
+I don't have the Scheme/Lisp developer skills of most people on this
+list, but I am fairly familiar with many of the others and I'd love to
+get the core of Smalltalk, C, Forth, an Assembler, Python, Self,
+NewtonScript, Basic and whatever else living together in one
+well-supported open source cross-platform framework. I like all sorts of
+languages -- although I will admit I lean to the Smalltalk syntax when
+doing OO type programming, and in general prefer significant indentation
+like Python or Occam to explicit block markers or parens.
+
+I wrote something on this on Dec. 27, 1996 to the Squeak list under the
+title &quot;Squeak and the Babel of programming languages&quot; -- since I thought
+Squeak was another vehicle for this integration. The focus of the Squeak
+community since has been mainly in other directions, although Disney has
+been working on one simpler &quot;scripting&quot; language for inclusion with
+Squeak.
+
+It would probably make sense to discuss the specifics of collaboration
+privately, but I thought I'd reprise part of that thread (a reply I
+wrote Dec. 29, 1996) below for reference and to invite additional
+general comments. 
+
+=== comments on using Squeak which are also applicable to DrScheme ===
+
+[snip]
+
+What I meant in my post was that the Squeak environment &amp; development
+tools could be used to support multi-programming-language software
+development, and that this might be very worth doing.  One thing I think
+people often forget when they discuss the merits of OO (and Smalltalk in
+particular) is that Smalltalk typically is more than a language.  It is
+a garbage collected system with a large library, code browsers, message
+send tracing (ex. senders of..), change controls, incremental compiling,
+great debugger, immediate expression evaluation, and run time type
+safety.  I would rather program in Macro Assembler in such an
+environment than in Smalltalk (just the language, in a text editor)
+without all these features.  I would even argue that 90% of the benefit
+of using Smalltalk comes from these features - although it is true that
+the Smalltalk language makes these features easier to implement.  The
+intent of my post was to say, maybe we can take that 90% and apply it to
+other languages using Squeak as the base.
+
+My reasoning for wanting to support various languages is that different
+programming language syntaxes are better for various tasks. This is for
+two reasons. One is that the programmer may be able to express the goal,
+process, or data in a more elegant way in one language than another. 
+The other is that some languages map more readily to current CPU
+architectures (speedy array indexing, speedy operations on a limited
+number of native types, etc.) and may thus require less run-time
+calculations for supporting their emulation on real hardware.
+
+For example, I find the nested list structure of Lisp very useful to
+define data. I use this construct all the time in VisualWorks Smalltalk
+using nested arrays.  If I had to input various points to run some
+process, I might write something that interpreted a specification like:
+#((pointA 10 20) (pointB 30 40)).  [The VisualWorks user manual is
+incorrect in stating you need '#' in front of internal symbols]. Think
+of VisualWorks windowSpecs as an example of defining a window using the
+array in a very lisp-like way.  I was involved with a project that built
+an entire GUI framework definer system for VisualWorks that uses
+Smalltalk arrays to specify adapters to link GUI elements and domain
+data.  Using that system, I can build complicated GUI windows with only
+two methods - the windowSpec and a method with one nested array.  The
+superclass handles interpreting this array.
+Am I programming in Smalltalk when I write this nested array?
+
+At some point I have to wonder if it is harder to write Smalltalk to do
+fancy things with lists than just using Lisp.  Without wanting to start
+a long discussion on that point, let me just say there is a lot of code
+freely available in Lisp to do AI &amp; natural language sorts of things
+which I'd like to play with.  My first significant programming in a
+language with full O-O support was in ZetaLisp and Flavors on a
+Symbolics, and I still think there are some advantages of the Lisp mind
+set over the Smalltalk mindset for some parsing tasks (and some
+disadvantages too of course.)  Lisp also has the advantage over
+Smalltalk that purely procedural parts can be compiled to fairly speedy
+code.  Lisp is widely used in defining other languages; for example,
+Macintosh Common Lisp was used to implement Dylan.
+
+For another example, everyone will agree that as far as numerical speed,
+Smalltalk is not a good language for number crunching because of the
+need for lots of method dispatching in what could otherwise be
+statically compiled code for the most part.
+That is something inherent in a language that does not restrict types of
+function arguments. Smalltalk never knows when you are going to use the
+debugger and swap a Float with a String, and so it always has to be at
+the ready to give you a friendly 'String does not understand *' in that
+case (rather than crash!).  Different languages place different demands
+on the compile, translator, or interpreter that handles them, and so can
+intrinsically be implemented more or less speedily for doing different
+tasks.  Sure you can get around these by changing the language - like
+adding types to Smalltalk (StrongTalk), but that's still my point - that
+specific languages have strengths and weaknesses.  Can one define one
+coherent language that is simple to learn, easy to use, and as efficient
+as possible?  I don't know. (C++ anyone? &lt;grin&gt;)
+  
+[snip]
+
+=== end older comments ===
+
+Obviously, DrScheme brings different strengths and weaknesses to
+supporting multiple languages than say Squeak Smalltalk. 
+
+On the one hand, Scheme is faster and more flexible than Smalltalk in a
+low level sense (i.e. Scheme can more easily be procedural, object,
+functional, intentional, etc.) while still being a good high level
+language. In that sense, Scheme is a better choice than Smalltalk for
+underlying a multi-lingual system.
+
+On the other hand, the Lisp family development environments typically
+don't have quite the integration of tools Smalltalk has historically had
+in terms of code browsers and fine grained version control. For example,
+with common implementations of Lisp family languages you more likely end
+up using grep for finding senders or file based source control for
+rolling back code. Obviously, a few Lisp systems do have close analogs
+for many Smalltalk tools -- it is mainly the tight integration available
+on almost every Smalltalk platform that I am getting at here. These
+other Smalltalk technologies could possibly be added into DrScheme --
+integrating in ideas like a change log or &quot;senders of&quot; for example
+(which might require an elaboration on the notion of &quot;project&quot; or
+&quot;image&quot;). Of course, since these browsing tools are designed in
+Smalltalk for supporting only one language, in practice the might have
+to be redesigned anyway to be multi-lingual.
+
+In general, if one was going to come up with an integration plan,
+evaluating good aspects of development environments of other languages
+and incorporating them into DrScheme might make sense. I think in
+practice this means mostly just looking at Smalltalk tools though -- and
+probably focusing mostly on just a handful of operations related to
+navigating a web of code (senders, implementors, variable references).
+Making those operations work across multi-lingual code (and
+multi-paradigm code) would be quite a challenge -- probably requiring
+some common underlying representation in Scheme with ties back to the
+textual code and/or parse trees.
+
+I think for practicality, certainly at first one might have to sacrifice
+some aspects of various languages -- probably their specific support
+libraries (replaced by the common one), behavior related to quirks of
+the implementation (ex. Python reference counting), and maybe choosing
+just one standard exception handling mechanism. Of course, once you've
+made those compromises, you really don't quite have the language in the
+specific way a programmer may have grown to love it (which often
+involves familiarity with a specific GUI or I/O library). So, whether
+such a system will ever get good enough to attract people who already
+are using a specific implementation of language may be quite an issue. 
+
+I think its attraction would hinge on other benefits made possible by
+the resources a multi-lingual system might have -- integrated
+development tools, comprehensive library, cross-platform development,
+stability, easy FFI, and so on. These are resources that each might be
+better in a multi-lingual system than any one language has for itself.
+Even then, an experienced programmer's interest would probably be
+restricted to specific situations -- say a Python programmer who wants a
+certain GUI look on the Mac that TK can't easily offer, or a Forth
+programmer who wants a cross platform GUI, or an instructor looking for
+a more forgiving interpretive C environment.
+
+But still, imagine one well supported cross-platform system hosting all
+the most popular and useful languages (as optional downloads, translated
+to Scheme behind the scenes, and from there maybe to C or even back to
+other languages when possible) with one very well developed, heavily
+debugged, and well documented library accessible from all languages
+(with FFI, and maybe a link to the GCC back end). For a lot of
+situations, there might not be a better choice. Certainly within the
+realm of K-12 education, such a platform might provide both teachers and
+students with an open ended tool they could find useful for years to
+come in a wide variety of different courses. It would also create a new
+arena for people interest in programming language design to focus their
+efforts, since they get the infrastructure pre-built and so can focus on
+the language design.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00550" href="msg00550.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paolo Amoroso &lt;amoroso@mclink.it&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00471" href="msg00471.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00475" href="msg00475.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00498" href="msg00498.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00499" href="msg00499.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00538" href="msg00538.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00540" href="msg00540.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00541" href="msg00541.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00542" href="msg00542.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00545" href="msg00545.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00545.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00547.html">keyboard shortcut</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00545.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00550.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00546"><strong>Date</strong></a></li>
+<li><a href="threads.html#00546"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

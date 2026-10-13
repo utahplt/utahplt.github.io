@@ -1,0 +1,161 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: A Conclusion Re: SchemeQL -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Thu, 12 Jul 2001 13:04:52 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200107121904.PAA18741@cslab9a.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010712141247.98951.qmail@web11201.mail.yahoo.com -->
+<!--X-Reference: 874rsi88dl.fsf@cloaked.freeserve.co.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: A Conclusion Re: SchemeQL</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00647.html">Date Prev</a>][<a href="msg00649.html">Date Next</a>][<a href="msg00647.html">Thread Prev</a>][<a href="msg00651.html">Thread Next</a>][<a href="maillist.html#00648">Date Index</a>][<a href="threads.html#00648">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: A Conclusion Re: SchemeQL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: A Conclusion Re: SchemeQL</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 12 Jul 2001 15:04:19 -0400 (EDT)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00646.html">874rsi88dl.fsf@cloaked.freeserve.co.uk</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00640.html">20010712141247.98951.qmail@web11201.mail.yahoo.com</a>&gt;&lt;<a href="msg00646.html">874rsi88dl.fsf@cloaked.freeserve.co.uk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+MJ Ray wrote:
+
+&gt; I must say that I'm amazed.  I think I've just seen my first post ever
+&gt; where Shriram is posting something I vehemently and violently disagree
+&gt; with.  
+
+Hmm, I'm losing my edge.  Must be old age. (-:
+
+&gt;	 Expecting templates to be written in scheme is totally
+&gt; wrong-headed.  The designers just won't go for it.  
+
+Oh, but the templates are only barely written in Scheme.  As Noel
+points out, they're largely written in a simplified XML syntax.  Think 
+of it as a two-colored syntax, where (lacking color) upper-case
+represents one color and lower-case another:
+
+  (define (template TITLE)
+    `(html
+       (head
+         (title ,TITLE))
+       (body
+         &quot;Some body text&quot;)))
+
+This is almost the same as writing
+
+  (define (template TITLE)
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;TITLE&lt;/title&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+         Some body text
+      &lt;/body&gt;
+    &lt;/head&gt;
+  )
+
+So let's make this sweeter:
+
+  &lt;define name=&quot;template&quot; args=&quot;TITLE&quot;&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+        &lt;title&gt;TITLE&lt;/title&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+         Some body text
+      &lt;/body&gt;
+    &lt;/head&gt;
+  &lt;/define&gt;
+
+Think of this as &quot;HTML generation by example&quot;: you provide most of the 
+code, leave a few parameters free, and fill in the parameters when you 
+know them.
+
+We've written a reader that converts rudimentary Scheme of this form
+into actual Scheme that you can run.  That is, plug in the new reader, 
+and you can actually run the above program.
+
+&gt;						      Mostly you get
+&gt; HTML from them, or XSLT if you're very lucky.  You will never get that
+&gt; sort of mark-up from them, because they have no tools to develop it.
+
+Depends.  My development tool is all of DrScheme.  What's yours? (-:
+
+(You might want to write John Clements, &lt;clements@cs.rice.edu&gt;, and
+ask him for our &quot;little languages&quot; paper.  The code in it doesn't run
+any longer with the version changes, but if someone's interested ...)
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00651" href="msg00651.html">Re: A Conclusion Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00640" href="msg00640.html">Re: A Conclusion Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+<li><strong><a name="00646" href="msg00646.html">Re: A Conclusion Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00647.html">Re: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00649.html">RE: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00647.html">Re: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00651.html">Re: A Conclusion Re: SchemeQL</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00648"><strong>Date</strong></a></li>
+<li><a href="threads.html#00648"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Newbie Mr.Ed question -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Wed, 29 Nov 2000 17:24:23 &#45;0700 (MST) -->
+<!--X-Message-Id: 200011300024.SAA17171@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3A25BE8B.19468ED@po&#45;box.mcgill.ca -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Newbie Mr.Ed question</title>
+<link rev="made" href="mailto:matthias@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00758.html">Date Prev</a>][<a href="msg00760.html">Date Next</a>][<a href="msg00758.html">Thread Prev</a>][<a href="msg00760.html">Thread Next</a>][<a href="maillist.html#00759">Date Index</a>][<a href="threads.html#00759">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Newbie Mr.Ed question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:jcrave@po-box.mcgill.ca">jcrave@po-box.mcgill.ca</A></li>
+<li><em>Subject</em>: Re: Newbie Mr.Ed question</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 29 Nov 2000 18:24:39 -0600 (CST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00758.html">3A25BE8B.19468ED@po-box.mcgill.ca</a>&gt; (message from Jon Craven onWed, 29 Nov 2000 18:42:19 -0800)</li>
+<li><em>References</em>: &lt;<a href="msg00758.html">3A25BE8B.19468ED@po-box.mcgill.ca</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Jon, check this out:
+
+  (define f (make-object frame% &quot;hello&quot; #f 100 100))
+
+  (send f show #t)
+
+  (define message1 (make-object message% &quot;hello again&quot; f))
+
+  (define next-question &quot;foo&quot;)
+
+  (define right-answer
+    (lambda ()
+      (begin
+	(send message1 set-label &quot;You're right!&quot;) ;message% object
+	(sleep/yield 1)
+	(send message1 set-label next-question))))
+
+  (sleep/yield 1)
+  (right-answer)
+
+It doesn't explain the difference in behavior but it may help you get off
+the ground. 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00758" href="msg00758.html">Newbie Mr.Ed question</a></strong>
+<ul><li><em>From:</em> Jon Craven &lt;jcrave@po-box.mcgill.ca&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00758.html">Newbie Mr.Ed question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00760.html">Re: Newbie Mr.Ed question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00758.html">Newbie Mr.Ed question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00760.html">Re: Newbie Mr.Ed question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00759"><strong>Date</strong></a></li>
+<li><a href="threads.html#00759"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

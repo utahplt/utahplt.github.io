@@ -1,0 +1,174 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Strange problem with servlets -->
+<!--X-From-R13: Bnhy Uenhaxr <cgtNppf.arh.rqh> -->
+<!--X-Date: Tue, 11 Jun 2002 14:08:48 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020611200843.AC1211AA4B@amber.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 9C4158A14701F94491A40E54FED9ACD4035293@kf&#45;nt.kf.local -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Strange problem with servlets</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01106.html">Date Prev</a>][<a href="msg01108.html">Date Next</a>][<a href="msg01106.html">Thread Prev</a>][<a href="msg01111.html">Thread Next</a>][<a href="maillist.html#01107">Date Index</a>][<a href="threads.html#01107">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Strange problem with servlets</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Petter Egesund &lt;<A HREF="mailto:petter.egesund@kunnskapsforlaget.no">petter.egesund@kunnskapsforlaget.no</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Strange problem with servlets</li>
+<li><em>From</em>: Paul Graunke &lt;<A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 11 Jun 2002 16:08:43 -0400 (EDT)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01106.html">9C4158A14701F94491A40E54FED9ACD4035293@kf-nt.kf.local</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01106.html">9C4158A14701F94491A40E54FED9ACD4035293@kf-nt.kf.local</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Is the server running on the same machine as IE 6.0?
+IE 6.0 behaves strangely (incorrectly) when connecting to the same machine
+in a number of ways.  The current CVS version of the server has a workaround
+for a bug similar to the one you're seeing.  Which version of DrScheme
+are you running?
+
+Thanks,
+
+Paul
+
+At Tue, 11 Jun 2002 16:17:37 +0200, Petter Egesund wrote:
+&gt; Hi, I am trying to write scheme-servlets but seems to face a strange
+&gt; problem;
+&gt; 
+&gt; 1. Open a NEW Explorer window and address the servlet.
+&gt; 2. After filling in the form, Explorer waits forever or until I stop and
+&gt; submit the same form again.
+&gt; 
+&gt; Some remarks;
+&gt; 
+&gt; - If I press refresh before filling out the form, the problem disappears and
+&gt; the servlet continues.
+&gt; - The problem does not occur on Opera web-browsers.
+&gt; - It works after pressing stop and pressing submit button again.
+&gt; - I am using Explorer 6.0 &amp; running the servlets on Windows XP (to be ported
+&gt; to a Linux-server).
+&gt; - It works if I change the last line in my program to:
+&gt; 
+&gt;  ,(let ((a (request)) (b (request))) &quot;Not here&quot;)))))))
+&gt; 
+&gt; (in the this case I request the same form twice)
+&gt; 
+&gt; Seems to be a small problem with the HTTP-header part?
+&gt; 
+&gt; In case I am doing something wrong, I would be very glad for some
+&gt; enlightenment!
+&gt; 
+&gt; Best Regards
+&gt; 
+&gt; Petter Egesund
+&gt; Norway
+&gt; 
+&gt; 
+&gt; Here is a version of the program, wich is a strip-down of the enclosed
+&gt; add2.ss-example.
+&gt; 
+&gt; ---------------------
+&gt; 
+&gt; 
+&gt; (require (lib &quot;unitsig.ss&quot;)
+&gt;          (lib &quot;servlet-sig.ss&quot; &quot;web-server&quot;)
+&gt;          (lib &quot;servlet-helpers.ss&quot; &quot;web-server&quot;)
+&gt;          (lib &quot;date.ss&quot;))
+&gt; 
+&gt; (unit/sig () (import servlet^)
+&gt;   
+&gt;   ; request-number : str -&gt; num
+&gt;   (define (request)
+&gt;       (request-bindings (send/suspend (build-request-page))))
+&gt;   
+&gt;   ; build-request-page : str -&gt; str -&gt; response
+&gt;   (define (build-request-page)
+&gt;     (lambda (k-url) (display k-url)
+&gt;       `(html (head (title &quot;Enter a Number to Add Me&quot;))
+&gt;              (body ([bgcolor &quot;white&quot;])
+&gt;                    (form ([action ,k-url] [method &quot;post&quot;])
+&gt;                          &quot;Enter the number to add: &quot;
+&gt;                          (input ([type &quot;radio&quot;] [name &quot;q1&quot;] [value &quot;A&quot;]))
+&gt;                          (input ([type &quot;radio&quot;] [name &quot;q1&quot;] [value &quot;B&quot;]))
+&gt;                          (input ([type &quot;text&quot;] [name &quot;number&quot;] [value &quot;&quot;]))
+&gt;                          (p &quot;small inline 24&quot;)
+&gt;                          (input ([type &quot;submit&quot;] [name &quot;enter&quot;] [value
+&gt; &quot;Enter&quot;])))))))
+&gt;   
+&gt;   (send/suspend
+&gt;    (lambda (k-url)
+&gt;      `(html (head (title &quot;Sum&quot;))
+&gt;             (body ([bgcolor &quot;white&quot;])
+&gt;                   (p &quot;The sum is &quot;
+&gt;                      ,(let ((a (request)) ) &quot;Not here&quot;)))))))
+&gt; 
+&gt; -----------------------
+&gt; 
+&gt; ###########################################
+&gt; 
+&gt; This message has been scanned by F-Secure Anti-Virus for Microsoft Exchange.
+&gt; For more information, connect to <A  HREF="http://www.F-Secure.com/">http://www.F-Secure.com/</A>
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01106" href="msg01106.html">[plt-scheme] Strange problem with servlets</a></strong>
+<ul><li><em>From:</em> Petter Egesund &lt;petter.egesund@kunnskapsforlaget.no&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01106.html">[plt-scheme] Strange problem with servlets</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01108.html">Re: [plt-scheme] Linux pre-release binaries</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01106.html">[plt-scheme] Strange problem with servlets</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01111.html">SV: [plt-scheme] Strange problem with servlets</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01107"><strong>Date</strong></a></li>
+<li><a href="threads.html#01107"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

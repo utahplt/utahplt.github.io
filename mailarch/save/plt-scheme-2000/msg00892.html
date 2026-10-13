@@ -1,0 +1,208 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Multimedia in DrScheme -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Thu, 31 Aug 2000 13:38:30 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39AEB5BF.C6A16194@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: v04210133b5d445049dfd@[130.207.3.227] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Multimedia in DrScheme</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00891.html">Date Prev</A>][<A HREF="msg00893.html">Date Next</A>][<A HREF="msg00891.html">Thread Prev</A>][<A HREF="msg00893.html">Thread Next</A>][<A HREF="maillist.html#00892">Date Index</A>][<A HREF="threads.html#00892">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Multimedia in DrScheme</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: Multimedia in DrScheme</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 31 Aug 2000 15:45:03 -0400</LI>
+<LI><em>CC</em>: Mark Guzdial &lt;<A HREF="mailto:guzdial@cc.gatech.edu">guzdial@cc.gatech.edu</A>&gt;</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00891.html">v04210133b5d445049dfd@[130.207.3.227]</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Funny running into you on this list (instead of the Squeak list).
+
+DrScheme uses wxWindows for underlying functions, which has good and bad
+features. Try: "((get-color-pixel viewport) p)" using the simple
+graphics functions. It's under "Position Operations" and it took me a
+while to find it myself. Note that "(open-pixmap name horiz vert)" can
+be offscreen -- but I'm not sure if "get-color-pixel" works with it (I'd
+assume yes?). 
+
+I haven't tried the alternative functions under wxWindows -- but I think
+the wxWindows DC provides some limited bit blitting operations (I don't
+think as many as Smalltalk though). Search on "pixel" in the help desk
+and the MrEd "get-pixel" function will be at the top, found also under
+"bitmap-dc%".
+
+I found the graphics to be 4 - 6 times faster doing 3D drawing using
+DrScheme over Squeak. Although there could be all kinds of reasons, I
+did feel the wxWindows viewport blitting to the screen might be faster
+in DrScheme under win32.
+
+I haven't looked at sound -- sorry. I did post an example to this list a
+few weeks back on doing a file primitive as a DLL. That might be useful
+if you have to write something it in C and interface to it. It should be
+in the archive:
+  <A  HREF="http://www.cs.utah.edu/plt/mailarch/">http://www.cs.utah.edu/plt/mailarch/</A>
+There are of course several examples for extensions that ship with
+DrScheme. 
+Look under: C:/Plt/MzScheme/examples
+
+If you find out more on sound, I hope you post a summary to the list.
+
+It's a shame to see so much duplicate work required to maintain various
+platforms in various projects -- all essentially similar effort
+requiring substantial time by good people. Also the effort by all of us
+to learn all these open source platforms (Squeak, DrScheme, GForth, what
+have you) just to have a choice oof languages. I downloaded the DrScheme
+source (6 Hours CVS!) and it's basically a forked version of wxWindows
+from several years ago -- and so a maintenance requirement -- although
+I'll given Matt and others here lots of credit for keeping it stable and
+useful on the major platforms, and they do show a strong commitment to
+supporting it. However, it's opaqueness (being compiled) means one has
+to rely heavily on the HelpDesk for getting API information. I think the
+HelpDesk in DrScheme if fabulous -- Squeak could benefit from something
+like it.
+
+I would love to see an open source Scheme, Smalltalk, Pascal, Forth,
+etc. all using a common core, with native FFI interface functions,
+native code generation as desired, and also good emulated widget set for
+a simple common core API. Multimedia functions should be near identical
+from any language you choose to use on this platform. Hope we get there
+someday. Either Scheme or Squeak might be good underlying layers. I
+think Squeak is in some ways the closest, because it adopts the approach
+of generating the bulk of the C from an abstract representation
+(Smalltalk), whereas MzScheme has to float on top of lots of C code only
+maintainable in C. That's ironic because in practice Lisp syntax lends
+itself more to translation. Too bad SqueakC hasn't in the past
+emphasized reliability, exception handling, compactness, modularity,
+etc. over expanding functionality. In my darker moods I think that lack
+is intentional to keep everyone shackled as eToy alpha testers. At least
+with DrScheme, clutter and rough edges are less obvious at the start.
+
+I've enjoyed working with DrScheme. It's a fun system and quite snappy. 
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+Mark Guzdial wrote:
+&gt; 
+&gt; Hi!  I'm a first time caller to the list, and a newcomer to DrScheme.
+&gt; We're using DrScheme in our introduction to computing class at
+&gt; Georgia Tech.
+&gt; 
+&gt; I'd like to invent some multimedia activities in DrScheme, and to do
+&gt; so, I need some existing toolbox functions available at just one
+&gt; level lower of abstract, it seems to me.  Or maybe what I want to do
+&gt; is already available, or easily implemented, but I just am not seeing
+&gt; it.
+&gt; 
+&gt; - I want students to be able to do simple "transition" animations
+&gt; between images, e.g., blurs, fades, or even morphing.  There is a
+&gt; function for loading a pixmap from a file, and there's another for
+&gt; setting a pixel in a viewport.  But what I really need are the
+&gt; lower-level functions: To be able to manipulate a pixmap in memory,
+&gt; and get individual pixel color values.
+&gt; 
+&gt; - I want students to be able to fill a sound buffer with computed
+&gt; values (e.g., a sine wave, and later, a sine wave modified by an
+&gt; envelope) and then play the sound buffer.  There is a function for
+&gt; playing a sound from a file, but I need to be able to access the
+&gt; sound buffer before it starts to play.
+&gt; 
+&gt; These are interesting because they're computationally not very
+&gt; complicated, but the results are fun and fairly different from
+&gt; traditional CS1 projects.
+&gt; 
+&gt; These basic abilities are available in other languages in
+&gt; cross-platform versions, so the basic source code should be
+&gt; available.  Squeak (<A  HREF="http://www.squeak.org">http://www.squeak.org</A>) can do this.  Java can do
+&gt; some of this.  CSound can do the sound example cross-platform.
+&gt; Tcl/Tk, I believe, can do the transitions programming cross-platform.
+&gt; 
+&gt; Can anyone tell me if
+&gt; (a) these functions are already available, and how I get to them? or
+&gt; (b) how to extend DrScheme to allow these facilities?
+&gt; 
+&gt; Thank you!
+&gt;   Mark
+&gt; --------------------------
+&gt; Mark Guzdial : Georgia Tech : College of Computing : Atlanta, GA 30332-0280
+&gt; Associate Professor - Learning Sciences &amp; Technologies.
+&gt; Collaborative Software Lab - <A  HREF="http://coweb.cc.gatech.edu/csl/">http://coweb.cc.gatech.edu/csl/</A>
+&gt; (404) 894-5618 : Fax (404) 894-0673 : guzdial@cc.gatech.edu
+&gt; <A  HREF="http://www.cc.gatech.edu/gvu/people/Faculty/Mark.Guzdial.html">http://www.cc.gatech.edu/gvu/people/Faculty/Mark.Guzdial.html</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00893" HREF="msg00893.html">Re: Multimedia in DrScheme</A></STRONG>
+<UL><LI><EM>From:</EM> John Clonts &lt;jclonts@mastnet.net&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00891" HREF="msg00891.html">Multimedia in DrScheme</A></STRONG>
+<UL><LI><EM>From:</EM> Mark Guzdial &lt;guzdial@cc.gatech.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00891.html">Multimedia in DrScheme</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00893.html">Re: Multimedia in DrScheme</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00891.html">Multimedia in DrScheme</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00893.html">Re: Multimedia in DrScheme</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00892"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00892"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

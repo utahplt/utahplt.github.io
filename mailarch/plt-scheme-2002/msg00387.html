@@ -1,0 +1,165 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: xentraNcbobk.pbz (Yentra Evgnxre) -->
+<!--X-Date: Thu, 21 Mar 2002 00:22:32 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020321072226.8A969BDC5@panacea.canonical.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:kragen@pobox.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00386.html">Date Prev</a>][<a href="msg00388.html">Date Next</a>][<a href="msg00386.html">Thread Prev</a>][<a href="msg00388.html">Thread Next</a>][<a href="maillist.html#00387">Date Index</a>][<a href="threads.html#00387">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: <A HREF="mailto:kragen@pobox.com">kragen@pobox.com</A> (Kragen Sitaker)</li>
+<li><em>Date</em>: Thu, 21 Mar 2002 02:22:26 -0500 (EST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Brent Fulgham writes:
+&gt; I find myself in an uncomfortable state of language equivocation.  I
+&gt; seem to be forever vascillating between the strongly-typed and
+&gt; &quot;dynamic/untyped&quot; programming languages.
+
+Scheme and OCaml are strongly typed; Forth, BCPL, and almost all
+assembly languages are untyped.  C is almost untyped.  From the rest
+of your post, I'm assuming you're talking about the dynamic/static
+dichotomy, not the strong/weak dichotomy, and I won't discuss the
+strong/weak dichotomy further.
+
+Python is strongly typed; Perl and Tcl are similar, but offer so many
+peremptory coercions that the strong typing doesn't help much to catch
+bugs, although it may shorten development time.
+
+&gt; The proponents of so-called &quot;[statically]-typed&quot; languages in the
+&gt; Hindley-Milner school make the seemingly compelling argument that
+&gt; such type-checks provide superior program quality and reliability by
+&gt; catching syntax and logic errors before execution time.
+
+There are two other arguments for static typing: it helps document
+interfaces (you don't have to do manual type inference or read
+documentation to tell whether the first argument to hash-table-ref is
+a hash table (as it should be) or a hashable object), and it helps
+compilers produce efficient code.
+
+Superior program quality with the same effort, of course, means less
+effort to achieve the same program quality.
+
+Type declarations (either of the simple kind C uses, or the more
+involved Hindley-Milner kind) can be added to dynamically-typed
+languages.  Common Lisp does this for efficiency.  I haven't used this
+feature enough to know if it helps with reliability and documentation
+of interfaces.  Intuitively, it seems that it should.
+
+&gt; On the other hand, such [static] typing would seem to prevent the
+&gt; construction of polymorphic routines that allow a wide variety of
+&gt; types to be accepted as arguments.  It also seems to prevent you
+&gt; from arbitrarily expanding the types of data that a particular
+&gt; program might be exposed to without rebuilding the entire world.
+&gt; You do not always have the luxury of revising an object (or type)
+&gt; hierarchy, especially if you don't have the source code for all the
+&gt; different units, etc.
+
+Generally you need some kind of &quot;type abstraction firewall&quot; between
+parts of a large program to limit the code changes required by some
+data representation change.  This is true no matter how your program
+is structured, whether procedural, functional, object-oriented, or
+something else.
+
+These firewalls need to be present in the source code to allow code to
+evolve; they may or may not be in place in the compiled output,
+depending on the way the program is structured, and whether or not
+they are in place determines how much of the compiled output you have
+to rebuild and replace when upgrading the program.
+
+If you do not put such firewalls in place, expanding the types of data
+your program can handle will require rebuilding the whole world.
+
+Statically-typed languages tend to require less work to determine what
+parts of a program must change (they fail typechecking), but more
+effort to make the change (because you must typically fix type
+declarations and because elementary operations tend to be less
+polymorphic).
+
+&gt; However, my experience with some [dynamically-typed] languages
+&gt; (notably Visual Basic and Python) lead me to believe that this
+&gt; dynamicism often shifts bugs forward in time, so that you do not
+&gt; encounter them until users are exercising a program in ways not
+&gt; previously anticipated by the SQA team -- or when the program runs
+&gt; in an environment that differs in some fashion from the original
+&gt; test bed.
+
+Carefully reasoning about your programs, seeking convincing arguments
+that they must be correct, is a much more efficient way of making code
+correct than testing is.  Perhaps static typing encourages programmers
+to do this.
+
+-- 
+&lt;kragen@pobox.com&gt;       Kragen Sitaker     &lt;<A  HREF="http://www.pobox.com/~kragen/">http://www.pobox.com/~kragen/</A>&gt;
+When the battle between &quot;us&quot; and &quot;them&quot; is equated with the battle between 
+good and evil -- then we have placed ourselves above all evil. This is to 
+make gods of ourselves.  -- Steve Talbot, NETFUTURE #129, via SMART Letter
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00388" href="msg00388.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> sperber@informatik.uni-tuebingen.de (Michael Sperber [Mr.  Preprocessor])</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00386.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00388.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00386.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00388.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00387"><strong>Date</strong></a></li>
+<li><a href="threads.html#00387"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

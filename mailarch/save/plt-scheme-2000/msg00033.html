@@ -1,0 +1,162 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: smart&#45;extension &#45;&#45;&#45; a signed unit with meta data -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Sun, 23 Jan 2000 13:52:38 &#45;0700 (MST) -->
+<!--X-Message-Id: 75514FC5ECC8D2118C8D00A0C9ED54DB566AF1@OBCMAIL1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>smart-extension --- a signed unit with meta data</TITLE>
+<LINK REV="made" HREF="mailto:GregP@bsquare.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00032.html">Date Prev</A>][<A HREF="msg00034.html">Date Next</A>][<A HREF="msg00032.html">Thread Prev</A>][<A HREF="msg00034.html">Thread Next</A>][<A HREF="maillist.html#00033">Date Index</A>][<A HREF="threads.html#00033">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>smart-extension --- a signed unit with meta data</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "'<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>'" &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: smart-extension --- a signed unit with meta data</LI>
+<LI><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 23 Jan 2000 12:51:54 -0800</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+-----Original Message-----
+From: Matthew Flatt [<A  HREF="mailto:mflatt@cs.utah.edu">mailto:mflatt@cs.utah.edu</A>] 
+Sent: Sunday, January 23, 2000 12:48 PM
+To: Greg Pettyjohn
+Subject: RE: plt-scheme message
+
+
+Quoting Greg Pettyjohn:
+&gt; I wasn't sure whether this was the correct forum for that.
+
+plt-scheme is definitely the right forum. I think you should send
+everything else you wrote in your message to plt-scheme, and point to
+ftp.cs.rice.edu/pub/mflatt/ (or wherever you put it) for the code.
+
+Matthew
+
+-------------------------------------
+Very well, as per Matthew
+
+
+In playing with the extension stuff, I noticed that when I switched
+over to the unit model, I had a whole list of exports that I needed to
+maintain.
+In particular, there are redundant entries in several locations in the code:
+
+1. In scheme_intialize
+2. In the unit_init function.
+3. In the signature file e.g. sigs.ss
+
+In SrPersists, Paul centralizes this data a little better by putting it
+all into a .tbl file. Then the work in the various init functions is handled
+by
+a simple for loop.
+
+What I did with the example "smart-extension" was to write a routine that
+returns a list with the signature information. Then I worked out a way
+so that scheme_initialize returns a *signed* unit rather than an ordinary
+unit.
+
+The unit exports the signature function called export-list. So if you want
+the
+export information you can invoke the unit as follows:
+
+(require-library "macro.ss")
+(define smart-extension@ (load-relative-extension (build-path "bin"
+"smart_extension.dll")))
+(define-values/invoke-unit/sig (export-list) smart-extension@)
+
+When you call export-list it produces a list suitable to be used as a
+signature:
+
+(eval `(define-values/invoke-unit/sig ,(export-list) smart-extension@))
+
+The trick is that export-list uses exactly the same .tbl data that the
+scheme_initialize and unit_init
+do. It's a short little routine with a two-line for loop in it. Plus, it can
+never be wrong, the signature
+it produces will match whatever is needed since it is based off the same
+data.
+
+Of course, smart-extension@ is a signed unit just like any other signed
+unit. Once you have the export information,
+you can use it however you want.
+
+Another thought crossed my mind while I was writing this. The .tbl
+information also contains handy information
+about each exported function. In particular, it knows the min arity and max
+arity for each function. I suppose
+you could also add more fields to the structure if you wanted as well.
+Anyway, it wouldn't be hard to write a routine
+help-list.
+
+(help-list help-proc)
+
+help-list would accept a single argument help-proc. help-proc would be a
+proceedure of 
+three arguments, min-arity, max-arity, name. When called, help-list would
+apply help-proc 
+to each function in the .tbl array. The idea is that help-proc would be
+supplied by a help
+system and would automatically load reference data for each of the
+functions.
+
+I've already, experimented with a help-proc that makes a doc.txt file.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00032.html">Re: (/ 0 0.0) ==&gt; 0</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00034.html">FFI...  (any C hackers around?)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00032.html">Re: (/ 0 0.0) ==&gt; 0</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00034.html">FFI...  (any C hackers around?)</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00033"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00033"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

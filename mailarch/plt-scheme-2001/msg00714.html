@@ -1,0 +1,115 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: mzscheme extension problems -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 23 Jul 2001 06:35:06 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200107231235.f6NCYxr01457@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: v03007803b781a9277bfd@[194.5.49.5] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: mzscheme extension problems</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00713.html">Date Prev</a>][<a href="msg00715.html">Date Next</a>][<a href="msg00713.html">Thread Prev</a>][<a href="msg00716.html">Thread Next</a>][<a href="maillist.html#00714">Date Index</a>][<a href="threads.html#00714">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: mzscheme extension problems</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Stephane Letz &lt;<A HREF="mailto:letz@grame.fr">letz@grame.fr</A>&gt;</li>
+<li><em>Subject</em>: Re: mzscheme extension problems</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 23 Jul 2001 06:35:00 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00713.html">v03007803b781a9277bfd@[194.5.49.5]</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00713.html">v03007803b781a9277bfd@[194.5.49.5]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Stephane Letz:
+&gt; First i compiled and load successfully the extension in Drscheme. Some
+&gt; functions worked, but because the external code open OS threads, i've got
+&gt; several segmentation fault.
+&gt; 
+&gt; Using the 103 distribution, I compiled the system with OS threads, but had
+&gt; to hack the linux_thread.c file to make it compile (Linux kernel 2.4.3
+&gt; Mandrake 8.0 distribution)
+
+Do the OS threads created by the extension call back into Scheme?
+
+I ask because we're planning to discontinue support for MzScheme
+threads as OS threads in the next release, and I wonder whether there's
+another way around the seg faults.
+
+&gt; I tried to load again the extension but now get the error :  &quot;undefined
+&gt; symbol : scheme_current_process&quot;
+&gt; 
+&gt; I tried also to link the mzdyn.o file into my .so extension but get the error :
+&gt; &quot;multiple definition : scheme-initialiez-internal&quot;
+
+To make an extension work with an OS-thread MzScheme, it needs to be
+compiled specifically for OS threads. When compiling the extension, add
+-DLINUX_THREADS -D_REENTRANT to the compiler's command line. If you're using mzc, then:
+
+  mzc ...  ++ccf -DLINUX_THREADS ++ccf -D_REENTRANT
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00713" href="msg00713.html">mzscheme extension problems</a></strong>
+<ul><li><em>From:</em> Stephane Letz &lt;letz@grame.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00713.html">mzscheme extension problems</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00715.html">Re: GC and portability issues</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00713.html">mzscheme extension problems</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00716.html">SAC '02 - 2002 ACM SYMPOSIUM ON APPLIED COMPUTING - Call for</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00714"><strong>Date</strong></a></li>
+<li><a href="threads.html#00714"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

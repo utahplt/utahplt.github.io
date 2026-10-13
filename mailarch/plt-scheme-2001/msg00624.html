@@ -1,0 +1,176 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SchemeQL -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Tue, 10 Jul 2001 09:33:34 &#45;0600 (MDT) -->
+<!--X-Message-Id: 86ofqt8445.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87bsmthtxt.fsf@cloaked.freeserve.co.uk -->
+<!--X-Reference: 86zoad86tw.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Reference: 87d778rg8e.fsf@cloaked.freeserve.co.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SchemeQL</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00623.html">Date Prev</a>][<a href="msg00625.html">Date Next</a>][<a href="msg00635.html">Thread Prev</a>][<a href="msg00630.html">Thread Next</a>][<a href="maillist.html#00624">Date Index</a>][<a href="threads.html#00624">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SchemeQL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: SchemeQL</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: Tue, 10 Jul 2001 10:34:18 +0000</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00622.html">87d778rg8e.fsf@cloaked.freeserve.co.uk</a>&gt; (MJ Ray's message of&quot;10 Jul 2001 15:49:53 +0100&quot;)</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma deMéxico</li>
+<li><em>References</em>: &lt;<a href="msg00615.html">87bsmthtxt.fsf@cloaked.freeserve.co.uk</a>&gt;&lt;<a href="msg00620.html">86zoad86tw.fsf@biblio06.fciencias.unam.mx</a>&gt;&lt;<a href="msg00622.html">87d778rg8e.fsf@cloaked.freeserve.co.uk</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090004 (Oort Gnus v0.04) XEmacs/21.1 (Cuyahoga Valley)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt; writes:
+
+[...]
+
+&gt; PostgreSQL, set to ODBC version 2.5.
+&gt; 
+&gt; Your code (with appropriate changes) gives me
+&gt; 
+&gt; ((IM002 0 [unixODBC][Driver Manager]Data source name not found, and no default driver specified))
+&gt; 
+&gt; OK, this looks more like an ODBC installation problem, doesn't it?
+
+Maybe only a configuration one. 
+
+[...]
+
+&gt; There's isql, but I can't figure out what is my DSN (dbms parameter in
+&gt; the schemeql) really.  Niether the database name nor the host name
+&gt; work, though.
+
+DSN is usually your hostname.  dbms in SchemeQL is (or so I wanted it
+to be) the name of your ODBC data source.  For instance, I use (as I
+told you before) Myodbc + libiodbc, and I have the following odbc.ini:
+
+,--------------------
+| [ODBC Data Sources]
+| Myodbc   = Myodbc
+| Sample   = Openlink Generic ODBC Driver
+| 
+| [Myodbc]
+| # DSN      = biblio06
+| # the path where you installed myodbc.so
+| Driver   = /usr/local/lib/libmyodbc.so
+| Host     = localhost
+| Database = 
+| # Server   = biblio06.fciencias.unam.mx
+| Port     = 3306
+| User     = USER
+| Password = PASSWORD
+`--------------------
+
+(Lines starting with `#' are comments.)  And so, I use (in SchemeQL):
+&quot;Myodbc&quot; as the dbms parameter, USER as the login, and PASSWORD as
+passwrd in:
+
+   (connect-to-database dbms login passwd)
+
+then, to select a particular database, I use:
+
+   (use-database &quot;database-name&quot;)
+
+note though, that the &quot;USE&quot; command is not in the minimum SQL grammar,
+and an ODBC driver is not required to support it.  If your DBMS does
+not support (PostgreSQL do) the USE command, then the
+connect-to-database should have received the &quot;default&quot; database on
+connection, and you have to specify which database will be the default
+in the odbc.ini-alike file.
+
+Does this make sense?
+
+&gt;&gt; [...] Having the ODBC driver running is 90% of the job, the other
+&gt;&gt; 10% is compiling SrPersist, but I take it you have already done
+&gt;&gt; this, right?
+&gt; 
+&gt; As far as I can tell... make and then copying it to the right place
+&gt; (as there is no archsys command here).  It loads happily.
+
+archsys is a shell script accompanying the PLT distribution, add
+${PLTHOME}/bin to your PATH, and try again.  It is a good idea to run
+the install script (also in the PLT distro) after moving/copying
+things around.
+
+&gt;&gt; MyODBC also requires an &quot;odbc.ini&quot; file with information about the
+&gt;&gt; driver, host, port, etc., and it usually goes in /etc, or /usr/local/etc.
+&gt; 
+&gt; I've cribbed one from the unixodbc site, but maybe that's the problem.
+
+Indeed, sounds like it is.
+
+--Francisco
+-- 
+Are we running light with overbyte?
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00615" href="msg00615.html">SchemeQL</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+<li><strong><a name="00620" href="msg00620.html">Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+<li><strong><a name="00622" href="msg00622.html">Re: SchemeQL</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00623.html">RE: SchemeQL</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00625.html">Re: Swindle Question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00635.html">Re: 199.13 setup-plt errors</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00630.html">Re: SchemeQL</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00624"><strong>Date</strong></a></li>
+<li><a href="threads.html#00624"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: MzScheme for Embedding -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Fri, 5 May 2000 12:07:06 &#45;0600 (MDT) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C67677E99C4@THRESHER -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>MzScheme for Embedding</TITLE>
+<LINK REV="made" HREF="mailto:brent.fulgham@xpsystems.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00633.html">Date Prev</A>][<A HREF="msg00635.html">Date Next</A>][<A HREF="msg00648.html">Thread Prev</A>][<A HREF="msg00635.html">Thread Next</A>][<A HREF="maillist.html#00634">Date Index</A>][<A HREF="threads.html#00634">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>MzScheme for Embedding</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: PLT-Scheme &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: MzScheme for Embedding</LI>
+<LI><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 5 May 2000 11:08:04 -0700 </LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi,
+
+I'm planning on embedding a Scheme interpreter in a web server
+for use as the extension language.  My initial inclination was to
+use the GNU projects Guile implementation, but since MzScheme is
+also GPL'd (well, LGPL'd) it would make a fine choice as well.
+
+I have some familiarity with MzScheme since I started packaging
+it for the Debian distribution a few months ago.  However, many
+projects seem to be using Guile for extensions and I wanted to
+see your opinions on a few topics.
+
+I like a few things about MzScheme:
+1.  It compiles to an interpreted bytecode.  This means I can
+cache the bytecodes in core for heavily used scripts, and save
+some of the "compile" time for future invocations.
+2.  It seems to be very fast for many benchmarks.
+3.  It seems to be very actively supported.
+4.  It is free software.
+5.  It has manuals that document the interface API.
+6.  It seems to have good threading support.
+
+I do have a couple of concerns about MzScheme:
+(A) The Guile-list has lots of complaints that the MzScheme
+module system is very un-schemelike (whatever that means).  Can
+anyone here shed light on what this means?
+(B) MzScheme seems like it has a fairly large memory footprint.
+(C) Focus on educational use might mean that its evolution will
+be towards lots of functionality at the cost of large size.  By
+this I mean it may not be possible to pare it down to just the
+pieces I want at a given time.  Perhaps the module system provides
+sufficient granularity that this is not a problem.
+
+To be complete, I don't like the following things about Guile:
+1)  Bad thread support
+2)  Perhaps not as compliant with modern Scheme specifications.
+3)  No byte-code compilation, which means scheme code must be
+parsed each time it is run (less opportunity for smart compiler
+optimizations if they are "expensive").
+
+I'm leaning towards using MzScheme, but I wanted to run this
+past you for your thoughts.  Can anyone give their opinion of
+MzScheme's suitability as an extension language?
+
+Thanks,
+
+-Brent
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00635" HREF="msg00635.html">Re: MzScheme for Embedding</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00636" HREF="msg00636.html">Re: MzScheme for Embedding</A></STRONG>
+<UL><LI><EM>From:</EM> Jim Blandy &lt;jimb@red-bean.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00633.html">Srpersist</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00635.html">Re: MzScheme for Embedding</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00648.html">RE: Srpersist</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00635.html">Re: MzScheme for Embedding</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00634"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00634"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

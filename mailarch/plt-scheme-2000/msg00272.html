@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: MzScheme for Embedding -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Fri, 5 May 2000 14:16:20 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200005052016.PAA23636@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C67677E99C4@THRESHER -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: MzScheme for Embedding</title>
+<link rev="made" href="mailto:matthias@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00271.html">Date Prev</a>][<a href="msg00273.html">Date Next</a>][<a href="msg00271.html">Thread Prev</a>][<a href="msg00273.html">Thread Next</a>][<a href="maillist.html#00272">Date Index</a>][<a href="threads.html#00272">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: MzScheme for Embedding</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A></li>
+<li><em>Subject</em>: Re: MzScheme for Embedding</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 5 May 2000 15:16:16 -0500 (CDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00271.html">EDFD2A95EE7DD31187350090279C67677E99C4@THRESHER</a>&gt; (message fromBrent Fulgham on Fri, 5 May 2000 11:08:04 -0700)</li>
+<li><em>References</em>: &lt;<a href="msg00271.html">EDFD2A95EE7DD31187350090279C67677E99C4@THRESHER</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+  I do have a couple of concerns about MzScheme:
+
+  (A) The Guile-list has lots of complaints that the MzScheme
+  module system is very un-schemelike (whatever that means).  Can
+  anyone here shed light on what this means?
+
+I grew up in Germany and I have plenty of experience with statements such
+as 
+
+ &quot;This is against the people's will&quot; 
+
+and 
+
+ &quot;This is un-American.&quot; [substitute your favorite country here]
+
+The speaker typically has no rational argument, often has no true
+counterpoint, and that's that. 
+
+Our modules are first class, they are externally linked, and they 
+are the only ones that support a model-view-controller architecture 
+directly. No other module system can claim this. As one of the designers, I
+couldn't care less whether its Scheme-ish, un-Scheme-ish, or whatever. It's
+highly useful if you want to program with components, and that matters to a
+small team that needs a high degree of reuse to get anywhere. 
+
+  (B) MzScheme seems like it has a fairly large memory footprint.
+
+Yes, it does. Matthew is working on a version that will use generational
+copy collection in addition to Hans's &quot;non-cooperative&quot; collector. We're
+testing it now. 
+
+  (C) Focus on educational use might mean that its evolution will
+  be towards lots of functionality at the cost of large size.  By
+  this I mean it may not be possible to pare it down to just the
+  pieces I want at a given time.  Perhaps the module system provides
+  sufficient granularity that this is not a problem.
+
+MzScheme is *not* focused on educational use. If we add functionality to
+MzScheme it will be in response to people on this mailing list. All the
+functional srfis will just become modules. 
+
+DrScheme, the programming environment atop of MzScheme, was originally
+designed for educational uses. In the meantime, it has evolved into an
+adolesecent PDE. I am using it for all my Scheme programming tasks -- and
+believe me, it took me many years to let go of Emacs. In the future, we
+will fully support units, and then it will be what you need as an
+individual programmer for almost everything. 
+
+If you use MzScheme for your task, keep in mind its license. And keep in
+mind that we are actively interested in helping people. 
+
+I know this doesn't report on experience with embeddings, but it at least
+answers your other concerns. 
+
+-- Matthias
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00271" href="msg00271.html">MzScheme for Embedding</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00271.html">MzScheme for Embedding</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00273.html">Re: MzScheme for Embedding</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00271.html">MzScheme for Embedding</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00273.html">Re: MzScheme for Embedding</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00272"><strong>Date</strong></a></li>
+<li><a href="threads.html#00272"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

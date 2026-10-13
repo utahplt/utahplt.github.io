@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: print&#45;struct? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 10 Sep 2001 15:44:02 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200109102143.PAA20865@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 15260.63573.182725.887288@vega.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: print-struct?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00888.html">Date Prev</a>][<a href="msg00890.html">Date Next</a>][<a href="msg00886.html">Thread Prev</a>][<a href="msg00891.html">Thread Next</a>][<a href="maillist.html#00889">Date Index</a>][<a href="threads.html#00889">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: print-struct?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Doug Orleans &lt;<A HREF="mailto:dougo@ccs.neu.edu">dougo@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: print-struct?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 10 Sep 2001 15:43:29 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00886.html">15260.63573.182725.887288@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00886.html">15260.63573.182725.887288@vega.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Doug Orleans:
+&gt; Is this a bug, or does print-struct not work like I think it should?
+&gt; [...]
+&gt; Shouldn't it print the field values with print-struct turned on?
+
+It's not a bug, but the documentation for `print-struct' doesn't
+provide enough information for v200.
+
+Short answer:
+
+ (define-struct foo (bar baz) (make-inspector))
+
+creates a transparent `foo' structure.
+
+Long answer:
+
+Structs are now used for values in the DrScheme implementation that
+must be protected from malicious code, even to the point of preventing
+inspection via printing.
+
+So MzScheme provides inspectors for controlling access to struct
+fields. When a struct type is created, it becomes protected by the
+current inspector (as determined by the `current-inspector' parameter).
+Printing can expose the content of a struct only if the inspector at
+the time of printing is a supervisor of the inspector that protects the
+struct's type.
+
+The optional last expression for `define-struct' selects a protecting
+inspector; `(make-inspector)' creates a new inspector under the current
+one.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00891" href="msg00891.html">Re: print-struct?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00886" href="msg00886.html">print-struct?</a></strong>
+<ul><li><em>From:</em> Doug Orleans &lt;dougo@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00888.html">Re: Negative time</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00890.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00886.html">print-struct?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00891.html">Re: print-struct?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00889"><strong>Date</strong></a></li>
+<li><a href="threads.html#00889"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

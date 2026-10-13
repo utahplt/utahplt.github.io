@@ -1,0 +1,162 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Sun, 27 Feb 2000 19:49:54 &#45;0700 (MST) -->
+<!--X-Message-Id: 200002280249.UAA08340@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002271846.KAA00527@balu.qualcomm.com -->
+<!--X-Reference: 20000228002410.UGQG21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 200002280226.SAA06315@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] HOWTO redirect a i/o-port in Unix??</TITLE>
+<LINK REV="made" HREF="mailto:matthias@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00507.html">Date Prev</A>][<A HREF="msg00509.html">Date Next</A>][<A HREF="msg00507.html">Thread Prev</A>][<A HREF="msg00511.html">Thread Next</A>][<A HREF="maillist.html#00508">Date Index</A>][<A HREF="threads.html#00508">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] HOWTO redirect a i/o-port in Unix??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></LI>
+<LI><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</LI>
+<LI><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 27 Feb 2000 20:49:49 -0600 (CST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-reply-to</em>: &lt;<A HREF="msg00507.html">200002280226.SAA06315@balu.qualcomm.com</A>&gt; (message from LeoRazoumov on Sun, 27 Feb 2000 18:26:39 -0800 (PST))</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00503.html">200002271846.KAA00527@balu.qualcomm.com</A>&gt; &lt;<A HREF="msg00505.html">20000228002410.UGQG21637.mail.rdc1.sfba.home.com@localhost</A>&gt; &lt;<A HREF="msg00507.html">200002280226.SAA06315@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Leo, in principle, you're probably correct that unix/linux people are more
+willing to experiment with things than windows/mac people. BUT, mzscheme is
+also a platform for research. 
+
+Our own goal requires a fully portable Scheme that runs on all
+platforms. It is most commonly used under DrScheme -- and believe it or
+not, it has its own OS there. Matthew's dominant research interest is to
+extend the OS research direction. Others on the team use it as a platform
+for Programming Environment work or generative programming (that could be
+useful to you in creating your C++ code, which should really be in
+Fortran!). My interests cover all of this *and* making dr/mz useful in a
+general industrial sense.
+
+Whatever is in demand, fits within the Scheme world, and doesn't contradict
+our platform will come from us, if we have the time/money/machines to do
+so. 
+
+Whatever is a special-purpose need should probably be built as an
+extension. We are willing to help with this, and even accommodate where
+possible. For example, I could see a bunch of Unix/Linux users agree on a
+plan to add a library of Unix/Linux specific i/o stuff. They could set up
+interfaces and split the work. Ideally, the library should go back to our 
+contributions site. 
+
+;; --- 
+
+Maintainability: I strongly agree with you on maintaining code as it grows,
+except that I have to say raw Scheme has probably similar problems to Perl.
+Yes, Scheme is more uniform and more powerful. But it lacks a type and
+signature system that can throw off outside maintainers. What we (PLT) have
+developed is a discipline that fixes this. (We also have Spidey, and I
+would love to see how the concept holds up in a world like yours.)
+
+I train my undergraduate students in precisely that: maintaining a quickly
+growing piece of code over a semester. Those who stick to the discipline I 
+teach in the first course do great. Those who don't sink. (They can "buy" 
+solutions from me, for 10% final grade down.)
+
+I suggest you take a look at HtDP and its typing, documentation, and test
+suite teaching. It may prevent you from ever retracting your claims "-). 
+You may also wish to poke around in something like the net library, which
+has some documentation similar to that advocated in HtDP. 
+
+In a nutshell, we write each function with 
+
+ 1. a data analysis/data defs, if necessary
+ 2. a type signature, purpose statement
+ 3. a function definition (examples, template, body)
+ 4. a test suite developed from examples that we made up *before*
+    we write the function 
+
+I always keep the test cases for simple programs in block comments at the
+end of the file. For larger portions of our code, we have separate test
+suites (mzscheme, guis, ...) that apply to the entire program, rather than
+just one function. I think this discipline is a key to bug-prevention
+programming and maintainability. Make a change, adapt the tests, test the
+function. 
+
+You may know all of this, in which case, just take it as my urge to
+teach. If not I am hoping it helps. 
+
+-- Matthias
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00511" HREF="msg00511.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00503" HREF="msg00503.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00505" HREF="msg00505.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00507" HREF="msg00507.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00507.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00509.html">xml collection: how to insert arbirtrary xml code</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00507.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00511.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00508"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00508"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

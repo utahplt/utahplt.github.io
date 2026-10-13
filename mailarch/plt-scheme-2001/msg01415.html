@@ -1,0 +1,172 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Conway's Game of Life (cellular automata) -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.abegujrfgrea.rqh> -->
+<!--X-Date: Sun, 23 Dec 2001 19:24:47 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112240224.fBO2O2i04768@poincare.math.northwestern.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 00c901c18c17$fbc9d710$0100a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Conway's Game of Life (cellular automata)</title>
+<link rev="made" href="mailto:richter@math.northwestern.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01414.html">Date Prev</a>][<a href="msg01416.html">Date Next</a>][<a href="msg01412.html">Thread Prev</a>][<a href="msg01417.html">Thread Next</a>][<a href="maillist.html#01415">Date Index</a>][<a href="threads.html#01415">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Conway's Game of Life (cellular automata)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A></li>
+<li><em>Subject</em>: Re: Conway's Game of Life (cellular automata)</li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 23 Dec 2001 20:24:02 -0600</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01412.html">00c901c18c17$fbc9d710$0100a8c0@femto</a>&gt; (anton@appsolutions.com)</li>
+<li><em>References</em>: &lt;<a href="msg01412.html">00c901c18c17$fbc9d710$0100a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Thanks, Anton.   I would say you had better design than my version,
+and chose better names, but that you left open the question of how
+HTDP would propose to design the Life program.
+   
+   It looks as though you chose quite early on to implement the game
+   purely in terms of lists.  This seems to have quite strongly
+   affected the overall structure of the program.
+
+Sure did!  That's what I think the TLS/TSS functional programming
+style is: consume lists.  
+
+Scheme doesn't have matrices, so I first implemented a Life board-game
+as a vector of strings.  Strings helped with the IO, otherwise a
+vector of vector would've been the same.  But I ran into all kinds of
+mutability problems, so the list of list functional version was easier
+to code up!  (Well, it was the 2nd time around.)  
+
+   At this point, I'll come out of the mathematical closet and admit that I'd
+   just like to implement this using a simple, coordinate-addressable 2D
+   matrix.  
+
+I feel sure that HTDP would frown on that.  But that was my 1st choice
+as well.  There's a lot of talk in HTDP about OOP, and there are a lot
+of board games in HTDP.  We ought to figure this out.  It's hard for
+me to follow HTDP board games because I don't have the teachpacks.
+
+     ; returns game board containing the next generation based on the specified
+     ; board
+     (define (next-generation game-board)
+   
+       ; returns next state of cell with current value as
+       ; specified, based on the state of surrounding cells
+       (define (new-cell-state cell-value x y)
+         (let ((count (count-surrounding-black-cells cell-value x y)))
+           (if (or (= count 3) (and (isblack? cell-value) (= count 2)))
+               black-cell-value
+               white-cell-value)))
+   
+       (define (count-surrounding-black-cells cell-value x y)
+         (- (matrix-sum board (- x 1) (+ x 2) (- y 1) (+ y 2))
+           cell-value))
+   
+       (board-map new-cell-state game-board))
+   
+   
+     (define (isblack? cell)	(= cell black-cell-value))
+     (define (iswhite? cell)	(= cell white-cell-value))	 ; for completeness
+   
+     ; below functions are implementation-specific, but fairly innocent
+     (define white-cell-value 0)
+     (define black-cell-value 1)
+   
+     (define (board-map proc board)
+       (matrix-map proc board 0 (board-width board) 0 (board-height board)))
+   
+
+
+     (define (count-surrounding-black-cells cell-value x y)
+       (- (matrix-sum board (- x 1) (+ x 2) (- y 1) (+ y 2))
+          cell-value))
+   
+
+I like this, Anton!  Your definition of `count' is simpler than mine.
+Your `count-surrounding-black-cells' is maybe too cute, why not
+redefine `matrix-sum' to not add up the &quot;origin&quot; of your range, then
+`count-surrounding-black-cells'  doesn't need `cell-value' as an
+argument. 
+
+BTW I think cellular automata all use the nearest neighbors, so we
+wouldn't be summing over a larger range.  But much different functions
+are used on the nearest neighbors.  Just keeping it to 0s and 1s, I'm
+thinking of 2^{2^9} such `new-cell-state' functions, there are 2^9 0/1
+configurations for the cell &amp; its nearest neighbors, and each
+configuration get sent by `new-cell-state' to either 0 or 1.
+
+This shows an inelegancy of the x/y approach: your function
+`new-cell-state' does &quot;the same thing&quot; no matter what x &amp; y are.  Of
+course, the cell &amp; its nearest neighbors change as x &amp; y vary, but the
+function in 2^{2^9} is the same everywhere on the board.  It's not
+like we calculate one way in Germany and a different way in the US.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01417" href="msg01417.html">RE: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01412" href="msg01412.html">RE: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01414.html">Re: really, really dumb DrScheme question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01416.html">Re: really, really dumb DrScheme question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01412.html">RE: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01417.html">RE: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01415"><strong>Date</strong></a></li>
+<li><a href="threads.html#01415"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

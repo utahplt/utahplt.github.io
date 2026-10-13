@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Regexp arcana -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Thu, 28 Sep 2000 14:22:03 &#45;0600 (MDT) -->
+<!--X-Message-Id: p04330103b5f95516d3dc@[128.42.2.124] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E4C0D8267DAA6141B77F1A4EAAEB2B912AF51A@seapriv1 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Regexp arcana</TITLE>
+<LINK REV="made" HREF="mailto:robby@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00929.html">Date Prev</A>][<A HREF="msg00931.html">Date Next</A>][<A HREF="msg00929.html">Thread Prev</A>][<A HREF="msg00933.html">Thread Next</A>][<A HREF="maillist.html#00930">Date Index</A>][<A HREF="threads.html#00930">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Regexp arcana</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Regexp arcana</LI>
+<LI><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 28 Sep 2000 15:21:52 -0500</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00929.html">E4C0D8267DAA6141B77F1A4EAAEB2B912AF51A@seapriv1</A>&gt;</LI>
+<LI><em>Organization</em>: PLT, Rice University (http://www.cs.rice.edu/CS/PLT/)</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00929.html">E4C0D8267DAA6141B77F1A4EAAEB2B912AF51A@seapriv1</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 12:41 PM -0700 9/28/00, Greg Pettyjohn wrote:
+&gt;OK, this may be a little off-topic, but I'll tie it in.
+&gt;
+&gt;(define (do-s s)
+&gt;   (regexp-match "\"([^\"]*)\"(.*)" s))
+&gt;
+
+[ ... ]
+
+&gt;So without knowing what the roundy parens do in the regexp, let me attempt
+&gt;to figure out what
+&gt;our expression above does:
+
+[ ... ]
+
+I think that you got it all just right, except for the parenthesis. 
+The parenthesis do not affect the matching semantics, except for 
+grouping to disambiguate infix operators. So, the regexp matcher will 
+return #f for the same strings when used with this regexp:
+
+   "\"([^\"]*)\"(.*)"
+
+and this one:
+
+   "\"[^\"]*\"(.*)"
+
+As you may notice if you try it out, however, the cadrs of the lists 
+returned will be different. That is where the parenthesis comes in. 
+The parens are used to indicate "interesting" portions of the regular 
+expression. In this case, we care what is between the quotes. So, the 
+cadr of the list will be the portion of the string that was between 
+the lists.
+
+Now that you know that, you might think: "but what if the parens are 
+inside a * or a + or even other parens, etc"? So, there's even more 
+arcana in the docs, but once you understand the gist of the parens, 
+it should be pretty clear with a few experiments.
+
+Robby
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00929" HREF="msg00929.html">Regexp arcana</A></STRONG>
+<UL><LI><EM>From:</EM> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00929.html">Regexp arcana</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00931.html">Re:3D</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00929.html">Regexp arcana</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00933.html">RE: 3D</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00930"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00930"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

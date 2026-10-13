@@ -1,0 +1,128 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: module: How to specify indirect exports =?iso&#45;8859&#45;1?q?positively=3F?= -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 27 Apr 2002 06:55:56 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200204271255.g3RCtpX04335@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: iss.1df3.3cc94521.411d6.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: module: How to specify indirect exports positively?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00805.html">Date Prev</a>][<a href="msg00807.html">Date Next</a>][<a href="msg00799.html">Thread Prev</a>][<a href="msg00809.html">Thread Next</a>][<a href="maillist.html#00806">Date Index</a>][<a href="threads.html#00806">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: module: How to specify indirect exports positively?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Subject</em>: Re: module: How to specify indirect exports positively?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 27 Apr 2002 06:55:52 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00799.html">iss.1df3.3cc94521.411d6.1@hermes.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00799.html">iss.1df3.3cc94521.411d6.1@hermes.hrz.uni-giessen.de</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Fri, 26 Apr 2002 14:16:30 +0200, Sebastian H Seidel wrote:
+&gt; (require
+&gt;  (rename A
+&gt;          (string-&gt;symbol 
+&gt;           (string-append 
+&gt;            (symbol-&gt;string (quote prefix.))
+&gt;            (symbol-&gt;string (quote var))))
+&gt;          var))
+&gt;        
+&gt; ==&gt; require: bad syntax (internal name is not an identifier)
+
+The macro that generates the `require' expression must put in place of
+`(string-&gt;symbol ...)' the actual symbol, instead of an expression tat
+produces the symbol.
+
+Here's an example with `provide':
+
+(module m mzscheme
+
+  (define-syntax (provide-prefixless stx)
+    (syntax-case stx ()
+      [(_ prefix: name)
+       (with-syntax ([prefix:name (string-&gt;symbol
+                                   (format &quot;~a~a&quot;
+                                           (syntax-e #'prefix:)
+                                           (syntax-e #'name)))])
+         (syntax (provide (rename prefix:name name))))]))
+  
+  (provide-prefixless demo: thing)
+  
+  (define demo:thing 5))
+
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00809" href="msg00809.html">Re: module: How to specify indirect exports positively?</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+<li><strong><a name="00811" href="msg00811.html">From modules, macros and geniuses.</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00799" href="msg00799.html">Re: module: How to specify indirect exports positively?</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00805.html">CONFIDENCE</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00807.html">Re: MrEd event handling</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00799.html">Re: module: How to specify indirect exports positively?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00809.html">Re: module: How to specify indirect exports positively?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00806"><strong>Date</strong></a></li>
+<li><a href="threads.html#00806"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

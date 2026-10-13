@@ -1,0 +1,103 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 200alpha11 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 2 Feb 2002 20:08:10 &#45;0700 (MST) -->
+<!--X-Message-Id: 200202030308.g13387D07648@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>200alpha11</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00184.html">Date Prev</a>][<a href="msg00186.html">Date Next</a>][<a href="msg00184.html">Thread Prev</a>][<a href="msg00186.html">Thread Next</a>][<a href="maillist.html#00185">Date Index</a>][<a href="threads.html#00185">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>200alpha11</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 200alpha11</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 2 Feb 2002 20:08:08 -0700 (MST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged code in CVS for MzScheme and MrEd is now version
+200alpha11.
+
+Changes:
+
+ * `namespace-variable-binding' has been replaced by
+   `namespace-variable-value' and `namespace-set-variable-value!'.
+
+ * Added `namespace-symbol-&gt;identifier'.
+
+ * The MzScheme and MrEd executables take special action when the
+   invoked executable name is of the form `scheme-&lt;dialect&gt;' (i.e., the
+   MzScheme/MrEd executable is renamed, or it is accessed via a link).
+   Specifically, the module `(lib &quot;init.ss&quot; &quot;script-lang&quot; &quot;&lt;dialect&gt;&quot;)'
+   is invoked to initialize the namespace; the first argument is used
+   as a filename to load afterward; and, finally, `main' is called with
+   the leftover arguments as a list of strings.
+
+   This executable-name trick is intended to let someone implement
+   SRFI-22 easily (where &quot;someone&quot; is probably Francisco).
+
+   The call-`main'-with-arguments feature is also available separately
+   through a new -C/--main flag.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00184.html">Computed values in a macro</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00186.html">maybe I misunderestood something...</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00184.html">Computed values in a macro</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00186.html">maybe I misunderestood something...</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00185"><strong>Date</strong></a></li>
+<li><a href="threads.html#00185"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

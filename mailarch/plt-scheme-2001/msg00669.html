@@ -1,0 +1,128 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Question about MzScheme Objects -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 14 Jul 2001 15:18:46 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200107142118.OAA29658@harrier.mail.pas.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: NBBBLCLOKKHAGMJBNHDMIEGFFGAA.apeake@comac.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Question about MzScheme Objects</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00668.html">Date Prev</a>][<a href="msg00670.html">Date Next</a>][<a href="msg00668.html">Thread Prev</a>][<a href="msg00613.html">Thread Next</a>][<a href="maillist.html#00669">Date Index</a>][<a href="threads.html#00669">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Question about MzScheme Objects</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Alex Peake&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Question about MzScheme Objects</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 14 Jul 2001 14:18:31 -0700 (PDT)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00668.html">NBBBLCLOKKHAGMJBNHDMIEGFFGAA.apeake@comac.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00668.html">NBBBLCLOKKHAGMJBNHDMIEGFFGAA.apeake@comac.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Alex Peake&quot;:
+&gt; (define attr&lt;%&gt; (interface () set-name! pk? set-pk!))
+&gt; 
+&gt; (define attr%
+&gt;   (class* object% (attr&lt;%&gt;) (attr-name (pk #f) (fk #f))
+&gt;     (public
+&gt;       (domain 'integer)
+&gt;       (name attr-name)
+&gt;       (set-name! (lambda (attr-name) (set! name attr-name)))
+&gt;       (pk? (lambda () pk))
+&gt;       (set-pk! (lambda (is-pk) (set! pk is-pk)))
+&gt;       (fk? (lambda () fk)))
+&gt;     (sequence (super-init))))
+&gt; 
+&gt; 1) why is there an instance variable fk (and not an instance variable
+&gt; attr-name)(or maybe there is)?
+
+Yes, there's a private `attr-name' nstance variable. Neither `fk' nor
+`attr-name' are accessible from outside the class:
+
+ &gt; (define o (make-object attr% 'hi))
+ &gt; (ivar o fk)
+ ivar: instance variable not found: fk in class: attr%
+
+but `fk' and `attr-name' are both bound within the body of the `class'
+expression.
+
+&gt; 2) is there a way to default pk and yet set fk?
+
+Not in 103.X.
+
+In the new class system of v200, initalization arguments can be
+provided by name, so they can be specified individually and in any
+order.
+
+&gt; 3) why is fk? not required in the interface?
+
+As in Java, an interface determines a minimal set of methods, but an
+implementing class can have extra methods (and usually does).
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00668" href="msg00668.html">Question about MzScheme Objects</a></strong>
+<ul><li><em>From:</em> &quot;Alex Peake&quot; &lt;apeake@comac.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00668.html">Question about MzScheme Objects</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00670.html">stand-alone executables in v200</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00668.html">Question about MzScheme Objects</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00613.html">Question about hash tables</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00669"><strong>Date</strong></a></li>
+<li><a href="threads.html#00669"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

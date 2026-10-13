@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: has anybody managed to embed mzscheme in a visual c++ "multithreaded dll" project? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 26 Nov 2001 09:13:52 &#45;0700 (MST) -->
+<!--X-Message-Id: 200111261613.JAA01424@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3C023968.FA2B490F@cern.ch -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01238.html">Date Prev</a>][<a href="msg01240.html">Date Next</a>][<a href="msg01238.html">Thread Prev</a>][<a href="msg01240.html">Thread Next</a>][<a href="maillist.html#01239">Date Index</a>][<a href="threads.html#01239">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded dll&quot; project?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Christian Schuhegger &lt;<A HREF="mailto:Christian.Schuhegger@cern.ch">Christian.Schuhegger@cern.ch</A>&gt;</li>
+<li><em>Subject</em>: Re: has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded dll&quot; project?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 26 Nov 2001 09:13:42 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01238.html">3C023968.FA2B490F@cern.ch</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01238.html">3C023968.FA2B490F@cern.ch</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Christian Schuhegger:
+&gt; i spent the week-end to try to embed mzscheme in a visual c++
+&gt; &quot;multithreaded dll&quot; project, but even the simple test program at:
+&gt; <A  HREF="http://www.cs.rice.edu/CS/PLT/packages/doc/insidemz/node6.htm">http://www.cs.rice.edu/CS/PLT/packages/doc/insidemz/node6.htm</A>
+&gt; crashes.
+&gt; 
+&gt; the embedding works fine when i don't use the &quot;multithreaded dll&quot;
+&gt; setting, but the &quot;multithreaded&quot; setting.
+&gt; 
+&gt; i tried already to copy the visual c++ project
+&gt; plt\src\worksp\mzscheme,
+&gt; set the active project configuration to: &quot;win32 mt dll&quot;
+&gt; and replace the main of the main.c with the main in the example given 
+&gt; above. this was to make sure that i use the correct preprocessor defines
+&gt; and the correct libraries to link to, but the problem still persists.
+
+The &quot;MT DLL&quot; project is one that links to the standard C library as a
+DLL, instead of statically linking the C library. In other words, it
+uses the /MD flag. (The project is poorly well named! I didn't
+understand the issues when I named it, and it's gone for future
+releases.)
+
+In /MD mode, an embedding application must call GC_pre_init() to
+initialize certain global variables that are used by allocation. In
+other modes, the variables are initialized automatically.
+
+So, the problem may be simply that you didn't really want the &quot;MT DLL&quot;
+project. I'm not sure how easy it is to build MzScheme v103 as a DLL,
+though.
+
+For version 200, MzScheme builds as a DLL by default. So, as soon as
+200alpha1 is available, it should work better for you.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01240" href="msg01240.html">Re: has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded dll&quot; project?</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01238" href="msg01238.html">has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded dll&quot; project?</a></strong>
+<ul><li><em>From:</em> Christian Schuhegger &lt;Christian.Schuhegger@cern.ch&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01238.html">has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded dll&quot; project?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01240.html">Re: has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded dll&quot; project?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01238.html">has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded dll&quot; project?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01240.html">Re: has anybody managed to embed mzscheme in a visual c++ &quot;multithreaded dll&quot; project?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01239"><strong>Date</strong></a></li>
+<li><a href="threads.html#01239"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

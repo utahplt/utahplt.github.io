@@ -1,0 +1,121 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: module questions -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Fri, 28 Dec 2001 22:17:35 &#45;0700 (MST) -->
+<!--X-Message-Id: 15405.20970.837068.682480@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011228084333.D6FC85E0ED@sith.bbb.caltech.edu -->
+<!--X-Reference: 20011228135708.D467C206FC@sualocin.ccs.neu.edu -->
+<!--X-Reference: 20011229045552.C74D05E0ED@sith.bbb.caltech.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: module questions</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01449.html">Date Prev</a>][<a href="msg01451.html">Date Next</a>][<a href="msg01449.html">Thread Prev</a>][<a href="msg01458.html">Thread Next</a>][<a href="maillist.html#01450">Date Index</a>][<a href="threads.html#01450">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: module questions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: module questions</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Sat, 29 Dec 2001 00:17:30 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01449.html">20011229045552.C74D05E0ED@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01439.html">20011228084333.D6FC85E0ED@sith.bbb.caltech.edu</a>&gt;&lt;<a href="msg01442.html">20011228135708.D467C206FC@sualocin.ccs.neu.edu</a>&gt;&lt;<a href="msg01449.html">20011229045552.C74D05E0ED@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Dec 28, Michael Vanier wrote:
+&gt; 
+&gt; [...]  I just want to split the functions into different files for
+&gt; conceptual clarity. [...]  Also, it occurred to me after posting
+&gt; that a much simpler way to achieve my goals is simply to use &quot;load&quot;
+&gt; to bring together files with mutual dependencies into a third file,
+&gt; which could itself be a module.
+
+But this is not free enough -- if you use `include' you get everything
+you want like:
+
+--- x.ss -------
+(module foo mzscheme
+  (require (lib &quot;include.ss&quot;))
+  (include &quot;a.ss&quot;)
+  (define b 2)
+  (provide b))
+--- a.ss -------
+(define a 1)
+(provide a)
+----------------
+
+BTW, is it a known issue that when requiring a library encounters an
+error then you're left with some intermediate state where some of the
+bindings are visible (and mutable) and some not?
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01439" href="msg01439.html">module questions</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+<li><strong><a name="01442" href="msg01442.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01449" href="msg01449.html">Re: module questions</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01449.html">Re: module questions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01451.html">Re: module questions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01449.html">Re: module questions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01458.html">Re: module questions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01450"><strong>Date</strong></a></li>
+<li><a href="threads.html#01450"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

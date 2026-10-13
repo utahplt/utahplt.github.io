@@ -1,0 +1,174 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: bytecode unification for scripting (and other!) languages -->
+<!--X-From-R13: [vpunry Hnavre <zinavreNooo.pnygrpu.rqh> -->
+<!--X-Date: Wed, 15 Aug 2001 22:29:28 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20010816042925.CFBC65E0EC@sith.bbb.caltech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: BCEOLHKHFMDPNMEKEAECEEFKCAAA.sk@cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: bytecode unification for scripting (and other!) languages</title>
+<link rev="made" href="mailto:mvanier@bbb.caltech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00797.html">Date Prev</a>][<a href="msg00799.html">Date Next</a>][<a href="msg00796.html">Thread Prev</a>][<a href="msg00797.html">Thread Next</a>][<a href="maillist.html#00798">Date Index</a>][<a href="threads.html#00798">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: bytecode unification for scripting (and other!) languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A></li>
+<li><em>Subject</em>: Re: bytecode unification for scripting (and other!) languages</li>
+<li><em>From</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 15 Aug 2001 21:29:25 -0700 (PDT)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00796.html">BCEOLHKHFMDPNMEKEAECEEFKCAAA.sk@cs.brown.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00796.html">BCEOLHKHFMDPNMEKEAECEEFKCAAA.sk@cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+&gt; From: &quot;Shriram Krishnamurthi&quot; &lt;sk@cs.brown.edu&gt;
+&gt; Date: Wed, 15 Aug 2001 23:48:25 -0400
+&gt; 
+&gt; [Oops -- I just discovered, much to my chagrin, what Ctrl-Enter does
+&gt;  in Outlook.  What a dumb binding.]
+&gt; 
+&gt; &gt; 2. Having said that, I believe that programmers should actually think
+&gt; about
+&gt; &gt;    their types, in all situations. As Michael also points out, if you
+&gt; &gt;    understand the types of your program well, you avoid many mistakes.
+&gt; Many
+&gt; &gt;    errors manifest themselves in violations of data invariants, and that's
+&gt; &gt;    what these simple proof systems called type systems are good at.
+&gt; 
+&gt; I disagree with the implication of this.  The implication is that, when a
+&gt; programmer reasons incorrectly about their types, they should get slapped
+&gt; on the hand -- whether as a static rejection, a la ML, or as a dynamic check
+&gt; failure, a la Scheme, is irrelevant.
+&gt; 
+&gt; I believe there is a very useful way of relaxing this restriction to capture
+&gt; the essence of scripting, while still recovering it when programs grow to
+&gt; engineer software.  PLT Scheme needs a &quot;scripting&quot; language level, where
+&gt; operators coerce heavily: APPEND consumes strings as well as
+&gt; lists; FIRST works on vectors, not just pairs; + adds strings that contain
+&gt; only digits; and so on.
+&gt; 
+&gt; MrSpidey then needs a scripting analysis level, where it flags these coerced
+&gt; uses in ultra-special-red, meaning &quot;this may have worked for you earlier,
+&gt; but
+&gt; it sure won't work now&quot;.  Based on the coercions, it can indicate what
+&gt; operator you meant to use, and even synthesize the code that automatically
+&gt; performs the coercion: eg,
+&gt; 
+&gt;   (append (+ S &quot;2&quot;) &quot;y&quot;)
+&gt;   -&gt;
+&gt;   (string-append (number-&gt;string (+ (string-&gt;number S)
+&gt;                                     (string-&gt;number &quot;2&quot;)))
+&gt;                  &quot;y&quot;)
+&gt; 
+&gt; under the right circumstances.
+&gt; 
+&gt; For programs that don't live on, programmers get to write very concise
+&gt; descriptions, and their minor infractions are forgiven.  But the scripting
+&gt; language level should provide no programming-in-the-medium features --
+&gt; no modules or units or classes, for instance.  The moment you want to
+&gt; make your script reusable, you must go through Scripting Spidey and clean
+&gt; up your act to upgrade your code into a mature fragment.
+&gt; 
+&gt; Shriram
+&gt; 
+&gt; 
+
+The thing I worry about is that users who are used to the scripting level
+will get very confused when things that worked there break at the
+non-scripting level.  However, what you say is analogous to the perl &quot;use
+strict&quot; pragmas where you can say &quot;this works in the normal language but we
+are deliberately saying we're not going to do it that way here&quot;, so there
+is some precedent for it at least (but do we want to be getting inspiration
+from perl? ;-)).
+
+I think a bigger issue is not easy coercions; I personally *hate* all
+coercions (except trivial ones like int-&gt;real) because I'm at the mercy of
+whatever the language designer thought a &quot;reasonable&quot; coercion was.  Coerce
+&quot;1&quot; to 1?  Sure, makes sense!  However, you can't do that in python, and
+it's a perfectly reasonable scripting language, and people don't have
+problems with it.
+
+Instead, the &quot;scripting&quot; issue (to the extent that there is one) is largely
+that people don't like having to put lots of type annotations in their
+code, whereas as an application grows and matures, they *do* like those
+annotations for the extra security.  One of my beefs about scheme is that
+there is no type language that allows me to do this (I haven't looked into
+soft typing schemes, though).  If there were, you could imagine having
+pragmas that say one of:
+
+-- no type annotations in this module; everything is dynamically typed
+-- some type annotations; functions with them are statically typed
+-- everything in this module must be statically typed
+
+This would be the normal progression from &quot;scripting&quot; to a larger, more
+mature (and maybe less flexible) application.  This would really rock.
+Of course, for me to be _really_ happy I'd like to see the type language
+able to handle ML-style parametric polymorphism etc., but one wish at a
+time :-)
+
+Mike
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00796" href="msg00796.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+<ul><li><em>From:</em> &quot;Shriram Krishnamurthi&quot; &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00797.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00799.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00796.html">RE: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00797.html">Re: bytecode unification for scripting (and other!) languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00798"><strong>Date</strong></a></li>
+<li><a href="threads.html#00798"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

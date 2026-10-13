@@ -1,0 +1,117 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Namespaces -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 10 May 2002 08:13:15 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205101413.g4AED2P05259@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87u1phxjah.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Namespaces</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00877.html">Date Prev</a>][<a href="msg00879.html">Date Next</a>][<a href="msg00877.html">Thread Prev</a>][<a href="msg00880.html">Thread Next</a>][<a href="maillist.html#00878">Date Index</a>][<a href="threads.html#00878">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Namespaces</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A> (Paulo J. Matos)</li>
+<li><em>Subject</em>: Re: [plt-scheme] Namespaces</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 10 May 2002 08:13:02 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00877.html">87u1phxjah.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00877.html">87u1phxjah.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 09 May 2002 19:33:58 +0100, Paulo J. Matos wrote:
+&gt; When I try to use namespace-set-variable-binding! I get:
+&gt; reference to undefined identifier:
+&gt; namespace-set-variable-binding!
+&gt; 
+&gt; This function is mentioned in chapter 8 of MzScheme manual. Do I
+&gt; need to require any lib?
+
+No, the manual for 200alpha12 reported the wrong procedure name. It
+should have been
+
+  namespace-set-variable-value!
+
+&gt; How can I given a function retrieve its name as a symbol?
+&gt; For example:
+&gt; (define fib
+&gt;         (lambda ... blablabla))
+&gt; 
+&gt; Now, I pass it to (foo fib)
+&gt; I want foo to return fib (the symbol 'fib).
+&gt; 
+&gt; How can I do that?
+
+Usually, `object-name' will give you the name:
+
+  &gt; (define f (lambda (x) x))
+  &gt; (object-name f)
+  f
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00877" href="msg00877.html">[plt-scheme] Namespaces</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00877.html">[plt-scheme] Namespaces</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00879.html">Re: [plt-scheme] extension case senstivity</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00877.html">[plt-scheme] Namespaces</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00880.html">[plt-scheme] Unix Question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00878"><strong>Date</strong></a></li>
+<li><a href="threads.html#00878"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

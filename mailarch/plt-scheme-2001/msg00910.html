@@ -1,0 +1,139 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Timing Problems with DrScheme and Mac OS -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 20 Sep 2001 06:39:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200109201238.f8KCcrT13961@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 1000970836.3ba99a54e7aa3@mail.tu&#45;chemnitz.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Timing Problems with DrScheme and Mac OS</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00909.html">Date Prev</a>][<a href="msg00911.html">Date Next</a>][<a href="msg00909.html">Thread Prev</a>][<a href="msg00911.html">Thread Next</a>][<a href="maillist.html#00910">Date Index</a>][<a href="threads.html#00910">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Timing Problems with DrScheme and Mac OS</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:stefan.schadwinkel@s2000.tu-chemnitz.de">stefan.schadwinkel@s2000.tu-chemnitz.de</A></li>
+<li><em>Subject</em>: Re: Timing Problems with DrScheme and Mac OS</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 20 Sep 2001 06:38:53 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00909.html">1000970836.3ba99a54e7aa3@mail.tu-chemnitz.de</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00909.html">1000970836.3ba99a54e7aa3@mail.tu-chemnitz.de</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting stefan.schadwinkel@s2000.tu-chemnitz.de:
+&gt; The problem we're facing is quite simple, we want an accurate time
+&gt; messurement of the users keystrokes. (We show a word, the individual
+&gt; should hit a key and i want to take the time between showing the word
+&gt; and the keystroke)
+
+Whether this is even possible in DrScheme depends on how much accurracy
+you need. On the Mac, in particular, DrScheme has to cooperatively
+yield to other programs...
+
+&gt; I should say, that running &quot;current-milliseconds&quot; 6 times and
+&gt; displaying its results shows something like this:
+&gt;  
+&gt; 387850
+&gt; 387850
+&gt; 387850
+&gt; 387850
+&gt; 387866
+&gt; 387866
+&gt; 
+&gt; mostly, the numbers are ending on 33, 66, 50..
+&gt; 
+&gt; well, this is much too inaccurate for our purposes
+
+... and I worry that a yield can certainly take more than 1/60 of a
+second (depending on what the Finder wants to do).
+
+PsyScope is a Mac programs designed for reliable psychology
+experiments. It does not cooperate with other applications in the way
+that DrScheme has to. Instead, it takes over the machine and polls
+hardware directly.
+
+Pre-emptive multi-tasking can avoid the problem, to some degree, by
+ensuring that each application is executed often enough --- perhaps
+enough for a reliable experiment these days. That apparently wasn't the
+case 8 years ago, though; MacOS's lack of pre-emptive scheduling was
+actually a benefit (for a change) in PsyScope.
+
+&gt; Now I ask, if you got some hints or ideas to get accurate millisecond
+&gt; values.. I don't about care small inaccurancies, but it should be
+&gt; better than this one tenth of second.
+
+It might be easier to write a small extension in C. I'd be surprised if
+AppleEvents could provide the accurracy that you want (again, because
+AppleEvents rely on expensive cooperative context switches).
+
+The following page in the MacOS 8/9 documentaion shows how to compute
+elapsed time in microseconds:
+
+ <A  HREF="http://developer.apple.com/techpubs/mac/Processes/Processes-62.html#HEADING62-0">http://developer.apple.com/techpubs/mac/Processes/Processes-62.html#HEADING62-0</A>
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00909" href="msg00909.html">Timing Problems with DrScheme and Mac OS</a></strong>
+<ul><li><em>From:</em> stefan.schadwinkel@s2000.tu-chemnitz.de</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00909.html">Timing Problems with DrScheme and Mac OS</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00911.html">SrPersist, sql-c-wchar, and unicode/wide-characters</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00909.html">Timing Problems with DrScheme and Mac OS</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00911.html">SrPersist, sql-c-wchar, and unicode/wide-characters</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00910"><strong>Date</strong></a></li>
+<li><a href="threads.html#00910"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

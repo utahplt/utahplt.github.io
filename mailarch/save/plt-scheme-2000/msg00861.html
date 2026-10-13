@@ -1,0 +1,858 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Tue, 15 Aug 2000 17:19:48 &#45;0600 (MDT) -->
+<!--X-Message-Id: 3999D17B.8B30BA66@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: 14738.52293.108392.678928@sun.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Specialized input parsing for code/REPL in DrScheme?</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00860.html">Date Prev</A>][<A HREF="msg00862.html">Date Next</A>][<A HREF="msg00853.html">Thread Prev</A>][<A HREF="msg00862.html">Thread Next</A>][<A HREF="maillist.html#00861">Date Index</A>][<A HREF="threads.html#00861">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Specialized input parsing for code/REPL in DrScheme?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 15 Aug 2000 19:25:47 -0400</LI>
+<LI><em>CC</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A></LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00834.html">399207D9.5F451CC@kurtz-fernhout.com</A>&gt; &lt;<A HREF="msg00838.html">14738.52293.108392.678928@sun.cs.rice.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Shriram Krishnamurthi wrote:
+&gt; 
+&gt; Paul,
+&gt; 
+&gt; There have been lots of efforts to create "less parenthesized"
+&gt; Schemes.  (Rob Warnock, who should be on this list, made a valiant
+&gt; attempt not very long ago.)  Most die painful deaths.  I don't,
+&gt; however, know that anyone has gone down the indentation-is-significant
+&gt; route.  I'm certainly interested in seeing the results.
+&gt; 
+&gt; If you need help with the vagaries of parsing Scheme (certainly, you
+&gt; shouldn't mess with atomic syntax like that of numbers), you'll find
+&gt; people here that can help (Matthew wrote the C parser, I wrote much of
+&gt; the Scheme parser).  You may be able to profitably reuse the C and
+&gt; Scheme parsers for atomic data, which can save you a lot of work.
+&gt; 
+&gt; Finally, a good Henry Baker quote (comp.compilers, 10/28/94):
+&gt; 
+&gt;   &gt;5. Cleverness on the part of the language designer: anybody looking
+&gt;   &gt;for a really frustrating student project might consider building a
+&gt;   &gt;parser for Occam, in which there are no explicit brackets for compound
+&gt;   &gt;statements but nesting is indicated by indentation.
+&gt; 
+&gt;   Cut yourself on Occam's razor, I see.  :-)
+&gt; 
+&gt; Shriram
+
+Shriram-
+
+Occam's razor, yes indeed! :-) Thanks for the pointers to people.
+
+I have included a forward below of a post to comp.lang.lisp 
+with DrScheme code to do parsing and pretty-printing. 
+I thought people here (like yourself) might 
+be interested in playing with it. 
+
+The reader can read a file that is in indentational syntax and 
+evaluate the expressions in it. Note that top level expressions 
+in that file that start with a paren should pretty much work 
+identical as in regular MzScheme -- so you can sort of mix and 
+match (with some limits).
+
+I followed the suggestion by Robert Bruce Findler to just make 
+my own reading process that takes a port. 
+
+Thanks again for the offer of help from you and Robby (another post). 
+I could use a little now to speed things up as I think about integrating 
+some working code (included below) into DrScheme as a tool.
+ 
+I could probably figure it out myself, but I've chewed up a lot of time 
+just getting a parser / printer to work, so a jump start would be nice.
+I'm trying to get as quickly to the point when I can start using this
+syntax to try a few more significant examples to see how the feel.
+It still might not work out, but I'm almost close enough to seriously try it.
+
+What I would really like is a couple lines of DrScheme code 
+to hook the "eval-indented-expressions" function into the parser 
+as an alternative when pressing "evaluate". 
+I think I have an example (w/ DrScheme) for hooking up pretty printing. 
+And of course, maybe I'd like to change the meaning of Tab for safety.
+And I'd like to put in a block indent / unindent (Tab/ Shift-Tab?).
+(Just little things! :-)
+
+I actually use the existing MzScheme read to do a lot of the parsing, 
+so I can't just replace it -- this indentational parsing code needs 
+to call it.
+
+Which of these would require a new build of the system?
+I need a new build of the system (103) anyway, as the anomolous 
+behavior of key bindings on cut and paste under NT does 
+slow me down some.
+
+I guess this code would need to be changed to handle file positions 
+for semantic units to integrate in with the DrScheme error reporting.
+I'm not sure what to do for that (how to provide the info. etc.).
+But then again, I haven't really looked hard yet at it.
+Really, though, I guess I should try to figure out the tools manual...
+
+By the way, I got email from Darius Bacon &lt;darius@accesscom.com&gt;
+that he had posted something about indentational syntax to the 
+comp.lang.scheme newsgroup a couple years ago. I don't have a good
+archive pointer for this to find the discussion. It wasn't in this FAQ:
+<A  HREF="http://www.cs.cmu.edu/Web/Groups/AI/html/faqs/lang/scheme/part2/faq-doc-3.html">http://www.cs.cmu.edu/Web/Groups/AI/html/faqs/lang/scheme/part2/faq-doc-3.html</A>
+
+Anyway, thanks again for your interest.
+I would love to know if this indentaional syntax 
+is well received by Scheme novices.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+
+=== the post (minus Craig Brozefsky's original message) ====
+
+Subject: Re: RFC: Lisp/Scheme with less parentheses (code!)
+Date: Tue, 15 Aug 2000 18:20:27 -0400
+From: Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;
+Organization: Kurtz-Fernhout Software
+Newsgroups: comp.lang.lisp
+References: 1 , 2 , 3 , 4 , 5 , 6 , 7 , 8
+
+Craig-
+
+Thanks for the interesting technical challenge.
+
+Below is the translation of the code fragment you presented.
+
+Rather than do this by hand, I translated it using a pretty printer 
+I just wrote which converts S-expressions to indentationally 
+significant notation. (It's definitely not as pretty as it could be.)
+ 
+The code to do the pretty printing is presented, then the output.
+
+To check that it works, also included is a reader I just wrote 
+which reads one or more S-expressions in indentationally 
+significant notation, prints them out (in parenthetical notation) 
+and evaluates them.
+
+Thus, between the two, one has the beginnings of a round trip process.
+
+This code was written in DrScheme. So, it supports Scheme symbols, 
+and thus two symbols in the complex test were converted by me to 
+Scheme symbols. I don't think this would be an issue in a 
+Common Lisp implementation. Naturally, the code example you provided
+does not evaluate in DrScheme (since it is in Common Lisp)
+after the reader reads it back in from indentational syntax.
+
+I do not claim this code is complete. For example, it does not preserve 
+comments. Also, the complexity management of the pretty printer is weak 
+-- it really should allow part of the tail of an expression to fit 
+on the same line as the head if the complexity of that part is low 
+(even if the rest of the tail needs to be indented).
+
+I do not claim that the code is correct either.
+However it does handle the small test expressions I give it.
+Consider it pre-alpha proof of concept quality (hot off the press).
+
+I do not claim this code is that well written either. 
+I most likely shows my inexperience with Scheme, Lisp, etc. 
+For example, ideally, the parser should be a Scheme class. 
+I left it as a few disconnected methods in part to make it easier 
+to port to other dialects of Lisp. Also, the two stacks (subexpressions 
+and promotion) could probably could be made one.
+
+Aside from two of the examples, all the code is original.
+I am releasing the code I wrote under an X/MIT style license (see below).
+
+Note that I am including the code you contributed as a test example,
+(presumably under "fair use" copyright guidelines) but if you want
+it removed (for copyright or other reasons) in any future
+distributions let me know.
+
+Somebody with an open mind (and not afraid of the wrath of the other 
+Lisp developers in this group :-), feel free to port this code to emacs. 
+I'd love to hear the results, especially if the code is posted to this 
+newsgroup (or elsewhere appropriate) under a similar open source license.
+:-)
+
+Please let me know if anyone finds obvious bugs (CC to private email 
+is probably best as I may not be tracking this newsgroup).
+
+Thanks again for taking the idea seriously enough 
+to present an interesting technical challenge.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+========= open source license for the code I wrote below ================
+Indentational S-expression parsing and printing routines
+Copyright (c) 2000 Paul D. Fernhout
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+(Note, the two most complex examples were not written by me and may 
+need to be covered by other licensing terms if not "fair use".)
+
+=========== the example indentational pretty printer =================
+
+; IndentWriter.scm
+; Copyright 2000 Paul D. Fernhout
+; X-MIT style license
+
+;this particular test code was not written by me
+; it was posted to comp.lang.lisp as a technical challenge by
+; Craig Brozefsky &lt;craig@red-bean.com&gt; 13 Aug 2000 14:04:05 -0700
+
+(define test1 
+'(defmethod update-records-from-instance ((obj standard-db-object) &amp;key
+                                         (database *default-database*))
+  (labels ((slot-storedp (slot)
+             (and (member (view-class-slot-db-kind slot) '(:base :key))
+                  (mop::slot-boundp obj (mop::slot-definition-name slot))))
+           (slot-value-list (slot)
+             (let ((value (slot-value obj (mop:slot-definition-name slot))))
+               (check-slot-type slot value)
+               (list (sql-expression :attribute (view-class-slot-column slot))
+                     (db-value-from-slot slot value database)))))
+    (let* ((view-class (class-of obj))
+           (view-class-table (view-table view-class))
+           ; sorry -- #'slot-storedp doesn't parse in DrScheme
+           (slots (remove-if-not 'slot-storedp (mop::class-slots view-class))) 
+           ; sorry -- #'slot-value-list doesn't parse in DrScheme
+           (record-values (mapcar 'slot-value-list slots)))
+      (if (not record-values)
+          (error "No settable slots."))
+      (if (view-database obj)
+          (update-records :table (sql-expression :table view-class-table)
+                          :av-pairs record-values
+                          :where (key-qualifier-for-instance
+                                  obj
+                                  :database database)
+                          :database (view-database obj))
+          (progn
+            (insert-records :into (sql-expression :table view-class-table)
+                            :av-pairs record-values
+                            :database database)
+            (setf (view-database obj) database)))
+      t)))
+  )
+  
+; this code is from the DrScheme HelpDesk (example of a class definition)
+; "Object Example" in "PLT MzScheme: Language Manual"
+(define test2 
+'(define stack% 
+   (class* object% (stack&lt;%&gt;) ()
+     (private 
+       [stack null]) ; A private instance variable
+     (public 
+       [name 'stack] ; A public instance variable 
+       [push! (lambda (v) 
+                (set! stack (cons v stack)))] 
+       [pop! (lambda () 
+              (let ([v (car stack)]) 
+                 (set! stack (cdr stack)) 
+                  v))]
+       [empty? (lambda () (null? stack))] 
+       [print-name (lambda () 
+                     (display name) (newline))])
+    (sequence (super-init))))
+)
+
+(define test3 
+  '(define 
+     (square x) 
+     (* x x)))
+
+(define test4 
+  '(define 
+     (wierd x) 
+     ((wierd-func 'hello) * x x)))
+
+(define test5
+  '(define 
+     (foo x) 
+     (let ((y 10) (z 20))
+       (print (* x y z)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (print-indentation count)
+  (cond 
+    ((= count 0))
+    (else 
+     (write-char #\space) 
+     ;(write-char #\space)
+     (print-indentation (- count 1)))))
+
+(define (simple-expression expression)
+  (cond
+    ((null? expression) #t)
+    ((list? expression) #f)
+    (else #t)))
+
+(define (expression-complexity expression)
+  (cond
+    ((null? expression) 1)
+    ((list? expression) 
+     (+ 2
+      (expression-complexity (car expression)) 
+      (expression-complexity (cdr expression))))
+    (else 1)))
+
+;(expression-complexity '())
+;(expression-complexity 'hello)
+;(expression-complexity '(a b c))
+;(expression-complexity '(a b (c d e f g)))
+;(expression-complexity test-list)
+
+(define (only-one-element expression)
+  (if (list? expression) 
+   (= 1 (length expression))
+   #t))
+      
+;(only-one-element 'hello)
+;(only-one-element "hello")
+;(only-one-element '())
+;(only-one-element '(x))
+;(only-one-element '(a b))
+;(only-one-element '(a b c))
+;(only-one-element '((a b c)))
+
+(define (print-simple-expression expression)
+  ;(print "print simple expression")
+  ;(print expression)
+  (cond 
+    ((null? expression) #f)
+    ((list? expression)
+     (begin
+       (print (car expression))
+       (write-char #\space)
+       (print-simple-expression (cdr expression))))
+     (else (print expression))))
+
+(define (indent-print-tail tail level)
+  (if (null? tail)
+   #f
+   (begin
+     (indent-print (car tail) level)
+     (indent-print-tail (cdr tail) level))))
+   
+(define allowable-head-complexity 23)
+(define allowable-tail-complexity 23)
+
+(define (indent-print expression level)
+  ;(newline)
+  ;(print "indent-print") 
+  ;(newline)
+  ;(print expression)
+  ;(newline)
+  ;(print (expression-complexity expression))
+  ;(newline)
+  (if (simple-expression expression)
+    (begin
+      (print-indentation level)
+      (print expression)
+      ;(print "&lt;1&gt;")
+      (newline))
+    (let* (
+          (head (car expression)) 
+          (tail (cdr expression))
+          (simpleHead (&gt;= allowable-head-complexity (expression-complexity head)) )
+          (simpleTail (&gt;= allowable-tail-complexity (expression-complexity tail)) )
+          ) 
+      ;(print head) 
+      ;(newline)
+      ;(print (expression-complexity head))
+      ;(newline)
+      ;(print tail)
+      ;(newline)
+      ;(print (expression-complexity tail))
+      ;(newline)
+      (if simpleHead
+        (begin
+          (print-indentation level)
+          ;(print (list? head))
+          (if 
+;           (and (null? tail) (or (not (list? head)) (&gt; 2 (length head)))) 
+           (null? tail)
+           (write-char #\())
+          (print head)
+          (if 
+           (null? tail)
+           (write-char #\)))
+          ;(print "&lt;0&gt;")
+          )
+        (begin
+          (print-indentation level)
+          (write-char #\.)
+          ;(print "&lt;2&gt;")
+          (newline)
+          (indent-print head (+ level 1))))
+      (if (and simpleHead simpleTail)
+        (begin
+          (write-char #\space)
+          ;(print "[3]")
+          (print-simple-expression tail)
+          ;(print "&lt;3&gt;")
+          (newline))
+        (begin
+          ;(print "&lt;4&gt;")
+          (if simpleHead (newline))
+          (indent-print-tail tail (+ level 1)))))))
+      
+(indent-print test3 0)
+(newline)
+(indent-print test4 0)
+(newline)
+(indent-print test5 0)
+(newline)
+(indent-print test2 0)
+(newline)
+(indent-print test1 0)
+(newline)
+
+; note -- algorithm coudl be inproved by letting things be printed 
+; on a line from tail and calculating increading complexity. 
+; Only when complexity exceeds threshold would tail start wrapping.
+
+============== the output of the algorithm =====================
+[Note: #f is printed out by the Scheme system, not the pretty printer.]
+
+Welcome to DrScheme, version 102.
+Language: Graphical Full Scheme (MrEd).
+define (square x) (* x x) 
+
+define
+ wierd x 
+ (wierd-func 'hello) * x x 
+#f
+
+define
+ foo x 
+ let
+  (y 10) (z 20) 
+  print (* x y z) 
+#f
+
+define
+ stack%
+ class*
+  object%
+  (stack&lt;%&gt;) 
+  ()
+  private (stack null) 
+  public
+   name 'stack 
+   push!
+    lambda
+     (v) 
+     set! stack (cons v stack) 
+   pop!
+    lambda
+     ()
+     let
+      ((v (car stack))) 
+      set! stack (cdr stack) 
+      v
+   empty? (lambda () (null? stack)) 
+   print-name
+    lambda () (display name) (newline) 
+  sequence (super-init) 
+#f
+
+defmethod
+ update-records-from-instance
+ (obj standard-db-object) &amp;key (database *default-database*) 
+ labels
+  .
+   slot-storedp
+    (slot) 
+    and
+     member
+      view-class-slot-db-kind slot 
+      quote (:base :key) 
+     mop::slot-boundp obj (mop::slot-definition-name slot) 
+   slot-value-list
+    (slot) 
+    let
+     ((value (slot-value obj (mop:slot-definition-name slot)))) 
+     check-slot-type slot value 
+     list
+      sql-expression :attribute (view-class-slot-column slot) 
+      db-value-from-slot slot value database 
+  let*
+   (view-class (class-of obj))
+    view-class-table (view-table view-class) 
+    slots
+     remove-if-not 'slot-storedp (mop::class-slots view-class) 
+    record-values (mapcar 'slot-value-list slots) 
+   if (not record-values) (error "No settable slots.") 
+   if
+    view-database obj 
+    update-records
+     :table
+     sql-expression :table view-class-table 
+     :av-pairs
+     record-values
+     :where
+     key-qualifier-for-instance obj :database database 
+     :database
+     view-database obj 
+    progn
+     insert-records
+      :into
+      sql-expression :table view-class-table 
+      :av-pairs
+      record-values
+      :database
+      database
+     setf (view-database obj) database 
+   t
+#f
+
+&gt; 
+
+========== the reader code ======================
+
+;IndentReader.scm
+; Copyright 2000 Paul D. Fernhout
+; X-MIT style license
+
+(require-library "functio.ss")
+(require-library "string.ss")
+
+(define (port-skip-leading-spaces-count port count)
+  (cond 
+    ((eof-object? (peek-char port)) count)
+    ((eq? (peek-char port) #\space) (read-char port)
+(port-skip-leading-spaces-count port (+ 1 count)))
+    (else count)))
+
+(define (port-skip-leading-spaces port)
+  (port-skip-leading-spaces-count port 0))
+
+; return true if readable data on line
+(define (port-skip-until-data-or-eol port)
+  (let ((next-char (peek-char port)))
+    ;(print next-char)
+    (if (eof-object? next-char)
+      #f
+      (case next-char
+        ((#\space) 
+         (read-char port)
+         (port-skip-until-data-or-eol port))
+        ((#\tab) 
+         (print "error -- tab in data! -- skipping")
+         (read-char port) 
+         (port-skip-until-data-or-eol port))
+        ((#\return)
+         ;(print "-- return --")
+         ;(print (read-line port))
+         (read-char port)
+         #f)
+        ((#\newline)
+         ;(print "-- newline --")
+         ;(print (read-line port))
+         (read-char port)
+         #f)
+        ((#\;) 
+         (read-line port)
+         #f)
+        (else #t)))))
+
+(define indent-placeholder #\.)
+
+(define (process-line-from-first-expression port indentation)
+  (if (eq? (peek-char port) indent-placeholder)
+    (begin
+      ;for now, toss the rest of the line
+      (read-line port)
+      indent-placeholder)
+    (let ((expression null))
+      (do ((continue #t (port-skip-until-data-or-eol port)) (subexpression null))
+        ((not continue) (read-line port))
+        (set! subexpression (read port))
+        ;(print subexpression) 
+        ;(newline)
+        (if (null? expression)
+          (set! expression (cons subexpression null))
+          (set! expression (append! expression (cons subexpression null)))))
+      expression)))
+  
+(define (read-indented-expression port)
+  (do 
+    ((next-char (peek-char port) (peek-char port)) 
+     (line-expression null) 
+     (last-indentation -1)
+     (subexpression null)
+     (do-replace #f)
+     (subexpression-stack (cons (cons 'start null) null))
+     (promotion-stack (cons #f null))
+     (would-need-promoting #f)
+     (finished #f))
+    ((or finished (eof-object? next-char)) (if (&gt; (length subexpression-stack) 1)(cadar (last-pair subexpression-stack)) null))
+    (let ((indentation (port-skip-leading-spaces port)))
+      ;(begin (print next-char) (print indentation)(print " - ")(print last-indentation)(newline))
+      (if (and (= 0 indentation) (&gt; last-indentation -1))
+        (set! finished #t)
+        ;only do if the line is not otherwise just blank or comment
+        (if (port-skip-until-data-or-eol port)
+          (begin 
+            (set! line-expression (process-line-from-first-expression port indentation))
+            ;(begin (newline)(print "from line -&gt;") (print line-expression) (newline))
+            (begin
+             ;(begin (print "subexpression stack way before -&gt; ") (print subexpression-stack) (newline))
+             ;(begin (print "promotion stack way before -&gt; ") (print promotion-stack) (newline))
+             (set! do-replace #f)
+             (cond
+               ((eq? line-expression indent-placeholder)
+                 (set! subexpression null)
+                 (set! would-need-promoting 'replace))
+               ((= 1 (length line-expression)) 
+                 (set! subexpression (car line-expression)) 
+                 (set! would-need-promoting 'promote))
+               (else 
+                 (set! subexpression line-expression) 
+                 (set! would-need-promoting #f)))
+              ;(begin (print "subexpression -&gt;") (print subexpression) (newline))
+              ;manage the stacks as needed based on changing indentation
+              (cond
+               ((= indentation (+ 1 last-indentation))
+                 ;(begin (write "+1") (newline))
+                 ;handle case where because of new child, promote first object to list
+                 (when (car promotion-stack)
+                   ;(begin (print "subexpression stack before promotion -&gt; ") (print subexpression-stack) (newline))
+                   ;(begin (print "promotion stack before promotion -&gt; ") (print promotion-stack) (newline))
+                   ;(begin (print "promoting") (newline))
+                   (set-car! subexpression-stack (list (car subexpression-stack)))
+                   (if (eq? (car promotion-stack) 'replace)
+                      (set! do-replace #t))
+                   (set-car! promotion-stack #f)
+                   (set-car! (last-pair (cadr subexpression-stack)) (car subexpression-stack))
+                   ;(begin (print "subexpression stack after promotion -&gt; ") (print subexpression-stack) (newline))
+                   ;(begin (print "promotion stack after promotion -&gt; ") (print promotion-stack) (newline))
+                   ))
+               ((= indentation last-indentation)
+                 ;(begin (write "=") (newline))
+                 ; pop one off stack
+                 (set! subexpression-stack (cdr subexpression-stack))
+                 (set! promotion-stack (cdr promotion-stack)))
+               ((&lt; indentation last-indentation)
+                 ;(begin (write "&lt;") (newline))
+                 ; pop as many as needed off stack
+                 (set! subexpression-stack (list-tail subexpression-stack (+ 1 (- last-indentation indentation))))
+                 (set! promotion-stack (list-tail promotion-stack (+ 1 (- last-indentation indentation)))))
+               ; should be terminal exception otherwise
+               (else (print "error in indentation")))
+             ; place the subexpression into the expression, inserted into the end of the current list
+             ;(if (list? subexpression)
+             ;(begin (print "subexpression stack just before append -&gt; ") (print subexpression-stack) (newline))
+             ;(begin (print "promotion stack just before append -&gt; ") (print promotion-stack) (newline))
+             ;handle special case for special character requiring replace
+             (if do-replace
+               (set-car! (last-pair (car subexpression-stack)) subexpression)
+               (append! (car subexpression-stack) (cons subexpression null)))
+             ; (append! (car subexpression-stack) subexpression))
+             ; push new subexpression on stack
+             ;(begin (print "subexpression stack just before set -&gt; ") (print subexpression-stack) (newline))
+             ;(begin (print "promotion stack just before set -&gt; ") (print promotion-stack) (newline))
+             (set! subexpression-stack (cons subexpression subexpression-stack))
+             (set! promotion-stack (cons would-need-promoting promotion-stack)))
+             ;(begin (print "subexpression stack after -&gt; ") (print subexpression-stack) (newline))
+             ;(begin (print "promotion stack after -&gt; ") (print promotion-stack) (newline))
+             (set! last-indentation indentation)))))))
+
+(define (eval-indented-expressions port)
+  (do 
+    ((next-char (peek-char port) (peek-char port))) 
+    ((eof-object? next-char))
+    (let ((expression (read-indented-expression port)))
+      (unless (null? expression)
+        (newline)
+        (print "expression -&gt; ")
+        (print expression)
+        (newline)
+        (print "eval -&gt; ")
+        (print (eval expression))
+        (newline)))))
+
+(define indented-port (open-input-file "C:/pdfscheme/indented.txt"))
+(eval-indented-expressions indented-port)
+(close-input-port indented-port)
+
+; determine indentation for line
+; read tokens, collecting until return or comment
+; if token is special, recurse as if on new indented line
+; recurse to handle children
+; finish S-expression and return it
+
+============ the sample output of reader =======================
+
+[Note: I cut and paste the last output expression into 
+the file "C:/PdfScheme/indent.txt", then ran the above code.
+Note: I wrapped the expression by hand as it was one long line.
+Note: if you wanted to evaluate the stack example, you need to include
+the code "(define stack&lt;%&gt; (interface () push! pop! empty?))" at the 
+top of your "C:/PdfScheme/indent.txt" file (or equivalent).]
+
+Welcome to DrScheme, version 102.
+Language: Graphical Full Scheme (MrEd).
+
+"expression -&gt; "(defmethod update-records-from-instance ((obj
+standard-db-object) 
+&amp;key (database *default-database*)) (labels ((slot-storedp (slot) 
+(and (member (view-class-slot-db-kind slot) '(:base :key)) 
+(mop::slot-boundp obj (mop::slot-definition-name slot)))) 
+(slot-value-list (slot) (let ((value (slot-value obj 
+(mop:slot-definition-name slot)))) (check-slot-type slot value) 
+(list (sql-expression :attribute (view-class-slot-column slot)) 
+(db-value-from-slot slot value database))))) 
+(let* ((view-class (class-of obj)) (view-class-table (view-table view-class))
+(slots (remove-if-not 'slot-storedp (mop::class-slots view-class))) 
+(record-values (mapcar 'slot-value-list slots))) (if (not record-values) 
+(error "No settable slots.")) (if (view-database obj) (update-records :table 
+(sql-expression :table view-class-table) :av-pairs record-values :where 
+(key-qualifier-for-instance obj :database database) :database (view-database
+obj)) 
+(progn (insert-records :into (sql-expression :table view-class-table) 
+:av-pairs record-values :database database) (setf (view-database obj)
+database))) 
+t)))
+"eval -&gt; "
+. reference to undefined identifier: defmethod
+&gt; 
+[Note this last error comes from trying to eval Common Lisp code in
+DrScheme.]
+
+==== the output expression after indenting by hand to match the original =====
+
+(defmethod update-records-from-instance ((obj standard-db-object) &amp;key 
+                                         (database *default-database*)) 
+   (labels ((slot-storedp (slot) 
+              (and (member (view-class-slot-db-kind slot) '(:base :key)) 
+                   (mop::slot-boundp obj (mop::slot-definition-name slot)))) 
+            (slot-value-list (slot) 
+              (let ((value (slot-value obj (mop:slot-definition-name slot))))
+                (check-slot-type slot value) 
+                (list (sql-expression :attribute (view-class-slot-column
+slot)) 
+                      (db-value-from-slot slot value database))))) 
+     (let* ((view-class (class-of obj)) 
+            (view-class-table (view-table view-class)) 
+            (slots (remove-if-not 'slot-storedp (mop::class-slots
+view-class))) 
+            (record-values (mapcar 'slot-value-list slots))) 
+       (if (not record-values) 
+           (error "No settable slots.")) 
+       (if (view-database obj) 
+           (update-records :table (sql-expression :table view-class-table) 
+                           :av-pairs record-values 
+                           :where (key-qualifier-for-instance 
+                                   obj :database database) 
+                           :database (view-database obj)) 
+           (progn 
+            (insert-records :into (sql-expression :table view-class-table) 
+                            :av-pairs record-values 
+                            :database database) 
+            (setf (view-database obj) database))) 
+       t)))
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00862" HREF="msg00862.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00834" HREF="msg00834.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00838" HREF="msg00838.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00860.html">binding concepts</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00862.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00853.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00862.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00861"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00861"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

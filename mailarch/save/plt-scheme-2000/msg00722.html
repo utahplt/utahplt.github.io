@@ -1,0 +1,201 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Mixins and stuff -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Mon, 10 Jul 2000 10:38:30 &#45;0600 (MDT) -->
+<!--X-Message-Id: 75514FC5ECC8D2118C8D00A0C9ED54DB0109015E@obcmail1.bsquare.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Mixins and stuff</TITLE>
+<LINK REV="made" HREF="mailto:GregP@bsquare.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00721.html">Date Prev</A>][<A HREF="msg00723.html">Date Next</A>][<A HREF="msg00721.html">Thread Prev</A>][<A HREF="msg00741.html">Thread Next</A>][<A HREF="maillist.html#00722">Date Index</A>][<A HREF="threads.html#00722">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Mixins and stuff</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Mixins and stuff</LI>
+<LI><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 10 Jul 2000 09:38:03 -0700</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I was playing with the drawing toolbox last night...
+
+I was trying to make a "sprite%" class by overriding the bitmap% class.
+For one, the new sprite% class would need x and y coordinates so that
+it could be positioned. Something like this:
+
+Exhibit A:
+
+(define sprite%
+  (class bitmap% (x y ... other args ...)
+    (public
+      [get-x (lambda () x) ]
+      [set-x (lambda (new-x) (set! x new-x))]
+      [get-y ...]
+      [set-y ...])
+    (sequence (super-init ...))))
+
+
+Small question about style: Should I explicitly provide private attributes
+to store the x and y values passed in at instantiation, or is it OK just
+to reference the variables passed in the way I've done above?
+
+Anyway, back to my other questions.
+Suppose that I had several other classes of objects that also needed to
+have coordinates. Then I suppose I could do something like this:
+
+Exhibit B:
+
+(define make-coordinate-class
+  (lambda (base-class%)
+    (class base-class% (x y ... other args ...)
+      (public
+        [get-x (lambda () x) ]
+        [set-x (lambda (new-x) (set! x new-x))]
+        [get-y ...]
+        [set-y ...])
+      (sequence (super-init ...))))
+
+
+Now I can take any old object and give it x and y coordinates. One catch is
+that
+I need to take some care about what kind of class I pass to
+make-coordinate-class
+so that I can make sure that I call super-init with the correct arguments.
+
+I noticed that you guys already *have* a class, point%, which essentially
+does
+what I was interested in. In particular, it comes with get-x, set-x, get-y,
+set-y.
+
+Why isn't there a "make-point-class" provided? (i.e. the equivalent of
+Exhibit B.)
+
+If I want to combine the methods provided by bitmap% and point% into a
+single class
+of objects it appears I must do something like this:
+
+Exhibit C:
+
+(define sprite%
+  (class bitmap% (x y ... other args ...)
+    (private
+      [point (make-object point% x y)])
+    (public
+      [get-x (lambda () (send point get-x))]
+      [set-x (lambda (new-x) (send point set-x new-x))]
+      [get-y (lambda () (send point ...))]
+      [set-y (lambda (new-y) (send point ...))] ...)
+    (sequence (super-init ...))))
+
+This is easy enough to do in the case of the point% class. Essentially,
+I'm merely currying the methods of the internal private point% object
+with a new public method for each one.
+
+In the case where the object has many methods, this could be bothersome.
+
+I suppose I could do something like this:
+
+(define sprite%
+  (class bitmap% (x y ... other args ...)
+    (public
+      [point (make-object point% x y)]
+      ...)
+    (sequenct (super-init ...))))
+
+Then when I want to call the point methods for a sprite% I need to do
+something
+like this:
+
+   (send (ivar my-sprite point) get-x)
+
+If I have an existing client that uses points it will fail on objects of
+class
+sprite% because I suppose it does this:
+   
+   (send point-object get-x)
+
+To use such clients with sprite%s I suppose I would do this:
+   (client (ivar my-sprite point))
+
+i.e. I have to *know* that I'm sending the client a sprite and not
+some other kind of point.
+
+Is there something that I'm failing to understand about your object system?
+
+It seems that the toolbox could be enhanced by including "make-X-class"
+forms.
+
+e.g.:
+
+(define make-point-class
+  (lambda (super-class%)
+    (class super-class% (x y . super-class-args)
+      (public
+        [get-x (lambda () x)]
+        [set-x (lambda (new-x) (set! x new-x))]
+        [get-y (lambda () y)]
+        [set-y (lambda (new-y) (set! y new-y))])
+      (sequence (apply super-init super-class-args)))))
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00741" HREF="msg00741.html">Re: Mixins and stuff</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00721.html">Re: Macros and DrScheme</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00723.html">problems building release-102</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00721.html">Re: Macros and DrScheme</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00741.html">Re: Mixins and stuff</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00722"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00722"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

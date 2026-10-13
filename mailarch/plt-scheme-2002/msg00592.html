@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: squish -->
+<!--X-From-R13: "Bnhy Egrpxyre" <fgrpxNppf.arh.rqh> -->
+<!--X-Date: Thu, 28 Mar 2002 13:14:09 &#45;0700 (MST) -->
+<!--X-Message-Id: 000001c1d695$1c1899d0$70730a81@NORTHEASDX5RFA -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>squish</title>
+<link rev="made" href="mailto:steck@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00591.html">Date Prev</a>][<a href="msg00593.html">Date Next</a>][<a href="msg00586.html">Thread Prev</a>][<a href="msg00594.html">Thread Next</a>][<a href="maillist.html#00592">Date Index</a>][<a href="threads.html#00592">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>squish</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: squish</li>
+<li><em>From</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 28 Mar 2002 15:14:05 -0500</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>Reply-To</em>: &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+A couple of days ago, I sent a message asking about interest
+in a partial port of scsh to PLT Scheme.  There have been 
+responses to my query by a little over a dozen people.  Let me 
+summarize those responses, and suggest a course of action.
+
+The questions were:
+
+ - do you currently use scsh?
+
+   Five respondents said yes, one respondent uses scsh scripts
+   written by others. 
+
+ - would you find scsh-under-PLT-Scheme useful?
+
+   Nearly everyone said yes.  Of course, this is expected -- 
+   everyone wants more software to choose from!
+
+ - would you use a PLT scsh-oid that implemented some, but
+   not all of scsh?
+
+   About three said &quot;yes&quot;, one said &quot;depends&quot;.  A number of 
+   people really use the low-level Unix features of scsh, so
+   it appears they'd have reservations about a scsh-oid without
+   them.
+
+The remaining questions asked what scsh features were and were 
+not used.  It appears that just about all the scsh features are 
+used by someone.
+
+In general, there appears to be enthusiasm about a port of some
+kind.  So let's go for it.
+
+I think we can divide the scsh features into those that
+are implementable atop PLT Scheme, and those that will require
+C bits.  The Scheme bits should be portable across the platforms
+supported by PLT Scheme, which is not true of scsh.
+
+I suggest that we start with the Schemeable parts, and add the 
+low-level Unix stuff as needed.  It appears that Matthew Flatt
+is adding some of the desired low-level stuff directly in MzScheme 
+already, so maybe there won't be too much to add by the time we get 
+there.  The Unix bits should be made separately loadable from the Scheme
+bits. 
+
+Francisco Solsona offered some volunteers to help with the project.
+Great, because I'm getting old and tired.  I'm happy to write as 
+much as I can, and help coordinate the volunteer efforts into 
+a coherent package.
+
+Let there be `squish'!
+
+-- Paul
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00591.html">RE: DrScheme alpha on XP Home?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00593.html">Re: DrScheme alpha on XP Home?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00586.html">an interesting XML workshop</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00594.html">RE: squish</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00592"><strong>Date</strong></a></li>
+<li><a href="threads.html#00592"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

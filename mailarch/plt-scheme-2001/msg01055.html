@@ -1,0 +1,274 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: functional programming is great, but why lists? -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.abegujrfgrea.rqh> -->
+<!--X-Date: Sun, 14 Oct 2001 18:18:09 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110150017.f9F0HaC20446@poincare.math.northwestern.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110102329.f9ANTnH19850@wrath.cs.utah.edu -->
+<!--X-Reference: 200110110342.WAA00959@banach.math.nwu.edu -->
+<!--X-Reference: 200110111325.f9BDPJw28502@sualocin.ccs.neu.edu -->
+<!--X-Reference: 200110120129.UAA00361@banach.math.nwu.edu -->
+<!--X-Reference: 20011012042559.A27541@cs.utexas.edu -->
+<!--X-Reference: 200110130316.f9D3GIa10701@poincare.math.northwestern.edu -->
+<!--X-Reference: 200110130336.XAA26341@bosch.cs.brown.edu -->
+<!--X-Reference: 200110140447.f9E4lmJ12686@poincare.math.northwestern.edu -->
+<!--X-Reference: 200110140520.BAA06268@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: functional programming is great, but why lists?</title>
+<link rev="made" href="mailto:richter@math.northwestern.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01054.html">Date Prev</a>][<a href="msg01056.html">Date Next</a>][<a href="msg01054.html">Thread Prev</a>][<a href="msg01056.html">Thread Next</a>][<a href="maillist.html#01055">Date Index</a>][<a href="threads.html#01055">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: functional programming is great, but why lists?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: functional programming is great, but why lists?</li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 14 Oct 2001 19:17:36 -0500</li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01054.html">200110140520.BAA06268@bosch.cs.brown.edu</a>&gt; (message from ShriramKrishnamurthi on Sun, 14 Oct 2001 01:20:25 -0400 (EDT))</li>
+<li><em>References</em>: &lt;<a href="msg01024.html">200110102329.f9ANTnH19850@wrath.cs.utah.edu</a>&gt;&lt;<a href="msg01025.html">200110110342.WAA00959@banach.math.nwu.edu</a>&gt;&lt;<a href="msg01028.html">200110111325.f9BDPJw28502@sualocin.ccs.neu.edu</a>&gt;&lt;<a href="msg01037.html">200110120129.UAA00361@banach.math.nwu.edu</a>&gt;&lt;<a href="msg01046.html">20011012042559.A27541@cs.utexas.edu</a>&gt;&lt;<a href="msg01051.html">200110130316.f9D3GIa10701@poincare.math.northwestern.edu</a>&gt;&lt;<a href="msg01052.html">200110130336.XAA26341@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg01053.html">200110140447.f9E4lmJ12686@poincare.math.northwestern.edu</a>&gt; &lt;<a href="msg01054.html">200110140520.BAA06268@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   There's a good reason why lists don't naturally come with indices
+   the way vectors do: they're not intended to be accessed at random.
+   They really are intended to be accessed sequentially.
+
+Thanks, Shriram.  I think I finally understand (after your generative
+Recursion remark) that my vector stuff has been nonsense:
+
+Lists are great for the purpose of teaching a simple kind of
+recursion, what HTDP calls structural recursion.  I'd be happy to
+teach a course on structural recursion, without bringing in vectors.
+
+Here's what I understand now, I don't have it all figured out:
+
+Let's try to write a recursive functional procedure to implement a
+function F defined on Lists.
+
+As HTDP says in `Structural versus Generative Recursion', this often
+&quot;requires a deep, often mathematical, insight into the problem-solving
+process itself&quot;.  So it's great to start students off in the simpler
+world of structural recursion, which includes functions F satisfying
+recursion rules like either:
+
+( F L ) = (G (F (cdr L)))	       for L nonempty
+
+or
+
+( F L ) = (G (car L) (F (cdr L)))	for L nonempty
+
+for some function G we have to solve for.
+
+The first type of function is pretty simple, like length:
+
+(define (length L)
+  (if (null? L)
+      0
+      (add1 (length (cdr L)))))
+
+All the recursive TSS type procedures I understand fit the 2nd form.
+No doubt more complicated recursion rules would still be called
+structural recursion, and I need to learn about that.  Here's 2
+examples:
+
+Let's do forward cyclic permutations, which I falsely posted was such
+a challenge yesterday.  It's easy this structural recursion way:
+
+So my function F cycles a list forward, like this:
+
+(F (x_1 ... x_n)) =  (x_n x_1 ... x_{n-1})
+
+Let's look for a rule like:
+
+( F L ) = (G (car L) (F (cdr L)))	for L nonempty
+
+which amounts to solving for G in the equation
+
+(x_n x_1 ... x_{n-1}) = (G x_1 (x_n x_2 ... x_{n-1}))
+
+But that's obvious!  G basically transposes the 1st 2 elements, and
+it's easier to describe in Scheme:
+
+(define (forward-cyclic-permutation L)
+  (letrec ((G (lambda (x M)
+                (if (null? M)
+                    (cons x '())
+                    (cons (car M) (cons x (cdr M)))))))
+    (if (null? L)
+        '()
+        (G (car L) (forward-cyclic-permutation (cdr L))))))
+
+(forward-cyclic-permutation '(a b c d e f))
+(forward-cyclic-permutation '(1 2 3 4 5 6 7 8 9 10))
+
+and we see it works:
+
+(f a b c d e)
+(10 1 2 3 4 5 6 7 8 9)
+
+The moral of this isn't that I know everything about structural
+recursion.  The moral is that by drastically restricting the kinds of
+solutions we're looking for, we might improve our chances, and it's a
+good place to start!  That's a powerful pedagogical principle, used
+all the time in math classes.
+
+Here's an example of how I've got more to learn.   You wrote:
+
+     If you use the design recipes in How to Design Programs, there's
+     nothing gem-like about writing REVERSE -- it's easy, simple and
+     boring, just as it should be.
+
+Here's what's boring to me, i.e. I understand it.   Let's call R the
+reverse function, which does
+
+(R (x_1 x_2 ... x_n)) =  (x_n ... x_2 x_1)
+
+I want a recursion rule 
+
+( R L ) = (G (car L) (R (cdr L)))	for L nonempty, meaning 
+
+(x_n ... x_2 x_1) = (G x_1 (x_n ... x_3 x_2))
+
+The solution stares at us!  Even I can see that (G x M) appends x onto
+the end of a list M.  OK, so we've passed our test, but now we want a
+recursive procedure for G.   Let's fiddle with the car &amp; cdr of M:
+
+(G x (m_1 ... m_n)) = (m_1 ... m_n x) = (cons m_1 (m_2 ... m_n x))
+
+and that clearly satisfies the equation
+
+(G x M)  = (cons (car M) (G x (cdr M)))
+
+and I've got a klunky reverse:
+
+(define (reverse L)
+  (letrec ((append-&gt;end-of-list
+            (lambda (x M) 
+              (if (null? M)
+                  (cons x '())
+                  (cons (car M) 
+                        (append-&gt;end-of-list x (cdr M)))))))
+    (if (null? L)
+        '()
+        (append-&gt;end-of-list (car L) 
+                             (reverse (cdr L))))))
+
+(reverse '(a b c d e f))
+(reverse '(1 2 3 4 5 6 7 8 9 10))
+
+=&gt; 
+(f e d c b a)
+(10 9 8 7 6 5 4 3 2 1)
+
+My function wrote itself, but it's a kludge compared to the more
+elegant TLS reverse:
+
+(define (reverse L)
+  (letrec ((reverse-help
+            (lambda (L M) 
+              (if (null? L)
+                  M
+                  (reverse-help (cdr L)
+                                (cons (car L) M))))))
+    (if (null? L)
+        '()
+        (reverse-help L '()))))
+
+That doesn't bore me yet, so I need to book up on &quot;the design recipes
+in How to Design Programs&quot;.   Actually, this reverse bores me in one
+respect, it looks kinda like an iteration
+
+M = '();
+i = n;
+while (i &gt; 0) {
+  M = (cons x_i M);
+  i--;
+}
+
+you see I've got more to learn.  Sorry for posting so often, but I
+feel like I really learned an important pedagogical point, the value
+of using inflexible lists as a way to present structural recursion.  
+
+A final point: I'll never believe HTDP really has &quot;design recipes&quot;
+until I see the equations, recursion rules like
+( F L ) = (G (car L) (F (cdr L)))
+You guys have too much programming/mathematical ability for me to
+really believe you when you say things are boring or cookbook recipes.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01024" href="msg01024.html">199.25</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="01025" href="msg01025.html">functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01028" href="msg01028.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01037" href="msg01037.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01046" href="msg01046.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Michael Bogomolny &lt;bogo@cs.utexas.edu&gt;</li></ul></li>
+<li><strong><a name="01051" href="msg01051.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+<li><strong><a name="01052" href="msg01052.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="01053" href="msg01053.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+<li><strong><a name="01054" href="msg01054.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01054.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01056.html">Error when starting DrScheme ...</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01054.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01056.html">Error when starting DrScheme ...</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01055"><strong>Date</strong></a></li>
+<li><a href="threads.html#01055"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

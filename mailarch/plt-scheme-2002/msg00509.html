@@ -1,0 +1,157 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: Quevf Gmqnivavf <puevfNngqrfx.pbz> -->
+<!--X-Date: Tue, 26 Mar 2002 08:08:29 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203261508.g2QF8Pf07690@plover.atdesk.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000801c1d3a6$a82874a0$0a00a8c0@femto -->
+<!--X-Reference: j64rj4afqy.fsf@explicit.atdesk.com -->
+<!--X-Reference: 3CA0293E.7D1EDF53@info.unicaen.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:chris@atdesk.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00508.html">Date Prev</a>][<a href="msg00510.html">Date Next</a>][<a href="msg00507.html">Thread Prev</a>][<a href="msg00510.html">Thread Next</a>][<a href="maillist.html#00509">Date Index</a>][<a href="threads.html#00509">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 26 Mar 2002 10:08:25 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: Jerzy Karczmarczuk's message of &quot;Tue, 26 Mar 2002 08:54:38 +0100&quot;</li>
+<li><em>Organization</em>: Automated Trading Desk, Inc.</li>
+<li><em>References</em>: &lt;<a href="msg00449.html">000801c1d3a6$a82874a0$0a00a8c0@femto</a>&gt;&lt;<a href="msg00475.html">j64rj4afqy.fsf@explicit.atdesk.com</a>&gt;&lt;<a href="msg00507.html">3CA0293E.7D1EDF53@info.unicaen.fr</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/21.1</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt; writes:
+
+&gt; &gt; I like Scheme very much, but there is no possible way that such a
+&gt; &gt; language could possibly keep up with the volume of data that my C++
+&gt; &gt; code handles so elegantly.
+&gt; &gt; 
+&gt; &gt; (In all honesty, I'd be thrilled to be able to have written these
+&gt; &gt; programs in Scheme, but it's just too slow to be practical.)
+&gt; 
+&gt; 
+&gt; Look, I don't know you, and I don't want to raise any questions about 
+&gt; your competence, seriously, with full respect. But I have seen such
+&gt; statements hundreds times. Practically *ALWAYS* people who said that, never
+&gt; tried.
+
+I have no ego problems, so if I'm wrong I'd be happy to know about
+it!  :)
+
+Here is my situation:
+
+We read hundreds of millions of stock quotes daily, in real time.
+(Basically every quote that exists in the market on every symbol.)
+The bottleneck in Scheme is mostly in the data parsing that it reads
+off a network.  The data format is line based, comma-separated text
+messages in name-value pairs.  Scheme's string parsing doesn't seem to
+be efficient (or at least my ability to code in Scheme isn't
+efficient) compared to what I can do in C++.  (I know this claim
+sounds like a broken record to the FP sector, but so far it is the
+truth for me.)
+
+If it gets backed up, the data quickly becomes invalid and we lose
+money, and so that's not permissable.  We make stock trades (or I
+should say, our computers do) based on the data it sees... and wrong
+data produces wrong decisions, and those usually end up being losing
+trades.  (The GC kicking in is problematic too if it causes runtime
+delays.)
+
+Right now, I'm considering (but haven't tried) writing a C++ class
+that has a nearly identical interface to the C++ STL list class,
+except the implementation of the class will actually be using the
+mzscheme data types, and the physical list will be maintained in the
+native mzScheme list format.  Then I can have my C++ code do the
+parsing and book keeping, but I can allow Scheme to do some of the
+data interpretation.  I can embed Scheme into the application it will
+have direct use of this data structure without having to do any kind
+of transformation to &quot;move&quot; the data from C++ to scheme.
+
+If you have suggestions for fast string parsing techniques in Scheme,
+I'd very much appreciate hearing them.  So far I haven't found a pure
+Scheme solution that comes even close, though.  It may be my naivity
+with Scheme, or a lack of familiarity with some special
+mzscheme-specific routine that could do this job efficiently.
+
+Do you have any suggestions?
+
+-- 
+Chris
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00510" href="msg00510.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00449" href="msg00449.html">RE: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+<li><strong><a name="00475" href="msg00475.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+<li><strong><a name="00507" href="msg00507.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00508.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00510.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00507.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00510.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00509"><strong>Date</strong></a></li>
+<li><a href="threads.html#00509"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SchemeQL -->
+<!--X-From-R13: [vpunryZNsebtjner.pbz -->
+<!--X-Date: Wed, 24 Oct 2001 17:42:07 &#45;0600 (MDT) -->
+<!--X-Message-Id: OFA3D653FB.725E9E61&#45;ON85256AEF.007BF73A@frogware.com -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SchemeQL</title>
+<link rev="made" href="mailto:MichaelL@frogware.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01106.html">Date Prev</a>][<a href="msg01108.html">Date Next</a>][<a href="msg01110.html">Thread Prev</a>][<a href="msg01108.html">Thread Next</a>][<a href="maillist.html#01107">Date Index</a>][<a href="threads.html#01107">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SchemeQL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A></li>
+<li><em>Subject</em>: Re: SchemeQL</li>
+<li><em>From</em>: <A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A></li>
+<li><em>Date</em>: Wed, 24 Oct 2001 19:42:21 -0400</li>
+<li><em>Cc</em>: &quot;PLT Scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+
+<br><font size=2 face="sans-serif">On a hunch I tried changing odbc-version to 2.5 and it (SchemeQL) worked. (I actually have 3.52, so the problem isn't on the ODBC side. And FYI odbc-version 3.0 also fails.)</font>
+<br>
+<br><font size=2 face="sans-serif">It isn't yet clear to me whether the bug is in SrPersist or SchemeQL; I have successfully used SrPersist with odbc-version set to 3.51, but that's rather inconclusive since I'm sure my test script does but a fraction of what SchemeQL does. Still, at this point I think SchemeQL is the most likely culprit. (traceld and errortrace both seem to indicate that (require-library &quot;schemeqlr.ss&quot;) is triggering the problem.)</font>
+<br>
+<br><font size=2 face="sans-serif">The primitive in question, get-diag-field, is only used in schemeqld.ss. In that file it's used within a function called schemeql-diagnostic-center. That function is used in schemeqlu.ss to define a macro with the same name; and, finally, the value of that function is used in odbc.ss to define a function called s:diagnostic-center which is used everywhere.</font>
+<br>
+<br><font size=2 face="sans-serif">If I modify schemeql-diagnostic-center so that it doesn't call get-diag-field, I get an error about free-handle missing... looks like a linkage problem, but I don't yet see where.</font>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01106.html">RE: SrPersist</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01108.html">Re: SchemeQL</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01110.html">Re: SchemeQL</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01108.html">Re: SchemeQL</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01107"><strong>Date</strong></a></li>
+<li><a href="threads.html#01107"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

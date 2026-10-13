@@ -1,0 +1,247 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: #%app problems with nested macro -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 9 Feb 2002 14:41:26 &#45;0700 (MST) -->
+<!--X-Message-Id: 200202092141.g19LfLD27734@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 878za3jtrm.fsf@localhost.localdomain -->
+<!--X-Reference: 200202090336.UAA10045@fast.cs.utah.edu -->
+<!--X-Reference: 005301c1b1aa$20436950$6401a8c0@gregpwin2k -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: #%app problems with nested macro</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00229.html">Date Prev</a>][<a href="msg00231.html">Date Next</a>][<a href="msg00229.html">Thread Prev</a>][<a href="msg00231.html">Thread Next</a>][<a href="maillist.html#00230">Date Index</a>][<a href="threads.html#00230">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: #%app problems with nested macro</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Greg Pettyjohn&quot; &lt;<A HREF="mailto:gregpettyjohn@speakeasy.net">gregpettyjohn@speakeasy.net</A>&gt;</li>
+<li><em>Subject</em>: Re: #%app problems with nested macro</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 9 Feb 2002 14:41:21 -0700 (MST)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00229.html">005301c1b1aa$20436950$6401a8c0@gregpwin2k</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00227.html">878za3jtrm.fsf@localhost.localdomain</a>&gt; &lt;<a href="msg00228.html">200202090336.UAA10045@fast.cs.utah.edu</a>&gt;	&lt;<a href="msg00229.html">005301c1b1aa$20436950$6401a8c0@gregpwin2k</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Greg Pettyjohn&quot;:
+&gt; But if I nest the second macro with the first --- like this:
+&gt; 
+&gt; (define-syntax my-let
+&gt;   (lambda (x)
+&gt; 
+&gt;     (define-syntax with-values
+&gt;       (lambda (x)
+&gt;         (syntax-case x ()
+&gt;           [(_ P C) #'(call-with-values (lambda () P) C)])))
+&gt; 
+&gt;     (syntax-case x ()
+&gt;       [(_ () body) #'((lambda () body))]
+&gt;       [(_ ((var* val*) ...) body)
+&gt;        #'((lambda (var* ...) body) val* ...)])))
+&gt; 
+&gt; I will get the following error:
+&gt; 
+&gt; compile: bad syntax; function application is not allowed, because no #%app
+&gt; syntax transformer is bound in: (lambda (x) (syntax-case x () ((_ p c)
+&gt; (syntax (call-with-values (lambda () p) c)))))
+
+The right-hand side (RHS) of a `define-syntax' has a different
+top-level environment than the `define-syntax' expression itself,
+because the RHS is in a dififferent phase.
+
+The initial namespace imports all of the MzScheme forms into the
+run-time (&quot;phase 0&quot;) top-level environment and into the compile-time
+(&quot;phase 1&quot;) top-level environment. Thus, `cons' is available in both of
+the following places:
+
+  (define-syntax x ... (cons 1 2) ...)
+  (cons 1 2)
+
+But, in priciple, they are different `cons'es --- one for compilation
+today on my machine, and another for execution next week on someone
+else's machine.
+
+
+If you put a `define-syntax' in the RHS of a `define-syntax', then the
+RHS of the inner `define-syntax' lives at compiler-compile time ---
+&quot;phase 2&quot;. MzScheme doesn't provide a mechaism for importing into
+phases deeper than 1, so the inner RHS has no initial bindings. (In
+thoery, MzScheme could support phase-N imports. We'll look at this
+possibility in v201.)
+
+
+The module system lets you shift phases through `require-for-syntax'.
+But such a shift is needed only when you're defining syntax used in
+phase 1 to implement the transformation of phase 0 code.
+
+In this case, my guess is that references to `with-values' will appear
+in the expansion of `my-let' (or `my-let-values'?), as opposed to
+appearing in code that generates the expansion of `my-let'. If my guess
+is correct, then you'll have to implement `my-let' within a module, and
+put `with-values' in the same module (unexported).
+
+
+&gt; I tried writing this macro at top level:
+&gt; 
+&gt; (define-syntax #%app
+&gt;       (lambda (x)
+&gt;         (syntax-case x ()
+&gt;           [(_ rator rands ...) #'(apply rator rands ...)])))
+&gt; 
+&gt; When I click execute, it goes forever (actually, I didn't wait that long).
+
+In this case, there's a hidden `#%app' before apply', which is why it
+loops.
+
+
+&gt; If I put the #%app macro at the same scope as with values:
+&gt; 
+&gt; (define-syntax my-let
+&gt;   (lambda (x)
+&gt; 
+&gt;     (define-syntax #%app
+&gt;       (lambda (x)
+&gt;         (syntax-case x ()
+&gt;           [(_ rator rands ...) #'(apply rator rands ...)])))
+&gt; 
+&gt;     (define-syntax with-values
+&gt;       (lambda (x)
+&gt;         (syntax-case x ()
+&gt;           [(_ P C) #'(call-with-values (lambda () P) C)])))
+&gt; 
+&gt;     (syntax-case x ()
+&gt;       [(_ () body) #'((lambda () body))]
+&gt;       [(_ ((var* val*) ...) body)
+&gt;        #'((lambda (var* ...) body) val* ...)])))
+&gt; 
+&gt; I get:
+&gt; 
+&gt; compile: identifier used out of context in: #%app
+
+Absolutely confusing.
+
+It turns out that nothing past the `#%app' definition matters. And if
+we can simplify the `#%app' as follows, we still get the out-of-context
+error:
+
+ (define-syntax my-let
+   (lambda (x)
+     (define-syntax #%app (z))
+     10))
+
+There's a hidden `#%app' before the `z'. It's used in a phase 2
+position, but captured by the internal definition for `#%app'. The
+interally defined `#%app', meanwhile, is for code at phase 1. Using a
+phase-N identifier in a phase-M position is an out-of-context error if
+N != M.
+
+[Note: different phases have different top-level environments, but
+non-top-level bindings capture across phases. So that's how an
+out-of-context error is possible.]
+
+&gt; +-----------------------------------------------------
+&gt; Finally I tried this:
+&gt; 
+&gt; (define-syntax my-let
+&gt;   (lambda (x)
+&gt; 
+&gt;     (define-syntax with-values
+&gt;       (lambda (x)
+&gt;         (define-syntax #%app
+&gt;           (lambda (x)
+&gt;             (syntax-case x ()
+&gt;               [(_ rator rands ...) #'(apply rator rands ...)])))
+&gt;         (syntax-case x ()
+&gt;           [(_ P C) #'(call-with-values (lambda () P) C)])))
+&gt; 
+&gt;     (syntax-case x ()
+&gt;       [(_ () body) #'((lambda () body))]
+&gt;       [(_ ((var* val*) ...) body)
+&gt;        #'((lambda (var* ...) body) val* ...)])))
+&gt; 
+&gt; And I get the seemingly contradictory error message:
+&gt; 
+&gt; compile: bad syntax; function application is not allowed, because no #%app
+&gt; syntax transformer is bound in: (lambda (x) (define-syntax #%app (lambda (x)
+&gt; (syntax-case x () ((_ rator rands ...) (syntax (apply rator rands ...))))))
+&gt; (syntax-case x () ((_ p c) (syntax (call-with-values (lambda () p) c)))))
+
+Similar to above, except that this time there is no internal definition
+of `#%app' to capture the hidden `#%app' in front of `lambda'. Also,
+there's no top-level definition of `#%app' in phase 2. So the phase-2
+`#%app' is free.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00231" href="msg00231.html">In the Olympic spirit</a></strong>
+<ul><li><em>From:</em> &quot;Matt 'LEGO Guy' Jadud&quot; &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00227" href="msg00227.html">Profiler</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+<li><strong><a name="00228" href="msg00228.html">Re: Profiler</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00229" href="msg00229.html">#%app problems with nested macro</a></strong>
+<ul><li><em>From:</em> &quot;Greg Pettyjohn&quot; &lt;gregpettyjohn@speakeasy.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00229.html">#%app problems with nested macro</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00231.html">In the Olympic spirit</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00229.html">#%app problems with nested macro</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00231.html">In the Olympic spirit</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00230"><strong>Date</strong></a></li>
+<li><a href="threads.html#00230"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

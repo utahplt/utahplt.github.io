@@ -1,0 +1,101 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [shootout] ary3.bat -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wfNitg&#45;tlz.qx> -->
+<!--X-Date: Wed, 27 Mar 2002 12:04:06 &#45;0700 (MST) -->
+<!--X-Message-Id: 68716CE1D81E5F4DA22B1354442F094B061CBB@vgtgym03.VGTGYM.DK -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[shootout] ary3.bat</title>
+<link rev="made" href="mailto:js@vgt-gym.dk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00557.html">Date Prev</a>][<a href="msg00559.html">Date Next</a>][<a href="msg00564.html">Thread Prev</a>][<a href="msg00559.html">Thread Next</a>][<a href="maillist.html#00558">Date Index</a>][<a href="threads.html#00558">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[shootout] ary3.bat</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [shootout] ary3.bat</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:js@vgt-gym.dk">js@vgt-gym.dk</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Mar 2002 20:04:00 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Thread-Index</em>: AcHVwZIOmho9CJYHSU+hGo2qWmYLkw==</li>
+<li><em>Thread-Topic</em>: [shootout] ary3.bat</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+; @echo off
+; mzscheme.exe -f ary3.bat -mvC %1
+; goto :end
+
+(define (main args)
+  (let* ((n (string-&gt;number (car args)))
+	 (x (make-vector n 0))
+	 (y (make-vector n 0))
+	 (last (- n 1)))
+    (do ((i 0 (+ i 1)))
+	((= i n))
+      (vector-set! x i (+ i 1)))
+    (do ((k 0 (+ k 1)))
+	((= k 1000))
+      (do ((i last (- i 1)))
+	  ((&lt; i 0))
+	(vector-set! y i (+ (vector-ref x i) (vector-ref y i)))))
+    (print-list (vector-ref y 0) &quot; &quot; (vector-ref y last))))
+
+(define (print-list . items) (for-each display items) (newline))
+
+; :end
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00557.html">[Shootout] Ackermann.bat</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00559.html">Shootout</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00564.html">RE: [Shootout] Ackermann.bat</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00559.html">Shootout</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00558"><strong>Date</strong></a></li>
+<li><a href="threads.html#00558"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

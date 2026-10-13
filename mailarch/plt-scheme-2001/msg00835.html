@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.21 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 27 Aug 2001 18:59:54 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108280059.f7S0xmL16487@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.21</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00834.html">Date Prev</a>][<a href="msg00836.html">Date Next</a>][<a href="msg00834.html">Thread Prev</a>][<a href="msg00836.html">Thread Next</a>][<a href="maillist.html#00835">Date Index</a>][<a href="threads.html#00835">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.21</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.21</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 27 Aug 2001 18:59:48 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged code in CVS (on the new server) for MzScheme and MrEd is
+now version 199.21.
+
+A few obscure bugs have been fixed since 199.20, but the MzScheme and
+MrEd languages have not changed.
+
+Instead, the changes for 199.21 are in the location and format of the
+binaries and libraries:
+
+ * Unix: plt/.bin/&lt;archsys&gt; is gone. Binaries now go directly into
+   plt/bin. In particular, plt/bin/mzscheme is a binary instead of a
+   script.
+
+   This means that a `plt' tree is not as easily shared by multiple
+   platforms, but no one seemed to take advantage of the sharing
+   possibilities, anyway.
+
+ * Include files are in plt/include, and libraries are plt/lib.
+
+ * Windows: the build creates and uses DLLs: libmzsch.dll, libmzgc.dll,
+   and libmred.dll.
+
+   Future improvements will take advantage of the DLLs, but few users
+   should notice any difference for now.
+
+ * Unix: configure with --enable-dynlib to get shared libraries and
+   binaries that use them.
+
+   Shared libraries are not the default, yet, because I'm not sure how
+   all the details play out.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00834.html">CVS changes - important for all CVS users!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00836.html">ICFP Writeup</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00834.html">CVS changes - important for all CVS users!</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00836.html">ICFP Writeup</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00835"><strong>Date</strong></a></li>
+<li><a href="threads.html#00835"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

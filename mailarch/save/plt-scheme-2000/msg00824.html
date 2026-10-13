@@ -1,0 +1,196 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Top window garbage collected in standalone? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Sat, 5 Aug 2000 11:10:54 &#45;0600 (MDT) -->
+<!--X-Message-Id: 398C4C03.54C8F2B6@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Top window garbage collected in standalone?</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00823.html">Date Prev</A>][<A HREF="msg00825.html">Date Next</A>][<A HREF="msg00847.html">Thread Prev</A>][<A HREF="msg00825.html">Thread Next</A>][<A HREF="maillist.html#00824">Date Index</A>][<A HREF="threads.html#00824">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Top window garbage collected in standalone?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Top window garbage collected in standalone?</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 05 Aug 2000 13:16:51 -0400</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I must say, I'm very impressed by the ease at which the technique
+outlined here works under 102. This is really cool.
+  <A  HREF="http://www.cs.utah.edu/plt/mailarch/plt-scheme-2000/msg00661.html">http://www.cs.utah.edu/plt/mailarch/plt-scheme-2000/msg00661.html</A>
+
+I just built my first standalone MrEd EXE.
+It weighs in at 1,426KB (including a 2KB scheme file) under NT 4.0.
+
+I'm not complaining about the size -- I can live with this, as I know a
+bigger app will probably scale nicely. 
+
+Also, I'm impressed with how fast the app starts up -- literally maybe a
+second on a 180Mhz Pentium Pro system.
+
+This is the contents of my bat file to do the build:
+======================
+c:\plt\mzc --gui-exe FileViewer.exe FileViewer.scm
+pause
+=========================
+
+The application puts up a window which has a button, a drop down
+listbox, and an edit box. Basically, the button lets you pick files
+which are added to the combo box and displayed in the tex field. When
+you pick a previously opened file from the drop down list box, it
+updates the text box for that file. 
+
+I wanted this utility for trying to understand other Scheme packagaes.
+It seemed nice to be able to easily flip between all the files.
+Actually, I wanted to read all the files in a directory, but I couldn't
+figure out an easy way to pick a directory... And I still need to add
+code to recurse over the files in a directory..
+
+Which brings me to the difficulty I'm having.
+
+It appears the top level window seems to be immediately garbage
+collected because it opens up and then closes right away. If I start the
+EXE up having added extra code to open the file chooser, everything
+stays around until I close the file chooser, and then the main window
+goes away too.
+
+This is different behavior than under DrScheme.
+
+I find if I put in a:
+(sleep/yield 10000000000000)
+at the end of the file, the window stays up.
+Unfortunately in that case even after I close the window the EXE hangs
+around in the application manager.
+
+Can anyone tell me how to fix this? 
+I define the window frame as a top level variable.
+Somehow, this must not be enough.
+
+Here's the source in case anyone is interested,
+(released if you like under an MIT/X-type license).
+================== FileViewer.scm =============================
+; reads files and lets you view them
+; By Paul D. Fernhout pdfernhout@kurtz-fernhout.com
+
+(define (directory-chooser)
+  (get-file "Pick a directory by choosing a file" #f #f #f #f null))
+
+;(directory-chooser)
+
+(define windowFrame (make-object frame% "File Viewer" #f 200 200)) 
+
+(define (choice-callback widget event)
+  (load-file-contents (open-input-file (send widget
+get-string-selection) 'text))
+  )
+
+(define (load-file-contents file)
+  (send windowText insert (read-string 10000 file) 0 100000 #f)
+  )
+
+(define (directoryButton-callback a b ) 
+  (let ((choice (directory-chooser))) 
+    (if choice
+    (begin
+      (send directoryChoice append choice)
+      '(call-with-input-file choice load-file-contents)
+      (load-file-contents (open-input-file choice 'text))
+      ))
+    ))
+  
+(define directoryButton 
+  (make-object button% "Choose file" windowFrame
+directoryButton-callback))
+                              
+(define directoryChoice
+  (make-object choice% "File:" null windowFrame choice-callback null))
+
+(send directoryChoice stretchable-width #t) 
+
+;(send directoryChoice accept-drop-files #t)
+
+(define windowText (make-object text%)) 
+ 
+(define windowCanvas (make-object editor-canvas% windowFrame)) 
+(send windowCanvas set-editor windowText) 
+(send windowFrame show #t)
+
+;pdf added for launching test
+;(directory-chooser)
+;(sleep/yield 10000000000000)
+====================================================
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00825" HREF="msg00825.html">Re: Top window garbage collected in standalone?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00831" HREF="msg00831.html">Re: Top window garbage collected in standalone?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00823.html">Re: Making MzScheme extensions using VC++ 5.0?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00825.html">Re: Top window garbage collected in standalone?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00847.html">Re: Any Other Lists?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00825.html">Re: Top window garbage collected in standalone?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00824"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00824"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

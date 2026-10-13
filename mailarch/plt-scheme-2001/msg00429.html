@@ -1,0 +1,152 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.7 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 7 Apr 2001 20:59:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200104080259.f382xI926279@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.7</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00428.html">Date Prev</a>][<a href="msg00430.html">Date Next</a>][<a href="msg00425.html">Thread Prev</a>][<a href="msg00430.html">Thread Next</a>][<a href="maillist.html#00429">Date Index</a>][<a href="threads.html#00429">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.7</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.7</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 7 Apr 2001 20:59:18 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The v200-tagged code in CVS for MzScheme and MrEd is now version 199.7.
+
+Changes:
+
+ * The `process', `process*', `process/ports', `process*/ports',
+   `system', and `system*' procedures have been moved to a new MzLib
+   library, &quot;process.ss&quot;.
+
+   MzScheme's new built-in form is `subprocess', which takes the same
+   arguments as `process*/ports'. It returns four values: a subprocess
+   value, an input port or false (the subprocess's stdout, if one was
+   created), an output port or false (the subprocess's stdin), and an
+   input port or false (the subprocess's stderr). The new
+   `subprocess-status' procedure gets the status or return code of the
+   subprocess, and `subprocess-pid' gets its process id.
+
+   The `process', etc. procedures are implemented in terms of
+   `subprocess'. Consequently, old bugs and gaps in support (especially
+   for Windows) have been eliminated.
+
+   The `execute' and `execute*' procedures were eliminated entirely.
+
+   These changes are based on code from Eli Barzily.
+
+ * Added a 'gl style flag to canvas%, for use with extensions that draw
+   to the current OpenGL context. The canvas% class also has two new
+   methods: `with-gl-context' and `swap-gl-buffers'. The 'gl style is
+   only supported in Windows for now.
+
+   The OpenGl support is based on code from Greg Pettyjohn and the
+   current wxWindows distribution.
+
+ * Added an experimental &quot;infix&quot; conversion in the reader.
+
+   Input of the form
+      (left ...1  .  mid  .  right ...1)
+   is read as
+      (mid left ...1 right ...1)
+   I.e., a pair of dots between a pair of parens triggers the reader's
+   &quot;infix&quot; conversion.
+
+   For example, the input expression
+      (99 . &lt; . 100)
+   produces #t.
+
+   Also,
+      (1 2 3 . + . 4 5)
+   produces 15, because the &quot;infix&quot; conversion requires a single
+   element between the dots, but allows any positive number of elements
+   to the left and right of the dots.
+
+   Perhaps unfortunately, the input expression
+      ((x) . lambda . x)
+   produces the identity function, because the infix conversion is
+   performed by the reader.
+
+ * Added a `struct' form for `provide'.
+
+ * Added `fluid-let-syntax'.
+
+ * Normalized source location reporting (for reader errors, syntax
+   errors, and procedure names), and added source-location info to the
+   reader exceptions.
+
+ * Changed the C hash-table interface; documentation to appear.
+
+
+Temporary MzScheme and MzLib documentation is in the usual place:
+
+ <A  HREF="http://www.cs.utah.edu/~mflatt/tmp/mzscheme.pdf">http://www.cs.utah.edu/~mflatt/tmp/mzscheme.pdf</A>
+ <A  HREF="http://www.cs.utah.edu/~mflatt/tmp/mzlib.pdf">http://www.cs.utah.edu/~mflatt/tmp/mzlib.pdf</A>
+
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00428.html">Re: PLT's intent to support SRFI's?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00430.html">MysterX 103-p3 released</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00425.html">MzScheme/DrScheme-jr support in ILISP</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00430.html">MysterX 103-p3 released</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00429"><strong>Date</strong></a></li>
+<li><a href="threads.html#00429"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

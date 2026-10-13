@@ -1,0 +1,141 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: case&#45;sentivity for modules? -->
+<!--X-From-R13: "Bnhy Egrpxyre" <fgrpxNppf.arh.rqh> -->
+<!--X-Date: Thu, 28 Feb 2002 11:04:20 &#45;0700 (MST) -->
+<!--X-Message-Id: 000001c1c082$566dea50$70730a81@NORTHEASDX5RFA -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3b.22bafcc4.29afc7ed@aol.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: case-sentivity for modules?</title>
+<link rev="made" href="mailto:steck@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00306.html">Date Prev</a>][<a href="msg00308.html">Date Next</a>][<a href="msg00306.html">Thread Prev</a>][<a href="msg00308.html">Thread Next</a>][<a href="maillist.html#00307">Date Index</a>][<a href="threads.html#00307">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: case-sentivity for modules?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:Benderjg2@aol.com">Benderjg2@aol.com</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: case-sentivity for modules?</li>
+<li><em>From</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 28 Feb 2002 13:04:17 -0500</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00306.html">3b.22bafcc4.29afc7ed@aol.com</a>&gt;</li>
+<li><em>Reply-To</em>: &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Prefix your module with #cs.
+
+-- Paul
+
+&gt; -----Original Message-----
+&gt; From: owner-plt-scheme@fast.cs.utah.edu [<A  HREF="mailto:owner-plt-">mailto:owner-plt-</A>
+&gt; scheme@fast.cs.utah.edu] On Behalf Of Benderjg2@aol.com
+&gt; Sent: Thursday, February 28, 2002 12:51 PM
+&gt; To: plt-scheme@fast.cs.utah.edu
+&gt; Subject: case-sentivity for modules?
+&gt; 
+&gt; In most of my code, I expect case-sensitivity (though
+&gt; function/variable names
+&gt; don't actually rely on it). Testing some code recently ported to v200,
+&gt; I've
+&gt; run into a problem.
+&gt; 
+&gt; Using DrScheme, I have the language setting to be case-sensitive. But
+&gt; when I
+&gt; require a module with case-sensitive names, e.g.:
+&gt; 
+&gt; (module xsd mzscheme
+&gt;   (define
+&gt;     attributeGroup
+&gt;     (lambda items (cons 'attributeGroup items)))
+&gt;   (define
+&gt;     attribute
+&gt;     (lambda items (cons 'attributeGroup items)))
+&gt;   (provide
+&gt;    attribute
+&gt;    attributeGroup))
+&gt; 
+&gt; Code in the file which &quot;required&quot; this module can see attribute but
+&gt; not
+&gt; attributeGroup. The problem seems to be that the module sees
+&gt; attributeGroup
+&gt; as attributegroup (i.e. case-insensitive), while the main file is
+&gt; looking for
+&gt; attributeGroup (i.e. case-sensitive).
+&gt; 
+&gt; Indeed, attempting to place definitions for both attributegroup and
+&gt; attributeGroup in the same module produces an error indicating
+&gt; duplicate
+&gt; definitions.
+&gt; 
+&gt; How do I indicate in a module definition that it should be treated
+&gt; case-sensitively?
+&gt; 
+&gt; Jim Bender
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00308" href="msg00308.html">Is it a bug in arithmetic operation, in printf ???</a></strong>
+<ul><li><em>From:</em> &quot;Andre Mayers&quot; &lt;andre.mayers@DMI.USherb.CA&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00306" href="msg00306.html">case-sentivity for modules?</a></strong>
+<ul><li><em>From:</em> Benderjg2@aol.com</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00306.html">case-sentivity for modules?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00308.html">Is it a bug in arithmetic operation, in printf ???</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00306.html">case-sentivity for modules?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00308.html">Is it a bug in arithmetic operation, in printf ???</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00307"><strong>Date</strong></a></li>
+<li><a href="threads.html#00307"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

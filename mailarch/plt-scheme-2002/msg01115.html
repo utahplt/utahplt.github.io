@@ -1,0 +1,126 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Call/cc problem -->
+<!--X-From-R13: Bnhy Uenhaxr <cgtNppf.arh.rqh> -->
+<!--X-Date: Wed, 12 Jun 2002 14:06:49 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020612200646.136BF1AAC7@amber.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: a05111b00b92d471a8a09@[217.230.213.254] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Call/cc problem</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01114.html">Date Prev</a>][<a href="msg01116.html">Date Next</a>][<a href="msg01114.html">Thread Prev</a>][<a href="msg01118.html">Thread Next</a>][<a href="maillist.html#01115">Date Index</a>][<a href="threads.html#01115">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Call/cc problem</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Erich Rast &lt;<A HREF="mailto:Erich.Rast@t-online.de">Erich.Rast@t-online.de</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Call/cc problem</li>
+<li><em>From</em>: Paul Graunke &lt;<A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 12 Jun 2002 16:06:46 -0400 (EDT)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01114.html">a05111b00b92d471a8a09@[217.230.213.254]</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01114.html">a05111b00b92d471a8a09@[217.230.213.254]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+In MzScheme, continuations may only be invoked by the same thread that
+created them.  That's probably why you received the error message
+  &quot;continuation application: attempted to  cross a continuation boundary&quot;.
+There are a few other places that set continuation boundaries, too, though.
+
+Why can't A block on a semaphore until it receives an response from B?
+
+Paul
+
+At Wed, 12 Jun 2002 21:11:00 +0200, Erich Rast wrote:
+&gt; Sorry for asking such a general question on this list...I have 
+&gt; troubles with my ISP sending to comp.lang.scheme, so I hope perhaps 
+&gt; here someone can help me:
+&gt; 
+&gt; My MzScheme application A communicates with the front-end B (written in
+&gt; another language) by exchanging commands. In order to do that, B can
+&gt; call a top-level receiver function of A in a modified
+&gt; read-eval-print-loop, while A has a function (send-command cmd) for
+&gt; sending something to B.
+&gt; 
+&gt; The problem: Both A and B are non-blocking, independent operating system
+&gt; processes, but I need A to be able to send commands synchronously, ie. I
+&gt; need a function (send/sync-command cmd) that sends cmd to B, waits until
+&gt; B has replied with another command, returns the reply and then continues
+&gt; like if an ordinary function had been called.
+&gt; 
+&gt; I've tried to store continuations in an object and let them be called by
+&gt; the receiver function, but I get &quot;continuation application: attempted to
+&gt; cross a continuation boundary&quot; when using call/cc, and &quot;continuation
+&gt; application: attempt to jump into an escape continuation&quot; when using
+&gt; call/ec.
+&gt; 
+&gt; I've taken a look at  Ferguson/Deugo: &quot;Call with Current Continuation 
+&gt; Patterns&quot;, 2001, but  unfortunately, the paper is already a little 
+&gt; above my head. Could anyone outline me how to tackle this problem?
+&gt; 
+&gt; Regards,
+&gt; 
+&gt; Erich
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01114" href="msg01114.html">[plt-scheme] Call/cc problem</a></strong>
+<ul><li><em>From:</em> Erich Rast &lt;Erich.Rast@t-online.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01114.html">[plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01116.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01114.html">[plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01118.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01115"><strong>Date</strong></a></li>
+<li><a href="threads.html#01115"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

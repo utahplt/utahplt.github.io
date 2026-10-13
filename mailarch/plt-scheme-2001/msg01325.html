@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Bug &#38; co -->
+<!--X-From-R13: Xreml Ynepmznepmhx <xnepmznNvasb.havpnra.se> -->
+<!--X-Date: Wed, 12 Dec 2001 06:40:42 &#45;0700 (MST) -->
+<!--X-Message-Id: 3C175E8E.D06B97E0@info.unicaen.fr -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: qs3d71kd124.fsf@yoko.inria.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Bug &amp; co</title>
+<link rev="made" href="mailto:karczma@info.unicaen.fr">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01324.html">Date Prev</a>][<a href="msg01326.html">Date Next</a>][<a href="msg01324.html">Thread Prev</a>][<a href="msg01328.html">Thread Next</a>][<a href="maillist.html#01325">Date Index</a>][<a href="threads.html#01325">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Bug &amp; co</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Bug &amp; co</li>
+<li><em>From</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</li>
+<li><em>Date</em>: Wed, 12 Dec 2001 14:41:34 +0100</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: Université de Caen, France</li>
+<li><em>References</em>: &lt;<a href="msg01324.html">qs3d71kd124.fsf@yoko.inria.fr</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Manuel Giraud:
+&gt; 
+&gt; I think the function `reverse!' in MzScheme 103 is buggy. The behavior
+&gt; is the following :
+&gt; 
+&gt; &gt; (define l '(a b c d))
+&gt; &gt; (reverse! l)
+&gt; (d c b a)
+&gt; &gt; l
+&gt; (a)
+&gt; ^^^  I think that '(d c b a) can be expected here, no?
+
+?? Where have you been?
+This IS PERFECTLY CORRECT. Draw the structure corresponding to '(a b c d),
+four boxes. Draw a reference from l to it.
+It points to the cell whose CAR contains 'a.
+
+After the reversal the CDR of this cell becomes ().
+
+Don't mix-up data and variables which point to them. Data may get reconstructed,
+and then the references are invalidated.
+
+Jerzy Karczmarczuk
+Caen, France
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01328" href="msg01328.html">Re: Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Yannis BRES &lt;Yannis.BRES@cma.inria.fr&gt;</li></ul></li>
+<li><strong><a name="01329" href="msg01329.html">Re: Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Manuel Giraud &lt;giraud@tif.inria.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01324" href="msg01324.html">Bug &amp; co</a></strong>
+<ul><li><em>From:</em> Manuel Giraud &lt;giraud@tif.inria.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01324.html">Bug &amp; co</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01326.html">Re: Bug &amp; co</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01324.html">Bug &amp; co</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01328.html">Re: Bug &amp; co</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01325"><strong>Date</strong></a></li>
+<li><a href="threads.html#01325"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

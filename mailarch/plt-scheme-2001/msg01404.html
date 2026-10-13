@@ -1,0 +1,189 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Conway's Game of Life (cellular automata) -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.abegujrfgrea.rqh> -->
+<!--X-Date: Fri, 21 Dec 2001 21:40:52 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112220440.fBM4e8N27627@poincare.math.northwestern.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200112210454.fBL4sQt25270@poincare.math.northwestern.edu -->
+<!--X-Reference: 20011221002249.A23029@cs.utexas.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Conway's Game of Life (cellular automata)</title>
+<link rev="made" href="mailto:richter@math.northwestern.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01403.html">Date Prev</a>][<a href="msg01405.html">Date Next</a>][<a href="msg01386.html">Thread Prev</a>][<a href="msg01412.html">Thread Next</a>][<a href="maillist.html#01404">Date Index</a>][<a href="threads.html#01404">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Conway's Game of Life (cellular automata)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:bogo@cs.utexas.edu">bogo@cs.utexas.edu</A></li>
+<li><em>Subject</em>: Re: Conway's Game of Life (cellular automata)</li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 21 Dec 2001 22:40:08 -0600</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01386.html">20011221002249.A23029@cs.utexas.edu</a>&gt; (message from MichaelBogomolny on Fri, 21 Dec 2001 00:22:49 -0600)</li>
+<li><em>References</em>: &lt;<a href="msg01385.html">200112210454.fBL4sQt25270@poincare.math.northwestern.edu</a>&gt; &lt;<a href="msg01386.html">20011221002249.A23029@cs.utexas.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   From: Michael Bogomolny &lt;bogo@cs.utexas.edu&gt;
+
+   | Ian Stewart's book &quot;The Collapse of Chaos&quot; describes Conway's
+   | Game of Life and claims that a &quot;glider gun&quot; is periodic with
+   | period 30, with the additional feature that the &quot;glider gun&quot;
+   | shoots out a stream of pulses diagonally (down &amp; to the right).
+
+   Generation 29 is the same as generation 89, 30 as 90, etc.
+   Generation 29 is *not* the same as generation 59, due to the
+   &quot;offshoot&quot;.  So why wouldn't you say that after 28 generations it
+   stabilizes to a cycle with period 60?
+
+No, Michael!  But you found an interesting effect of my bug I
+explained at the end of my code:
+
+   ;; Still need to implement error checking: if we ever get 3
+   ;; consecutive black cells on the bounding frame (an outer row or
+   ;; column), then the grid is too small, and must be enlarged.
+
+What you noticed is that as a glider heads off to the bottom edge, it
+(as a result of my bug) turns into a 2x2 square, which never changes,
+but annihilates the next glider coming in!  That's nice.  The true
+fact, which I didn't know, is that this figure
+
+                x           
+              x x           
+               xx           
+                  xx        
+                  xx        
+
+disappears in 4 iterations.  (i.e. This disappearance isn't caused by
+my bug, although the 2x2 square is caused by my bug.)
+                            
+
+So I crudely fixed your bug, but introduced another, with this code
+below, which now pushes the problem onto the right edge rather than
+the bottow:
+
+(define (three-in-row? row)
+  ;; returns #t if three consecutive black squares on the bottom row
+  (letrec ((three-in-row-real? 
+            (lambda (n row)
+              (cond ((= n 3) #t)
+                    ((null? row) #f)
+                    (else (three-in-row-real? (if (char=? (car row) #\x)
+                                                  (+ n 1)
+                                                  0)
+                                              (cdr row)))))))
+  (three-in-row-real? 0 row)))
+
+(define (make-padded-game game)
+  ;; We also first error-check to see if there are 3 consecutive black squares on the 
+  ;; bottom row.  If so, we add an extra row
+  (letrec ((make-blank-list 
+            (lambda (list) 
+              ;; returns a list full of spaces of same length as list 
+              (if (null? list) 
+                  `()
+                  (cons #\space 
+                        (make-blank-list (cdr list)))))))
+    (let* ((make-padded-row (lambda (row) 
+                              (cons #\space 
+                                    (append row 
+                                            (list #\space)))))
+           (game-padded-by-rows 
+            ;; the game with each row padded by a SPC on both ends
+            (map make-padded-row game))
+           (padded-blank-row (make-blank-list (car game-padded-by-rows)))
+           (padded-game 
+            ;; game padded all around now
+            (cons padded-blank-row 
+                  (append game-padded-by-rows 
+                          (list padded-blank-row)))))
+      ;; Check to see if there's 3 consecutive black squares in the last row 
+      ;; of game, which is the 2nd to last row of padded-game
+      (if (three-in-row? (cadr (reverse padded-game)))
+          (append padded-game  (list padded-blank-row))
+          padded-game))))
+
+I.e. replace `make-padded-game' with this version, and add in
+`three-in-row?'.   
+
+Now it's fine through 146, and it's now &quot;bug-periodic&quot; with period 60
+starting with 146.   That's interesting!
+
+So we need to error-check on all 4 sides.  `make-padded-game' isn't
+the right place to do the error-checking and row-adding anyway.
+
+BTW I goofed, it's not TLS coding I was trying to emulate, but TSS,
+especially the 11th commandment:  
+
+&quot;Use additional arguments when the function needs to know previous
+arguments to the function.&quot;
+
+Except I consed the previous arguments into the game rather than
+adding them as separate arguments.  
+
+I.e. my function consumes a list (rectangular list of lists) in the
+usual way, throwing out the car.  But I need at each stage the row I
+just consumed, so I just keep it, and throw it out next turn.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01385" href="msg01385.html">Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+<li><strong><a name="01386" href="msg01386.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Michael Bogomolny &lt;bogo@cs.utexas.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01403.html">Using continuations in user-interfaces</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01405.html">Re: Using continuations in user-interfaces</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01386.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01412.html">RE: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01404"><strong>Date</strong></a></li>
+<li><a href="threads.html#01404"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

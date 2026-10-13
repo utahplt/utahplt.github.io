@@ -1,0 +1,173 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: loading additional code -->
+<!--X-From-R13: Yvevyy Zvfbifxl <yvfbifxlNnpz.bet> -->
+<!--X-Date: Sun, 6 Jan 2002 02:01:28 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.LNX.4.21.0201060319100.1153&#45;100000@elm -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020106000441.A1480@freebsd.hbz.pl -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: loading additional code</title>
+<link rev="made" href="mailto:lisovsky@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00015.html">Date Prev</a>][<a href="msg00017.html">Date Next</a>][<a href="msg00012.html">Thread Prev</a>][<a href="msg00017.html">Thread Next</a>][<a href="maillist.html#00016">Date Index</a>][<a href="threads.html#00016">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: loading additional code</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Wojciech Sobczuk &lt;<A HREF="mailto:sopel@freebsd.hbz.pl">sopel@freebsd.hbz.pl</A>&gt;</li>
+<li><em>Subject</em>: Re: loading additional code</li>
+<li><em>From</em>: Kirill Lisovsky &lt;<A HREF="mailto:lisovsky@acm.org">lisovsky@acm.org</A>&gt;</li>
+<li><em>Date</em>: Sun, 6 Jan 2002 04:40:43 +0300 (MSK)</li>
+<li><em>cc</em>: &quot;David N. Welton&quot; &lt;<A HREF="mailto:davidw@dedasys.com">davidw@dedasys.com</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00012.html">20020106000441.A1480@freebsd.hbz.pl</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello!
+
+On Sat, 5 Jan 2002, Wojciech Sobczuk wrote:
+&gt; i'm currently developing a http server in mzscheme.  it already serves static
+PLT provides a http server in mzscheme. 
+What is the rationale behind this new implementation?
+(Just curious)
+
+On Sun, 6 Jan 2002, Wojciech Sobczuk wrote:
+
+&gt; On Sat, Jan 05, 2002 at 11:49:29PM +0100, David N. Welton wrote:
+&gt; [..snip..]
+&gt; &gt; 
+&gt; &gt; &gt; i'm also planning to develop some kind of JSP equivalent for scheme.
+&gt; &gt; &gt; i don't think custom tags will be needed, because scheme is so
+&gt; &gt; &gt; readable and 'natural' that it can be seamlessly included in the
+&gt; &gt; &gt; HTML code like:
+&gt; &gt; 
+&gt; &gt; &gt; 	&lt;(reqparam &quot;foo&quot;)&gt;
+&gt; &gt; &gt; would display a request parameter &quot;foo&quot;, contrary to the long and dirty
+&gt; &gt; &gt; java code for the same:
+&gt; &gt; &gt; 	&lt;%= request.getParameter(&quot;foo&quot;) %&gt;
+&gt; &gt; 
+&gt; &gt; &lt;? ?&gt; are the correct markers to use for processing instructions in
+&gt; &gt; xml, possibly accompanied by an identifier like this:
+&gt; &gt; 
+&gt; &gt; &lt;?mzwebscheme 
+&gt; &gt; (display &quot;hello world&quot;)
+&gt; &gt; ?&gt;
+&gt; 
+&gt; true!  but my main aim is - make it simple, developer friendly and quick to
+&gt; work in.  i'm tired of all this formalism which doesn't give anything.
+&gt; i'm the one parsing the document - why not use &lt;(.  java people didn't fear to
+&gt; use % instead of ?, why would i?
+&gt; if i use '(' - it will embed scheme really nicely into the page - because a
+&gt; programmer would have to write the '(' to start a piece of scheme code.
+&gt;
+Documents containing &lt;( ... )&gt; or &lt;% ... %&gt; are not weel-formed XML document,
+while &lt;?mzwebscheme s-expr ?&gt; is proper XML PI (prod. 16 of W3C XML Rec.).
+Which makes it possible to use XML/XHTML processing/editing tools on the documents
+containing &lt;? but not &lt;( or &lt;% . So, this formalism gives something.
+Shorter PITarget (say, 'mz' instead of 'mzwebscheme') may be more developer
+friendly. 
+
+Using XML element abd dedicated namespace may be a solution also. 
+&lt;mz:scm&gt; S-expr &lt;/mz:scm&gt;
+
+I do agree that one-liner
+&lt;h1&gt;&lt;(+ 2 2)&gt;&lt;/h1&gt;
+
+is looking more pleasant than 
+&lt;h1&gt;&lt;?mzwebscheme (+ 2 2)?&gt;&lt;/h1&gt;
+or
+&lt;mz:scm&gt;(+ 2 2)&lt;/mz:scm&gt;
+
+but for a larger document blurred distinction between 
+&lt;h1&gt;&lt;(+ 2 2)&gt;&lt;/h1&gt;
+and
+&lt;h1&gt;(+ 2 2)&lt;/h1&gt;
+may be a disadvantage.
+
+
+&gt; &gt; 
+&gt; &gt; &gt; is this the right way to go?  or perhaps i should experiment with
+&gt; &gt; &gt; XML related code in <A  HREF="http://pobox.com/~oleg/ftp/">http://pobox.com/~oleg/ftp/</A> and go some other
+&gt; &gt; &gt; way?
+Olegs's SSAX provides support for PIs and namespaces both.
+SXPath may be also interesting in this context.
+
+
+&gt; &gt; You might also look at things like 'BRL' which do web/scheme (he uses
+&gt; &gt; Kawa though, if I'm not mistaken).
+
+LAML (uses mzscheme)
+JScheme (former SILK) 
+HB
+autogen
+mod_lisp
+are other examples...
+
+Best regards,
+          Kirill.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00017" href="msg00017.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00012" href="msg00012.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00015.html">FFI again</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00017.html">Re: loading additional code</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00012.html">Re: loading additional code</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00017.html">Re: loading additional code</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00016"><strong>Date</strong></a></li>
+<li><a href="threads.html#00016"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

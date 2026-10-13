@@ -1,0 +1,245 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: reading external representation -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Sun, 18 Feb 2001 21:18:20 &#45;0700 (MST) -->
+<!--X-Message-Id: 14992.40584.665583.914656@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3A8EEE37.3090801@agora.ulaval.ca -->
+<!--X-Reference: 200102181448.f1IEmfn02749@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: reading external representation</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00315.html">Date Prev</a>][<a href="msg00317.html">Date Next</a>][<a href="msg00307.html">Thread Prev</a>][<a href="msg00322.html">Thread Next</a>][<a href="maillist.html#00316">Date Index</a>][<a href="threads.html#00316">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: reading external representation</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: reading external representation</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Sun, 18 Feb 2001 23:18:16 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00307.html">200102181448.f1IEmfn02749@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00297.html">3A8EEE37.3090801@agora.ulaval.ca</a>&gt;&lt;<a href="msg00307.html">200102181448.f1IEmfn02749@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Feb 18, Matthew Flatt wrote:
+&gt; 
+&gt; You'll have to manually marshal and unmarshal the objects.
+&gt; (General-purpose automatic object marhsaling would be difficult or
+&gt; impossible to add to MzScheme, due to first-class classes.)
+
+Here's some code I had lying around...  It converts any structure of
+objects to an array that can be written to a file -- as long as you
+specify a way for all included object types to construct an object of
+the same type, a way to pull out its components and a way to set them.
+(So it doesn't cover functions and classes/instances (I have a similar
+thing for Swindle, of course...))  (A nice thing I used this for is a
+list of global values that are made persistent with a file.)
+
+-------------------------------------------------------------------------------
+#!/bin/sh
+#|
+exec mzscheme -mf &quot;$0&quot;
+|#
+
+;;=============================================================================
+;; Get a value and return a value that can be printed and also used to
+;; reconstruct this value back.  The return value is a vector of entries, each
+;; one is a list of a symbol that will construct a value of the desired type
+;; given some arguments, and the arguments follow - either simple values, or a
+;; list with a single integer index that stands for an entry in this vector.
+;;
+;; The whole thing is controlled by a table with entries for a predicate for
+;; these values, a deconstructor and a constructor:
+;;   predicate:   returns #t for values of this entry's type (tested in order
+;;                of defined predicates);
+;;   destructor:  gets this value and returns a list of values which can be
+;;                used to compose an `equal?' value;
+;;   constructor: a function of one argument that returns a value of the wanted
+;;                type, the argument is the number of subvalues given;
+;;   setter:      gets the constructed value and a list of values as returned
+;;                by the destructor and reconstruct the object.
+;;  If the destructor is #f, then there is no way to destruct the value which
+;;  means that it is primitive.  If it is #t, then again it is primitive, but
+;;  the identity of this primitive should be preserved (e.g., strings).
+
+(define marshall-info (make-hash-table))
+(define marshall-predicates '())
+(define (set-marshall-info! name predicate destructor . constructor+setter)
+  (define constructor
+    (and (not (null? constructor+setter))
+         (car constructor+setter)))
+  (define setter
+    (and constructor (not (null? (cdr constructor+setter)))
+         (cadr constructor+setter)))
+  (hash-table-put! marshall-info name
+                   (list name predicate destructor constructor setter))
+  (let ((p (assq name marshall-predicates)))
+    (if p
+      (set-cdr! p predicate)
+      ;; add to the end so common cases come first
+      (set! marshall-predicates
+            (append! marshall-predicates (list (cons predicate name)))))))
+
+(define (value-&gt;marshall value)
+  (define table  (make-hash-table))
+  (define output '())
+  (define count! (let ((c -1)) (lambda () (set! c (add1 c)) c)))
+  (define (get-info x)
+    (let ((info (ormap (lambda (p)
+                         (and ((car p) x)
+                              (hash-table-get marshall-info (cdr p))))
+                       marshall-predicates)))
+      (or info (error 'marshall-value &quot;got a bad value: ~e.&quot; x))))
+  (define (scan! x)
+    (let* ((info (get-info x))
+           (tag  (car info))
+           (dest (caddr info)))
+      (if dest
+        ;; composed value, or value with identity
+        (list (car (hash-table-get
+                    table x
+                    (lambda ()
+                      (let ((entry (list (count!) tag)))
+                        ;; must make sure that x is in before recursing
+                        (hash-table-put! table x entry)
+                        (set! output (cons entry output))
+                        ;; primitive values with identity do not recurse
+                        (set-cdr! (cdr entry)
+                                  (if (procedure? dest)
+                                    (map scan! (dest x))
+                                    (list x)))
+                        entry)))))
+        ;; primitive values
+        x)))
+  (scan! value)
+  (if (null? output)
+    (vector (list value)) ; got a top-level atomic value
+    (list-&gt;vector (map cdr (reverse! output)))))
+
+(define (marshall-&gt;value marshall)
+  (define len (vector-length marshall))
+  (do ((i 0 (add1 i))) ((= i len))
+    (let* ((entry  (vector-ref marshall i))
+           (tag    (car entry))
+           (info   (hash-table-get marshall-info tag))
+           (const  (cadddr info))
+           (setter (car (cddddr info))))
+      (set-car! entry
+                (cons (if const (const (length (cdr entry))) (cadr entry))
+                      setter))))
+  (do ((i 0 (add1 i))) ((= i len))
+    (let* ((entry  (vector-ref marshall i))
+           (obj    (caar entry))
+           (setter (cdar entry)))
+      (when setter
+        (apply setter obj
+               (map (lambda (v)
+                      (if (pair? v) (caar (vector-ref marshall (car v))) v))
+                    (cdr entry))))))
+  (caar (vector-ref marshall 0)))
+
+;; Set some primitive cases
+(set-marshall-info! 'num  number?  #f)
+(set-marshall-info! 'sym  symbol?  #f)
+(set-marshall-info! 'bool boolean? #f)
+(set-marshall-info! 'char char?    #f)
+(set-marshall-info! 'null null?    #f)
+(set-marshall-info! 'str  string?  #t)
+(set-marshall-info! 'pair pair?
+                    (lambda (x) (list (car x) (cdr x)))
+                    (lambda (n) (cons #f #f))
+                    (lambda (p x y) (set-car! p x) (set-cdr! p y)))
+(set-marshall-info! 'vec vector?
+                    (lambda (x) (vector-&gt;list x))
+                    (lambda (n) (make-vector n #f))
+                    (lambda (v . args)
+                      (do ((i 0 (add1 i)) (args args (cdr args)))
+                          ((null? args))
+                        (vector-set! v i (car args)))))
+(set-marshall-info! 'void void? (lambda (v) '()) void void)
+(set-marshall-info! 'box box?
+                    (lambda (b) (list (unbox b)))
+                    (lambda (n) (box #f))
+                    (lambda (b x) (set-box! b x)))
+
+(let ((x (vector (box 1) #f)))
+  (vector-set! x 1 x)
+  (printf &quot;&gt;&gt;&gt; Before: ~s~%&gt;&gt;&gt; After: ~s~%&quot;
+          x
+          (marshall-&gt;value (value-&gt;marshall x))))
+(exit)
+-------------------------------------------------------------------------------
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00322" href="msg00322.html">Re: reading external representation</a></strong>
+<ul><li><em>From:</em> Hassoun Karam &lt;hassoun.karam.1@agora.ulaval.ca&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00297" href="msg00297.html">reading external representation</a></strong>
+<ul><li><em>From:</em> Hassoun Karam &lt;hassoun.karam.1@agora.ulaval.ca&gt;</li></ul></li>
+<li><strong><a name="00307" href="msg00307.html">Re: reading external representation</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00315.html">Re: Raising an exception within C?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00317.html">Re: MzScheme and SML</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00307.html">Re: reading external representation</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00322.html">Re: reading external representation</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00316"><strong>Date</strong></a></li>
+<li><a href="threads.html#00316"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

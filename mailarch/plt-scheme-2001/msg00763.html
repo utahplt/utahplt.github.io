@@ -1,0 +1,156 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Any Examples of COM (and perhaps ADO)? -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Fri, 10 Aug 2001 12:13:07 &#45;0600 (MDT) -->
+<!--X-Message-Id: 001501c121c8$2f800760$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c121ae$7b4a7d70$70730a81@NORTHEASDX5RFA -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Any Examples of COM (and perhaps ADO)?</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00762.html">Date Prev</a>][<a href="msg00764.html">Date Next</a>][<a href="msg00762.html">Thread Prev</a>][<a href="msg00764.html">Thread Next</a>][<a href="maillist.html#00763">Date Index</a>][<a href="threads.html#00763">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Any Examples of COM (and perhaps ADO)?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;,       &quot;'PLT Scheme'&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Any Examples of COM (and perhaps ADO)?</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 10 Aug 2001 14:13:41 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00762.html">000001c121ae$7b4a7d70$70730a81@NORTHEASDX5RFA</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi Paul,
+
+&gt; What version of MysterX are you using -- try (mx-version).
+
+I was interested and tried the examples Alex gave, using MysterX 103-pr
+under DrScheme 103 (using &quot;Graphical Full Scheme (MrEd)&quot;.  I experienced
+identical symptoms.  Here's the smallest example of the problem I could come
+up with:
+
+	(require-library &quot;mysterx.ss&quot; &quot;mysterx&quot;)
+	(define conn (cci/progid &quot;ADODB.Connection&quot;))
+	(com-invoke conn &quot;Open&quot; &quot;DSN=epas;UID=sa;PWD=###&quot;)
+
+Running this once works.  The second time you press Execute in DrScheme it
+fails, with the &quot;com-invoke (method &quot;Open&quot;): expects type &lt;com-0x0&gt; as 3rd
+argument&quot; message.  Something that happens during the first execution screws
+up subsequent executions.  These problems on the second execution vary
+depending on what happened in the first; the &quot;expected 44 to 94 arguments&quot;
+error (with the actual numbers varying) is more common if no parameter is
+passed to Open above.
+
+I tried appending some manual cleanup to the above code, in case the problem
+had to do with things remaining open that shouldn't:
+
+	(com-invoke conn &quot;Close&quot;)	; close the connection object
+	(set! conn '())			; clutching at straws
+
+This didn't make any difference.  I was unable to call the COM &quot;Release&quot;
+method - an error &quot;IDispatch methods may not be called&quot; was returned.
+
+On the first execution, though, using additional code I was able to
+demonstrate that database access was working, up to a point.  I experienced
+an unrelated problem which I'll detail in a separate message.
+
+BTW, I tried using &quot;(exit)&quot; to restart the session without having to quit
+and restart the whole DrScheme environment after each execution.  This
+failed, because subsequent executions complain that CoInitialize has not
+been called.
+
+&gt; Is there some way for me to run your experiment here?  What database are
+&gt; you using for ADO?
+
+I don't know about Alex, but I tried with both MS SQL Server 6.5, and MS
+Access, with identical results.  I assume the problem relates to ADO itself,
+not the database.  Re the version of ADO, I'm using MS Data Access
+Components (MDAC) version 2.5 (specifically 2.50.4403.12), which is not the
+latest version.  However, the ADO objects in MDAC 2.5 have been very stable
+for me in production environments, from various client languages.  If I get
+a chance, I might try it with the latest MDAC (from
+<A  HREF="http://www.microsoft.com/data/download.htm">http://www.microsoft.com/data/download.htm</A>).
+
+Having minimal experience with MysterX, out of curiosity I tried using a
+non-ADO COM object.  I didn't experience the problem with the following
+code:
+
+	(require-library &quot;mysterx.ss&quot; &quot;mysterx&quot;)
+	(define xml (cci/progid &quot;Msxml2.DOMDocument&quot;))
+	(define el (com-invoke xml &quot;createElement&quot; &quot;P&quot;))
+
+This ran repeatedly without problems.  I was also able to add some code to
+exercise the object and make sure it was operating correctly.
+
+-Anton
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00764" href="msg00764.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00765" href="msg00765.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00762" href="msg00762.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00762.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00764.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00762.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00764.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00763"><strong>Date</strong></a></li>
+<li><a href="threads.html#00763"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

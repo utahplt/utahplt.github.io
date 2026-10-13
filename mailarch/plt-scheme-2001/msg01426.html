@@ -1,0 +1,313 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Conway's Game of Life (cellular automata) -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.abegujrfgrea.rqh> -->
+<!--X-Date: Mon, 24 Dec 2001 20:46:12 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112250345.fBP3jRa07123@poincare.math.northwestern.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 00d601c18c3c$02ed5840$0100a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Conway's Game of Life (cellular automata)</title>
+<link rev="made" href="mailto:richter@math.northwestern.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01425.html">Date Prev</a>][<a href="msg01427.html">Date Next</a>][<a href="msg01423.html">Thread Prev</a>][<a href="msg01427.html">Thread Next</a>][<a href="maillist.html#01426">Date Index</a>][<a href="threads.html#01426">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Conway's Game of Life (cellular automata)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A></li>
+<li><em>Subject</em>: Re: Conway's Game of Life (cellular automata)</li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 24 Dec 2001 21:45:27 -0600</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01423.html">00d601c18c3c$02ed5840$0100a8c0@femto</a>&gt; (anton@appsolutions.com)</li>
+<li><em>References</em>: &lt;<a href="msg01423.html">00d601c18c3c$02ed5840$0100a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   As Yoda might say: Assignment leads to mutation.  Mutation leads to
+   pointers.  Pointers lead to suffering!
+
+I like that!  Here's my new version of the code, which no longer gets
+bugs when the game grows past the boundary.  You suggested a number of
+improvements in this code, which you posted a few letters back:
+
+   (define (next-generation game-board)
+
+     ; returns next state of cell with current value as
+     ; specified, based on the state of surrounding cells
+
+     (define (new-cell-state cell-value x y)
+       (let ((count (count-surrounding-black-cells cell-value x y)))
+	 (if (or (= count 3) (and (isblack? cell-value) (= count 2)))
+	     black-cell-value
+	     white-cell-value)))
+
+     (define (count-surrounding-black-cells cell-value x y)
+       (- (matrix-sum board (- x 1) (+ x 2) (- y 1) (+ y 2))
+	  cell-value))
+
+     (board-map new-cell-state game-board))
+
+I implemented all of your improvements except `board-map', which is a
+nice idea, but complicated by the boundary.  That is, we need to count
+how many black neighbors a cell has even if the cell is on the
+boundary.  I dealt with that by the kludge of padding the whole game
+board with a frame of white cells, and then working on the middle.
+
+Anyway, now I've incorporated most of your improvements, maybe we can
+get a better discussion of what HTDP thinks the shape of the data is.
+
+
+(define glider-gun 
+  (map string-&gt;list 
+       (list
+        &quot;                           X            &quot;
+        &quot;                        XXXX            &quot;
+        &quot;               X       XXXX         XX  &quot;
+        &quot;              X X      X  X         XX  &quot;
+        &quot;  XX         X   XX    XXXX     X       &quot;
+        &quot;  XX         X   XX     XXXX    X       &quot;
+        &quot;             X   XX        X            &quot;
+        &quot;              X X                       &quot;
+        &quot;               X                        &quot;)))
+ 
+
+(define empty `())
+
+
+; The 2 functions &amp; 2 variables below are implementation-specific.
+
+(define (cell-black? cell)	(char=? cell black-cell-value))
+(define (cell-white? cell)	(char=? cell white-cell-value))	 ; for completeness
+
+(define white-cell-value #\space)
+(define black-cell-value #\X)
+
+
+(define (next-generation-Life game-board)
+  ;; takes a Conway game of Life (a rectangular game-board) and produces 
+  ;; the next iteration.  As Anton pointed out, the Conway rule is: 
+  ;; The cell becomes black in the next generation if 
+  ;;    it has 3 black neighbors OR 
+  ;;    it has 2 black neighbors AND the cell is black. 
+  ;; Otherwise, the cell becomes white in the next iteration.
+  ;;
+  ;; A game would normally be represented as a matrix of 0s and 1s.   
+  ;; We represent a game-board as a list (rows) of lists (columns) of characters.
+  ;;
+  ;; We first pad the game-board with white cells on all sides, with the function
+  ;; make-padded-game, which also adds extra outer rows or columns if the game-board
+  ;; needs room to expand, i.e. if there are 3 consecutive black cells
+  ;; on a edge row or column. 
+  ;;
+  ;; We next call next-generation-Life-real, which does the real work, returning 
+  ;; the next generation game-board (missing the padded frame of white cells).
+  
+  (letrec ((next-generation-Life-real 
+            (lambda (padded-game-board)
+              (if (null? (cddr padded-game-board))
+                  empty
+                  (cons (fix-middle-row (car padded-game-board)
+                                        (cadr padded-game-board)
+                                        (caddr padded-game-board))
+                        (next-generation-Life-real (cdr padded-game-board)))))))
+  
+    (next-generation-Life-real (make-padded-game game-board))))
+
+
+(define (make-blank-list list) 
+  ;; returns a list full of spaces of same length as list 
+  (if (null? list) 
+      empty
+      (cons white-cell-value 
+            (make-blank-list (cdr list)))))
+
+(define (three-in-row? row)
+  ;; Returns #t if three consecutive black cells on a row (or column).  Uses
+  ;; a helper function three-in-row-real? which maintains a count variable n
+  ;; of the number of consecutive black cells.  If we're on a black cell,
+  ;; we increment n, otherwise we reset n to 0. 
+  (letrec ((three-in-row-real? 
+            (lambda (n row)
+              (cond ((= n 3) #t)
+                    ((null? row) #f)
+                    (else (let ((new-n (if (cell-black? (car row))
+                                           (+ n 1)
+                                           0)))
+                            (three-in-row-real? new-n (cdr row))))))))
+    (three-in-row-real? 0 row)))
+
+(define (make-padded-game game-board)
+  ;; We add an extra border of blanks, so that even the boundary cells have 
+  ;; 8 nearest neighbors.  i.e. add 2 blank rows and 2 blank columns.
+  ;;
+  ;; We also error-check to see if there are 3 consecutive black squares on  
+  ;; any edge, i.e. the top &amp; bottom rows, the left &amp; right sides.  
+  ;; If so, we add an extra row or column, because otherwise we would get an
+  ;; error next iteration.
+  
+  (let* ((top-row    (car game-board))
+         (bottom-row (car (reverse game-board)))
+         (left-side  (map car game-board))
+         (right-side (map (lambda (row) 
+                            (car (reverse row))) 
+                          game-board))
+         
+         (blank-row (make-blank-list top-row))
+         ;;(blank-column (make-blank-list left-side))
+         
+         (pad-top (if (three-in-row? top-row)
+                      (cons blank-row (cons blank-row empty))
+                      (cons blank-row empty)))
+         
+         (pad-bottom (if (three-in-row? bottom-row)
+                         (cons blank-row (cons blank-row empty))
+                         (cons blank-row empty)))
+         
+         (pad-left (if (three-in-row? left-side)
+                       (cons white-cell-value (cons white-cell-value empty))
+                       (cons white-cell-value empty)))
+         
+         (pad-right (if (three-in-row? right-side)
+                        (cons white-cell-value (cons white-cell-value empty))
+                        (cons white-cell-value empty)))
+         
+         (pad-each-row (lambda (row) 
+                         (append pad-left row pad-right))))
+    
+    (map pad-each-row (append pad-top game-board pad-bottom))))
+
+
+(define (fix-middle-row top row bot)
+  ;; take 3 lists (rows) of the same length and play Life on the middle row, 
+  ;; minus the 1st &amp; last elements, which initially are padded SPCs.
+  (if (null? (cddr row))
+      '()
+      (cons (Conway (car top) (cadr top) (caddr top)
+                    (car row) (cadr row) (caddr row)
+                    (car bot) (cadr bot) (caddr bot))
+            (fix-middle-row (cdr top) 
+                            (cdr row) 
+                            (cdr bot)))))
+
+
+(define (count-surrounding-black-cells nw n ne
+                                       w    e
+                                       sw s se)
+  ;; just adds up the number of black cells among nw ... se.
+  (let ((black-&gt;1 (lambda (cell)
+                    (if (cell-black? cell)
+                        1
+                        0))))
+    (apply + (map black-&gt;1 (list nw n ne
+                                 w    e
+                                 sw s se)))))       
+
+
+(define (Conway nw n ne
+                w here e
+                sw s se)
+  ;; Returns new cell value in Conway Game of Life iteration on the cell 
+  ;; whose value is `here'.  
+  (let ((count (count-surrounding-black-cells nw n ne
+                                               w    e
+                                               sw s se)))  
+    (if (or (= count 3)
+            (and (= count 2) 
+                 (cell-black? here)))
+        black-cell-value
+        white-cell-value)))
+
+
+(define (iterate game n)
+  (letrec ((iterate-real 
+            (lambda (picture n i)
+              (if (&gt; i n)
+                  empty
+                  (cons i (cons (map list-&gt;string picture)
+                                (iterate-real (next-generation-Life picture) 
+                                              n (+ i 1))))))))
+    (iterate-real game n 0)))
+
+(define glider-gun 
+  (map string-&gt;list 
+       (list
+        &quot;                           X            &quot;
+        &quot;                        XXXX            &quot;
+        &quot;               X       XXXX         XX  &quot;
+        &quot;              X X      X  X         XX  &quot;
+        &quot;  XX         X   XX    XXXX     X       &quot;
+        &quot;  XX         X   XX     XXXX    X       &quot;
+        &quot;             X   XX        X            &quot;
+        &quot;              X X                       &quot;
+        &quot;               X                        &quot;)))
+
+
+(define 60-iterations-of-glider-gun (iterate glider-gun 60))
+
+60-iterations-of-glider-gun
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01427" href="msg01427.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01423" href="msg01423.html">RE: Conway's Game of Life (cellular automata)</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01425.html">forwarded message from Joost Visser</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01427.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01423.html">RE: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01427.html">Re: Conway's Game of Life (cellular automata)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01426"><strong>Date</strong></a></li>
+<li><a href="threads.html#01426"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

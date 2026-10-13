@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Swig and MzScheme's _scheme_get_type_name -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Sat, 16 Dec 2000 10:56:36 &#45;0700 (MST) -->
+<!--X-Message-Id: 3A3BADAE.BD7F8FFB@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Swig and MzScheme's _scheme_get_type_name</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01153.html">Date Prev</A>][<A HREF="msg01155.html">Date Next</A>][<A HREF="msg01173.html">Thread Prev</A>][<A HREF="msg01162.html">Thread Next</A>][<A HREF="maillist.html#01154">Date Index</A>][<A HREF="threads.html#01154">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Swig and MzScheme's _scheme_get_type_name</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Swig and MzScheme's _scheme_get_type_name</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 16 Dec 2000 13:00:14 -0500</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm using DrScheme 103 and Swig 1.3 (Alpha 3) 
+  <A  HREF="http://www.swig.org/">http://www.swig.org/</A>
+to wrap a DLL. 
+
+I get everything to work, defining a new data type for a structure
+passed around, except I needed to comment out some of the following
+lines to make it compile.:
+
+void *swig_get_c_pointer(Scheme_Object *so, char *c_type) {
+    Scheme_Type st = SCHEME_TYPE(so);
+    //char *type_name = scheme_get_type_name(st);
+    //if(strcmp(type_name, c_type))
+    //scheme_signal_error("wrong type in foreign object %s", type_name);
+
+    return (void *) ((swig_proxy *) so)-&gt;object;
+}
+
+This was because "_scheme_get_type_name" can't be found by the linker.
+Any thoughts on what I might be doing wrong? I have rebuilt mzdyn.obj
+myself (required as I use for VC 5.0), and the OBJ does not appear to
+contain a reference to the function.
+
+With those error checking lines commented out (which basically area
+safety check to ensure the pointer passed into the functions is of the
+correct type) everything seems to run.
+
+I also get the error when I try to build the simple Swig example for
+MzScheme.
+
+For the curious, the DLL is a C version of the Pointrel Data Repository
+System I wrote:         
+  <A  HREF="http://www.pointrel.com/">http://www.pointrel.com/</A> 
+I also wrote a MzScheme version of that (which uses a FileIO dll which I
+wrote to support it) but I decided it would probably be easier to
+support one DLL called by multiple languages. I've now got source
+versions in Python, Squeak Smalltalk, Delphi Pascal, Java, MzScheme, and
+C -- although some of them are slightly incompatible in API and file
+format. I also have wrappers in Python and now MzScheme for a C DLL
+(under windows).
+
+The value of linking something like the Pointrel system into MzScheme is
+that it can function as a lightweight object-oriented repository, such
+as for storing help documents, source code versions, metadata, and so on
+in one big repository file. This is a more efficient use of disk space
+as opposed to all those little MzScheme help files now on my system
+which take up 4K each (due to disk cluster size issues). Also, the
+repository could in theory also gzip the text of such files, providing a
+further size reduction. Also, this means one could ship an application
+with all the support files in one big repository (makes for less
+clutter). (Yes, obviously then you need to trust the integrity of the
+data repository...) However, the bigger issue beyond file size is really
+storing metadata and arbitrary associations to data.
+
+(Now if I just knew how to hook the DrScheme file handling routines to
+redirect them when desired into my repository system without having to
+rebuild DrScheme...)
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01162" HREF="msg01162.html">Re: Swig and MzScheme's _scheme_get_type_name</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01153.html">efficiency</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01155.html">minor readline bug?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01173.html">define-syntax</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01162.html">Re: Swig and MzScheme's _scheme_get_type_name</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01154"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01154"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

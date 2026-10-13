@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: 199.14 -->
+<!--X-From-R13: Oyrkrl [nubgxva <nyrkzNwrg.zfx.fh> -->
+<!--X-Date: Wed, 13 Jun 2001 09:29:32 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15143.34512.177092.129926@david.jet.msk.su -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200106121736.LAA28518@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: 199.14</title>
+<link rev="made" href="mailto:alexm@jet.msk.su">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00538.html">Date Prev</a>][<a href="msg00540.html">Date Next</a>][<a href="msg00536.html">Thread Prev</a>][<a href="msg00537.html">Thread Next</a>][<a href="maillist.html#00539">Date Index</a>][<a href="threads.html#00539">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: 199.14</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: 199.14</li>
+<li><em>From</em>: Alexey Mahotkin &lt;<A HREF="mailto:alexm@jet.msk.su">alexm@jet.msk.su</A>&gt;</li>
+<li><em>Date</em>: Wed, 13 Jun 2001 19:29:20 +0400 (MSD)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00534.html">200106121736.LAA28518@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Organization</em>: http://www.jet.msk.su/</li>
+<li><em>References</em>: &lt;<a href="msg00534.html">200106121736.LAA28518@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;&gt;&gt;&gt;&gt; &quot;MF&quot; == Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+    MF&gt; The v200-tagged code in CVS for MzScheme and MrEd is now
+    MF&gt; version 199.14.  Changes:
+
+Please try to compile it with --enable-osthreads.  On both Solaris and
+Linux it immediately gives
+
+make[5]: Entering directory `/var/tmp/alexm/plt-linux-build/src/mzscheme/src'
+gcc -g -O2 -Wall   -DLINUX_THREADS -D_REENTRANT  -I./../include -c ./bignum.c -o bignum.o
+./bignum.c: In function `bignum_multiply':
+./bignum.c:507: warning: implicit declaration of function `SCHEME_GET_CURRENT_THREAD'
+./bignum.c:507: invalid type argument of `-&gt;'
+./bignum.c:508: invalid type argument of `-&gt;'
+./bignum.c: In function `scheme_bignum_use_fuel':
+./bignum.c:1203: invalid type argument of `-&gt;'
+make[5]: *** [bignum.o] Error 1
+
+There is only one instance of `SCHEME_GET_CURRENT_THREAD', and it
+seems to be a little bug that is best fixed by authors.
+
+
+Thank you,
+
+--alexm
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00534" href="msg00534.html">199.14</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00538.html">TeachScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00540.html">Re: forwarded message from Jacques Herry</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00536.html">Re: 199.14</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00537.html">BE A MILLIONAIRE LIKE OTHERS WITHIN A  YEAR!</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00539"><strong>Date</strong></a></li>
+<li><a href="threads.html#00539"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

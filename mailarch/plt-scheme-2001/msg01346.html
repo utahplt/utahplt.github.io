@@ -1,0 +1,160 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: (problem? 'guile) -->
+<!--X-From-R13: "Euevenz Yevfuanzheguv" <fxNpf.oebja.rqh> -->
+<!--X-Date: Sat, 15 Dec 2001 08:45:55 &#45;0700 (MST) -->
+<!--X-Message-Id: BCEOLHKHFMDPNMEKEAECMENLCAAA.sk@cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: qs3667wv8pq.fsf@yoko.inria.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: (problem? 'guile)</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01345.html">Date Prev</a>][<a href="msg01347.html">Date Next</a>][<a href="msg01255.html">Thread Prev</a>][<a href="msg01349.html">Thread Next</a>][<a href="maillist.html#01346">Date Index</a>][<a href="threads.html#01346">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: (problem? 'guile)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Manuel Giraud&quot; &lt;<A HREF="mailto:giraud@tif.inria.fr">giraud@tif.inria.fr</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: (problem? 'guile)</li>
+<li><em>From</em>: &quot;Shriram Krishnamurthi&quot; &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 15 Dec 2001 09:43:23 -0600</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01245.html">qs3667wv8pq.fsf@yoko.inria.fr</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi Manuel,
+
+Sorry for the delay replying -- your message came while I was on the
+road.
+
+&gt; Recently reading c.l.scheme, I can see that Shriram Krishnamurthi
+&gt; seems to doesn't really appreciate the Guile approach to
+&gt; Scheme. This
+&gt; is not a Troll, but while I'm about to consider using
+&gt; MzScheme rather
+&gt; than Guile (as I've done from now), I'd like to see
+&gt; arguments of what
+&gt; makes MzScheme &quot;better&quot; than Guile ?
+
+This is a complex question without a simple answer.  The problems with
+Guile are rooted both in process and in technology, and these are
+interrelated.
+
+The problems with process are, simply, that I don't think the Open
+Source model is a good way to design a *language*.  It's great for
+producing libraries, especially ones that solve standard problems
+(such as providing access to common protocols).  But language design
+usually needs a focal point of control, and this person should ideally
+be as literate as possible.  My sense of Guile is that the person in
+charge has changed regularly -- either that, or different people think
+they're all in charge, which is a different kind of problem.  As such,
+it offers no central design philosophy that I can pin down.
+
+I also don't trust that some of the people (who have said they are) in
+charge know a heck of a lot about what they're talking about.  I've
+had several questions about Guile's libraries, and also some of its
+linguistic features, some of which are documented on c.l.s and on SRFI
+mailing lists.  I've seen Guile code that was so full of side-effects
+(gratuitous ones, I might add) that you might as well be programming
+in a first-order imperative language -- so why bother with Guile?
+I'll provide you one illustrative example, which reflects the last
+time I had any contact with Guile.
+
+I was looking over one of its networking libraries, and noticed that
+it reflected an underlying C library's interface directly in Scheme.
+So far, okay; indeed, we've suggested on this list, in the past few
+days, that this is exactly the right thing to do.
+
+It went further, however, to mirror the C library *exactly*.  In
+particular, where the C library consumed pointers, Guile passed it the
+pointers it wanted.  In the process, it introduced variable aliasing.
+This, also, should not be particularly surprising -- C is notorious
+for the presence of variable alasing.  Scheme, on the other hand, *has
+none*.  The presence of aliasing introduces umpteen problems for any
+kinds of tools -- anything from value flow inference to type inference
+to compiler optimization to ...
+
+We went over this several times.  It was clear that I was making no
+progress at all explaining the implications of this problem with my
+correspondent, one of the self-style designers of Guile.  About the
+fifth iteration, I finally broke with the conventions of politeness
+and asked him, bluntly, whether he had any idea about what aliasing
+was, and thus what I was talking about.  His answer: he didn't have a
+clue.  I then asked him why he was designing a programming language.
+His response was, quite simply, because he could -- that was one of
+the joys of the Guile model.
+
+Quite simply, I don't want a language with that kind of designer.
+
+Shriram
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01349" href="msg01349.html">Re: (problem? 'guile)</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+<li><strong><a name="01356" href="msg01356.html">Re: (problem? 'guile)</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+<li><strong><a name="01361" href="msg01361.html">Re: (problem? 'guile)</a></strong>
+<ul><li><em>From:</em> Manuel Giraud &lt;giraud@tif.inria.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01245" href="msg01245.html">(problem? 'guile)</a></strong>
+<ul><li><em>From:</em> Manuel Giraud &lt;giraud@tif.inria.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01345.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01347.html">Premature eof-object   ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01255.html">Re: (problem? 'guile)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01349.html">Re: (problem? 'guile)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01346"><strong>Date</strong></a></li>
+<li><a href="threads.html#01346"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

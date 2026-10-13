@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: OOP with units and mixins -->
+<!--X-From-R13: Vnffbha <unffbhaNflzcngvpb.pn> -->
+<!--X-Date: Mon, 21 Aug 2000 21:49:53 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39A1F7DD.EC874F3@sympatico.ca -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>OOP with units and mixins</title>
+<link rev="made" href="mailto:hassoun@sympatico.ca">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00506.html">Date Prev</a>][<a href="msg00508.html">Date Next</a>][<a href="msg00506.html">Thread Prev</a>][<a href="msg00537.html">Thread Next</a>][<a href="maillist.html#00507">Date Index</a>][<a href="threads.html#00507">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>OOP with units and mixins</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: OOP with units and mixins</li>
+<li><em>From</em>: Hassoun &lt;<A HREF="mailto:hassoun@sympatico.ca">hassoun@sympatico.ca</A>&gt;</li>
+<li><em>Date</em>: Mon, 21 Aug 2000 23:47:41 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+i am trying to learn Modular Object-Oriented Programming with Units and
+Mixins, according to the excellent paper by R.B Findler and M. Flatt. 
+
+i am using DrScheme v102 and i would like to implement the code in
+graphical full scheme.
+
+any hints about the necessary changes to apply on the following code
+(taken from the paper's source):
+
+;; special mumbo-jumbo to load in the MrEd library.
+(require-library &quot;debug.ss&quot; &quot;system&quot;)
+(require-library &quot;sig.ss&quot; &quot;mred&quot;)
+(require-library &quot;wxs.ss&quot; &quot;system&quot;)
+(define MrEd-Toolkit
+  (unit/sig-&gt;unit
+   (compound-unit/sig
+       (import)
+     (link [C : mzlib:core^ ((require-library &quot;corer.ss&quot;))]
+           [M : mred^ ((require-library &quot;link.ss&quot; &quot;mred&quot;) C)])
+     (export
+      (var (M wx:pen%))
+      (var (M wx:brush%))
+      (var (M wx:const-solid))
+      (var (M canvas%) mred:canvas%)
+      (var (M frame%) mred:frame%)
+      (var (M vertical-panel%) mred:vertical-panel%)))))
+
+your help would be greatly appreciated
+-- 
+Hassoun Karam
+hassoun@sympatico.ca
+--------------------------
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00537" href="msg00537.html">Re: OOP with units and mixins</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00506.html">Re: problem with numeric keypad</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00508.html">Scheme 2000: Call for Participation</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00506.html">Re: problem with numeric keypad</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00537.html">Re: OOP with units and mixins</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00507"><strong>Date</strong></a></li>
+<li><a href="threads.html#00507"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

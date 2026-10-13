@@ -1,0 +1,142 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: bytecode unification for scripting languages -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Wed, 1 Aug 2001 08:42:57 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108011442.KAA11200@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200108010102.VAA06590@bosch.cs.brown.edu -->
+<!--X-Reference: 20010801082038.26038.qmail@web11206.mail.yahoo.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: bytecode unification for scripting languages</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00735.html">Date Prev</a>][<a href="msg00737.html">Date Next</a>][<a href="msg00734.html">Thread Prev</a>][<a href="msg00749.html">Thread Next</a>][<a href="maillist.html#00736">Date Index</a>][<a href="threads.html#00736">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: bytecode unification for scripting languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: bytecode unification for scripting languages</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 1 Aug 2001 10:42:24 -0400 (EDT)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00734.html">20010801082038.26038.qmail@web11206.mail.yahoo.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00729.html">200108010102.VAA06590@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg00734.html">20010801082038.26038.qmail@web11206.mail.yahoo.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Noel Welsh wrote:
+
+&gt; [.NET]
+&gt; Do you think it is appropriate for Scheme?  
+
+Fairly so, yes.
+
+&gt;					      I assumed
+&gt; the CIL would have forced you into a single dispatch
+&gt; OO world, possibly without closures (which you'd have
+&gt; to fake with classes).  
+
+Lookit, the same goes for standard hardware, but I don't see anyone
+arguing that the x86 or SPARC is inappropriate for Scheme.  The wins
+with any intermediate format of this sort are:
+
+- a run-time system (object/value creation, GC, etc)
+- native code generation made easy
+- interoperability
+- a big run-time library
+
+In each category, .NET seems to stack up very nicely against the JVM.
+I don't know how Parrot or any of these other projects would stack,
+but then they don't exist, either.  There are several ways in which
+.NET seems better than the JVM, the most dramatic being tail calls.
+
+We don't get multiple dispatch.  But PLT Scheme doesn't use multiple
+dispatch anyway.  (This isn't to say I'm not a pretty big fan of
+multiple dispatch, just that as a practical matter, it's not yet an
+issue for us.)
+
+We don't get native closures.  But we do get first-class methods,
+which is better than objects-only.  Also, there was talk at MS that
+the next major release (and hence C#) may come with native closures.
+
+Units would be a bit of work, but perhaps less so than on the JVM,
+since .NET does have a reference semantics (if you want to implement
+units as importing boxes rather than values).  And it's not like some
+other VM is going to see the light and implement units anyway.
+
+It may actually be possible to get mixins right!  I'm still looking
+into this.
+
+The standard classes probably don't feel very Schemey.  You could, on
+the other hand, at least in theory, use Haskell's or ML's standard
+library if the mood struck you.  But do tell: does GUI programming in
+MrEd feel very Schemey?
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00749" href="msg00749.html">RE: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00729" href="msg00729.html">bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00734" href="msg00734.html">Re: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00735.html">RE: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00737.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00734.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00749.html">RE: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00736"><strong>Date</strong></a></li>
+<li><a href="threads.html#00736"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

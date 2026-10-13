@@ -1,0 +1,113 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: precise GC -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 13 Feb 2000 16:36:42 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000213233638.RRYV13463.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>precise GC</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00429.html">Date Prev</A>][<A HREF="msg00431.html">Date Next</A>][<A HREF="msg00429.html">Thread Prev</A>][<A HREF="msg00431.html">Thread Next</A>][<A HREF="maillist.html#00430">Date Index</A>][<A HREF="threads.html#00430">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>precise GC</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: precise GC</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 13 Feb 2000 15:36:38 -0800</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+We've been experimenting with precise GC in MzScheme and MrEd.
+
+The precisely collected versions of MzScheme and MrEd do not yet work
+so well that we've switched our daily tasks to them. And they currently
+compile for Unix, only.
+
+To avoid confusion with plain old MzScheme and MrEd, we're calling the
+precisely collected variants "MrEd2k" and "MzScheme2k" for now. Scheme
+code is supposed to run the same in the 2ks as in the plain-olds, but
+the extension interface is different (and not yet documented).
+
+To try out precise collection, get the current code via the anonymous
+CVS server (see <A  HREF="http://www.cs.utah.edu/plt/anoncvs/">http://www.cs.utah.edu/plt/anoncvs/</A>), build MzScheme
+and MrEd in the usual way, and then build the 2ks:
+
+  cd plt/src/mzscheme
+  mzmake 2k
+  cd ../mred
+  gnumake 2k
+
+However,
+
+ 1) MrEd2k still has significant bugs. For example, I can't run my mail
+    program for more than a day before something goes wrong.
+
+ 2) The experimental precise collector (generational, compacting) is
+    currently slower than the conservative collector. In the short run,
+    the footprint isn't any smaller, either.
+
+ 3) The main evaluation loop is not yet tuned for precise collection,
+    so even non-allocating loops run slower in the 2ks.
+
+Feedback is welcome.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00429.html">Re: CVS</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00431.html">build from the scratch</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00429.html">Re: CVS</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00431.html">build from the scratch</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00430"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00430"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

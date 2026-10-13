@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: DrScheme as Emacs&#45;like kitchen sink -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Thu, 4 Oct 2001 15:07:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110042107.OAA25757@harrier.mail.pas.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110010328.WAA00358@banach.math.nwu.edu -->
+<!--X-Reference: 200110010347.XAA14156@klee.cs.brown.edu -->
+<!--X-Reference: 200110011154.f91BsH420528@denali.ccs.neu.edu -->
+<!--X-Reference: 200110020416.XAA00784@banach.math.nwu.edu -->
+<!--X-Reference: p05100300b7df6c1a47b7@[192.168.1.100] -->
+<!--X-Reference: 200110030344.WAA00950@banach.math.nwu.edu -->
+<!--X-Reference: 3BBADF30.F5C4A1B@info.unicaen.fr -->
+<!--X-Reference: 200110031423.IAA09143@fast.cs.utah.edu -->
+<!--X-Reference: 200110040142.UAA00352@banach.math.nwu.edu -->
+<!--X-Reference: 878zerkxx5.fsf@lambda.cs.hut.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: DrScheme as Emacs-like kitchen sink</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00987.html">Date Prev</a>][<a href="msg00989.html">Date Next</a>][<a href="msg00985.html">Thread Prev</a>][<a href="msg00990.html">Thread Next</a>][<a href="maillist.html#00988">Date Index</a>][<a href="threads.html#00988">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: DrScheme as Emacs-like kitchen sink</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: DrScheme as Emacs-like kitchen sink</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 4 Oct 2001 14:07:27 -0700 (PDT)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00985.html">878zerkxx5.fsf@lambda.cs.hut.fi</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00941.html">200110010328.WAA00358@banach.math.nwu.edu</a>&gt;&lt;<a href="msg00942.html">200110010347.XAA14156@klee.cs.brown.edu</a>&gt;&lt;<a href="msg00944.html">200110011154.f91BsH420528@denali.ccs.neu.edu</a>&gt;&lt;<a href="msg00949.html">200110020416.XAA00784@banach.math.nwu.edu</a>&gt;&lt;<a href="msg00951.html">p05100300b7df6c1a47b7@[192.168.1.100]</a>&gt;&lt;<a href="msg00961.html">200110030344.WAA00950@banach.math.nwu.edu</a>&gt;&lt;<a href="msg00962.html">3BBADF30.F5C4A1B@info.unicaen.fr</a>&gt;&lt;<a href="msg00964.html">200110031423.IAA09143@fast.cs.utah.edu</a>&gt;&lt;<a href="msg00977.html">200110040142.UAA00352@banach.math.nwu.edu</a>&gt;	&lt;<a href="msg00985.html">878zerkxx5.fsf@lambda.cs.hut.fi</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Riku Saikkonen:
+&gt; However, it would sometimes be useful to have user-customisable
+&gt; indentation. For example, if I define a macro that's a variation of
+&gt; let, I'd like to be able to tell the editor to indent it as a let.
+&gt; (This shouldn't be too difficult to do in Emacs: just use the above
+&gt; `put' statement in, e.g., local variables. But it could be more
+&gt; convenient.)
+
+Something like this is already possible in DrScheme. See the
+`indentation' panel of the preferences dialog (from the edit menu).
+
+You may already know, but this is also easy in emacs. Just put this in
+your .emacs file:
+
+  (put 'let*-values 'scheme-indent-function 1)
+
+where let*-values is the variation of the let macro.
+
+Robby
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00990" href="msg00990.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00941" href="msg00941.html">DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00942" href="msg00942.html">DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00944" href="msg00944.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00949" href="msg00949.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00951" href="msg00951.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00961" href="msg00961.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00962" href="msg00962.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00964" href="msg00964.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00977" href="msg00977.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00985" href="msg00985.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Riku.Saikkonen@hut.fi (Riku Saikkonen)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00987.html">RE: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00989.html">RE: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00985.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00990.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00988"><strong>Date</strong></a></li>
+<li><a href="threads.html#00988"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

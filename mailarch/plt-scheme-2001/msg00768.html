@@ -1,0 +1,137 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: "indexed" COM properties in MysterX? -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Fri, 10 Aug 2001 13:52:23 &#45;0600 (MDT) -->
+<!--X-Message-Id: 001701c121d6$0ef32be0$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c121ae$7b4a7d70$70730a81@NORTHEASDX5RFA -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>&quot;indexed&quot; COM properties in MysterX?</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00767.html">Date Prev</a>][<a href="msg00769.html">Date Next</a>][<a href="msg00765.html">Thread Prev</a>][<a href="msg00770.html">Thread Next</a>][<a href="maillist.html#00768">Date Index</a>][<a href="threads.html#00768">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>&quot;indexed&quot; COM properties in MysterX?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;,       &quot;'PLT Scheme'&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: &quot;indexed&quot; COM properties in MysterX?</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 10 Aug 2001 15:53:00 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00762.html">000001c121ae$7b4a7d70$70730a81@NORTHEASDX5RFA</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Experimenting with the example given earlier by Alex Peake, I was unable to
+find a way, in MysterX, to access &quot;indexed&quot; COM properties, i.e. properties
+that take parameters.  An important example of this is the ADO Fields.Item
+property, which is used to access database fields by name (or ordinal).  The
+COM IDL definition of this property in the ADO Fields interface looks like
+this:
+
+	[id(00000000), propget]
+	HRESULT Item( [in] VARIANT Index, [out, retval] Field** ppvObject );
+
+Since the MysterX function &quot;com-get-property&quot; is designed to traverse a
+property &quot;path&quot;, there doesn't seem to be a way to specify a parameter to a
+property.  Attempting to access an ADO field as follows:
+
+	(display (com-get-property flds &quot;Item&quot; &quot;Name&quot;))
+
+returns the error:
+
+	...com-get-property (property &quot;Item&quot;): expects 3 arguments, given 2:
+#&lt;com-object&gt; &quot;Item&quot;&quot;
+
+since of course &quot;Name&quot; is being treated by com-get-property as another
+property name, not as a parameter to the Item property.
+
+Here's my complete test.  It works perfectly except for the last line.  (Of
+course it still suffers from the repeated Execute problem under DrScheme).
+
+	(require-library &quot;mysterx.ss&quot; &quot;mysterx&quot;)
+	(define conn (cci/progid &quot;ADODB.Connection&quot;))
+	(com-invoke conn &quot;Open&quot; &quot;DSN=epas;UID=sa;PWD=###&quot;)
+
+	(define rs (com-invoke conn &quot;Execute&quot; &quot;SELECT * FROM
+SourceDocumentSubtypes&quot;))
+
+	(define flds (com-get-property rs &quot;Fields&quot;))
+	(display (com-get-property flds &quot;Count&quot;))		; displays correct field count
+
+	(display (com-get-property flds &quot;Item&quot; &quot;Name&quot;))
+
+So, does MysterX have some other way of accessing properties that take
+parameters?  I tried adding a function to mysterxe.ss modeled after that
+module's com-get-property function, but I think I run into the same issue
+with the underlying primitive function, and I don't have the source to that
+(is the source available?)
+
+Anton
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00770" href="msg00770.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00762" href="msg00762.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00767.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00769.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00765.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00770.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00768"><strong>Date</strong></a></li>
+<li><a href="threads.html#00768"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

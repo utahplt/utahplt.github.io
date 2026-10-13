@@ -1,0 +1,66 @@
+
+ 1. Here's a data definition:
+
+     ; A pipeline is either
+     ;   - bool
+     ;   - (make-straight pipeline)
+     ;   - (make-branch pipeline pipeline)
+     (define-struct straight (next))
+     (define-struct branch (left right))
+
+   where "true" for the first case means an open faucet, and "false"
+   means a closed faucet.
+
+   Finish the following template for pipelines.
+
+
+     (define (func-for-pipeline p)
+       (cond
+
+        [(boolean? p)                               ]
+       
+        [(straight? p) 
+
+
+
+                                                    ]
+
+        [(branch? p)
+
+
+
+
+                                                    ]))
+
+
+ 2. How do you fill in template's "..." to implement
+    "count-faucets"? Here are some examples, first:
+
+      (count-faucet true)                    "should be" 1
+      (count-faucet (make-straight false))   "should be" 1
+      (count-faucet (make-branch
+                     (make-straight false)
+                     true)                   "should be" 2
+    
+
+
+
+
+
+
+
+
+
+
+
+ 3. How do you fill in template's "..." to implement
+    "water-running?"? Here are some examples, first:
+
+      (water-running? true)                  "should be" true
+      (water-running? false)                 "should be" false
+      (water-running? (make-straight false)) "should be" false
+      (water-running? (make-branch
+                       (make-straight false)
+                       true)                  "should be" true
+    
+

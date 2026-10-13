@@ -1,0 +1,135 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: FFI...  (any C hackers around?) -->
+<!--X-From-R13: Drvav Geona <eheonaNk&#45;enl.ng> -->
+<!--X-Date: Tue, 25 Jan 2000 18:30:09 &#45;0700 (MST) -->
+<!--X-Message-Id: 388D817F.5E0D@x&#45;ray.at -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14476.11261.231141.760675@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: FFI...  (any C hackers around?)</title>
+<link rev="made" href="mailto:rurban@x-ray.at">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00031.html">Date Prev</a>][<a href="msg00033.html">Date Next</a>][<a href="msg00031.html">Thread Prev</a>][<a href="msg00033.html">Thread Next</a>][<a href="maillist.html#00032">Date Index</a>][<a href="threads.html#00032">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: FFI...  (any C hackers around?)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;</li>
+<li><em>Subject</em>: Re: FFI...  (any C hackers around?)</li>
+<li><em>From</em>: Reini Urban &lt;<A HREF="mailto:rurban@x-ray.at">rurban@x-ray.at</A>&gt;</li>
+<li><em>Date</em>: Tue, 25 Jan 2000 10:57:03 +0000</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: x-ray &amp; http://xarch.tu-graz.ac.at/</li>
+<li><em>References</em>: &lt;<a href="msg00029.html">14476.11261.231141.760675@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+You might be interested in the FFI design survey I'm currently writing. 
+(50-60% finished only so far)
+  <A  HREF="http://xarch.tu-graz.ac.at/autocad/lisp/ffis.html">http://xarch.tu-graz.ac.at/autocad/lisp/ffis.html</A>  
+
+And I'm interested in your FFI design more detailled. I will add it to my 
+survey as well then.
+
+For closures I would suggest looking to bruno haibles callback library.
+  <A  HREF="http://users.n.ml.org/nc/ffcall/callback.html">http://users.n.ml.org/nc/ffcall/callback.html</A> or
+  <A  HREF="http://clisp.cons.org/~haible/packages-ffcall-README.html">http://clisp.cons.org/~haible/packages-ffcall-README.html</A>
+
+BTW: Making it like ACL is a huge task. The ACL FFI design is the richest and 
+probably the hardest to implement. I mean foreign pointers and the class 
+abstraction. I would suggest doing it simplier. (eg. corman lisp like)
+personally i try to make mine or the emacs elisp FFI Visual Basic like, with 
+the drawback to loose support for arrays and structs.
+
+Eli Barzilay wrote:
+&gt; 
+&gt; This is a bit too long, but the result of the story (marked with a
+&gt; &quot;***&quot;) looks like something that can be useful...
+
+&gt; 1. Passing a variable number of arguments to a function, with varying
+&gt;    sizes - now I have a big &amp; ugly case statement with only 32bit
+&gt;    types.
+
+only solvable for callee with cdecl linkage, but there it's quite easy.
+I have a brainsimple sample in assembler at my survey.
+ 
+&gt; 2. Missing any way of making a C closure that is callable from C -
+&gt;    something that can be passed on to some C function that will call
+&gt;    the Scheme function.  A crude solution will be to rely on such
+&gt;    callbacks to have a data pointer and play with that... 
+&gt; It should probably be very simple to make it work on other OS's as
+&gt; well, since only the shared library openning and getting a symbol's
+&gt; address are the OS-dependent parts, and that is pretty similar to the
+&gt; MzScheme source.
+
+libcallback is portable, perl's C::Dynalib is also portable across multiple 
+cpu's. the gcc sources are also worth to study for the different CPU function 
+calling schemes.
+
+alignment issues are also problematic. (if you want to deal with c-structs 
+at all. I don't want to)
+
+the worst is to deal with foreign memory.
+-- 
+Reini Urban    
+<A  HREF="http://xarch.tu-graz.ac.at/autocad/news/faq/autolisp.html">http://xarch.tu-graz.ac.at/autocad/news/faq/autolisp.html</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00029" href="msg00029.html">FFI...  (any C hackers around?)</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00031.html">Re: FFI...  (any C hackers around?)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00033.html">Compiling Manual or tutorial</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00031.html">Re: FFI...  (any C hackers around?)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00033.html">Compiling Manual or tutorial</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00032"><strong>Date</strong></a></li>
+<li><a href="threads.html#00032"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

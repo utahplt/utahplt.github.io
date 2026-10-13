@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strings in hash tables -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 9 Oct 2001 12:48:03 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110091848.MAA10541@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: OF61558C1D.31792D65&#45;ON85256AE0.004E034A@frogware.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strings in hash tables</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01012.html">Date Prev</a>][<a href="msg01014.html">Date Next</a>][<a href="msg01011.html">Thread Prev</a>][<a href="msg01012.html">Thread Next</a>][<a href="maillist.html#01013">Date Index</a>][<a href="threads.html#01013">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strings in hash tables</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:MichaelL@frogware.com">MichaelL@frogware.com</A></li>
+<li><em>Subject</em>: Re: Strings in hash tables</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 9 Oct 2001 12:48:00 -0600 (MDT)</li>
+<li><em>CC</em>: &quot;PLT Scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01009.html">OF61558C1D.31792D65-ON85256AE0.004E034A@frogware.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01009.html">OF61558C1D.31792D65-ON85256AE0.004E034A@frogware.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting MichaelL@frogware.com:
+&gt; Two questions:
+&gt; 
+&gt; * Is this the best way to use strings as keys in a hash table?
+
+Yes, in version 103.X.
+
+Using `equal?'-based tables might be better in 199.X.
+
+&gt; * Isn't this a strange way for this to work, given expectations about 
+&gt; &quot;dictionary&quot; containers?
+
+Strings are (usually) mutable, and therefore not interned. So that's
+why the normal `eq?' hashing doesn't work.
+
+The default for hash tables is not `equal?' because that's somewhat
+fragile (e.g., it gets confused by mutations or cyclic structures; I
+notice that the documentation fails to mention the those pitfalls).
+
+&gt; I think it's worth explicity mentioning in the docs how to use 
+&gt; strings as hash table keys just to save some annoyance time.
+
+Good idea.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01009" href="msg01009.html">Strings in hash tables</a></strong>
+<ul><li><em>From:</em> MichaelL@frogware.com</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01012.html">RE: Strings in hash tables</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01014.html">newline comparison?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01011.html">RE: Strings in hash tables</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01012.html">RE: Strings in hash tables</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01013"><strong>Date</strong></a></li>
+<li><a href="threads.html#01013"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

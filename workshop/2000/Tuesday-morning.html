@@ -1,0 +1,100 @@
+
+<html>
+<title>TeachScheme! 2000</title>
+<body bgcolor=white>
+<table width=100%>
+<tr><td valign=top align=left>
+        <h1><img align=top 
+	         src=icons/ts2k-small.gif
+                 alt="[PLT logo]">
+            TeachScheme! 2000
+        </h1></td>
+   <td valign=top align=right>
+   <table>
+      <tr><td valign=top align=right><h3>July 10-14, 2000</h3></td></tr>
+      <tr><td valign=top align=right><h3>Details for Tuesday morning</h3></td></tr>
+   </table>
+   </tr>
+</table>
+<hr>
+
+<table bgcolor=beige>
+<tr><td><pre>
+
+  Finished yesterday working with posns, compound data.  Compound data
+  arises in many contexts:
+  -- phone books
+  -- library catalogs
+  -- store inventory
+  -- periodic table
+  How can we make our own forms of compound data (structures)?
+
+  Example: zoo animals
+  -- (define-struct boa (name weight food))
+     (make-boa 'Slinky 30 'pets)
+     (make-boa 'Slim 50 'bushes)
+
+     ; portable? : boa num -> boolean
+     ; determine whether boa no heavier than given weight limit
+
+     Re-motivate need for selectors
+
+  What does define-struct provide?
+  -- make-boa : symbol num symbol -> boa
+  -- boa-name : boa -> symbol
+  -- boa-weight : boa -> num
+  -- boa-food : boa -> food
+
+  make-boa is the [constrictor] constructor
+  the others are selectors
+  show box diagram; emphasize the label ("boa", not "posn")
+
+  -- (define-struct armadillo (weight dead?))
+     ["In Texas, there a'int nothin' in the middle of the road 'cept a
+       yellow line and a dead armadilla"]
+
+     ; portable? : armadillo num -> boolean
+
+     ; run-over-by-car : armadillo -> armadillo
+
+  >> DATA DEFINITIONS FOR MIXED DATA <<
+
+  -- An animal is either
+       - a boa, or
+       - an armadillo
+
+  ; portable? : animal num -> boolean
+
+   --> define-struct also introduces predicates
+   CONDITIONAL, each line in the conditional: selectors
+
+  -- Add (define-struct tiger (name sells weight))
+     (make-tiger 'Tony 'cereal 150)
+
+   show how this affects template and `portable?'
+
+  >> DESIGN RECIPE (p88) <<
+  specify, make examples, define, test
+
+  Second example:
+    A geometric shape is either
+     - square  (define-struct square (posn side))
+     - circle  (define-struct square (posn r))
+
+   ;; area : shape -> number 
+
+  ** Add new variant: 
+    - rectangle ++ add a clause 
+
+  ** Change variant's part: 
+    - circle r => radius ++ change the clause for circle 
+
+<pre></td>
+<td valign=top align=right><img src="icons/hand.right.gif" alt=[Point]> <a href =Tuesday-morning-lab.html>LAB</a></td>
+</tr>
+</table>
+<hr>
+Generated on: Tue Jul 18 11:20:37 MDT 2000
+<hr>
+</body>
+</html>

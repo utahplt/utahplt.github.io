@@ -1,0 +1,222 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: (LONG) Scheme HTML design program &#45; my idea and request for comments -->
+<!--X-From-R13: "Bngevpx Uvntabpnib" <n222Nerqebfr.arg> -->
+<!--X-Date: Fri, 5 May 2000 23:40:38 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200005060540.XAA13212@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>(LONG) Scheme HTML design program - my idea and request for comments</TITLE>
+<LINK REV="made" HREF="mailto:a222@redrose.net">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00282.html">Date Prev</A>][<A HREF="msg00284.html">Date Next</A>][<A HREF="msg00280.html">Thread Prev</A>][<A HREF="msg00284.html">Thread Next</A>][<A HREF="maillist.html#00283">Date Index</A>][<A HREF="threads.html#00283">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>(LONG) Scheme HTML design program - my idea and request for comments</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: (LONG) Scheme HTML design program - my idea and request for comments</LI>
+<LI><em>From</em>: "Patrick Giagnocavo" &lt;<A HREF="mailto:a222@redrose.net">a222@redrose.net</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 06 May 2000 01:38:05 -0400</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello Everyone,
+
+Please note that I am not a professional programmer.  I may have missed some
+important concepts about Scheme.
+
+Also, look at screen shots, and more info at
+<A  HREF="http://www.zill.net/workalike/TheSchemeScheme.html">http://www.zill.net/workalike/TheSchemeScheme.html</A> (big page, about 200K
+with images)
+
+I have evaluated a number of cross-platform GUI toolkits and languages and
+have tentatively decided on Scheme (specifically DrScheme) as the language
+and implementation to go with for my idea.
+
+I looked at
+
+Python
+TCL/TK
+WxWindows
+Perl and Perl/TK
+
+Among other languages/implementations.
+
+I decided on DrScheme because
+
+- it runs on Mac, Windows, Linux, Solaris, other Unix etc.
+- well known language, simple to use for simple tasks (but can be extended
+and used by "power users")
+- has ability to do OOP and/or functional style programming
+(other languages have varying degrees of capability)
+- cross platform graphical toolkit (I don't need a super-duper GUI, just one
+that works everywhere)
+- DrScheme appears to have some support - other Schemes don't seem to, or if
+they do they don't have much in the way of a GUI
+
+No language flames, please!
+
+Here is my idea:
+
+Currently, for HTML sitebuilding, I use Frontier, which is a commercial
+program from UserLand software.  It runs on Windows and Mac.  They have a
+"freeware" version which is several revs behind the current commercial
+version, which is $899 per user.
+
+You can download the freeware version for Mac and Windows at:
+
+Humph; well, actually, they keep on moving their servers and their files
+around, so I can't find a working link right now.  I have some screen shots
+at the Web page on my server (see above).
+
+Frontier has a reasonably simple language, but what makes it stand apart
+from other tools for HTML I have used is that it has some objects/datatypes
+that are really useful:
+
+1.  A "wptext" type, which is any arbitrarily large kind of text file
+(though in frontier, everything is stored in its "object database").  This
+lets you type in text with any amount of HTML you want included in it.  HTML
+markup that is in the wptext is not munged or manhandled - so you can always
+type in "raw" code and know that it will work.
+
+2.  An "outline" type, which is VERY USEFUL - in fact, all other objects in
+Frontier are under the Frontier.root outline (similar but not exactly the
+same as everything being derived from Object in some OOP implementations).
+It is basically a tree or hierarchy structure, with nodes and leafs
+(leaves?).
+
+The outline type is especially nice, since Frontier includes a set of
+"verbs" (=functions) that let you traverse the outline and manipulate it.
+
+3.  A "glossary" which is really killer.  You put in the URL and the way to
+refer to it in a table (actually it does it for you under MacOS - using
+AppleEvents it inserts a custom menu into your Web browser - then you select
+"Add to Glossary" when you want to add the web page you are viewing).
+
+At any time, in any page, you refer to it by putting the name in quotes.
+For instance, if my glossary has
+
+<A  HREF="http://www.cs.rice.edu/CS/PLT/packages/drscheme/index.html">http://www.cs.rice.edu/CS/PLT/packages/drscheme/index.html</A> and the
+associated text "DrScheme Home Page"
+
+I can have a link automatically generated and inserted into any page by
+simply placing those exact words in quotes:
+
+eg
+
+#title "My Home Page"
+
+&lt;h1&gt;My Home Page&lt;/h1&gt;&lt;P&gt;
+
+You might also want to go to the "DrScheme Home Page"
+
+will be rendered as
+
+&lt;HTML&gt;&lt;HEAD&gt;&lt;TITLE&gt;My Home Page&lt;/TITLE&gt;
+&lt;/HEAD&gt;
+&lt;h1&gt;My Home Page&lt;/h1&gt;&lt;P&gt;
+
+You might also want to go to the
+&lt;a href="<A  HREF="http://www.cs.rice.edu/CS/PLT/packages/drscheme/index.html">http://www.cs.rice.edu/CS/PLT/packages/drscheme/index.html</A>"&gt;
+DrScheme Home Page&lt;/a&gt;
+&lt;/BODY&gt;
+&lt;/HTML&gt;
+
+you dig?  This is a really great way to handle links - especially since it
+encourages conformity among several web pages, and avoids unclosed tags and
+spelling errors and of course tedious typing.
+
+4.  The ability to run scripts to generate the pages.  The ability to have
+"directives" or defines at the top of the file that set certain options for
+that page (eg #title above refers to the &lt;TITLE&gt; tags); these override
+sitewide defaults.  Of course, under Scheme you would have full access to
+*whatever* you wanted -including access to a database if using SrPersist.
+
+5.  Similar to #3 you can reference any function or object or variable
+within a wptext by using {} .  So you could include part of another page, or
+the result from any other command, into that page.
+
+6.  If you pay the money for the latest commercial version you get a
+Webserver that is integrated inside the Frontier program.  This lets you
+offer up dynamic web pages.
+
+7.  In the future, I have this idea that dynamic pages could be "compiled"
+into scripts that run under different web server platforms, like Apache/PHP
+or AOLserver/TCL (www.aolserver.com).  This would let people deploy on
+different servers and not be locked into a specific technology.
+
+Basically, I would like to replace Frontier with an open-source,
+cross-platform solution.
+
+What do you guys think?  Anyone interested?
+
+Comments, suggestions, are quite welcome.
+
+Cordially
+
+Patrick Giagnocavo
+a222@redrose.net
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00284" HREF="msg00284.html">Re: (LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00287" HREF="msg00287.html">Re: (LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00297" HREF="msg00297.html">(LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+<UL><LI><EM>From:</EM> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00282.html">RE: MzScheme for Embedding</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00284.html">Re: (LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00280.html">RE: MzScheme for Embedding</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00284.html">Re: (LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00283"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00283"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

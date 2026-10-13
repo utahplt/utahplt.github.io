@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Any Examples of COM (and perhaps ADO)? -->
+<!--X-From-R13: "Oyrk Brnxr" <ncrnxrNpbznp.pbz> -->
+<!--X-Date: Thu, 9 Aug 2001 18:10:20 &#45;0600 (MDT) -->
+<!--X-Message-Id: NBBBLCLOKKHAGMJBNHDMEENKFGAA.apeake@comac.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Any Examples of COM (and perhaps ADO)?</title>
+<link rev="made" href="mailto:apeake@comac.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00754.html">Date Prev</a>][<a href="msg00756.html">Date Next</a>][<a href="msg00776.html">Thread Prev</a>][<a href="msg00762.html">Thread Next</a>][<a href="maillist.html#00755">Date Index</a>][<a href="threads.html#00755">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Any Examples of COM (and perhaps ADO)?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;PLT Scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Any Examples of COM (and perhaps ADO)?</li>
+<li><em>From</em>: &quot;Alex Peake&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 9 Aug 2001 17:09:58 -0700</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Does anyone have any examples of COM use (with ADO would be nice).
+
+I am having trouble and the documentation is &quot;sparse&quot; on argument passing
+and retrieving.
+
+As an experiment I try:
+
+(require-library &quot;mysterx.ss&quot; &quot;mysterx&quot;)
+(define conn (cci/progid &quot;ADODB.Connection&quot;))
+(define cmd (cci/progid &quot;ADODB.Command&quot;))
+(define rs (cci/progid &quot;ADODB.Recordset&quot;))
+
+(com-set-property! conn &quot;ConnectionString&quot; &quot;DSN=MILPITAS;UID=XSG;PWD=###&quot;)
+(com-invoke conn &quot;Open&quot; com-omit )
+(com-set-property! cmd &quot;ActiveConnection&quot; conn)
+(com-set-property! cmd &quot;CommandText&quot; &quot;SELECT * FROM BILL_CODE&quot;)
+
+(set! rs (com-invoke cmd &quot;Execute&quot;))
+
+(display (com-get-property rs &quot;RecordCount&quot;))
+
+returns -1
+
+
+
+With the above after the first &quot;Execute&quot; , I get:
+
+com-get-property (property &quot;RecordCount&quot;): expects 3 arguments, given 2:
+#&lt;com-object&gt; &quot;RecordCount&quot;
+
+or
+
+com-set-property! (property &quot;ConnectionString&quot;): expects 44 to 94 arguments,
+given 3: #&lt;com-object&gt; &quot;ConnectionString&quot; &quot;DSN=MILPITAS;UID=XSG;PWD=###&quot;
+
+or
+
+com-set-property! (property &quot;ConnectionString&quot;): expects 2 arguments, given
+3: #&lt;com-object&gt; &quot;ConnectionString&quot; &quot;DSN=MILPITAS;UID=XSG;PWD=###&quot;
+
+On a run with (com-invoke conn &quot;Open&quot; &quot;DSN=MILPITAS;UID=XSG;PWD=###&quot;) I get:
+
+com-invoke (method &quot;Open&quot;): expects type &lt;com-0x0&gt; as 3rd argument, given:
+&quot;DSN=MILPITAS;UID=XSG;PWD=###&quot;; other arguments were: #&lt;com-object&gt; &quot;Open&quot;
+(I can find no reference to &lt;com-0x0&gt;)
+
+If I run this after an error DrScheme causes a protection fault, so I must
+be doing something wrong.
+The instruction at &quot;0x10004e68&quot; referenced memory at &quot;0x00320491&quot;. The
+memory could not be &quot;read&quot;
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00762" href="msg00762.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00779" href="msg00779.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00754.html">RE: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00756.html">RE: lisp v. scheme macros</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00776.html">Re: execute* in MzScheme v199 + loading mzc-compiled files</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00762.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00755"><strong>Date</strong></a></li>
+<li><a href="threads.html#00755"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

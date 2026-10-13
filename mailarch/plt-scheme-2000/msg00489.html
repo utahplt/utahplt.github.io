@@ -1,0 +1,185 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Xbua Qybagf <wpybagfNznfgarg.arg> -->
+<!--X-Date: Fri, 11 Aug 2000 12:29:14 &#45;0600 (MDT) -->
+<!--X-Message-Id: 399445C1.14A3@mastnet.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E4C0D8267DAA6141B77F1A4EAAEB2B912AF3D9@seapriv1 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Specialized input parsing for code/REPL in DrScheme?</title>
+<link rev="made" href="mailto:jclonts@mastnet.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00488.html">Date Prev</a>][<a href="msg00490.html">Date Next</a>][<a href="msg00488.html">Thread Prev</a>][<a href="msg00496.html">Thread Next</a>][<a href="maillist.html#00489">Date Index</a>][<a href="threads.html#00489">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Specialized input parsing for code/REPL in DrScheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</li>
+<li><em>From</em>: John Clonts &lt;<A HREF="mailto:jclonts@mastnet.net">jclonts@mastnet.net</A>&gt;</li>
+<li><em>Date</em>: Fri, 11 Aug 2000 13:28:17 -0500</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: Myself</li>
+<li><em>References</em>: &lt;<a href="msg00488.html">E4C0D8267DAA6141B77F1A4EAAEB2B912AF3D9@seapriv1</a>&gt;</li>
+<li><em>Reply-To</em>: <A HREF="mailto:jclonts@mastnet.net">jclonts@mastnet.net</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Greg Pettyjohn wrote:
+&gt; 
+&gt; &gt; ps: How about this for an alternate editor idea: twist-up/down
+&gt; &gt; triangles that show or hide whole s-exp tree branches?  Frontier and
+&gt; &gt; the Mac OS (and just about every other file manager and outline
+&gt; &gt; editor on the planet) use this idea.  This could make it easier to
+&gt; &gt; navigate and edit large blocks of scheme code.
+&gt; 
+&gt; As long as people are talking about it...
+&gt; 
+&gt; Recently, I've been daydreaming about a &quot;universal list editor&quot;.
+&gt; The idea is that you would abandon language specific bracketing
+&gt; conventions and go to a purely graphical representation.
+&gt; 
+&gt; A parenthesized expression would be replaced with the same
+&gt; expression contained within a rectangle.
+&gt; 
+&gt; For example:
+&gt; 
+&gt; (this is some data)
+&gt; 
+&gt; Would translate into a rectangle on the screen containing
+&gt; the words &quot;this is some data&quot;
+&gt; 
+&gt; (this is (some sub expression) data)
+&gt; 
+&gt; Would translate into a rectangle on the screen containing,
+&gt; in order, the words &quot;this is&quot; followed by a rectangle, or
+&gt; &quot;subrectangle&quot;, containing the words &quot;some sub expression&quot;
+&gt; followed by the word &quot;data&quot;. I.e. rectangles would nest in the
+&gt; natural way with left-to-right, top-to-bottom order.
+&gt; 
+&gt; The editor would use keyboard input to signal when rectangles are
+&gt; created. E.g. you type '(' and the editor automatically creates a
+&gt; new subrectangle. When you type ')' the subrectangle is &quot;closed&quot;
+&gt; and data entry continues in the parent rectangle.
+&gt; 
+&gt; The motivation is that a graphical editor would gray the distinction
+&gt; between alternative external data representation. For example, the
+&gt; XML expression:
+&gt; 
+&gt; &lt;foo&gt; this is &lt;bar&gt; some sub expression &lt;/bar&gt; data &lt;/foo&gt;
+&gt; 
+&gt; Would look the same on the screen as the expression above. Well
+&gt; almost the same, you would have to establish a convention for
+&gt; how to identify the tags with a particular rectangle.
+&gt; 
+&gt; Further more, special forms could be represented with special rectangles,
+&gt; The &quot;lambda rectangle&quot; would be shaped differently than a normal
+&gt; &quot;procedure application&quot; rectangle, and the parameters part could be
+&gt; integrated into the lambda rectangle in a special way so that they
+&gt; wouldn't appear as simply a subrectangle containing symbols.
+&gt; 
+&gt; I think that this notion of unique graphical representation of special
+&gt; forms would be especially useful in education. The different parts
+&gt; of an expression would reveal themselves to the beginner in an obvious
+&gt; manner.
+&gt; 
+&gt; Now the idea can be expanded further. Think of a list as an object with
+&gt; two members: car and cdr. A rectangle would be an object with potentially
+&gt; many methods: car, cdr, title, tag, color, shape
+&gt; Whater you want, provided that you have a graphical means of displaying
+&gt; the members. E.g. a title member might be text in the &quot;title bar&quot; of
+&gt; a rectangle --- which rectangle might begin to look like a window.
+&gt; A &quot;tagged&quot; rectangle would have the tag text as part of the border
+&gt; in the upper left corner.
+&gt; 
+&gt; Rectangles could be minimized or expanded by the editor so that the
+&gt; whole global structure of a program could be easily navigated.
+&gt; 
+&gt; What about units? Imagine a &quot;compound unit&quot; expression as a container
+&gt; rectangle. Within it would be rectangles representing the sub-units.
+&gt; These sub-units would have triangles and circles on their borders
+&gt; corresponding to exports and imports. The exports of one unit could
+&gt; then be connected via a &quot;circuit path&quot; to the import of another unit.
+&gt; (The circuit layout software I saw when I worked at the plotter manufacturer
+&gt; comes to mind.) This would make a concept which I found difficult to
+&gt; learn more intuitive.
+&gt; 
+&gt; But so far, admittedly, it is just vaporware.
+&gt; 
+&gt; :-)
+
+That sounds great... during the extended threads on comp.lang.lisp
+someone made reference to these sorts of things having been done
+before.  I like the idea of the VR extension, where I am inside my
+workspace with my left-hand being 'car' and my right-hand being 'cdr' :)
+
+Cheers,
+John
+
+-- 
+[:o|]
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00496" href="msg00496.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00488" href="msg00488.html">RE: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00488.html">RE: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00490.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00488.html">RE: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00496.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00489"><strong>Date</strong></a></li>
+<li><a href="threads.html#00489"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

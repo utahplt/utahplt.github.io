@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 12 Mar 2000 15:03:18 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000312220315.XLV14285.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002270435.UAA20217@balu.qualcomm.com -->
+<!--X-Reference: 200002270457.WAA08093@africa.cs.rice.edu -->
+<!--X-Reference: 20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 14540.3932.744537.731539@mojave.cs.cornell.edu -->
+<!--X-Reference: 20000312215411.TMX14285.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] HOWTO redirect a i/o-port in Unix??</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00544.html">Date Prev</A>][<A HREF="msg00546.html">Date Next</A>][<A HREF="msg00544.html">Thread Prev</A>][<A HREF="msg00546.html">Thread Next</A>][<A HREF="maillist.html#00545">Date Index</A>][<A HREF="threads.html#00545">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] HOWTO redirect a i/o-port in Unix??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 12 Mar 2000 14:03:15 -0800</LI>
+<LI><em>CC</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00544.html">20000312215411.TMX14285.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00496.html">200002270435.UAA20217@balu.qualcomm.com</A>&gt;&lt;<A HREF="msg00497.html">200002270457.WAA08093@africa.cs.rice.edu</A>&gt;&lt;<A HREF="msg00500.html">20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost</A>&gt;	&lt;<A HREF="msg00543.html">14540.3932.744537.731539@mojave.cs.cornell.edu</A>&gt;	&lt;<A HREF="msg00544.html">20000312215411.TMX14285.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Matthew Flatt:
+&gt; The problem is that `read-string!' waits until it can fill the string
+&gt; or until EOF, but your application relies on line-based
+&gt; question--response I/O.
+
+A further correction. On closer inspection, I see your example doesn't
+even have a newline in the stream.
+
+Usually, /bin/cat doesn't flush its output until it sees a newline:
+
+ &gt; (define p (process "cat"))
+ &gt; (display "hello" (cadr p))
+ &gt; (read-char (car p))
+ [stuck]
+
+In contrast:
+
+ &gt; (define p (process "cat"))
+ &gt; (display "hello" (cadr p))
+ &gt; (newline (cadr p))
+ &gt; (read-char (car p))
+ #\h
+
+If /bin/cat flushed chars on some other boundary than lines, you'd need
+the new, not-yet-existent primitive in MzScheme to make things work
+right (or you'd have to busy-wait with `char-ready?'). In practice,
+I've found that either `read-string!' or `read-line' has worked for all
+my real programs.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00546" HREF="msg00546.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00556" HREF="msg00556.html">Error with WITH-HANDLER+UNIT?</A></STRONG>
+<UL><LI><EM>From:</EM> "Will Fitzgerald" &lt;fitzgerald@neodesic.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00496" HREF="msg00496.html">[Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00497" HREF="msg00497.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00500" HREF="msg00500.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00543" HREF="msg00543.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00544" HREF="msg00544.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00544.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00546.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00544.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00546.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00545"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00545"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

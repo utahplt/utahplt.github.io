@@ -1,0 +1,190 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: MzScheme Special Form &#45;> Native Numerical Code? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Thu, 3 Aug 2000 12:24:07 &#45;0600 (MDT) -->
+<!--X-Message-Id: 3989BA1C.14028316@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14726.42132.123747.888972@kintore.dai.ed.ac.uk -->
+<!--X-Reference: 39881AAD.5E3E659D@kurtz&#45;fernhout.com -->
+<!--X-Reference: 200008021636.LAA09910@africa.cs.rice.edu -->
+<!--X-Reference: 39886BD5.C95D252E@kurtz&#45;fernhout.com -->
+<!--X-Reference: 200008031359.IAA10262@africa.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: MzScheme Special Form -&gt; Native Numerical Code?</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00445.html">Date Prev</a>][<a href="msg00447.html">Date Next</a>][<a href="msg00445.html">Thread Prev</a>][<a href="msg00450.html">Thread Next</a>][<a href="maillist.html#00446">Date Index</a>][<a href="threads.html#00446">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: MzScheme Special Form -&gt; Native Numerical Code?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: MzScheme Special Form -&gt; Native Numerical Code?</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 03 Aug 2000 14:29:48 -0400</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00437.html">14726.42132.123747.888972@kintore.dai.ed.ac.uk</a>&gt; &lt;<a href="msg00440.html">39881AAD.5E3E659D@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00442.html">200008021636.LAA09910@africa.cs.rice.edu</a>&gt; &lt;<a href="msg00443.html">39886BD5.C95D252E@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00445.html">200008031359.IAA10262@africa.cs.rice.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthias Felleisen wrote:
+&gt; 
+&gt; Thanks for the pointer. I know Norman quite well and will discuss this with
+&gt; him. But in all honesty, I believe students see too many low-level details
+&gt; in currentc curricula, and not enough reasoning about values and operations,
+&gt; logical claims and invariants. The latter is far more important for software
+&gt; engineering in the end than the machine. -- Matthias
+
+Matthias -
+
+Small world!
+
+I completely agree with your point about students seeing too many low
+level details. I taught a couple of programming classes in C and Pascal
+to college biology majors, and some large percentage really only made
+the most progress when I was actually in the computer lab with them to
+help them over syntax hurdles. As TeachScheme! points out, programming
+should be part of a liberal arts education, and realistically that means
+if students learn something about algorithms they are much better off
+than knowing a specific arcane processor architecture or the twisted
+syntax of one popular language. Given limited resources, TeachScheme!
+and related efforts should focus on what they are doing now -- which is
+fantastic.
+
+Frankly, I just like the idea of generating native code under user
+control from higher level languages, and saw your VM class as a possible
+way to get that feature added to MzScheme for little work (on my side),
+in a way that students might benefit from. :-) Too often class projects
+are just throwaways -- I'd love to see more college students (especially
+CS majors) making useful and distributable software packages as part of
+their studies, seeing through a work from conception into distribution
+and maintenance. 
+
+By the way, your VM students might enjoy the open source 80X86 emulator
+at: 
+  <A  HREF="http://www.plex86.org/info.phtml">http://www.plex86.org/info.phtml</A>
+
+I guess I am thinking about this issue of machien code generation from
+several different points of view (beyond improving numerical
+performance).
+
+One is the point of view of what it would take to make Scheme the
+dominant language in a CS curriculum (over C/C++). Granted, that is not
+the TeachScheme! focus, and I'm not suggesting it should be. However,
+from that point of view, if one could poke around into memory with the
+ease of say Forth but with all the advantages of DrScheme, that means
+some career oriented students can see greater long term value in
+DrScheme as part of their experience as a programmer. This would then
+add one more selling point to get DrScheme into another area of the
+curriculum. In fact, it would make DrScheme a much better choice than
+C++ for teaching low level things because one would likely have much
+finer control over the code produced using Scheme translation on a
+function by function basis, and so students could see the tighter
+correspondance between a small algorithm they created (in a subset of
+Scheme or a related little language) and machine code that executed that
+algorithm. And it would seem that such features could be had for
+relatively little effort. Actually, the more I poke around, the more it
+appears this sort of effort has been done before in Scheme and Lisp in
+several places (mostly commercial implementations though).
+
+&gt;From another point of view, once MzScheme is generating and manipulating
+real machine code, it becomes possible to conceive of doing
+meta-compiling, where the system is written in itself, and a VM is
+generated by translation (cross-compiling as it were to bootstrap a new
+system). I've worked with Forths (like eForth) that do this. This is an
+interest of mine, because I like &quot;transparent&quot; systems that are easily
+understandable (for ideological reasons, see Langdon Winner's book
+&quot;Autonomous Techology&quot;), and for me, any system that depends on an
+opaque box like a C compiler is not &quot;transparent&quot; to the degree I would
+like.
+
+Also, once MzScheme can run dynamically loaded machine code, I could
+more easily extend the system under Windows. There is an issue with
+using Windows DLLs in that all users of a DLL share the same global
+variable space, and so a user runs two MrEd-type sessions using the same
+DLL, there is a potential for conflict (if a global variable is say set
+with a pointer to a VM). For what I've seen of doing MzScheme
+extensions, it appears this may be a problem in the MzScheme case
+(because a VM isn't passed in as a function parameter.) I don't believe
+this is an issue under Unix or the Mac, which I think both load
+extensions into the executeables address space.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00450" href="msg00450.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00437" href="msg00437.html">AOP/Fast matrices/Type hinting</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</li></ul></li>
+<li><strong><a name="00440" href="msg00440.html">MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00442" href="msg00442.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00443" href="msg00443.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00445" href="msg00445.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00445.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00447.html">103/2</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00445.html">Re: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00450.html">RE: MzScheme Special Form -&gt; Native Numerical Code?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00446"><strong>Date</strong></a></li>
+<li><a href="threads.html#00446"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

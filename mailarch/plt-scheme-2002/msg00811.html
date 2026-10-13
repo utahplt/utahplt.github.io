@@ -1,0 +1,203 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: From modules, macros and geniuses. -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Sun, 28 Apr 2002 17:53:55 &#45;0600 (MDT) -->
+<!--X-Message-Id: iss.3e1e.3ccc8b84.42b16.1@merkur.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200204271255.g3RCtpX04335@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>From modules, macros and geniuses.</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00810.html">Date Prev</a>][<a href="msg00812.html">Date Next</a>][<a href="msg00809.html">Thread Prev</a>][<a href="msg00785.html">Thread Next</a>][<a href="maillist.html#00811">Date Index</a>][<a href="threads.html#00811">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>From modules, macros and geniuses.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matthew Flatt&quot; &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: From modules, macros and geniuses.</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Mon, 29 Apr 2002 01:53:38 +0200</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00806.html">200204271255.g3RCtpX04335@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I never thought defining those hygienic syntax-transformers could
+provide so much fun. But, indeed, it did. Syntax-case rules! So here I
+present - without even the implied hope that sombody might find this
+useful - a set of macros that make it possible to comfortably:
+
+- import only a subset of the identifiers of a certain module with:
+(require-from &lt;module&gt; 
+  &lt;name0&gt; 
+  &lt;name1&gt; 
+   ...)
+
+- import these identifiers in prefixed form with:
+(require-prefix-from &lt;prefix&gt; &lt;module&gt; 
+  &lt;name0&gt; 
+  &lt;name1&gt;
+   ...)
+
+- export some prefixed identifiers without their prefix with:
+(provide-prefixless &lt;prefix&gt; 
+  &lt;name0&gt; 
+  &lt;name1&gt; 
+   ...)
+
+These macros use those most general mzscheme-syntaxes:
+(require (rename &lt;module&gt; &lt;local-name&gt; &lt;imported-name&gt;))
+(provide (rename          &lt;local-name&gt; &lt;exported-name&gt;))
+
+To make use of the macros, simply import the module where they are
+defined with:
+(require module-macros)  ;; Creative name, heh?
+
+Best regards,
+Sebastian
+
+
+PS: Here are the macros and a little example of usage:
+
+
+(module module-macros  mzscheme
+  (provide require-from
+           require-prefix-from
+           provide-prefixless
+           )
+  (define-syntax require-from
+    ;; &lt;module&gt; &lt;identifier&gt;+ -&gt; unspecified
+    ;; Require from &lt;module&gt; specified &lt;identifier&gt;s, only.
+    (lambda (stx)
+      (syntax-case stx ()
+        ((_ module id0 id1 ...) (syntax (require
+                                         (rename module id0 id0)
+                                         (rename module id1 id1)
+                                         ...))))))
+  (define-syntax require-prefix-from
+    ;; &lt;prefix&gt; &lt;module&gt; &lt;identifier&gt;+ -&gt; unspecified
+    ;; From &lt;module&gt;, import specified &lt;identifier&gt;s, only. 
+    ;; To each imported &lt;identifier&gt;, assign the 
+    ;; name &lt;prefix&gt;&lt;identifier&gt;.
+    (lambda (stx)
+      (syntax-case stx ()
+        ((_ pre mod e0 e1 ...)
+         (letrec ((prefix  
+                   ;; Make Prefix-String.
+                   (symbol-&gt;string
+                    (syntax-object-&gt;datum
+                     (syntax pre))))
+                  (prefixer
+                   ;; &lt;symbol&gt; -&gt; &lt;list&gt;
+                   ;;  name -&gt; (prefixed-name name)
+                   (lambda (name)
+                     (list (string-&gt;symbol
+                            (string-append prefix
+                                           (symbol-&gt;string name)))
+                           name))))
+           (syntax-case (map prefixer
+                             (cdddr (syntax-object-&gt;datum stx))) ()
+             (((prefixed-name name) ...)
+              (syntax (require (rename mod prefixed-name name) 
+                               ...)))))))))
+  (define-syntax provide-prefixless
+    ;; &lt;prefix&gt; &lt;identifier&gt;+ -&gt; unspecified
+    ;; Export every &lt;identifier&gt; without its local &lt;prefix&gt;.
+    (lambda (stx)
+      (syntax-case stx ()
+        ((_ pre e0 e1 ...)
+         (letrec ((prefix  
+                   ;; Make Prefix-String.
+                   (symbol-&gt;string
+                    (syntax-object-&gt;datum
+                     (syntax pre))))
+                  (prefixer
+                   ;; &lt;symbol&gt; -&gt; &lt;list&gt;
+                   ;;  name -&gt; (prefixed-name name)
+                   (lambda (name)
+                     (list (string-&gt;symbol
+                            (string-append prefix
+                                           (symbol-&gt;string name)))
+                           name))))
+           (syntax-case (map prefixer
+                             (cddr (syntax-object-&gt;datum stx))) ()
+             (((prefixed-name name) ...)
+              (syntax (provide (rename prefixed-name name) 
+                               ...)))))))))
+  )
+
+(module Germans mzscheme
+  (require module-macros)
+  (provide-prefixless Albert: Einstein Schweizer)
+  (define Albert:Einstein 'physicist)
+  (define Albert:Schweizer 'physician))
+
+(require module-macros)
+(require-prefix-from Ingenious: Germans 
+  Einstein 
+  Schweizer)
+
+Ingenious:Einstein  ;; ==&gt; physicist
+Ingenious:Schweizer ;; ==&gt; physician
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00806" href="msg00806.html">Re: module: How to specify indirect exports positively?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00810.html">Re: MrEd event handling</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00812.html">parset-tools collection</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00809.html">Re: module: How to specify indirect exports positively?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00785.html">SAS'02 CFP Reminder -- Submission Deadline May 5, 2002</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00811"><strong>Date</strong></a></li>
+<li><a href="threads.html#00811"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

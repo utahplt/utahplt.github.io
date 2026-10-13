@@ -1,0 +1,148 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: OS&#45;implemented threads -->
+<!--X-From-R13: "Ivyy Tvgmtrenyq" <svgmtrenyqNvargzv.pbz> -->
+<!--X-Date: Wed, 13 Jun 2001 12:16:26 &#45;0600 (MDT) -->
+<!--X-Message-Id: KPELIDPNOGGPCLGOMDLFEEINCLAA.fitzgerald@inetmi.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200106131720.LAA19263@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: OS-implemented threads</title>
+<link rev="made" href="mailto:fitzgerald@inetmi.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00544.html">Date Prev</a>][<a href="msg00546.html">Date Next</a>][<a href="msg00542.html">Thread Prev</a>][<a href="msg00547.html">Thread Next</a>][<a href="maillist.html#00545">Date Index</a>][<a href="threads.html#00545">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: OS-implemented threads</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matthew Flatt&quot; &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: OS-implemented threads</li>
+<li><em>From</em>: &quot;Will Fitzgerald&quot; &lt;<A HREF="mailto:fitzgerald@inetmi.com">fitzgerald@inetmi.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 13 Jun 2001 14:17:18 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00542.html">200106131720.LAA19263@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I was first attracted to MzScheme because it provided a Scheme with
+threading that worked on different platforms (it's the number one bulleted
+featured item on the MzScheme page &quot;Pre-emptive threads for all platforms.&quot;)
+
+Naively, I thought this meant that a program using threads would work
+essentially the same on all platforms. This turned out not to be the case,
+and for this and other reasons, I abandoned the particular approach I was
+taking on the project I was working on.
+
+So, on the one hand, threading should be abandoned if you can't get it to
+Work Right on all platforms. On the other hand, it seems like an important
+feature set.
+
+But I take it that only *OS* threads are going away?
+
+
+&gt; -----Original Message-----
+&gt; From: owner-plt-scheme@fast.cs.utah.edu
+&gt; [<A  HREF="mailto:owner-plt-scheme@fast.cs.utah.edu]On">mailto:owner-plt-scheme@fast.cs.utah.edu]On</A> Behalf Of Matthew Flatt
+&gt; Sent: Wednesday, June 13, 2001 1:20 PM
+&gt; To: plt-scheme@fast.cs.utah.edu
+&gt; Subject: OS-implemented threads
+&gt;
+&gt;
+&gt; Quoting Alexey Mahotkin:
+&gt; &gt; Please try to compile it with --enable-osthreads.
+&gt;
+&gt; This forces a question that's been on my mind, and I've been meaning to
+&gt; take a survey.
+&gt;
+&gt; With the recent changes to MzScheme, I inspected at a lot more code
+&gt; than normal in a short time; and I saw lots and lots of bugs in the
+&gt; support for OS-implemented threads, mainly in terms of unprotected
+&gt; shared variables and structures.
+&gt;
+&gt; Meanwhile, there's a tricky signal--select race in Unix, which can't be
+&gt; solved in the same way as in single-threaded mode; I don't know how to
+&gt; fix it. And we have little hope of properly supporting generic pthreads
+&gt; (no way to pause threads for GC, I think) or LinuxThreads
+&gt; (semaphore-wait is not breakable).
+&gt;
+&gt; In short, MzScheme's support for OS-implemented threads has many
+&gt; problems. Considering the significant maintenance overhead and clutter
+&gt; required to support the mode, I wonder whether it's worthwhile.
+&gt;
+&gt; In theory, OS-implemented threads provide the benefit of parallelism on
+&gt; multiprocessor machines. In practice, that's where MzScheme would be
+&gt; most likely to crash. Given the problems and the relative lack of bug
+&gt; reports, I doubt that anyone uses it. Obviously I don't.
+&gt;
+&gt; So, does anyone actually use MzScheme with OS-implemented threads?
+&gt; Would anyone be seriously disappointed if we drop support for
+&gt; OS-implemented threads in version 200?
+&gt;
+&gt; (To be clear, we'll certainly make MzScheme work when embedded in a
+&gt; multi-threaded application, as long as MzScheme itself is called from
+&gt; only one OS-implemented thread.)
+&gt;
+&gt; Thanks,
+&gt; Matthew
+&gt;
+&gt;
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00542" href="msg00542.html">OS-implemented threads</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00544.html">TeachScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00546.html">Re: Help: Looking at the Sun makes you blind...</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00542.html">OS-implemented threads</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00547.html">Re: OS-implemented threads</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00545"><strong>Date</strong></a></li>
+<li><a href="threads.html#00545"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: 103/1 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 25 Jul 2000 09:13:39 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000725151335.KGXH21972.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>103/1</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00765.html">Date Prev</A>][<A HREF="msg00767.html">Date Next</A>][<A HREF="msg00765.html">Thread Prev</A>][<A HREF="msg00779.html">Thread Next</A>][<A HREF="maillist.html#00766">Date Index</A>][<A HREF="threads.html#00766">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>103/1</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: 103/1</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 25 Jul 2000 08:13:35 -0700</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+For those of you using CVS, the currently exp-tagged version of
+MzScheme and MrEd is now 103/1 (i.e., the 1st pre-release step towards
+version 103).
+
+To compile, you'll need to checkout the new directory
+plt/src/wxcommon/jpeg. Windows users will also need
+plt/src/worksp/jpeg.
+
+MrEd changes:
+
+ * Added support for JPEG file loading (but not saving) using the IJG
+   library. The MrEd executable grew by 70k, which seemed like an
+   acceptable amount of bloat for the benefit.
+
+ * Windows: editors can paste bitmaps copied to the clipboard from
+   other programs.
+
+ * Windows: fixed get-file-list. (PR 1567)
+
+ * Added `get-clipboard-bitmap' and `set-clipboard-bitmap' to
+   clipboard&lt;%&gt;. Under Windows, these methods move bitmaps to and from
+   the system in a platform-specific format.
+
+ * Changed `graphical-read-eval-print-loop' to take an optional eventspace
+   argument, which determines the evaluation eventspace. The argument
+   defaults to #f, which creates a new eventspace for evaluation.
+
+ * Removed 'anchored flag for snip% (wasn't implemented).
+
+MzScheme changes:
+
+ * Changed `define-values' to require distinct variables for binding.
+   Thus, `(define-values (x x) (values 1 2))' and `(define-struct make
+   (make))' are now ill-formed expressions. (PR 986)
+
+ * Windows: Fixed bug in `close-output-port' for TCP ports.
+
+ * Closing a TCP output port always sends an EOF to the other end of
+   the connection, even if the associated input port remains open.
+
+ * Added an optional limit argument to `make-pipe', useful for
+   chaining together stream-processing threads. By default,
+   `make-pipe' still creates pipes with no limit on the number of
+   unread characters that can be written to the pipe.
+
+ * Added a "deflate.ss" library to MzLib, providing `gzip', etc. Since
+   it's mostly a blind translation of C code to Scheme, the MzLib
+   version runs about 100 times as slow as regular gzip.
+
+ * Added `not-break-exn?'. This procedure is useful mainly as a
+   predicate in a `with-handlers' expression. In particular, most
+   expressions of the form
+     (with-handlers ([(lambda (x) #t) ..]) ...)
+   should be
+     (with-handlers ([not-break-exn? ..]) ...)
+   instead, to propagate breaks exceptions. This is especially true
+   for library procedures.
+
+ * Fixed `load/use-compiled', `require-library', and many MzLib
+   functions to propagate break exceptions correctly. (Guess how.)
+
+ * Added `check-parameter-procedure' and changed `parameterize' to use
+   it. With this change `parameterize' reports a useful error message
+   when a parameter expression produces a non-procedure or a procedure
+   that does not take 0 and 1 arguments. (PR 1486)
+
+ * Fixed read-write invariance of copiled code, and corrected
+   performance bugs (worth about 4% on a tight loop). (PR 1157)
+
+As usual, the pre-release MzScheme and MrEd documentation have been
+updated to reflect the changes.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00779" HREF="msg00779.html">Re: 103/1</A></STRONG>
+<UL><LI><EM>From:</EM> Francisco Solsona &lt;solsona@acm.org&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00765.html">DrScheme Debugger?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00767.html">I/O bugs</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00765.html">DrScheme Debugger?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00779.html">Re: 103/1</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00766"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00766"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

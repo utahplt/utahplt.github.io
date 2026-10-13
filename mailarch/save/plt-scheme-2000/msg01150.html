@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: system* always returns #f on W2K -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 15 Dec 2000 07:53:48 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001215145344.EPGO16755.femail7.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87snnp6f37.fsf@prelude.vvf.fi -->
+<!--X-Reference: 87g0jp6aln.fsf@prelude.vvf.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: system* always returns #f on W2K</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01149.html">Date Prev</A>][<A HREF="msg01151.html">Date Next</A>][<A HREF="msg01149.html">Thread Prev</A>][<A HREF="msg01148.html">Thread Next</A>][<A HREF="maillist.html#01150">Date Index</A>][<A HREF="threads.html#01150">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: system* always returns #f on W2K</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Hannu Koivisto &lt;<A HREF="mailto:azure@iki.fi">azure@iki.fi</A>&gt;</LI>
+<LI><em>Subject</em>: Re: system* always returns #f on W2K</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 15 Dec 2000 06:53:44 -0800</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01149.html">87g0jp6aln.fsf@prelude.vvf.fi</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01146.html">87snnp6f37.fsf@prelude.vvf.fi</A>&gt;	&lt;<A HREF="msg01149.html">87g0jp6aln.fsf@prelude.vvf.fi</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Hannu Koivisto:
+&gt; So, I took a look at the source code with a colleague of mine who
+&gt; is a Windows user and after little testing and printf-debugging we
+&gt; noticed that system* doesn't even wait for the process to finish.
+&gt; This seems to be because in code...
+&gt; 
+&gt;     spawn_status = MSC_IZE(spawnv)(type, command, (const char * const *)argv);
+&gt; 
+&gt;     if (!synchonous) {
+&gt; [...]
+&gt;     } else if ((spawn_status != -1) &amp;&amp; !as_child) {
+&gt; [...]
+&gt;     }
+&gt; 
+&gt; ...from process function in port.c neither of if branches is
+&gt; entered because as_child is true (1).
+
+After looking at this, I'm fairly certain that the "!as_child" test
+should be "as_child".
+
+BTW, Eli Barzilay has a replacement for this twisted code, which we
+plan to integrate as soon as the module system is in place.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01146" HREF="msg01146.html">system* always returns #f on W2K</A></STRONG>
+<UL><LI><EM>From:</EM> Hannu Koivisto &lt;azure@iki.fi&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01149" HREF="msg01149.html">Re: system* always returns #f on W2K</A></STRONG>
+<UL><LI><EM>From:</EM> Hannu Koivisto &lt;azure@iki.fi&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01149.html">Re: system* always returns #f on W2K</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01151.html">wow</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01149.html">Re: system* always returns #f on W2K</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01148.html">** PLT Scheme Projects -- Monthly Reminder **</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01150"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01150"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

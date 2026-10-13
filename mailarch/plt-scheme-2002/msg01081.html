@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Adding a language -->
+<!--X-From-R13: [ngg Xnqhq <zwnqhqNpf.vaqvnan.rqh> -->
+<!--X-Date: Fri, 7 Jun 2002 14:08:03 &#45;0600 (MDT) -->
+<!--X-Message-Id: Pine.GSO.4.44.0206071450070.19216&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E17DnSe&#45;0002ae&#45;00@scaup.prod.itd.earthlink.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Adding a language</title>
+<link rev="made" href="mailto:mjadud@cs.indiana.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01080.html">Date Prev</a>][<a href="msg01082.html">Date Next</a>][<a href="msg01024.html">Thread Prev</a>][<a href="msg01086.html">Thread Next</a>][<a href="maillist.html#01081">Date Index</a>][<a href="threads.html#01081">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Adding a language</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@ccs.neu.edu">robby@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Adding a language</li>
+<li><em>From</em>: Matt Jadud &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 7 Jun 2002 15:07:25 -0500 (EST)</li>
+<li><em>cc</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01018.html">E17DnSe-0002ae-00@scaup.prod.itd.earthlink.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;   - have this button get the current drscheme:language:language&lt;%&gt;
+&gt;     (this tells you how to compile the program in the definitions
+&gt;      window into Scheme) and use the front-end method to
+&gt;     get Scheme code out.
+
+	I can't tell, but I think I'm going about this the (hard?) way. I've
+wandered down the path of adding a language; I think this is very different
+(but viable, I would assume) than what you suggested. I'm stuck in what the
+front-end and on-evaluate methods of my lang% should do, though. I'd rather not
+have to go the route of Algol60 (lex and parse my language, since my language
+is Scheme--I'd like S-expressions, actually), but that seems (?) to be the
+nature of implementing a new language the way I've wandered.
+
+	I think there is more than one way to do this, though, and I've read
+(but not fully understood) enough of the help and source in a few different
+collections that I have more questions. I have the distinct feeling that either
+A) I'm making this harder than necessary, B) there is a lot to absorb, and/or
+C) perhaps it is kinda tricky.
+
+	Under 103, I once did some crude things with a button, and it simply
+grabbed the contents of the definitions window, and abused those. Going back to
+the first email on this topic, that _seems_ to be what you suggested.
+
+	1) Add a button
+	2) Have the button use the front-end method of the current language&lt;%&gt;
+to get the contents of the definitions window
+	3) Abuse the contents (somehow get the contents into a list of
+S-expressions, ideally, then invoke my compiler on the code)
+	4) Send results off to external device/file/whatever
+
+	Adding a language or adding a button that does the work both seem like
+viable approaches; adding a button seems to be simpler (although I'm asking
+about it because I want some more insight into this), but adding a language
+would preclude adding a button, and instead (perhaps?) hitting &quot;Execute&quot; would
+do the same thing as any &quot;Compile to brick&quot; button. This would allow
+me/users/students to simply program into the definitions window and hit execute
+as if it were a normal Scheme program.
+
+	?
+
+	In short, I'm confused as to the relative merits of these two
+approaches, if indeed they are two approaches.
+
+	Thanks,
+	Matt
+
+	(Let me know if I should take this off list; I haven't seen anyone else
+wade through implementing a language on-list, though, so it might be valuable
+to have archived.)
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01086" href="msg01086.html">Re: [plt-scheme] Adding a language</a></strong>
+<ul><li><em>From:</em> Morgan McGuire &lt;morgan3d@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01018" href="msg01018.html">Re: [plt-scheme] Adding a language</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01080.html">[plt-scheme] plt-scheme-sender</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01082.html">[plt-scheme] language levels in mzscheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01024.html">Re: [plt-scheme] Adding a language</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01086.html">Re: [plt-scheme] Adding a language</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01081"><strong>Date</strong></a></li>
+<li><a href="threads.html#01081"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Xbua Qyrzragf <pyrzragfNpf.evpr.rqh> -->
+<!--X-Date: Thu, 10 Aug 2000 23:59:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: p0432040bb5b9409f540a@[128.42.178.240] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: 14738.52293.108392.678928@sun.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Specialized input parsing for code/REPL in DrScheme?</title>
+<link rev="made" href="mailto:clements@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00482.html">Date Prev</a>][<a href="msg00484.html">Date Next</a>][<a href="msg00475.html">Thread Prev</a>][<a href="msg00487.html">Thread Next</a>][<a href="maillist.html#00483">Date Index</a>][<a href="threads.html#00483">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Specialized input parsing for code/REPL in DrScheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A>, Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</li>
+<li><em>From</em>: John Clements &lt;<A HREF="mailto:clements@cs.rice.edu">clements@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 11 Aug 2000 00:59:10 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00475.html">14738.52293.108392.678928@sun.cs.rice.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00471.html">399207D9.5F451CC@kurtz-fernhout.com</a>&gt;&lt;<a href="msg00475.html">14738.52293.108392.678928@sun.cs.rice.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 10:41 -0500 2000-08-10, Shriram Krishnamurthi wrote:
+&gt;Paul,
+&gt;
+&gt;There have been lots of efforts to create &quot;less parenthesized&quot;
+&gt;Schemes.  (Rob Warnock, who should be on this list, made a valiant
+&gt;attempt not very long ago.)  Most die painful deaths.  I don't,
+&gt;however, know that anyone has gone down the indentation-is-significant
+&gt;route.  I'm certainly interested in seeing the results.
+
+I agree that this is an interesting project, and I'm quite sure that 
+what you're describing could be done entirely in Scheme.
+
+On the other hand, I'm really puzzled by the project itself.  Here 
+are what I see as the benefits of such a parser:
+
+1) easier on the eyes (for the &quot;parenthetically challenged&quot;).
+
+2) makes Scheme more terse.
+
+3) spares the &quot;9&quot; and &quot;0&quot; keys on your keyboard.
+
+Rebuttals to benefits:
+
+1) The eyes get used to the parentheses.
+
+2) Goodness, Scheme is already extremely terse.
+
+3) ... key remapping?
+
+Disadvantages:
+
+1) Currently, the tabbing, as a derived piece of information, serves 
+as extremely valuable syntax-debugging info.  Who among us has not 
+hit (TAB) in emacs and discovered a missing ), }, or what have you. 
+Your scheme would remove that environmental feedback.
+
+2) I'm really not sure it saves a lot of keystrokes. Let's say that 
+you have an editor that by default begins a line in the same column 
+as the prior one.  Let's further assume, for the programmer's 
+convenience, that there are some kind of indent and unindent keys 
+that jump left or right to line up with later columns (this saves the 
+programmer having to hit the delet^H^H^H^H^Hbackspace key all the 
+time).  What's the net effect? Well, you save exactly one keystroke 
+on every line that would have ended with close-parens matching 
+opening ones on the same line.  On the other hand, you incur one 
+extra keystroke for every line which would have had open parens which 
+were not closed.
+
+In other words, you save a whole bunch of keystrokes if your program 
+contains a long sequence of one-line expressions.  On the other hand, 
+a more functional style of programming would be penalized by this 
+parser. I'd like to think that my programs tend to fall into the 
+latter category.
+
+3) In your parser, it's a lot harder to navigate with sexp-forward 
+and sexp-back and sexp-cut keys.  Once you have these keys under your 
+belt, it's hard to live without them.   For one thing, an edit 
+sequence which contains nothing but these keys (+ paste) is 
+guaranteed to take a balanced s-expression to a balanced 
+s-expression. In order to supply these in your editor, the editor 
+itself would have to do a whole lot of work.
+
+
+In short, I guess I think it's a bad idea.  It's funny; the classic 
+computer science mantra is &quot;don't make the user do work that the 
+computer could do for you&quot;, and yet in the syntax department, Scheme 
+refutes that principle utterly.  However, I think it's the richer for 
+it.
+
+
+Anyhow, that's the way I (biased as heck) see it.
+
+john clements
+
+ps: How about this for an alternate editor idea: twist-up/down 
+triangles that show or hide whole s-exp tree branches?  Frontier and 
+the Mac OS (and just about every other file manager and outline 
+editor on the planet) use this idea.  This could make it easier to 
+navigate and edit large blocks of scheme code.
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00487" href="msg00487.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00471" href="msg00471.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00475" href="msg00475.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00482.html">Re: Any Other Lists?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00484.html">Re: Any Other Lists?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00475.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00487.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00483"><strong>Date</strong></a></li>
+<li><a href="threads.html#00483"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

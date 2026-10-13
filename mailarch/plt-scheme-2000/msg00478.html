@@ -1,0 +1,165 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Thu, 10 Aug 2000 14:09:40 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39930D58.E455D98C@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: v04220805b5b85c578e93@[128.42.2.124] -->
+<!--X-Reference: 3992C26F.B6BDFC3F@kurtz&#45;fernhout.com -->
+<!--X-Reference: v04220809b5b8730be635@[128.42.2.124] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Specialized input parsing for code/REPL in DrScheme?</title>
+<link rev="made" href="mailto:pdfernhout@kurtz-fernhout.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00477.html">Date Prev</a>][<a href="msg00479.html">Date Next</a>][<a href="msg00474.html">Thread Prev</a>][<a href="msg00475.html">Thread Next</a>][<a href="maillist.html#00478">Date Index</a>][<a href="threads.html#00478">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Specialized input parsing for code/REPL in DrScheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</li>
+<li><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 10 Aug 2000 16:15:20 -0400</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: Kurtz-Fernhout Software</li>
+<li><em>References</em>: &lt;<a href="msg00471.html">399207D9.5F451CC@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00472.html">v04220805b5b85c578e93@[128.42.2.124]</a>&gt; &lt;<a href="msg00473.html">3992C26F.B6BDFC3F@kurtz-fernhout.com</a>&gt; &lt;<a href="msg00474.html">v04220809b5b8730be635@[128.42.2.124]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Robert-
+
+Thanks for the reply. 
+
+Robert Bruce Findler wrote:
+&gt; 
+&gt; Well, for what it's worth, the non-source correlating reader is
+&gt; written in C and the source correlating reader is written in Scheme.
+&gt; Both are just called as library routines so it will not matter if you
+&gt; write your new reader in Scheme or in C.
+
+Great!
+
+&gt; You will find that DrScheme makes a distinction that Smalltalk does
+&gt; not between the user's program and the programming environment
+&gt; itself. This means that we won't have the same extensibility that
+&gt; Smalltalk has, but it also means you cannot shoot yourself in the
+&gt; foot by updating some definition -- the execute button always starts
+&gt; your program completely afresh.
+ 
+Good point. That certainly is the best approach for most programming
+tasks. I have on several occasions taken down a Smalltalk system by
+modifying a core bit of code (like for popping up a window). 
+
+One thing emerging as the ideal in Smalltalk (not that it is in
+commercial systems) is the notion of a &quot;firewall&quot; (called so in the
+VisualWorks prototype abandoned years ago). A related idea that is in
+commercial systems is the notion or &quot;remote debugging&quot; (supported well
+in VisualAge Smalltalk, which can remotely debug Smalltalk over the
+range from a pacemaker to a mainframe). 
+
+IDLE, the Python editor, is starting to wrestle with the remote
+debugging issue too. In IDLE's case, one of the motivators is that it
+typically runs the debugged code in its own process, and so when your
+TCL GUI app locks up, it can take IDLE down too (since IDLE also uses
+TCL). 
+
+In the case of Squeak Smalltalk, the core VM is written in a subset of
+Smalltalk and translated to C, linking to about 2000 lines of
+platform-specific C. By subclassing the VM interpreter in Squeak to make
+one where the functionality of these 2000 lines of OS specific code are
+implemented in Smalltalk, the system can emulate itself. It was actually
+bootstrapped that way, by developing the translatable Interpreter class,
+and the related subclass IntepreterSimulator, under a commercial
+Smalltalk. For implementation details (might be something in there
+useful for DrScheme) see this paper:
+  <A  HREF="ftp://st.cs.uiuc.edu/Smalltalk/Squeak/docs/OOPSLA.Squeak.html">ftp://st.cs.uiuc.edu/Smalltalk/Squeak/docs/OOPSLA.Squeak.html</A>
+
+The intent behind firewalls and remote debugging and VM simulation is to
+have useable development tools in one namespace working under a reliable
+VM, and to then be using these stable tools to create and interact with
+a program through a well defined interface (on the same or a remote VM).
+The program you are working on (using stable tools) may also be a
+development environment, but the changes in what is being developed are
+separate from the system you are actually using to compile and debug it.
+So, for DrScheme, this would be like being able to use DrScheme to
+remotely modify and debug another running DrScheme system written mostly
+in Scheme. 
+
+While normally what I describe is not needed or useful for most
+application programmers (although remote debugging can often be useful
+for applications too), it would certainly be nice to have for things
+like developing specialized parsers tightly integrated in DrScheme, or
+other significant tools or extensions.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00471" href="msg00471.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00472" href="msg00472.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00473" href="msg00473.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</li></ul></li>
+<li><strong><a name="00474" href="msg00474.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00477.html">Documentation &amp; Help Desk suggestions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00479.html">Re: Documentation &amp; Help Desk suggestions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00474.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00475.html">Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00478"><strong>Date</strong></a></li>
+<li><a href="threads.html#00478"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

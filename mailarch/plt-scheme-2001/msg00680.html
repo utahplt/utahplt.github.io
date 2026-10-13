@@ -1,0 +1,143 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: configuration improvements for the PLT webserver? -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Wed, 18 Jul 2001 09:08:56 &#45;0600 (MDT) -->
+<!--X-Message-Id: 864rsaa6s9.fsf@biblio06.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>configuration improvements for the PLT webserver?</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00679.html">Date Prev</a>][<a href="msg00681.html">Date Next</a>][<a href="msg00710.html">Thread Prev</a>][<a href="msg00682.html">Thread Next</a>][<a href="maillist.html#00680">Date Index</a>][<a href="threads.html#00680">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>configuration improvements for the PLT webserver?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: configuration improvements for the PLT webserver?</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: Wed, 18 Jul 2001 10:08:38 +0000</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma deMéxico</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090004 (Oort Gnus v0.04) XEmacs/21.1 (Cuyahoga Valley)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello,
+
+I'd like to propose a few minor changes that *might* improve the
+webserver configuration:
+
+   (1) add a handler for CGIs based on extension (ala apache):
+
+(define cgi-script-extension
+  (make-parameter null (lambda (x)
+			 (if (list? x) x
+			     (error 'cgi-script-extension
+				    &quot;list of CGI extensions expected&quot;)))))
+; cgi-extension? : str  -&gt; bool
+(define cgi-extension?
+  (lambda (file)
+    (let ((match (regexp-match &quot;\\..*&quot; file)))
+      (and match
+	   (member (car match) (cgi-script-extension))))))
+
+and of course, modify cgi-bin? as in:
+
+(define cgi-bin? (lambda (x)
+		   (or ((prefix? &quot;/cgi-bin/&quot;) x)
+		       (cgi-extension? x))))
+
+then export the `cgi-script-extension' in the web-main^ signature, and
+now people can use:
+
+(cgi-script-extension '(&quot;.cgi&quot; &quot;.ss&quot;))
+
+thus bypassing the &quot;cgi-bin&quot; subdirectory restriction.
+
+   (2) How about converting the DEFAULT-SEARCHES var into a parameter?
+this way, people could do things like:
+
+(DEFAULT-SEARCHES '(&quot;index.html&quot; &quot;index.ss&quot;))
+(cgi-script-extension '(&quot;.ss&quot;))
+
+and have people directed to their default site:
+
+   <A  HREF="http://www.foo.com">http://www.foo.com</A>
+
+where an index.ss script would execute, and generate the front end
+page, with on the fly information.  Same thing for every other
+subdirectory on the webserver file system.
+
+   (3) Add a log facility that uses the Common Logfile Format, so that
+we could reuse existing tools like: webalizer, analog, wwwstat, etc.
+
+What do you guys think?
+
+--Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00682" href="msg00682.html">Re: configuration improvements for the PLT webserver?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00683" href="msg00683.html">Re: configuration improvements for the PLT webserver?</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+<li><strong><a name="00685" href="msg00685.html">Re: configuration improvements for the PLT webserver?</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+<li><strong><a name="00690" href="msg00690.html">configuration improvements for the PLT webserver?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00679.html">RE: v200 Timeframe</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00681.html">RE: MysterX Message Loop?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00710.html">Re: v200 Timeframe</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00682.html">Re: configuration improvements for the PLT webserver?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00680"><strong>Date</strong></a></li>
+<li><a href="threads.html#00680"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

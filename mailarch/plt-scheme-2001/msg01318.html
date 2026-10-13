@@ -1,0 +1,226 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: RFC &#45; GL in scheme (long, with code) -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Mon, 10 Dec 2001 15:49:35 &#45;0700 (MST) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B91023B88A6@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: RFC - GL in scheme (long, with code)</title>
+<link rev="made" href="mailto:GregP@bsquare.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01317.html">Date Prev</a>][<a href="msg01319.html">Date Next</a>][<a href="msg01305.html">Thread Prev</a>][<a href="msg01307.html">Thread Next</a>][<a href="maillist.html#01318">Date Index</a>][<a href="threads.html#01318">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: RFC - GL in scheme (long, with code)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;'Robert Kooima'&quot; &lt;<A HREF="mailto:r.l.kooima@home.com">r.l.kooima@home.com</A>&gt;</li>
+<li><em>Subject</em>: RE: RFC - GL in scheme (long, with code)</li>
+<li><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 10 Dec 2001 14:48:36 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+&gt; For the past few weeks I've been investigating the possibility of
+&gt; adding OpenGL bindings as an extension to MzScheme.  This is not a
+&gt; small task, and I'm aware of a few previous aborted attempts.
+
+Hi Robert, My name is Greg Pettyjohn, I'm the author of the &quot;aborted
+attempts&quot;.
+I'll add that the code I have isn't as &quot;aborted&quot; as you might think.
+&quot;Sidetracked&quot; is a much better word.
+
+Anyway, I've noticed that you have found the with-gl-context and
+swap-gl-buffers
+that I added to canvas% and that Matthew graciously rolled into v200 earlier
+this year.
+
+
+&gt; Here's a bit of sample MrEd code using the extension...
+
+Yup, I have some fractal terrain generators, with color and lighting.
+I also have a rather-too-complicated binding for vertex arrays that I
+was playing with. By all means I will share code if you are interested!
+
+&gt; 
+&gt; * A GL CANVAS CLASS
+&gt; 
+&gt; If one prefers that GL calls be methods of a gl-canvas%, such a canvas
+&gt; has a straightforward definition.  Note that each of its methods will
+&gt; have to thunkify the GL procedure, and pass it to with-gl-context by
+&gt; hand.
+Hmm... For about a day and a half I thought this might be neat, but like
+you,
+I decided it would be a clumsy way to do it. That's why the canvas% has
+only two OpenGL related methods. (I must have posted something about
+that earlier on...)
+
+
+&gt; 
+&gt; * FUTURE IDEAS
+&gt; 
+&gt; GL makes heavy use of blocks of data for things such as vertex arrays
+&gt; and textures.  It will be necessary to create vector types for each of
+&gt; the GL types: gl-float-vec, gl-uint-vec, gl-ubyte-vec, etc.  These
+&gt; would support make-, -length, -ref, and -set! vector operations, and
+&gt; would hopefully be as unsurprising as possible.
+
+I already have a binding for the vertex array stuff! In particular, I have
+a low level binding that allows you to write a byte just about anywhere,
+as well has some utilities for managing data alignment etc. Then I was
+experimenting with a form that allows you to make a vertex-array% class.
+It's very flexible, but pretty complicated too.
+
+&gt; Given that many modern GL applications are bus-bound, transform-bound,
+&gt; or fill-bound, the ability to define vertex arrays using such vectors
+&gt; would allow for scheme GL code that performs every bit as well as the
+&gt; equivalent C code.
+
+That was my hope.
+ 
+ 
+&gt; I'm considering creating a few wrappers.  For instance, there are a
+&gt; wide variety of vertex commands for different argument types and
+&gt; counts: gl-vertex-3f, gl-vertex-4f, gl-vertex-2i, etc.  It might be
+&gt; convenient to have a gl-vertex function that counts the arguments and
+&gt; chooses which gl-vertex-* to call, possibly converting all arguments
+&gt; up to a consistent type.  While this would hurt performance in
+&gt; immediate mode, any overhead would magically disappear when using
+&gt; display lists.
+
+I have lots and lots of gl-vertex bindings. Maybe even one like what you
+describe.
+ 
+&gt; * QUESTIONS
+&gt; 
+&gt; How can the use of a GL extension be made more scheme-ish?  SHOULD the
+&gt; use of a GL extension be more scheme-ish?
+
+Good question. The conclusion that I came to was, if you want something more
+Scheme-ish then don't use OpengGL. But even then, it seems you have a
+dilema:
+
+What you are doing is describing geometry: points, lines, planes, solids
+etc.
+So suppose you want to draw this geometry. Then it is natural to think of
+some sort of draw primitive:
+
+(draw &lt;geometry description&gt;)
+
+But this returns void. So it seems that drawing to the screen is analgous to
+writing to a file. I.e. it is like an output operation. Now I've heard that
+the Haskell guys have some sort of duvalaki called a moniker that provides
+a more &quot;functional&quot; way of doing I/O, but that is all I know.
+
+&gt; The C functions all return scheme_void (with the exception of some
+&gt; unimplemented state queries).  Does this make sense?
+
+The OpenGL state queries are especially annoying. It seems you are stuck
+with
+'em though, unless you wanna hurt performance.
+
+
+&gt; A very large majority of GL functions have side effects.  So, naming
+&gt; the procedures as gl-do-something! might be in order.  However, the
+&gt; state being changed is external to the environment.  A ! on every GL
+&gt; call begins to look cluttered anyway.  Thoughts on this?
+
+I agree with Matthew, don't use &quot;!&quot;.
+
+&gt; 
+&gt; Should the GL extension be packed into a unit somehow?
+
+Yup.
+
+&gt; How's the naming?  Would a different choice of symbols be better?
+&gt; It would seem that gl-vertex-3f is more scheme-ish than glVertex3f.
+
+I started out with glVertex3f and then moved to gl-vertex-3f. I even have
+a tool that take a list of gl function prototypes (as an s-expression)
+and then spits out a binding. While it's at it, it converts glVertex3f
+to gl-vertex-3f.
+
+&gt; If you have ANYTHING AT ALL to say about this, or GL scheme in
+&gt; general, please let me know.  Reply to the list, or to my mail of need
+&gt; be.
+
+If you are serious about this (and it seems you are!) then allow me
+to share my code with you. Mostly, I've been lacking motivation.
+
+What I have:
+1. Bindings for all the &quot;easy&quot; stuff e.g. gl-vertex-whatever
+2. Low level primitives for building vertex arrays.
+3. Some high-level code that wraps the vertex array stuff and
+makes it a little cleaner/safer.
+
+What I don't have:
+1. Texture support.
+2. Bitmap support.
+3. Display lists (these should be easy.)
+
+
+Also, Matthew add a slick little &quot;C foreign function interface&quot;
+which I think would greatly simplify a *lot* of the binding code.
+i.e. &quot;easy&quot; stuff like gl-vertex-whatever would go well in
+a CFF binding.
+
+On the other hand, stuff like my vertex array support would work better
+in a separate C/C++ source file.
+
+Cheers.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01317.html">Re: Webserver in shared UNIX environment</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01319.html">Re: Webserver in shared UNIX environment</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01305.html">Re: RFC - GL in scheme (long, with code)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01307.html">Scheme OpenGL API</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01318"><strong>Date</strong></a></li>
+<li><a href="threads.html#01318"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

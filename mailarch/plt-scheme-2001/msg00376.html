@@ -1,0 +1,131 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: learning how to use MrSpidey -->
+<!--X-From-R13: [nepb [nttrfv <znttrfvNzngu.havsv.vg> -->
+<!--X-Date: Wed, 14 Mar 2001 16:03:55 &#45;0700 (MST) -->
+<!--X-Message-Id: 87lmq89csw.fsf@math.unifi.it -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>learning how to use MrSpidey</title>
+<link rev="made" href="mailto:maggesi@math.unifi.it">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00375.html">Date Prev</a>][<a href="msg00377.html">Date Next</a>][<a href="msg00371.html">Thread Prev</a>][<a href="msg00377.html">Thread Next</a>][<a href="maillist.html#00376">Date Index</a>][<a href="threads.html#00376">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>learning how to use MrSpidey</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: learning how to use MrSpidey</li>
+<li><em>From</em>: Marco Maggesi &lt;<A HREF="mailto:maggesi@math.unifi.it">maggesi@math.unifi.it</A>&gt;</li>
+<li><em>Date</em>: 15 Mar 2001 00:03:18 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0808 (Gnus v5.8.8) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Hi,
+
+I am new to the use of PLT MrSpidey (I just installed it) and I am
+trying to learn how it works, and how to take the best of it.  I used
+this small program as test
+
+  01: (define (add x y)
+  02:   (cond ((and (number? x) (number? y))
+  03:          (+ x y))
+  04:         ((and (list? x) (list? y))
+  05:          (append x y))
+  06:         (else
+  07:          (error &quot;Invalid input&quot; x y add))))
+  08: 
+  09: (define (neg x)
+  10:   (if (number? x)
+  11:       (- x)
+  12:       (if (list? x)
+  13:           (map neg x)
+  14:           (error &quot;Invalid input&quot; x neg))))
+  15: 
+  16: (add 2 4)
+  17: (add (list 1 2 3) (list 4 5))
+  18: (add 3 (list 0 1))
+  19: 
+  20: (neg 3)
+  21: (neg (list 1 2))
+  22: (neg (vector 1 2 3))
+
+I would like to understand if MrSpidey is capable to reveal the
+following facts:
+
+  (1)  Both the expressions at line 16 and 20 will return a number.
+
+  (2)  Both the expressions at line 17 and 21 will return a list.
+
+  (3)  Both the expressions at line 18 and 22 will cause an error
+       (because of the error call at line 07 and 14 respectively).
+
+I would expect that (1) and (2) were possible, but it seems that
+MrSpidey simply notice that both number and list are possible type as
+return value.  Is a better analysis possible?
+
+Is it possible (perhaps adding some more information in the code) to make
+MrSpidey notice (3) also?
+
+Thanks, MM
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00377" href="msg00377.html">Re: learning how to use MrSpidey</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00375.html">Re: SrPersist and sql-c-char question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00377.html">Re: learning how to use MrSpidey</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00371.html">199.3</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00377.html">Re: learning how to use MrSpidey</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00376"><strong>Date</strong></a></li>
+<li><a href="threads.html#00376"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

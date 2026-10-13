@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Defines in lets -->
+<!--X-From-R13: [nk Vnvycreva <znkNtnp.rqh> -->
+<!--X-Date: Sat, 18 May 2002 13:27:21 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200205181926.OAA19426@max.mcs.gac.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87znyx45yg.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Defines in lets</title>
+<link rev="made" href="mailto:max@gac.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00926.html">Date Prev</a>][<a href="msg00928.html">Date Next</a>][<a href="msg00926.html">Thread Prev</a>][<a href="msg00930.html">Thread Next</a>][<a href="maillist.html#00927">Date Index</a>][<a href="threads.html#00927">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Defines in lets</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] Defines in lets</li>
+<li><em>From</em>: Max Hailperin &lt;<A HREF="mailto:max@gac.edu">max@gac.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 18 May 2002 14:26:37 -0500</li>
+<li><em>cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00926.html">87znyx45yg.fsf@localhost.localdomain</a>&gt; (pocm@rnl.ist.utl.pt)</li>
+<li><em>References</em>: &lt;<a href="msg00926.html">87znyx45yg.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   From: pocm@rnl.ist.utl.pt (Paulo J. Matos)
+   Date: 18 May 2002 20:21:59 +0100
+   Hi all,
+
+   Why can't I do something like this:
+   &gt; (let ((x 0)) (define (set-x y) (set! x y)) (define (read-x) x))
+   begin (possibly implicit): no expression after a sequence of internal definitions
+
+   I'm used to do it in Common Lisp like a way to avoid global
+   variables and use data encapsulation. How can I do it in Scheme?
+
+In Scheme define only has local scope; if you change your example to
+
+(let ((x 0))
+  (define (set-x y) (set! x y))
+  (define (read-x) x) 
+  SOME-EXPRESSION-HERE)
+
+then SOME-EXPRESSION-HERE can use set-x and read-x as well as x, but
+nothing outside the let can use any of the three names.  This
+explains, then, why Scheme doesn't allow you to leave the
+SOME-EXPRESSION-HERE out (as you did) and have a let where the body is
+nothing but defines: there would be no point in it.
+
+There is nothing in standardized Scheme that neatly corresponds to what
+you are used to in Common Lisp.  Various Scheme implementations have
+non-standard extensions to the language that do what you want.  If you
+want to stay within the standardized language, the closest you can
+come is:
+
+(define set-x 'not-yet-set)  ; or any other placeholder value
+(define read-x 'not-yet-set)
+
+(let ((x 0))
+  (set! set-x (lambda (y) (set! x y)))
+  (set! read-x (lambda () x)))
+
+
+ -Max Hailperin
+  Associate Professor of Computer Science
+  Gustavus Adolphus College
+  800 W. College Ave.
+  St. Peter, MN 56082
+  USA
+  <A  HREF="http://www.gustavus.edu/~max/">http://www.gustavus.edu/~max/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00930" href="msg00930.html">Re: [plt-scheme] Defines in lets</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00926" href="msg00926.html">[plt-scheme] Defines in lets</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00926.html">[plt-scheme] Defines in lets</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00928.html">[plt-scheme] Symbol</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00926.html">[plt-scheme] Defines in lets</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00930.html">Re: [plt-scheme] Defines in lets</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00927"><strong>Date</strong></a></li>
+<li><a href="threads.html#00927"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

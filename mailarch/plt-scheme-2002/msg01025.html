@@ -1,0 +1,131 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Divisions -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Sat, 1 Jun 2002 10:52:55 &#45;0600 (MDT) -->
+<!--X-Message-Id: 043501c2098c$7a0bcba0$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 873cw7j535.fsf@localhost.localdomain -->
+<!--X-Reference: p05111701b91e6d6ee1a1@[10.0.1.5] -->
+<!--X-Reference: 037801c20974$b8e580e0$0500000a@Lr30JS -->
+<!--X-Reference: 87r8jrgf3n.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Divisions</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01024.html">Date Prev</a>][<a href="msg01026.html">Date Next</a>][<a href="msg01023.html">Thread Prev</a>][<a href="msg01026.html">Thread Next</a>][<a href="maillist.html#01025">Date Index</a>][<a href="threads.html#01025">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Divisions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;, &lt;<A HREF="mailto:clements@brinckerhoff.org">clements@brinckerhoff.org</A>&gt;,       &quot;Paulo J. Matos&quot; &lt;<A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Divisions</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Sat, 1 Jun 2002 18:50:45 +0200</li>
+<li><em>References</em>: &lt;<a href="msg01020.html">873cw7j535.fsf@localhost.localdomain</a>&gt;&lt;<a href="msg01021.html">p05111701b91e6d6ee1a1@[10.0.1.5]</a>&gt;&lt;<a href="msg01022.html">037801c20974$b8e580e0$0500000a@Lr30JS</a>&gt; &lt;<a href="msg01023.html">87r8jrgf3n.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I think your timing results include the time it takes Mz/DrScheme to
+convert the numbers from strings to integers. Try this instead:
+
+(define a
+2341732847239419230619237419732491723946147651289374234173284723941923061923
+7419732491723946147651289374234173284723941923061923741973249172394614765128
+9374234173284723941923061923741973249172394614765128937423417328472394192306
+1923741973249172394614765128937423417328472394192306234173284723941923061923
+7419732491723946147651289374192374197324917239461476512893742341732847239419
+23061923741973249172394614765128937412341234)
+
+(define b
+2491723946147651289374234173284723941923061923741973249172394614765128937423
+4173284723941923061923741973249172394614765128937423417328472394192306192374
+1973249172394614765128937423417328472394249172394614765128937423417328472394
+1923061923741973249172394614765128937423417328472394192306192374197324917239
+4614765128937423417328472394192306192374197324917239461476512893742341732847
+2394)
+
+(define (benchmark name)
+  (display name) (newline)
+  (let ([g (eval name)])
+    (time (apply g (list a b)))))
+
+(map benchmark '(gcd ext-gcd ext-gcd-ndiv))
+
+It gives considerably lower timings. So low that I think you
+need to test on larger numbers.
+
+--
+Jens Axel Søgaard
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01026" href="msg01026.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01020" href="msg01020.html">[plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+<li><strong><a name="01021" href="msg01021.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> John Clements &lt;clements@brinckerhoff.org&gt;</li></ul></li>
+<li><strong><a name="01022" href="msg01022.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+<li><strong><a name="01023" href="msg01023.html">Re: [plt-scheme] Divisions</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01024.html">Re: [plt-scheme] Adding a language</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01026.html">Re: [plt-scheme] Divisions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01023.html">Re: [plt-scheme] Divisions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01026.html">Re: [plt-scheme] Divisions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01025"><strong>Date</strong></a></li>
+<li><a href="threads.html#01025"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Question on Multithreading from C API -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 3 Jan 2001 13:40:52 &#45;0700 (MST) -->
+<!--X-Message-Id: 200101032040.NAA12316@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C676701493BE8@THRESHER -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Question on Multithreading from C API</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00013.html">Date Prev</a>][<a href="msg00015.html">Date Next</a>][<a href="msg00029.html">Thread Prev</a>][<a href="msg00015.html">Thread Next</a>][<a href="maillist.html#00014">Date Index</a>][<a href="threads.html#00014">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Question on Multithreading from C API</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Question on Multithreading from C API</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 3 Jan 2001 13:40:49 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00012.html">EDFD2A95EE7DD31187350090279C676701493BE8@THRESHER</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00012.html">EDFD2A95EE7DD31187350090279C676701493BE8@THRESHER</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; Looking at the &quot;Inside PLT MzScheme&quot; manual, I see how to
+&gt; create a new thread to evaluate the s-expression, but I
+&gt; don't see a way to join with an MzScheme thread to get
+&gt; it's response.
+
+There's not one.
+
+&gt; For example, let's say I do this:
+&gt; 
+&gt; ... get a request ...
+&gt; 
+&gt; Scheme_Object* rval = scheme_thread( thunk, env);
+&gt; 
+&gt; ... return the rval ...
+&gt; 
+&gt; I imagine this is just going to block until the evaulation
+&gt; is done. 
+
+No. It's going to return a thread-identifying value immediately,
+regardless of what `thunk' computes.
+
+&gt; What I would like to do is have the request thread looping
+&gt; and periodically checking for new requests (which it does now),
+&gt; then hand them off to MzScheme to evaluate in their own
+&gt; threads, then periodically check on each thread to see if there
+&gt; was a result.
+
+The technique you sketched is a good anything I could come up with.
+
+One tricky part: While blocking on some C-based condition variable,
+you'll want to allow MzScheme threads to run. See the &quot;Threads in
+Embedded MzScheme with Event Loops&quot; section of _Inside PLT MzScheme_
+for information on how to make this work.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00012" href="msg00012.html">Question on Multithreading from C API</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00013.html">Re: Question on Multithreading from C API</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00015.html">RE: Question on Multithreading from C API</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00029.html">Re: define-syntax and Clinger's implementation</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00015.html">RE: Question on Multithreading from C API</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00014"><strong>Date</strong></a></li>
+<li><a href="threads.html#00014"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

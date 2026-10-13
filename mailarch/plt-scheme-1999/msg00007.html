@@ -1,0 +1,148 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Trying to create a struct in a Mzscheme extension. -->
+<!--X-From-R13: BX Rhenv <qhenvcNrkgraqflf.pbz> -->
+<!--X-Date: Sun, 26 Dec 1999 20:05:58 &#45;0700 (MST) -->
+<!--X-Message-Id: F059D54E5785D31180D200508B550E29903621@postal.extendsys.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Trying to create a struct in a Mzscheme extension.</title>
+<link rev="made" href="mailto:duraip@extendsys.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00006.html">Date Prev</a>][<a href="msg00008.html">Date Next</a>][<a href="msg00006.html">Thread Prev</a>][<a href="msg00008.html">Thread Next</a>][<a href="maillist.html#00007">Date Index</a>][<a href="threads.html#00007">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Trying to create a struct in a Mzscheme extension.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Trying to create a struct in a Mzscheme extension.</li>
+<li><em>From</em>: PJ Durai &lt;<A HREF="mailto:duraip@extendsys.com">duraip@extendsys.com</A>&gt;</li>
+<li><em>Date</em>: Sun, 26 Dec 1999 20:05:52 -0700</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi people,
+
+I am trying to create a struct type from inside my mzscheme extension.
+
+{Env: Windows NT 4.0 SP4, DrScheme 101, Visual C++ 6.0 SP3)
+
+This is what I came up with so far.
+
+// Function to create a new struct.
+
+Scheme_Object* new_scheme_struct (Scheme_Env* env, const char* basename, int
+num_fields, char** field_names)
+{
+	Scheme_Object* new_type;
+
+	Scheme_Object** a = (Scheme_Object**)
+scheme_malloc(num_fields*sizeof(Scheme_Object*)); 
+
+	for (int i=0; i&lt;num_fields; ++i){
+	    a[i] = (Scheme_Object*) scheme_intern_symbol(field_names[i]);
+	}
+	
+	new_type = scheme_make_struct_type(scheme_intern_symbol(basename),
+                                            NULL /*super_type*/, 
+                                            num_fields); 
+	int count_out;
+	Scheme_Object** struct_names;
+
+	struct_names =
+scheme_make_struct_names(scheme_intern_symbol(basename), 
+	
+scheme_build_list(num_fields,a), 
+									0
+/*flags*/, 
+	
+&amp;count_out); 
+
+	scheme_make_struct_values(new_type, struct_names, count_out, 0); 
+
+	return new_type;
+}
+
+.
+.
+.
+
+// I call the function like this from my scheme_initialize()
+
+	const char* field_names[] = {&quot;id&quot;, &quot;name&quot;, &quot;type&quot;, &quot;flags&quot;,
+&quot;disporder&quot;};
+	new_scheme_struct(env,&quot;fieldinfo&quot;, 5, (char**) field_names);
+
+After loading the extention I expected the following to work.
+
+ (define f (make-fieldinfo 10 &quot;FirstName&quot; &quot;String&quot; 1.1 10))
+
+But I am getting &quot;reference to undefined identifier: make-fieldinfo&quot;.
+
+Is there something more I need to do in the above code?. (Something like
+&quot;Need to add this typename to the Global environment&quot; etc.) I was not able
+to find anything more in the subject from &quot;inside mzschme&quot;.
+
+Any pointers ?
+Appreciate your time.
+
+pj
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00008" href="msg00008.html">Re: Trying to create a struct in a Mzscheme extension.</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00006.html">Re: Speech extension for DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00008.html">Re: Trying to create a struct in a Mzscheme extension.</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00006.html">Re: Speech extension for DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00008.html">Re: Trying to create a struct in a Mzscheme extension.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00007"><strong>Date</strong></a></li>
+<li><a href="threads.html#00007"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

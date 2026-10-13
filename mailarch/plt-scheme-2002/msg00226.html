@@ -1,0 +1,122 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Continuation safety -->
+<!--X-From-R13: "Bnhy F. Uenhaxr" <cgtNppf.arh.rqh> -->
+<!--X-Date: Fri, 8 Feb 2002 10:59:20 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020208175911.GB4934@subra.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200202081749.g18HnOV07792@plover.atdesk.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Continuation safety</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00225.html">Date Prev</a>][<a href="msg00227.html">Date Next</a>][<a href="msg00225.html">Thread Prev</a>][<a href="msg00227.html">Thread Next</a>][<a href="maillist.html#00226">Date Index</a>][<a href="threads.html#00226">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Continuation safety</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Continuation safety</li>
+<li><em>From</em>: &quot;Paul T. Graunke&quot; &lt;<A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 8 Feb 2002 12:59:11 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00225.html">200202081749.g18HnOV07792@plover.atdesk.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00225.html">200202081749.g18HnOV07792@plover.atdesk.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.25i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+For an example you might want to at plt/collects/web-server/web-server.ss
+in the function server-loop.
+
+Custodians allow you to clean up---in one action in one place---a whole bunch
+of ports, threads, etc that were opened in code that may be loaded dynamically,
+or code that is scattered about.  An exception handler will ensure that the
+shutdown happens even in the presence of exceptions.  Dynamic-wind will
+ensure that the shutdown occurs in the presence of continuations.  Notice
+that with custodians you don't need a reference to the open ports, which may
+be available only in some lexical scope that the thread escaped out of.
+
+Paul
+
+On Fri, Feb 08, 2002 at 12:49:24PM -0500, Chris Uzdavinis wrote:
+&gt; 
+&gt; I'm interested in writing Scheme code, but when it creates threads,
+&gt; opens files, and so on, what are the normal steps toward guaranteeing
+&gt; that they're freed?  I'm afraid that my code is in general lacking
+&gt; such robustness.
+&gt; 
+&gt; I hear mention of custodians but don't really understand how to use
+&gt; them.  The PLT Scheme Language Manual dedicates less than 1/3 of a
+&gt; page to custodians, and I'm wondering where I could find introductary
+&gt; documentation for this concept, especially some kind of example of how
+&gt; and when to put them use, how to rely on them to solve a job, etc.  If
+&gt; I have to call (custodian-shutdown-all ...) in order to invoke a
+&gt; custodian, what prevents a continuation from bypassing that call too?
+&gt; 
+&gt; Is a custodian the right way to make code continuation-safe?  What
+&gt; other techniques are used?
+&gt; 
+&gt; Thanks very much in advance.
+&gt; 
+&gt; -- 
+&gt; Chris
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00225" href="msg00225.html">Continuation safety</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00225.html">Continuation safety</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00227.html">Profiler</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00225.html">Continuation safety</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00227.html">Profiler</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00226"><strong>Date</strong></a></li>
+<li><a href="threads.html#00226"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

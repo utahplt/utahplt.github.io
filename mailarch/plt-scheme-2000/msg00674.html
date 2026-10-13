@@ -1,0 +1,180 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: PLT Scheme development directions -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 6 Nov 2000 21:12:29 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001107041103.RXGD26793.femail3.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>PLT Scheme development directions</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00673.html">Date Prev</a>][<a href="msg00675.html">Date Next</a>][<a href="msg00724.html">Thread Prev</a>][<a href="msg00678.html">Thread Next</a>][<a href="maillist.html#00674">Date Index</a>][<a href="threads.html#00674">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>PLT Scheme development directions</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: PLT Scheme development directions</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 6 Nov 2000 20:11:03 -0800</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Our medium-term development plan is falling into place. Here's an
+update.
+
+Version 103 is probably the end of the line for the current PLT
+architecture, just as version 53 was the last of its kind. Visibly
+radical changes are ahead. If you read this mailing list, your current
+code probably won't work in the next official release of PLT Scheme.
+But when you port it to the new version, it'll work better.
+
+Of course, we'll build on our current infrastructure, as usual, and the
+vast majority of academic DrScheme users won't notice much difference
+(just fewer problems).
+
+We're currently working on the following two items:
+
+ * Syntax (macros, program loading, compilation)
+
+   MzScheme's lack of modular support for syntactic extension has
+   become a bottleneck in building new libraries and experimenting with
+   new language constructs. The situation with incompatible &quot;debugging&quot;
+   and &quot;non-debugging&quot; languages (both clumsy) has become intolerable.
+
+   To address this problem, we're looking at a new module
+   language/layer that gracefully handles macros (real macros --- not
+   defmacro) and other first-order entities (e.g., unit signatures).
+   The new syntax framework will be powerful enough to express
+   DrScheme's teaching languages, but accessible enough for everyday
+   Schemers. A compilation manager built around the module system will
+   let us to get rid of `require-library', `begin-elaboration-time',
+   and all the other related hacks.
+
+   Naturally, we'll take this opprtunity to clean up and rearrange
+   libraries. We may also modify the class system.
+
+ * Memory management
+
+   Although the current conservative garbage collector (CGC) works well
+   enough for many programs (especially in the short run or for small
+   programs) it isn't scaling well overall. Some programs grow too
+   large too quickly. Some leak when they shouldn't, due to GC
+   imprecision. And some programs should grow and then shrink, letting
+   the OS have memory back when its no longer needed.
+
+   As most of you know, MzScheme/MrEd &quot;2k&quot; has been in development for
+   nearly a year, now. The 2ks implement conventional, generational,
+   precise garbage collection (PGC), while still building on all the
+   existing C-based infrastructure behind regular MzScheme and MrEd
+   (except for the GC, of course).
+
+   As of 103.3, the 2ks seem fairly stable under Unix, and their
+   performance is starting to be reasonable (10-20% slower than plain
+   MzScheme/MrEd on x86, 40-50% slower on processors with a sigificant
+   number of registers). After the Windows port is ready (it's off to a
+   good start), we'll start the transition from CGC to PGC as the
+   default.
+
+   The CGC and PGC versions of PLT Scheme will coexist for the
+   forseeable future, since CGC has its role in embedding and extending
+   applications. But C-based extensions for a wide audience will need
+   to be PGC-friendly in the long run.
+
+The intended time scale for these items is 3-4 months. If all goes
+well, your code should break in early February. :)
+
+When the above two changes are in place, we'll move on to a third item:
+
+ * Core size and configurability
+
+   With a new module system in place, we'll be ready to break up
+   MzScheme and MrEd as the currently exist. They'll be replaced with a
+   smaller PLT Scheme core; parts of MzScheme parts and all of MrEd
+   will be dynamically-loadable modules for this core. (The unit and
+   class systems will most likely be moved out of the core earlier, as
+   part of the syntax revisions.)
+
+   The core reorganization should provide a smaller footprint for
+   embedding applications, and it should also allow users to more
+   easily build on the core in different directions (different GUI
+   libraries, more multimedia support, etc.).
+
+The target date for this item is late spring, pending success on the
+first two items.
+
+Meanwhile, in parallel to the above three items:
+
+ * Debugging
+
+   The Stpper improvements over the last couple of DrScheme releases
+   were actually part of an aggressive debugger development plan. The
+   skeleton of a conventional debugger for DrScheme is now in place and
+   progressing.
+
+103 will stick around for those of you who need it. We'll consider
+supporting patches to 103 if there's enough demand (but there's never
+been much demand for patches to old versions before).
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00678" href="msg00678.html">Re: PLT Scheme development directions</a></strong>
+<ul><li><em>From:</em> Mark Seaborn &lt;mrs35@cam.ac.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00673.html">Re: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00675.html">Re: Scheme acceptance [no flames]</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00724.html">Re: Scheme &amp; number crunching</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00678.html">Re: PLT Scheme development directions</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00674"><strong>Date</strong></a></li>
+<li><a href="threads.html#00674"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

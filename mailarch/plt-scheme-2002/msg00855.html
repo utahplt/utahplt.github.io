@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] embarrasing question -->
+<!--X-From-R13: Xbua Qyrzragf <pyrzragfNoevapxreubss.bet> -->
+<!--X-Date: Sun, 5 May 2002 23:03:15 &#45;0600 (MDT) -->
+<!--X-Message-Id: p0511170ab8fbbbe20d42@[10.0.1.3] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 00df01c1f4b7$d1a3ccd0$450c1eac@icu19 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] embarrasing question</title>
+<link rev="made" href="mailto:clements@brinckerhoff.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00854.html">Date Prev</a>][<a href="msg00856.html">Date Next</a>][<a href="msg00853.html">Thread Prev</a>][<a href="msg00854.html">Thread Next</a>][<a href="maillist.html#00855">Date Index</a>][<a href="threads.html#00855">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] embarrasing question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Chris Wright&quot; &lt;<A HREF="mailto:caw@cs.mu.oz.au">caw@cs.mu.oz.au</A>&gt;,       &quot;plt-scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] embarrasing question</li>
+<li><em>From</em>: John Clements &lt;<A HREF="mailto:clements@brinckerhoff.org">clements@brinckerhoff.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 6 May 2002 01:04:40 -0400</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00853.html">00df01c1f4b7$d1a3ccd0$450c1eac@icu19</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00853.html">00df01c1f4b7$d1a3ccd0$450c1eac@icu19</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 2:38 PM +1000 5/6/02, Chris Wright wrote:
+&gt;I have a list of symbols and functions that I want to populate into a
+&gt;hash-table. Some of them are &quot;builtins&quot; (+ - * ) etc etc, but other will be
+&gt;defined.
+&gt;
+&gt;I'm trying to do this:
+&gt;
+&gt;(for-each (lambda (sym fn)
+&gt;                 (hash-table-put! *function-table* sym fn))
+&gt;     '(+ - blurp) '(+ - (lambda (x) (+ x 1))))
+&gt;
+&gt;with the idea being, obviously, storing the procedure + under the key +, and
+&gt;the proc to add one to a number under the key blurp.
+&gt;
+&gt;Equally obviously, it doesn't work. What gets stored under the key '+ is the
+&gt;symbol '+, not the (symbol-&gt;function '+)   .... that's probably a horrible
+&gt;lisp-scheme mean-nothing-at-all-hybrid expression! But you know what I mean.
+&gt;blurp and the function stored under blurp work fine.
+&gt;
+&gt;So, what's the best way to do this? I could store (lambda (lst) (apply +
+&gt;lst)) under '+, but I'd just like to be able to say + and get the same
+&gt;effect..
+
+You're having trouble with the meaning of quote.  Well, maybe.  When 
+the quote appears before a symbol, it instructs scheme to produce the 
+symbol, rather than the thing the symbol refers to.  So if I type &quot;q&quot; 
+at the prompt, mzscheme might tell me that q is an unbound variable. 
+However, if i type &quot;'q&quot; at the prompt, mzscheme happily produces the 
+symbol q.
+
+Well, that's all fine and well, but what if I want to create lists of 
+symbols? I might get mighty tired of expressions like &quot;(list 'a 'x 'e 
+'f)&quot;, or whatever.  So, the designers of scheme opted to extend the 
+functionality of quote to have a meaning when appearing before lists, 
+as well as before symbols.
+
+However, rather than getting into it, let me encourage you to try 
+writing this program without using quote in any position other than 
+directly before a symbol.  It's not hard, and I think you'll probably 
+figure out what's going on faster than I can accurately explain it.
+
+Hope this helps,
+
+john
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00853" href="msg00853.html">[plt-scheme] embarrasing question</a></strong>
+<ul><li><em>From:</em> &quot;Chris Wright&quot; &lt;caw@cs.mu.oz.au&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00854.html">Re: [plt-scheme] embarrasing question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00856.html">[plt-scheme] MZScheme on Mac OS</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00853.html">[plt-scheme] embarrasing question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00854.html">Re: [plt-scheme] embarrasing question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00855"><strong>Date</strong></a></li>
+<li><a href="threads.html#00855"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

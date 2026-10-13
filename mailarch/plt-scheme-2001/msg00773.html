@@ -1,0 +1,144 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.20 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 10 Aug 2001 15:52:38 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108102152.PAA06923@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.20</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00772.html">Date Prev</a>][<a href="msg00774.html">Date Next</a>][<a href="msg00774.html">Thread Prev</a>][<a href="msg00777.html">Thread Next</a>][<a href="maillist.html#00773">Date Index</a>][<a href="threads.html#00773">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.20</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.20</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 10 Aug 2001 15:52:36 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The v200-tagged code in CVS for MzScheme and MrEd is now version 199.20.
+
+Changes:
+
+ * Added `tcp-connect/enable-break' and `tcp-accept/enable-break'.
+
+ * Added `object-wait-multiple' and `object-wait-multiple/enable-break'.
+   The new procedures accept a timeout (possibly #f) and one or more
+   arguments for waiting. They block until the timeout expires, in
+   which case #f is returned, or until one of the objects becomes
+   unblocked, in which case an unblocked object is returned. If a
+   semaphore is returned, then its internal count has been decremented
+   by the wait.
+
+   The waitable objects, including their corresponding blocking
+   states, are as follows:
+
+     type of object   blocking state      
+     --------------   ----------------------
+     semaphore        internal count is zero       
+     thread           running             
+     subprocess       running             
+     TCP listener     nothing to accept   
+     will executor    no wills to execute 
+     input port:      no characters ready 
+       file-stream
+       pipe
+       TCP
+
+   The `semaphore-wait', `semaphore-wait/enable-break', `thread-wait',
+   and `subprocess-wait' procedures are all technically redundant, but
+   it seems worthwhile to keep them for error checking and code
+   clarity.
+
+ * Removed `semaphore-wait-multiple' from the &quot;thread.ss&quot; MzLib
+   library.
+
+ * Added `letrec-syntaxes+values', and changed the expansion of
+   internal defines to use the new form so that a sequence of internal
+   `define' and `define-syntax' defininitions creates a single,
+   mutually recursive scope (as in Chez).
+
+ * Fixed `write' on symbols with uppercase characters to quote the
+   characters (unless `read-case-sentitive' is set to #t).
+
+ * Changed the `datum-&gt;syntax-object' interface for position lists.
+   Added a fourth optional argument to `datum-&gt;syntax-errors' for
+   copying properties.
+
+ * Fixed reader error messages to use `error-print-source-location'
+   and GNU-style source locations.
+
+ * Unix, Windows: fixed bug in `sleep' when asked to sleep for a large
+   number of seconds.
+
+ * Inside MzScheme: changed type of third argument for
+   scheme_block_until() from void* to Scheme_Object*.
+
+ * Inside MzScheme: added scheme_add_waitable() and
+   scheme_add_waitable_through_sema() for extending the set of objects
+   supported by `object-wait-multiple'.
+
+The MzScheme, MzLib, MrEd, mzc, and Inside MzScheme doc bundles have
+been updated.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00772.html">RE: &quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00774.html">Re: Help ! Compile Error under W2K</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00774.html">Re: Help ! Compile Error under W2K</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00777.html">Unit functions in 199</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00773"><strong>Date</strong></a></li>
+<li><a href="threads.html#00773"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

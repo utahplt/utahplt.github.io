@@ -1,0 +1,152 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: Oagba ina Egenngra <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Wed, 27 Mar 2002 11:58:39 &#45;0700 (MST) -->
+<!--X-Message-Id: 3CA21660.1080603@appsolutions.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000801c1d3a6$a82874a0$0a00a8c0@femto -->
+<!--X-Reference: j64rj4afqy.fsf@explicit.atdesk.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00554.html">Date Prev</a>][<a href="msg00556.html">Date Next</a>][<a href="msg00511.html">Thread Prev</a>][<a href="msg00566.html">Thread Next</a>][<a href="maillist.html#00555">Date Index</a>][<a href="threads.html#00555">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Anton van Straaten &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Mar 2002 13:58:40 -0500</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>References</em>: &lt;<a href="msg00449.html">000801c1d3a6$a82874a0$0a00a8c0@femto</a>&gt; &lt;<a href="msg00475.html">j64rj4afqy.fsf@explicit.atdesk.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mozilla/5.0 (X11; U; Linux i686; en-US; rv:0.9.8) Gecko/20020207</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I don't want to fan any flames, but since things seem to have settled 
+down a bit, I'd like to clarify my perspective on the &quot;C++ is broken&quot; 
+issue. Chris Uzdavinis replied to my charges of the brokenness of the 
+C++ type system:
+
+&gt; A vector of 5 elements is the same type as a vector of 6 
+&gt; elements.  The type of the vector is not a function of its 
+&gt; size.  Adding a new element doesn't change the type of the 
+&gt; vector.  You can go out of bounds on a vector, but that's 
+&gt; not due to type checking, it is due to range checking... 
+&gt; two orthogonal concepts, IMHO.
+
+As already observed, a big part of this discussion has revolved around terminology that we haven't agreed on.  What I've really been talking about would usually be described as &quot;type safety&quot;.  C++ can't offer type safety, since C++ doesn't protect its own types from accidental corruption, for example. That's a fundamental flaw, because it *does* lead to tricky bugs which could otherwise simply be handled gracefully as exceptions with meaningful stack traces.
+
+&gt; Also, you are assuming that every access in C++ is unsafe, 
+&gt; or that for every potentially unsafe access some 
+&gt; validating abstraction has to be written.  Sometimes it 
+&gt; comes in handy, but if you write code that depends on range
+&gt; checking, I'd claim that the program is seriously buggy. 
+
+Of course!  The point about protecting the integrity of a language's types is that it prevents problems from escalating from simple, reportable logic errors, into hard-to-detect bugs that may end up in production code, even unbeknownst to the developer.  In many circumstances, turning off runtime integrity checks for performance reasons may be perfectly acceptable.  Never being able to turn them on, and suffering hard-to-detect bugs as a result, is not.
+
+&gt; If a bug causes an invalid index to be calculated, and the &quot;type
+&gt; system&quot; checks that such an access is out of range and attemps to
+&gt; recover, the real problem has shifted:
+&gt; 
+&gt; * the original bug remains in your code, which keeps on calculating
+&gt;   the wrong value (which is now &quot;allowed&quot; by your program)
+
+I don't understand what you mean.  Type-safe languages generate an exception in the case of an error like this, so there's no sense in which this is &quot;allowed&quot;.  In fact, it's C++ that can &quot;allow&quot; this in the sense that memory corruption due to an error like this may not be detected until much later (too late).
+
+&gt; * now that the access has translated into an error, recovery code 
+&gt;   is written to handle the error.  This is misleading to people,
+&gt;   because they think that it's OK to go out of bounds in the first
+&gt;   place, and that if they do, all that is necessary is to handle the
+&gt;   error. 
+
+Sorry, but I think you're way off-base here.  If a programmer doesn't take the correct action in response to an error that's reported clearly and accurately by the language, that's the programmer's fault.  I'm saying that C++ doesn't report the error in the first place, and that can't reasonably be construed as a good thing.
+
+The only way to justify these kinds of shortcoming is historically, and by the current state of software technology in general.  I can't see how it can reasonably be argued that the inability of a language to protect its types is a feature.  Being able to turn off runtime checks for performance reasons, once a program is debugged and tested, can be desirable, but the inability to automatically guard against this, if you want to, especially during development, is bad.  In C++, The switch for the &quot;unsafe&quot; feature is permanently turned on.
+
+I'm not saying C++ is an unusable or useless language.  I've written hundreds of thousands of lines in it myself, shipped commercial products written in it, and I'm still using it.  I'm merely pointing out that aspects of it which many people take for granted as inevitable could be improved, and that the current behavior shouldn't be defended as being somehow fundamentally valid.  Many C++ developers are very used to running bounds-checking tools and the like to compensate for its deficiencies.  They also regularly rely (even if inadvertently) on operating system memory protection to tell them when a range or pointer bug is present.  This is accepted as a status quo, but it's unlikely to remain acceptable as mainstream technology improves.  (C++ is already taking market-share heat from Java over this issue).
+
+Sure, you can guard against these problems, and most competent developers don't tend to find them a burden.    You've found this to be the case. But if you've worked with teams of programmers using C++, you can't tell me you've never seen any of them spending time tracking down an access violation due to these kinds of issues.  One only has to look at commercial shrinkwrapped software to see this, where unclean crashes are a common occurrence.  If everything were written in type-safe languages, software would be significantly more reliable.  What I'm talking about is an issue related to the costs - in both developer and user time, and cash - of using the language.
+
+I'm not suggesting that everything *can* be written in safe languages, as of today.  Theoretically, it's possible to write everything in a safe language and have it perform on par with the best compiled code out there.  Various examples of such languages exist.  But in practice today, mainstream and commercially accepted tools to do this aren't always available, so language selection is often driven by the realities of performance requirements.  Often, such choices are quite valid or at least easily defended: the case of importing hundreds of millions of stock quotes sounds like one such case.  In many, *many* other cases, though, languages like C or C++ are used without good technical reasons, and their shortcomings are accepted when they don't have to be, and probably shouldn't be.
+
+&gt; &gt; C++ filled an important need when I began using it in the mid-80s.
+&gt;
+&gt; C++ has changed a lot since then.
+
+Yes, I know.  My comment was intended to indicate that I didn't just read &quot;Teach Yourself C++ in 21 Days&quot; and draw my conclusions from that.  I've avidly consumed every new book on advanced C++ techniques, absorbed new features as they come out, and worked with some of the most advanced frameworks.  But there's a sense in which this is all window dressing on an insufficiently robust base.  I don't like doing work that I know I shouldn't have to do, and C++ makes me do that.  Being aware of its shortcomings and the underlying technical factors allows for more appropriate choice of tools.
+
+Anton
+
+*
+*
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00566" href="msg00566.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00449" href="msg00449.html">RE: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+<li><strong><a name="00475" href="msg00475.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00554.html">Re: Great Computer Language Shootout</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00556.html">Re: Great Computer Language Shootout</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00511.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00566.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00555"><strong>Date</strong></a></li>
+<li><a href="threads.html#00555"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

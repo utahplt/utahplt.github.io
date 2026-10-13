@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: quasiquote in a class definition -->
+<!--X-From-R13: Vnffbha <unffbhaNflzcngvpb.pn> -->
+<!--X-Date: Tue, 24 Oct 2000 18:03:41 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39F62304.7B9C0ADF@sympatico.ca -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>quasiquote in a class definition</TITLE>
+<LINK REV="made" HREF="mailto:hassoun@sympatico.ca">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01006.html">Date Prev</A>][<A HREF="msg01008.html">Date Next</A>][<A HREF="msg01000.html">Thread Prev</A>][<A HREF="msg01008.html">Thread Next</A>][<A HREF="maillist.html#01007">Date Index</A>][<A HREF="threads.html#01007">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>quasiquote in a class definition</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>" &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: quasiquote in a class definition</LI>
+<LI><em>From</em>: Hassoun &lt;<A HREF="mailto:hassoun@sympatico.ca">hassoun@sympatico.ca</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 24 Oct 2000 20:02:12 -0400</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+hi
+
+i am trying to use quasiquote inside the definition of a class (see code
+below). the quasi expression is supposed to create an association list
+of some methods defined within the class. this A-list is used by another
+method within the class to search for a given method and return its
+value. when executing, i always get that the target method (in the
+assoc-list) is #&lt;undefined&gt;. i resolved the problem by defining the
+method as a global procedure, but i need it to be in the class.
+
+i have read the doc on quasiquote, but it seems that i am missing
+something.
+
+any clues
+thanks
+Hassoun
+
+---
+(define myframe%
+  (class* frame% (myframe&lt;%&gt;) (name-string the_parent the_width
+the_height pos_x pos_y given_style)
+    (inherit create-status-line set-status-text set-cursor)
+    (private
+      [current_command '()]
+      [command_list `((output_coords ,output_coords))] &lt;---the
+association list
+      )
+    (public
+	...
+      [get_current_command (lambda () current_command)]
+      [output_coords (lambda (x y) (display x) (display "  ") (display
+y) (newline))]
+      [set_current_command! 	&lt;--- the method that uses the association
+list
+       (lambda (given_command)
+         (let ((tempo (assq given_command command_list)))
+           (display tempo)
+           (newline)
+           (if tempo (begin (set! current_command (cadr tempo)) (display
+current_command))
+               (begin
+                 (display tempo)
+                 (error 'set_current_command "check given_command")))))]
+      
+      ...
+
+-- 
+Hassoun Karam
+hassoun@sympatico.ca
+<A  HREF="http://www3.sympatico.ca/hassoun">http://www3.sympatico.ca/hassoun</A>
+--------------------------
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01008" HREF="msg01008.html">quasiquote in a class definition</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01006.html">Re: Re: Re: Src question</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01008.html">quasiquote in a class definition</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01000.html">Re: Outdated doc for turtle in 1.03?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01008.html">quasiquote in a class definition</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01007"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01007"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

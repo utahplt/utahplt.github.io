@@ -1,0 +1,139 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Question on User&#45;Defined Types (Embedding) -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 16 Nov 2000 16:40:49 &#45;0700 (MST) -->
+<!--X-Message-Id: 200011162340.QAA20415@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C6767011E1B88@THRESHER -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Question on User-Defined Types (Embedding)</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00741.html">Date Prev</a>][<a href="msg00743.html">Date Next</a>][<a href="msg00741.html">Thread Prev</a>][<a href="msg00743.html">Thread Next</a>][<a href="maillist.html#00742">Date Index</a>][<a href="threads.html#00742">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Question on User-Defined Types (Embedding)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Question on User-Defined Types (Embedding)</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 16 Nov 2000 16:40:42 -0700 (MST)</li>
+<li><em>CC</em>: PLT-Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00741.html">EDFD2A95EE7DD31187350090279C6767011E1B88@THRESHER</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00741.html">EDFD2A95EE7DD31187350090279C6767011E1B88@THRESHER</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; Let's say I have a C++ class/structure that I want to pass in and out 
+&gt; of the MzScheme runtime.
+&gt; 
+&gt; For example, let's say I have a simple structure:
+&gt; 
+&gt;     struct test
+&gt;     {
+&gt;         char name[10];
+&gt;         long salary;
+&gt;     };
+
+If you have the luxury of changing the test struct, add a
+Scheme_Type element at the beginning:
+
+     struct test
+     {
+        Scheme_Type tag;  /* MzScheme needs this tag */
+        char name[10];
+        long salary;
+     };
+
+&gt; And I'd have previously created a type:
+&gt; 
+&gt;     Scheme_Type test_type;
+&gt; 
+&gt;     test_type = scheme_make_type(&quot;&lt;test type&gt;&quot;);
+
+Use test_type as the value of `tag' in a test struct.
+
+Because of the type tag, a test* can be safely cast to a
+Scheme_Object*. And any Scheme_Object* o where *(Scheme_Type*)o ==
+test_type can be safely cast to a test*.
+
+If you can't change the test struct, you'll have to define a wrapper
+struct:
+
+     struct wrapped_test {
+       Scheme_Type tag;
+       struct test t;
+     };
+
+&gt; In my real case, I wish to pass Scheme a type representing some global
+&gt; data that *should not* be collected by Scheme.
+
+MzScheme will happily work with a Scheme_Object* value that isn't a
+pointer to GC land.
+
+See also plt/collects/mzscheme/examples/bitmatrix.c. (Probably we
+should have another example with a simpler C-defined structure.)
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00741" href="msg00741.html">Question on User-Defined Types (Embedding)</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00741.html">Question on User-Defined Types (Embedding)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00743.html">103d103</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00741.html">Question on User-Defined Types (Embedding)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00743.html">103d103</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00742"><strong>Date</strong></a></li>
+<li><a href="threads.html#00742"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

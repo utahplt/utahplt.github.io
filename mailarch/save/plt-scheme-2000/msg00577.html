@@ -1,0 +1,159 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Sound &#38; Testing -->
+<!--X-From-R13: @bry Iryfu <abryjNqnv.rq.np.hx> -->
+<!--X-Date: Fri, 24 Mar 2000 04:58:23 &#45;0700 (MST) -->
+<!--X-Message-Id: 14555.19213.467566.25039@kintore.dai.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001bf937e$3d82ae00$6a032a80@cs.rice.edu -->
+<!--X-Reference: 200003212225.OAA23170@balu.qualcomm.com -->
+<!--X-Reference: 38DA2B60.6C911FE@info.unicaen.fr -->
+<!--X-Reference: 20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 38DB4F28.A4A0EEDB@info.unicaen.fr -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Sound &amp; Testing</TITLE>
+<LINK REV="made" HREF="mailto:noelw@dai.ed.ac.uk">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00576.html">Date Prev</A>][<A HREF="msg00578.html">Date Next</A>][<A HREF="msg00576.html">Thread Prev</A>][<A HREF="msg00590.html">Thread Next</A>][<A HREF="maillist.html#00577">Date Index</A>][<A HREF="threads.html#00577">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Sound &amp; Testing</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Sound &amp; Testing</LI>
+<LI><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 24 Mar 2000 11:58:18 +0000 (GMT)</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00576.html">38DB4F28.A4A0EEDB@info.unicaen.fr</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00566.html">000001bf937e$3d82ae00$6a032a80@cs.rice.edu</A>&gt;&lt;<A HREF="msg00567.html">200003212225.OAA23170@balu.qualcomm.com</A>&gt;&lt;<A HREF="msg00572.html">38DA2B60.6C911FE@info.unicaen.fr</A>&gt;&lt;<A HREF="msg00573.html">20000323134708.BYAM24066.mail.rdc1.sfba.home.com@localhost</A>&gt;&lt;<A HREF="msg00576.html">38DB4F28.A4A0EEDB@info.unicaen.fr</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Ok, like the fool I am I'm gonna stick my neck out here...
+
+I got interested in PLT Scheme 'cause I wanted a language that I could
+do sound manipulation in, was Free, and didn't involve pain like C,
+Matlab/Octave and CSound do. Sure, there isn't any DSP in PLT Scheme
+at the moment, but there are things like Nyquist [URL:
+<A  HREF="http://www.cs.cmu.edu/afs/cs.cmu.edu/project/music/web/music.software.html">http://www.cs.cmu.edu/afs/cs.cmu.edu/project/music/web/music.software.html</A>]
+and Common Lisp Music [URL:
+<A  HREF="http://www-ccrma.stanford.edu/CCRMA/Software/Software.html">http://www-ccrma.stanford.edu/CCRMA/Software/Software.html</A>] which are
+Lisp and so should be reasonably easy to steal code from. There are
+also a lot of C DSP/sound generation libraries around.
+<A  HREF="http://www.bright.net/~dlphilp/linuxsound/">http://www.bright.net/~dlphilp/linuxsound/</A> is the definitive list for
+Linux (which is the only OS I'm really interested in, but I may port
+to Solaris or BeOS).
+
+My MSc project will probably be on whale song analysis - so when I
+start work on that (May), expect the sound support to improve. At the
+moment there seems to be a lot of work going on to develop modular
+synth systems for Linux. With luck some of these project will be
+released by the time I start my project, so I can piggyback on an
+active development project. Otherwise I'll just rip code from
+anywhere.
+
+If others want to get involved, that would be great!
+
+------
+
+The other things I want to develop for PLT Scheme are:
+
+1. A Javadoc-like tool. Thanks to help from the list w/ Zodiac, I now
+have a very poor prototype working.
+
+2. A testing framework, based on the Extreme Programming
+frameworks. See <A  HREF="http://www.xprogramming.com/">http://www.xprogramming.com/</A> and the Wiki at
+<A  HREF="http://c2.com/cgi/wiki?ExtremeProgramming">http://c2.com/cgi/wiki?ExtremeProgramming</A>. A few thoughts on tests:
+
+    - I think units should export their tests so proper regression
+testing can be done.
+
+    - Could the cond-expand form in SRFI 0 be used to turn on/off
+tests? In Python, if a package is run from the top-level a flag is set in
+that unit telling it it's the main unit. A common idiom is to have tests
+that are only executed when this flag is defined. The same thing could 
+be defined in PLT Scheme, so there could be code that would only be
+executed when in 'testing mode'. With PLT Scheme's parameterised
+units, the testing code would have to involve creating a compound unit 
+using some default parameters and then running the tests.
+
+Again, any help/comments gratefully received!
+
+cya,
+Noel
+
+-- 
+Noel Welsh
+<A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00590" HREF="msg00590.html">What is an object?</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00566" HREF="msg00566.html">Distributing PLT Scheme with RedHat</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00567" HREF="msg00567.html">Re: Distributing PLT Scheme with RedHat</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00572" HREF="msg00572.html">Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00573" HREF="msg00573.html">Re: Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00576" HREF="msg00576.html">Re: Sound</A></STRONG>
+<UL><LI><EM>From:</EM> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00576.html">Re: Sound</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00578.html">MysterX changes</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00576.html">Re: Sound</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00590.html">What is an object?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00577"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00577"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,109 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: mzcom as an inproc dll -->
+<!--X-From-R13: Drvav Geona <eheonaNknepu.gh&#45;tenm.np.ng> -->
+<!--X-Date: Fri, 21 Jul 2000 11:18:32 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39788600.B96048CD@xarch.tu&#45;graz.ac.at -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 51AD12FD97CDD3118E9900508B8BEFF426464A@BALDRICK -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: mzcom as an inproc dll</TITLE>
+<LINK REV="made" HREF="mailto:rurban@xarch.tu-graz.ac.at">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00758.html">Date Prev</A>][<A HREF="msg00760.html">Date Next</A>][<A HREF="msg00758.html">Thread Prev</A>][<A HREF="msg00761.html">Thread Next</A>][<A HREF="maillist.html#00759">Date Index</A>][<A HREF="threads.html#00759">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: mzcom as an inproc dll</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: PJ Durai &lt;<A HREF="mailto:duraip@extendsys.com">duraip@extendsys.com</A>&gt;, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: mzcom as an inproc dll</LI>
+<LI><em>From</em>: Reini Urban &lt;<A HREF="mailto:rurban@xarch.tu%2Dgraz.ac.at">rurban@xarch.tu-graz.ac.at</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 21 Jul 2000 17:18:56 +0000</LI>
+<LI><em>Organization</em>: http://xarch.tu-graz.ac.at</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00757.html">51AD12FD97CDD3118E9900508B8BEFF426464A@BALDRICK</A>&gt;</LI>
+<LI><em>Reply-To</em>: <A HREF="mailto:rurban@sbox.tu%2Dgraz.ac.at">rurban@sbox.tu-graz.ac.at</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+PJ Durai wrote:
+&gt; Is there a particular reason why MzCom is implementedas an outof proc EXE
+&gt; (not an inproc dll?)
+
+Haven't looked at the mzscheme sources lately, but the problem with
+corman lisp were
+run-time fixed memory areas to ease the garbage collecting. 
+it worked in smaller apps but with larger apps the lisp heaps were
+already used by 
+the main process.
+see STACKBOTTOM and DATASTART in gc/README and config.h
+it looks fine to me, but you know the details...
+
+my nt cvs stopped with some weird directory names so I have no current
+mzcom sources.
+-- 
+Reini Urban    
+<A  HREF="http://xarch.tu-graz.ac.at/autocad/news/faq/autolisp.html">http://xarch.tu-graz.ac.at/autocad/news/faq/autolisp.html</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00761" HREF="msg00761.html">Re: mzcom as an inproc dll</A></STRONG>
+<UL><LI><EM>From:</EM> John Clements &lt;clements@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00757" HREF="msg00757.html">mzcom as an inproc dll</A></STRONG>
+<UL><LI><EM>From:</EM> PJ Durai &lt;duraip@extendsys.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00758.html">mzcom as an inproc dll</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00760.html">Re: mzcom as an inproc dll</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00758.html">mzcom as an inproc dll</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00761.html">Re: mzcom as an inproc dll</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00759"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00759"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

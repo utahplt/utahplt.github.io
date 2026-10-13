@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] syntax rules -->
+<!--X-From-R13: "[vxr F. [npurael" <qfxvcclNppf.arh.rqh> -->
+<!--X-Date: Tue, 28 May 2002 18:13:05 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020529001300.GA2644@denali.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] syntax rules</title>
+<link rev="made" href="mailto:dskippy@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00991.html">Date Prev</a>][<a href="msg00993.html">Date Next</a>][<a href="msg00995.html">Thread Prev</a>][<a href="msg00998.html">Thread Next</a>][<a href="maillist.html#00992">Date Index</a>][<a href="threads.html#00992">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] syntax rules</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [plt-scheme] syntax rules</li>
+<li><em>From</em>: &quot;Mike T. Machenry&quot; &lt;<A HREF="mailto:dskippy@ccs.neu.edu">dskippy@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 28 May 2002 20:13:00 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.25i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+shoot sorry plt-scheme and thanks don blaheta
+
+----- Forwarded message from Don Blaheta &lt;dpb@cs.brown.edu&gt; -----
+
+Looks like you meant to send that to the list, but you just sent it to
+me....
+
+Quoth Mike T. Machenry:
+&gt; &gt; in order to get it to actually print, which is probably not what you
+&gt; &gt; want.
+&gt; 
+&gt; yes, as i mentioned i don't want that. i read through that chaperter of
+&gt; mzscheme in the help-desk. it did not seem to tricky things like this where
+&gt; i want to desend a list of things and use each item in two places.
+&gt; 
+&gt; &gt; This issue is a little trickier, as you'll need to have the
+&gt; &gt; outer-level lambda in the expansion accept all the arguments at the same
+&gt; &gt; time, but you still want to write your macro recursively.  This is a
+&gt; &gt; pretty cool problem that (unfortunately) I don't have time to work on
+&gt; 
+&gt; thank you
+&gt; 
+&gt; &gt; further, but I suspect that the solution will involve actual computation
+&gt; &gt; during macro expansion, which can be tricky.  You'll probably want to
+&gt; &gt; read up on how syntax-case works, for starters.
+&gt; 
+&gt; i definatly will, thanks for the reference.
+&gt; 
+&gt; &gt;Work on this for a
+&gt; &gt; while, and let us (me) know when you get stuck again. :)
+&gt; 
+&gt; i'll do that as well. thanks a bunch
+&gt; 
+&gt;   i'm thinking that i might want to break it up into a portion of the
+&gt; syntax that asserts types and a portion that creates the function. 
+&gt; i'll need to figure out how to break up the pieces. the following expansion
+&gt; (cond
+&gt;   ((not (number? foo))
+&gt;    (raise ...))
+&gt;   ...
+&gt;   (else
+&gt;     (lambda (foo ...)
+&gt;       ...)))
+&gt; could also work. does anyone know how i could simple turn the type-lambda
+&gt; into a regular lambda (taking the typed identifiers out) i can't seem to
+&gt; make it not curry the functions.
+&gt; 
+&gt; (type-lambda ((number? foo) (string? bar))
+&gt;   exp)
+&gt; expands to this in my new simplified problem
+&gt; (lambda (foo bar)
+&gt;   exp)
+&gt; 
+&gt; thanks again,
+&gt; -mike
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00991.html">[plt-scheme] upgrading to 200 from 103</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00993.html">Re: [plt-scheme] upgrading to 200 from 103</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00995.html">Re: [plt-scheme] syntax rules -- solution</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00998.html">[plt-scheme] for those keeping score...</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00992"><strong>Date</strong></a></li>
+<li><a href="threads.html#00992"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

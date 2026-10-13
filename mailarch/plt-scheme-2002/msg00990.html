@@ -1,0 +1,178 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] syntax rules -->
+<!--X-From-R13: Rba Pynurgn <qcoNpf.oebja.rqh> -->
+<!--X-Date: Tue, 28 May 2002 15:45:29 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020528214455.GJ25946@vanyel.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020528201012.GA16190@denali.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] syntax rules</title>
+<link rev="made" href="mailto:dpb@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00989.html">Date Prev</a>][<a href="msg00991.html">Date Next</a>][<a href="msg00989.html">Thread Prev</a>][<a href="msg00995.html">Thread Next</a>][<a href="maillist.html#00990">Date Index</a>][<a href="threads.html#00990">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] syntax rules</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Mike T. Machenry&quot; &lt;<A HREF="mailto:dskippy@ccs.neu.edu">dskippy@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] syntax rules</li>
+<li><em>From</em>: Don Blaheta &lt;<A HREF="mailto:dpb@cs.brown.edu">dpb@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 28 May 2002 17:44:55 -0400</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00989.html">20020528201012.GA16190@denali.ccs.neu.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00989.html">20020528201012.GA16190@denali.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.27i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoth Mike T. Machenry:
+&gt; i am attempting to learn how to define syntax's in scheme. i decided
+&gt; to try to make a toy type system as my first try. the problem i'm
+&gt; having is that each identifier in my lambda needs to be put in two
+&gt; different places (the assertion and the parameter) and i can't seem to
+&gt; do that with a recursive syntax. also my attempt seems to be currying
+&gt; the functions so it takes one paramter at a time. i can see how it
+&gt; does that but i'm not sure how to do it correctly. also there is a
+&gt; shortage of syntax-rules docs on the web, in help-desk, the r5r and in
+&gt; the ansi scheme book. does anyone know of a place to read up on this?
+
+It's all there in chapter 11 of the mzscheme language manual, though
+that is admittedly not the easiest document to read and use as a
+tutorial. :)
+
+&gt; expand this
+&gt; (type-lambda ((nunber? foo) (number? bar) (string? baz) un-typed-param)
+&gt;   (if (= foo bar)
+&gt;       baz
+&gt;       un-typed-param))
+&gt; [...]
+&gt; this is my attempt
+&gt; (define-syntax type-lambda
+&gt;   (syntax-rules ()
+&gt;     ((_ ((type var) var2 ...) exp1 ...)
+&gt;      (lambda (var)
+&gt;        (type-assert type var)
+&gt;        (type-lambda (var2 ... ) exp1 ...)))
+&gt;     ((_ (var var2 ...) exp1 ...)
+&gt;      (lambda (var)
+&gt;        (type-lambda (var2 ...) exp1 ...)))
+&gt;     ((_ () exp1 ...)
+&gt;      (lambda ()
+&gt;        exp1 ...))
+							
+The first problem you'll have is in getting type-assert to be known to
+type-lambda at macro-expansion time.  There are a couple of ways to do
+this; if type-assert is in a separate module, you can require-for-syntax
+that module.  If type-assert is only used by type-lambda, then you might
+want to define it inside type-lambda---like using a &quot;let&quot; to define a
+helper function.  However, in macros, identifiers bound with &quot;let&quot; are
+not accessible in the expansion; you'll need &quot;with-syntax&quot; for that
+purpose.  That brings us to
+
+(define-syntax type-lambda
+  (with-syntax ([type-assert (lambda (type? itm)
+                               (unless (type? itm) (error &quot;foo&quot;)))])
+    (syntax-rules ()
+      [(_ ((type var) var2 ...) exp1 ...)
+       (lambda (var)
+	 (type-assert type var)
+	 (type-lambda (var2 ... ) exp1 ...))]
+      [(_ (var var2 ...) exp1 ...)
+       (lambda (var)
+	 (type-lambda (var2 ...) exp1 ...))]
+      [(_ () exp1 ...)
+       (lambda ()
+	 exp1 ...)])))
+
+Next, you're going to run into arity problems.  In particular, if the
+type-lambda form has multiple arguments, its expansion will be a curried
+function that returns a thunk.  If I define the function fromk as follows:
+
+(define fromk (type-lambda ([list? l] [string? s] x) (printf &quot;~a~a~a&quot; l s x))) 
+
+its expansion (omitting type assertions) will be
+
+#'(lambda (l)
+    (lambda (s)
+      (lambda (x)
+        (lambda () (#%app (#%top . printf) (#%datum . &quot;~a~a~a&quot;) l s x)))))
+
+which means that to call it with the arguments lst, str, and num, I have
+to write
+
+&gt; ((((fromk lst) str) num))
+
+in order to get it to actually print, which is probably not what you
+want.  This issue is a little trickier, as you'll need to have the
+outer-level lambda in the expansion accept all the arguments at the same
+time, but you still want to write your macro recursively.  This is a
+pretty cool problem that (unfortunately) I don't have time to work on
+further, but I suspect that the solution will involve actual computation
+during macro expansion, which can be tricky.  You'll probably want to
+read up on how syntax-case works, for starters.  Work on this for a
+while, and let us (me) know when you get stuck again. :)
+
+-- 
+-=-Don Blaheta-=-=-dpb@cs.brown.edu-=-=-&lt;<A  HREF="http://www.cs.brown.edu/~dpb/">http://www.cs.brown.edu/~dpb/</A>&gt;-=-
+When your hammer is C++, everything begins to look like a thumb.
+					--Steve Hoflich, comp.lang.c++
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00989" href="msg00989.html">[plt-scheme] syntax rules</a></strong>
+<ul><li><em>From:</em> &quot;Mike T. Machenry&quot; &lt;dskippy@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00989.html">[plt-scheme] syntax rules</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00991.html">[plt-scheme] upgrading to 200 from 103</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00989.html">[plt-scheme] syntax rules</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00995.html">Re: [plt-scheme] syntax rules -- solution</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00990"><strong>Date</strong></a></li>
+<li><a href="threads.html#00990"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

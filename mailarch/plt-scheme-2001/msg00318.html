@@ -1,0 +1,176 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Just for your fun and horror -->
+<!--X-From-R13: Xreml Ynepmznepmhx <xnepmznNvasb.havpnra.se> -->
+<!--X-Date: Mon, 19 Feb 2001 03:09:21 &#45;0700 (MST) -->
+<!--X-Message-Id: 3A90FEAC.DB69A1F6@info.unicaen.fr -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: "0596F3A8D4E65002*/c=GB/admd=ATTMAIL/prmd=BA/o=British Airways PLC/ou=CORPLN1/s=Steinitz/g=Dominic/i=J/"@MHS -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Just for your fun and horror</title>
+<link rev="made" href="mailto:karczma@info.unicaen.fr">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00317.html">Date Prev</a>][<a href="msg00319.html">Date Next</a>][<a href="msg00282.html">Thread Prev</a>][<a href="msg00283.html">Thread Next</a>][<a href="maillist.html#00318">Date Index</a>][<a href="threads.html#00318">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Just for your fun and horror</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Re: Just for your fun and horror</li>
+<li><em>From</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</li>
+<li><em>Date</em>: Mon, 19 Feb 2001 11:08:28 +0000</li>
+<li><em>CC</em>: haskell-cafe &lt;<A HREF="mailto:haskell-cafe@haskell.org">haskell-cafe@haskell.org</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: University of Caen, France</li>
+<li><em>References</em>: &lt;&quot;0596F3A8D4E65002*/c=GB/admd=ATTMAIL/prmd=BA/o=British Airways PLC/ou=CORPLN1/s=Steinitz/g=Dominic/i=J/&quot;@MHS&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Dear all, at haskell-café &amp; plt-scheme.
+
+1. THANK YOU VERY MUCH for enlightening comments about the
+   terminology, student psychology, etc. I will get back to it
+   in a second, for the moment I ask you very politely:
+
+   survey the adressee list if you &quot;reply-all&quot;. For people
+   subscribing both Haskell and Scheme forums means 4 copies
+   of your message, if you send the messages simultaneously 
+   to the private address of the previous author...!. 
+   I thought that a cross posting might have some merits, and 
+   I see now the nuisance. My deep apologies. 
+  
+
+2. People suggest that the word return has been badly chosen.
+   I have no strong opinion, I begin to agree... we had unit,
+   result, people propose liftM, compute, deliver, etc. 
+   I wonder why return stuck?
+   Just because it exists elsewhere? I believe not, it has some
+   appeal, as Joe Fasel acknowledges.
+
+C. Reinke writes:
+
+&gt; One way to look at the problem is that some of your students have 
+&gt; concrete experience with `return' in different contexts, and that
+&gt; Haskell tries to make different things look similar here. You say
+&gt; &quot;we worked with monads for several weeks&quot; but, you being yourself,
+&gt; this was probably at a fairly abstract and general level, right?
+
+No, not exactly. Being myself, just the opposite.
+There is *NO* more abstraction in my course than in Wadler's
+&quot;Essence...&quot;.
+* I begin with a silly functional evaluator of a tree representing
+  an arithmetic expression. 
+* We recognize together with the students that a program may fail,
+  and we introduce Maybe. They see thus a simple monadic generali-
+  sation and the first non-trivial instance of return. We try to
+  implement (in a sketchy way) a tracing generalisation as well.
+
+* They have parallelly a course of Prolog, so we play con mucho
+  gusto with a few &quot;non-deterministic&quot; algorithms, such as standard
+  combinatoric exercices : the generation of permutations, of the
+  powerset, etc. On average the students seem to understand the
+  idea and the implementation, and *mind you*: while writing their
+  exercises &lt;&lt;a vista&gt;&gt; they duly corrected themselves when they
+  were tempted to write &quot;z&quot; instead of &quot;return z&quot;. ([] =-&gt; [[]]).
+
+* We worked for a reasonable period with monadic parsers. The 
+  comment above is valid. Semantically they accepted the difference 
+  between &quot;z&quot; and &quot;return z&quot;. I couldn't foresee any surprises.
+
+* They had to write a serious program in Haskell, so I gave them
+  an introduction to Haskell I/O. They couldn't escape from
+  *practical* Monads (although some of my students &quot;perverted&quot; 
+  [with my approval] the idea of writing a *syntactic* converter 
+  to Scheme, realizing it not in Haskell but in Scheme...)
+
+I spoke of course about types, but not simultaneously. We took
+advantage of the type inference, and the *type* of return has not
+been discussed explicitly sufficiently early. This is - I believe -
+my main, fundamental pedagogical fault! Yes Joe, I think this
+has been my own &lt;&lt;pons asinorum&gt;&gt;.
+If my compilation course survives all this affair (not obvious)
+I will try to remember Jón Fairbarn's suggestion (repeated by
+Manuel Chakravarty), and to discuss thoroughly the status of 
+&quot;C&quot; imperative concepts, in order to prevent misunderstandings.
+
+C. Reinke again:
+&gt; Unless you're one of Asimov's technicians of eternity, it is a bit
+&gt; difficult to change the history of programming languages, and assuming
+&gt; that the students pay for the opportunity to learn, you can't really
+&gt; fire them either.. 
+
+Hm.
+We are all Technicians able to change the past, but since
+we do not live outside the System, we do it usually in the 
+Orwellian way: we change the INTERPRETATION of the past. Things
+which were good (structural top-down programming) become bad
+(inadapted to object approach). Strong typing? A straitjacket for
+some, a salvation for the other. Scheme'ists add OO layers in
+order to facilitate the code reusing, and this smuggles in some
+typing. Dynamic typing in static languages became a folkloric,
+never-ending issue... The history of languages is full of
+&quot;second thoughts&quot;. Who will first write a paper with a Wadlerian
+style [[but taken from earlier literature]] title:
+
+&quot;Monads considered harmful&quot;
+&quot;Return should NOT return its argument&quot;
+
+etc.?
+
+And in France students don't pay for the opportunity to learn.
+
+Regards.
+Jerzy Karczmarczuk
+Caen, France
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00317.html">Re: MzScheme and SML</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00319.html">DrScheme Jr + Graphics</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00282.html">Re: Just for your fun and horror</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00283.html">103d105</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00318"><strong>Date</strong></a></li>
+<li><a href="threads.html#00318"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

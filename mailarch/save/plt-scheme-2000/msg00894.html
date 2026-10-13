@@ -1,0 +1,220 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Multimedia in DrScheme -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Thu, 31 Aug 2000 17:21:57 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39AEEA11.CF16FB2A@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: v04210133b5d445049dfd@[130.207.3.227] -->
+<!--X-Reference: 39AEB5BF.C6A16194@kurtz&#45;fernhout.com -->
+<!--X-Reference: 39AEDE4E.521F33B8@mastnet.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Multimedia in DrScheme</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00893.html">Date Prev</A>][<A HREF="msg00895.html">Date Next</A>][<A HREF="msg00893.html">Thread Prev</A>][<A HREF="msg00895.html">Thread Next</A>][<A HREF="maillist.html#00894">Date Index</A>][<A HREF="threads.html#00894">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Multimedia in DrScheme</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: Multimedia in DrScheme</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 31 Aug 2000 19:28:17 -0400</LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00891.html">v04210133b5d445049dfd@[130.207.3.227]</A>&gt; &lt;<A HREF="msg00892.html">39AEB5BF.C6A16194@kurtz-fernhout.com</A>&gt; &lt;<A HREF="msg00893.html">39AEDE4E.521F33B8@mastnet.net</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+John Clonts wrote:
+&gt; 
+&gt; Paul Fernhout wrote:
+&gt; &gt;
+&gt; [snip graphics pointers]
+&gt; &gt;
+&gt; &gt; It's a shame to see so much duplicate work required to maintain various
+&gt; &gt; platforms in various projects -- all essentially similar effort
+&gt; &gt; requiring substantial time by good people. Also the effort by all of us
+&gt; &gt; to learn all these open source platforms (Squeak, DrScheme, GForth, what
+&gt; &gt; have you) just to have a choice oof languages. I downloaded the DrScheme
+&gt; &gt; source (6 Hours CVS!) and it's basically a forked version of wxWindows
+&gt; &gt; from several years ago -- and so a maintenance requirement -- although
+&gt; &gt; I'll given Matt and others here lots of credit for keeping it stable and
+&gt; &gt; useful on the major platforms, and they do show a strong commitment to
+&gt; &gt; supporting it. However, it's opaqueness (being compiled) means one has
+&gt; &gt; to rely heavily on the HelpDesk for getting API information. I think the
+&gt; &gt; HelpDesk in DrScheme if fabulous -- Squeak could benefit from something
+&gt; &gt; like it.
+&gt; &gt;
+&gt; &gt; I would love to see an open source Scheme, Smalltalk, Pascal, Forth,
+&gt; &gt; etc. all using a common core, with native FFI interface functions,
+&gt; &gt; native code generation as desired, and also good emulated widget set for
+&gt; &gt; a simple common core API. Multimedia functions should be near identical
+&gt; &gt; from any language you choose to use on this platform. Hope we get there
+&gt; 
+&gt; Hey, you mean like Common Language Runtime , ".net" :)
+
+Shriram pointed out the same thing privately.
+
+Yes what Microsoft proposes sounds like a good idea -- for someone else
+to do in an open source way.
+
+The problem I have with a Microsoft Common Language runtime is:
+1) it does not exist in a final form yet
+2) even if it did, I expect it to be proprietary at the implementation
+level (likely producing another Java situation where people reimplement
+it with different code on different platforms, leading to a host of
+compatability issues).
+
+Obviously if Microsoft releases the source under say the SD-revised
+license and it is well written, I would jump on it. I think that
+extremely unlikely as it might undermine their Windows monopoly by
+making it easier for Linux and the Mac to have equivalent software by
+making cross-platform development easier.
+
+But yes, to an extent C# for example is supposed to provide a portable
+assembler (like the earlier C-- effort). How portable the APIs in .NET
+will be is another question. Given Microsoft's past history, I don't
+expect .NET to turn out to be something really open or really
+cross-platform (except perhaps long enough to damage Sun/Java?).  On the
+other hand, Microsoft is making a commitment to XML, and that surprised
+me (since it in theory it might erode the Microsoft Office monopoly or
+contribute to other cross-platform activity).
+
+Personally, I'd like a language API to give me a standard FFI interface,
+including a way to generate machine code and call it, (and for
+convenience, an optional platform independent way to blit bits on the
+screen, get user input, and do reliable networking -- and maybe a plugin
+interface). All the rest can be added -- for example, sound as FFI. And
+give me exception handling and modularity in the language, and again,
+everything else can be added. (Stretching things a bit of course...
+Obviously just to start, APIs for memory allocation and knowing what OS
+you are on would all be probably needed as basic common cross-platform
+APIs.)
+ 
+Linus Torvalds got it right when he said get the interface right and the
+implementation can always be improved -- but that interface is
+practically set in stone because of all the callers. Perhaps we need
+better interface layers to build our open source languages on?
+(Something above an OS but below a typical stand-alone language).
+
+Of course, the language standards that evolve on top of that better base
+are things one would hope would become stable (like Scheme became a
+stable standard -- although I think still suffering in the areas of
+exception handling and modularity as a standard).
+
+To bring this back around to DrScheme before getting too Off-Topic, the
+issue is being able to leverage off of work by other open source
+developers. For example, Squeak developers are doing lots of work to get
+sockets to work across all platforms -- yet witness the recent issue
+with DrScheme sockets under Linux. And obviously Perl, Python, and TCl
+programmers all are writing socket code for numerous platforms. If all
+that effort could be pooled, what wonders we might see. Think on the
+story of the "Tower of Babel" where people were made to speak different
+languages so the tower could never touch the heavens. I'm not suggesting
+everyone program in Scheme -- just that to the extent possible, open
+languages could share many facilities -- especially ones related to
+cross platform bitmaps, sound, networking, file access, FFI, plugin
+architecture, native widgets, installation, documentation viewers, maybe
+some memory management, OS interface calls for processes, and so forth.
+Note this is also different from saying everyone should just use Linux.
+Obviously there may be some performance issues if one has to add another
+layer isolating language and runtime libraries, and various language 
+implementations have their own expectations about threading, garbage
+collection, memory allocation, and so forth.
+
+Actually, in choosing wxWindows I think the DrScheme team made an
+excellent choice of what is/was available. wxWindows is one of the best
+cross-platform libraries going. And there are interfaces to it from
+other things -- like Python. There are only two issues: 
+1) customization of an earlier version produced a fork that requires
+work to maintain [and if I look at this from the point of a commercial
+developer I might need to maintain it myself if I use it in a
+project and the core DrScheme team moves onto other stuff in years to
+come]
+2) that the lower level needs to be supported in C and not something
+elegant like Scheme.
+
+I wonder what wxWindows would look like if it had been designed to serve
+as a "Common Language Runtime" for Scheme, Python, etc. instead of a
+windowing library orginally for C/C++.  SDL (Simple DirectMedia Layer)
+is a similar effort, and bindings exist for several languages (not yet
+Scheme that I saw):
+  <A  HREF="http://www.devolution.com/~slouken/projects/SDL/">http://www.devolution.com/~slouken/projects/SDL/</A>
+If one was going to add multimedia (and emulated widgets) to MzScheme
+and not use wxWindows as MrEd does, SDL would be an interesting choice.
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00895" HREF="msg00895.html">Re: Multimedia in DrScheme</A></STRONG>
+<UL><LI><EM>From:</EM> "John R. Hall" &lt;overcode@lokigames.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00891" HREF="msg00891.html">Multimedia in DrScheme</A></STRONG>
+<UL><LI><EM>From:</EM> Mark Guzdial &lt;guzdial@cc.gatech.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00892" HREF="msg00892.html">Re: Multimedia in DrScheme</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00893" HREF="msg00893.html">Re: Multimedia in DrScheme</A></STRONG>
+<UL><LI><EM>From:</EM> John Clonts &lt;jclonts@mastnet.net&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00893.html">Re: Multimedia in DrScheme</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00895.html">Re: Multimedia in DrScheme</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00893.html">Re: Multimedia in DrScheme</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00895.html">Re: Multimedia in DrScheme</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00894"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00894"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

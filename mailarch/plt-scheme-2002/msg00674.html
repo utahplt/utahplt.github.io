@@ -1,0 +1,208 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: scsh in PLT Scheme? -->
+<!--X-From-R13: "Oyrk Brnxr" <ncrnxrNpbznp.pbz> -->
+<!--X-Date: Tue, 2 Apr 2002 21:34:13 &#45;0700 (MST) -->
+<!--X-Message-Id: NBBBLCLOKKHAGMJBNHDMGEKOFKAA.apeake@comac.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3CAA6E29.8000803@appsolutions.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: scsh in PLT Scheme?</title>
+<link rev="made" href="mailto:apeake@comac.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00673.html">Date Prev</a>][<a href="msg00675.html">Date Next</a>][<a href="msg00673.html">Thread Prev</a>][<a href="msg00676.html">Thread Next</a>][<a href="maillist.html#00674">Date Index</a>][<a href="threads.html#00674">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: scsh in PLT Scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Subject</em>: RE: scsh in PLT Scheme?</li>
+<li><em>From</em>: &quot;Alex Peake&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 2 Apr 2002 20:33:33 -0800</li>
+<li><em>Cc</em>: &quot;MJ Ray&quot; &lt;<A HREF="mailto:markj@cloaked.freeserve.co.uk">markj@cloaked.freeserve.co.uk</A>&gt;,       &quot;Bruce Butterfield&quot; &lt;<A HREF="mailto:bab@entricom.com">bab@entricom.com</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00673.html">3CAA6E29.8000803@appsolutions.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+You are right in that this *default* behavior should not be the *only*
+behavior, but... (see below)
+
+&gt; -----Original Message-----
+&gt; From: Anton van Straaten [<A  HREF="mailto:anton@appsolutions.com">mailto:anton@appsolutions.com</A>]
+&gt; Sent: Tuesday, April 02, 2002 6:51 PM
+&gt; To: Alex Peake
+&gt; Cc: MJ Ray; Bruce Butterfield; plt-scheme@fast.cs.utah.edu
+&gt; Subject: Re: scsh in PLT Scheme?
+&gt;
+&gt;
+&gt; I agree that it's OK for the *default* behavior to deliver the entire
+&gt; requested set.  There is a case, though, for supporting alternatives.
+&gt;  It can depend on the nature of the client software.  For example, a
+&gt; user may request a relatively large dataset and then browse through it
+&gt; looking for something, e.g. by using a Page Down key.  Preloading the
+&gt; entire set in a case like this may be prohibitive (not to mention
+&gt; wasteful).  It can be important for the database interface to provide
+&gt; control over when and how much data is fetched.
+&gt;
+
+What is mostly wasteful in databases is the overhead (in the database) of
+connections. Hence the strategy of connecting, requesting some data,
+downloading it all and then disconnecting. It usually costs less to request
+all the data (that you think you will need) and display page at a time from
+the downloaded data, than to keep a connection open to the database. As an
+alternate, you can always request subsets. The cost (on the database engine)
+is always less.
+
+
+&gt; Even if you argue, as some do, that query interfaces that return large
+&gt; recordsets &quot;shouldn't be allowed&quot;, that still doesn't handle the case
+&gt; where you have a set that's longer than fits on one page or screen, and
+&gt; you want to begin displaying the data before all the data is retrieved.
+&gt;  This can also be addressed by having data retrieval support an
+&gt; asynchronous mode (which is a nice feature anyway).
+&gt;
+
+What fits on the page is not necessarily correlated with what is downloaded.
+You can easily display subsets of what you have doanloaded. Also, you should
+ask yourself &quot;what data do I need and why&quot;? Think about why your query asked
+for a large recordset.
+
+
+&gt; With web-based clients, the preloading issue is less likely to arise
+&gt; (although it still can), because an individual web page usually displays
+&gt; a relatively small amount of data.
+&gt;
+
+See the previous statement.
+
+&gt; I don't think it's unacceptable to have a database interface that
+&gt; preloads its data (although an asynchronous loading option would be
+&gt; useful in that case), but I think it's kidding oneself to believe that
+&gt; nothing is lost by this kind of restriction.  Databases are used in many
+&gt; different ways, with different usage patterns.  Two-tier client/server
+&gt; applications with logic in stored procedures and/or in the front end
+&gt; have very different database access patterns than multi-tier systems
+&gt; which have application logic layers outside the database, for example.
+&gt;  I've yet to see a one-size-fits-all approach that's viable across these
+&gt; different situations.
+&gt;
+
+I would not advocate a single pattern of access. Just remember that the
+costs are mostly associated with keeping connections open, not with
+dowloading data. If you think about what data you need, then most of the
+time, all of what you requested (and you have very fine control over that)
+is exactly what you need.
+
+
+Alex
+
+&gt; Anton
+&gt;
+&gt; &gt;Databases are about set operations. If you want data you ask for
+&gt; it. If you
+&gt; &gt;only want a subset you only ask for a subset. If you want to do
+&gt; updates use
+&gt; &gt;set operations to update on the server.
+&gt; &gt;
+&gt; &gt;Default behavior should be to deliver the set requested.
+&gt; &gt;
+&gt; &gt;Alex
+&gt; &gt;
+&gt; &gt;&gt;-----Original Message-----
+&gt; &gt;&gt;From: owner-plt-scheme@fast.cs.utah.edu
+&gt; &gt;&gt;[<A  HREF="mailto:owner-plt-scheme@fast.cs.utah.edu]On">mailto:owner-plt-scheme@fast.cs.utah.edu]On</A> Behalf Of MJ Ray
+&gt; &gt;&gt;Sent: Tuesday, April 02, 2002 4:32 PM
+&gt; &gt;&gt;To: Bruce Butterfield
+&gt; &gt;&gt;Cc: plt-scheme@fast.cs.utah.edu
+&gt; &gt;&gt;Subject: Re: scsh in PLT Scheme?
+&gt; &gt;&gt;
+&gt; &gt;&gt;
+&gt; &gt;&gt;Bruce Butterfield:
+&gt; &gt;&gt;
+&gt; &gt;&gt;&gt;I would argue that often it is necessary to walk through large sets of
+&gt; &gt;&gt;&gt;query data on a row-by-row basis to do some external processing
+&gt; &gt;&gt;&gt;
+&gt; &gt;&gt;I can see two options, really: use cursors as you say to batch
+&gt; &gt;&gt;the transfer
+&gt; &gt;&gt;to scheme for processing, which could probably be implemented inside the
+&gt; &gt;&gt;DB:for-each interface (although I wouldn't want to be the
+&gt; person to try to
+&gt; &gt;&gt;do that); embed scheme into your database and pass it a function to use.
+&gt; &gt;&gt;
+&gt; &gt;&gt;Is there another good solution which offers something the above doesn't?
+&gt; &gt;&gt;--
+&gt; &gt;&gt;MJR
+&gt; &gt;&gt;
+&gt; &gt;
+&gt;
+&gt;
+&gt;
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00676" href="msg00676.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> Bruce Butterfield &lt;bab@entricom.com&gt;</li></ul></li>
+<li><strong><a name="00677" href="msg00677.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> Anton van Straaten &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00673" href="msg00673.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> Anton van Straaten &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00673.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00675.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00673.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00676.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00674"><strong>Date</strong></a></li>
+<li><a href="threads.html#00674"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

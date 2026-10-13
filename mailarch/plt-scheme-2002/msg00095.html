@@ -1,0 +1,122 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: syntax&#45;case oddity -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Tue, 15 Jan 2002 08:49:24 &#45;0700 (MST) -->
+<!--X-Message-Id: 866663zkct.fsf@csc01.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>syntax-case oddity</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00094.html">Date Prev</a>][<a href="msg00096.html">Date Next</a>][<a href="msg00755.html">Thread Prev</a>][<a href="msg00096.html">Thread Next</a>][<a href="maillist.html#00095">Date Index</a>][<a href="threads.html#00095">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>syntax-case oddity</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: syntax-case oddity</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: Tue, 15 Jan 2002 09:48:02 -0600</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma deMéxico</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090004 (Oort Gnus v0.04) XEmacs/21.1 (Cuyahoga Valley,i386--freebsd)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi all,
+
+I was happily adding better error reporting to a very simple macro,
+:optional, here's the final version:
+
+(define-syntax (:optional stx)
+	  (syntax-case stx ()
+		       [(_ val default)
+			(begin
+			  (unless (list? (syntax val))
+				  (raise-syntax-error #f &quot;expected a list&quot; stx (syntax val)))
+			  (syntax (if (null? val) default (car val))))]))
+
+but it hates the `(list? (syntax val))' thing:
+
+&gt; (:optional '(foo bar) 'foobar)
+STDIN::3500: :optional: expected a list at: (quote (foo bar)) in: (:optional (quote (foo bar)) (quote foobar))
+
+Am I missing something? BTW, the following do works:
+
+(define-syntax (:optional stx)
+	  (syntax-case stx ()
+		       [(_ val default)
+			(syntax (if (null? val) default (car val)))]))
+
+&gt; (:optional '(foo bar) 'foobar)
+foo
+
+poor error reporting, though:
+
+&gt; (:optional #f 'foobar)
+car: expects argument of type &lt;pair&gt;; given #f
+
+this is 200alpha9 (updated half an hour ago.)
+
+Thanks,
+--Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00096" href="msg00096.html">Re: syntax-case oddity</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00094.html">Re: Scrolling graphics under Win&lt;2K&gt;?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00096.html">Re: syntax-case oddity</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00755.html">** PLT Scheme Projects -- Monthly Reminder **</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00096.html">Re: syntax-case oddity</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00095"><strong>Date</strong></a></li>
+<li><a href="threads.html#00095"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

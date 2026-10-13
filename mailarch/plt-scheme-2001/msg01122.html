@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Document formatting in Scheme -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNppf.arh.rqh> -->
+<!--X-Date: Fri, 26 Oct 2001 09:18:21 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110261517.f9QFHuT16554@sualocin.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011026145515.6277.qmail@web11206.mail.yahoo.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Document formatting in Scheme</title>
+<link rev="made" href="mailto:matthias@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01121.html">Date Prev</a>][<a href="msg01123.html">Date Next</a>][<a href="msg01120.html">Thread Prev</a>][<a href="msg01123.html">Thread Next</a>][<a href="maillist.html#01122">Date Index</a>][<a href="threads.html#01122">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Document formatting in Scheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A></li>
+<li><em>Subject</em>: Re: Document formatting in Scheme</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 26 Oct 2001 11:17:56 -0400 (EDT)</li>
+<li><em>CC</em>: <A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>, <A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01120.html">20011026145515.6277.qmail@web11206.mail.yahoo.com</a>&gt; (message fromNoel Welsh on Fri, 26 Oct 2001 07:55:15 -0700 (PDT))</li>
+<li><em>References</em>: &lt;<a href="msg01120.html">20011026145515.6277.qmail@web11206.mail.yahoo.com</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Noel, pls read up on C#'s connection to XML. I would consider
+writing a set of macros that allow me to write down HtDP contracts 
+in an x-expression format so that I can extract them later on
+and type set them in xhtml. 
+
+So something like this might work: 
+
+ (function 
+   ([name &quot;f&quot;])
+   (domain ([argument &quot;x&quot;]) (listof Number) (fun Number -&gt; String))
+   (range (listof String))
+   (comment &quot;f maps a list of numbers to a list of strings&quot;)
+   (contract (andmap (lambda (x) (&gt; x 0)) x))
+   (effect &quot;f also prints the numbers to stdout&quot;))
+
+ (define (f x) ...)
+
+For the above, you could define macros (syntax-case) and you can mix
+and match real Scheme types and code so that the macro can actually
+generate annotations if appropriate. Indeed, the elaborated code
+could be used as an annotations by Spidey ('s successor) to compute
+value flow and to check comments against code.
+
+Part of the problem is to scale it to all of MzScheme's basic facilities,
+but with modules we should be able to equip &quot;syntax&quot; modules with
+appropriate extensions to the tag language.
+
+You may also consider macros that generate additional user tags for
+X-expressions (i.e. tags with meaning). 
+
+-- Matthias
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01123" href="msg01123.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01120" href="msg01120.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01121.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01123.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01120.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01123.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01122"><strong>Date</strong></a></li>
+<li><a href="threads.html#01122"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

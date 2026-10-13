@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: [vpunry Hnavre <zinavreNpf.pnygrpu.rqh> -->
+<!--X-Date: Fri, 22 Mar 2002 17:40:30 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203222329.g2MNT0k11793@orchestra.cs.caltech.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020321170111.24441.qmail@web11205.mail.yahoo.com -->
+<!--X-Reference: 3C9B03D5.82180595@info.unicaen.fr -->
+<!--X-Reference: 20020322213534.0FF43206F6@sualocin.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:mvanier@cs.caltech.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00415.html">Date Prev</a>][<a href="msg00417.html">Date Next</a>][<a href="msg00580.html">Thread Prev</a>][<a href="msg00414.html">Thread Next</a>][<a href="maillist.html#00416">Date Index</a>][<a href="threads.html#00416">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@cs.caltech.edu">mvanier@cs.caltech.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 22 Mar 2002 15:29:00 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00408.html">20020322213534.0FF43206F6@sualocin.ccs.neu.edu</a>&gt; (message fromMatthias Felleisen on Fri, 22 Mar 2002 16:35:34 -0500 (EST))</li>
+<li><em>References</em>: &lt;<a href="msg00396.html">20020321170111.24441.qmail@web11205.mail.yahoo.com</a>&gt; &lt;<a href="msg00404.html">3C9B03D5.82180595@info.unicaen.fr</a>&gt; &lt;<a href="msg00408.html">20020322213534.0FF43206F6@sualocin.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; X-Authentication-Warning: fast.cs.utah.edu: majordom set sender to owner-plt-scheme@flux.cs.utah.edu using -f
+&gt; From: Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;
+&gt; Reply-To: matthias@ccs.neu.edu
+&gt; Date: Fri, 22 Mar 2002 16:35:34 -0500 (EST)
+&gt; 
+&gt; Jerzy, 
+&gt; 
+&gt; with all due respect, I think Noel was on to the right answer.
+&gt; 
+&gt; And why does SML's performance suck, if static types are really all that
+&gt; great for performance? Once you have polymorphism you don't need dynamic 
+&gt; types to mess up your performance. 
+
+And yet ocaml's performance is really good.  I thought at least part of the
+reason for this was that ocaml uses the stack in much the same way that C
+does (which pretty much rules out continuations) while SML is more
+scheme-like in its stack management (and has continuations).
+
+OTOH Common Lisp systems, which are dynamically typed by default, can
+compile to very fast code as well.  Certainly the presence of run-time
+checks can slow your program down a lot, but there's nothing in scheme or
+lisp which prevents the implementor from removing these checks if possible.
+Some schemes (bigloo, dunno about chez) have type declarations, for
+instance, and all CL systems have them.
+
+Mike
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00414" href="msg00414.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00396" href="msg00396.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+<li><strong><a name="00404" href="msg00404.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00408" href="msg00408.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00415.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00417.html">RE: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00580.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00414.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00416"><strong>Date</strong></a></li>
+<li><a href="threads.html#00416"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

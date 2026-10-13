@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SchemeQL problem -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Fri, 18 Jan 2002 11:14:57 &#45;0700 (MST) -->
+<!--X-Message-Id: 861ygnle7m.fsf@csc01.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 008701c19fca$718a6530$0101a8c0@DOUBLE -->
+<!--X-Reference: 86elko1gy6.fsf@csc01.fciencias.unam.mx -->
+<!--X-Reference: 009901c19fd2$4b88f560$0101a8c0@DOUBLE -->
+<!--X-Reference: ufhzo3c9qte.fsf@spoon.clustra.com -->
+<!--X-Reference: 00b101c19fe1$b6dd77f0$0101a8c0@DOUBLE -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SchemeQL problem</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00113.html">Date Prev</a>][<a href="msg00115.html">Date Next</a>][<a href="msg00109.html">Thread Prev</a>][<a href="msg00116.html">Thread Next</a>][<a href="maillist.html#00114">Date Index</a>][<a href="threads.html#00114">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SchemeQL problem</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Chris Double&quot; &lt;<A HREF="mailto:chris@double.co.nz">chris@double.co.nz</A>&gt;</li>
+<li><em>Subject</em>: Re: SchemeQL problem</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: Fri, 18 Jan 2002 12:13:33 -0600</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:hellan@acm.org">hellan@acm.org</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00106.html">00b101c19fe1$b6dd77f0$0101a8c0@DOUBLE</a>&gt; (&quot;Chris Double&quot;'smessage of &quot;Fri, 18 Jan 2002 18:33:46 +1300&quot;)</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma deMéxico</li>
+<li><em>References</em>: &lt;<a href="msg00102.html">008701c19fca$718a6530$0101a8c0@DOUBLE</a>&gt;&lt;<a href="msg00103.html">86elko1gy6.fsf@csc01.fciencias.unam.mx</a>&gt;&lt;<a href="msg00104.html">009901c19fd2$4b88f560$0101a8c0@DOUBLE</a>&gt;&lt;<a href="msg00105.html">ufhzo3c9qte.fsf@spoon.clustra.com</a>&gt;&lt;<a href="msg00106.html">00b101c19fe1$b6dd77f0$0101a8c0@DOUBLE</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090004 (Oort Gnus v0.04) XEmacs/21.1 (Cuyahoga Valley,i386--freebsd)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&quot;Chris Double&quot; &lt;chris@double.co.nz&gt; writes:
+
+[...]
+
+&gt; Does SchemeQL need to do this set-env-attr for me, or is there some way of
+&gt; me enabling it to do that?
+
+SchemeQL should do it for you, I think.  Actually, that's the whole
+point of having higher level library.
+
+&gt;
+&gt; The notes from the help desk on srpersist say:
+&gt;
+&gt; &quot;Before using `alloc-handle' to create a connection handle, you may
+&gt;  need to call `set-env-attr' with 'sql-attr-odbc-version and
+&gt; 'sql-ov-odbc3 as arguments.&quot;
+
+Damn!, I knew I had to read the docs at some point. :-)
+
+Could you please cvs update your copy of SchemeQL? I've just added the
+setting of this attribute. (When you connect, if SrPersist was
+compiled for a 3+ driver, it will create the environment handle, and
+set the attribute upon connection to a data source.  I cannot test
+this, though.)
+
+Thanks, and HTH,
+--Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00116" href="msg00116.html">Re: SchemeQL problem</a></strong>
+<ul><li><em>From:</em> &quot;Chris Double&quot; &lt;chris@double.co.nz&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00102" href="msg00102.html">SchemeQL problem</a></strong>
+<ul><li><em>From:</em> &quot;Chris Double&quot; &lt;chris@double.co.nz&gt;</li></ul></li>
+<li><strong><a name="00103" href="msg00103.html">Re: SchemeQL problem</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+<li><strong><a name="00104" href="msg00104.html">Re: SchemeQL problem</a></strong>
+<ul><li><em>From:</em> &quot;Chris Double&quot; &lt;chris@double.co.nz&gt;</li></ul></li>
+<li><strong><a name="00105" href="msg00105.html">Re: SchemeQL problem</a></strong>
+<ul><li><em>From:</em> hellan@acm.org</li></ul></li>
+<li><strong><a name="00106" href="msg00106.html">Re: SchemeQL problem</a></strong>
+<ul><li><em>From:</em> &quot;Chris Double&quot; &lt;chris@double.co.nz&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00113.html">Re: SSAX for v.200 ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00115.html">Re: structures at expansion time</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00109.html">Re: SchemeQL problem</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00116.html">Re: SchemeQL problem</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00114"><strong>Date</strong></a></li>
+<li><a href="threads.html#00114"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

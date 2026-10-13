@@ -1,0 +1,181 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: Zrb Dnmbhzbi  <yenmbhzbiNdhnypbzz.pbz> -->
+<!--X-Date: Sat, 26 Feb 2000 22:48:46 &#45;0700 (MST) -->
+<!--X-Message-Id: 200002270548.VAA21089@balu.qualcomm.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002270435.UAA20217@balu.qualcomm.com -->
+<!--X-Reference: 200002270457.WAA08093@africa.cs.rice.edu -->
+<!--X-Reference: 20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [Q] HOWTO redirect a i/o-port in Unix??</title>
+<link rev="made" href="mailto:lrazoumov@qualcomm.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00137.html">Date Prev</a>][<a href="msg00139.html">Date Next</a>][<a href="msg00137.html">Thread Prev</a>][<a href="msg00139.html">Thread Next</a>][<a href="maillist.html#00138">Date Index</a>][<a href="threads.html#00138">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [Q] HOWTO redirect a i/o-port in Unix??</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</li>
+<li><em>From</em>: Leo Razoumov  &lt;<A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A>&gt;</li>
+<li><em>Date</em>: Sat, 26 Feb 2000 21:48:41 -0800 (PST)</li>
+<li><em>CC</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00137.html">20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost</a>&gt;(message from Matthew Flatt on Sat, 26 Feb 2000 21:08:21 -0800)</li>
+<li><em>References</em>: &lt;<a href="msg00133.html">200002270435.UAA20217@balu.qualcomm.com</a>&gt;	&lt;<a href="msg00134.html">200002270457.WAA08093@africa.cs.rice.edu</a>&gt; &lt;<a href="msg00137.html">20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost</a>&gt;</li>
+<li><em>Reply-To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Your solution would not work (in general) if you are redirecting more than one
+port at once because it may cause a dead-lock situation.
+For example, let us consider a program &quot;myprog&quot; which writes a lot on its stdout
+and little (or nothing) into stderr. I am going to redirect both stdout and
+stderr into two files 'myprog.stdout' and 'myprog.stderr' correspondently.
+I use your method of redirecting which essentially means that I read chars from
+one port and write them to another one. Thus, I have two read/write loops -- one
+for stdout redirection another one for stderr.
+
+The dead-lock symptoms are:
+1). MzScheme will block in the myprog's stderr read/write loop when there is
+    nothing to read from the stderr.
+2). &quot;myprog&quot; will block at the same time if it fills up the output buffer
+    of its stdout pipe. This pipe is not being consumed at the MzScheme end
+    because MzScheme is blocked by item 1).
+Classic catch-22 situation and double-block on both processes.
+Surely, one can make use of non-blocking read/write operations and put
+multithreading to work to avoid these difficulties.
+However, a much simplier solution would be to provide a primitive function like
+(redirect-port! FROM TO) which essentially does dup2 and let Operating System
+handle all the gory details of I/O operations. 
+
+thanks,
+--Leo
+
+P.S. I am *REALLY* impressed by the rapid response time on this mailing list.
+I posted my original message at 8:35pm PST and got several answers back in a
+matter of few minutes not to mention that it was 10:35pm in Texas!!!!
+
+
+&gt;&gt;&gt;&gt;&gt; &quot;MF&quot; == Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+    MF&gt; Quoting Leo Razoumov:
+    &gt;&gt; More specifically, I am looking for a way to redirect stdout (and stderr) of a
+    &gt;&gt; subprocess created with (process &quot;myprog&quot;) into a file.
+
+    MF&gt; Quoting Matthias Felleisen:
+    &gt;&gt; 
+    &gt;&gt; Here is a (stupid) trick that I used in my Web page building scripts: 
+    &gt;&gt; 
+    &gt;&gt; (with-output-to-file &quot;date.txt&quot; 
+    &gt;&gt; (lambda () 
+    &gt;&gt; (display (read-line (car (process &quot;date&quot;))))))
+    &gt;&gt; 
+    &gt;&gt; This copies text from the process port to the file &quot;date.txt&quot;. 
+
+    MF&gt; That works often. But sometimes the data coming from the process isn't
+    MF&gt; line-based, and often you want the data to get pushed from one port to
+    MF&gt; the other &quot;in the background&quot;.
+
+    MF&gt; Here's a fairly general and efficient function:
+
+    MF&gt;  (define (copy-stream input-port output-port)
+    MF&gt;   (thread (lambda ()
+    MF&gt;             (let ([s (make-string 4096)])
+    MF&gt;               (let loop ()
+    MF&gt;                 (let ([l (read-string! s input-port)])
+    MF&gt;                   (unless (eof-object? l)
+    MF&gt;                     (display (if (&lt; l 4096) (substring s 0 l) s)
+    MF&gt;                              output-port)
+    MF&gt;                     (loop))))
+              
+    MF&gt;               ;; For most contexts, it's good to
+    MF&gt;               ;; close the ports at this point:
+    MF&gt;               (close-input-port input-port)
+    MF&gt;               (close-output-port output-port)))))
+
+    MF&gt; Here's an example of its use:
+
+    MF&gt;  ;; Pipe &quot;ls&quot; output to &quot;wc&quot;:
+    MF&gt;  (define ls-p (process &quot;ls&quot;))
+    MF&gt;  (define wc-p (process &quot;wc&quot;))
+
+    MF&gt;  (copy-stream (car ls-p)   ; car is stdout of ls
+    MF&gt;               (cadr wc-p)) ; cadr is stdin of wc-p
+    MF&gt;  (define t (copy-stream (car wc-p)
+    MF&gt;                         (current-output-port)))
+    MF&gt;  ;; wait until &quot;wc&quot; is done:
+    MF&gt;  (thread-wait t)
+
+
+    MF&gt; Matthew
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00139" href="msg00139.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00133" href="msg00133.html">[Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+<li><strong><a name="00134" href="msg00134.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00137" href="msg00137.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00137.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00139.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00137.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00139.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00138"><strong>Date</strong></a></li>
+<li><a href="threads.html#00138"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

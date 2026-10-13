@@ -1,0 +1,177 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: "scheme_setjmp" under Windows DLL? -->
+<!--X-From-R13: Epbemryyv Uvbetvb <fpe.tvbetvbNpbtrfvp.vg> -->
+<!--X-Date: Thu, 8 Mar 2001 01:42:04 &#45;0700 (MST) -->
+<!--X-Message-Id: 5.0.0.25.0.20010308090727.00a7ddd8@mpop.netlink.co.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>&quot;scheme_setjmp&quot; under Windows DLL?</title>
+<link rev="made" href="mailto:scr.giorgio@cogesic.it">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00362.html">Date Prev</a>][<a href="msg00364.html">Date Next</a>][<a href="msg00362.html">Thread Prev</a>][<a href="msg00364.html">Thread Next</a>][<a href="maillist.html#00363">Date Index</a>][<a href="threads.html#00363">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>&quot;scheme_setjmp&quot; under Windows DLL?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: &quot;scheme_setjmp&quot; under Windows DLL?</li>
+<li><em>From</em>: Scorzelli Giorgio &lt;<A HREF="mailto:scr.giorgio@cogesic.it">scr.giorgio@cogesic.it</A>&gt;</li>
+<li><em>Date</em>: Thu, 08 Mar 2001 09:44:32 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi,
+
+I'm trying to isolate the MzScheme problem about &quot;scheme_setjmp&quot; 
+instruction which seems not to save correctly the return address if it is 
+invoked in a windows DLL.
+
+I created a simple DLL library with the following two files (VisualC 
+6.0/New/DLL/Empty Dll):
+
+*** DLL.h ***
+--------------------------------------------
+         #ifndef _DLL_H__
+         #define _DLL_H__
+
+         #ifdef DLL_EXPORTS
+         #define MYEXPORT __declspec(dllexport)
+         #else
+         #define MYEXPORT __declspec(dllimport)
+         #endif
+
+         MYEXPORT void init();
+         MYEXPORT void eval ();
+
+         #endif //_DLL_H__
+--------------------------------------------
+
+
+
+*** DLL.cpp ***
+--------------------------------------------
+
+         #include &lt;scheme.h&gt;
+
+         #define DLL_EXPORTS
+         #include &quot;dll.h&quot;
+
+         static Scheme_Env* mySchemeEnv;
+
+
+         MYEXPORT void init(){
+                 mySchemeEnv=scheme_basic_env();
+         }
+
+         MYEXPORT void eval (){
+                 if (scheme_setjmp(scheme_error_buf)){
+                         return;//ERROR!!! HERE IS THE PROBLEM
+                 }else {
+                         Scheme_Object 
+*v=scheme_eval_string(&quot;(i-want-error)&quot;, mySchemeEnv);
+                 }
+         }
+--------------------------------------------
+
+
+and a simple application (Visual C6.0/New/Console application - Make it 
+dependant on the previous DLL):
+
+*** MAIN.CPP ***
+--------------------------------------------
+         #include &quot;dll.h&quot;
+
+         int main()
+         {
+                 init();
+                 eval();
+                 return 0;
+         }
+--------------------------------------------
+
+When I run it it crashes (on DLL &quot;eval&quot; return instruction).
+The debugger warns me about a strange stack condition with the following 
+message:
+
+--------------------------------------------
+Debug Error!
+Program F:\dll\main.exe
+Module:
+File i386\chkesp.c
+Line: 42
+
+The value of ESP was not properly saved across a function call.
+This is usually a result of calling a function
+declared with one calling convention with a function pointer declared
+with a different calling convention
+-----------------------------------
+
+Can someone help me?
+
+*************************************
+Giorgio Scorzelli
+scr.giorgio@cogesic.it
+<A  HREF="http://dia.uniroma3.it/~scorzell">http://dia.uniroma3.it/~scorzell</A>
+*************************************
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00364" href="msg00364.html">Re: &quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+<ul><li><em>From:</em> Reini Urban &lt;rurban@xarch.tu-graz.ac.at&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00362.html">Re: About error catching</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00364.html">Re: &quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00362.html">Re: About error catching</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00364.html">Re: &quot;scheme_setjmp&quot; under Windows DLL?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00363"><strong>Date</strong></a></li>
+<li><a href="threads.html#00363"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

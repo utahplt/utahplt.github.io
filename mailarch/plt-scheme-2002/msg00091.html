@@ -1,0 +1,144 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Scrolling graphics under Win<2K>? -->
+<!--X-From-R13: Yrvgu Tebfg <xrvgusNnzavf.pbz> -->
+<!--X-Date: Mon, 14 Jan 2002 17:38:18 &#45;0700 (MST) -->
+<!--X-Message-Id: 3C437A89.40809@amnis.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Scrolling graphics under Win&lt;2K&gt;?</title>
+<link rev="made" href="mailto:keithf@amnis.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00090.html">Date Prev</a>][<a href="msg00092.html">Date Next</a>][<a href="msg00089.html">Thread Prev</a>][<a href="msg00094.html">Thread Next</a>][<a href="maillist.html#00091">Date Index</a>][<a href="threads.html#00091">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Scrolling graphics under Win&lt;2K&gt;?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Scrolling graphics under Win&lt;2K&gt;?</li>
+<li><em>From</em>: Keith Frost &lt;<A HREF="mailto:keithf@amnis.com">keithf@amnis.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 14 Jan 2002 16:40:41 -0800</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello, and thanks to the DrScheme developers for some great software.
+
+I have noticed an odd difference in the scrolling behavior of the MrEd 
+canvas% object under M$ Win&lt;2K&gt;,
+as opposed to the X-Windows implementation.  
+
+When scrolling a graphical display, the M$Win window blanks out, and is 
+not repainted until the scrollbar
+is released, whereas under X-windows the window scrolls smoothly.  I was 
+wondering, is this a known
+discrepancy, and is there a work-around to allow smooth scrolling of 
+graphics under M$Win?  Many thanks
+for any help.
+
+Here is some code which will serve to illustrate the behavior (the 
+bitmap scrolls smoothly under
+X-windows, but not under M$Win):
+
+(define bitmap-canvas%
+  (class canvas% (frame backing)
+    (inherit init-auto-scrollbars)
+    (rename (get-canvas-dc get-dc))
+    (private (dc (make-object bitmap-dc% backing)))
+    (override (get-dc (lambda () dc)))
+    (override
+      (on-paint
+       (lambda () (send (get-canvas-dc) draw-bitmap backing 0 0))))
+    (sequence
+      (super-init frame '(hscroll vscroll))
+      (init-auto-scrollbars
+       (send backing get-width)
+       (send backing get-height)
+       0.5 0.5))))
+
+(define gray-brush
+  (let ((gray-brushes
+         (do ((x (make-vector 256)) (i 0 (+ i 1)))
+           ((&gt; i 255) x)
+           (vector-set! x i
+                        (make-object brush%
+                          (make-object color% i i i) 'solid)))))
+    (lambda (shade) (vector-ref gray-brushes shade))))
+
+(define no-pen (make-object pen% &quot;BLACK&quot; 0 'transparent))
+
+(thread
+ (lambda ()
+   (let* ((frame (make-object frame% &quot;Testing!&quot; #f 256 400))
+          (bmp (make-object bitmap% 256 2048 #f))
+          (canvas (make-object bitmap-canvas% frame bmp))
+          (dc (send canvas get-dc)))
+     (send frame show #t)
+     (send dc set-pen no-pen)
+     (time
+      (do ((j 0 (+ j 2))) ((&gt;= j 2048) (send canvas on-paint))
+        (when (= (modulo j 64) 0) (send canvas on-paint))
+        (do ((i 0 (+ i 2))) ((&gt;= i 256) #t)
+          (let ((g (gray-brush (+ (quotient i 2) (random 128)))))
+            (send dc set-brush g)
+            (send dc draw-rectangle i j 2 2))))))))
+ 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00094" href="msg00094.html">Re: Scrolling graphics under Win&lt;2K&gt;?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00090.html">Re: mzscheme carbon</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00092.html">plt-scheme build problems</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00089.html">Re: Check syntax</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00094.html">Re: Scrolling graphics under Win&lt;2K&gt;?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00091"><strong>Date</strong></a></li>
+<li><a href="threads.html#00091"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

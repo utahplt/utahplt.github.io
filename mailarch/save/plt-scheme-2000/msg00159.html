@@ -1,0 +1,211 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: ISAPI Extension -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Fri, 3 Mar 2000 22:20:57 &#45;0700 (MST) -->
+<!--X-Message-Id: 75514FC5ECC8D2118C8D00A0C9ED54DB566C59@OBCMAIL1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>ISAPI Extension</TITLE>
+<LINK REV="made" HREF="mailto:GregP@bsquare.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00158.html">Date Prev</A>][<A HREF="msg00160.html">Date Next</A>][<A HREF="msg00152.html">Thread Prev</A>][<A HREF="msg00161.html">Thread Next</A>][<A HREF="maillist.html#00159">Date Index</A>][<A HREF="threads.html#00159">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>ISAPI Extension</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: ISAPI Extension</LI>
+<LI><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 3 Mar 2000 21:20:13 -0800 </LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Just wrote an ISAPI Extension for MzScheme but I'm having some difficulties.
+
+The web server I'm using Aphache on Winnt 4.0
+
+Problems:
+1. Apache seems to run two processes and the one that you start is not the
+one that loads the ISAPI dll.
+this makes it a problem to debug my code.
+
+2. Whenever Scheme has an error, the error is reported to the log file *and*
+Apache crashes. msdev did catch
+this one it's in eval.c
+
+3. Here's a snippet:
+// begin snippet
+BOOL WINAPI GetExtensionVersion( HSE_VERSION_INFO  *ver )
+{
+	// Get an environment
+	Scheme_Env *env = scheme_basic_env();
+
+
+	sch_xcb_type=scheme_make_type("&lt;extension-control-block");
+
+	// Register the C globals with the GC.
+	// No globals
+
+	// Add new primitives to the environment
+	scheme_add_global("write-client", 
+		              scheme_make_prim_w_arity(sch_WriteClient,
+	
+"write-client",
+	
+3,
+	
+3),
+		              env);
+
+	scheme_add_global("extension-control-block?", 
+		              scheme_make_prim_w_arity(xcb_pred,
+	
+"extension-control-block?",
+	
+1,
+	
+1),
+		              env);
+
+	scheme_add_global("message-box", 
+		              scheme_make_prim_w_arity(sch_msgbox,
+	
+"message-box",
+	
+1,
+	
+1),
+		              env);
+
+	ver-&gt;dwExtensionVersion = HSE_VERSION_MAJOR;
+	ver-&gt;dwExtensionVersion = ( ver-&gt;dwExtensionVersion &lt;&lt; 16 ) |
+HSE_VERSION_MINOR;
+	sprintf( ver-&gt;lpszExtensionDesc, "%s", "This is a Sample Extension
+DLL by Process Software Corp" );
+	return TRUE;
+}
+
+DWORD WINAPI HttpExtensionProc(EXTENSION_CONTROL_BLOCK *c)
+{
+	
+	unsigned long k;
+
+	c-&gt;ServerSupportFunction(c-&gt;ConnID,
+		                     HSE_REQ_SEND_RESPONSE_HEADER,
+							 0,
+							 0,
+							 &amp;k);
+
+	sch_xcb *xcb = (sch_xcb *)scheme_malloc(sizeof(sch_xcb));
+	xcb-&gt;type = sch_xcb_type;
+	xcb-&gt;xcb = c;
+
+	scheme_apply(scheme_load("MzISAPI.ss"), 1, (Scheme_Object **)&amp;xcb);
+\\&lt;---- Exhibit A
+
+	return 1;
+}
+
+BOOL WINAPI DllMain( HINSTANCE hinst, DWORD reason, LPVOID ptr ){return
+TRUE;}
+// end snippet
+
+I'm not sure where I should put the Scheme init stuff. 
+I originally had it in the HttpExtensionProc but I thought that it might get
+called more than once,
+(which I suppose is a bad thing) so I stuck it in the GetExtensionVersion
+hoping that that my cure
+some of my pains. Is there a better place to put it? Might Windows honor
+some standard export that gets
+called only when the *any* dll is initially loaded? (Don't know too much
+about dlls)
+
+4. Direct your attention to "Exhibit A" in the above code. Here I have it
+hardcoded to load a file called
+"MzISAPI.ss" The result of which should be a scheme proc that gets applied
+to an extension control block.
+The catch is that if you don't have MzISAPI.ss in the right directory, you
+get a scheme error and a subsequent
+crash. Bummer. This is seems like a bad way to do it. Anyone got a better
+idea?
+
+5. My little ISAPI extension is *intermittently* crashing. I suppose I'll
+just have to sweat it out and find out why.
+Anyone wanna help?
+
+6. Everytime I use this thing, I get the following error in the Log file:
+[Fri Mar 03 20:55:13 2000] [error] [client 10.0.1.191] (2)No such file or
+directory: ISA sent invalid headers
+
+The client number is the same one I had when scheme was giving errors, but
+now the damn thing is working i.e. I'm getting the
+expected output in the browser. Somebody isn't finding a file, and I don't
+think it is mzscheme but I don't know why Apache
+would be looking for a file either. Anybody spent anytime writing ISAPI
+extensions for Apache on Winnt?
+
+Here's MzISAPI.ss for reference:
+(lambda (x)
+  (write-client "Hello World!" 'hse-io-sync x))
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00161" HREF="msg00161.html">Re: ISAPI Extension</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00172" HREF="msg00172.html">RE: ISAPI Extension</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00158.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00160.html">Gtk Extension</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00152.html">Re: xml collection: how to insert arbirtrary xml code</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00161.html">Re: ISAPI Extension</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00159"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00159"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

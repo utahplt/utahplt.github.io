@@ -1,0 +1,125 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.25 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 10 Oct 2001 17:29:52 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110102329.f9ANTnH19850@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.25</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01023.html">Date Prev</a>][<a href="msg01025.html">Date Next</a>][<a href="msg01023.html">Thread Prev</a>][<a href="msg01025.html">Thread Next</a>][<a href="maillist.html#01024">Date Index</a>][<a href="threads.html#01024">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.25</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.25</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 10 Oct 2001 17:29:50 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged code in CVS for MzScheme and MrEd is now version 199.24.
+
+Changes:
+
+ * Fixed a serious set of tail-call+thread-or-exception+GC bugs in the
+   core interpreter. These bugs are old, and they could strike at any
+   time (leading to a seg fault from reading address 0); I'm puzzled
+   that they escaped undetected for so long.
+
+ * The prefix in `current-module-name-prefix' is applied only when a
+   `module' declaration is evaluated, not when it is compiled or
+   loaded (which was strange).
+
+ * Plugged some safety/security holes related to module re-definition.
+   
+     - A module declared in a namespace via `namespace-attach-module'
+       cannot be redeclared (and this restriction subsumes the old
+       hack on #% names). Otherwise, a DrScheme client program could
+       crash DrScheme be redefining the `class' module, for example.
+
+     - Cyclic module imports are detected late --- at instantiation
+       time, instead of at compile time. (There's no potential problem
+       at compile time anyway.)
+
+ * Added an `exn:module' exception type for various exceptions,
+   including bad redefinitions, cyclic imports, and
+   expected-a-module-that's-not-there on file loads.
+
+ * Restricted all label string arguments to &lt;= 200 characters (so that
+   MrEd doesn't trip over label size constraints in the underlying GUI
+   toolbox).
+
+ * X: changed the default &quot;forceFocus&quot; resource value back to 0.
+   Making sawfish 0.37 work the way I expect looks hopeless, and
+   forcing the focus interacted badly with other window managers.
+
+The MzScheme, MzLib, MrEd, mzc, and Inside MzScheme doc bundles have
+been updated.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01025" href="msg01025.html">functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01074" href="msg01074.html">is too an application</a></strong>
+<ul><li><em>From:</em> &quot;Greg Pettyjohn&quot; &lt;pgreg14@qwest.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01023.html">Re: Is (require-library &quot;xxxx.ss&quot; &quot;yyyy&quot;) valid syntax</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01025.html">functional programming is great, but why lists?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01023.html">Re: Is (require-library &quot;xxxx.ss&quot; &quot;yyyy&quot;) valid syntax</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01025.html">functional programming is great, but why lists?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01024"><strong>Date</strong></a></li>
+<li><a href="threads.html#01024"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

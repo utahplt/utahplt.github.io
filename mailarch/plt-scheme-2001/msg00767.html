@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Any Examples of COM (and perhaps ADO)? -->
+<!--X-From-R13: "Bnhy Egrpxyre" <fgrpxNppf.arh.rqh> -->
+<!--X-Date: Fri, 10 Aug 2001 13:51:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000201c121d5$d4b11410$70730a81@NORTHEASDX5RFA -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 001601c121d4$9ad97350$0100a8c0@femto -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Any Examples of COM (and perhaps ADO)?</title>
+<link rev="made" href="mailto:steck@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00766.html">Date Prev</a>][<a href="msg00768.html">Date Next</a>][<a href="msg00766.html">Thread Prev</a>][<a href="msg00769.html">Thread Next</a>][<a href="maillist.html#00767">Date Index</a>][<a href="threads.html#00767">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Any Examples of COM (and perhaps ADO)?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;'Anton van Straaten'&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;,       &quot;'PLT Scheme'&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: Any Examples of COM (and perhaps ADO)?</li>
+<li><em>From</em>: &quot;Paul Steckler&quot; &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 10 Aug 2001 15:51:22 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00766.html">001601c121d4$9ad97350$0100a8c0@femto</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt; My version of DrScheme and MzScheme are plain old &quot;103&quot;, according to
+&gt; the
+&gt; About box and the &quot;(version)&quot; function.  I downloaded MysterX 103-p3
+&gt; much
+&gt; more recently.  Should I upgrade DrScheme?
+
+No, DrScheme is still (alas) at 103.
+
+&gt; &gt; Have you tried the same experiement in plain MzScheme?
+&gt; 
+&gt; I just did.  You'll be pleased to know I haven't been able to
+&gt; duplicate the
+&gt; error under MzScheme.  The problem seems to only happen on the second
+&gt; and
+&gt; subsequent presses of the Execute button in DrScheme.  Since MzScheme
+&gt; doesn't have an equivalent to the Execute button (does it?), I can't
+&gt; duplicate the error.  Repeatedly loading the same file using (load
+&gt; &quot;adotest.scm&quot;) in MzScheme did not cause a problem.
+
+Yes, I'm able to duplicate the problem in DrScheme, and verify that it
+works fine under MzScheme.
+
+&gt; After that's happened, any subsequent presses of
+&gt; Execute will fail.
+
+And that narrows down the problem.  MysterX does some special cleanup
+when the Execute button is hit.  That cleanup code is a hack,
+unfortunately, and may be having unintended effects.  
+
+But now I know where to look for the problem.
+
+&gt; One difference is that the ADO objects are using external resources,
+&gt; like
+&gt; database connections through an ODBC or OLE DB driver.  Most Excel
+&gt; objects
+&gt; would not be doing anything comparable, and would only be using
+&gt; resources
+&gt; internal to the Excel COM servers.  How that relates to the behavior
+&gt; I'm
+&gt; seeing, I have no idea...
+
+Probably not at all.
+
+I'll try to have a patch soon.
+
+-- Paul
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00766" href="msg00766.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00766.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00768.html">&quot;indexed&quot; COM properties in MysterX?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00766.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00769.html">RE: Any Examples of COM (and perhaps ADO)?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00767"><strong>Date</strong></a></li>
+<li><a href="threads.html#00767"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

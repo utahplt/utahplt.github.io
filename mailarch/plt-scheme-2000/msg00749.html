@@ -1,0 +1,120 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Threading/Process Question -->
+<!--X-From-R13: Perag Thytunz <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Wed, 22 Nov 2000 17:23:41 &#45;0700 (MST) -->
+<!--X-Message-Id: EDFD2A95EE7DD31187350090279C676701223F65@thresher.corp.xpsystems.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Threading/Process Question</title>
+<link rev="made" href="mailto:brent.fulgham@xpsystems.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00748.html">Date Prev</a>][<a href="msg00750.html">Date Next</a>][<a href="msg00748.html">Thread Prev</a>][<a href="msg00750.html">Thread Next</a>][<a href="maillist.html#00749">Date Index</a>][<a href="threads.html#00749">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Threading/Process Question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT-Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Threading/Process Question</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 22 Nov 2000 16:22:16 -0800</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+What's the best way of starting up multiple interpreter threads
+that have relatively isolated namespaces?
+
+For example, I might want a process A, B, and C, each sharing
+the usual Scheme predefined global functions, etc.
+
+But I would like it to be possible to define functions in A
+that are not present in B.
+
+My current stab at this looks something like this:
+
+    // The following is executed once at program startup.
+    Scheme_Env* env = scheme_basic_env();
+    Scheme_Config* config = scheme_config;
+
+
+    ... later ... (may be hit various times during a program run)
+
+    // This code is used to create a new thread that might
+    // be swapped to in the future.
+    Scheme_Process* proc = scheme_thread(NULL, config);
+
+
+    ... Still later, I want to get back to thread &quot;A&quot;
+    scheme_swap_process(proc);
+
+
+However, this doesn't work right -- it causes me to segfault
+when I try to execute code after the scheme_swap_process.
+
+Does &quot;scheme_thread&quot; return a real, usable Scheme_Process*,
+or must I fill in part of the information elsewhere?
+
+Thanks,
+
+-Brent
+    
+    
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00750" href="msg00750.html">Re: Threading/Process Question</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00748.html">Daydreaming about Higher Level Operating Systems</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00750.html">Re: Threading/Process Question</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00748.html">Daydreaming about Higher Level Operating Systems</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00750.html">Re: Threading/Process Question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00749"><strong>Date</strong></a></li>
+<li><a href="threads.html#00749"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

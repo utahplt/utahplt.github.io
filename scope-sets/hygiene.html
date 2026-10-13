@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head><meta http-equiv="content-type" content="text/html; charset=utf-8"/><title>6&nbsp;Defining Hygiene</title><link rel="stylesheet" type="text/css" href="scribble.css" title="default"/><link rel="stylesheet" type="text/css" href="racket.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-style.css" title="default"/><link rel="stylesheet" type="text/css" href="manual-racket.css" title="default"/><script type="text/javascript" src="scribble-common.js"></script><script type="text/javascript" src="manual-racket.js"></script><!--[if IE 6]><style type="text/css">.SIEHidden { overflow: hidden; }</style><![endif]--></head><body id="scribble-racket-lang-org"><div class="tocset"><div class="tocview"><div class="tocviewlist tocviewlisttopspace"><div class="tocviewtitle"><table cellspacing="0" cellpadding="0"><tr><td style="width: 1em;"><a href="javascript:void(0);" title="Expand/Collapse" class="tocviewtoggle" onclick="TocviewToggle(this,&quot;tocview_0&quot;);">&#9660;</a></td><td></td><td><a href="index.html" class="tocviewlink" data-pltdoc="x">Binding as Sets of Scopes</a></td></tr></table></div><div class="tocviewsublistonly" style="display: block;" id="tocview_0"><table cellspacing="0" cellpadding="0"><tr><td align="right">1&nbsp;</td><td><a href="background.html" class="tocviewlink" data-pltdoc="x">Background:<span class="mywbr"> &nbsp;</span> Scope and Macros</a></td></tr><tr><td align="right">2&nbsp;</td><td><a href="pattern-macros.html" class="tocviewlink" data-pltdoc="x">Scope Sets for Pattern-<wbr></wbr>Based Macros</a></td></tr><tr><td align="right">3&nbsp;</td><td><a href="general-macros.html" class="tocviewlink" data-pltdoc="x">Scope Sets for Procedural Macros and Modules</a></td></tr><tr><td align="right">4&nbsp;</td><td><a href="implementation.html" class="tocviewlink" data-pltdoc="x">Implementation and Experience</a></td></tr><tr><td align="right">5&nbsp;</td><td><a href="model.html" class="tocviewlink" data-pltdoc="x">Model</a></td></tr><tr><td align="right">6&nbsp;</td><td><a href="" class="tocviewselflink" data-pltdoc="x">Defining Hygiene</a></td></tr><tr><td align="right">7&nbsp;</td><td><a href="related.html" class="tocviewlink" data-pltdoc="x">Other Related Work</a></td></tr><tr><td align="right">8&nbsp;</td><td><a href="end.html" class="tocviewlink" data-pltdoc="x">Conclusion</a></td></tr><tr><td align="right"></td><td><a href="Acknowledgments.html" class="tocviewlink" data-pltdoc="x">Acknowledgments</a></td></tr><tr><td align="right"></td><td><a href="doc-bibliography.html" class="tocviewlink" data-pltdoc="x">References</a></td></tr></table></div></div></div></div><div class="maincolumn"><div class="main"><div class="navsettop"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;</span><span class="navright">&nbsp;&nbsp;<a href="model.html" title="backward to &quot;5 Model&quot;" data-pltdoc="x">&larr; prev</a>&nbsp;&nbsp;<a href="index.html" title="up to &quot;Binding as Sets of Scopes
+
+Notes on a new model of macro expansion for Racket&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="related.html" title="forward to &quot;7 Other Related Work&quot;" data-pltdoc="x">next &rarr;</a></span>&nbsp;</div><h3>6<tt>&nbsp;</tt><a name="(part._hygiene)"></a>Defining Hygiene</h3><p>Most previous work on hygiene has focused on
+expansion algorithms, but some work
+addresses the question of what <span style="font-style: italic">hygiene</span> means
+independent of a particular algorithm. In his dissertation,
+<a href="doc-bibliography.html#%28autobib._.David._.Herman.Dissertation.Ph.D._dissertation%2C._.Northeastern._.University2008%29" data-pltdoc="x">Herman</a>&nbsp;(<a href="doc-bibliography.html#%28autobib._.David._.Herman.Dissertation.Ph.D._dissertation%2C._.Northeastern._.University2008%29" data-pltdoc="x">2008</a>) addresses the question through a type
+system that constrains and exposes the binding structure of macro
+expansions, so that &#945;-renaming can be applied to unexpanded programs.
+More recently, <a href="doc-bibliography.html#%28autobib._.Michael._.D..._.Adams.Towards._the._.Essence._of._.Hygiene.In._.Proc..._.Principles._of._.Programming._.Languages2015%29" data-pltdoc="x">Adams</a>&nbsp;(<a href="doc-bibliography.html#%28autobib._.Michael._.D..._.Adams.Towards._the._.Essence._of._.Hygiene.In._.Proc..._.Principles._of._.Programming._.Languages2015%29" data-pltdoc="x">2015</a>) defines hygienic
+macro-expansion steps as obeying invariants that are expressed in
+terms of renaming via nominal logic&nbsp;(<a href="doc-bibliography.html#%28autobib._.Andrew._.M..._.Pitts.Nominal._.Logic%2C._a._.First._.Order._.Theory._of._.Names._and._.Binding.Information._and._.Computation._186%282%292003%29" data-pltdoc="x">Pitts</a> <a href="doc-bibliography.html#%28autobib._.Andrew._.M..._.Pitts.Nominal._.Logic%2C._a._.First._.Order._.Theory._of._.Names._and._.Binding.Information._and._.Computation._186%282%292003%29" data-pltdoc="x">2003</a>), and the
+concept of equivariance plays an important role in characterizing
+hygienic macro transformers.</p><p>Since our notion of binding is based on scope sets instead of
+renaming, previous work on defining hygiene via renaming
+does not map directly into our setting. A related obstacle
+is that our model transforms a syntax object to a syntax
+object, instead of directly producing an AST; that difference is
+necessary to support local and partial expansion, which in turn is
+needed for definition contexts. A more technical obstacle
+is that we have specified expansion in terms of a
+meta-function (i.e., a big-step semantics) instead of as a rewriting
+system (i.e., a small-step semantics).</p><p>Adams&rsquo;s approach to defining hygiene nevertheless seems applicable to
+our notion of binding. We leave a full exploration for future work,
+but we can offer an informed guess about how that exploration will
+turn out.</p><p>Although our model of expansion does not incorporate renaming as a
+core concept, if we make assumptions similar to Adams (including
+omitting the <span class="RktSym"><a href="http://doc.racket-lang.org/reference/quote.html#%28form._%28%28quote._~23~25kernel%29._quote%29%29" class="RktStxLink" data-pltdoc="x">quote</a></span> form), then a renaming property seems
+useful and within reach. For a given set of scopes and a point during
+expansion (exclusive of macro invocations), the symbol can be
+swapped in every identifier that has a superset of the given set of
+scopes; such a swap matches the programmer&rsquo;s intuition that any
+variable can be consistently renamed within a binding region, which
+corresponds to a set of scopes. Hygienic expansion then means that the
+<img style="vertical-align: -3.31171875px; margin: -3px -3px -3px -3px;" src="pict_119.png" alt="image" width="42.02109375" height="20.4"/> of the continued expansion after swapping is
+&#945;-equivalent to what it would be without swapping. An individual
+transformer could be classified as hygienic based on all introduced
+identifiers having a fresh scope, so that they cannot bind any
+non-introduced identifiers; the fresh scope ensures an analog to
+Adams&rsquo;s equivariance with respect to binders.</p><p>Note that swapping <span class="RktSym">x</span> with <span class="RktSym">y</span> for the scope set
+{<span style="font-style: italic">a</span><span style="vertical-align: sub; font-size: 80%"><span style="font-style: italic">def</span></span><span style="font-style: italic"></span>, <span style="font-style: italic">b</span><span style="vertical-align: sub; font-size: 80%"><span style="font-style: italic">intro</span>1<span style="font-style: italic"></span></span><span style="font-style: italic"></span>} would <span style="font-style: italic">not</span> produce an equivalent program for
+the expansion in <a href="pattern-macros.html#%28part._pattern-ambiguous%29" data-pltdoc="x">Ambiguous References</a>, because it would
+convert an ambiguous reference <span class="RktSym">x</span><span style="vertical-align: super; font-size: 80%">{<span style="font-style: italic">a</span><span style="vertical-align: sub; font-size: 80%"><span style="font-style: italic">def</span></span><span style="font-style: italic"></span>, <span style="font-style: italic">b</span><span style="vertical-align: sub; font-size: 80%"><span style="font-style: italic">intro</span>1<span style="font-style: italic"></span></span><span style="font-style: italic"></span>, <span style="font-style: italic">c</span><span style="vertical-align: sub; font-size: 80%"><span style="font-style: italic">intro</span>2<span style="font-style: italic"></span></span><span style="font-style: italic"></span>}</span> to an
+unambiguous <span class="RktSym">y</span><span style="vertical-align: super; font-size: 80%">{<span style="font-style: italic">a</span><span style="vertical-align: sub; font-size: 80%"><span style="font-style: italic">def</span></span><span style="font-style: italic"></span>, <span style="font-style: italic">b</span><span style="vertical-align: sub; font-size: 80%"><span style="font-style: italic">intro</span>1<span style="font-style: italic"></span></span><span style="font-style: italic"></span>, <span style="font-style: italic">c</span><span style="vertical-align: sub; font-size: 80%"><span style="font-style: italic">intro</span>2<span style="font-style: italic"></span></span><span style="font-style: italic"></span>}</span>. This failure should not suggest
+that the pattern-matching macros in that example are non-hygienic in
+themselves, but that the (implicit) definition-context macro is
+potentially non-hygienic. That is, a macro in a definition context can
+introduce an identifier that is captured at the macro-use site, since
+the definition and use sites can be the same. That potential for
+non-hygienic expansion appears to be one of the trade-offs of
+providing a context that allows a mixture of mutually recursive macro
+and variable definitions.</p><p>If macro bindings are constrained to <span class="RktSym"><a href="http://doc.racket-lang.org/reference/let.html#%28form._%28%28lib._racket%2Fprivate%2Fletstx-scheme..rkt%29._letrec-syntax%29%29" class="RktStxLink" data-pltdoc="x">letrec-syntax</a></span>, and if
+macro implementations are constrained use
+<span class="RktSym"><a href="http://doc.racket-lang.org/reference/stx-patterns.html#%28form._%28%28lib._racket%2Fprivate%2Fstxcase-scheme..rkt%29._syntax-case%29%29" class="RktStxLink" data-pltdoc="x">syntax-case</a></span>, <span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxcmp.html#%28def._%28%28quote._~23~25kernel%29._free-identifier~3d~3f%29%29" class="RktValLink" data-pltdoc="x">free-identifier=?</a></span>, and
+<span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxops.html#%28def._%28%28quote._~23~25kernel%29._syntax-~3edatum%29%29" class="RktValLink" data-pltdoc="x">syntax-&gt;datum</a></span> (not <span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxcmp.html#%28def._%28%28quote._~23~25kernel%29._bound-identifier~3d~3f%29%29" class="RktValLink" data-pltdoc="x">bound-identifier=?</a></span> or
+<span class="RktSym"><a href="http://doc.racket-lang.org/reference/stxops.html#%28def._%28%28quote._~23~25kernel%29._datum-~3esyntax%29%29" class="RktValLink" data-pltdoc="x">datum-&gt;syntax</a></span>), then we expect that all expansion steps will
+be provably hygienic and all macro transformers will be provably
+hygienic by the definitions sketched above.</p><div class="navsetbottom"><span class="navleft"><div class="nosearchform"></div>&nbsp;&nbsp;</span><span class="navright">&nbsp;&nbsp;<a href="model.html" title="backward to &quot;5 Model&quot;" data-pltdoc="x">&larr; prev</a>&nbsp;&nbsp;<a href="index.html" title="up to &quot;Binding as Sets of Scopes
+
+Notes on a new model of macro expansion for Racket&quot;" data-pltdoc="x">up</a>&nbsp;&nbsp;<a href="related.html" title="forward to &quot;7 Other Related Work&quot;" data-pltdoc="x">next &rarr;</a></span>&nbsp;</div></div></div><div id="contextindicator">&nbsp;</div></body></html>

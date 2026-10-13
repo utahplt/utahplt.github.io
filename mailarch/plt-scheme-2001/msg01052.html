@@ -1,0 +1,147 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: functional programming is great, but why lists? -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Fri, 12 Oct 2001 21:36:37 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110130336.XAA26341@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110102329.f9ANTnH19850@wrath.cs.utah.edu -->
+<!--X-Reference: 200110110342.WAA00959@banach.math.nwu.edu -->
+<!--X-Reference: 200110111325.f9BDPJw28502@sualocin.ccs.neu.edu -->
+<!--X-Reference: 200110120129.UAA00361@banach.math.nwu.edu -->
+<!--X-Reference: 20011012042559.A27541@cs.utexas.edu -->
+<!--X-Reference: 200110130316.f9D3GIa10701@poincare.math.northwestern.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: functional programming is great, but why lists?</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01051.html">Date Prev</a>][<a href="msg01053.html">Date Next</a>][<a href="msg01051.html">Thread Prev</a>][<a href="msg01053.html">Thread Next</a>][<a href="maillist.html#01052">Date Index</a>][<a href="threads.html#01052">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: functional programming is great, but why lists?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: functional programming is great, but why lists?</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 12 Oct 2001 23:36:04 -0400 (EDT)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01051.html">200110130316.f9D3GIa10701@poincare.math.northwestern.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01024.html">200110102329.f9ANTnH19850@wrath.cs.utah.edu</a>&gt;&lt;<a href="msg01025.html">200110110342.WAA00959@banach.math.nwu.edu</a>&gt;&lt;<a href="msg01028.html">200110111325.f9BDPJw28502@sualocin.ccs.neu.edu</a>&gt;&lt;<a href="msg01037.html">200110120129.UAA00361@banach.math.nwu.edu</a>&gt;&lt;<a href="msg01046.html">20011012042559.A27541@cs.utexas.edu</a>&gt;&lt;<a href="msg01051.html">200110130316.f9D3GIa10701@poincare.math.northwestern.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Bill Richter wrote:
+
+&gt; My real question was why use such a rigid data structure as `cons',
+&gt; rather than a more flexible vector type of data structure.
+
+Fair enough.  If I understand what you're saying, then my response is
+that we want both vectors and lists.  We don't want either one to take
+the place of the other.  A vector has type
+
+  vector = TST^n
+
+where TST = The Scheme Type (aka, any Scheme value).  Since this is
+virtually impossible to program in a principled fashion (a la HtDP),
+in practice we want
+
+  vector[T] = T^n
+
+In contrast,
+
+  list[T] = empty
+          | (cons T list[T])
+
+The former is essentially a random-access collection of fixed size,
+while the latter is a sequential-access collection of arbitrary size.
+Those are two different things, and you (Bill) can probably give me
+some clever algebraic terminology that captures that difference.
+
+It's possible to deal with vector-like structures.  Unfortunately, the 
+structure of the datum doesn't lend itself to a clear decomposition
+pattern.  As a result, simple algorithms use the decomposition of the
+*index* instead:
+
+  nat = zero
+      | (add1 nat)
+
+More sophisticated algorithms (eg, quicksort) use much cleverer
+decompositions that require ingenuity rather than following (purely)
+from the structure of the data.  We discuss this point in quite some
+detail in the book's section entitled Generative Recursion.  (I
+personally think it's one of HtDP's highlights.)
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01053" href="msg01053.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01024" href="msg01024.html">199.25</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="01025" href="msg01025.html">functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01028" href="msg01028.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01037" href="msg01037.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01046" href="msg01046.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Michael Bogomolny &lt;bogo@cs.utexas.edu&gt;</li></ul></li>
+<li><strong><a name="01051" href="msg01051.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01051.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01053.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01051.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01053.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01052"><strong>Date</strong></a></li>
+<li><a href="threads.html#01052"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

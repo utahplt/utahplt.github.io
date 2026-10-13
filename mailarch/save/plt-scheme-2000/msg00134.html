@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Compund units in extensions -->
+<!--X-From-R13: Dboreg Xbua Oaqrefra <naqreznaNnaqrejner.pbz> -->
+<!--X-Date: Sat, 26 Feb 2000 20:23:59 &#45;0700 (MST) -->
+<!--X-Message-Id: 200002270323.WAA09750@fb00.eng00.mindspring.net -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Derived: bin00001.bin -->
+<!--X-Derived: bin00002.bin -->
+<!--X-Derived: bin00003.bin -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Compund units in extensions</TITLE>
+<LINK REV="made" HREF="mailto:anderman@anderware.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00133.html">Date Prev</A>][<A HREF="msg00135.html">Date Next</A>][<A HREF="msg00131.html">Thread Prev</A>][<A HREF="msg00135.html">Thread Next</A>][<A HREF="maillist.html#00134">Date Index</A>][<A HREF="threads.html#00134">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Compund units in extensions</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "Scheme Mailing List" &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Compund units in extensions</LI>
+<LI><em>From</em>: Robert John Andersen &lt;<A HREF="mailto:anderman@anderware.com">anderman@anderware.com</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 26 Feb 2000 22:24:32 EST</LI>
+<LI><em>Reply-To</em>: <A HREF="mailto:anderman@anderware.com">anderman@anderware.com</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Sat, 26 Feb 2000, Matthew Flatt wrote:
+&gt; [snip]
+&gt; &gt; So if I have a compound unit composed of
+&gt; &gt; the 2 following units:
+&gt; &gt; 
+&gt; &gt;   A: no imports, exports a1 and a2
+&gt; &gt;   B: no imports, exports b1
+&gt; &gt; 
+&gt; &gt; would the links specification be (A ((A a1 a2) (B b1))) 
+&gt; 
+&gt; You don't have to specify anything about the exports of each unit (just
+&gt; like the `link' clause in a `compound-unit' expression). Only the
+&gt; imports. Since there are no imports for either A or B, the links
+&gt; specification is just ((A) (B)).
+&gt; 
+&gt; Suppose that B imported A's a1. Then the links specification would be
+&gt; ((A) (B (A a1)).
+&gt; 
+&gt; &gt; and the exports
+&gt; &gt; argument ((A (a1 a2) (B b1)).
+
+So it would be ((A a1 a2)(B b1))
+
+&gt; [snip]
+
+I tried that and I can now return my compound unit from the load-extension
+call.  The new problem I have is that when I try to use define-values on it
+it chokes with a:
+
+(require-library "invoke.ss")
+(define x (load-extension "try-ext.so"))
+(define-values/invoke-unit (one) x blah)
+  compound-unit: import at tag "export-extractor" failed from tag
+"unit-to-invoke", name "one"
+
+If I remove 
+
+I am attaching the Makefile/C/SS in case anyone wants to poke at it.  I
+have paired the file down so it only has 1 unit in it specified with the
+tag "unit1" and one function "one".  The SS file worked for me when the
+extension returned a unit.
+
+The abo
+
+Thanks.
+RJA</PRE>
+<P><A HREF="bin00001.bin" >try-ext.c</A></P>
+<P><A HREF="bin00002.bin" >try-ext.ss</A></P>
+<P><A HREF="bin00003.bin" >Makefile</A></P>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00135" HREF="msg00135.html">Re: Compund units in extensions</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00133.html">Re: scheme_make_enunvbox</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00135.html">Re: Compund units in extensions</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00131.html">Re: Compund units in extensions</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00135.html">Re: Compund units in extensions</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00134"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00134"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

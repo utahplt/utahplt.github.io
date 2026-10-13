@@ -1,0 +1,138 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Threading/Process Question -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 22 Nov 2000 20:44:48 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001123034324.ETLJ16459.femail3.sdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C676701223F65@thresher.corp.xpsystems.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Threading/Process Question</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01112.html">Date Prev</A>][<A HREF="msg01114.html">Date Next</A>][<A HREF="msg01112.html">Thread Prev</A>][<A HREF="msg01114.html">Thread Next</A>][<A HREF="maillist.html#01113">Date Index</A>][<A HREF="threads.html#01113">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Threading/Process Question</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Threading/Process Question</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 22 Nov 2000 19:43:24 -0800</LI>
+<LI><em>CC</em>: PLT-Scheme &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01112.html">EDFD2A95EE7DD31187350090279C676701223F65@thresher.corp.xpsystems.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01112.html">EDFD2A95EE7DD31187350090279C676701223F65@thresher.corp.xpsystems.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Brent Fulgham:
+&gt; What's the best way of starting up multiple interpreter threads
+&gt; that have relatively isolated namespaces?
+
+Each thread normally has a separate copy of the `current-namespace'
+parameter, so you can just set the parameter after creating the thread.
+
+&gt; My current stab at this looks something like this:
+&gt;
+&gt; [...]
+&gt; 
+&gt;     // This code is used to create a new thread that might
+&gt;     // be swapped to in the future.
+&gt;     Scheme_Process* proc = scheme_thread(NULL, config);
+
+The main problem here is that NULL is not allowed as the first argument
+to scheme_thread. It needs a procedure to start executing in the new
+thread.
+
+Also, you don't want to supply the "config" (a set of parameter values)
+of the current thread to the created one, otherwise they'll share
+parameter values.
+
+Instead, create a new one:
+
+  scheme_thread(thunk, scheme_make_config(scheme_config));
+
+[Note: the docs claim that NULL is a legal second argument to
+scheme_thread(), but it isn't anymore.]
+
+&gt;     ... Still later, I want to get back to thread "A"
+&gt;     scheme_swap_process(proc);
+&gt; 
+&gt; However, this doesn't work right -- it causes me to segfault
+&gt; when I try to execute code after the scheme_swap_process.
+
+Actually, the segfault is within scheme_swap_process(), because it's
+trying to jump to the NULL procedure, right?
+
+&gt; Does "scheme_thread" return a real, usable Scheme_Process*,
+
+Yes, assuming that it gets valid procedure and config values.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01114" HREF="msg01114.html">Re: Threading/Process Question</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;bfulgham@debian.org&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="01115" HREF="msg01115.html">Re: Threading/Process Question</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;bfulgham@debian.org&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01112" HREF="msg01112.html">Threading/Process Question</A></STRONG>
+<UL><LI><EM>From:</EM> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01112.html">Threading/Process Question</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01114.html">Re: Threading/Process Question</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01112.html">Threading/Process Question</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01114.html">Re: Threading/Process Question</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01113"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01113"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

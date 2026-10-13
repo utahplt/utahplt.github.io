@@ -1,0 +1,125 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] A Parameterizable version of Oleg's SXPath library -->
+<!--X-From-R13: Praqrewt2Nnby.pbz -->
+<!--X-Date: Sun, 19 May 2002 14:13:29 &#45;0600 (MDT) -->
+<!--X-Message-Id: fd.1821c454.2a196142@aol.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] A Parameterizable version of Oleg's SXPath library</title>
+<link rev="made" href="mailto:Benderjg2@aol.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00936.html">Date Prev</a>][<a href="msg00938.html">Date Next</a>][<a href="msg00945.html">Thread Prev</a>][<a href="msg00943.html">Thread Next</a>][<a href="maillist.html#00937">Date Index</a>][<a href="threads.html#00937">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] A Parameterizable version of Oleg's SXPath library</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: [plt-scheme] A Parameterizable version of Oleg's SXPath library</li>
+<li><em>From</em>: <A HREF="mailto:Benderjg2@aol.com">Benderjg2@aol.com</A></li>
+<li><em>Date</em>: Sun, 19 May 2002 16:12:50 EDT</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Oleg Kiselyov has mentioned on the SSAX-SXML list the possibility of to 
+create a parameterizable version of his SXPath library which could support 
+other representation of XML, besides his SXML. (See 
+<A  HREF="http://www.geocrawler.com/archives/3/15235/2002/3/0/8107786/">http://www.geocrawler.com/archives/3/15235/2002/3/0/8107786/</A>.)
+
+I have implemented this idea using PLT Scheme's units (and modules), 
+providing instantiations for SXML and my own &quot;RS-XML&quot; (based on structures 
+rather than s-expressions). This implementation is based on Kirill Lisovsky's 
+slightly extended &quot;SXPathLib&quot;.
+
+This new library is available at <A  HREF="http://celtic.benderweb.net/sxpath/">http://celtic.benderweb.net/sxpath/</A>. This 
+requires PLT Scheme v200 (and was tested using the v200alpha12 version).
+
+In fact I provide two versions. The first &quot;pure&quot; version, maintains the 
+existing API quite closely.
+
+The second version (nicknames &quot;ice&quot;) makes the following changes to the API:
+- The attribute list and namespaces list are no longer &quot;children&quot; of an 
+element. This means that (select-kids (node-typeof? '@)) will return an empty 
+nodeset.
+- New functions (node-attributes pred) and (node-namespaces pred) replace the 
+practice of using (node-join (select-kids? '@) (select-kids? pred) to match 
+particular attributes (or namespace prefix bindings) of an element.
+- Interestingly, despite this the notation used by the sxpath function 
+remains the same. (sxpath '(@ href)) will still return the href attribute of 
+the elements in the nodeset being processed.
+- Mostly for the convenience of RS-XML, I allow the use of a predicate to 
+test the type of an element/attribute where a symbol can be used. For 
+instance, (sxpath '(// <A  HREF="http://www.w3.org/html:p">http://www.w3.org/html:p</A>) can be replaced with (sxpath 
+`(// ,h4:p?)), where h4:p? is a function which tests whether an element is 
+the p element in the HTML namespace.
+- This change requires a change in the sxpath notation: where another type of 
+procedure is to be included in the path, this must be done using (! ,&lt;some 
+procedure&gt;).
+
+For both versions (and both the SXML and RS-XML instantiations), a 
+&quot;regression test suite&quot;, closely following that which was originally provided 
+by Oleg, is included in the distribution. These also function as 
+illustrations of the various queries the library allows.
+
+Although this code depends on PLT Scheme's units, it could easily be used as 
+the basis for a port of the library to support MIT Scheme's XML library 
+(based on records)-- or other representations of XML in Scheme.
+
+The instantiation for RS-XML depends on my WebIt! collection (which includes 
+the RS-XML libraries), available at <A  HREF="http://celtic.benderweb.net/webit/">http://celtic.benderweb.net/webit/</A>.
+
+Jim Bender
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00936.html">Re: [plt-scheme] web pages (was schemeunit and require-library)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00938.html">Re: [plt-scheme] schemeunit and require-library</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00945.html">Re: [plt-scheme] schemeunit and require-library</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00943.html">[plt-scheme] Chez/MzScheme difference?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00937"><strong>Date</strong></a></li>
+<li><a href="threads.html#00937"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

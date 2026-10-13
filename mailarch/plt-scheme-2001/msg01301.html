@@ -1,0 +1,569 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RFC &#45; GL in scheme (long, with code) -->
+<!--X-From-R13: Dboreg Ybbvzn <e.y.xbbvznNubzr.pbz> -->
+<!--X-Date: Sun, 9 Dec 2001 15:27:18 &#45;0700 (MST) -->
+<!--X-Message-Id: 20011208172741.A7675@cx2038990&#45;b.hmpt1.va.home.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RFC - GL in scheme (long, with code)</title>
+<link rev="made" href="mailto:r.l.kooima@home.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01300.html">Date Prev</a>][<a href="msg01302.html">Date Next</a>][<a href="msg01302.html">Thread Prev</a>][<a href="msg01304.html">Thread Next</a>][<a href="maillist.html#01301">Date Index</a>][<a href="threads.html#01301">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RFC - GL in scheme (long, with code)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: RFC - GL in scheme (long, with code)</li>
+<li><em>From</em>: Robert Kooima &lt;<A HREF="mailto:r.l.kooima@home.com">r.l.kooima@home.com</A>&gt;</li>
+<li><em>Date</em>: Sat, 8 Dec 2001 17:27:41 -0500</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.23i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+For the past few weeks I've been investigating the possibility of
+adding OpenGL bindings as an extension to MzScheme.  This is not a
+small task, and I'm aware of a few previous aborted attempts.
+
+What follow are my thoughts, and a few results from code I've
+written.  Though I'm not new to scheme, I'm very new to the PLT
+community and this is my first attempt at writing a MzScheme
+extension.  I want as much input as I can possibly get before I go
+storming down the wrong path.
+
+Please take a moment to peruse this message, and take special note of
+the Questions section, below.
+
+
+* DESIGN
+
+I'm motivated to make the GL extension as flexible as possible.  I
+want it to be straight-forward to use in a MrEd application, but I
+also want it to be useful when MzScheme is embedded in a GLUT, Win32,
+GLX, or even CAVELib application (my primary emphasis).
+
+In the list archives it was suggested that a useful GL extension be
+implemented as a canvas% subclass where GL calls are methods of a
+canvas object.  I don't want to preclude doing this, but I see is as
+syntactic sugar.  This is not the route I'm currently taking, but see
+below for how it could be done.
+
+
+To begin with, I've chosen a tiny subset of the GL API as a test case.
+With a few matrix handling, primitive specification, and attribute
+specification functions, it's just enough to get something up on the
+screen.  For each function in the (mini) GL API a scheme procedure is
+implemented in C.  This C function checks the argument types and
+passes them off to the GL function.  This assumes that a valid GL
+context exists and is ready to take state changes.  Very simple.  The
+extension implementation may be found at the end of this message.
+
+
+* EXAMPLE
+
+Here's a bit of sample MrEd code using the extension.  It subclasses
+and instantiates a canvas% with the gl style and displays a colored
+cube.  The cube may be rotated and zoomed with the arrow keys, pgup,
+and pgdown.  This requires version 200, and has only been tested under
+Windows (I was told that currently only Windows supports the gl
+style).
+
+(load-extension &quot;D:\\Source\\gl\\gl.dll&quot;)
+
+(define my-canvas%
+  (class canvas%
+	 (override on-char on-size on-paint)
+	 
+	 (define rho  -5.0)
+	 (define phi   0.0)
+	 (define theta 0.0)
+	 
+	 (define (reshape w h)
+	   (let ([a (/ (exact-&gt;inexact w)
+		       (exact-&gt;inexact h))])
+	     (gl-viewport 0 0 w h)
+	     
+	     (gl-matrix-mode gl-projection)
+	     (gl-load-identity)
+	     (gl-frustum (- a) a -1.0 1.0 2.0 100.0)
+	     
+	     (gl-matrix-mode gl-modelview)
+	     (gl-load-identity)))
+	 
+	 (define (draw)
+	   (let ([v #((0.0 0.0 0.0) (1.0 0.0 0.0)
+                      (0.0 1.0 0.0) (1.0 1.0 0.0)
+		      (0.0 0.0 1.0) (1.0 0.0 1.0)
+                      (0.0 1.0 1.0) (1.0 1.0 1.0))]
+		 [p '((5 1 3 7) (0 4 6 2) (6 7 3 2)
+		      (0 1 5 4) (4 5 7 6) (1 0 2 3))])
+	     
+	     (gl-enable gl-color-material)
+	     (gl-enable gl-depth-test)
+	     (gl-clear (bitwise-ior gl-color-buffer-bit gl-depth-buffer-bit))
+
+	     (gl-push-matrix)
+	     (gl-translate-f    0.0  0.0  rho)
+	     (gl-rotate-f theta 0.0  1.0  0.0)
+	     (gl-rotate-f phi   1.0  0.0  0.0)
+	     (gl-translate-f   -0.5 -0.5 -0.5)
+	     
+	     (gl-begin gl-quads)
+	     (for-each (lambda (f)
+			 (for-each (lambda (i)
+				     (apply gl-color-3f  (vector-ref v i))
+				     (apply gl-vertex-3f (vector-ref v i)))
+				   f))
+		       p)
+	     (gl-end)
+	     (gl-pop-matrix)))
+	 
+	 (define (on-size w h)
+	   (send this with-gl-context (lambda () (reshape w h))))
+	 
+	 (define (on-char ch)
+	   (case (send ch get-key-code)
+	     ((prior) (set! rho   (- rho    0.1)))
+	     ((next)  (set! rho   (+ rho    0.1)))
+	     ((up)    (set! phi   (- phi   10.0)))
+	     ((down)  (set! phi   (+ phi   10.0)))
+	     ((left)  (set! theta (- theta 10.0)))
+	     ((right) (set! theta (+ theta 10.0))))
+	   
+	   (send this with-gl-context (lambda () (draw)))
+	   (send this swap-gl-buffers))
+	 
+	 (define (on-paint)
+	   (send this with-gl-context (lambda () (draw)))
+	   (send this swap-gl-buffers))
+	 
+	 (super-instantiate () (style '(gl)))))
+
+(define frame
+  (make-object frame% &quot;GL Test&quot; #f 512 512))
+(make-object my-canvas% frame)
+(send frame show #t)
+
+
+* NOTES ON THE EXAMPLE.
+
+This takes a very C-like view of GL usage.  As GL hides its state, GL
+code ends up being somewhat un-scheme-like lists of gl-do-something
+invocations.
+
+The on-char handler calls the draw function directly, rather than
+invoking refresh on the window in order to generate a paint event.
+This is because the on-paint handler clears the window to its
+background color before doing the rendering, resulting in serious
+flickering.
+
+
+* A GL CANVAS CLASS
+
+If one prefers that GL calls be methods of a gl-canvas%, such a canvas
+has a straightforward definition.  Note that each of its methods will
+have to thunkify the GL procedure, and pass it to with-gl-context by
+hand.  It might look something like this.
+
+(define gl-canvas%
+  (class canvas%
+
+	 (define/public (clear b)
+	   (send this with-gl-context (lambda () (gl-clear b))))
+
+	 (define/public (vertex-3f x y z)
+	   (send this with-gl-context (lambda () (gl-vertex-3f x y z))))
+
+	 ; etc...
+
+	 (super-instantiate () (style '(gl)))))
+
+I toyed with this early on, and it worked, but I decided it seemed
+like the long route to where I wanted to be.  That class will have a
+couple hundred methods.
+
+Note that naming becomes an issue.  A window already has an &quot;enable&quot;
+method, and it doesn't seem right defining a method called &quot;begin&quot;.
+Finding an elegant naming scheme is an exercise left to the reader.
+
+
+* FUTURE IDEAS
+
+GL makes heavy use of blocks of data for things such as vertex arrays
+and textures.  It will be necessary to create vector types for each of
+the GL types: gl-float-vec, gl-uint-vec, gl-ubyte-vec, etc.  These
+would support make-, -length, -ref, and -set! vector operations, and
+would hopefully be as unsurprising as possible.
+
+Given that many modern GL applications are bus-bound, transform-bound,
+or fill-bound, the ability to define vertex arrays using such vectors
+would allow for scheme GL code that performs every bit as well as the
+equivalent C code.
+
+
+I'm considering creating a few wrappers.  For instance, there are a
+wide variety of vertex commands for different argument types and
+counts: gl-vertex-3f, gl-vertex-4f, gl-vertex-2i, etc.  It might be
+convenient to have a gl-vertex function that counts the arguments and
+chooses which gl-vertex-* to call, possibly converting all arguments
+up to a consistent type.  While this would hurt performance in
+immediate mode, any overhead would magically disappear when using
+display lists.
+
+Similarly, I'm of the opinion that this is fairly ugly:
+
+        (gl-begin gl-triangles)
+	(gl-vertex-2i 0 0)
+	(gl-vertex-2i 1 0)
+	(gl-vertex-2i 0 1)
+	(gl-end)
+
+Something like this is a little less ugly:
+
+	 (gl-begin-triangles
+	   (gl-vertex-2i 0 0)
+	   (gl-vertex-2i 1 0)
+	   (gl-vertex-2i 0 1))
+
+A macro could optionally expand the second into the first.  The final
+code might look like this:
+
+	 (gl-begin-triangles
+	   (gl-vertex 0 0)
+	   (gl-vertex 1 0)
+	   (gl-vertex 0 1))
+
+A similar macro expansion could be done with gl-push-matrix and
+gl-pop-matrix, which almost always come in pairs.
+
+
+* QUESTIONS
+
+How can the use of a GL extension be made more scheme-ish?  SHOULD the
+use of a GL extension be more scheme-ish?
+
+The C functions all return scheme_void (with the exception of some
+unimplemented state queries).  Does this make sense?
+
+A very large majority of GL functions have side effects.  So, naming
+the procedures as gl-do-something! might be in order.  However, the
+state being changed is external to the environment.  A ! on every GL
+call begins to look cluttered anyway.  Thoughts on this?
+
+Should the GL extension be packed into a unit somehow?
+
+An alternative implementation would have the C functions assume their
+arguments are perfect.  Scheme wrappers would check type and count.
+Is there any advantage or disadvantage to this approach?
+
+How's the naming?  Would a different choice of symbols be better?
+It would seem that gl-vertex-3f is more scheme-ish than glVertex3f.
+
+If you have ANYTHING AT ALL to say about this, or GL scheme in
+general, please let me know.  Reply to the list, or to my mail of need
+be.
+
+
+* THE EXTENSION
+
+Here is the implementation of the mini-GL extension.  There's nothing
+at all out of the ordinary about it.  It's pretty pedantic.  A full GL
+implementation done in this style would be a very long, very
+repetitious mass of code.  Compile it with:
+
+	mzc --cc gl.c
+	mzc --ld gl.dll gl.obj opengl32.lib
+
+
+#include &lt;windows.h&gt;
+#include &lt;GL/gl.h&gt;
+
+#include &quot;escheme.h&quot;
+
+static Scheme_Object *gl_begin(int argc, Scheme_Object **argv)
+{
+  if (!SCHEME_INTP(argv[0]))
+    scheme_wrong_type(&quot;gl-begin&quot;, &quot;exact integer&quot;, 0, argc, argv);
+
+  glBegin(SCHEME_INT_VAL(argv[0]));
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_clear(int argc, Scheme_Object **argv)
+{
+  if (!SCHEME_INTP(argv[0]))
+    scheme_wrong_type(&quot;gl-clear&quot;, &quot;exact integer&quot;, 0, argc, argv);
+
+  glClear(SCHEME_INT_VAL(argv[0]));
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_color_3f(int argc, Scheme_Object **argv)
+{
+  if (!SCHEME_FLOATP(argv[0]))
+    scheme_wrong_type(&quot;gl-color-3f&quot;, &quot;float&quot;, 0, argc, argv);
+  if (!SCHEME_FLOATP(argv[1]))
+    scheme_wrong_type(&quot;gl-color-3f&quot;, &quot;float&quot;, 1, argc, argv);
+  if (!SCHEME_FLOATP(argv[2]))
+    scheme_wrong_type(&quot;gl-color-3f&quot;, &quot;float&quot;, 2, argc, argv);
+
+  glColor3f((GLfloat) SCHEME_FLT_VAL(argv[0]),
+	    (GLfloat) SCHEME_FLT_VAL(argv[1]),
+	    (GLfloat) SCHEME_FLT_VAL(argv[2]));
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_enable(int argc, Scheme_Object **argv)
+{
+  if (!SCHEME_INTP(argv[0]))
+    scheme_wrong_type(&quot;gl-enable&quot;, &quot;exact integer&quot;, 0, argc, argv);
+
+  glEnable(SCHEME_INT_VAL(argv[0]));
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_end(int argc, Scheme_Object **argv)
+{
+  glEnd();
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_frustum(int argc, Scheme_Object **argv)
+{
+  if (!SCHEME_FLOATP(argv[0]))
+    scheme_wrong_type(&quot;gl-frustum&quot;, &quot;float&quot;, 0, argc, argv);
+  if (!SCHEME_FLOATP(argv[1]))
+    scheme_wrong_type(&quot;gl-frustum&quot;, &quot;float&quot;, 1, argc, argv);
+  if (!SCHEME_FLOATP(argv[2]))
+    scheme_wrong_type(&quot;gl-frustum&quot;, &quot;float&quot;, 2, argc, argv);
+  if (!SCHEME_FLOATP(argv[3]))
+    scheme_wrong_type(&quot;gl-frustum&quot;, &quot;float&quot;, 3, argc, argv);
+  if (!SCHEME_FLOATP(argv[4]))
+    scheme_wrong_type(&quot;gl-frustum&quot;, &quot;float&quot;, 4, argc, argv);
+  if (!SCHEME_FLOATP(argv[5]))
+    scheme_wrong_type(&quot;gl-frustum&quot;, &quot;float&quot;, 5, argc, argv);
+
+  glFrustum((GLdouble) SCHEME_FLT_VAL(argv[0]),
+	    (GLdouble) SCHEME_FLT_VAL(argv[1]),
+	    (GLdouble) SCHEME_FLT_VAL(argv[2]),
+	    (GLdouble) SCHEME_FLT_VAL(argv[3]),
+	    (GLdouble) SCHEME_FLT_VAL(argv[4]),
+	    (GLdouble) SCHEME_FLT_VAL(argv[5]));
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_load_identity(int argc, Scheme_Object **argv)
+{
+  glLoadIdentity();
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_matrix_mode(int argc, Scheme_Object **argv)
+{
+  if (!SCHEME_INTP(argv[0]))
+    scheme_wrong_type(&quot;gl-matrix-mode&quot;, &quot;exact integer&quot;, 0, argc, argv);
+
+  glMatrixMode(SCHEME_INT_VAL(argv[0]));
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_pop_matrix(int argc, Scheme_Object **argv)
+{
+  glPopMatrix();
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_push_matrix(int argc, Scheme_Object **argv)
+{
+  glPushMatrix();
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_vertex_3f(int argc, Scheme_Object **argv)
+{
+  if (!SCHEME_FLOATP(argv[0]))
+    scheme_wrong_type(&quot;gl-vertex-3f&quot;, &quot;float&quot;, 0, argc, argv);
+  if (!SCHEME_FLOATP(argv[1]))
+    scheme_wrong_type(&quot;gl-vertex-3f&quot;, &quot;float&quot;, 1, argc, argv);
+  if (!SCHEME_FLOATP(argv[2]))
+    scheme_wrong_type(&quot;gl-vertex-3f&quot;, &quot;float&quot;, 2, argc, argv);
+
+  glVertex3f((GLfloat) SCHEME_FLT_VAL(argv[0]),
+	     (GLfloat) SCHEME_FLT_VAL(argv[1]),
+	     (GLfloat) SCHEME_FLT_VAL(argv[2]));
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_rotate_f(int argc, Scheme_Object **argv)
+{
+  if (!SCHEME_FLOATP(argv[0]))
+    scheme_wrong_type(&quot;gl-rotate-f&quot;, &quot;float&quot;, 0, argc, argv);
+  if (!SCHEME_FLOATP(argv[1]))
+    scheme_wrong_type(&quot;gl-rotate-f&quot;, &quot;float&quot;, 1, argc, argv);
+  if (!SCHEME_FLOATP(argv[2]))
+    scheme_wrong_type(&quot;gl-rotate-f&quot;, &quot;float&quot;, 2, argc, argv);
+  if (!SCHEME_FLOATP(argv[3]))
+    scheme_wrong_type(&quot;gl-rotate-f&quot;, &quot;float&quot;, 3, argc, argv);
+
+  glRotatef((GLfloat) SCHEME_FLT_VAL(argv[0]),
+	    (GLfloat) SCHEME_FLT_VAL(argv[1]),
+	    (GLfloat) SCHEME_FLT_VAL(argv[2]),
+	    (GLfloat) SCHEME_FLT_VAL(argv[3]));
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_translate_f(int argc, Scheme_Object **argv)
+{
+  if (!SCHEME_FLOATP(argv[0]))
+    scheme_wrong_type(&quot;gl-translate-f&quot;, &quot;float&quot;, 0, argc, argv);
+  if (!SCHEME_FLOATP(argv[1]))
+    scheme_wrong_type(&quot;gl-translate-f&quot;, &quot;float&quot;, 1, argc, argv);
+  if (!SCHEME_FLOATP(argv[2]))
+    scheme_wrong_type(&quot;gl-translate-f&quot;, &quot;float&quot;, 2, argc, argv);
+
+  glTranslatef((GLfloat) SCHEME_FLT_VAL(argv[0]),
+	       (GLfloat) SCHEME_FLT_VAL(argv[1]),
+	       (GLfloat) SCHEME_FLT_VAL(argv[2]));
+
+  return scheme_void;
+}
+
+static Scheme_Object *gl_viewport(int argc, Scheme_Object **argv)
+{
+  if (!SCHEME_INTP(argv[0]))
+    scheme_wrong_type(&quot;gl-viewport&quot;, &quot;exact integer&quot;, 0, argc, argv);
+  if (!SCHEME_INTP(argv[1]))
+    scheme_wrong_type(&quot;gl-viewport&quot;, &quot;exact integer&quot;, 1, argc, argv);
+  if (!SCHEME_INTP(argv[2]))
+    scheme_wrong_type(&quot;gl-viewport&quot;, &quot;exact integer&quot;, 2, argc, argv);
+  if (!SCHEME_INTP(argv[3]))
+    scheme_wrong_type(&quot;gl-viewport&quot;, &quot;exact integer&quot;, 3, argc, argv);
+
+  glViewport(SCHEME_INT_VAL(argv[0]),
+	     SCHEME_INT_VAL(argv[1]),
+	     SCHEME_INT_VAL(argv[2]),
+	     SCHEME_INT_VAL(argv[3]));
+
+  return scheme_void;
+}
+
+/*---------------------------------------------------------------------------*/
+
+#define SCM_PROC(s, f, a, z, e) \
+		scheme_add_global(s, scheme_make_prim_w_arity(f, s, a, z), e)
+
+#define SCM_ENUM(s, o, e) \
+		scheme_add_global(s, scheme_make_integer(o), e)
+
+Scheme_Object *scheme_initialize(Scheme_Env *env)
+{
+  SCM_PROC(&quot;gl-begin&quot;,         gl_begin,         1, 1, env);
+  SCM_PROC(&quot;gl-clear&quot;,         gl_clear,         1, 1, env);
+  SCM_PROC(&quot;gl-color-3f&quot;,      gl_color_3f,      3, 3, env);
+  SCM_PROC(&quot;gl-enable&quot;,        gl_enable,        1, 1, env);
+  SCM_PROC(&quot;gl-end&quot;,           gl_end,           0, 0, env);
+  SCM_PROC(&quot;gl-frustum&quot;,       gl_frustum,       6, 6, env);
+  SCM_PROC(&quot;gl-load-identity&quot;, gl_load_identity, 0, 0, env);
+  SCM_PROC(&quot;gl-matrix-mode&quot;,   gl_matrix_mode,   1, 1, env);
+  SCM_PROC(&quot;gl-pop-matrix&quot;,    gl_pop_matrix,    0, 0, env);
+  SCM_PROC(&quot;gl-push-matrix&quot;,   gl_push_matrix,   0, 0, env);
+  SCM_PROC(&quot;gl-rotate-f&quot;,      gl_rotate_f,      4, 4, env);
+  SCM_PROC(&quot;gl-translate-f&quot;,   gl_translate_f,   3, 3, env);
+  SCM_PROC(&quot;gl-vertex-3f&quot;,     gl_vertex_3f,     3, 3, env);
+  SCM_PROC(&quot;gl-viewport&quot;,      gl_viewport,      4, 4, env);
+
+  SCM_ENUM(&quot;gl-color-buffer-bit&quot;, GL_COLOR_BUFFER_BIT, env);
+  SCM_ENUM(&quot;gl-color-material&quot;,   GL_COLOR_MATERIAL,   env);
+  SCM_ENUM(&quot;gl-depth-buffer-bit&quot;, GL_DEPTH_BUFFER_BIT, env);
+  SCM_ENUM(&quot;gl-depth-test&quot;,       GL_DEPTH_TEST,       env);
+  SCM_ENUM(&quot;gl-modelview&quot;,        GL_MODELVIEW,        env);
+  SCM_ENUM(&quot;gl-projection&quot;,       GL_PROJECTION,       env);
+  SCM_ENUM(&quot;gl-triangles&quot;,        GL_TRIANGLES,        env);
+  SCM_ENUM(&quot;gl-quads&quot;,            GL_QUADS,            env);
+
+  return scheme_void;
+}
+
+Scheme_Object *scheme_reload(Scheme_Env *env)
+{
+  return scheme_initialize(env);
+}
+
+Scheme_Object *scheme_module_name()
+{
+  return scheme_false;
+}
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01304" href="msg01304.html">Re: RFC - GL in scheme (long, with code)</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01300.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01302.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01302.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01304.html">Re: RFC - GL in scheme (long, with code)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01301"><strong>Date</strong></a></li>
+<li><a href="threads.html#01301"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

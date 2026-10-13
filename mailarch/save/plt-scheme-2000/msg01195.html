@@ -1,0 +1,357 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: PLT Scheme development directions -->
+<!--X-From-R13: [nex Ernobea <zef35Npnz.np.hx> -->
+<!--X-Date: Wed, 27 Dec 2000 14:26:16 &#45;0700 (MST) -->
+<!--X-Message-Id: 87n1dhyiyb.fsf@argbg34.argonet.co.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200011091739.KAA22500@fast.cs.utah.edu -->
+<!--X-Reference: 20001129165654V.mrs35@cam.ac.uk -->
+<!--X-Reference: 200011291718.KAA20160@fast.cs.utah.edu -->
+<!--X-Reference: 20001214015331L.mseaborn@argonet.co.uk -->
+<!--X-Reference: E14ADxb&#45;0002XD&#45;00@golden.argonet.co.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: PLT Scheme development directions</TITLE>
+<LINK REV="made" HREF="mailto:mrs35@cam.ac.uk">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01194.html">Date Prev</A>][<A HREF="msg01196.html">Date Next</A>][<A HREF="msg01179.html">Thread Prev</A>][<A HREF="msg01052.html">Thread Next</A>][<A HREF="maillist.html#01195">Date Index</A>][<A HREF="threads.html#01195">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: PLT Scheme development directions</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: PLT Scheme development directions</LI>
+<LI><em>From</em>: Mark Seaborn &lt;<A HREF="mailto:mrs35@cam.ac.uk">mrs35@cam.ac.uk</A>&gt;</LI>
+<LI><em>Date</em>: 27 Dec 2000 15:36:44 +0000</LI>
+<LI><em>References</em>: &lt;200011091739.KAA22500@fast.cs.utah.edu&gt; &lt;20001129165654V.mrs35@cam.ac.uk&gt; &lt;200011291718.KAA20160@fast.cs.utah.edu&gt; &lt;<A HREF="msg01143.html">20001214015331L.mseaborn@argonet.co.uk</A>&gt; &lt;E14ADxb-0002XD-00@golden.argonet.co.uk&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthew Flatt &lt;mflatt@cs.utah.edu&gt; writes:
+
+&gt; &gt; so, during unit invocation, when a value is bound (by evaluating a
+&gt; &gt; `define' form in the unit), the code just ensures the value
+&gt; &gt; becomes visible in units which import the variable by `set!'ting
+&gt; &gt; it in their environments.  In this model, re-export of variables
+&gt; &gt; is not a problem, because it can be done the same way as normal
+&gt; &gt; exporting.  If a cycle occurs (as in your example above), the
+&gt; &gt; variable just never gets initialised.
+&gt; 
+&gt; If I understand correctly, you have in mind implementing
+&gt; import/export of values instead of locations, plus an intialization
+&gt; strategy that makes it possible to define mutually recursive
+&gt; procedures across components boundaries.
+
+This was how I implemented it to start with, and it's also one way I
+suggested that re-export of variables could be implemented.  But I
+think a better way to implement units is with logic variables --
+ie. variables that can be assigned to only once, but can also be
+unified with each other.
+
+Since I wrote that last e-mail I have discovered the Oz language
+(&lt;<A  HREF="http://www.mozart-oz.org/">http://www.mozart-oz.org/</A>&gt;).  This is a language that uses logic
+variables throughout.  You can view logic variables as a hybrid
+between locations and values if you like -- before they are bound they
+act as locations, but once a value is assigned to them they are
+indistinguishable from that value.
+
+The neat thing about Oz is that it uses logic variables to achieve
+synchronisation between threads.  If a variable is accessed before
+being bound, the thread blocks until the variable is bound.  Lazy
+evaluation can also be achieved by attaching variables to thunks which
+are only evaluated when the variables are needed.  This is used in its
+module system to perform linking on demand.
+
+
+&gt; &gt; But I can imagine there are good reasons for wanting to do re-export,
+&gt; &gt; such as extending a unit to export more variables.  This can be done
+&gt; &gt; with PLT units, but only at run time -- it can't be done within a
+&gt; &gt; compound-unit/sig form -- which means that you can't have unit
+&gt; &gt; invocations be shared.  The unit being extended (if it is extended
+&gt; &gt; more than once) may get invoked multiple times, which is wasteful.
+&gt; 
+&gt; This sounds like the kind of thing compound-unit/sig would do, though.
+&gt; Is the problem that you imagine a kind of mixin compound that adds
+&gt; exports to an arbitrary unit (which can't be done with c-u/s)?
+
+Partly.  I can imagine that such a construct would be useful.  But I
+didn't find I needed it myself.
+
+Also, surely you can add exports to a unit with compound-unit/sig?  If
+you have a unit foo@ of signature foo^, you can extend it with
+foo-extend@ which imports foo^:
+
+(compound-unit/sig
+  (import)
+  (link (f : foo^ (foo@))
+	(fx : foo-extension^ (foo-extend@ f)))
+  (export (open f) (open fx)))
+
+Rather, you can't add exports to an arbitrary unit invocation.  You
+can't do:
+
+(compound-unit/sig
+  (import)
+  (link (f : foo^ (foo@))
+	(fx : foo-extension^ (foo-extend@ f))
+	(combined : ((open foo^) (open foo-extension^)) ((open f) (open fx)))
+	; followed by some uses of `f' and `combined'
+	)
+  (export))
+
+
+&gt; &gt; What it all boils down to is the problem that compound-unit/sig isn't
+&gt; &gt; expressive enough.  You can't put a conditional inside it, 
+&gt; 
+&gt; You can put a conditional in each expression position that determines a
+&gt; constituent unit...
+
+This isn't enough, because the conditional can't evaluate, in
+different branches, to units that have different import requirements.
+Worse, you can't put blocks of units (within the link clause) inside
+conditionals.
+
+
+&gt; &gt; so if it contains a set of units that can be replaced by another
+&gt; &gt; set of units, these sets must be lifted out into their own
+&gt; &gt; compound-unit/sig forms.  This involves lots of plumbing of
+&gt; &gt; imports and exports between the different linking statements,
+&gt; &gt; which is fiddly and inelegant.
+&gt; 
+&gt; I'm a little lost here.
+
+I'll have to show you a real example.  Here's the rather large linking 
+spec from my program.  It shouldn't be too hard to glork the meanings
+of things from context.  `pcase' here is a version of case providing
+general pattern matching.
+
+`%let-vars' is a macro which binds Scheme variables to new unbound
+logic variables within its body.  Logic variables represent signed
+unit invocations.  `%link' takes a signed unit, a list of unit
+invocations to import, and binds its last argument to a unit
+invocation.
+
+(define %main
+  (%let-vars (MISC GEOM TIME LOGGING STATS
+	      BTREE BTREE-2D INT-ARRAY MUT-WEAK-SET MUT-WEAK-DICT MEMOIZE
+	      RIMAGE SEGMENT SECTION SECTION-A SECTION-L SECTION-CONV
+	      RLE-COLUMN RLE LAG OMR CL-CONTEXT CLASSIFY CLASSIFIERS
+	      WIMAGE-MIN PAINT-PIXELS PAINT-LINES PAINT-OMR
+	      MRED
+	      CMD RUN-TEST TEST-TREE TEST FRONT-END TEST-MENU)
+    ; Generic
+    (%link misc@ (list) MISC)
+    (%link geom@ (list MISC) GEOM)
+    (pcase scheme
+      ('mzscheme (%combine
+		   (%link time/mzscheme@ (list) TIME)
+		   (%link vector@ (list) INT-ARRAY)))
+      ('guile (%combine
+	        (%link time/guile@ (list) TIME)
+		(%link int-array/scm@ (list) INT-ARRAY))))
+    (%link logging@ (list MISC TIME) LOGGING)
+    (%link stats@ (list MISC) STATS)
+    (%link btree@ (list MISC) BTREE)
+    (%link btree-2d@ (list MISC GEOM STATS) BTREE-2D)
+    (%link mut-weak-set-q@ (list) MUT-WEAK-SET)
+    (%link mut-weak-dict-q@ (list) MUT-WEAK-DICT)
+    (%link memoize@ (list MISC MUT-WEAK-DICT) MEMOIZE)
+    ; OMR data structures and algorithms
+    (pcase scheme
+      ('mzscheme (%combine
+		   (%link rimage/mred@ (list MISC GEOM MRED) RIMAGE)
+		   (%link rle-column/scheme@ (list RIMAGE) RLE-COLUMN)))
+      ('guile (%combine
+	        (%link rimage/guile@ (list GEOM) RIMAGE)
+		(%link rle-column/c@ (list) RLE-COLUMN))))
+    (%link segment@ (list MISC) SEGMENT)
+    (%link section-full/array@ (list MISC LOGGING GEOM SEGMENT INT-ARRAY) SECTION)
+    (%restrict (signature section-min^) SECTION SECTION-A)
+    (%link section/list@ (list MISC SEGMENT) SECTION-L)
+    (%link section-convert@ (list SECTION-L SECTION-A) SECTION-CONV)
+    (%link rle@ (list MISC RIMAGE RLE-COLUMN SEGMENT SECTION-L
+		      SECTION-CONV LAG STATS LOGGING) RLE)
+    (%link lag@ (list MISC GEOM BTREE SEGMENT SECTION MUT-WEAK-SET) LAG)
+    (%link omr@ (list MISC GEOM BTREE BTREE-2D SEGMENT SECTION RLE LAG
+		      STATS MEMOIZE LOGGING) OMR)
+    (%link cl-context@ (list MISC) CL-CONTEXT)
+    (%link classify/normal@ (list MISC GEOM SECTION LAG OMR CL-CONTEXT) CLASSIFY)
+    (%link classifiers@ (list MISC BTREE CLASSIFY SECTION LAG OMR CL-CONTEXT) CLASSIFIERS)
+    ; Front end
+    (pcase scheme
+      ('mzscheme (%let-vars (WIMAGE WIMAGE-MRED)
+		   (%link mred@ (list) MRED)
+		   (%link wimage/mred@ (list MISC MRED GEOM) WIMAGE)
+		   (%restrict (signature wimage-min^) WIMAGE WIMAGE-MIN)
+		   (%restrict (signature wimage-mred^) WIMAGE WIMAGE-MRED)
+		   (%restrict (signature paint-pixels^) WIMAGE PAINT-PIXELS)
+		   (%restrict (signature paint-lines^) WIMAGE PAINT-LINES)
+		   (%link run-test/mred@ (list MISC MRED WIMAGE-MIN WIMAGE-MRED
+					       TEST-TREE LOGGING PAINT-PIXELS PAINT-OMR)
+			  RUN-TEST)
+		   (%link test-menu@ (list MRED TEST-TREE RUN-TEST) TEST-MENU)))
+      ('guile (%let-vars (WIMAGE)
+		(%link wimage/portable@ (list MISC GEOM LOGGING) WIMAGE)
+		(%restrict (signature wimage-min^) WIMAGE WIMAGE-MIN)
+		(%restrict (signature paint-pixels^) WIMAGE PAINT-PIXELS)
+		(%link paint-lines@ (list MISC PAINT-PIXELS GEOM) PAINT-LINES)
+		(%link run-test/cli@ (list MISC TEST-TREE LOGGING WIMAGE-MIN
+					   PAINT-PIXELS PAINT-OMR) RUN-TEST)
+		(%link test-menu/dummy@ (list) TEST-MENU))))
+    (pcase scheme
+      ('mzscheme (%link command-line/mzscheme@ (list) CMD))
+      ('guile (%link command-line/guile@ (list) CMD)))
+    (%link paint-omr@ (list MISC WIMAGE-MIN PAINT-PIXELS PAINT-LINES GEOM BTREE
+			    SEGMENT SECTION LAG OMR CLASSIFIERS) PAINT-OMR)
+    (%link test-tree@ (list MISC GEOM LOGGING) TEST-TREE)
+    (%link test@ (list MISC GEOM BTREE RLE LAG OMR CLASSIFIERS RIMAGE
+		       WIMAGE-MIN PAINT-PIXELS PAINT-LINES PAINT-OMR
+		       CL-CONTEXT TEST-TREE LOGGING) TEST)
+    (%link front-end/cli@ (list MISC RUN-TEST CMD TEST TEST-TREE LOGGING TEST-MENU) FRONT-END)
+    (%last FRONT-END)
+    ))
+
+Some of the conditionals in this are straightforward and could be done 
+in compound-unit/sig, such as the ones which bind CMD, TIME and
+INT-ARRAY.
+
+The conditionals which bind RIMAGE and RLE-COLUMN are trickier because
+different imports are passed to the units in each branch of the
+conditional.
+
+The branches of the conditional which binds WIMAGE, PAINT-PIXELS,
+PAINT-LINES, etc. are more different.  This is virtually impossible to
+do with compound-unit/sig: Here, wimage/mred@ provides pixel- and
+line-plotting primitives; but wimage/portable@ only provides
+pixel-plotting, and line-plotting for this is provided by
+paint-lines@.  These branches of the conditional would have to be
+lifted out (it's a little similar to lambda lifting) into two
+compound-unit/sig forms, each of which would export wimage-min^,
+paint-pixels^, paint-lines^, etc.  But the branches depend on unit
+invocations like MISC, GEOM, LOGGING, etc., and to avoid invoking such
+units twice, they would have to be imported into the two
+compound-unit/sig forms (which bloats their definitions very quickly).
+
+This is still not enough to express the linking in compound-unit/sig,
+because c-u/s does not allow signature restrictions in export clauses.
+wimage/mred@'s export signature is a combination of wimage-min^,
+paint-pixels^, paint-lines^, etc., but the other units import those
+signatures individually rather than merged together -- we need to use
+signature restrictions to split wimage/mred@ into those separate
+signatures, but this can't be done.
+
+Even if c-u/s allowed signature restrictions in exports, there's
+another problem remaining.  Notice that earlier on, rimage/mred@ needs
+to be linked with MRED to produce RIMAGE (MRED never gets bound when
+running this under Guile, but that's fine, because then it's never
+used).  How would we get the invocation MRED shared between branches
+of two different conditionals?  We can't, because all imports to a
+compound-unit/sig must be valid unit invocations, even if they are
+never used.  I suppose the two conditionals could be merged in order
+to share MRED, but this is very unsatisfactory, because the image
+reading and writing units, rimage/*@ and wimage/*@ respectively, are
+independent.
+
+
+&gt; &gt; The basic problem is that unit *invocations* can't be passed around at
+&gt; &gt; the Scheme level, they are confined to the unexpressive language of
+&gt; &gt; compound-unit/sig. 
+&gt; 
+&gt; It's certainly true that invocations can't be passed around.
+&gt; This is a conscious and carefully maintained design choice. It
+&gt; forces library-like units to the top of the hierarchy; that can be
+&gt; incovenient to some programmers, but makes the overall program more
+&gt; configurable for other programmers.
+
+Such a comment requires a standard warning about
+bondage-and-discipline programming languages, how they often fail to
+enforce what they view as good practice and then require working
+around, etc. :-)
+
+I assume by library-like units you mean units like mred@, and that
+they should be invoked at the top level of linking and their
+invocations passed down to the lower levels that need it.  I agree
+that this is good practice.  compound-unit/sig doesn't help with this
+in my example because it can't handle the difference between the cases 
+when mred@ is and isn't needed.
+
+
+&gt; &gt; Units themselves can be passed around at the Scheme level, which
+&gt; &gt; is wonderful, but you can't really use this ability to link
+&gt; &gt; complex programs together, because unit invocations end up not
+&gt; &gt; being shared, and units can't be mutually linked at this level
+&gt; &gt; (the main advantage of units).
+&gt; 
+&gt; Dynamic linking via `invoke-unit' permits sharing. It does force the
+&gt; linking structure upside-down though -- again, a conscisous design
+&gt; choice aimed at exposing the way a program is linked and where it
+&gt; should be parameterized.
+
+Dynamic linking is unnecessary in my example.  The whole thing can be
+written out as a compound-unit/sig form (which is eval'd) once the
+conditionals are evaluated, so it can be statically linked.
+
+-- 
+         Mark Seaborn
+   - mseaborn@bigfoot.com - <A  HREF="http://members.xoom.com/mseaborn/">http://members.xoom.com/mseaborn/</A> -
+
+           Superconductor, n.  railroad employee of the month.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01143" HREF="msg01143.html">Re: PLT Scheme development directions</A></STRONG>
+<UL><LI><EM>From:</EM> Mark Seaborn &lt;mseaborn@argonet.co.uk&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01194.html">A Very Special Offer to win $3,300</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01196.html">Re: GC Errors in Embedded Program</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01179.html">Re: PLT Scheme development directions</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01052.html">point of view on mzscheme's module system</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01195"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01195"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,150 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: A few comments about SchemeQL -->
+<!--X-From-R13: @bry Iryfu <abryjNqnv.rq.np.hx> -->
+<!--X-Date: Mon, 31 Jul 2000 06:57:39 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14725.30612.208258.690156@saker.dai.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: A few comments about SchemeQL</title>
+<link rev="made" href="mailto:noelw@dai.ed.ac.uk">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00427.html">Date Prev</a>][<a href="msg00429.html">Date Next</a>][<a href="msg00427.html">Thread Prev</a>][<a href="msg00430.html">Thread Next</a>][<a href="maillist.html#00428">Date Index</a>][<a href="threads.html#00428">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: A few comments about SchemeQL</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: A few comments about SchemeQL</li>
+<li><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;</li>
+<li><em>Date</em>: Mon, 31 Jul 2000 13:57:34 +0100 (BST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Oops, sent this to Francisco when I meant to send it to the list
+
+Francisco Solsona writes:
+&gt;
+&gt; Yup, that's a good idea. Nevertheless, using native drivers or flat
+&gt; text *do* require a SrPersist-alike unit to provide a Scheme-level
+&gt; API, SchemeQL could then use. I'll try to document what exactly such a
+&gt; library should provide, and of course write a default one that will
+&gt; simply call SrPersist's procedures.
+
+Agreed. If/when Scheme becomes popular, people will want to use
+different drivers. DBI is one of the supposted advantages of using
+Perl - the same DB interface to any database, including flat text.
+
+&gt; SchemeQL implements the &quot;SQL Minimum Grammar&quot;, which any
+&gt; ODBC-compliant driver must support, and none of the above functions
+&gt; are part of that grammar.
+
+&gt; Of course, I can extend SchemeQL to support
+&gt; those functions, at the expense of needing the *driver* to support a
+&gt; broader range of database operations (SrPersist does, so no problems
+&gt; in the immediate future).
+
+Ok, there's a tension between implementing what is cross-platform, and
+what is useful. A database without intersections is virtually
+useless. Without outer joins is useable (eg Postgres) but painful. I
+think the fundamental set operations, interesection, union and
+negation, are the basic operations one should have available in
+SchemeQL.
+
+It all depends on what see as SchemeQL's place in the scheme (no pun
+intended) of things. As a basic system that will work everywhere, as a
+usable system that fits most jobs, or as a hard-core system that does
+everything. I think the middle option is the right one. Hard core DB
+hackers are going to want to write SQL so they can access vendor
+specific functionality, which will never find its way into SchemeQL,
+and a basic system isn't much use for real work.
+
+Agreed that a flat text system would have to support joins etc in the
+driver to support this extended range of operations, but then if the
+driver isn't supporting them, the programmer will have to code them to 
+get anything useful done.
+
+&gt; You can find the latest version here:
+&gt; 
+&gt;         <A  HREF="ftp://ftp.beta.fciencias.unam.mx/pub/solsona/schemeql">ftp://ftp.beta.fciencias.unam.mx/pub/solsona/schemeql</A>
+
+I'll have a look when I get a chance.
+
+Shriram Krishnamurthi writes:
+&gt;
+&gt; Well, sure.  But the whole name of the game in databases is the
+&gt; trade-off between expressivity and efficiency.  First-class queries
+&gt; are mighty hard to optimize (though one of the most interesting recent 
+&gt; developments in databases is the use of combinatory logic for
+&gt; optimization).
+
+No doubt you know a lot more about these things than I do. I was only
+thinking of a system where the query is a first class Scheme object,
+kinda like a curried function. When the query is passed to the db, it
+is turned into SQL (or not, if one is using flat text ;-), so I don't
+so where the optimisation problem comes in.
+
+cya,
+Noel
+-- 
+Noel Welsh
+<A  HREF="http://www.dai.ed.ac.uk/~noelw/">http://www.dai.ed.ac.uk/~noelw/</A>   noelw@dai.ed.ac.uk
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00430" href="msg00430.html">RE: A few comments about SchemeQL</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00427.html">A few comments about SchemeQL</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00429.html">Re: Hello from a new user interested in shipping applications</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00427.html">A few comments about SchemeQL</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00430.html">RE: A few comments about SchemeQL</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00428"><strong>Date</strong></a></li>
+<li><a href="threads.html#00428"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

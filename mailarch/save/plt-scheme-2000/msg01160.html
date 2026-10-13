@@ -1,0 +1,118 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: minor readline bug? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 19 Dec 2000 08:52:29 &#45;0700 (MST) -->
+<!--X-Message-Id: 200012191552.IAA12200@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20001217041406.907B85E0E9@sith.bbb.caltech.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: minor readline bug?</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01159.html">Date Prev</A>][<A HREF="msg01161.html">Date Next</A>][<A HREF="msg01155.html">Thread Prev</A>][<A HREF="msg01156.html">Thread Next</A>][<A HREF="maillist.html#01160">Date Index</A>][<A HREF="threads.html#01160">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: minor readline bug?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Michael Vanier &lt;<A HREF="mailto:mvanier@bbb.caltech.edu">mvanier@bbb.caltech.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: minor readline bug?</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 19 Dec 2000 08:52:26 -0700 (MST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01155.html">20001217041406.907B85E0E9@sith.bbb.caltech.edu</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01155.html">20001217041406.907B85E0E9@sith.bbb.caltech.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Michael Vanier:
+&gt; 
+&gt; I installed the readline extension for mzscheme, and I notice an odd
+&gt; problem.  Without readline enabled, when I do this:
+&gt; 
+&gt;     &gt; (display "hello, world!")
+&gt; 
+&gt; I get this:
+&gt; 
+&gt;     hello, world!&gt; 
+&gt; 
+&gt; which is what I'd expect.  With readline enabled, however, I just get a
+&gt; prompt until I enter another value e.g.:
+&gt; 
+&gt; 	&gt; (display "hello, world!")
+&gt; 	&gt; 1
+&gt; 	hello, world!1
+&gt; 	&gt; 
+&gt; 
+&gt; In other words, "display" doesn't flush under readline mode.  Any ideas on
+&gt; what's going on here?
+
+Reading from the original input port causes MzScheme to flush the
+original output and error ports if they're the current ports.
+
+The readline library doesn't try to flush the output and error ports in
+response to a read. Maybe it should, though the MzScheme API doesn't
+currently provide enough information to tell whether the current ports
+are the original ones.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01155" HREF="msg01155.html">minor readline bug?</A></STRONG>
+<UL><LI><EM>From:</EM> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01159.html">Re: efficiency</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01161.html">Re: Maybe a small bug?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01155.html">minor readline bug?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01156.html">Maybe a small bug?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01160"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01160"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

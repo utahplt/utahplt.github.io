@@ -1,0 +1,142 @@
+
+<html>
+<title>TeachScheme! 2000</title>
+<body bgcolor=white>
+<table width=100%>
+<tr><td valign=top align=left>
+        <h1><img align=top 
+	         src=icons/ts2k-small.gif
+                 alt="[PLT logo]">
+            TeachScheme! 2000
+        </h1></td>
+   <td valign=top align=right>
+   <table>
+      <tr><td valign=top align=right><h3>July 10-14, 2000</h3></td></tr>
+      <tr><td valign=top align=right><h3>Details for Monday afternoon</h3></td></tr>
+   </table>
+   </tr>
+</table>
+<hr>
+
+<table bgcolor=beige>
+<tr><td><pre>
+
+
+- demo ping-pong.  
+
+  Ping-pong requires:
+  -- dealing with conditional situations
+  -- dealing with compound data
+  -- dealing with graphics (we don't teach this though, since it's
+     not portable learning -- use lib instead)
+
+- claims and conditionals
+
+  Claims are true or false: 
+    given any x on numberline, only one of 
+    -- x = 0
+    -- x < 0
+    -- x > 0 
+    holds; examples!
+
+  Scheme syntax: [show contracts!]
+    -- (= x 0) 
+    -- (< x 0)
+    -- (> x 0)
+
+  Computation: Booleans! [note: not 0 or 1.  booleans are a distinct
+                          kind of value]
+
+  Consider interval on number line: 
+    all numbers between 0 and 5. 
+  To describe it, we need compound claims: 
+    (and (< 0 x) (< x 5))
+
+  Computation: reduce one to true, than the next one, etc. 
+    [hand eval on a couple of examples: x = 3, x=-2]
+
+  If have boolean values, should be able to create functions that
+  return booleans.
+
+  Boolean-value functions: 
+    -- Is the ball inside some box?         if not, game's over
+    -- Is the ball inside of some interval? if yes, it hit paddle
+
+  Example: ;in_interval : num num num -> boolean
+           ;true if n between lo and hi, inclusive
+           (define (in-interval n low hi) ...)
+
+  Conditional functions: 
+
+    Sometimes the method for computing results differs depending
+    on what the input is. We need CONDITIONAL EXPRESSIONS: shape
+    (question-answer); use; evaluation.
+
+  Example: 
+    -- in which interval did the ball land? 
+    -- how much is your pay-back rate? 
+    -- ;sign : num -> symbol
+       ;returns 'positive, 'negative, or 'zero based on sign of input
+       (define (sign n) ...)
+    -- ;pepper-scale : num[>=5000] -> symbol
+       ;returns pepper name based on scoville-index
+       (define (pepper-scale n)
+         (cond [(and (>= n 5000) (< n 30000)) 'serrano]
+               [(and (>= n 30000) (< n 50000)) 'cayenne]
+               [(and (>= n 50000) (< n 100000)) 'thai]
+               [(>= n 100000) 'habenero]))
+       [note: the scoville-organoleptic test measures the heat of
+        peppers by mixing pepper extract with a sugar-water solution
+        such that the tongue experiences no sensation when tasting the
+        mixture. The scoville-rating indicates the ratio of sugar
+        solution to pepper needed for this test.]
+
+  Extend grammar and reduction rules.
+
+  >> DESIGN RECIPE << for conditionals
+    draw intervals, 
+    choose interior, boundary points as examples
+    write conditional with conditions
+    write down answers, case by case 
+
+-------------------------------------------------------------------  
+
+  Structures: 
+
+  positions of a ball: x and y coordinate 
+  lots of balls flying around in a game - better keep the x and y
+  coordinates together
+ 
+  posn structure 
+  (make-posn 3 4)   - box diagram
+  distance-to-O: oops doesn't work, need selectors : posn-x posn-y.
+
+  do contracts for posn-x, posn-y, show examples of use.
+
+  [The confusion over values will likely arise here, as subsequent
+   examples appear to "create" the same value twice.
+
+   Emphasize that "(make-posn 1 2)" is just the name of a position,
+   like "7" is the name of a number. We can write "7" on the twice,
+   but it's the same number.]
+
+  Extend grammar. Note that (make-posn val val) shows up in the grammar
+  for values. (make-posn expr expr) also shows up in the grammar for
+  expressions, though.
+
+  Example: ;shift-posn : posn num num -> posn
+           ;moves a posn by the given x and y deltas
+           (define (shift-posn a-posn delta-x delta-y) ...)
+
+  >> DESIGN RECIPE (p69) <<
+
+
+<pre></td>
+<td valign=top align=right><img src="icons/hand.right.gif" alt=[Point]> <a href =Monday-afternoon-lab.html>LAB</a></td>
+</tr>
+</table>
+<hr>
+Generated on: Tue Jul 18 11:20:37 MDT 2000
+<hr>
+</body>
+</html>

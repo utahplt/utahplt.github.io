@@ -1,0 +1,138 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: do and read&#45;line in MrEd. -->
+<!--X-From-R13: Xbeqna Yngm <xngmNhaqreyriry.arg> -->
+<!--X-Date: Mon, 2 Jul 2001 17:28:11 &#45;0600 (MDT) -->
+<!--X-Message-Id: m3k81qews5.fsf@underlevel.underlevel.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: m3g0cfvt7q.fsf@underlevel.underlevel.net -->
+<!--X-Reference: 15168.64855.903166.805001@mojave.cs.cornell.edu -->
+<!--X-Reference: m3bsn3vsdj.fsf@underlevel.underlevel.net -->
+<!--X-Reference: 15169.403.697756.740056@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: do and read-line in MrEd.</title>
+<link rev="made" href="mailto:katz@underlevel.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00598.html">Date Prev</a>][<a href="msg00600.html">Date Next</a>][<a href="msg00598.html">Thread Prev</a>][<a href="msg00600.html">Thread Next</a>][<a href="maillist.html#00599">Date Index</a>][<a href="threads.html#00599">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: do and read-line in MrEd.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Subject</em>: Re: do and read-line in MrEd.</li>
+<li><em>From</em>: Jordan Katz &lt;<A HREF="mailto:katz@underlevel.net">katz@underlevel.net</A>&gt;</li>
+<li><em>Date</em>: 02 Jul 2001 19:28:10 -0400</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: Eli Barzilay's message of &quot;Mon, 2 Jul 2001 19:19:47 -0400&quot;</li>
+<li><em>References</em>: &lt;<a href="msg00595.html">m3g0cfvt7q.fsf@underlevel.underlevel.net</a>&gt; &lt;<a href="msg00596.html">15168.64855.903166.805001@mojave.cs.cornell.edu</a>&gt; &lt;<a href="msg00597.html">m3bsn3vsdj.fsf@underlevel.underlevel.net</a>&gt; &lt;<a href="msg00598.html">15169.403.697756.740056@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0803 (Gnus v5.8.3) Emacs/20.4</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Eli Barzilay &lt;eli@barzilay.org&gt; writes:
+
+[snip]
+&gt; |   ;; read until &quot;Content-Type...&quot; is met
+&gt; |   (do ((line (read-line sin) (read-line sin)))
+&gt; |       ((not (regexp-match html-start line))))
+&gt; |         ^^^
+&gt; 
+&gt; Isn't this supposed to be the other way?
+
+This fixed it, but I don't understand why.  Isn't the loop supposed to
+execute until the test condition is false?  If so,
+(regexp-match-html-line) by itself would be false on the first line,
+so the loop should quit.
+
+BTW, another minor issue that I wanted to ask about:
+
+(define (grab-html b e)
+  (define url (send urlbox get-value))
+  (let-values ;;(((url) (send urlbox get-value))
+   (((sin sout) (tcp-connect url 80))
+    ((html-start) (regexp &quot;Content-Type:.*&quot;)))
+
+I don't want to make url global here.  I want to put it in the
+let-values, as in:
+
+(let-values
+  (((url) (send urlbox get-value))
+   ((sin sout) (tcp-connect url 80))
+   ((html-start) (regexp &quot;Content-Type:.*&quot;))))
+
+But this will not work since the call to tcp-connect does not see
+url.  The most straight forward solution would be let-values* but that
+apparently doesn't exist in MzScheme.
+-- 
+Jordan Katz &lt;katz@underlevel.net&gt;  |  Mind the gap
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00600" href="msg00600.html">Re: do and read-line in MrEd.</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00595" href="msg00595.html">do and read-line in MrEd.</a></strong>
+<ul><li><em>From:</em> Jordan Katz &lt;katz@underlevel.net&gt;</li></ul></li>
+<li><strong><a name="00596" href="msg00596.html">Re: do and read-line in MrEd.</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+<li><strong><a name="00597" href="msg00597.html">Re: do and read-line in MrEd.</a></strong>
+<ul><li><em>From:</em> Jordan Katz &lt;katz@underlevel.net&gt;</li></ul></li>
+<li><strong><a name="00598" href="msg00598.html">Re: do and read-line in MrEd.</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00598.html">Re: do and read-line in MrEd.</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00600.html">Re: do and read-line in MrEd.</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00598.html">Re: do and read-line in MrEd.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00600.html">Re: do and read-line in MrEd.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00599"><strong>Date</strong></a></li>
+<li><a href="threads.html#00599"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

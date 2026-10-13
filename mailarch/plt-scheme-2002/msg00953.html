@@ -1,0 +1,170 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: [plt&#45;scheme] dynamic method&#45;name for send, in v200 -->
+<!--X-From-R13: "Rnavry Evyin" <qfvyinNppf.arh.rqh> -->
+<!--X-Date: Wed, 22 May 2002 09:40:17 &#45;0600 (MDT) -->
+<!--X-Message-Id: 000001c201a6$fc648440$8e79219b@khan -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: a05100300b91159d65cfd@[128.243.31.196] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: [plt-scheme] dynamic method-name for send, in v200</title>
+<link rev="made" href="mailto:dsilva@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00952.html">Date Prev</a>][<a href="msg00954.html">Date Next</a>][<a href="msg00952.html">Thread Prev</a>][<a href="msg00954.html">Thread Next</a>][<a href="maillist.html#00953">Date Index</a>][<a href="threads.html#00953">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: [plt-scheme] dynamic method-name for send, in v200</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: [plt-scheme] dynamic method-name for send, in v200</li>
+<li><em>From</em>: &quot;Daniel Silva&quot; &lt;<A HREF="mailto:dsilva@ccs.neu.edu">dsilva@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 22 May 2002 11:40:22 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00951.html">a05100300b91159d65cfd@[128.243.31.196]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I used generics for that.  This method is part of a web view class:
+
+      ;; start: -&gt; string
+      ;; starts the view and handles the first input
+      ;; returns an error message or an empty string
+      (define (start)
+        (let* ([request (send/suspend
+                         (build-start-page))]
+               [bindings (request-bindings request)])
+          (if (or (null? bindings)
+                  (null? (car bindings)))
+              &quot;invalid button&quot;
+              (begin
+                (send-generic controller
+                              (make-generic controller&lt;%&gt;
+                                            (car (car bindings))))
+                &quot;&quot;))))
+
+-----------------------------------
+Daniel Silva
+dsilva@ccs.neu.edu
+ 
+
+-----Original Message-----
+From: owner-plt-scheme@fast.cs.utah.edu
+[<A  HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">mailto:owner-plt-scheme@fast.cs.utah.edu</A>] On Behalf Of Peter Lane
+Sent: Wednesday, May 22, 2002 10:42 AM
+To: plt-scheme@fast.cs.utah.edu
+Subject: [plt-scheme] dynamic method-name for send, in v200
+
+Hi all,
+
+In the send syntax with v200 (I'm using alpha 12), is it possible to 
+have the method-name dynamically created?
+
+e.g.
+
+(require (lib &quot;class.ss&quot;))
+(define tester%
+   (class object%
+     (define-values (x y) (values 0 0))
+     (define (set-x! val) (set! x val))
+     (define (set-y! val) (set! y val))
+     (public set-x! set-y!)
+     (super-instantiate ())))
+
+(let ((o (make-object tester%))
+       (do-x? #t))
+   (send o (if do-x? set-x! set-y!) 10))
+
+            ^^^^^^^^^^^^^^^^^^^^^^
+            causes a compiler complaint (method name is not an
+identifier)
+
+The example should make it clear the functionality I wish to achieve. 
+I get the same problem if I try send* or with-method.
+
+The application for this is that I'm storing lists of methods for a 
+number of classes within a hash table; I want to be able to retrieve 
+the methods from the hash table and then apply them to the object 
+using the send syntax.  At present, I'm creating separate methods for 
+each option, as follows:
+
+(define (set-x! obj val) (send obj set-x! val))
+
+This works, but requires a lot of extra typing.
+
+	thanks for any help,
+
+		Peter.
+
+-- 
+--------------------------------------------------------------
+Dr. Peter Lane
+ESRC Centre for Research in Development,
+Instruction and Training (CREDIT)
+School of Psychology, University of Nottingham
+NOTTINGHAM  NG7 2RD, England
+
+Email: pcl@psychology.nottingham.ac.uk
+Tel:   + 44 (0) 115 951 5310
+Fax:   + 44 (0) 115 951 5324
+URL:   <A  HREF="http://www.psychology.nottingham.ac.uk/staff/Peter.Lane">http://www.psychology.nottingham.ac.uk/staff/Peter.Lane</A>
+--------------------------------------------------------------
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00951" href="msg00951.html">[plt-scheme] dynamic method-name for send, in v200</a></strong>
+<ul><li><em>From:</em> Peter Lane &lt;pcl@psychology.nottingham.ac.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00952.html">Re: [plt-scheme] dynamic method-name for send, in v200</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00954.html">[plt-scheme] TCP/IP simple server in MZScheme - how to? (Plt 1.3p1 release)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00952.html">Re: [plt-scheme] dynamic method-name for send, in v200</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00954.html">[plt-scheme] TCP/IP simple server in MZScheme - how to? (Plt 1.3p1 release)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00953"><strong>Date</strong></a></li>
+<li><a href="threads.html#00953"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

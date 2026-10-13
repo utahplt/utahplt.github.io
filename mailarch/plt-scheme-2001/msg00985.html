@@ -1,0 +1,207 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: DrScheme as Emacs&#45;like kitchen sink -->
+<!--X-From-R13: Dvxh.EnvxxbaraNuhg.sv (Dvxh Envxxbara) -->
+<!--X-Date: Thu, 4 Oct 2001 13:28:25 &#45;0600 (MDT) -->
+<!--X-Message-Id: 878zerkxx5.fsf@lambda.cs.hut.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110010328.WAA00358@banach.math.nwu.edu -->
+<!--X-Reference: 200110010347.XAA14156@klee.cs.brown.edu -->
+<!--X-Reference: 200110011154.f91BsH420528@denali.ccs.neu.edu -->
+<!--X-Reference: 200110020416.XAA00784@banach.math.nwu.edu -->
+<!--X-Reference: p05100300b7df6c1a47b7@[192.168.1.100] -->
+<!--X-Reference: 200110030344.WAA00950@banach.math.nwu.edu -->
+<!--X-Reference: 3BBADF30.F5C4A1B@info.unicaen.fr -->
+<!--X-Reference: 200110031423.IAA09143@fast.cs.utah.edu -->
+<!--X-Reference: 200110040142.UAA00352@banach.math.nwu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: DrScheme as Emacs-like kitchen sink</title>
+<link rev="made" href="mailto:Riku.Saikkonen@hut.fi">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00984.html">Date Prev</a>][<a href="msg00986.html">Date Next</a>][<a href="msg00980.html">Thread Prev</a>][<a href="msg00988.html">Thread Next</a>][<a href="maillist.html#00985">Date Index</a>][<a href="threads.html#00985">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: DrScheme as Emacs-like kitchen sink</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Bill Richter &lt;<A HREF="mailto:richter@math.nwu.edu">richter@math.nwu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: DrScheme as Emacs-like kitchen sink</li>
+<li><em>From</em>: <A HREF="mailto:Riku.Saikkonen@hut.fi">Riku.Saikkonen@hut.fi</A> (Riku Saikkonen)</li>
+<li><em>Date</em>: 04 Oct 2001 22:28:06 +0300</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: Bill Richter's message of &quot;Wed, 3 Oct 2001 20:42:33 -0500&quot;</li>
+<li><em>References</em>: &lt;<a href="msg00941.html">200110010328.WAA00358@banach.math.nwu.edu</a>&gt;&lt;<a href="msg00942.html">200110010347.XAA14156@klee.cs.brown.edu</a>&gt;&lt;<a href="msg00944.html">200110011154.f91BsH420528@denali.ccs.neu.edu</a>&gt;&lt;<a href="msg00949.html">200110020416.XAA00784@banach.math.nwu.edu</a>&gt;&lt;<a href="msg00951.html">p05100300b7df6c1a47b7@[192.168.1.100]</a>&gt;&lt;<a href="msg00961.html">200110030344.WAA00950@banach.math.nwu.edu</a>&gt;&lt;<a href="msg00962.html">3BBADF30.F5C4A1B@info.unicaen.fr</a>&gt;&lt;<a href="msg00964.html">200110031423.IAA09143@fast.cs.utah.edu</a>&gt;&lt;<a href="msg00977.html">200110040142.UAA00352@banach.math.nwu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Bill Richter &lt;richter@math.nwu.edu&gt; writes:
+&gt;   (if scheme-mit-dialect
+&gt;       (progn
+&gt;	 (put 'fluid-let 'scheme-indent-function 1)
+&gt;	 (put 'in-package 'scheme-indent-function 1)
+&gt;	 (put 'local-declare 'scheme-indent-function 1)
+&gt;
+&gt;Now you all know whether MIT Scheme uses a different indentation style
+&gt;than DrScheme, but I'm taking this as evidence for it.
+
+I don't think that's a different indentation style; it just tells
+Emacs that, for example, &quot;fluid-let&quot; should be indented like &quot;let&quot;.
+(This isn't done by default, as fluid-let isn't a standard Scheme
+primitive.)
+
+I've sometimes thought of writing a similar capability to support
+MzScheme's specially indented syntactic forms (there aren't very
+many), but never got around to doing it...
+
+I think there is a reasonable consensus on how to indent Scheme code,
+so multiple indentation styles aren't nearly as necessary as they are
+in, say, C code or HTML source.
+
+However, it would sometimes be useful to have user-customisable
+indentation. For example, if I define a macro that's a variation of
+let, I'd like to be able to tell the editor to indent it as a let.
+(This shouldn't be too difficult to do in Emacs: just use the above
+`put' statement in, e.g., local variables. But it could be more
+convenient.)
+
+&gt;*********** feature request 3: template capability *********** 
+..
+&gt;In Emacs this is no challenge:
+
+Note that there is also a facility for &quot;tabbing through&quot; the holes in
+the template: see expand.el distributed with Emacs for a few examples
+(in Lisp and C; see `expand-jump-to-next-slot'). This uses both
+Emacs's skeletons (a relatively simple way to define templates) and
+some of its own code.
+
+&gt;If we can get this capability into the Scheme part of DrScheme, then I
+&gt;can use it for Latex files, to get things like:
+&gt;
+&gt;   \begin{Theorem}
+&gt;   \label{}
+&gt;
+&gt;   \end{Theorem}
+
+You probably know this already, but: Templates for most of the
+standard environments are present in AUC TeX. If you have that, try
+C-c C-s or C-c C-e in TeX mode. For example, the figure environment
+asks for things like centering and captions.
+
+
+Well, enough Emacs specifics. I've been reading this thread for a
+while, and I'm not sure if you realise how big a project
+reimplementing Emacs is. There are an awful lot of features in
+standard Emacs (not to speak of additional elisp packages, some of
+which are quite large - e.g., AUC TeX, PSGML, Gnus), and quite a lot
+of effort has been spent implementing them. Just a few examples of
+features that I use regularly: M-x hippie-expand, C-/, C-M-f (and
+friends), C-M-t, M-c (and friends), ispell (and M-x
+ispell-complete-word or M-Tab in many modes), the TAGS system,
+regexp-replace, keyboard macros, and, of course, the major modes for
+about a dozen languages.
+
+Quite a lot of people have tried to write a new Emacs in various
+languages (e.g., MIT Scheme has Edwin, and there was a project to
+write an Emacs in Haskell), but none of them have really caught on. To
+get as featureful as Emacs, you'd probably need dozens of people
+writing new features and modes...
+
+Of course, you can start small, and it's possible that you write a
+system that's good enough to attract lots of people into improving it.
+I guess I just wanted to say that you should probably think of this
+project as a large undertaking...
+
+(As for myself, I probably wouldn't use the new editor until it had
+support for at least Makefiles, TeX, C, Haskell, shell scripts, HTML
+and a few other languages, and lots of convenience features like
+expansion and spell-checking. And a text-mode interface: I'm writing
+this through a text-mode Emacs on a modem line where X11 forwarding
+isn't really practical. I like the idea of a Scheme-based Emacs -
+Emacs and especially Emacs Lisp isn't very pretty - but Emacs just has
+too many features that I'm used to for me to switch away from it...)
+
+-- 
+-=- Rjs -=- Riku.Saikkonen@hut.fi
+&quot;An autumn waned, a winter laid / the withered leaves in grove and glade; /
+the beeches bare were gaunt and grey, / and red their leaves beneath them lay.&quot;
+    -- J. R. R. Tolkien
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00988" href="msg00988.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00941" href="msg00941.html">DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00942" href="msg00942.html">DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00944" href="msg00944.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="00949" href="msg00949.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00951" href="msg00951.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+<li><strong><a name="00961" href="msg00961.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="00962" href="msg00962.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00964" href="msg00964.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00977" href="msg00977.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00984.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00986.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00980.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00988.html">Re: DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00985"><strong>Date</strong></a></li>
+<li><a href="threads.html#00985"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

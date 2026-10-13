@@ -1,0 +1,239 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Offtopic: How to Design Programming Tests -->
+<!--X-From-R13: @bry Iryfu <abryjryfuNlnubb.pbz> -->
+<!--X-Date: Fri, 2 Feb 2001 03:27:48 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010202102744.98494.qmail@web11207.mail.yahoo.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Offtopic: How to Design Programming Tests</title>
+<link rev="made" href="mailto:noelwelsh@yahoo.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00193.html">Date Prev</a>][<a href="msg00195.html">Date Next</a>][<a href="msg00186.html">Thread Prev</a>][<a href="msg00196.html">Thread Next</a>][<a href="maillist.html#00194">Date Index</a>][<a href="threads.html#00194">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Offtopic: How to Design Programming Tests</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Offtopic: How to Design Programming Tests</li>
+<li><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 2 Feb 2001 02:27:44 -0800 (PST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Thanks all for comments, serious and not so serious. 
+In no particular order:
+
+--------------------
+
+Brent, this one wasn't familiar:
+
+&gt; Describe how you might implement &quot;Parasitic&quot; methods
+in Java using
+&gt; a mechanism which compiles to valid Java bytecode
+capable of running
+&gt; on a compliant JVM.  Cite references.
+
+Does this refer to mix-ins?  I thought another good
+test would be to write Java bytecode that the verifier
+cannot verify and correct or incorrect (i.e. the
+Goedel statement for Java bytecode), but it then
+occurred to me that verification probably relies on
+Java's type system and Java's wimpy type system is
+decidable.
+
+Brent, I completely agree that programmer tests are
+bogus.  The reason we now have them is that quality of
+applicants is amazing low, and the quantity amazingly
+high (it's a symptom of the profession, and
+particularly contracting).  The test is quick way to
+separate the wheat from the chaff.  Asking them to
+send in their own programs is a good idea, but I can
+see two problems with it:
+
+1.  They might copy from a book/open-source code (this
+has happened when we let someone do a test at home -
+but they forgot to change a reference to page number
+in the original text so it gave them away!)
+
+2.  They might do all their coding at work, and hence
+not have any code they can show us.
+
+However, it is a good idea and I will suggest it.
+
+--------------------
+
+Michael Bogomolny suggested:
+
+&gt; compare the advantages and disadvantages of arrays
+versus linked lists.
+
+This is a good question.  My answer would be:
+
+- random access time O(1) vs O(n)
+- queue/stack operations O(n) vs O(1)
+- memory usage: array better
+
+Anything I missed?
+
+&gt; assume you have a(n unordered) set of numbers...
+
+Another good question, but I'm not sure there will be
+space is the test for another data structure question.
+
+--------------------
+
+RJA writes:
+
+&gt; What version of Java are you testing on and going to
+be using?
+
+I'm embarassed to say 1.1 at the moment.
+
+&gt; What is the relation between interfaces and classes
+
+Very good question.  I'll definitely include it.
+
+&gt; Also, if you're using Java 2 the collection classes
+there are
+&gt; probably more useful than a linked list
+
+Definitely, but I wanted to test their ability to
+write some code
+using a structure that everyone should be familiar
+with.
+
+&gt; You can also ask about another way of scaling
+servers, whether they
+&gt; are singe/multi threaded.
+
+And the answer is?  Multiple boxes with some load
+balancing hardware?
+(We just got some Alteon AD3s here - they're very
+nice.)
+
+&gt; What are the diffent types of synchronization you
+can do.
+
+Like barriers and read/write locks and such?  Good
+question.
+
+&gt; Would you sacrifice design for performance?
+
+Always!  The compiler should fix it up! (Hah!  I
+wish.)
+
+--------------------
+
+Matthias writes:
+
+&gt;  Q4.  Threads.  Code the producer/consumer. Give
+&gt;  reasons for (responsiveness, blocking IO) and
+against
+&gt;   threading (synchronisation overhead)
+
+&gt; hmph ... 
+
+I'm not sure why you're hmphing, but I will relate an
+experience we've
+recently had here.  We're trying to build a simple
+HTTP server which
+does socket keepalive (keep the TCP connection open
+till it times out,
+to avoid the handshake overhead).  In Java the only
+way to do this is
+to have a thread for each connection.  Under load the
+machine dies
+with too many threads open.  In C (at least in
+AOLserver :-) all the
+inactive connections are given to a single thread that
+periodically
+polls them for activity, and requeues any connections
+that have become
+active.  Now one can certainly have a much lighter
+thread
+implementation than Java's, but if you don't use the
+native OS
+threads, you won't get SMP.  There is a non-blocking
+IO add-on for
+Java, but most of the people here don't have the
+proper Unix grounding
+to use it.  Conclusion: threads aren't always good,
+and neither is
+blocking IO.
+
+&gt; good and why doesn't this suffice? why can a
+consumer not kill a
+&gt; run-away applet?
+
+Because they didn't write the JVM in Scheme, so the
+JVM can have
+memory leaks/resource allocation problems as well?
+
+Noel
+
+__________________________________________________
+Get personalized email addresses from Yahoo! Mail - only $35 
+a year!  <A  HREF="http://personal.mail.yahoo.com/">http://personal.mail.yahoo.com/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00196" href="msg00196.html">Re: Offtopic: How to Design Programming Tests</a></strong>
+<ul><li><em>From:</em> Robert John Andersen &lt;anderman@anderware.com&gt;</li></ul></li>
+<li><strong><a name="00257" href="msg00257.html">Re: Offtopic: How to Design Programming Tests</a></strong>
+<ul><li><em>From:</em> Reini Urban &lt;rurban@x-ray.at&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00193.html">Re: Databases &amp;/or binary data</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00195.html">Re: Databases &amp;/or binary data</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00186.html">RE: Offtopic: How to Design Programming Tests</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00196.html">Re: Offtopic: How to Design Programming Tests</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00194"><strong>Date</strong></a></li>
+<li><a href="threads.html#00194"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Document formatting in Scheme -->
+<!--X-From-R13: Yvevyy Zvfbifxl <yvfbifxlNnpz.bet> -->
+<!--X-Date: Sun, 28 Oct 2001 14:06:06 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.LNX.4.21.0110281635390.1185&#45;100000@elm -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87itd0q1st.fsf@lambda.cs.hut.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Document formatting in Scheme</title>
+<link rev="made" href="mailto:lisovsky@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01138.html">Date Prev</a>][<a href="msg01140.html">Date Next</a>][<a href="msg01134.html">Thread Prev</a>][<a href="msg01140.html">Thread Next</a>][<a href="maillist.html#01139">Date Index</a>][<a href="threads.html#01139">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Document formatting in Scheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Document formatting in Scheme</li>
+<li><em>From</em>: Kirill Lisovsky &lt;<A HREF="mailto:lisovsky@acm.org">lisovsky@acm.org</A>&gt;</li>
+<li><em>Date</em>: Sun, 28 Oct 2001 16:37:18 +0300 (MSK)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01134.html">87itd0q1st.fsf@lambda.cs.hut.fi</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello!
+
+On 27 Oct 2001, Riku Saikkonen wrote:
+
+&gt; I think you need both. I think TeX is a pretty good solution for the
+&gt; more low-level stuff (like tables or math formulas), but it still
+&gt; needs a more high-level interface for specifying structure that is
+&gt; specific to code. I think this is doable, because it's quite easy to
+&gt; create new abstractions for structural markup in (La)TeX - I create
+&gt; small ones in most of the LaTeX documents I write.
+&gt; 
+&gt; To produce good-quality output, it's not enough just to have a
+&gt; converter to TeX from something else: The source language also needs
+&gt; to have all the features of TeX - representations for all the
+&gt; thousands of mathematical symbols and typographical features (no-break
+&gt; space, different lengths of dashes, \@, hyphenation hints, etc.) and
+&gt; so forth. Otherwise the output quality isn't as good as it would be
+&gt; with a markup that uses a form of TeX as the source language.
+&gt;
+Well, I do agree that some typesetting language is necessary 
+and I agree that TeX is one of solutions possible. 
+But is it an appropriate solution for a system which is targeted to Web
+publishing rather than to paper documentation? 
+And I do not like an idea of embedding all this low-level markup in Scheme sources.  
+
+&gt; thousands of mathematical symbols and typographical features (no-break
+&gt; space, different lengths of dashes, \@, hyphenation hints, etc.) and
+in a program source code will make it difficult to understand. 
+
+For a classical (WEB) literate programming style three different languages 
+have to be used in a source document: programming language, typesetting language,
+and a glue. 
+
+IMHO, it is better to use a programming language and minimal structural
+markup in source code, and describe layout in external stylesheets
+or elucidative documents (in Kurt Noermark's style, for example)
+using some typesetting/presentational markup language.
+
+And I think that (La)TeX has great potential for such a purpose.
+
+Just an example:
+Christian Queinnec's l2t 
+<A  HREF="http://youpou.lip6.fr/queinnec/WWW/l2t.html">http://youpou.lip6.fr/queinnec/WWW/l2t.html</A>
+may be integrated with (S)XML using SXMLP package 
+<A  HREF="http://pair.com/lisovsky/sxml/sxmlp/">http://pair.com/lisovsky/sxml/sxmlp/</A>
+(if you have a recent l2t distribution - it is already included).
+
+This makes it possible to insert some parts of XML document
+in LaTeX document. In particular, it is possible to incorporate 
+some parts of XML representation of a Scheme program into elucidative 
+TeX document.
+
+Of course, this is just a one of approaches possible...
+
+Best regards,
+       Kirill.
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01140" href="msg01140.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> Riku.Saikkonen@hut.fi (Riku Saikkonen)</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01134" href="msg01134.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> Riku.Saikkonen@hut.fi (Riku Saikkonen)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01138.html">Re: Memory usage</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01140.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01134.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01140.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01139"><strong>Date</strong></a></li>
+<li><a href="threads.html#01139"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

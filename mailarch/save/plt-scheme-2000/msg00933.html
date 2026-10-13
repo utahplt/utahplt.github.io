@@ -1,0 +1,191 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: RE: 3D -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Fri, 29 Sep 2000 13:11:17 &#45;0600 (MDT) -->
+<!--X-Message-Id: E4C0D8267DAA6141B77F1A4EAAEB2B912AF528@seapriv1 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>RE: 3D</TITLE>
+<LINK REV="made" HREF="mailto:GregP@bsquare.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00932.html">Date Prev</A>][<A HREF="msg00934.html">Date Next</A>][<A HREF="msg00930.html">Thread Prev</A>][<A HREF="msg00934.html">Thread Next</A>][<A HREF="maillist.html#00933">Date Index</A>][<A HREF="threads.html#00933">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>RE: 3D</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: RE: 3D</LI>
+<LI><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 29 Sep 2000 12:10:39 -0700</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Well, it appears that there is lots of interest in writing a binding for a
+3d library such as OpenGL.
+
+About a year ago, I discovered OpenGL for the very first time while perusing
+the web. At about the same time,
+I was being encouraged at work to learn C/C++ (rather than Scheme) so in my
+free time I wrote a little binding 
+for one of the OpenGL samples from "The Red Book". Shriram got wind of it (I
+told him about it, I was excited :)
+and he convinced me to try to write a full blown OpenGL binding for
+MzScheme. Later on he hooked me up with a guy
+in france, Jean Francois Trevian "Jeff", and together we came up with some
+stuff. To be honest, Jeff was much further
+along than I was. Here's a descriptions of what we had going:
+
+I was using GLUT. This meant that I had to use a little hack (thanks to
+Matthew Flatt) to make it so that I could run Scheme threads while glut did
+it's thing.
+
+Pretty much, your Scheme program looked like normal Scheme program, but with
+OpenGL primitives. Unfortunately, you the actual rendering was done in a
+GLUT window, and when you killed the GLUT window, everything else closed too
+including your Scheme prompt. 
+
+Jeff was using a different Windowing system, which means he didn't have the
+"glut hack" that I did, but in the Scheme, he was passing an extra "OpenGL
+context variable" to each of the functions.
+
+Last I recall, I was attempting to embedd MzScheme inside a GLUT app. This
+would mean exposing all the GLUT windowing/menu/UI garbage as primitives
+inside  MzScheme.
+
+That was about 6 months ago, and I haven't looked at it since. A few days
+ago, Matthew still had me down for writing the binding.
+
+Here are my present thoughts:
+
+1. If there are enough people interested, and I can rope ya into helping, I
+think we could write a fairly decent OpenGL binding in not too much time. Or
+perhaps there is a better alternative to OpenGL. So now's your chance to
+volunteer/provide input.
+
+2. This is what I would like to see for a 3D library: A window class that
+you could instantiate to put a 3D window inside of a MrEd container window.
+Attached to that window would be a rendering-context object. The OpenGL
+commands, would then be the methods of the rendering-context object.
+
+Some dead ends and other obstacles that I encountered that would have to be
+overcome:
+
+1. A windowing system. As it stands, GLUT is OK, but doesn't play nice with
+MzScheme in the following way: GLUT wants to own the window and provide it's
+own windowing system. What I was trying last was to embed MzScheme into a
+GLUT app. This is not in-line with "thought number 2" above. It also means
+that we would have to write new primitives for all the GLUT
+windowing/menu/UI garbage(that was about where I gave up). Why do all that
+when MrEd already has a pretty nice windowing system? What more, GLUT's
+windowing system follows the same "state machine" paradigm that OpenGL does,
+which doesn't mix with a functional programming style. The nice thing about
+GLUT is that it already works on multiple platforms. If we wanted to use
+another windowing system, then there might be some work in getting it going
+on more than one platform. One thing comes to mind --- GLUT is open source,
+so we might be able to simply steal the bits we like from the GLUT source
+and use that.
+
+2. As mentioned before, OpenGL is a state machine. This means that you would
+have to compromise some of your functional programming style to work with
+it. Worthy of note, the ODBC stuff is a state machine too, and last I heard
+folks were building some higher level abstractions on top of it to make it
+more Scheme friendly. I don't see any reason why we couldn't do the same
+with OpenGL.
+
+Some designn ideas:
+
+1. A primitive OpenGL window class. This could be instantiated and resulting
+OpenGL windows could be contained in MrEd containers.
+
+2. A primitive rendering-context class. Objects of this class would be
+attached to OpenGL windows. The OpenGL functions would be methods of the
+rendering-context object.
+
+3. Primitive classes for, vertex-arrays, display-lists, bitmaps, textures et
+al.
+
+How to proceed:
+1. I think first it would be good to get a working prototype and use this as
+a starting point to lay out an overall framework.
+2. Once we have the framework laid out, then we can divide it into pieces
+and flesh the thing out.
+
+As requirements for a "working prototype" may I suggest the following:
+1. Should be able to run the following MrEd program (or equivalent):
+	(define my-frame (make-object frame% "foo" #f 300 300))
+	(define my-3d-canvas (make-object 3d-canvas% my-frame '()))
+	(define my-3d-context (send my-3d-canvas get-3d-context))
+	(send my-3d-context draw-triangle)
+	(send my-frame show #t)
+
+2. Should work on multiple platforms.
+
+This is a rather modest starting point, and is intended to be. My hope is to
+attract some other contributors, resolve the basic windowing issues, design
+a framework and then proceed from there.
+
+Any takers.
+
+:-)
+
+Cheers.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00934" HREF="msg00934.html">Re: 3D</A></STRONG>
+<UL><LI><EM>From:</EM> "Jonathan Coupe" &lt;jonathan@meanwhile.freeserve.co.uk&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00932.html">Re:3D</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00934.html">Re: 3D</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00930.html">Re: Regexp arcana</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00934.html">Re: 3D</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00933"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00933"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

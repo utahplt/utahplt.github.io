@@ -1,0 +1,153 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Development/Production versions (was RE: CVS) -->
+<!--X-From-R13: "Quevfgbcure P. Pebjar" <puevf.oebjarNfnoer.pbz> -->
+<!--X-Date: Fri, 18 Feb 2000 17:25:26 &#45;0700 (MST) -->
+<!--X-Message-Id: 38ADE1D1.F36DCE9@sabre.com -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Reference: 20000217201300.6891.qmail@web903.mail.yahoo.com -->
+<!--X-Reference: 200002180053.QAA10538@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Development/Production versions (was RE: CVS)</title>
+<link rev="made" href="mailto:chris.browne@sabre.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00101.html">Date Prev</a>][<a href="msg00103.html">Date Next</a>][<a href="msg00108.html">Thread Prev</a>][<a href="msg00103.html">Thread Next</a>][<a href="maillist.html#00102">Date Index</a>][<a href="threads.html#00102">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Development/Production versions (was RE: CVS)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></li>
+<li><em>Subject</em>: Re: Development/Production versions (was RE: CVS)</li>
+<li><em>From</em>: &quot;Christopher B. Browne&quot; &lt;<A HREF="mailto:chris.browne@sabre.com">chris.browne@sabre.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 18 Feb 2000 18:20:33 -0600</li>
+<li><em>CC</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: The SABRE Group</li>
+<li><em>References</em>: &lt;<a href="msg00082.html">20000217201300.6891.qmail@web903.mail.yahoo.com</a>&gt; &lt;<a href="msg00092.html">200002180053.QAA10538@balu.qualcomm.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Leo Razoumov wrote:
+&gt; &gt;&gt;&gt;&gt;&gt; &quot;SK&quot; == Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt; writes:
+&gt;     SK&gt; As I recall, Swig provides Guile bindings.  How about creating one for
+&gt;     SK&gt; MzScheme?  Takers?  Swig fans?  (I believe there's a major revamping
+&gt;     SK&gt; of Swig in progress, so this would be a good time to get involved.)
+&gt; 
+&gt;     SK&gt; 'shriram
+&gt; 
+&gt; How about having the wrapper generating engine written in Scheme? After all
+&gt; don't we believe that Scheme is the best language of all:-)
+
+There's a &quot;g-wrap&quot; system where you describe the bindings between C and
+Scheme in Scheme form.  This is extensively used with GnuCash to attach
+Scheme bindings to C functions and vice-versa to allow scripting in
+Guile.  g-wrap also supports RScheme, which I *think* has something to
+do with Rice?
+
+&lt;<A  HREF="http://www.cs.cmu.edu/~chrislee/Software/g-wrap/">http://www.cs.cmu.edu/~chrislee/Software/g-wrap/</A>&gt; is the home of
+g-wrap.
+
+Note that a slick part of g-wrap is that it generates HTML documentation
+as output; if you define some functions thus:
+(new-function
+ 'gnc:get-num-accounts
+ 'int &quot;xaccGetNumAccounts&quot; '((AccountGroup* g))
+ &quot;Return the number of accounts, including subaccounts, in the account
+group&quot;)
+
+(new-function
+ 'gnc:group-get-num-accounts
+ 'int &quot;xaccGroupGetNumAccounts&quot; '((AccountGroup* g))
+ &quot;Return the number of accounts in the indicated group only
+(children not counted).&quot;)
+
+(new-function
+ 'gnc:group-get-account
+ 'Account* &quot;xaccGroupGetAccount&quot; '((AccountGroup* g) (int n))
+ &quot;Return account number n in account group g.&quot;)
+
+g-wrap will generate a web page with the names of the functions and
+arguments.
+-- 
+&quot;One World. One Web. One Program.&quot;   -- MICROS~1 hype
+&quot;Ein Volk, ein Reich, ein Fuehrer&quot;   -- Nazi hype
+(One people, one country, one leader)
+chris.browne@sabre.com</PRE>
+<PRE>
+begin:vcard 
+n:Browne;Christopher
+tel;work:817-963-5621
+x-mozilla-html:FALSE
+url:<A  HREF="http://www.hex.net/~cbbrowne/">http://www.hex.net/~cbbrowne/</A>
+org:Sabre Inc;SHARP Project 
+version:2.1
+email;internet:chris.browne@sabre.com
+title:Consultant II
+adr;quoted-printable:;;4333 Amon Carter Blvd=0D=0AMD 3N2D41;DFW Airport;TX;75261-9616;USA
+x-mozilla-cpt:;0
+fn:Christopher Browne
+end:vcard
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00103" href="msg00103.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00082" href="msg00082.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> see signature &lt;slonika@yahoo.com&gt;</li></ul></li>
+<li><strong><a name="00092" href="msg00092.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+<ul><li><em>From:</em> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00101.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00103.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00108.html">Re: FFI (was Re: Development/Production versions (was RE: CVS))</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00103.html">Re: Development/Production versions (was RE: CVS)</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00102"><strong>Date</strong></a></li>
+<li><a href="threads.html#00102"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

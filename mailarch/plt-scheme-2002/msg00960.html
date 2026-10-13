@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] The same macro problem -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Thu, 23 May 2002 12:13:56 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15597.12641.422275.357806@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] The same macro problem</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00959.html">Date Prev</a>][<a href="msg00961.html">Date Next</a>][<a href="msg00996.html">Thread Prev</a>][<a href="msg00963.html">Thread Next</a>][<a href="maillist.html#00960">Date Index</a>][<a href="threads.html#00960">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] The same macro problem</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: [plt-scheme] The same macro problem</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Thu, 23 May 2002 14:13:53 -0400</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Since there was no reply to the last message I sent, I tried some
+stuff myself.  Again, I think that a general separation between the
+syntax-processing environment and the normal one is generally a good
+thing, and as far as writing &quot;standalone&quot; applications (ones with no
+dynamic evaluation), nothing more is ever needed.  However, when
+playing with some interactive environment on top of Scheme, it might
+be necessary to share information between the two environments.  One
+example is the many macros in my Swindle thing, some do exactly that.
+
+I have tried things like evaluating user code in the syntax
+environment which didn't work since it seems like the syntax
+environment is not just a different namespace (I tried digging through
+the C source but got nowhere):
+
+  Welcome to MzScheme version 200alpha19, Copyright (c) 1995-2002 PLT
+  &gt; (define-syntax (foo stx)
+      (syntax-case stx ()
+        ((_ var val) (with-syntax ((exp (syntax (define var val))))
+                       (eval (syntax exp))
+                       (syntax exp)))))
+  &gt; (foo x 1)
+  &gt; x
+  1
+  &gt; (define-syntax (bar stx) (printf &quot;&gt;&gt;&gt; %s\n&quot; x) (syntax 1))
+  &gt; (bar)
+  reference to undefined identifier: x
+
+I also tried a module -- baring in mind the other problem of not being
+able to create temporary small modules for such things, but it still
+doesn't work since the module will generate a new value for each layer
+making it impossible to share dynamic information:
+
+  Welcome to MzScheme version 200alpha19, Copyright (c) 1995-2002 PLT
+  &gt; (module a mzscheme (define aa (make-parameter 123)) (provide aa))
+  &gt; (require a)
+  &gt; (require-for-syntax a)
+  &gt; (define-syntax (foo stx) (aa 999) (syntax 1))
+  &gt; (foo)
+  1
+  &gt; (define-syntax (bar stx) (printf &quot;&gt;&gt;&gt; ~s\n&quot; (aa)) (syntax 1))
+  &gt; (bar)
+  &gt;&gt;&gt; 999
+  1
+  &gt; (aa)
+  123
+
+I believe that this is a serious problem since it eliminates some of
+the dynamic aspects of the language, which, IMO, is the greatest thing
+about Scheme.  Sorry sounding like ranting, I would love to suggest a
+solution if I could get something to work...
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00963" href="msg00963.html">Re: [plt-scheme] The same macro problem</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00959.html">Re: [plt-scheme] Binary file access</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00961.html">Re: [plt-scheme] 200alpha19</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00996.html">Re: [plt-scheme] Binary file access</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00963.html">Re: [plt-scheme] The same macro problem</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00960"><strong>Date</strong></a></li>
+<li><a href="threads.html#00960"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

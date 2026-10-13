@@ -1,0 +1,118 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Compilation of C with mzc -->
+<!--X-From-R13: Xreml Ynepmznepmhx <xnepmznNvasb.havpnra.se> -->
+<!--X-Date: Mon, 26 Mar 2001 03:55:07 &#45;0700 (MST) -->
+<!--X-Message-Id: 3ABF2DB6.CDED23E9@info.unicaen.fr -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200103240406.f2O46sr02849@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Compilation of C with mzc</title>
+<link rev="made" href="mailto:karczma@info.unicaen.fr">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00407.html">Date Prev</a>][<a href="msg00409.html">Date Next</a>][<a href="msg00406.html">Thread Prev</a>][<a href="msg00409.html">Thread Next</a>][<a href="maillist.html#00408">Date Index</a>][<a href="threads.html#00408">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Compilation of C with mzc</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>Subject</em>: Compilation of C with mzc</li>
+<li><em>From</em>: Jerzy Karczmarczuk &lt;<A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>&gt;</li>
+<li><em>Date</em>: Mon, 26 Mar 2001 12:53:26 +0100</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Organization</em>: University of Caen, France</li>
+<li><em>References</em>: &lt;<a href="msg00406.html">200103240406.f2O46sr02849@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Sorry for bothering you with a - probably - trivial question,
+but I cannot test immediately the stuff myself. My students try
+to add some extensions to DrScheme using mzc which calls Cygwin.
+
+Already the included 'fmod' example fails. They say:
+
+mzc --ld fmod.dll fmod.obj
+
+obviously fails, because the loader needs the math library. So:
+
+mzc -- ld fmod.dll fmod.obj -lm
+
+and then - possibly because of the fact that under cygwin libm.a
+is a shortcut to the big libcygwin.a, the loader finds inside the
+entry for dll_entry (or something like that), and since THEN it
+loads init.o, it reports multiple definitions.
+
+They added the loaded init.o by hand, but the &quot;standard one&quot; is
+loaded again. Same problem. Probably this is possible to repair
+manually, but the question is: where can they find the information
+about the extension compilation flags for mzc, and how to change
+the defaults? What modules are loaded in which order, etc. For the 
+moment we don't have the sources of PLT.
+
+Thank you.
+
+Jerzy Karczmarczuk
+Caen, France
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00409" href="msg00409.html">Re: Compilation of C with mzc</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00406" href="msg00406.html">199.6</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00407.html">.</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00409.html">Re: Compilation of C with mzc</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00406.html">199.6</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00409.html">Re: Compilation of C with mzc</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00408"><strong>Date</strong></a></li>
+<li><a href="threads.html#00408"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: GNU and MzScheme's Internal design -->
+<!--X-From-R13: "Xv&#45;Kbat R. Quhat" <iveghnyploreNrebyf.pbz> -->
+<!--X-Date: Sun, 18 Feb 2001 09:09:26 &#45;0700 (MST) -->
+<!--X-Message-Id: 00d601c099c5$66940e80$0100007f@cradle -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.21.0102160401001.28449&#45;100000@info.numeric&#45;quest.com -->
+<!--X-Reference: 006401c09856$aeb76d80$5d0c1cac@redmond.corp.microsoft.com -->
+<!--X-Reference: 000d01c0986d$cd9a69c0$0100007f@cradle -->
+<!--X-Reference: 200102170049.TAA05420@bosch.cs.brown.edu -->
+<!--X-Reference: 004b01c0991a$4e039170$0100007f@cradle -->
+<!--X-Reference: 200102180451.XAA13072@bosch.cs.brown.edu -->
+<!--X-Reference: 001c01c09991$8be87970$0100007f@cradle -->
+<!--X-Reference: 20010218101937.0765B5E0EA@sith.bbb.caltech.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: GNU and MzScheme's Internal design</title>
+<link rev="made" href="mailto:virtualcyber@erols.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00308.html">Date Prev</a>][<a href="msg00310.html">Date Next</a>][<a href="msg00308.html">Thread Prev</a>][<a href="msg00311.html">Thread Next</a>][<a href="maillist.html#00309">Date Index</a>][<a href="threads.html#00309">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: GNU and MzScheme's Internal design</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: GNU and MzScheme's Internal design</li>
+<li><em>From</em>: &quot;Ji-Yong D. Chung&quot; &lt;<A HREF="mailto:virtualcyber@erols.com">virtualcyber@erols.com</A>&gt;</li>
+<li><em>Date</em>: Sun, 18 Feb 2001 11:11:06 -0500</li>
+<li><em>References</em>: &lt;<a href="msg00280.html">Pine.LNX.4.21.0102160401001.28449-100000@info.numeric-quest.com</a>&gt;&lt;<a href="msg00285.html">006401c09856$aeb76d80$5d0c1cac@redmond.corp.microsoft.com</a>&gt;&lt;<a href="msg00287.html">000d01c0986d$cd9a69c0$0100007f@cradle</a>&gt;&lt;<a href="msg00288.html">200102170049.TAA05420@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg00293.html">004b01c0991a$4e039170$0100007f@cradle</a>&gt; &lt;<a href="msg00302.html">200102180451.XAA13072@bosch.cs.brown.edu</a>&gt; &lt;<a href="msg00304.html">001c01c09991$8be87970$0100007f@cradle</a>&gt; &lt;<a href="msg00305.html">20010218101937.0765B5E0EA@sith.bbb.caltech.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi, you wrote:
+
+&gt; PLT software uses the LGPL, which is considerably less restrictive than
+the
+&gt; GPL.  Among other things, it doesn't prevent you from building a
+commercial
+&gt; closed-source application which uses the LGPL'd code.  Therefore, I'm not
+&gt; sure what you mean by &quot;taking a chance&quot;.  Could you clarify?
+
+    I hope you excuse me if I am not well too well informed.  As I
+understand it LGPL says in essence when you can modularize
+(separete your program from others) you can disclaim it as
+part of being your integral product, so that GNU licensing
+scheme does not apply.  So, that generally comes to mean
+dll's or dynamic shared libraries (or .binaries).
+
+    From what I understand if one wantsbuild a static version of your stuff,
+then you end up having to open source your code -- the problem
+here of course is that you may want to include other commercial
+software of library that may link into your system (even if you
+could GPL your code) which is not GPLed.
+
+&gt; &gt;
+&gt; &gt; (2) insufficient number of easily accessible
+&gt; &gt; documentation of its internal designs and ideas
+&gt; &gt; (I am not putting MzScheme down, as this is
+&gt; &gt; standard practice with most open source libs)
+&gt; &gt;
+&gt; &gt;     When one incorporates other people's library,
+&gt; &gt; unless that library is well understood, the borrower
+&gt; &gt; ends up treating that library like a plutonium, because one cannot
+&gt; &gt; modify the borrowed source code with confidence,
+&gt; &gt; for the fear of introducing new bugs and problems.
+&gt; &gt;
+&gt; Quite true, but I assume you've seen &quot;Inside PLT Mzscheme&quot; at
+&gt;
+&gt; <A  HREF="http://www.cs.rice.edu/CS/PLT/packages/doc/insidemz/index.htm">http://www.cs.rice.edu/CS/PLT/packages/doc/insidemz/index.htm</A>
+
+    That is the first thing I looked at -- what I meant by a design
+documentation is not that.
+
+    By the way, my above comments were generally directed at that class
+of libraries which are to become &quot;integral part&quot; of one's system
+that are being developed.  Obviously, different situations
+require different requirements for library being incorporated.
+
+&gt; I'm personally extremely impressed with the quality of the PLT
+documentation.
+
+    PLT scheme has extremely GOOD set of documentation --
+it is just that when I am is trying to incorporate
+someone else's code into the system being
+developed, I'd like to understand it thoroughly before I
+use it.
+
+    This situation probably does not happen often with MzScheme
+type of system.  Generally speaking, who would want to remove
+REPL loop, modify the internals and do other strange
+things to MzScheme and run recompiled version of it?
+
+&gt; Well, good luck :-)  Brent Fulgham is building a version of AOLServer that
+&gt; uses mzscheme as a scripting language, so you might want to ask him what
+&gt; the status of that is.
+
+    Thanks.  I will probably need to go and read his past emails first...
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00280" href="msg00280.html">Re: Just for your fun and horror</a></strong>
+<ul><li><em>From:</em> Jan Skibinski &lt;jans@numeric-quest.com&gt;</li></ul></li>
+<li><strong><a name="00285" href="msg00285.html">Re: Just for your fun and horror</a></strong>
+<ul><li><em>From:</em> &quot;Erik Meijer&quot; &lt;erik@meijcrosoft.com&gt;</li></ul></li>
+<li><strong><a name="00287" href="msg00287.html">MzScheme and SML</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00288" href="msg00288.html">MzScheme and SML</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00293" href="msg00293.html">Re: MzScheme and SML</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00302" href="msg00302.html">Re: MzScheme and SML</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00304" href="msg00304.html">GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00305" href="msg00305.html">Re: GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> Michael Vanier &lt;mvanier@bbb.caltech.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00308.html">Re: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00310.html">GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00308.html">Re: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00311.html">Re: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00309"><strong>Date</strong></a></li>
+<li><a href="threads.html#00309"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

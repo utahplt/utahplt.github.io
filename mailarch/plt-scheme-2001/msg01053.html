@@ -1,0 +1,322 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: functional programming is great, but why lists? -->
+<!--X-From-R13: Pvyy Dvpugre <evpugreNzngu.abegujrfgrea.rqh> -->
+<!--X-Date: Sat, 13 Oct 2001 22:48:21 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110140447.f9E4lmJ12686@poincare.math.northwestern.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200110102329.f9ANTnH19850@wrath.cs.utah.edu -->
+<!--X-Reference: 200110110342.WAA00959@banach.math.nwu.edu -->
+<!--X-Reference: 200110111325.f9BDPJw28502@sualocin.ccs.neu.edu -->
+<!--X-Reference: 200110120129.UAA00361@banach.math.nwu.edu -->
+<!--X-Reference: 20011012042559.A27541@cs.utexas.edu -->
+<!--X-Reference: 200110130316.f9D3GIa10701@poincare.math.northwestern.edu -->
+<!--X-Reference: 200110130336.XAA26341@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: functional programming is great, but why lists?</title>
+<link rev="made" href="mailto:richter@math.northwestern.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01052.html">Date Prev</a>][<a href="msg01054.html">Date Next</a>][<a href="msg01052.html">Thread Prev</a>][<a href="msg01054.html">Thread Next</a>][<a href="maillist.html#01053">Date Index</a>][<a href="threads.html#01053">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: functional programming is great, but why lists?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: functional programming is great, but why lists?</li>
+<li><em>From</em>: Bill Richter &lt;<A HREF="mailto:richter@math.northwestern.edu">richter@math.northwestern.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 13 Oct 2001 23:47:48 -0500</li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01052.html">200110130336.XAA26341@bosch.cs.brown.edu</a>&gt; (message from ShriramKrishnamurthi on Fri, 12 Oct 2001 23:36:04 -0400 (EDT))</li>
+<li><em>References</em>: &lt;<a href="msg01024.html">200110102329.f9ANTnH19850@wrath.cs.utah.edu</a>&gt;&lt;<a href="msg01025.html">200110110342.WAA00959@banach.math.nwu.edu</a>&gt;&lt;<a href="msg01028.html">200110111325.f9BDPJw28502@sualocin.ccs.neu.edu</a>&gt;&lt;<a href="msg01037.html">200110120129.UAA00361@banach.math.nwu.edu</a>&gt;&lt;<a href="msg01046.html">20011012042559.A27541@cs.utexas.edu</a>&gt;&lt;<a href="msg01051.html">200110130316.f9D3GIa10701@poincare.math.northwestern.edu</a>&gt; &lt;<a href="msg01052.html">200110130336.XAA26341@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   &gt; My real question was why use such a rigid data structure as `cons',
+   &gt; rather than a more flexible vector type of data structure.
+   
+   Fair enough.  If I understand what you're saying, then my response is
+   that we want both vectors and lists.  We don't want either one to take
+   the place of the other.  
+
+Shriram, again I mangled my point.  I don't mean the vectors that are
+already in Scheme.  The Scheme vectors are hard to use in a functional
+programming course because there's too much vector-set!, and not
+enough ways to form new vectors, nothing like append or cons to make
+larger vectors from smaller ones.
+
+   The former is essentially a random-access collection of fixed size,
+   while the latter is a sequential-access collection of arbitrary size.
+   Those are two different things, and you (Bill) can probably give me
+   some clever algebraic terminology that captures that difference.
+
+Hmm, I was trying to make a joke at my own expense, that the `algebra'
+of algebraic topology is mostly linear algebra.  The topology is
+mostly just some strange constructions, like &quot;smash product&quot;, which
+curiously enough comes up in Matthias's Extensible DS paper (although
+he uses the wrong symbol $\otimes$ instead of $\wedge$, and the
+obvious topology you'd put on his smash product wouldn't be right, not
+that he needs a topology).
+
+Thanks for mentionin HTDP's &quot;section entitled Generative Recursion,&quot;
+it looks pretty good.  Hey I'll finally understand sorting!
+
+
+Let me just try one more time to explain.  I was often flummoxed by
+exercises and solutions in TLS/TSS, but I think I came up with a
+function (by using the TLS/TSS technique) that removes my confusion.
+
+It's an extra vector-like functionality that I was always missing with
+lists.  But we can add this functionality in with a simple function:
+
+   (define (function-act-on-list f n list)
+     ;; we're assuming a list of length m and a function 
+     ;; f: {1,...,n} ---&gt; {1,...,m}
+     ;; and we return a new list which is the composition 
+     ;; {1,...,n} -f--&gt; {1,...,m} -list--&gt; Values
+     ;; i.e. the list whose i'th element is l_{(f i)}
+     (if (= n 0)
+	 '()
+	 (cons (pick (f 1) list)
+	       (function-act-on-list (lambda (i) (f (add1 i)))
+				     (sub1 n) list))))
+
+I'd even write this as f^* list, pull the list `list' back along the
+function `f'.  This uses the TLS/TSS function `pick':
+
+   (define (pick n lat)
+     (if (= n 1)
+	 (car lat)
+	 (pick (- n 1) (cdr lat))))
+
+And now I can easily solve a problem that I would not have known how
+to do if presented in TSS: How can we cyclically permute a list?
+That is, replace (l_1 l_2 ... l_n) with either 
+(l_n l_1 ... l_{n-1}),     which is forwards to me
+or
+(l_2 ... l_n l_1),	   which is backwards to me.
+
+The backwards one is tractable, because it's 
+
+(append (cdr list) (car list))
+
+and I can see how to write the solution out in TSS form:
+
+   (define (cyclic lat)
+     (if (null? lat)
+	 '()
+     (union (cdr lat) (cons (car lat) '()))))
+
+   (define (union lat extra)
+     (if (null? lat)
+	 extra
+	 (cons (car lat) (union (cdr lat) extra))))
+
+But the forward cyclic permutation flummoxes me.  Maybe I'd come up
+with a slick solution if I thought about it for a long time, but it's
+trivial with my 5-line function above `function-act-on-list':
+
+
+   (define (cyclic-permute-backward n)
+     (lambda (i) 
+       (if (= i 1)
+	   n
+	   (sub1 i))))
+
+   (define (cyclic-permute-forward n)
+     (lambda (i) 
+       (if (&lt; i n)
+	   (add1 i)
+	   1)))
+
+
+   (function-act-on-list (cyclic-permute-backward 6) 6
+			 '(a b c d e f))
+
+   (function-act-on-list (cyclic-permute-forward 6) 6
+			 '(a b c d e f))
+
+and they work:
+
+(f a b c d e)
+(b c d e f a)
+
+And I'll just beat the point into the ground by re-doing `scramble':
+
+   (define (scramble-br lat rev-pre)
+     (cons (pick (car lat) rev-pre)
+	   (if (null? (cdr lat))
+	       '()
+	       (scramble-br (cdr lat)
+			    (cons (cadr lat) rev-pre)))))
+
+   (define (scrambler lat)
+     (if (null? lat)
+	 '()
+	 (scramble-br lat (cons (car lat) '()))))
+
+That's pretty much the TSS solution.  I still say it's very nice!
+Here's my trivial solution:
+
+   (define (scramble-barbaz lat)
+     (let ((g (lambda (n)
+		 (add1 (- n (pick n lat))))))
+       (function-act-on-list g (length lat) lat)))
+
+
+   (scrambler       '(1 2 3 4 5 6 7 8 9))
+   (scramble-barbaz '(1 2 3 4 5 6 7 8 9))
+
+   (scrambler       '(1 2 3 1 2 3 4 1 8 2 10))
+   (scramble-barbaz '(1 2 3 1 2 3 4 1 8 2 10))
+
+   (scrambler       '(1 1 1 3 4 2 1 1 9 2))
+   (scramble-barbaz '(1 1 1 3 4 2 1 1 9 2))
+
+
+And we can see actually works:
+
+(1 1 1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1 1 1)
+(1 1 1 1 1 1 1 1 2 8 2)
+(1 1 1 1 1 1 1 1 2 8 2)
+(1 1 1 1 1 4 1 1 1 9)
+(1 1 1 1 1 4 1 1 1 9)
+
+I really like the permutation capability:
+
+   (define (sigma123 n)
+     (cond ((= n 1) 2)
+	   ((= n 2) 3)
+	   ((= n 3) 1)))
+
+   (define (sigma231 n)
+     (cond ((= n 1) 3)
+	   ((= n 2) 1)
+	   ((= n 3) 2)))
+
+
+   (function-act-on-list sigma123 3 '(a b c))
+   (function-act-on-list sigma231 3 '(a b c))
+
+   (define (2switch n)
+     (cond ((= n 1) 2)
+	   ((= n 2) 1)
+	   ((= n 3) 4)
+	   ((= n 4) 5)
+	   ((= n 5) 3)))
+
+   (function-act-on-list 2switch 5
+			 '(a b c d e))
+
+(b c a)
+(c a b)
+(b a d e c)
+
+
+So what's the moral?  The TSS technique for writing recursive
+functional programs (the various commandments, like `Cons onto the
+natural recursion', which I used) is quite nice, and I'm glad I
+learned it, but somehow I knew too much Linear Alg to be able to use
+it on the problems presented.  
+
+Oh, and one more &quot;functoriality&quot; demanded by Linear Algebraists is the
+union procedure of TLS, another TLS exam I flunked, but is trivial in
+this function framework:
+
+   (define (make-function-into-lat f n)
+     (if (= n 0)
+	 '()
+	 (cons (f 1) 
+	       (make-function-into-lat 
+		(lambda (n) (f (add1 n))) (sub1 n)))))
+
+   (define (union L M)
+     (make-function-into-lat
+      (lambda (n)
+	(if (&lt;= n (length L))
+	    (pick n L)
+	    (pick (- n (length L)) M)))
+      (+ (length L) (length M))))
+
+   (union '(a b c) '(1 2 3))
+
+   =&gt; (a b c 1 2 3)
+
+So maybe the real moral is that if you have extra-mathematical
+hangups, you have to program them in, just like anything else!
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01054" href="msg01054.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01024" href="msg01024.html">199.25</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="01025" href="msg01025.html">functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01028" href="msg01028.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01037" href="msg01037.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.nwu.edu&gt;</li></ul></li>
+<li><strong><a name="01046" href="msg01046.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Michael Bogomolny &lt;bogo@cs.utexas.edu&gt;</li></ul></li>
+<li><strong><a name="01051" href="msg01051.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Bill Richter &lt;richter@math.northwestern.edu&gt;</li></ul></li>
+<li><strong><a name="01052" href="msg01052.html">Re: functional programming is great, but why lists?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01052.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01054.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01052.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01054.html">Re: functional programming is great, but why lists?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01053"><strong>Date</strong></a></li>
+<li><a href="threads.html#01053"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

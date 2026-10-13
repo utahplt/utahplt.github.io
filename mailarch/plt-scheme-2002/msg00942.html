@@ -1,0 +1,139 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] schemeunit and require&#45;library -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Mon, 20 May 2002 10:41:20 &#45;0600 (MDT) -->
+<!--X-Message-Id: iss.4896.3ce92721.8923e.1@hermes.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020520101451.77286.qmail@web11204.mail.yahoo.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] schemeunit and require-library</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00941.html">Date Prev</a>][<a href="msg00943.html">Date Next</a>][<a href="msg00938.html">Thread Prev</a>][<a href="msg00945.html">Thread Next</a>][<a href="maillist.html#00942">Date Index</a>][<a href="threads.html#00942">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] schemeunit and require-library</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] schemeunit and require-library</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Mon, 20 May 2002 18:41:03 +0200</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00938.html">20020520101451.77286.qmail@web11204.mail.yahoo.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.3 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+There is a somewhat sparsely documented but easy-to-use
+packing-procedure named 'pack-collections' (hurray).
+
+Syntax:
+(pack-collections 
+   &lt;destination-file&gt;              
+   &lt;name&gt;                          &lt;--- purpose?
+   (&lt;collection&gt; ...)              
+   replace-when-unpacking?         
+   (&lt;extra-setup-collection&gt; ...)) &lt;--- purpose?
+
+The following little mzscheme-sript packages the schemeunit-files.
+Just copy it into a file named, uh, 'schemeunit-packer.ss' and tell
+your bash:
+./schemeunit-packer.ss
+
+------------------------------------------------------------------
+#! c:/bin/plt/mzscheme -qr
+
+;; Package directories 
+;; - collects/schemeunit and
+;; - collects/doc/schemeunit
+;; into file schemeunit-package.plt
+
+(require (lib &quot;pack.ss&quot; &quot;setup&quot;))
+(pack-collections &quot;schemeunit-package.plt&quot; 
+                  &quot;schemeunit&quot;
+                  '((&quot;schemeunit&quot;) (&quot;doc&quot; &quot;schemeunit&quot;))
+                  #t
+                  '() )
+-------------------------------------------------------------------
+
+Or, alternatively, execute those two commands inside the
+mzscheme-interpreter.
+
+Some questions on my side:
+- How can I uninstall a collection automatically?
+- What's the highlevel-installing-command, since 'run-installer'
+doesn't load:
+    (require (lib &quot;plt-installer.ss&quot; &quot;setup&quot;))
+    =&gt; dynamic-require: unknown module: #%mred-kernel
+- When installing a .plt-file: How can I setup a procedure that is
+invoked after all files are moved to their correct locations? The
+procedure shall do further installation-work (compiling an extension).
+- How can I check the contents of a .plt-file and install part
+of it into arbitrary directories?
+
+Sebastian
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00945" href="msg00945.html">Re: [plt-scheme] schemeunit and require-library</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00938" href="msg00938.html">Re: [plt-scheme] schemeunit and require-library</a></strong>
+<ul><li><em>From:</em> Noel Welsh &lt;noelwelsh@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00941.html">Re: [plt-scheme] assertions and the learning of macro-fu</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00943.html">[plt-scheme] Chez/MzScheme difference?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00938.html">Re: [plt-scheme] schemeunit and require-library</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00945.html">Re: [plt-scheme] schemeunit and require-library</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00942"><strong>Date</strong></a></li>
+<li><a href="threads.html#00942"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

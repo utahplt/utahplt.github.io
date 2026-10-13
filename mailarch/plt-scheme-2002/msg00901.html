@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Gnuplot -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Wed, 15 May 2002 13:51:11 &#45;0600 (MDT) -->
+<!--X-Message-Id: 15586.48161.167847.420425@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87sn4tjr2c.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Gnuplot</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00900.html">Date Prev</a>][<a href="msg00902.html">Date Next</a>][<a href="msg00900.html">Thread Prev</a>][<a href="msg00905.html">Thread Next</a>][<a href="maillist.html#00901">Date Index</a>][<a href="threads.html#00901">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Gnuplot</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:pocm@rnl.ist.utl.pt">pocm@rnl.ist.utl.pt</A> (Paulo J. Matos)</li>
+<li><em>Subject</em>: Re: [plt-scheme] Gnuplot</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Wed, 15 May 2002 15:50:57 -0400</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00900.html">87sn4tjr2c.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00900.html">87sn4tjr2c.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On May 15, Paulo J. Matos wrote:
+&gt; If not, does any one know the best approach to create one for
+&gt; MzScheme?  Any hints?
+
+You could do it in a very simple way -- just start a gnuplot process
+with an input pipe, then just feed it gnuplot commands.  Something
+that is very useful for this is the way gnuplot can just process data
+from its input, for example you can feed this to gnuplot:
+
+  plot '-' w l
+  1 1
+  2 4
+  3 9
+  4 16
+  5 25
+  e
+  pause 1
+
+and it will show the graph for one second (or make it a pause -1 and
+send it a newline to continue), or use something like this:
+
+  set terminal postscript
+  set output 'foo.ps'
+  plot '-' w l
+  1 1
+  2 4
+  3 9
+  4 16
+  5 25
+  e
+
+to create a postscript file.  IIRC, it comes with some demo files that
+you can look at for things you want to do with it.
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00900" href="msg00900.html">[plt-scheme] Gnuplot</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00900.html">[plt-scheme] Gnuplot</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00902.html">Re: [plt-scheme] scheme unit/sig (fwd)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00900.html">[plt-scheme] Gnuplot</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00905.html">[plt-scheme] MrEd</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00901"><strong>Date</strong></a></li>
+<li><a href="threads.html#00901"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

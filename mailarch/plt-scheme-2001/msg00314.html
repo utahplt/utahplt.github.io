@@ -1,0 +1,210 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: GNU and MzScheme's Internal design -->
+<!--X-From-R13: "Xv&#45;Kbat R. Quhat" <iveghnyploreNrebyf.pbz> -->
+<!--X-Date: Sun, 18 Feb 2001 14:25:52 &#45;0700 (MST) -->
+<!--X-Message-Id: 011901c099f1$9a0d39e0$0100007f@cradle -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.21.0102160401001.28449&#45;100000@info.numeric&#45;quest.com -->
+<!--X-Reference: 006401c09856$aeb76d80$5d0c1cac@redmond.corp.microsoft.com -->
+<!--X-Reference: 000d01c0986d$cd9a69c0$0100007f@cradle -->
+<!--X-Reference: 200102170049.TAA05420@bosch.cs.brown.edu -->
+<!--X-Reference: 004b01c0991a$4e039170$0100007f@cradle -->
+<!--X-Reference: 200102180451.XAA13072@bosch.cs.brown.edu -->
+<!--X-Reference: 001c01c09991$8be87970$0100007f@cradle -->
+<!--X-Reference: 200102181636.LAA16774@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: GNU and MzScheme's Internal design</title>
+<link rev="made" href="mailto:virtualcyber@erols.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00313.html">Date Prev</a>][<a href="msg00315.html">Date Next</a>][<a href="msg00310.html">Thread Prev</a>][<a href="msg00320.html">Thread Next</a>][<a href="maillist.html#00314">Date Index</a>][<a href="threads.html#00314">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: GNU and MzScheme's Internal design</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: GNU and MzScheme's Internal design</li>
+<li><em>From</em>: &quot;Ji-Yong D. Chung&quot; &lt;<A HREF="mailto:virtualcyber@erols.com">virtualcyber@erols.com</A>&gt;</li>
+<li><em>Date</em>: Sun, 18 Feb 2001 16:27:30 -0500</li>
+<li><em>References</em>: &lt;<a href="msg00280.html">Pine.LNX.4.21.0102160401001.28449-100000@info.numeric-quest.com</a>&gt;&lt;<a href="msg00285.html">006401c09856$aeb76d80$5d0c1cac@redmond.corp.microsoft.com</a>&gt;&lt;<a href="msg00287.html">000d01c0986d$cd9a69c0$0100007f@cradle</a>&gt;&lt;<a href="msg00288.html">200102170049.TAA05420@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg00293.html">004b01c0991a$4e039170$0100007f@cradle</a>&gt;&lt;<a href="msg00302.html">200102180451.XAA13072@bosch.cs.brown.edu</a>&gt;&lt;<a href="msg00304.html">001c01c09991$8be87970$0100007f@cradle</a>&gt; &lt;<a href="msg00310.html">200102181636.LAA16774@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+   Hi, you wrote:
+
+&gt; I was being sarcastic.  So sarcastic, in fact, that you seem to have
+&gt; taken my response literally.
+
+    I knew you were :).  I just wanted to explain that I had
+reasons behind my wanting a relatively efficient interpreter.
+I did nto get too much into details is that -- it is probably
+pretty boring stuff to this group (who seem to be scarily bright and
+up to date on all recent major software system developments),
+and mostly unrelated to MzScheme or Scheme for that matter.
+
+&gt; My point is that the issue of &quot;efficient compilers&quot; is so broad and
+&gt; ill-defined that, for the questions you posed, even a patently
+&gt; nonsensical answer would suffice.  It is still wholly unclear to me
+&gt; why you need to be modifying MzScheme at all.
+
+    I think you'd agree MzScheme is a great library, right?
+Nonetheless, people would like to modify it for different purposes --
+Some would like to use it for embedded systems, and some would
+like to use it for extending their existing set of tools.  Whatever
+the application, there are differing degrees of modifications that need to
+be
+made.  Some who simply want to extend MzScheme with extra c++/c operations
+only need to add/write extra primitives and link them.
+
+    Some would like to do play just a bit more with way the language is
+compiled -- for me, instance, I wanted to perform
+distributed compiling.
+
+    You *might* ask why, so here is a brief description of the system
+I am concerned with.
+
+    This &quot;thing&quot; I am building
+ is a client-servers system in which
+a client can request a given set of servers to create
+distributed objects for XML
+processing (transactions, filtering, etc).
+
+     The distributed XML processing objects are CORBA
+objects -- but they are bound to Scheme environment of
+each scheme virtual machine.
+
+    When the each SchemVM receives a script from the client,
+one must compile and run that code.  One way of doing this is to
+have the client transmit bytecodes.  Another way, which I am looking into,
+involves direct compilation of the client requests
+without going through bytecode generation/transmission.  This
+is nice for several reasons (whose boring details
+I won't elaborate).
+
+    With respect to MzScheme, this means, to incorporate it into
+my current xml project, I have to rip the guts out of MzScheme compiler and
+wrap
+them in CORBA objects that take remote calls.  Modifying MzScheme for
+this, I think, would have required simply too time and effort
+at this point in my brief life.
+
+     (You might ask, why not just use Java with RMI?   Let us
+say that Java introduces its own
+set of problems, which are well hidden)
+
+    Anyways, this is just one aspect of it.
+
+&gt; I don't speak for my colleagues here, only myself, but I'm a bit
+&gt; disappointed that you would use this list merely as a resource to get
+&gt; answers to difficult questions you have.
+
+    I didn't think this list merely as a &quot;resource&quot; to take advantage of --
+I had taken MzScheme mailing list as the &quot;place&quot; where people exchange
+helpful ideas about MzScheme and in so doing, benefit each other.  (In the
+past,
+I think  I tried to &quot;contribute&quot; -- if you just go back and read my email
+about
+define-syntax, you'd see that I I tried to be helpful by porting Clinger's
+code --
+ even though I ended up embarassing myself more than anything).
+
+&gt; I wish you would look into constructive ways of collaboration instead.
+
+    I think what you are saying is &quot;(1) use PLT scheme,
+and (2) contribute, in the good spirit of exchange (also
+don't reinvent the wheel and waste your time).&quot;
+
+    Hopefully, in the future, I have opportunities to contribute
+to your library set.  I am certain that some of my Scheme related code
+will be easily portable to MzScheme, with few minor changes -- so
+I will submit them for your consideration.
+
+&gt; The Scheme world has
+&gt; absolutely no need for additional implementations with their own
+&gt; little deficiencies and non-standard quirks.
+
+    I agree with you whole heartedly -- but I was not trying to write a
+scheme
+interpreter for the world.  I just needed a small subsystem with
+interpretive
+powers.  MzScheme was &quot;too powerful&quot;  for this purpose.
+
+
+
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00280" href="msg00280.html">Re: Just for your fun and horror</a></strong>
+<ul><li><em>From:</em> Jan Skibinski &lt;jans@numeric-quest.com&gt;</li></ul></li>
+<li><strong><a name="00285" href="msg00285.html">Re: Just for your fun and horror</a></strong>
+<ul><li><em>From:</em> &quot;Erik Meijer&quot; &lt;erik@meijcrosoft.com&gt;</li></ul></li>
+<li><strong><a name="00287" href="msg00287.html">MzScheme and SML</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00288" href="msg00288.html">MzScheme and SML</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00293" href="msg00293.html">Re: MzScheme and SML</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00302" href="msg00302.html">Re: MzScheme and SML</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00304" href="msg00304.html">GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00310" href="msg00310.html">GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00313.html">Raising an exception within C?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00315.html">Re: Raising an exception within C?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00310.html">GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00320.html">Re: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00314"><strong>Date</strong></a></li>
+<li><a href="threads.html#00314"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

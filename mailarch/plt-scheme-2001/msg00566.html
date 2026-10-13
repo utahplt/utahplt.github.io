@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: embedded mzscheme and initializing the mzscheme environment as well as my own -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 25 Jun 2001 05:47:11 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200106251147.f5PBl4T01610@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: OE19VwPGxgelXDeqoMI00000f6a@hotmail.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: embedded mzscheme and initializing the mzscheme environment as well </title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00565.html">Date Prev</a>][<a href="msg00567.html">Date Next</a>][<a href="msg00563.html">Thread Prev</a>][<a href="msg00564.html">Thread Next</a>][<a href="maillist.html#00566">Date Index</a>][<a href="threads.html#00566">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: embedded mzscheme and initializing the mzscheme environment as well as my own</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Gregory Lampshire&quot; &lt;<A HREF="mailto:gregory_lampshire@hotmail.com">gregory_lampshire@hotmail.com</A>&gt;</li>
+<li><em>Subject</em>: Re: embedded mzscheme and initializing the mzscheme environment as well as my own</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Jun 2001 05:47:04 -0600 (MDT)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00563.html">OE19VwPGxgelXDeqoMI00000f6a@hotmail.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00563.html">OE19VwPGxgelXDeqoMI00000f6a@hotmail.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Gregory Lampshire&quot;:
+&gt; As part of the elaboration of my MLT_Enivornment component, I create the
+&gt; mzscheme environment and then add symbols and create mzscheme types in the
+&gt; mzscheme environment.  Since this Singleton is declared as a static object,
+&gt; it is elaborated prior to main.  I am wondering if it is improper to create
+&gt; the mzscheme environment prior to entering main.
+
+As long as the Boehm GC (the default collector) correctly finds static
+variables and the stack base, this will work fine. Put another way, it
+will work unless you need to use scheme_set_stack_base() to set the
+stack base and/or turn on explcitly-registered static variables.
+
+It might not work if you run in FreeBSD (where the static-finding code
+doesn't work reliably at the moment), or if you run in Solaris and Sun
+releases a new version of the OS (which almost always seems to break
+the GC). Depending on how the GC is compiled and how your library is
+used in another application, it might not work in Windows when multple
+OS threads are present.
+
+I wish I could give a more comprehensive answer. The good news is that
+Boehm continues to improve the GC; it's becoming so widely used that I
+think future versions of OSes might actually provide reliable support
+for the GC. The bad news is that there is still a steady stream of
+problems, for now (which is why stand-alone MzScheme and MrEd use
+scheme_set_stack_base() in v200).
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00563" href="msg00563.html">embedded mzscheme and initializing the mzscheme environment as well as my own</a></strong>
+<ul><li><em>From:</em> &quot;Gregory Lampshire&quot; &lt;gregory_lampshire@hotmail.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00565.html">RE: Scheme_Manager_Reference and friends</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00567.html">MzScheme version number issues</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00563.html">embedded mzscheme and initializing the mzscheme environment as well as my own</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00564.html">Scheme_Manager_Reference and friends</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00566"><strong>Date</strong></a></li>
+<li><a href="threads.html#00566"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

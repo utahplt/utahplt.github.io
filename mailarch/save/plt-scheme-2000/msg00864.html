@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Wed, 16 Aug 2000 19:43:34 &#45;0600 (MDT) -->
+<!--X-Message-Id: 399B44A2.D5ECA5B4@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: 14738.52293.108392.678928@sun.cs.rice.edu -->
+<!--X-Reference: 3999D17B.8B30BA66@kurtz&#45;fernhout.com -->
+<!--X-Reference: p04320409b5c073ea0057@[128.42.2.124] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Specialized input parsing for code/REPL in DrScheme?</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00863.html">Date Prev</A>][<A HREF="msg00865.html">Date Next</A>][<A HREF="msg00863.html">Thread Prev</A>][<A HREF="msg00901.html">Thread Next</A>][<A HREF="maillist.html#00864">Date Index</A>][<A HREF="threads.html#00864">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Specialized input parsing for code/REPL in DrScheme?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 16 Aug 2000 21:49:22 -0400</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>, <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A></LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00834.html">399207D9.5F451CC@kurtz-fernhout.com</A>&gt; &lt;<A HREF="msg00838.html">14738.52293.108392.678928@sun.cs.rice.edu</A>&gt; &lt;<A HREF="msg00861.html">3999D17B.8B30BA66@kurtz-fernhout.com</A>&gt; &lt;<A HREF="msg00862.html">p04320409b5c073ea0057@[128.42.2.124]</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Robby-
+
+As an update, regarding "probably works with 102":
+
+I tried bad-unit.ss (renaming it to unit.ss of course, and putting it in
+a new directory under tools). However, under 102/NT on my machine it
+doesn't seem to actually call the myreader routine. Execute worked as
+usual -- but I expected it to pop up something. I also added an extra
+print later in that file as a test and that didn't seem to get called
+either (I assumed it would still print to the output window -- maybe not
+if it was called too early?). I know the module loads, because once I
+had an error caught when I modified it as a test. 
+
+Well, I now have a reason to begin the adventure of getting the latest
+build from CVS.
+
+I can see the big difference between the "good" and "bad" versions. The
+good one is much more straightforward through using the new
+enhancements. Thanks again!
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+Robert Bruce Findler wrote:
+&gt; 
+&gt; Okay, I went ahead and wrote the tool that lets you substitute in
+&gt; your own reader for DrScheme's. It turns out that the tool is awkward
+&gt; with the current tools interface. So, I extended the tools interface
+&gt; with two new parameter procedures:
+&gt; 
+&gt;    drscheme:basis:raw-reader
+&gt; 
+&gt; and
+&gt; 
+&gt;    drscheme:basis:zodiac-reader
+&gt; 
+&gt; DrScheme (the version released to CVS) now uses the values of these
+&gt; parameters as the readers. You can set them to your own reader. I am
+&gt; including two files with this post, good-unit.ss that uses the new
+&gt; DrScheme interface and sets the reader and bad-unit.ss that uses the
+&gt; old DrScheme interface to set the reader (probably works with 102).
+&gt; The documentation has been rebuilt, too. See
+&gt; <A  HREF="http://www.cs.utah.edu/plt/anoncvs/">http://www.cs.utah.edu/plt/anoncvs/</A> for instructions on downloading
+&gt; it.
+&gt; 
+&gt; Hope that helps,
+&gt; Robby
+&gt;
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00834" HREF="msg00834.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00838" HREF="msg00838.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00861" HREF="msg00861.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00862" HREF="msg00862.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00863.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00865.html">SRFI-1 List Library</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00863.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00901.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00864"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00864"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

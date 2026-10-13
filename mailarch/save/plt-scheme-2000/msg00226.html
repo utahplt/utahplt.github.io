@@ -1,0 +1,196 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: 102/10 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 27 Mar 2000 19:31:50 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000328023146.KFAK5721.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>102/10</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00225.html">Date Prev</A>][<A HREF="msg00227.html">Date Next</A>][<A HREF="msg00225.html">Thread Prev</A>][<A HREF="msg00227.html">Thread Next</A>][<A HREF="maillist.html#00226">Date Index</A>][<A HREF="threads.html#00226">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>102/10</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: 102/10</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 27 Mar 2000 18:31:47 -0800</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Changes:
+
+ * Switched to `configure'-based Makefiles (autoconf). See
+   plt/src/README, and use plt/src/configure.
+
+ * Added `process[*]/ports', which is like `process[*]', but it takes
+   three file-stream ports to use for the subprocess's stdio streams:
+   an input port for the process's stdin, and output ports for the
+   process's stdout and stderr.
+
+   If #f is provided for one of the streams, then `process[*]/ports'
+   makes a pipe and return the other end for the corresponding stream,
+   as for `process[*]'. But when a port is provided for a particular
+   stream, `process[*]/ports' does not create the corresponding pipe,
+   and instead use the given port, returning #f for that stream.
+
+   If a provided port is not a file-stream port (created by
+   `open-input-file' or `process[*][/file-ports]', or one of the
+   original stdio ports), then an exception would be raised.
+
+ * Added `file-stream-port?', useful with `process[*]/ports' and
+   `file-position' (which requires a file-stream port for changing the
+   position).
+
+ * Changed `read-string!' to `read-string-avail!', which reads only as
+   many characters as are immediately ready, blocking only if no chars
+   are available. (The old `read-string!' can be efficiently
+   implemented with the new one.)
+
+   In the current `read-string!' (and `read-string'), characters can
+   be lost if the read gets a few and then encounters a read
+   error. The `read-string-avail!' procedure does not have this
+   problem, because an error after reading at least one character is
+   treated like blocking. (The error will be ignored, to be triggered
+   on the next read.)
+
+ * Added `read-string-avail!/enable-break', to be used in a context
+   where breaks are disabled. The guarantee is that either the read
+   gets all the characters it can and returns, or it raises an
+   exception (possibly a break exception) without reading any
+   characters.
+
+ * Added `write-string-avail' and `write-string-avail/enable-break',
+   which are analogous to `read-string-avail!' and
+   `read-string-avail!/enable-break'.
+
+   The return value in the non-exception case is the number of chars
+   that could be written (and flushed) immediately. If no characters
+   can be written, it blocks until at least one can be.
+
+   As with `read-string-avail!', an error after writing at least one
+   character is treated like blocking. (Output mechanisms like `write'
+   and `display' can still fumble characters.)
+
+   The `write-string-avail' procedure works on all output port types,
+   but it is not especially effective for FILE*-based ports (like most
+   ports in Windows and MacOS); to guarantee succesful flushing, only
+   one character can be writte. The procedure is especially effective
+   for TCP and fd-based ports (like most ports in Unix, now).
+
+ * Unix: changed MzScheme's `open-input-file' and `open-output-file'
+   (etc.) to use fd-based ports instead of FILE*-based ports. This
+   change gives MzScheme finer control over input and output; it makes
+   sense now that fd-based ports have been tested for a few months.
+   (PR 1393, indirectly)
+
+ * Fixed regexp to work with `-' as the last character in a `[...]'
+   pattern. (The bug was introduced in 102/8.) (PR 1381)
+
+ * Fixed a bug in `open-output-file' that could cause a file-exists
+   failure even when the 'truncate or 'replace flag is spcified. (PR
+   1309)
+
+ * Fixed the error-handling subsystem to properly handle error
+   messages containing a non-terminating nul character (e.g., due to
+   including in an error message a string argument that contained a
+   nul).
+
+ * Inside MzScheme:
+
+    - Added scheme_register_static(), which is like
+      scheme_register_extension_global(), but it only registers the
+      given location if the collector does not know how to find static
+      variables anyway. (This is true for precise GC, Senora GC on
+      many platforms, and the regular GC under Windows when a flag is
+      set as described below).
+
+    - Provided a way to fix the GC--thread problems under Windows.  If
+      an embedding application is willing to explicitly register its
+      static variables with scheme_register_static(), then set the
+      GC_use_registered_statics variable to 1 before calling a
+      MzScheme or GC function. Then, then collector will not try to
+      scan all active pages to find globals (which can crash if a
+      separate Windows thread unmaps a page while the collector is
+      running), and instead only collect from the registered static
+      variable locations.
+
+      The standalone versions of MzScheme and MrEd for Windows both
+      use this new GC mechanism.
+
+    - Changed scheme_get_chars to include a new last argument: an
+      offset into the string.
+
+    - Added embedding-settable function scheme_console_output, which
+      is used to report errors that were not handled correctly by the
+      normal mechanisms.
+
+    - Restricted the format string accepted by scheme_signal_error,
+      scheme_raise_exn, and scheme_warning, but also added format
+      directives to handle non-terminating nul characters in strings.
+
+ * Added `mergesort' to MzLib's function.ss.
+
+ * X: Changed dialogs to use the icon of the dialog's parent (if any).
+
+The MzScheme, MrEd, and Inside MzScheme docs have been updated.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00225.html">change in the stepper / cvs archive</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00227.html">MysterX changes for 102/10</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00225.html">change in the stepper / cvs archive</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00227.html">MysterX changes for 102/10</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00226"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00226"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,187 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: bytecode unification for scripting languages -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Tue, 7 Aug 2001 23:02:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: 009501c11fc7$5bb758e0$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200108011442.KAA11200@bosch.cs.brown.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: bytecode unification for scripting languages</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00748.html">Date Prev</a>][<a href="msg00750.html">Date Next</a>][<a href="msg00736.html">Thread Prev</a>][<a href="msg00757.html">Thread Next</a>][<a href="maillist.html#00749">Date Index</a>][<a href="threads.html#00749">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: bytecode unification for scripting languages</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;plt-scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: bytecode unification for scripting languages</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 8 Aug 2001 01:02:44 -0400</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00736.html">200108011442.KAA11200@bosch.cs.brown.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Shriram,
+
+&gt; In each category, .NET seems to stack up very nicely against the JVM.
+
+You seem to be saying that it would be pragmatic for a Scheme compiler to
+target .NET, in order to leverage the platform.  I think it's hard to argue
+with that, since .NET is likely to be a huge success commercially.  But
+that's a separate issue from the CLR's technical fit with languages like
+Scheme.
+
+&gt; Lookit, the same goes for standard hardware, but I don't see anyone
+&gt; arguing that the x86 or SPARC is inappropriate for Scheme.
+
+Actually, people have argued that, which is why they bothered trying to
+build, for example, LISP chips.  And why Sun bothered building Java chips.
+The relative failure of these attempts at hardware-ifying someone's favorite
+language doesn't mean that there aren't some important points here.
+
+When you compile something to machine code, it becomes difficult for it to
+interoperate with things compiled to machine code by other languages or
+tools, primarily because of the lack of commonality between the compilers
+and runtimes of different languages.  Enormous and complex standards have
+been developed to address this problem from the outside: CORBA, for example.
+This point was raised in the original post in this thread, by Michael
+Vanier:
+
+&gt; A unified bytecode could be an enormous win for everyone; imagine being
+able
+&gt; to seamlessly use libraries for other scripting languages from within
+DrScheme,
+&gt; for instance.
+
+[Perhaps the term &quot;unified bytecode&quot; should be changed to &quot;unified runtime&quot;,
+which includes the bytecode.]
+
+This approach addresses interoperation from the inside, and makes life a lot
+simpler and more powerful than it is with CORBA.  The concept doesn't work
+so well, though, if the unified runtime's characteristics aren't up to
+scratch, and doesn't support useful and important things, like, say,
+closures.  Because then you have no standard way of communicating closures
+(or continuations, etc.) across languages.
+
+Javascript, Perl and Ruby all implement a complete closure capability;
+Python also tries (last I looked).  How well will closures from these
+languages interoperate with Scheme's, if these languages are all implemented
+on .NET?  They probably won't interoperate at all, but they could, and there
+would be benefits in their being able to do so.
+
+.NET is still essentially vaporware, but we can see some of the potential of
+the approach in the JVM.  As language-specific as the JVM is, it's been
+quite successful at hosting other languages.  I'm familiar with a number of
+real-world projects that use JVM-hosted languages to interoperate with Java,
+in a way that just isn't possible or practical with something like CORBA.
+This practice hasn't yet become mainstream, but based on my experiences with
+it, I think it's just a matter of time, and .NET may prove that.
+
+However, there's a fundamental constraint in the JVM environment, which is
+that the object model and rules are all Java's, with all the onerous
+restrictions that entails.  The same problem will apply to .NET, albeit
+mitigated by the CLR/CIL having been designed more generically. But it was
+still designed to generically address the issues faced by mainstream
+imperative languages like C, Basic, FORTRAN, COBOL, etc.  The inclusion of
+tail calls is nice - if only as implementor bait :) - but it's not
+sufficient.
+
+&gt; In the end, what's the point here?  Microsoft's .NET is already
+&gt; shipping, and they will be releasing a sorta-kinda-open source
+&gt; implementation next year.
+
+One point, I would have thought, is to advance the state of the art.
+Microsoft is essentially embracing and extending the JVM, albeit
+substantially.  But we can already see the limitations in their current
+approach - you've alluded to them yourself.  Despite the expected commercial
+dominance of .NET, there may yet be value in the idea of a more Scheme- or
+functional-like CLR.  Otherwise, what will Microsoft embrace and extend the
+next time around? :)
+
+I'm not suggesting that you or the PLT Scheme team should be pursuing this
+direction.  I simply wanted to make the point that there could be technical
+merit to the concept.  You rather rather categorically dismissed the idea of
+there being any benefit to developing a CLR other than .NET's.   I'm sure
+you're
+right that it's unlikely that an open source collabaration between the Perl,
+Python &amp; Scheme worlds will result in the next ground-breaking virtual
+machine (!), but that doesn't mean that we should all be satisfied with the
+CLR.
+
+To speculate a little, a &quot;friendlier&quot; CLR might actually prove quite
+attractive to implementors of languages like Perl and Python.  The Python
+community, for example, has seemed receptive to ideas like using (weak)
+continuations to implement low-overhead &quot;microthreading&quot;.  A runtime that
+provided these sort of capabilities on a solid foundation could be very
+valuable and enabling.
+
+Regards,
+Anton van Straaten
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00757" href="msg00757.html">RE: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> &quot;Shriram Krishnamurthi&quot; &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00736" href="msg00736.html">Re: bytecode unification for scripting languages</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00748.html">Re: forking embedded interpreter</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00750.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00736.html">Re: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00757.html">RE: bytecode unification for scripting languages</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00749"><strong>Date</strong></a></li>
+<li><a href="threads.html#00749"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

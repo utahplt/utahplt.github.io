@@ -1,0 +1,203 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: xentraNcbobk.pbz (Yentra Evgnxre) -->
+<!--X-Date: Sun, 24 Mar 2002 20:59:55 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020325035948.CC254BDC1@panacea.canonical.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:kragen@pobox.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00451.html">Date Prev</a>][<a href="msg00453.html">Date Next</a>][<a href="msg00432.html">Thread Prev</a>][<a href="msg00454.html">Thread Next</a>][<a href="maillist.html#00452">Date Index</a>][<a href="threads.html#00452">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: <A HREF="mailto:kragen@pobox.com">kragen@pobox.com</A> (Kragen Sitaker)</li>
+<li><em>Date</em>: Sun, 24 Mar 2002 22:59:48 -0500 (EST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Shriram Krishnamurthi writes:
+&gt; Kragen Sitaker wrote:
+&gt; &gt; If your polymorphism is resolved at compile-time, as in the C++ STL,
+&gt; &gt; it doesn't mess up your performance (except, possibly, by bloating
+&gt; &gt; your code and thrashing your icache.)
+&gt; 
+&gt; (1) That still doesn't address object polymorphism.
+
+No, it doesn't.
+
+&gt; (2) The same techniques that C++ uses, ML can also.  See the TIL
+&gt;     compiler.  At least ML doesn't force you to do it manually.
+
+I haven't looked at the TIL compiler (thanks for the pointer), but I
+thought Matthias's point was that SML/NJ built slow code (news to me,
+but hey, I mostly program in Python these days, so what do I know
+about speed?) even though its input language was statically typed.
+_Compiling with Continuations_ says SML/NJ doesn't use the same
+technique C++ uses:
+
+	If functors in ML behaved like the &quot;generic&quot; modules of Ada,
+	this problem would not exist: It is expected of an Ada
+	implementation that each applicaiton of a &quot;generic&quot; will
+	generate new code specialized to the particular argument.  But
+	in ML the intent of the designers was that machine-code
+	generation (and type checking, etc.) needs to be done only
+	once for each functor, and is independent of the actual
+	parameter to the functor.
+
+(Section 4.1, p. 41 in my copy.)
+
+
+Anton van Straaten writes:
+&gt; If you &quot;know what you are doing&quot;, you don't need a type system at
+&gt; all (think pure untyped lambda calculus, bay-bee! :) A type system
+&gt; that relies on you to implement it properly isn't doing the job for
+&gt; which type systems are intended.
+
+It isn't doing the job for which type-safe type systems, like those in
+most Scheme implementations, are intended.  C's type system was
+intended for a completely different purpose: to make code more concise
+and easier to read and type.
+
+Some languages, like OCaml and Forth, require you to use different
+symbols to add floating-point numbers and integers, because their
+elementary operations aren't polymorphic.
+
+If C didn't have types, it couldn't have polymorphic elementary
+operations, such as +, *, and (especially) [].  B was typeless, and so
+dealing with characters and floats was painful.  C added types to
+remove that pain.  (This is all based on my fuzzy recollection of the
+HOPL II paper on C, which I haven't read in a year or two.)
+
+C++'s type system, by all appearances, has the same purpose.  It is
+more effective at it, at the cost of being more complex.  Misguided
+souls believing C++ to be something more than a portable macro
+assembler have recently added run-time type identification and checked
+casts to the language.
+
+Before I picked up SICP in 1996, I was always mystified by all the
+stupid people complaining that C was broken because you could subvert
+its type system.  Now I understand how those people got confused.  In
+this world, a &quot;type system&quot; has a different purpose.  C's &quot;type
+system&quot; is, in many ways, technically similar to the type systems of
+ML, Lisp, or Ada, but it was built for a completely different reason:
+not to detect errors, but to make the code shorter and less
+error-prone.
+
+Please note that I am not advocating that people build large systems
+in macro assembler or C or C++.  I just think it's dumb to complain
+that C++ isn't much more than a portable macro assembler.  That's
+what C was explicitly designed for, and C++ isn't much different.
+
+To clarify: 
+
+Oscar Fuentes wrote:
+&gt; If you want to do type safe programming in C++ you can do it and the
+&gt; compiler will help you. The only requirement is that you must know
+&gt; what are you doing. So it is understandable that teachers regards
+&gt; C++ as type unsafe because it is unsafe for their students.
+
+&quot;type safe&quot; implies &quot;even if you don't know what you are doing&quot;.
+Teachers regard C++ as type-unsafe because they know what &quot;type
+safety&quot; is.
+
+&gt; It's perfectly possible to do &quot;elegant&quot; (modulo syntactic
+&gt; aesthetics), reliable, maintainable, extensible C++ code.
+
+Oscar, what's the biggest maintainable C++ program you've ever
+written?
+
+
+On other topics:
+
+Sebastian Seidel wrote:
+&gt; One word about types though: Why did C++ come up with 'templates' if
+&gt; static typing would really be that great? Templates are used in 
+&gt; C++ - coded numeric libraries where speed is of much concern.
+
+Templates are statically typed.  That's why they're fast.
+
+Matthias Felleisen writes:
+&gt; there is no way to make cast-free C++ a safe language w/o changing the
+&gt; language radically.
+
+I think you are mistaken, but I don't think it's a good idea.  There
+are much better safe languages out there that are designed to be safe.
+Scheme, for instance.  I think VisualAge for C++ is a type-safe
+implementation, even with casts, but they are not very popular.
+
+&gt; Here is what I mean:
+&gt; 1. I need a decision algorithm for C++ standard programs 
+
+To determine what about them?  Whether or not they are correctly
+typed?
+
+-- 
+&lt;kragen@pobox.com&gt;       Kragen Sitaker     &lt;<A  HREF="http://www.pobox.com/~kragen/">http://www.pobox.com/~kragen/</A>&gt;
+It frightens the daylights out of me whenever I hear people proclaim that
+the less knowledge our children have access to, the better.  
+-- Duane Lindstrom, at &lt;URL:<A  HREF="http://www.examiner.com/skink/skinkmail.html">http://www.examiner.com/skink/skinkmail.html</A>&gt;
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00454" href="msg00454.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00451.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00453.html">Re: 200alpha14 Debian Packages Available</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00432.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00454.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00452"><strong>Date</strong></a></li>
+<li><a href="threads.html#00452"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

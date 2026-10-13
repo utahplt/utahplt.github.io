@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Bug in the call chain between process*/ports and sch_process_star_ports &#45;> crash -->
+<!--X-From-R13: Vnaah Ybvivfgb <nmherNvxv.sv> -->
+<!--X-Date: Fri, 19 Jan 2001 09:17:27 &#45;0700 (MST) -->
+<!--X-Message-Id: 87r91zbjou.fsf@lynx.ionific.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Bug in the call chain between process*/ports and sch_process_star_ports </title>
+<link rev="made" href="mailto:azure@iki.fi">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00049.html">Date Prev</a>][<a href="msg00051.html">Date Next</a>][<a href="msg00049.html">Thread Prev</a>][<a href="msg00051.html">Thread Next</a>][<a href="maillist.html#00050">Date Index</a>][<a href="threads.html#00050">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Bug in the call chain between process*/ports and sch_process_star_ports -&gt; crash</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Bug in the call chain between process*/ports and sch_process_star_ports -&gt; crash</li>
+<li><em>From</em>: Hannu Koivisto &lt;<A HREF="mailto:azure@iki.fi">azure@iki.fi</A>&gt;</li>
+<li><em>Date</em>: 19 Jan 2001 18:17:21 +0200</li>
+<li><em>Mail-copies-to</em>: never</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090001 (Oort Gnus v0.01) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Greetings,
+
+With MzScheme 103.5 (the exp tagged version from CVS a while ago)
+on Win2k, an attempt to evaluate following code causes a crash in
+protect_cmdline (or some such called from process; sorry, can't
+access code at the moment) because process and thus
+sch_process_star_ports is called with c argument being 6 even
+though there are just the program name and two arguments in
+addition to it.  We couldn't decipher the code above
+sch_process_star_ports so unfortunately I can't help more.
+
+(call-with-output-file &quot;foo&quot;
+  (lambda (md5port)
+    (process*/ports md5port #f #f
+                    &quot;w:\\programs\\cygwin\\bin\\md5sum.exe&quot;
+                    &quot;-&quot; &quot;source/collect.cpp&quot;)))
+
+Values of argv and c variables, taken from process' frame after the
+crash, just to prove what I just said:
+
++       argv[0] 0x010abb18 &quot;w:\programs\cygwin\bin\md5sum.exe&quot;
++       argv[1] 0x010c6e44 &quot;-&quot;
++       argv[2] 0x0103d348 &quot;source/collect.cpp&quot;
++       argv[3] 0x00000000 &quot;&quot;
+         c       6
+
+-- 
+Hannu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00051" href="msg00051.html">Re: Bug in the call chain between process*/ports and sch_process_star_ports -&gt; crash</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00049.html">Re: Connecting behind an http proxy</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00051.html">Re: Bug in the call chain between process*/ports and sch_process_star_ports -&gt; crash</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00049.html">Re: Connecting behind an http proxy</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00051.html">Re: Bug in the call chain between process*/ports and sch_process_star_ports -&gt; crash</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00050"><strong>Date</strong></a></li>
+<li><a href="threads.html#00050"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

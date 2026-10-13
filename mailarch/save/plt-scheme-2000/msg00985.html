@@ -1,0 +1,157 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: MysterX changes exp&#45;tagged -->
+<!--X-From-R13: Drvav Geona <eheonaNfobk.gh&#45;tenm.np.ng> -->
+<!--X-Date: Thu, 19 Oct 2000 03:24:31 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39EEBD6F.727A17A2@sbox.tu&#45;graz.ac.at -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c03951$ed243080$6a032a80@cs.rice.edu -->
+<!--X-Reference: y9laec1w71z.fsf@sams.informatik.uni&#45;tuebingen.de -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: MysterX changes exp-tagged</TITLE>
+<LINK REV="made" HREF="mailto:rurban@sbox.tu-graz.ac.at">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00984.html">Date Prev</A>][<A HREF="msg00986.html">Date Next</A>][<A HREF="msg00984.html">Thread Prev</A>][<A HREF="msg00987.html">Thread Next</A>][<A HREF="maillist.html#00985">Date Index</A>][<A HREF="threads.html#00985">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: MysterX changes exp-tagged</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Re: MysterX changes exp-tagged</LI>
+<LI><em>From</em>: Reini Urban &lt;<A HREF="mailto:rurban@sbox.tu%2Dgraz.ac.at">rurban@sbox.tu-graz.ac.at</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 19 Oct 2000 11:22:55 +0200</LI>
+<LI><em>Organization</em>: http://xarch.tu-graz.ac.at</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00983.html">000001c03951$ed243080$6a032a80@cs.rice.edu</A>&gt; &lt;<A HREF="msg00984.html">y9laec1w71z.fsf@sams.informatik.uni-tuebingen.de</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+"Michael Sperber [Mr. Preprocessor]" schrieb:
+&gt; &gt;&gt;&gt;&gt;&gt; "Paul" == Paul A Steckler &lt;steck@cs.rice.edu&gt; writes:
+&gt; 
+&gt; Paul&gt; Yes, exposing the reference-counting mechanism
+&gt; Paul&gt; at the Scheme level is ugly, but I can't think of a better
+&gt; Paul&gt; way to deal with this problem.
+&gt; 
+&gt; I'm probably being naive, but what about using a finalizer to
+&gt; decrement the count?
+
+this is not the problem. of course this is done.
+
+the problem is that "some" COM servers do increment 
+the internal m_cRef on CoCreateInstance(),
+thus the internal servers and local clients refcounts are not in synch.
+However, a QueryInterface() call should increment the server m_cRef through 
+the given interface pointer. Some server implementors mix this up.
+--
+//pIUnknown was obtained through other means.
+IProvideClassInfo    *pPCI;
+HRESULT               hr;
+hr=pIUnknown-&gt;QueryInterface(IID_IProvideClassInfo, (void **)&amp;pPCI);
+if (SUCCEEDED(hr))    {    
+	//Use pCPI to do whatever you want.    
+	pCPI-&gt;Release();    
+} 
+else    {    
+	//QueryInterface failed; object doesn't support interface.    
+}
+--
+[<A  HREF="http://msdn.microsoft.com/library/books/inole/S10fa.htm">http://msdn.microsoft.com/library/books/inole/S10fa.htm</A>]
+
+it can happen that the client deletes it but the server still keeps it 
+(memory leak. and worse, the server may refuse to shut-down)
+
+and it can happen that the server already deleted it, but the client 
+still keeps it. on any next access you might get an access exception or 
+something worse (server memory space used by other objects).
+
+"Inside OLE" notes these rules:
+--
+The concepts governing reference counting can be distilled into two
+fundamental rules:
+
+* Creation of a new interface pointer to an object must be followed by an
+AddRef call 
+through that new pointer.
+* Destruction of an interface pointer (such as when the pointer variable goes
+out of 
+scope in the client) must be preceded by a Release call through that pointer.
+
+Because some objects internally use interface-specific reference counting,
+clients 
+must always match AddRef and Release calls through each interface pointer.
+--
+[<A  HREF="http://msdn.microsoft.com/library/books/inole/S10f5.htm">http://msdn.microsoft.com/library/books/inole/S10f5.htm</A>]
+
+Always doing a AddRef() is much safer. 
+The worst problem is a server which will refuse to shutdown. 
+(a "hanging excel session"...)
+there you can decrement it my hand.
+-- 
+Reini Urban
+<A  HREF="http://xarch.tu-graz.ac.at/autocad/news/faq/autolisp.html">http://xarch.tu-graz.ac.at/autocad/news/faq/autolisp.html</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00987" HREF="msg00987.html">RE: MysterX changes exp-tagged</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00983" HREF="msg00983.html">MysterX changes exp-tagged</A></STRONG>
+<UL><LI><EM>From:</EM> "Paul A. Steckler" &lt;steck@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00984" HREF="msg00984.html">Re: MysterX changes exp-tagged</A></STRONG>
+<UL><LI><EM>From:</EM> sperber@informatik.uni-tuebingen.de (Michael Sperber [Mr. Preprocessor])</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00984.html">Re: MysterX changes exp-tagged</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00986.html">Pretty-print</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00984.html">Re: MysterX changes exp-tagged</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00987.html">RE: MysterX changes exp-tagged</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00985"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00985"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

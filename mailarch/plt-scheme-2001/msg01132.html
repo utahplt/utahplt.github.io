@@ -1,0 +1,200 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Document formatting in Scheme (fwd) -->
+<!--X-From-R13: yvfbifxlNnpz.bet -->
+<!--X-Date: Fri, 26 Oct 2001 22:13:14 &#45;0600 (MDT) -->
+<!--X-Message-Id: Pine.LNX.4.21.0110262317080.1039&#45;100000@elm -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Document formatting in Scheme (fwd)</title>
+<link rev="made" href="mailto:lisovsky@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01131.html">Date Prev</a>][<a href="msg01133.html">Date Next</a>][<a href="msg01129.html">Thread Prev</a>][<a href="msg01133.html">Thread Next</a>][<a href="maillist.html#01132">Date Index</a>][<a href="threads.html#01132">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Document formatting in Scheme (fwd)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Document formatting in Scheme (fwd)</li>
+<li><em>From</em>: <A HREF="mailto:lisovsky@acm.org">lisovsky@acm.org</A></li>
+<li><em>Date</em>: Fri, 26 Oct 2001 23:53:17 +0400 (MSD)</li>
+<li><em>cc</em>: Oleg Kiselyov &lt;<A HREF="mailto:oleg@pobox.com">oleg@pobox.com</A>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello!
+
+I believe that you may be interested in Oleg Kiselyov's comments on the subject,
+I had forwarded initial message of the thread to him, please find his reply
+below.
+
+Best regards,
+        Kirill.
+
+---------- Forwarded message ----------
+Date: Fri, 26 Oct 2001 19:34:29 -0700 (PDT)
+From: oleg@pobox.com
+To: lisovsky@acm.org
+Subject: Re: Document formatting in Scheme
+
+
+Hello!
+
+I checked the digest of the PLT Scheme list. Alas, the
+discussion thread about Document formatting isn't indexed
+yet.  Still, I wrote a message about SXML, which, I
+hope, is on the topic of the thread. If it really is, can you
+forward/post the message? 
+
+BTW, what Noel Welsh writes in the first part of his message has
+already been implemented: it's Mole.
+
+&gt;&gt;&gt;&gt; Comment on Noel's message
+Document formatting in Scheme, or SXML-&gt; (HTML XML LaTeX)
+
+&gt; (manual	(title &quot;scmunit&quot;)
+&gt;     (introduction &quot;scmunit is a unit-testing framework for...&quot;)
+&gt; 		(chapter 1 &quot;blah blah&quot;))
+
+This *IS* an XML document -- in the abstract syntax, to be precise. In
+the spirit of XML, you espouse logical markup and its transformations
+to particular presentation formats. S-expressions, DOM trees and
+syntax-heavy XML documents are three different realizations of a
+hierarchy of containers made of strings and other containers
+(Infoset). Unlike DOM trees, S-expressions and XML documents both have
+an external representation.
+
+One of the benefits of SXML is that you can convert the same document
+into various presentation formats -- for example, HTML or LaTeX
+[sic!]. In fact, the SXML specification itself was authored in SXML
+and then converted to a web page, a LaTeX document and then to a
+Postscript file.
+	<A  HREF="http://pobox.com/~oleg/ftp/Scheme/xml.html#SXML-spec">http://pobox.com/~oleg/ftp/Scheme/xml.html#SXML-spec</A>
+
+I do want to point out that SXML code is far more expressive than the
+corresponding LaTeX code. For example, you can write in SXML:
+ 
+        (verbatim &quot;some code&quot;)
+        (table
+         ...
+         (tr
+          (td (@ (colspan &quot;2&quot;) (align &quot;center&quot;))
+            (br) (n_)
+            (verbatim
+             &quot;    A long line of indented code&quot;))))
+ 
+This piece of code shows off a table cell that spans several rows and
+several columns. Yet this piece of code will be correctly rendered in
+HTML and in TeX. LaTeX users will appreciate the expressiveness,
+because they cannot use 'verbatim' within a tabular
+environment. Multi-row table cells also require some effort to appear
+right. Yet in SXML you can use 'verbatim' anywhere you need to,
+whether inside or outside of tabular environments. In SXML, even
+complex tables can be &quot;typeset&quot; in a straightforward manner.
+
+Of course, a better example of a _logical_ markup will be the following
+excerpt from SXML.scm. It specifies the *TOP* element of SXML:
+
+   (productions
+     (production 1
+       (nonterm &quot;TOP&quot;)
+       ((term-lit &quot;*TOP*&quot;)
+	(ebnf-opt (nonterm &quot;namespaces&quot;))
+	(ebnf-* (nonterm &quot;PI&quot;))
+	(ebnf-* (nonterm &quot;comment&quot;))
+	(nonterm &quot;Element&quot;))))
+
+
+When converted to HTML, the above fragment becomes
+
+&lt;table border=0 bgcolor=&quot;#f5dcb3&quot;&gt;
+&lt;tr valign=top&gt;&lt;td align=right&gt;&lt;a name=&quot;prod-1&quot;&gt;[1]&lt;/a&gt;&amp;nbsp;&lt;/td&gt;
+&lt;td align=right&gt;&lt;code&gt;&amp;lt;TOP&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td align=center&gt;&lt;code&gt; ::= &lt;/code&gt;&lt;/td&gt;
+&lt;td align=left&gt;&lt;code&gt;&lt;em&gt;*TOP*&lt;/em&gt; &amp;lt;namespaces&amp;gt;? &amp;lt;PI&amp;gt;* 
+  &amp;lt;comment&amp;gt;* &amp;lt;Element&amp;gt;&lt;/code&gt; &lt;/td&gt;&lt;/tr&gt;
+&lt;/table&gt;
+
+In LaTeX, it doesn't look much better:
+
+\begin{tabular}{rrcp{2.8in}}
+{[}1{]} &amp; \texttt{&lt;TOP&gt;} &amp;  $::=$ &amp; \texttt{\textit{*TOP*} &lt;namespaces&gt;? &lt;PI&gt;* &lt;comment&gt;* &lt;Element&gt; } \\
+\end{tabular}
+\\
+
+IMHO, the SXML form is most lucid. It was also easier to type
+(especially given suitable Emacs key bindings, similar to those
+designed for LAML). 
+
+Using SXML to express its grammar has another important advantage: I
+can easily write a transformation or an SXPath query on the whole
+SXML.scm to make sure that every 'nonterm' mentioned on the right-hand
+of some production appears on the left-hand side of exactly one
+production. The SXML.scm code thus lends itself not only to a flexible
+presentation to a human but to a formal reasoning about as well.
+
+As a matter of fact, the ability to treat SXML as a &quot;code&quot; or as
+&quot;data&quot; is used during some SXML transformations. The expansion process
+of some tag can re-scan the SXML document, with a different
+stylesheet. That's how you can implement hierarchical tables of
+contents. Unlike LaTeX, you don't need to write auxiliary files and
+don't need to re-run the document processor.
+
+Cheers,
+     Oleg.
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01131.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01133.html">Memory usage</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01129.html">Re: Error context info</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01133.html">Memory usage</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01132"><strong>Date</strong></a></li>
+<li><a href="threads.html#01132"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

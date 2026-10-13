@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: C++ extension and garbage collection -->
+<!--X-From-R13: Dba Egnabavx <fgnabavxNpbtfpv.hpfq.rqh> -->
+<!--X-Date: Mon, 25 Mar 2002 12:11:30 &#45;0700 (MST) -->
+<!--X-Message-Id: Pine.LNX.4.33.0203251047290.27853&#45;100000@cogsci.ucsd.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>C++ extension and garbage collection</title>
+<link rev="made" href="mailto:stanonik@cogsci.ucsd.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00484.html">Date Prev</a>][<a href="msg00486.html">Date Next</a>][<a href="msg00499.html">Thread Prev</a>][<a href="msg00492.html">Thread Next</a>][<a href="maillist.html#00485">Date Index</a>][<a href="threads.html#00485">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>C++ extension and garbage collection</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: C++ extension and garbage collection</li>
+<li><em>From</em>: Ron Stanonik &lt;<A HREF="mailto:stanonik@cogsci.ucsd.edu">stanonik@cogsci.ucsd.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Mar 2002 11:11:28 -0800 (PST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello,
+
+I'm working on a DrScheme (plt-200aplha14) extension, written in C++.
+
+It appears that DrScheme's garbage collection might be &quot;collecting&quot;
+some of the extension's C++ objects.
+
+Watching with gdb I can see that the C++ objects' fields are initialized
+with non-zero values and that after DrScheme garbage collection runs, the
+fields are zero.
+
+Watching with gdb when the C++ objects are new'ed I see that DrScheme has
+overridden the &quot;new&quot; operator and that this &quot;new&quot; operator is calling GC_malloc.
+
+  (gdb) step
+  __builtin_new (size=52) at ./../wxcommon/wxGC.cxx:46
+  46        return GC_malloc(size);
+  (gdb) step
+  GC_malloc (lb=52) at malloc.c:284
+  284         if( EXPECT(SMALL_OBJ(lb), 1) ) {
+  Current language:  auto; currently c
+
+&gt;From wxcommon/wxGC.cxx
+
+  void *operator new(size_t size)
+  {
+  #ifdef USE_SENORA_GC
+    if (!cpp_objects)
+      cpp_objects = GC_new_set(&quot;C++&quot;, NULL, NULL, NULL, NULL, NULL, 0);
+
+    return GC_malloc_specific(size, cpp_objects);
+  #else
+    return GC_malloc(size);
+  #endif
+  }
+
+Shouldn't this &quot;new&quot; be calling GC_malloc_uncollectable?  Or is there some
+other way I should be indicating to DrScheme to not collect the extension's
+C++ objects?  Or have I built DrScheme incorrectly?
+
+Thanks,
+
+Ron
+stanonik@cogsci.ucsd.edu
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00492" href="msg00492.html">Re: C++ extension and garbage collection</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00513" href="msg00513.html">Re: C++ extension and garbage collection</a></strong>
+<ul><li><em>From:</em> Ron Stanonik &lt;stanonik@cogsci.ucsd.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00484.html">No Subject</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00486.html">SrPersist pre-release binary</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00499.html">Re: 200alpha15 (security guards)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00492.html">Re: C++ extension and garbage collection</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00485"><strong>Date</strong></a></li>
+<li><a href="threads.html#00485"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

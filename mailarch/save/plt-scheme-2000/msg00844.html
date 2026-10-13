@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: 103/3 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 10 Aug 2000 19:45:14 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200008110145.SAA28694@harrier.prod.itd.earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>103/3</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00843.html">Date Prev</A>][<A HREF="msg00845.html">Date Next</A>][<A HREF="msg01141.html">Thread Prev</A>][<A HREF="msg00854.html">Thread Next</A>][<A HREF="maillist.html#00844">Date Index</A>][<A HREF="threads.html#00844">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>103/3</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: 103/3</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 10 Aug 2000 18:45:08 -0700 (PDT)</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+In CVS, the exp-tagged MrEd/MzScheme source is now version 103/3. The
+main change is `(yield 'wait)' in MrEd.
+
+MrEd changes:
+
+ * Added 'wait as a possible argument to `yield'. When called in the
+   handler thread of an eventspace, `(yield 'wait)' yields until no
+   top-level windows in the eventspace are visible, no timers in the
+   eventspace are running, and no callbacks are queued in the
+   eventspace.
+
+ * Fixed set-max-undo-history; it wasn't actually resizing the undo
+   history buffer.
+
+ * Windows, MacOS: Fixed location of "[Exited]" in stdio window. (PR
+   1600)
+
+MzScheme changes:
+
+ * Changed `call-in-nested-thread' to move pre-queued breaks on the
+   original thread to the nested thread, and also move leftover breaks
+   on a completed nested thread to the original thread.
+
+ * Unix: fixed bug in writing/closing file-stream output ports; if an
+   error occurred during write, the port was permanently locked, so
+   all port operations blocked.
+
+ * Fixed output to a limited port with a closed reader end; blocked
+   threads are now released when the reader end is closed.
+
+ * MacOS: changed `split-path' to preserve the colon suffix on a root
+   name. (PR 1597, indirectly)
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00843.html">Re: Any Other Lists?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00845.html">Re: Any Other Lists?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01141.html">Re: Documentation &amp; Help Desk suggestions</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00854.html">tcp-connect error</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00844"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00844"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

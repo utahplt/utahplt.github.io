@@ -1,0 +1,118 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: C++ extension and garbage collection -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 27 Mar 2002 10:14:20 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203271713.KAA21767@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.33.0203270845200.7482&#45;100000@cogsci.ucsd.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: C++ extension and garbage collection</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00546.html">Date Prev</a>][<a href="msg00548.html">Date Next</a>][<a href="msg00546.html">Thread Prev</a>][<a href="msg00552.html">Thread Next</a>][<a href="maillist.html#00547">Date Index</a>][<a href="threads.html#00547">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: C++ extension and garbage collection</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Ron Stanonik &lt;<A HREF="mailto:stanonik@cogsci.ucsd.edu">stanonik@cogsci.ucsd.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: C++ extension and garbage collection</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Mar 2002 10:13:02 -0700 (MST)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00546.html">Pine.LNX.4.33.0203270845200.7482-100000@cogsci.ucsd.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00546.html">Pine.LNX.4.33.0203270845200.7482-100000@cogsci.ucsd.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Wed, 27 Mar 2002 08:58:05 -0800 (PST), Ron Stanonik wrote:
+&gt; That's an interesting remark.  I've noticed that new structures seem
+&gt; to be collected, but new classes don't seem to be collected, even if
+&gt; they contain the same structure.  For example
+&gt; 
+&gt;   new Tcl_HashTable
+&gt; 
+&gt; gets collected, but
+&gt; 
+&gt;   new Pad_HashTable
+&gt; 
+&gt; doesn't, even though it contains a Tcl_HashTable.
+&gt; 
+&gt; class Pad_HashTable {
+&gt;  ...
+&gt;  private:
+&gt;    Tcl_HashTable table;
+&gt; }
+&gt; 
+&gt; Why are new structures collected, but not new classes?
+&gt; From gdb it appears the same new is used.
+
+I'm not sure. Could it just be the timing of collections? (The pointer
+to a Pad_HashTable happens to be in a register or on the stack?)
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00552" href="msg00552.html">Re: C++ extension and garbage collection</a></strong>
+<ul><li><em>From:</em> Ron Stanonik &lt;stanonik@cogsci.ucsd.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00546" href="msg00546.html">Re: C++ extension and garbage collection</a></strong>
+<ul><li><em>From:</em> Ron Stanonik &lt;stanonik@cogsci.ucsd.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00546.html">Re: C++ extension and garbage collection</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00548.html">RE: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00546.html">Re: C++ extension and garbage collection</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00552.html">Re: C++ extension and garbage collection</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00547"><strong>Date</strong></a></li>
+<li><a href="threads.html#00547"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

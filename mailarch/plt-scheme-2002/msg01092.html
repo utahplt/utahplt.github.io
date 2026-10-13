@@ -1,0 +1,134 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] Annotative forms in expand&#45;program? -->
+<!--X-From-R13: [ngg Xnqhq <zwnqhqNpf.vaqvnan.rqh> -->
+<!--X-Date: Sun, 9 Jun 2002 12:48:36 &#45;0600 (MDT) -->
+<!--X-Message-Id: Pine.GSO.4.44.0206091325580.28722&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] Annotative forms in expand-program?</title>
+<link rev="made" href="mailto:mjadud@cs.indiana.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01091.html">Date Prev</a>][<a href="msg01093.html">Date Next</a>][<a href="msg01090.html">Thread Prev</a>][<a href="msg01093.html">Thread Next</a>][<a href="maillist.html#01092">Date Index</a>][<a href="threads.html#01092">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] Annotative forms in expand-program?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [plt-scheme] Annotative forms in expand-program?</li>
+<li><em>From</em>: Matt Jadud &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 9 Jun 2002 13:48:03 -0500 (EST)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+	I was thinking I was all set in using the expanded form of a program,
+and I'd gain magical compatibility with any program implemented in DrScheme.
+
+The program
+
+(define (fact n)
+  (if (zero? n)
+      1
+      (* n (fact (n (- n 1))))))
+
+Expands as follows under the language setting &quot;Textual MzScheme&quot;:
+
+(define-values
+  (fact)
+  (lambda (n)
+    (if (#%app (#%top zero?) n)
+	(#%datum 1)
+        (#%app (#%top *) n (#%app (#%top fact)
+				  (#%app (#%top -) n (#%datum 1)))))))
+
+Under the &quot;Beginning Student&quot; language, however, I get the following:
+
+(begin
+ (#%app check-top-level-not-defined (quote define) (quote-syntax fact))
+ (define-values (fact)
+   (lambda (n)
+     (if (#%app verify-boolean (#%app zero? n) (quote if))
+	 (#%datum 1)
+       (#%app * n (#%app (#%top fact)
+			 (#%app - n (#%datum 1))))))))
+
+I had to fgrep through the collections directory to find, in the &quot;private&quot;
+subdirectory of the &quot;lang&quot; collection the string &quot;check-top-level.&quot; These
+run-time extentions for use in Beginner Scheme show up in the expansion of the
+definitions window; if any language can introduce arbitrary code to be
+evaluated at run-time into the primitive language, how do I handle expressions
+defined in modules that have no meaning in the language of my compiler?
+
+	I thought I had a handle on this, but perhaps I didn't; am I missing
+something very obvious?
+
+	Thanks,
+	Matt
+
+________________________________________________________________________
+Matt Jadud                            <A  HREF="http://www.cs.indiana.edu/~mjadud/">http://www.cs.indiana.edu/~mjadud/</A>
+Current Temperature Outside Lindley Hall                 80.4 F / 26.9 C
+Canterbury Weather: High 60 F / 16 C, Low 50 F / 10 C, Light rain shower (Day)
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01093" href="msg01093.html">Re: [plt-scheme] Annotative forms in expand-program?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01096" href="msg01096.html">Re: [plt-scheme] Annotative forms in expand-program?</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01091.html">Re: [plt-scheme] Return from do</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01093.html">Re: [plt-scheme] Annotative forms in expand-program?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01090.html">[plt-scheme] 200 plan?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01093.html">Re: [plt-scheme] Annotative forms in expand-program?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01092"><strong>Date</strong></a></li>
+<li><a href="threads.html#01092"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

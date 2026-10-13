@@ -1,0 +1,52 @@
+
+<a href="mpp.cc">mpp.cc</A>,
+<a href="drscheme-utilities.cc">drscheme-utilities.cc</a>, and
+<a href="drscheme-utilities.h">drscheme-utilities.h</a>.
+
+<P>
+
+mpp.cc and the associated helper module is a pre-processor for mzscheme
+interface code.  It allows you to specify the interface to a function using
+a full lambda expression.  mpp.cc is derived from dpp.c that is distributed
+with ecolisp, an embeddable mostly-CL compliant Lisp engine.  The
+preprocessor sets ups the argument list, parses it and defines a few
+functions that help you check argument types and signal errors.  The code
+must be compiled with a C++ compiler and mpp emits code that can only be
+compiled with a C++ compiler.
+
+<pre>
+file foo.d:
+
+#include "drscheme-utilities.h"
+using namespace MLT_Scheme;
+
+@(defvar method-1)
+@(defvar method-2)
+@(make-keyword method)
+@(defun my-function (x y &optional z &key (method Smethod_1))
+@
+    check_type(__x__, scheme_string_type, "string");
+    defun_assert(SAME_OBJ(__method__, Smethod_1) || SAME_OBJ(__method__, Smethod_2),
+        "method must be method-1 or method-2");
+    if(SCHEME_NULLP(__z__)) { /* z was not specified */ }
+
+    //  do something here
+
+    return scheme_true;
+@)
+
+
+prompt$ mpp foo
+</pre>
+
+produces foo.cc that must be compiled and linked with the
+drscheme-utilities.cc functions.  Your startup code (whether embedded or
+driven by your own main must call init_foo(some_mzscheme_environment) to
+initialize the symbols).  Perhaps a switch should be added so that mpp
+generates the proper dll or shared library init function call...
+
+<P>
+
+This has only been tested under the cygwin environment using the latest
+Mumit Khan gcc compiler release.  It is fairly generic, and should work in
+similar environments.

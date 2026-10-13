@@ -1,0 +1,118 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Databases &#38;/or binary data -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 5 Feb 2001 09:15:59 &#45;0700 (MST) -->
+<!--X-Message-Id: 200102051615.JAA13842@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000801c08f8d$ba17da60$6a032a80@cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Databases &amp;/or binary data</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00211.html">Date Prev</a>][<a href="msg00213.html">Date Next</a>][<a href="msg00211.html">Thread Prev</a>][<a href="msg00181.html">Thread Next</a>][<a href="maillist.html#00212">Date Index</a>][<a href="threads.html#00212">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Databases &amp;/or binary data</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Paul A. Steckler&quot; &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Databases &amp;/or binary data</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 5 Feb 2001 09:15:51 -0700 (MST)</li>
+<li><em>CC</em>: &quot;<A HREF="mailto:Plt-Scheme@Fast.">Plt-Scheme@Fast.</A> Cs. Utah. Edu&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00211.html">000801c08f8d$ba17da60$6a032a80@cs.rice.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00211.html">000801c08f8d$ba17da60$6a032a80@cs.rice.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Paul A. Steckler&quot;:
+&gt; I did this once for gdbm and it worked perfectly except that I had to pass 
+&gt; an absolute filename to gdbm because it's idea of the current directory was 
+&gt; not mzscheme's idea.
+&gt; I remember having this problem in other contexts also, does anybody have an 
+&gt; idea what might be wrong?
+
+Yes: MzScheme has it's own notion of current directory because the
+current directory is thread-specific (via a parameter).
+
+
+When MzScheme is compiled to use OS-implemented threads, MzScheme
+*can't* use the OS notion of current directory, because it is
+process-specific instead of thread-specific. (As far as I can tell,
+that means that the notion of current directory is useless to
+multi-threaded C programs.)
+
+If MzScheme uses it's own threads, it still turns out to be easier and
+more efficient to use MzScheme's own notion of the current directory.
+Also, if MzScheme is embedded in a multi-threaded program, where
+MzScheme only sees one OS thread, then MzScheme is less likely to hurt
+other threads if they happen to use the current directory (but see the
+comment above).
+
+
+FWIW, the MzScheme function
+  int scheme_os_setcwd(char *buf, int noexn);
+sets the OS-level current directory. MzScheme itself uses this function
+to implement primitives like `process'.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00211" href="msg00211.html">Re: Databases &amp;/or binary data</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00211.html">Re: Databases &amp;/or binary data</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00213.html">set file or directory permissions ??</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00211.html">Re: Databases &amp;/or binary data</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00181.html">Offtopic: How to Design Programming Tests</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00212"><strong>Date</strong></a></li>
+<li><a href="threads.html#00212"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

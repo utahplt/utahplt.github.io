@@ -1,0 +1,124 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Environments vs. Namespaces -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Thu, 28 Sep 2000 06:11:14 &#45;0600 (MDT) -->
+<!--X-Message-Id: p04330100b5f8e57857c5@[63.22.187.186] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 002501c02891$11b88c10$9c50c29e@inf.upol.cz -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Environments vs. Namespaces</TITLE>
+<LINK REV="made" HREF="mailto:robby@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00925.html">Date Prev</A>][<A HREF="msg00927.html">Date Next</A>][<A HREF="msg00925.html">Thread Prev</A>][<A HREF="msg00929.html">Thread Next</A>][<A HREF="maillist.html#00926">Date Index</A>][<A HREF="threads.html#00926">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Environments vs. Namespaces</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "David Skoupil" &lt;<A HREF="mailto:skoupil@upol.cz">skoupil@upol.cz</A>&gt;, &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Environments vs. Namespaces</LI>
+<LI><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Thu, 28 Sep 2000 07:11:00 -0500</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00925.html">002501c02891$11b88c10$9c50c29e@inf.upol.cz</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00925.html">002501c02891$11b88c10$9c50c29e@inf.upol.cz</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Unfortunately, namespaces in mzscheme only contain the top-level 
+bindings, not any lexical bindings. In fact, there is no way to grab 
+the lexical bindings like you seem to want to do.
+
+Sorry,
+Robby
+
+
+At 4:41 PM +0200 9/27/00, David Skoupil wrote:
+&gt;Hi,
+&gt;
+&gt;at our university, we are switching from MIT-Scheme to Dr.Scheme. We got
+&gt;quite confused about the notion "namespace" and its relation to
+&gt;"environment". For example, in the following case we expect to get answer
+&gt;"10" but we get answer "1".
+&gt;
+&gt;(define a 1)
+&gt;(define e
+&gt;     (let ((a 10))
+&gt;        (current-namespace)))
+&gt;(eval 'a e)
+&gt;
+&gt;Clearly, current-namespace in PLT is not the same thing as
+&gt;the-environment in MIT Scheme.
+&gt;
+&gt;What are we missing?
+&gt;
+&gt;Thanks for any help.
+&gt;
+&gt;David.
+&gt;-----------------------------------------------
+&gt;David Skoupil
+&gt;Palacky University
+&gt;skoupil@upol.cz
+&gt;www.upol.cz/~skoupil
+&gt;
+&gt;
+&gt;&gt;
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00925" HREF="msg00925.html">Environments vs. Namespaces</A></STRONG>
+<UL><LI><EM>From:</EM> "David Skoupil" &lt;skoupil@upol.cz&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00925.html">Environments vs. Namespaces</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00927.html">Re: (sans sujet)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00925.html">Environments vs. Namespaces</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00929.html">Regexp arcana</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00926"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00926"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,145 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Mouse grabs -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 5 Mar 2000 19:11:10 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000306021108.BJQZ19251.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 14530.51701.725751.798288@mojave.cs.cornell.edu -->
+<!--X-Reference: 20000306012415.OWD19251.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 001301bf870d$64ead760$edb22a80@cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Mouse grabs</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00161.html">Date Prev</a>][<a href="msg00163.html">Date Next</a>][<a href="msg00161.html">Thread Prev</a>][<a href="msg00163.html">Thread Next</a>][<a href="maillist.html#00162">Date Index</a>][<a href="threads.html#00162">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Mouse grabs</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Robby Findler&quot; &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Mouse grabs</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 5 Mar 2000 18:11:08 -0800</li>
+<li><em>CC</em>: &quot;Eli Barzilay&quot; &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00160.html">001301bf870d$64ead760$edb22a80@cs.rice.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00158.html">14530.51701.725751.798288@mojave.cs.cornell.edu</a>&gt; &lt;<a href="msg00159.html">20000306012415.OWD19251.mail.rdc1.sfba.home.com@localhost</a>&gt;	&lt;<a href="msg00160.html">001301bf870d$64ead760$edb22a80@cs.rice.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Robby Findler&quot;:
+&gt; Matthew writes:
+&gt; &gt; Perhaps the solution is to be able to queue an event for the window at
+&gt; &gt; a particular (global) location. [...]
+&gt; 
+&gt; This only seems like one of the pieces of drag and drop. I think that you
+&gt; would also need some way to take a global x,y coordinate and map that to a
+&gt; window (which might not be in the frontmost frame). [...]
+
+That wouldn't be secure. For example, a program running within DrScheme
+could get access to the DrScheme frame. (We want drag-and-drop to work
+across different programs, presumably.)
+
+I meant literally a function that takes global location and queues an
+event for the window at that location:
+
+ (queue-event-at x-pos y-pos v) =&gt; void
+ ;; queues some sort of event that delivers v to the window
+ ;; at the location (x-pos, y-pos)
+
+Technically, there's a timing issue here: the mouse release event could
+have happened a long time ago, and the windows might have moved since.
+Too bad.
+
+Thinking further ahead, to a world with proper memory accounting, this
+is still too insecure. A program could send DrScheme an arbitrarily
+large piece of data, and then the DrScheme eventspace would become the
+owner.
+
+So I think the right mechanism will not be to queue an event, but to
+directly call a method on the window at the given position.
+
+ (send-window-message x-pos y-pos v) =&gt; value
+ ;; calls the `on-message' method of the window at (x-pos, y-pos)
+ ;;  with the argument `v'. The method is called directly in the current
+ ;;  thread. The result of calling the method is the return value.
+
+The default `on-message' would call the window's parent's `on-message'.
+The default `on-message' for a top-level window would ignore the
+argument and return #f.
+
+Programmers who choose to override `on-message' would have to take care
+to recognize the threading and security issues. Note that there's no
+way for a program to do something bad to another program that doesn't
+override `on-message'.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00163" href="msg00163.html">Re: Mouse grabs</a></strong>
+<ul><li><em>From:</em> &quot;Robby Findler&quot; &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00158" href="msg00158.html">Mouse grabs</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</li></ul></li>
+<li><strong><a name="00159" href="msg00159.html">Re: Mouse grabs</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00160" href="msg00160.html">Re: Mouse grabs</a></strong>
+<ul><li><em>From:</em> &quot;Robby Findler&quot; &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00161.html">Re: Mouse grabs</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00163.html">Re: Mouse grabs</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00161.html">Re: Mouse grabs</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00163.html">Re: Mouse grabs</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00162"><strong>Date</strong></a></li>
+<li><a href="threads.html#00162"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

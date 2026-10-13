@@ -1,0 +1,116 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Unhygienic macros -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Sun, 9 Dec 2001 16:41:53 &#45;0700 (MST) -->
+<!--X-Message-Id: 15379.63165.968180.192680@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20011209191636.GA649@la.iki.fi -->
+<!--X-Reference: 200112091955.fB9JtDr16190@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Unhygienic macros</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01302.html">Date Prev</a>][<a href="msg01304.html">Date Next</a>][<a href="msg01299.html">Thread Prev</a>][<a href="msg01306.html">Thread Next</a>][<a href="maillist.html#01303">Date Index</a>][<a href="threads.html#01303">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Unhygienic macros</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Unhygienic macros</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Sun, 9 Dec 2001 18:41:49 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01299.html">200112091955.fB9JtDr16190@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01298.html">20011209191636.GA649@la.iki.fi</a>&gt;&lt;<a href="msg01299.html">200112091955.fB9JtDr16190@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Dec  9, Matthew Flatt wrote:
+&gt; &gt; One practical question, though: is there a way to &quot;unquote&quot; inside a
+&gt; &gt; (syntax ...) form, so one could more easily embed a computed syntax
+&gt; &gt; object inside a template? Of course one can always pre-bind them to
+&gt; &gt; template variables with with-syntax, but it's not always as compact.
+&gt; 
+&gt; Others have requested a `quasiquote-syntax', too. On my list.
+
+I suppose that I'm one of these others...  One thing I wanted to add
+to this is that the main benifit of this would be having the the
+`unsyntaxed' object where it is used, which makes sense in most cases
+where such a value is used once (it doesn't look good to write
+something like (let ((x 5)) (* x 2))...) -- and I'm not sure about
+this, but I think that syntax objects are not commonly used more than
+once.  One thing that I thought would be nice, but turned out to be
+way too heavy than my free time allows, is to have some context that
+will use `quasiquote' and `unquote' for `syntax' and some `unsyntax'
+-- I think that it (=using the &quot;`&quot; &amp; &quot;,&quot; forma) makes macro code much
+more readable since it is close to just having the `color
+specifications' -- minimal extra text that distracts you from the
+content.  I tried `fluid-let-syntax' but encountered harder problems,
+I wonder if getting this functionality will make it possible.
+
+BTW, is `fluid-let-syntax' as bad as `fluid-let'?
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01298" href="msg01298.html">Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Lauri Alanko &lt;la@iki.fi&gt;</li></ul></li>
+<li><strong><a name="01299" href="msg01299.html">Re: Unhygienic macros</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01302.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01304.html">Re: RFC - GL in scheme (long, with code)</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01299.html">Re: Unhygienic macros</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01306.html">Unhygienic macros</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01303"><strong>Date</strong></a></li>
+<li><a href="threads.html#01303"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

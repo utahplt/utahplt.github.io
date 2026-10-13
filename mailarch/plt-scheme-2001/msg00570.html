@@ -1,0 +1,146 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: 199.16 -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 25 Jun 2001 10:48:49 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200106251648.KAA11535@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>199.16</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00569.html">Date Prev</a>][<a href="msg00571.html">Date Next</a>][<a href="msg00571.html">Thread Prev</a>][<a href="msg00572.html">Thread Next</a>][<a href="maillist.html#00570">Date Index</a>][<a href="threads.html#00570">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>199.16</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: 199.16</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 25 Jun 2001 10:48:46 -0600 (MDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The v200-tagged code in CVS for MzScheme and MrEd is now version 199.16.
+
+The main change is that mzc supports a subset of the Gambit-C
+foreign-function interface. For example:
+
+  (define fmod (c-lambda (double double) double &quot;fmod&quot;))
+
+creates a Scheme function that calls the standard fmod() C function.
+The body part of the function can either be a C function name, as
+above, or it can be C code that accesses ___arg1, etc. and sets
+___result. (The three underscores underscore the Gambit heritage. :)
+
+  (define machine-string-&gt;float
+    (c-lambda (char-string) float
+       ;; assume that the string is 4 bytes
+       &quot;___result = *(float *)___arg1;&quot;))
+
+The `c-lambda' form can be used anywhere. There's also a `c-declare'
+form (used for #includes, etc.) that must appear at the top-level or in
+a module top-level.
+
+When interpreted directly or compiled to byte code, `c-lambda' produces
+a function that always raises `exn:user', and `c-declare' raises
+`exn:user'. [Yes, it would be nice if those were syntax errors.]
+
+The `c-lambda' and `c-declare' forms are defined by a new &quot;cffi.ss&quot;
+module in the &quot;compiler&quot; collection. When compiling a file, mzc
+automatically imports the cffi module into the top-level namespace.
+
+See the mzc manual (now ported to v200) for more information, and see
+plt/collects/mzscheme/examples for additional small examples.
+
+
+[This subset of the Gambit-C FFI seems useful (compare the `fmod' line
+above to the 25-line plain C example), and it was trivial to implement
+for mzc. I don't know why I never thought of this before, but it might
+be because I kept looking for FFIs that would work well with the
+interpreter (without mzc).]
+
+
+Other changes:
+
+ * Fixed `subprocess' for Windows [really, this time... hopefully].
+
+ * The self object is passed to `demand-callback' procedures.
+
+Inside MzScheme:
+
+ * New scheme_c_pointer_type built-in type --- with scheme_make_cptr(),
+   SCHEME_CPTRP(), SCHEMECPTR_VAL(), and SCHEME_CPTR_TYPE() --- that
+   makes simple extensions easier to write. (Used by `c-lambda'.)
+
+ * schvers.h now defines MZSCHEME_VERSION, MZSCHEME_VERSION_MAJOR, and
+   MZSCHEME_VERSION_MINOR (instead of VERSION), and [e]scheme.h
+   includes schvers.h.
+
+ * The &quot;Inside MzScheme&quot; manual is up-to-date.
+
+The MzScheme, MzLib, MrEd, mzc, and Inside MzScheme manuals have been
+updated. Temporary PDF versions of the manuals are available at
+  <A  HREF="http://www.cs.utah.edu/~mflatt/tmp/">http://www.cs.utah.edu/~mflatt/tmp/</A>
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00572" href="msg00572.html">Re: 199.16</a></strong>
+<ul><li><em>From:</em> Alexey Mahotkin &lt;alexm@jet.msk.su&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00569.html">scheme_add_global_constant and scheme_rep</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00571.html">Re: scheme_add_global_constant and scheme_rep</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00571.html">Re: scheme_add_global_constant and scheme_rep</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00572.html">Re: 199.16</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00570"><strong>Date</strong></a></li>
+<li><a href="threads.html#00570"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

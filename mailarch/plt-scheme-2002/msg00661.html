@@ -1,0 +1,135 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: v200 and SLIB -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 2 Apr 2002 13:55:23 &#45;0700 (MST) -->
+<!--X-Message-Id: 200204022055.NAA04830@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.40.0203262104520.2916&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Reference: 200203271345.g2RDjnL25164@wrath.cs.utah.edu -->
+<!--X-Reference: 3CA2D963.C8FCEDF4@info.unicaen.fr -->
+<!--X-Reference: 200203281223.g2SCNVf17966@plover.atdesk.com -->
+<!--X-Reference: 3CAA075B.7CE2A556@mathstar.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: v200 and SLIB</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00660.html">Date Prev</a>][<a href="msg00662.html">Date Next</a>][<a href="msg00659.html">Thread Prev</a>][<a href="msg00590.html">Thread Next</a>][<a href="maillist.html#00661">Date Index</a>][<a href="threads.html#00661">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: v200 and SLIB</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Bill Wood &lt;<A HREF="mailto:wtw@mathstar.com">wtw@mathstar.com</A>&gt;</li>
+<li><em>Subject</em>: Re: v200 and SLIB</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 2 Apr 2002 13:55:20 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00659.html">3CAA075B.7CE2A556@mathstar.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00526.html">Pine.GSO.4.40.0203262104520.2916-100000@velvetbelly.cs.indiana.edu</a>&gt;	&lt;<a href="msg00535.html">200203271345.g2RDjnL25164@wrath.cs.utah.edu</a>&gt;	&lt;<a href="msg00587.html">3CA2D963.C8FCEDF4@info.unicaen.fr</a>&gt; &lt;<a href="msg00589.html">200203281223.g2SCNVf17966@plover.atdesk.com</a>&gt;	&lt;<a href="msg00659.html">3CAA075B.7CE2A556@mathstar.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Tue, 02 Apr 2002 13:32:43 -0600, Bill Wood wrote:
+&gt; Has anyone had success hooking in the SLIB library into v.200? 
+
+I had it working once.
+
+&gt; but '(require (lib &quot;load.ss&quot; &quot;slibinit&quot;))' only worked
+&gt; after exporting SCHEME_LIBRARY_PATH
+
+Or you can install the &quot;slib&quot; directory in plt/collects.
+
+&gt;.  Unfortunately, after mzscheme came 
+&gt; up quietly and the require form above seemed to work, when I tried
+&gt; '(require &quot;factor.scm&quot;) I got the error message
+&gt;    call-with-output-file: cannot open output file:
+&gt; &quot;/usr/local/plt-200alpha12/slibcat&quot; (Permission denied; errno=13)
+&gt; which indicates slib is looking where it shouldn't.
+
+I guess I need to expand the SLIB installation instructions in Help
+Desk. From the SLIB README:
+
+   When SLIB is first used from an implementation, a file named
+ `slibcat' is written to the `implementation-vicinity' for that
+ implementation.  Because users may lack permission to write in
+ `implementation-vicinity', it is good practice to build the new catalog
+ when installing SLIB.
+
+MzScheme sets `implementation-vicinity' to point to PLTHOME, which is
+apparently not writeable in your case. I guess the right thing to do is
+to run the SLIB command
+
+     (require 'new-catalog)
+
+as part of the installation process, and also to point
+`implementation-vicinity' as the SLIb directory instead of PLTHOME.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00526" href="msg00526.html">Building PLTs</a></strong>
+<ul><li><em>From:</em> &quot;Matt 'LEGO Guy' Jadud&quot; &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+<li><strong><a name="00535" href="msg00535.html">Re: Building PLTs</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00587" href="msg00587.html">Documentation</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00589" href="msg00589.html">Re: Documentation</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+<li><strong><a name="00659" href="msg00659.html">Re: v200 and SLIB</a></strong>
+<ul><li><em>From:</em> Bill Wood &lt;wtw@mathstar.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00660.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00662.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00659.html">Re: v200 and SLIB</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00590.html">RE: Documentation</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00661"><strong>Date</strong></a></li>
+<li><a href="threads.html#00661"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

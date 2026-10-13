@@ -1,0 +1,101 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: uinterned symbols perhaps? -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNppf.arh.rqh> -->
+<!--X-Date: Mon, 22 Oct 2001 22:40:35 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110230440.f9N4eVa28092@denali.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E4C0D8267DAA6141B77F1A4EAAEB2B91023B87BE@seapriv1 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: uinterned symbols perhaps?</title>
+<link rev="made" href="mailto:matthias@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01081.html">Date Prev</a>][<a href="msg01083.html">Date Next</a>][<a href="msg01080.html">Thread Prev</a>][<a href="msg01081.html">Thread Next</a>][<a href="maillist.html#01082">Date Index</a>][<a href="threads.html#01082">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: uinterned symbols perhaps?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A></li>
+<li><em>Subject</em>: Re: uinterned symbols perhaps?</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 23 Oct 2001 00:40:32 -0400 (EDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg01080.html">E4C0D8267DAA6141B77F1A4EAAEB2B91023B87BE@seapriv1</a>&gt; (message fromGreg Pettyjohn on Mon, 22 Oct 2001 21:21:27 -0700)</li>
+<li><em>References</em>: &lt;<a href="msg01080.html">E4C0D8267DAA6141B77F1A4EAAEB2B91023B87BE@seapriv1</a>&gt;</li>
+<li><em>Reply-to</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Correct. The symbols are not interned (i.e. remain unknown to the run-time
+system), but they have a &quot;print name&quot;. When you type in the printname as a
+symbol, Scheme creates and interns the symbol, so that the &quot;gensym'ed&quot;
+symbol is not eq to the interned one. 
+
+What I don't understand is this. If you gensym method names, you can't
+possibly know them after the macro is elaborated. So even if they are 
+public methods, you can't call them -- because you don't know their
+names. So, it seems to me that you need to create names that are
+&quot;derivatives&quot; of the existing names so that you can call them from the
+outside. 
+
+-- Matthias
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01080" href="msg01080.html">uinterned symbols perhaps?</a></strong>
+<ul><li><em>From:</em> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01081.html">Re: is too an application</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01083.html">IDPT 2002 Session: Formal Methods in Healthcare [call for paper]</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01080.html">uinterned symbols perhaps?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01081.html">Re: is too an application</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01082"><strong>Date</strong></a></li>
+<li><a href="threads.html#01082"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

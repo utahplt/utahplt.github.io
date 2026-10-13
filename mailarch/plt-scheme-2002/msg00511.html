@@ -1,0 +1,276 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: Quevf Gmqnivavf <puevfNngqrfx.pbz> -->
+<!--X-Date: Tue, 26 Mar 2002 10:54:59 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203261754.g2QHssf19825@plover.atdesk.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000801c1d3a6$a82874a0$0a00a8c0@femto -->
+<!--X-Reference: j64rj4afqy.fsf@explicit.atdesk.com -->
+<!--X-Reference: 3CA0293E.7D1EDF53@info.unicaen.fr -->
+<!--X-Reference: 200203261508.g2QF8Pf07690@plover.atdesk.com -->
+<!--X-Reference: 20020326153908.40CD7206F6@sualocin.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:chris@atdesk.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00510.html">Date Prev</a>][<a href="msg00512.html">Date Next</a>][<a href="msg00510.html">Thread Prev</a>][<a href="msg00555.html">Thread Next</a>][<a href="maillist.html#00511">Date Index</a>][<a href="threads.html#00511">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 26 Mar 2002 12:54:54 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:karczma@info.unicaen.fr">karczma@info.unicaen.fr</A>, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: Matthias Felleisen's message of &quot;Tue, 26 Mar 2002 10:39:08 -0500 (EST)&quot;</li>
+<li><em>Organization</em>: Automated Trading Desk, Inc.</li>
+<li><em>References</em>: &lt;<a href="msg00449.html">000801c1d3a6$a82874a0$0a00a8c0@femto</a>&gt;&lt;<a href="msg00475.html">j64rj4afqy.fsf@explicit.atdesk.com</a>&gt;&lt;<a href="msg00507.html">3CA0293E.7D1EDF53@info.unicaen.fr</a>&gt;&lt;<a href="msg00509.html">200203261508.g2QF8Pf07690@plover.atdesk.com</a>&gt;&lt;<a href="msg00510.html">20020326153908.40CD7206F6@sualocin.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/21.1</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Matthias Felleisen &lt;matthias@ccs.neu.edu&gt; writes:
+
+&gt; Chris, this is an interesting problem. Would you mind distilling the
+&gt; parsing problem so that we can perform stress tests and figure out whether
+&gt; we have a bottleneck? Thanks -- Matthias
+
+Sure.  I'm not sure if the bottleneck is a problem of the
+implementation or a problem with the programmer (me).  However, any
+insight would be most welcome.  Here is an example message.  It
+contains the top 5 bid and ask quotes for some symbol on a particular
+ECN.
+
+This is a pseudo-FIX formatted message, with FIX being the &quot;industry
+standard&quot; we muck it up quite a bit... so anyone familiar with real
+FIX, my apologies.  :)
+
+&quot;8=MSG,35=U535,122=1017154271,52=095111,201=TWTR,34=560325,42=3547092,206=19.94,208=20.01,207=300:1,209=100:1,583=19.19,585=0,584=200:1,586=0:0,587=18.75,589=0,588=100:1,590=0:0,591=0,593=0,592=0:0,594=0:0,595=0,597=0,596=0:0,598=0:0,10=0&quot;
+
+The fields of importance are:
+
+35=...., which identifies the message type.  In this case, 535 means
+it's a quote message from a particular ECN.  (Quotes from other ECNs
+have different numbers, and other non-quote messages have other
+numbers.  Every message type is unique per message.
+
+Fields 206, 583, 587, 591, and 595 are the top 5 &quot;bid&quot; prices.
+Fields 208, 585, 589, 593, and 597 are the top 5 &quot;ask&quot; prices.
+Fields 207, 584, 588, 592, and 596 are the top 5 bid sizes (#shares avail)
+Fields 209, 586, 590, 594, and 598 are the top 5 ask sizes (#shares avail)
+
+(the size fields have appended a colon and then a number of orders.
+For example 300:1 means 300 shares available due to one order.  300:2
+would mean that there are two orders who add up to a total of 300
+shares but you don't know how many shares there are per order, maybe
+100,200, maybe 150,150, etc.)
+
+201 is the stock symbol.  
+
+One of these messages arrives whenever any quote in the top 5 price
+levels changes. for any symbol.
+
+10=0 is an &quot;end of line&quot; field.  It usually is a checksum but for
+simplicity it's just zero.
+
+(Sorry if this is too much detail.)
+
+The other fields are not really important (sequence numbers, etc.)
+
+There are several trading networks that originate quotes, and we need
+to build a &quot;book&quot; of all the quotes that integrates all the quotes.
+Prices of zero do not need to enter the book because they're not real
+quotes.
+
+The representation is to have a &quot;quote&quot; object hold the price and
+size, exchange-id, and symbol. 
+
+(define-struct quote (price size exch-id symbol))
+
+Each symbol will have a bid-list and an ask-list of the above quote
+structures.  
+
+Basically the overall data structure is this:
+
+  a symbol hashes to some &quot;Symbol Data&quot;
+
+  Symbol Data contains two quote lists, the bid list and the ask list.
+
+  Each quote list contains all the relevant quotes, stored in quote
+  structures.  
+
+(At least that's how I have it working in my C++ program.)
+
+My challenge is to efficiently break the message down into pieces so I
+can create these quote objects, and then add the new quotes to the
+existing quote list, and remove the old quotes.  Alternatley, I could
+simply update the existing quotes in-place if their position doesn't
+need to change.  They're sorted by price.
+
+I can handle the list manipulation in scheme, but I am having trouble
+writing code to parse the string messages to produce/update the quote
+messages. 
+
+The first part of the challenge is that there are many different
+message types, and the parsing strategy depend on the value in field
+35, which dictates which fields to expect and how to interpret them.
+So the first thing I need to do is find field 35.  Then based on that,
+I select my message-specific parser.  
+
+(The above pseudo-FIX message is just one of about 100 messages types
+we have, though the vast majority of messages will actually only be
+from a handful of different types, and many of them are similar enough
+to share the same parser.)
+
+The fields are not necessarily in any particular order, either, making
+it difficult for a single regular expression to work.  Also, the
+specifications permit &quot;new&quot; fields to be added without notice, and the
+code should ignore fields it doesn't know how to handle.
+
+But for now, if I could just parse the above quote message quickly I
+could probably figure out how to translate that technique to the other
+messages.
+
+Another problem is that I'm doing this in my &quot;free time&quot; as it's not
+work my employers is paying me to do (but I think there is value in
+doing it), and so I'm really not able to commit a lot of time to doing
+this, at least not yet.  I think that a scriptable, dynamic language
+adds great flexibility, though Ruby, Perl, and Python all have strong
+proponents here (especially Perl), I'm the lonely &quot;Scheme proponent&quot;
+here.  :)
+
+Also, it looks like on the horizon (sometime this summer) the amount
+of data will skyrocket, nearly at the levels of saturating a T1 line,
+at which point I'm afraid that no single process would be able to keep
+up, in any language, and then we'll be splitting the load among
+different machines.  At this point I'm not sure what will be practical
+anymore.  :(
+
+Is character-by-character parsing viable in Scheme?  It seems awkward
+to me.
+
+The good news is that without actually parsing the data, but simply
+reading in the lines using the mzScheme built-in TCP/IP code, the
+following program is able to keep up with the data perfectly well:
+
+Here is my &quot;main loop&quot; that is capable of keeping up:
+
+  ;; fromshipper is the networked input data source
+
+  (let ([sem (make-semaphore)]
+        [q (make-queue)])
+
+    (thread (lambda ()
+              (let loop ([line (read-line fromshipper)])
+                (queue-insert! q line)
+                (semaphore-post sem)
+                (loop (read-line fromshipper)))))
+
+    (let loop ()
+      (semaphore-wait sem)
+
+      ;; TODO: process this data....
+
+      ;;(process 
+          (queue-pop! q)
+      ;;)
+
+      (loop)))
+
+
+I threaded it so that the network reader can always read.  The data
+source does non-blocking writes and does not buffer data upon write
+failure.  Therefore a write failure is inexcusable.  Clients simply
+must keep up with the data or it corrupts.
+
+The &quot;process&quot; function is not written yet, at least not in a way that
+I can use.  That's the part where I'm stumbling.  The above is running
+at the slowest part of the day, in uncompiled raw Scheme code, at
+about 3% CPU.  That is very promising, and if push came to shove and I
+really insisted upon it, I could split the load among more than one
+machine (perhaps symbols A-M on one, N-Z on another, etc.) 
+
+However, politically, the code must do as well as the C++ version
+(that already works perfectly well) before it'd be accepted around
+here.  
+
+If it matters, the queue code is based on the queue discussion found
+in &quot;Structure and Interpretation of Computer Programs&quot;
+
+Does this approach look reasonable so far?
+
+PS, I've never done multi-threaded code in Scheme before, and am
+amazed at how much easier it is than in C++!  Wow!
+
+-- 
+Chris
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00449" href="msg00449.html">RE: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+<li><strong><a name="00475" href="msg00475.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+<li><strong><a name="00507" href="msg00507.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+<li><strong><a name="00509" href="msg00509.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+<li><strong><a name="00510" href="msg00510.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00510.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00512.html">Postdoc positions at CENTRIA</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00510.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00555.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00511"><strong>Date</strong></a></li>
+<li><a href="threads.html#00511"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

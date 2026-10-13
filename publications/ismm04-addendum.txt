@@ -1,0 +1,62 @@
+Addendum for
+
+ Memory Accounting without Partitions
+ Wick and Flatt
+ International Symposium on Memory Management  2004
+ http://www.cs.utah.edu/plt/publications/ismm04-wf.pdf
+
+                           Addendum by Matthew Flatt, December 2008
+                                    edited and posted December 2009
+
+In the paper's design, objects accessible from both a custodian and
+its descendant are charged to the descendant. That design matched the
+PLT Scheme implementation until December 2008, at which point we
+changed the accounting function to charge to the ancestor, instead.
+
+Here's why we used to think that blame-the-child was the right
+strategy:
+
+ You want to run some calculation that you don't trust, so you create a
+ child and set a memory limit on the child. Probably the original
+ program and the child share lots of data, so to be safe, blame all
+ memory use on the child; then, it's clear that the child will be
+ terminated if it uses too much memory, because the child ends up being
+ responsible for all memory use.
+
+The key part of that argument is that you don't want to think about how
+the original and child processes share data.
+
+For actual uses of memory accounting, though, we have one main program
+and multiple children. In that case, you need to think more about
+sharing so that children are not charged for each other's memory use.
+Fortunately (and this is the part that makes it work in practice),
+we've found it easy to limit references from the original process to
+data that conceptually belongs to the child --- though it's difficult
+to limit references in the other direction.
+
+Once you're careful about data sharing in the parent-to-child
+direction, then it's fine to blame the parent first when accounting for
+memory. Data that conceptually belongs to the child won't be reached
+when adding up the parent's memory use.
+
+Furthermore, blame-the-parent works better for one way of setting
+memory limits. If you blame the child first, and if you want to limit
+the child's memory use to N bytes, then the right limit is M+N, where M
+is the parent's memory use. If you blame the parent first, then the
+right limit is simply N.
+
+There's a second reason that Adam and I though that blame-the-child
+would work. We imagined that limits should be expressed in terms of
+available memory, instead of consumed memory. Limits on how low
+available memory can go would be nicer, because that's what you care
+about: you don't really care how much memory a process uses, only that
+you don't run out of memory for other purposes. But we've found that
+available-memory limits don't work well due to a lack of information
+from the underlying OS. And, so, that's why blame-the-child was the
+wrong choice after all.
+
+An immediate consequence of the switch to blame-the-parent is that
+DrScheme's memory limit makes more sense. It was previously a limit
+that applied to DrScheme plus the user's program (but not other user
+programs). Now it's just for the user's program, which is more what
+you'd expect.

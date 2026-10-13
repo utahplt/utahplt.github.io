@@ -1,0 +1,206 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: GC Errors in Embedded Program -->
+<!--X-From-R13: Perag Thytunz <oshytunzNqrovna.bet> -->
+<!--X-Date: Wed, 27 Dec 2000 09:42:06 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001227085419.A6666@earthlink.net -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>GC Errors in Embedded Program</title>
+<link rev="made" href="mailto:bfulgham@debian.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00822.html">Date Prev</a>][<a href="msg00824.html">Date Next</a>][<a href="msg00822.html">Thread Prev</a>][<a href="msg00824.html">Thread Next</a>][<a href="maillist.html#00823">Date Index</a>][<a href="threads.html#00823">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>GC Errors in Embedded Program</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: GC Errors in Embedded Program</li>
+<li><em>From</em>: Brent Fulgham &lt;<A HREF="mailto:bfulgham@debian.org">bfulgham@debian.org</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Dec 2000 08:54:20 -0800</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.2.5i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm embedding MzScheme in a multithreaded program.  I'm hitting some
+errors I'm not familiar with, and while I'm sure they're my fault I'm
+not sure what I'm doing wrong.
+
+At this point, all I have the program doing is linking with libgc.a
+and libmzscheme.a, doing a &quot;scheme_basic_env&quot; when the program loads,
+and then I copied the code from the &quot;Embed&quot; portion of the &quot;Inside
+PLT MzScheme&quot; document to try to print a &quot;Hello World&quot; as a quick
+test.
+
+I'm getting an error from the Garbage Collector:
+
+Program received signal SIGSEGV, Segmentation fault.
+GC_push_all_eager (bottom=0xbeffef10 &quot;0пяѕA\n6@\020пяѕ&quot;, 
+    top=0xc0000000 &lt;Address 0xc0000000 out of bounds&gt;) at ./mark.c:854
+    854     ./mark.c: No such file or directory.
+
+One thing that looked weird to me was the status of the scheme_error_buf
+macro (using the code from &quot;Exceptions and Escape Continuations&quot;):
+
+if (scheme_setjmp(scheme_error_buf))
+ /* There was an error */
+
+This does not result in an error, but if I inspect the current process's
+error buffer:
+
+(gdb) p scheme_current_process-&gt;error_buf
+$11 = {{__jmpbuf = {-1090521724, 1076955648, -1090519772, -1090521196, 
+      -1090521764, 1076955821}, __mask_was_saved = 0, __saved_mask = {__val = {
+              0 &lt;repeats 32 times&gt;}}}}
+
+A backtrace:
+
+#0  GC_push_all_eager (bottom=0xbeffef10 &quot;0пяѕA\n6@\020пяѕ&quot;, 
+    top=0xc0000000 &lt;Address 0xc0000000 out of bounds&gt;) at ./mark.c:854
+#1  0x40361c6c in GC_push_all_stack_partially_eager (
+    bottom=0xbeffef10 &quot;0пяѕA\n6@\020пяѕ&quot;, 
+    top=0xc0000000 &lt;Address 0xc0000000 out of bounds&gt;, 
+    cold_gc_frame=0xbeffefbc &quot;&quot;) at ./mark.c:891
+#2  0x40360a41 in GC_push_current_stack (cold_gc_frame=0xbeffefbc &quot;&quot;)
+    at ./mark_rts.c:430
+#3  0x40360a9f in GC_push_roots (all=1, cold_gc_frame=0xbeffefbc &quot;&quot;)
+    at ./mark_rts.c:487
+#4  0x403612b9 in GC_mark_some (cold_gc_frame=0xbeffefbc &quot;&quot;) at ./mark.c:309
+#5  0x4035da5a in GC_stopped_mark (stop_func=0x4035d640 &lt;GC_never_stop_func&gt;)
+    at ./alloc.c:443
+#6  0x4035d8e3 in GC_try_to_collect_inner (
+    stop_func=0x4035d640 &lt;GC_never_stop_func&gt;) at ./alloc.c:317
+#7  0x4035dfb8 in GC_collect_or_expand (needed_blocks=1, ignore_off_page=0)
+    at ./alloc.c:873
+#8  0x4035e05f in GC_allocobj (sz=170, kind=0) at ./alloc.c:926
+#9  0x40363a1e in GC_generic_malloc_inner (lb=584, k=0) at ./malloc.c:74
+#10 0x40363af9 in GC_generic_malloc (lb=584, k=0) at ./malloc.c:129
+#11 0x40363b5e in GC_malloc_atomic (lb=584) at ./malloc.c:175
+#12 0x4034cf7b in copy_stack (b=0x82ccdd4, base=0x82ccaa0, start=0xbefff378)
+    at ./setjmpup.c:259
+#13 0x4034d0c0 in scheme_setjmpup_relative (b=0x82ccdd4, base=0x82ccaa0, 
+    start=0xbefff378, c=0x0) at ./setjmpup.c:364
+#14 0x4031b99c in scheme_handle_stack_overflow (k=0x40347c6c &lt;read_k&gt;)
+    at ./eval.c:341
+#15 0x40347ce8 in read_inner (port=0x82d50f0, ht=0xbefff320) at ./read.c:351
+#16 0x40347ca1 in read_k () at ./read.c:325
+#17 0x40323654 in scheme_top_level_do (k=0x4034890c &lt;scheme_internal_read_k&gt;, 
+    eb=0) at ./fun.c:840
+#18 0x4034897a in scheme_read (port=0x82d50f0) at ./read.c:810
+#19 0x4031f4ac in scheme_eval_string_all (str=0x40366357 &quot;(+ 1 2)&quot;, 
+    env=0x8334dc0, cont=-1) at ./eval.c:3272
+#20 0x4031f4fa in scheme_eval_string (str=0x40366357 &quot;(+ 1 2)&quot;, env=0x8334dc0)
+    at ./eval.c:3286
+#21 0x40310ac7 in MV_PageGet (ignored=0x0, conn=0x81dc670) at ns_machv.cc:489
+#22 0x8077d2a in Ns_ConnRunRequest (conn=0x81dc670) at op.c:196
+#23 0x807e5ee in ConnRun (connPtr=0x81dc670) at serv.c:810
+#24 0x807df1e in NsConnThread (arg=0x81f7af8) at serv.c:609
+#25 0x81190bb in NsThreadMain (arg=0x8254b80) at thread.c:241
+#26 0x4002ccb5 in pthread_start_thread () from /lib/libpthread.so.0
+#27 0x4002ccfd in pthread_start_thread_event () from /lib/libpthread.so.0
+
+Is there any problem with multi-threaded programs embedding MzScheme?
+I have no problem in my single-threaded VIM with MzScheme embedded.
+
+More debugging output:
+
+(gdb) info threads
+* 7 Thread 5126 (LWP 6664)  GC_push_all_eager (
+    bottom=0xbeffef10 &quot;0пяѕA\n6@\020пяѕ&quot;, 
+    top=0xc0000000 &lt;Address 0xc0000000 out of bounds&gt;) at ./mark.c:854
+  6 Thread 4101 (LWP 6657)  0x4011a7de in select () from /lib/libc.so.6
+  5 Thread 3076 (LWP 6656)  0x4011a7de in select () from /lib/libc.so.6
+  4 Thread 2051 (LWP 6655)  0x400fb0c1 in nanosleep () from /lib/libc.so.6
+  3 Thread 1026 (LWP 6654)  0x4011a7de in select () from /lib/libc.so.6
+  2 Thread 2049 (LWP 6653)  0x40118cb0 in poll () from /lib/libc.so.6
+  1 Thread 1024 (LWP 6650)  0x4008524a in sigsuspend () from /lib/libc.so.6
+(gdb) 
+
+I can't guarantee that Thread 7 was the thread that ran the
+scheme_basic_env.  However, the simple test I'm doing:
+
+if (scheme_setjmp(scheme_error_buf))
+{
+    Ns_Log(Debug, &quot;There was an error.&quot;);
+    return NS_ERROR;
+}
+Scheme_Object* curout = scheme_get_param(scheme_config, MZCONFIG_OUTPUT_PORT);  
+Scheme_Object* v = scheme_eval_string(&quot;(+ 1 2)&quot;, parentEnv);
+scheme_display(v, curout);
+scheme_display(scheme_make_character('\n'), curout);
+						    
+Does seem to have a valid environment:
+
+(gdb) p parentEnv
+$1 = (Scheme_Env *) 0x8334dc0
+(gdb) p *parentEnv
+$2 = {type = 65, no_keywords = 0, globals = 0x82d1be0, 
+  loaded_libraries = 0x82d1bc0, init = 0x82d1b80}
+(gdb) 
+ 
+Anyone have any good ideas?
+
+Thanks,
+
+-Brent
+ 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00824" href="msg00824.html">Re: GC Errors in Embedded Program</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00822.html">Simple gl-canvas% prototype</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00824.html">Re: GC Errors in Embedded Program</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00822.html">Simple gl-canvas% prototype</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00824.html">Re: GC Errors in Embedded Program</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00823"><strong>Date</strong></a></li>
+<li><a href="threads.html#00823"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

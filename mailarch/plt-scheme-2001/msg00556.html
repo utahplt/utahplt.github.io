@@ -1,0 +1,144 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: OS&#45;implemented threads -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 19 Jun 2001 09:48:15 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200106191548.JAA09420@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200106131720.LAA19263@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: OS-implemented threads</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00555.html">Date Prev</a>][<a href="msg00557.html">Date Next</a>][<a href="msg00550.html">Thread Prev</a>][<a href="msg00559.html">Thread Next</a>][<a href="maillist.html#00556">Date Index</a>][<a href="threads.html#00556">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: OS-implemented threads</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: OS-implemented threads</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 19 Jun 2001 09:48:13 -0600 (MDT)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00542.html">200106131720.LAA19263@fast.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00542.html">200106131720.LAA19263@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+[Collecting several replies into one message.]
+
+Quoting &quot;Will Fitzgerald&quot;:
+&gt; But I take it that only *OS* threads are going away?
+
+That's my proposal. The thread system provided by default -- the one
+that most everyone uses, and the one that works right on all platforms,
+and the one that's at least &quot;pre-emptive&quot; from the perspective of
+Scheme code --- will still be there.
+
+Quoting Ilya Perminov:
+&gt; I would use it if it worked. Without native threads, I'm unable to use
+&gt; mzscheme threads, because I have some mzscheme extensions, witch use 
+&gt; blocking I/O. I think you have this problem too with both COM and ODBC
+&gt; extensions.
+
+That's a good argument, and one that I hadn't thought of.
+
+Fully OS-threading MzScheme doesn't necessary to solve the problem,
+though. The extension that must call a blocking function can create
+it's own OS-level thread, which is how various I/O primitives within
+MzScheme are implemented for Windows and BeOS.
+
+That solution is certainly less convenient, and it can be tricky to
+implement, depending on the primitive. Nevertheless, I'm inclined at
+the moment to push the complexity into a few extensions, instead of
+spreading it throughout MzScheme.
+
+Quoting Alexander Taranov:
+&gt; For the project we are working at OS-implemented threads
+&gt; would be of great value. If it would work i would use it.
+&gt; The project is live one and in case of using OS-threads
+&gt; you will not complain on the lack of bug reports :-)
+
+As much as I appreciate bug reports, I'm even more eager to avoid the
+bugs that make them necessary. :)
+
+In your project, would OS-implemented threads be valuable due to
+blocking function calls, as in Ilya's project, or would they be
+valuable for making use of multiple processors? Or something else?
+
+Quoting PJ Durai:
+&gt; But is it _impossible_ to make it so that multiple OS threads can call into
+&gt; (embedded) mzscheme? Right now it looks like only the os thread that
+&gt; initializes mzscheme can call into scheme again.
+
+That sounds like a valuable direction to pursue. With the recent
+changes to the way MzScheme interacts with the GC, I think I can
+arrange the interface to allow different threads to call into MzScheme,
+as long as they do so in a single-threaded manner (i.e., as long as the
+host program puts a big mutex around the MzScheme interface).
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00559" href="msg00559.html">Re: OS-implemented threads</a></strong>
+<ul><li><em>From:</em> Alexander Taranov &lt;tay@jet.msk.su&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00542" href="msg00542.html">OS-implemented threads</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00555.html">Re: 199.15</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00557.html">troubles with .zo and macro</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00550.html">Re: OS-implemented threads</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00559.html">Re: OS-implemented threads</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00556"><strong>Date</strong></a></li>
+<li><a href="threads.html#00556"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

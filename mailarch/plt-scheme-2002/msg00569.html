@@ -1,0 +1,113 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Parser tools: How to make the lexer context sensitive? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 27 Mar 2002 13:51:36 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203272051.NAA27404@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 68716CE1D81E5F4DA22B1354442F094B076D96@vgtgym03.VGTGYM.DK -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Parser tools: How to make the lexer context sensitive?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00568.html">Date Prev</a>][<a href="msg00570.html">Date Next</a>][<a href="msg00524.html">Thread Prev</a>][<a href="msg00537.html">Thread Next</a>][<a href="maillist.html#00569">Date Index</a>][<a href="threads.html#00569">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Parser tools: How to make the lexer context sensitive?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Jens Axel Søgaard &lt;<A HREF="mailto:js@vgt-gym.dk">js@vgt-gym.dk</A>&gt;</li>
+<li><em>Subject</em>: Re: Parser tools: How to make the lexer context sensitive?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Mar 2002 13:51:32 -0700 (MST)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00524.html">68716CE1D81E5F4DA22B1354442F094B076D96@vgtgym03.VGTGYM.DK</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00524.html">68716CE1D81E5F4DA22B1354442F094B076D96@vgtgym03.VGTGYM.DK</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Wed, 27 Mar 2002 02:30:46 +0100, Jens_Axel_Søgaard wrote:
+&gt;    [(@ (L) (* (: (L) (D))))  (if &lt;parsing a type_name?&gt;
+&gt;                                  (token-TYPENAME (get-lexeme))
+&gt;                                  (token-IDENTIFIER (get-lexeme)))]
+&gt; 
+&gt; What shall I write in place of &lt;parsing a type_name?&gt; ?
+
+If I remember correctly, the standard solution is to have a table of
+`typedef'ed names. When the parser encounters a typedef, it puts the
+type name into the table. So the test above would be &quot;is (get-lexeme)
+in the table?&quot;.
+
+(I'm not immediately sure how to handle typedefs that aren't at the top
+level. I think I probably ignored that possibility in my parser long
+ago.)
+
+At Wed, 27 Mar 2002 13:21:02 -0700 (MST), Scott Owens wrote:
+&gt; Currently there is no way for the lexer to get useful information about
+&gt; the state of the parser.
+
+To be clear, I'm not arguing with Scott's claim above, but I'm saying
+that the information to send from the parser to the lexer is not really
+something about the current state of ther parser, but about a history
+of typedefs previously seen by the parser.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00524" href="msg00524.html">Parser tools: How to make the lexer context sensitive?</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;js@vgt-gym.dk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00568.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00570.html">expanding lists</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00524.html">Parser tools: How to make the lexer context sensitive?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00537.html">RE: Parser tools: How to make the lexer context sensitive?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00569"><strong>Date</strong></a></li>
+<li><a href="threads.html#00569"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

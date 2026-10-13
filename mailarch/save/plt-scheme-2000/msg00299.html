@@ -1,0 +1,316 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Introducing foo&#45;ml      (long, but you can let DrScheme read most of it) -->
+<!--X-From-R13: Uert Brgglwbua <UertBNofdhner.pbz> -->
+<!--X-Date: Wed, 17 May 2000 19:38:16 &#45;0600 (MDT) -->
+<!--X-Message-Id: 75514FC5ECC8D2118C8D00A0C9ED54DB566ED7@obcmail1.bsquare.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Introducing foo-ml      (long, but you can let DrScheme read most of it)</TITLE>
+<LINK REV="made" HREF="mailto:GregP@bsquare.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00298.html">Date Prev</A>][<A HREF="msg00300.html">Date Next</A>][<A HREF="msg00298.html">Thread Prev</A>][<A HREF="msg00300.html">Thread Next</A>][<A HREF="maillist.html#00299">Date Index</A>][<A HREF="threads.html#00299">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Introducing foo-ml      (long, but you can let DrScheme read most of it)</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "'<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>'" &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Introducing foo-ml      (long, but you can let DrScheme read most of it)</LI>
+<LI><em>From</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</LI>
+<LI><em>Date</em>: Wed, 17 May 2000 18:38:19 -0700</LI>
+<LI><em>Cc</em>: "'<A HREF="mailto:dmc@nwlink.com">dmc@nwlink.com</A>'" &lt;<A HREF="mailto:dmc@nwlink.com">dmc@nwlink.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+foo-ml stands for Functional Object Oriented Markup Language.
+
+I decided to give it a fancy name so that I could impress people. :-)
+
+I started learning XML but was unimpressed and got bored with it right away.
+Perhaps if I had stuck it out and read a few chapters I might have come to
+appreciate it a little more. But I didn't. Instead I got inspired and came
+up with my own markup language.
+
+Anyway, here's the core parser for the language:
+
+(define (eval-markup mu i-port)
+  (send mu end-tag? i-port
+        (lambda (i-port)
+          (send mu markup? i-port
+                (lambda (i-port)
+                  (eval-markup mu i-port))))))
+
+Shriram was the one who told me that I shouldn't waste my time writing big
+complicated
+parsing routines. In his words, i-o should be "one-liners" or
+"single-expressioners".
+So blame Shriram if my parser is too puny.
+
+Oh, yeah, the parser won't make much sense without explaining what mu is. mu
+stands for
+MarkUp and it should be an instance of a class that follows this interface:
+
+(define markup&lt;%&gt; (interface () end-tag? markup? reduce))
+
+This should all come to life with an example. So to give it whirl, follow
+these
+steps:
+
+1. Copy the interface definition and the parser into the definitions window.
+2. Copy the following classes into the definitions window:
+
+(define markup%
+  (class* object% (markup&lt;%&gt;) (mu)
+    (public
+      [end-tag? void]
+      [markup?
+       (lambda (i-port otherwise)
+         (cond
+           ((char=? (peek-char i-port) #\()
+            (read-char i-port)
+            (eval-markup
+             (let ([the-markup (read i-port)])
+              (cond
+                ((symbol? the-markup)
+                 (make-object (eval the-markup) this))
+                ((list? the-markup)
+                 (apply make-object (cons (eval (car the-markup)) (cons this
+(cdr the-markup)))))
+                (else (error "invalid markup")))) i-port))
+           (else
+            (reduce i-port)
+            (otherwise i-port))))]
+      [reduce void])
+    (sequence (super-init))))
+
+(define i-port%
+  (class* markup% (markup&lt;%&gt;) ()
+    (override
+      [end-tag?
+       (lambda (i-port otherwise)
+         (if (eof-object? (peek-char i-port))
+             (void)
+             (otherwise i-port)))]
+      [reduce
+       (lambda (i-port)
+         (read-char i-port))])
+    (sequence (super-init 'ignore))))
+
+(define document-with-o-port%
+  (class* markup% (markup&lt;%&gt;) (mu o-port)
+    (override
+      [end-tag?
+       (lambda (i-port otherwise)
+         (cond
+           ((eof-object? i-port) (error "Should be a closing paren befor the
+&lt;eof-object&gt;!"))
+           ((char=? (peek-char i-port) #\))
+            (read-char i-port)
+            (fprintf o-port "&lt;/html&gt;")
+            (eval-markup mu i-port))
+           (else (otherwise i-port))))]
+      [reduce
+       (lambda (i-port)
+         (write-char (read-char i-port) o-port))])
+    (sequence (fprintf o-port "&lt;html&gt;")
+              (super-init 'ignore))))
+
+(define section-with-o-port%
+  (class* markup% (markup&lt;%&gt;) (mu title o-port)
+    (override
+      [end-tag?
+       (lambda (i-port otherwise)
+         (cond
+           ((eof-object? i-port) (error "Should be a closing paren befor the
+&lt;eof-object&gt;!"))
+           ((char=? (peek-char i-port) #\))
+            (read-char i-port)
+            (eval-markup mu i-port))
+           (else (otherwise i-port))))]
+      [reduce
+       (lambda (i-port)
+         (write-char (read-char i-port) o-port))])
+    (sequence (fprintf o-port "&lt;h1&gt;~a&lt;/h1&gt;" title)
+              (super-init 'ignore))))
+
+(define par-with-o-port%
+  (class* markup% (markup&lt;%&gt;) (mu o-port)
+    (override
+      [end-tag?
+       (lambda (i-port otherwise)
+         (cond
+           ((eof-object? i-port) (error "Should be a closing paren befor the
+&lt;eof-object&gt;!"))
+           ((char=? (peek-char i-port) #\))
+            (read-char i-port)
+            (fprintf o-port "&lt;/p&gt;")
+            (eval-markup mu i-port))
+           (else (otherwise i-port))))]
+      [reduce
+       (lambda (i-port)
+         (write-char (read-char i-port) o-port))])
+    (sequence (fprintf o-port "&lt;p&gt;")
+              (super-init 'ignore))))
+
+;takes markup-with-o-port and "binds" it to your favorite port
+(define (bind-markup-to-port mu-class% o-p)
+  (class* mu-class% (markup&lt;%&gt;) (mu . attributes)
+    (sequence (apply super-init (append (cons mu attributes) (list o-p))))))
+
+
+(define document% (bind-markup-to-port document-with-o-port%
+(current-output-port)))
+(define section% (bind-markup-to-port section-with-o-port%
+(current-output-port)))
+(define par% (bind-markup-to-port par-with-o-port% (current-output-port)))
+
+
+3. Now you need a sample file. Here's mine. I call it "test01.fml":
+
+(document%
+ ((section% "Flowers")
+  (par% The first section is all about flowers. Pretty much I'll just
+       have this introductory paragraph with a few sentences and
+       then have a few more paragraphs, each one concerning a different
+       kind of flower.)
+  (par% Roses are the high-end flower. They're very beautiful and often have
+       a wonderful aroma. Roses are the flower you choose for special
+occasions
+       like weddings, funerals and mother's day.)
+  (par% Daisies are cheep little flowers with white petals and yellow
+centers.
+       Somtimes they're watered in dye so that there petals will take on
+alternative
+       colors.)
+  (par% Dandilions are a weed. They grow in your lawn even though you take
+great care
+       to kill them off. They have ugly unkempt folliage and a rather bland
+yellow
+       bloom.))
+ ((section% "Cars")
+  (par% Oh what the hell, why not just talk about cars. So as before, this
+is the introductory
+       paragraph, of a few sentences, followed by separate pargraphs each
+concerned
+       with a different kind of car.)
+  (par% Honda. Very high quality Japanese car. Lasts a long time, easy to
+drive, fuel efficient
+       and above all reliable.)
+  (par% American cars. Just plain crappy. They don't last. They just don't
+seem to be as
+       well engineered as other cars. The American car companies should have
+gone out of
+       bussiness back in the eighties except that they have too much
+political cloute 
+       and the government bailed them out.)
+  (par% European cars. Better than American cars. They can be quite high
+quality. Usually they
+       are more expensive too, so perhaps they cost too much compared to
+Japanese cars.))
+ ((section% "Random Crap")
+  (par% OK, this is just a test document so why not just have random crap in
+here. This is the boring
+       introductory paragraph of a few sentences and then I'll throw in a
+few more paragraphs filled
+       with random crap.)
+  (par% Dogs crap on the lawn. Some irresponsible people will let their dog
+run loose in the neighborhood
+       and these dogs go around crapping on other people's lawns. They also
+go about mating with each
+       other and often begetting strays. If you get too many strays,
+sometimes they will pack up and
+       attack children. People who let their dogs run about loose should be
+decapitated immediately
+       without trial.)
+  (par% The Addresss Book Application allows users to access information
+such as phone numbers, 
+       street addresses, and e-mail addresses for both work and home
+locations. The user may dial the
+       phone directly by selecting a phone number from a list.))
+ ((section% "Conclusion")
+  (par% OK, I'm done now)))
+
+4. Execute the definitions.
+5. Enter the following in the interactions window:
+
+(call-with-input-file "test01.fml"
+    (lambda (i-port)
+      (eval-markup (make-object i-port%) i-port)))
+
+
+So what's the point of all this?
+Well it was fun and educational for me.
+
+Besides that, I wanted a markup language that was as easy to read as the
+sample in step 3. 
+Pretty much it's just tags and parens. Attributes use quoted strings in the
+example, but 
+could theoretically use anything that can be read by Scheme --- check out
+the markup? method
+in markup% to understand why this is true. But mostly it's just tags and
+parens which means that
+normal human beings readers can read it without immediately going into
+syntax shock.
+
+Also, since the end-tag? and markup? methods can be overriden, it allows you
+to use anything you
+want for delimiters (say if you don't like parens). It also obviates the
+need to fuss around
+with escape characters and such.
+
+I also have some ideas for validation, but they're not quite well formed yet
+and I'm late for dinner. :-)
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00298.html">Threading Question</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00300.html">102d9</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00298.html">Threading Question</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00300.html">102d9</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00299"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00299"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

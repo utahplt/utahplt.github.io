@@ -1,0 +1,199 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [Q] How to do Simple Port&#45;Based Input&#45;Process&#45;Output? -->
+<!--X-From-R13: "Rnir Rhpurfarnh" <qnirqhpurfarnhNfpehgval.pbz> -->
+<!--X-Date: Fri, 28 Dec 2001 05:39:40 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112281239.FAA01807@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[Q] How to do Simple Port-Based Input-Process-Output?</title>
+<link rev="made" href="mailto:daveduchesneau@scrutiny.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01439.html">Date Prev</a>][<a href="msg01441.html">Date Next</a>][<a href="msg01459.html">Thread Prev</a>][<a href="msg01441.html">Thread Next</a>][<a href="maillist.html#01440">Date Index</a>][<a href="threads.html#01440">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[Q] How to do Simple Port-Based Input-Process-Output?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [Q] How to do Simple Port-Based Input-Process-Output?</li>
+<li><em>From</em>: &quot;Dave Duchesneau&quot; &lt;<A HREF="mailto:daveduchesneau@scrutiny.com">daveduchesneau@scrutiny.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 27 Dec 2001 13:15:08 -0800</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_03AE_01C18ED8.81C3FDB0
+Content-Type: text/plain;
+	charset=&quot;iso-8859-1&quot;
+Content-Transfer-Encoding: quoted-printable
+
+Hi Schemers,
+
+I'm new to Scheme, and I'm excited about using it for some =
+graph-theoretic processing. =20
+
+Assuming that I want to do the processing portion of the following =
+sequence in Scheme, is there a standard idiom for doing the I/O portion =
+of sequence in Scheme also?  Or should I interface to external I/O =
+mechanisms in some kind of library (C language maybe?) ?
+
+Input:
+1. Listen forever on an arbitrary port number (socket-based).
+2. Read and enqueue a message that is structured in a predefined way =
+(say, as a graph), into a process-specific queue.
+3. Keep listening.
+
+Processing:
+1. Dequeue inbound message (e.g., a graph).
+2. Perform arbitrary graph-theoretic processing, including decoding the =
+message structure as necessary.
+3. Generate appropriate outbound message, structuring it as necessary.
+4. Enqueue outbound message (signal output process if needed).
+
+Output:
+1.  Wait forever for outbound messages to be enqueued.
+2.  Dequeue outbound message.
+3.  Send outbound message to arbitrary (process-specific) downstream IP =
+address and port.
+
+Thanks in advance for any help or advice you can provide.
+
+Dave Duchesneau
+dave@scrutiny.com
+
+------=_NextPart_000_03AE_01C18ED8.81C3FDB0
+Content-Type: text/html;
+	charset=&quot;iso-8859-1&quot;
+Content-Transfer-Encoding: quoted-printable
+
+&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0 Transitional//EN&quot;&gt;
+&lt;HTML&gt;&lt;HEAD&gt;
+&lt;META http-equiv=3DContent-Type content=3D&quot;text/html; =
+charset=3Diso-8859-1&quot;&gt;
+&lt;META content=3D&quot;MSHTML 5.50.4807.2300&quot; name=3DGENERATOR&gt;
+&lt;STYLE&gt;&lt;/STYLE&gt;
+&lt;/HEAD&gt;
+&lt;BODY bgColor=3D#ffffff&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;Hi Schemers,&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;&lt;/FONT&gt;&amp;nbsp;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;I'm new to Scheme, and I'm excited =
+about using it=20
+for some graph-theoretic processing.&amp;nbsp; &lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;&lt;/FONT&gt;&amp;nbsp;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;Assuming that I want to do the =
+processing portion=20
+of the following sequence in Scheme, is there a standard idiom for doing =
+the I/O=20
+portion of sequence in Scheme also?&amp;nbsp; Or should I interface =
+to&amp;nbsp;external=20
+I/O mechanisms in some kind of library (C language maybe?) =
+?&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;&lt;/FONT&gt;&amp;nbsp;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;&lt;STRONG&gt;Input:&lt;/STRONG&gt;&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;1. Listen forever on an arbitrary =
+port&amp;nbsp;number=20
+(socket-based).&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;2. Read and enqueue a&amp;nbsp;message that =
+is=20
+structured in a predefined way (say, as a&amp;nbsp;graph), into a =
+process-specific=20
+queue.&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;3. Keep listening.&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;&lt;/FONT&gt;&amp;nbsp;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial =
+size=3D2&gt;&lt;STRONG&gt;Processing:&lt;/STRONG&gt;&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;1. Dequeue inbound&amp;nbsp;message (e.g., =
+a=20
+graph).&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;2. Perform arbitrary graph-theoretic =
+processing,=20
+including decoding the message structure as necessary.&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;3.&amp;nbsp;Generate appropriate outbound =
+message,=20
+structuring it as necessary.&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;4. Enqueue outbound message (signal =
+output process=20
+if needed).&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;&lt;/FONT&gt;&amp;nbsp;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;&lt;STRONG&gt;Output:&lt;/STRONG&gt;&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;1.&amp;nbsp; Wait forever for outbound =
+messages to be=20
+enqueued.&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;2.&amp;nbsp; Dequeue outbound =
+message.&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;3.&amp;nbsp; Send outbound message to =
+arbitrary=20
+(process-specific) downstream IP address and port.&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;&lt;/FONT&gt;&amp;nbsp;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;Thanks in advance for any help or =
+advice you can=20
+provide.&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;&lt;/FONT&gt;&amp;nbsp;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;Dave Duchesneau&lt;/FONT&gt;&lt;/DIV&gt;
+&lt;DIV&gt;&lt;FONT face=3DArial size=3D2&gt;&lt;A=20
+href=3D&quot;<A  HREF="mailto:dave@scrutiny.com&quot">mailto:dave@scrutiny.com&quot</A>;&gt;dave@scrutiny.com&lt;/A&gt;&lt;/FONT&gt;&lt;/DIV&gt;&lt;/BOD=
+Y&gt;&lt;/HTML&gt;
+
+------=_NextPart_000_03AE_01C18ED8.81C3FDB0--
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01441" href="msg01441.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01439.html">module questions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01441.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01459.html">Re: module questions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01441.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01440"><strong>Date</strong></a></li>
+<li><a href="threads.html#01440"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

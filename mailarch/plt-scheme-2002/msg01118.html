@@ -1,0 +1,149 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Call/cc problem -->
+<!--X-From-R13: Bnhy Uenhaxr <cgtNppf.arh.rqh> -->
+<!--X-Date: Wed, 12 Jun 2002 15:13:42 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020612211338.2BDF51AA1B@amber.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: a05111b00b92d471a8a09@[217.230.213.254] -->
+<!--X-Reference: 20020612200646.136BF1AAC7@amber.ccs.neu.edu -->
+<!--X-Reference: a05111b00b92d5bcb63aa@[217.230.213.254] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Call/cc problem</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01117.html">Date Prev</a>][<a href="msg01119.html">Date Next</a>][<a href="msg01115.html">Thread Prev</a>][<a href="msg01119.html">Thread Next</a>][<a href="maillist.html#01118">Date Index</a>][<a href="threads.html#01118">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Call/cc problem</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Erich Rast &lt;<A HREF="mailto:Erich.Rast@t-online.de">Erich.Rast@t-online.de</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Call/cc problem</li>
+<li><em>From</em>: Paul Graunke &lt;<A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 12 Jun 2002 17:13:38 -0400 (EDT)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;a05111b00b92d5bcb63aa@[217.230.213.254]&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01114.html">a05111b00b92d471a8a09@[217.230.213.254]</a>&gt;&lt;<a href="msg01115.html">20020612200646.136BF1AAC7@amber.ccs.neu.edu</a>&gt;	&lt;a05111b00b92d5bcb63aa@[217.230.213.254]&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Unless you need to handle repeated responses to the same call from A
+to B or you need to handle the responses out of order, I would
+call (make-icmd (read)) from within send/sync-command.  That will block
+until B, the other OS process, sends the response.
+
+If you want to figure out why your program doesn't work anyway, then 
+check that send/sync-command is always called from the same thread as
+global-command-handler.
+
+Paul
+
+At Wed, 12 Jun 2002 22:29:43 +0200, Erich Rast wrote:
+&gt; &gt;In MzScheme, continuations may only be invoked by the same thread that
+&gt; &gt;created them.  That's probably why you received the error message
+&gt; &gt;   &quot;continuation application: attempted to  cross a continuation boundary&quot;.
+&gt; &gt;There are a few other places that set continuation boundaries, too, though.
+&gt; &gt;
+&gt; &gt;Why can't A block on a semaphore until it receives an response from B?
+&gt; 
+&gt; Sorry, there was a similar reply on Usenet (posting to 
+&gt; comp.lang.scheme finally worked).
+&gt; 
+&gt; My post was misleading: A and B are different *operating system 
+&gt; processes* or in other words different end-user applications. B is 
+&gt; not written in MzScheme.
+&gt; 
+&gt; B talks to A like if a user was typing into MzScheme (A) running in 
+&gt; an interactive shell. It's a nasty hack... and it just doesn't work 
+&gt; because I've made some error, I guess.
+&gt; 
+&gt; Perhaps the code does help. It probably contains a stupid and 
+&gt; extremely obvious error:
+&gt; 
+&gt; (define (send/sync-command command)   (call/cc    (lambda (cc) 
+&gt; (send wp:Continuation-Table            store-command-continuation! 
+&gt; command cc)       (send-command command)      #t))   (display 
+&gt; &quot;Send/sync body&quot;)(newline))
+&gt; 
+&gt; (define (global-command-handler data)   (let* ((command (make-icmd 
+&gt; data))          (continue (send wp:Continuation-Table 
+&gt; handle-command                   command)))     (if continue 
+&gt; (continue command)         (begin           (print (icmd-data 
+&gt; command))           (newline)))))
+&gt; 
+&gt; wp:Continuation-Table% is a class that currently is just a wrapper to 
+&gt; a hash-table. Handle-command returns the continuation, or #f if its 
+&gt; argument is not a reply to a previous command.
+&gt; 
+&gt; Any ideas?
+&gt; 
+&gt; Regards,
+&gt; 
+&gt; Erich
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01119" href="msg01119.html">Re: [plt-scheme] Call/cc problem</a></strong>
+<ul><li><em>From:</em> Erich Rast &lt;Erich.Rast@t-online.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01114" href="msg01114.html">[plt-scheme] Call/cc problem</a></strong>
+<ul><li><em>From:</em> Erich Rast &lt;Erich.Rast@t-online.de&gt;</li></ul></li>
+<li><strong><a name="01115" href="msg01115.html">Re: [plt-scheme] Call/cc problem</a></strong>
+<ul><li><em>From:</em> Paul Graunke &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01117.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01119.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01115.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01119.html">Re: [plt-scheme] Call/cc problem</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01118"><strong>Date</strong></a></li>
+<li><a href="threads.html#01118"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

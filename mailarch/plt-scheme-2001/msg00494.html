@@ -1,0 +1,518 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Expert System -->
+<!--X-From-R13: Qlaguvn <gwvbrNrynat.fggf.np.vq> -->
+<!--X-Date: Sun, 27 May 2001 03:06:26 &#45;0600 (MDT) -->
+<!--X-Message-Id: 3.0.32.20010527161253.006b9cf0@elang.stts.ac.id -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Expert System</title>
+<link rev="made" href="mailto:tjioe@elang.stts.ac.id">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00493.html">Date Prev</a>][<a href="msg00495.html">Date Next</a>][<a href="msg00546.html">Thread Prev</a>][<a href="msg00495.html">Thread Next</a>][<a href="maillist.html#00494">Date Index</a>][<a href="threads.html#00494">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Expert System</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></li>
+<li><em>Subject</em>: Expert System</li>
+<li><em>From</em>: Cynthia &lt;<A HREF="mailto:tjioe@elang.stts.ac.id">tjioe@elang.stts.ac.id</A>&gt;</li>
+<li><em>Date</em>: Sun, 27 May 2001 16:23:56 +0700</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi,
+
+I have two questions again,
+First is easy &amp; second is difficult. The first question is how to make the
+result of calculation into decimal, because when I type :
+&gt; (/ 7 2)
+the result is 7/2 and not 3.5
+
+The second difficult question is : I bought the book &quot;Programming for
+Artificial Intelligence&quot; by Wolfgang Kreutzer &amp; Bruce McKenzie. I was
+interested to play with the shrink conversation program, so I typed the
+program, but there was an error like this : 
+
+-------------------------
+Type (shrink) to talk to the the shrink
+&gt; (shrink)
+Welcome to my sofa
+...&gt;(I'm depressed today !)
+
+car: expects argument of type &lt;pair&gt;; given #f
+&gt; 
+------------------------------
+I typed (I'm depressed today !), the program should reply with &quot;Tell me
+more&quot;, but it gave an error. If anyone of you can make this program work,
+would you send the program back to me? This is a big program, so it must be
+difficult to find the error. But anyway, either you can or not, thanks for
+the attention.
+
+Here is the complete program listing :
+
+;-------start of pattern toolbox---
+(define MakeAssoc
+  (lambda (asymbol avalue) (list asymbol avalue)))
+(define getsymbol
+  (lambda (anAssociation) (car anAssociation)))
+(define getvalue (lambda (anassociation) (cadr anassociation)))
+(define makealist (lambda anassoclist anassoclist))
+(define getnextassoc (lambda (analist) (car analist)))
+(define getrestofassoc
+  (lambda (analist) (cdr analist)))
+(define storeassocasitem
+  (lambda (asymbol anitem analist)
+    (append analist (list (makeassoc asymbol anitem)))))
+
+(define storeassocaslist
+  (lambda (asymbol anitem analist)
+    (cond ((null? analist)
+           (makealist (makeassoc asymbol (list anitem))))
+          ((equal? asymbol (getsymbol (getnextassoc analist)))
+           (cons (makeassoc
+                  asymbol
+                  (if (pair? (getvalue (getnextassoc analist)))
+                      (append (getvalue (getnextassoc analist)) (list anitem))
+                      (list anitem)))
+                 (getrestofassoc analist)))
+          (else (cons (getnextassoc analist)
+                      (storeassocaslist asymbol anitem
+                                        (getrestofassoc analist)))))))
+
+(define getassociation
+  (lambda (apatternvariable analist)
+    (assoc apatternvariable analist)))
+(define getassociationvalue
+  (lambda (apatternvariable analist)
+    (let ((association (getassociation apatternvariable analist)))
+      (if (null? association)
+          (display &quot;getassociationvalue:&quot; 
+           &quot;no previous binding for&quot; apatternvariable)
+      (getvalue association)))))
+
+(define ? (lambda (var . predicates) (list ? var predicates)))
+(define ?+ (lambda (var . predicates) (list ?+ var predicates)))
+(define &lt;-? (lambda (var . predicates) (list &lt;-? var predicates)))
+(define ?symbol? (lambda (asymbol) (equal? asymbol ?)))
+(define ?+symbol? (lambda (asymbol) (equal? asymbol ?+)))
+(define &lt;-?symbol? (lambda (asymbol) (equal? asymbol &lt;-?)))
+(define pattern (lambda symbols symbols))
+
+(define buildnewpattern
+  (lambda (anitemorlist apattern)
+    (if (pair? anitemorlist)
+        (append anitemorlist apattern)
+        (cons anitemorlist apattern))))
+
+(define ismatchingoperator?
+  (lambda (anoperator)
+    (or (?symbol? anoperator)
+        (?+symbol? anoperator)
+        (&lt;-?symbol? anoperator))))
+
+(define printmatchingoperator
+  (lambda (anoperator)
+    (cond ((?symbol? anoperator) (display &quot;?&quot;))
+          ((?+symbol? anoperator) (display &quot;?+&quot;))
+          ((&lt;-?symbol? anoperator) (display &quot;&lt;-?&quot;)))))
+
+(define printpattern
+  (lambda (apattern)
+    (define printpatternaux
+      (lambda (apattern)
+        (define printpatternelement
+          (lambda (apatternelement)
+            (cond ((ismatchingoperator? apatternelement)
+                   (printmatchingoperator apatternelement))
+                  ((ismatchingelement? apatternelement)
+                   (printmatchingelement apatternelement))
+                  ((pair? apatternelement)
+                   (printpattern apatternelement))
+                  (else (display apatternelement)))))
+        (if (null? apattern)
+            #f
+            (begin (printpatternelement (car apattern))
+                   (display &quot; &quot;)
+                   (printpatternaux (cdr apattern))))))
+    (display &quot;(&quot;)
+    (printpatternaux apattern)
+    (display &quot;)&quot;)))
+
+(define makevariablesubst
+  (lambda (apattern analist)
+    (if (null? apattern)
+        (pattern)
+        (let ((element (car apattern)))
+          (cons (if (and (ismatchingelement? element)
+                         (&lt;-?symbol? (matchingoperator element)))
+                    (getassociationvalue (matchingvariable element) analist)
+                    element)
+                (makevariablesubst (cdr apattern) analist))))))
+
+(define matchingoperator
+  (lambda (amatchingelement) (car amatchingelement)))
+
+(define matchingvariable
+  (lambda (amatchingelement) (cadr amatchingelement)))
+  
+(define matchingpredicatelist
+  (lambda (amatchingelement) (caddr amatchingelement)))
+
+(define ismatchingelement?
+  (lambda (amatchingelement)
+    (and (pair? amatchingelement)
+         (&gt;= (length amatchingelement) 2)
+         (ismatchingoperator? (matchingoperator amatchingelement)))))
+
+(define satisfiespredicates?
+  (lambda (analist apredicatelist)
+    (cond ((null? apredicatelist) #t)
+          (((car apredicatelist) analist)
+           (satisfiespredicates? analist (cdr apredicatelist)))
+          (else #f))))
+
+(define printmatchingelement
+  (lambda (amatchingelement)
+    (define printpredicatelist
+      (lambda (apredicatelist)
+        (if (null? apredicatelist)
+            #f
+            (begin (display (car apredicatelist))
+                   (printpredicatelist (cdr apredicatelist))))))
+    (display &quot;(&quot;)
+    (printmatchingoperator (car amatchingelement))
+    (display &quot; &quot;)
+    (display (cadr amatchingelement))
+    (if (caddr amatchingelement)
+        (begin (display &quot; &quot;)
+               (printpredicatelist (caddr amatchingelement)))
+        #f)
+    (display &quot;)&quot;)))
+
+(define processmatchingelement
+  (lambda (apattern astring analist)
+    (let* ((patternelement (car apattern))
+           (operator (matchingoperator patternelement))
+           (variable (matchingvariable patternelement))
+           (predicatelist (matchingpredicatelist patternelement))
+           (restpattern (cdr apattern))
+           (stringelement (car astring))
+           (reststring (cdr astring))
+           (newalist analist))
+      (cond ((?symbol? operator)
+             (set! newalist (storeassocasitem variable
+                                             stringelement
+                                             analist)))
+            ((?+symbol? operator)
+             (set! newalist (storeassocaslist variable
+                                              stringelement
+                                              analist)))
+            (else #f))
+      (if (or (null? predicatelist)
+              (satisfiespredicates? newalist predicatelist))
+          (cond ((?symbol? operator)
+                 (matchwithalist restpattern reststring newalist))
+                ((?+ symbol? operator)
+                 (or (matchwithalist restpattern
+                                     reststring
+                                     newalist)
+                     (matchwithalist apattern
+                                     reststring
+                                     newalist)))
+                ((&lt;-?symbol? operator)
+                 (matchwithalist (buildnewpattern
+                                  (getassociationvalue variable analist)
+                                  restpattern)
+                                 astring
+                                 newalist)))
+          #f))))
+
+(define matchwithalist
+  (lambda (apattern astring analist)
+    (define reportsuccess
+      (lambda (nalaist)
+        (if analist analist #t)))
+    (define reportfailure (lambda () #f))
+    (cond ((and (null? apattern) (null? astring))
+           (reportfailure))
+          ((or (null? apattern) (null? astring))
+           (reportfailure))
+          ((?symbol? (car apattern))
+           (matchwithalist (cdr apattern) (cdr astring) analist))
+          ((?+ symbol? (car apattern))
+           (or (matchwithalist (cdr apattern) (cdr astring) analist)
+               (matchwithalist apattern (cdr astring) analist)))
+          ((ismatchingelement? (car apattern))
+           (processmatchingelement apattern astring analist))
+          ((and (pair? (car astring)) (pair? (car apattern)))
+           (let ((newalist (matchwithalist (car apattern) (car astring)
+                                           analist)))
+             (if newalist (matchwithalist (cdr apattern)
+                                          (cdr astring)
+                                          newalist)
+                 (reportfailure))))
+          ((equal? (car apattern) (car astring))
+           (matchwithalist (cdr apattern) (cdr astring) analist))
+          (else (reportfailure)))))
+
+(define match
+  (lambda (apattern astring . optionalalist)
+    (cond ((null? optionalalist)
+           (matchwithalist apattern astring (makealist)))
+          ((null? (cdr optionalalist))
+           (matchwithalist apattern astring (car optionalalist)))
+          (else (display &quot;Too many arguments&quot;)))))
+            
+;---------end of pattern toolbox---------------
+  
+
+(define pattern (lambda symbols symbols))
+(define makekb (lambda initialfacts initialfacts))
+(define getfact (lambda (aretrievedelement) (car aretrievedelement)))
+(define getalist (lambda (aretrievedelement) (cadr aretrievedelement)))
+(define emptykb? (lambda (akb) (null? akb)))
+(define restofkb (lambda (akb) (cdr akb)))
+(define firstinkb (lambda (akb) (car akb)))
+(define selectwholefact (lambda (afact) afact))
+(define makeretrievedelement (lambda (afact analist)
+                               (if (null? analist) #f
+                                   (list afact analist))))
+
+(define retrievebystring
+  (lambda (akb astring . optionalarguments)
+    (let ((aselectorfn selectwholefact)
+          (analist #f))
+      (define retrieveaux
+        (lambda (akb)
+          (if (emptykb? akb)
+              #f
+              (let* ((fact (firstinkb akb))
+                     (pattern (aselectorfn fact))
+                     (result (match pattern astring analist)))
+                (if result
+                    (makeretrievedelement fact result)
+                    (retrieveaux (restofkb akb)))))))
+      (if (&gt; (length optionalarguments) 2)
+          (display &quot;too many optional arguments&quot; optionalarguments)
+          #f)
+      (do ((args optionalarguments (cdr args))
+           (arg #f))
+        ((null? args) #f)
+        (set! arg (car args))
+        (if (procedure? arg)
+            (set! aselectorfn arg)
+            (set! analist arg)))
+      (retrieveaux akb))))
+
+(define shrink
+  (lambda ()
+    (let ((shrink-kb #f)
+          (alldone #f))
+      
+      (define makefact
+        (lambda (apattern aprocedure) 
+          (cons apattern aprocedure)))
+      (define selectpattern car)
+      (define selectproc cdr)
+      
+      (define verb?
+        (lambda (anal)
+          (member (GetAssociationValue 'verb anAL)
+                  '(go have be try eat take help 
+                       make get jump write type fill put turn
+                       computer think drink blink crash crunch add))))
+      
+      (define whyword?
+        (lambda(anal)
+          (member (getassociationvalue 'why anal)
+                  '(why where when what))))
+      (define doword?
+        (lambda (anal)
+          (member (getassociationvalue 'do anal)
+                  '(do can should would))))
+      (define iword?
+        (lambda (anal)
+          (member (getassociationvalue 'i anal) '(i me))))
+      (define changeperson
+        (lambda (alist)
+          (define 1&lt;-&gt;2person
+            (lambda (word)
+              (cond ((eq? word 'i) 'you)
+                    ((eq? word 'me) 'you)
+                    ((eq? word 'you) 'me)
+                    ((eq? word 'my) 'your)
+                    ((eq? word 'your) 'my)
+                    ((eq? word 'yours) 'mine)
+                    ((eq? word 'mine) 'yours)
+                    ((eq? word 'am) 'are)
+                    (else word))))
+        (map 1&lt;-&gt;2person alist)))
+    
+    (define questionno 0)
+    (define questionlist '(when why where))
+    (define question
+      (lambda ()
+        (set! questionno (+ 1 questionNo))
+        (if (= questionNo (length questionNo))
+            (if (= questionNo (length questionList))
+                (set! questionNo 0)
+                #f)
+            (list-ref questionlist questionno))))
+
+      (define replyno 0)
+      (define replylist '(&quot;Please go on&quot;
+                          &quot;Tell me more&quot;
+                          &quot;I see&quot;
+                          &quot;What does that indicate?&quot;
+                          &quot;But why be concerned about that?&quot;
+                          &quot;Just tell me how you feel&quot;))
+      (define generalreply
+        (lambda ()
+          (set! replyno (+ 1 replyno))
+          (if (= replyno (length replylist))
+              (set! replyno 0)
+              #f)
+          (list-ref replylist replyno)))
+      
+      (define reply
+        (lambda alist
+          (define replyaux
+            (lambda (alist)
+              (do ((rest alist (cdr rest)))
+                ((null? rest))
+                (if (pair? (car rest))
+                    (replyaux (car rest))
+                    (display (car rest)))
+                (display &quot; &quot;))))
+          (replyaux alist)))
+      
+      (define initkb
+        (lambda ()
+          (set! 
+           shrink-kb
+               (makekb
+                (makefact (pattern 'bye)
+                          (lambda (al)
+                            (set! alldone #t)
+                            (reply &quot;come back soon. Goodbye&quot;)
+                            (newline)))
+                (makefact (pattern 'I 'am ?+)
+                          (lambda (al)
+                            (reply &quot;Please tell me&quot; (question) &quot;you are&quot;)))
+                (makefact (pattern 'I 'feel ?+)
+                          (lambda (al) (reply &quot;I sometimes feel the same
+way&quot;)))
+                (makefact (pattern 'I 'have (?+ 'x))
+                          (lambda (al)
+                            (reply &quot;How long have you had&quot;
+                                  (changeperson (getassociation value 'x
+al)))))
+                (makefact (pattern 'because ?+)
+                          (lambda (al) (reply &quot;Is that really the reason?&quot;)))
+                (makefact (pattern 'yes ?+)
+                          (lambda (al) (reply &quot;How can you be so sure?&quot;)))
+                (makefact (pattern)
+                          (lambda (al) (reply &quot;Please say something&quot;)))
+                (makefact (pattern 'you 'are (?+ 'something))
+                          (lambda (al)
+                            (reply &quot;O yeah. I am&quot;
+                                  (changeperson (getassociationvalue 'rest
+al)))))
+                (makefact (pattern (? 'verb verb?) (?+ 'rest))
+                          (lambda (al)
+                            (reply &quot;So you want me to go and&quot;
+                                   (getassociationvalue 'verb al)
+                                   (changeperson (getassociationvalue 'rest
+al)))))
+                (makefact (Pattern (? 'why whyword?) (?+ 'rest))
+                          (lambda (al)
+                            (reply &quot;You tell me&quot;
+                                   (getassociationvalue 'why al))))
+                (makefact (pattern ?+)
+                          (lambda (al)
+                            (reply (generalreply))))))))
+    (define readsentence
+      (lambda ()
+        (let ((sentence #f))
+          (newline)
+          (display &quot;...&gt;&quot;)
+          (set! sentence (read))
+          (newline)
+          (if (not (pair? sentence))
+              (begin (display &quot;Please give your replies as a list&quot;)
+                     (readsentence))
+              sentence))))
+    
+    (initkb)
+    (set! alldone #f)
+    (display &quot;Welcome to my sofa&quot;)
+    (do ((sentence #f)
+         (element #f))
+         (alldone #f)
+         (set! sentence (readsentence))
+         (set! element (retrievebystring shrink-kb
+                                        sentence
+                                        selectpattern))
+         ((selectproc (getfact element))
+          (getalist element))))))
+
+(begin
+  (display &quot;Type (shrink) to talk to the the shrink&quot;) (newline))
+                                                 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00493.html">Re: question about DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00495.html">Re: Expert System</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00546.html">Re: Help: Looking at the Sun makes you blind...</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00495.html">Re: Expert System</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00494"><strong>Date</strong></a></li>
+<li><a href="threads.html#00494"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

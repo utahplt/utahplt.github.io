@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: cmdline.ss works in MzScheme but not in DrScheme Jr -->
+<!--X-From-R13: Vnaah Ybvivfgb <nmherNvxv.sv> -->
+<!--X-Date: Wed, 11 Oct 2000 07:47:58 &#45;0600 (MDT) -->
+<!--X-Message-Id: 87hf6jo5g7.fsf@senstation.vvf.fi -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>cmdline.ss works in MzScheme but not in DrScheme Jr</title>
+<link rev="made" href="mailto:azure@iki.fi">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00606.html">Date Prev</a>][<a href="msg00608.html">Date Next</a>][<a href="msg00605.html">Thread Prev</a>][<a href="msg00612.html">Thread Next</a>][<a href="maillist.html#00607">Date Index</a>][<a href="threads.html#00607">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>cmdline.ss works in MzScheme but not in DrScheme Jr</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: cmdline.ss works in MzScheme but not in DrScheme Jr</li>
+<li><em>From</em>: Hannu Koivisto &lt;<A HREF="mailto:azure@iki.fi">azure@iki.fi</A>&gt;</li>
+<li><em>Date</em>: 11 Oct 2000 16:47:20 +0300</li>
+<li><em>Mail-copies-to</em>: never</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0808 (Gnus v5.8.8) Emacs/20.7</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Greetings,
+
+In DrScheme v103.1 (taken from CVS around 2000-10-11T13:30Z, I
+accidentally forgot to specify release-103 tag so if this
+resolution is not enough, I'll update and compile again
+release-103):
+
+[foo] drscheme-jr -l 'Full Scheme (MzScheme)'
+DrScheme Jr is loading. Please wait...
+Welcome to DrScheme Jr version 103.1, Copyright (c) 1995-2000 PLT
+Language: Textual Full Scheme (MzScheme)
+&gt; (require-library &quot;cmdline.ss&quot;)
+/usr/local/lib/plt/collects/mzlib/cmdlineu.ss: 4.1-5.31:
+  begin-elaboration-time: exception at elaboration time:
+  begin-elaboration-time: exception at elaboration time:
+  begin-elaboration-time: exception at elaboration time: parsed-back:
+  expects argument of type &lt;struct:parsed&gt;; given
+  #&amp;(#&lt;struct:top-level-varref/bind/unit&gt;
+  #&lt;struct:top-level-varref/bind/unit&gt;
+  #&lt;struct:top-level-varref/bind/unit&gt;
+  #&lt;struct:top-level-varref/bind/unit&gt;
+  #&lt;struct:top-level-varref/bind/unit&gt;) 
+
+but
+
+[foo] mzscheme
+Welcome to MzScheme version 103.1, Copyright (c) 1995-2000 PLT (Matthew Flatt)
+&gt; (require-library &quot;cmdline.ss&quot;)
+&gt;
+
+I.e. cmdline.ss loads (and works too) fine in MzScheme but doesn't
+even load in DrScheme Jr.
+
+-- 
+Hannu
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00612" href="msg00612.html">RE: cmdline.ss works in MzScheme but not in DrScheme Jr</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00606.html">RE: Adding a New &quot;primitive&quot; Method.</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00608.html">vertical scrol / trashing</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00605.html">Re: Simple Beginner Question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00612.html">RE: cmdline.ss works in MzScheme but not in DrScheme Jr</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00607"><strong>Date</strong></a></li>
+<li><a href="threads.html#00607"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

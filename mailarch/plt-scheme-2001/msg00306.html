@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: You just found a wand of polymorphism (+2, cursed) -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 18 Feb 2001 07:44:19 &#45;0700 (MST) -->
+<!--X-Message-Id: 200102181443.f1IEhZn02499@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010218083854.A4012@memo.frmug.fr.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: You just found a wand of polymorphism (+2, cursed)</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00305.html">Date Prev</a>][<a href="msg00307.html">Date Next</a>][<a href="msg00303.html">Thread Prev</a>][<a href="msg00313.html">Thread Next</a>][<a href="maillist.html#00306">Date Index</a>][<a href="threads.html#00306">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: You just found a wand of polymorphism (+2, cursed)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Bertrand Petit &lt;<A HREF="mailto:plt-s@phoe.frmug.org">plt-s@phoe.frmug.org</A>&gt;</li>
+<li><em>Subject</em>: Re: You just found a wand of polymorphism (+2, cursed)</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 18 Feb 2001 07:43:36 -0700 (MST)</li>
+<li><em>CC</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00303.html">20010218083854.A4012@memo.frmug.fr.net</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00303.html">20010218083854.A4012@memo.frmug.fr.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Bertrand Petit:
+&gt; 	In an empty editor I insert a TEST-SNIP% object (derived from
+&gt; the STRING-SNIP% class) and just after it I insert a plain
+&gt; #\newline. When I get back the inserted snip (with find-snip), the
+&gt; returned object is no longer a TEST-SNIP% instance: evaluating
+&gt; ла(is-a?  (find-snip 0 'after #f) test-snip%)а╗ yields a #f. I
+&gt; expected here to have my snip back as it was inserted.
+
+See the `split' method on snip%. The editor is adding the newline to
+your snip, then immediately afterwards decides to split it. I expect
+that you didn't override `split', so the resulting snips are insteances
+of string-snip%.
+
+&gt; 	Also: how can I find the class of a given unknown object such
+&gt; as the one I got back from FIND-SNIP?
+
+In general, getting a class from an object might expose a class that a
+library intended to be private. So it isn't supported.
+
+But you can always extract an interface from an object. Every class has
+an associated interface (but objects can't be instantiated via the
+interface, and a new class cannot be derived from it).
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00303" href="msg00303.html">You just found a wand of polymorphism (+2, cursed)</a></strong>
+<ul><li><em>From:</em> Bertrand Petit &lt;plt-s@phoe.frmug.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00305.html">Re: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00307.html">Re: reading external representation</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00303.html">You just found a wand of polymorphism (+2, cursed)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00313.html">Raising an exception within C?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00306"><strong>Date</strong></a></li>
+<li><a href="threads.html#00306"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

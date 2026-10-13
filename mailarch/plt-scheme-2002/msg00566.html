@@ -1,0 +1,305 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Strong Typing, Dynamic Languages, What to do? -->
+<!--X-From-R13: Quevf Gmqnivavf <puevfNngqrfx.pbz> -->
+<!--X-Date: Wed, 27 Mar 2002 13:13:33 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203272013.g2RKDTf18922@plover.atdesk.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000801c1d3a6$a82874a0$0a00a8c0@femto -->
+<!--X-Reference: j64rj4afqy.fsf@explicit.atdesk.com -->
+<!--X-Reference: 3CA21660.1080603@appsolutions.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Strong Typing, Dynamic Languages, What to do?</title>
+<link rev="made" href="mailto:chris@atdesk.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00565.html">Date Prev</a>][<a href="msg00567.html">Date Next</a>][<a href="msg00555.html">Thread Prev</a>][<a href="msg00450.html">Thread Next</a>][<a href="maillist.html#00566">Date Index</a>][<a href="threads.html#00566">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Strong Typing, Dynamic Languages, What to do?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Anton van Straaten &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Strong Typing, Dynamic Languages, What to do?</li>
+<li><em>From</em>: Chris Uzdavinis &lt;<A HREF="mailto:chris@atdesk.com">chris@atdesk.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Mar 2002 15:13:29 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: Anton van Straaten's message of &quot;Wed, 27 Mar 2002 13:58:40 -0500&quot;</li>
+<li><em>Organization</em>: Automated Trading Desk, Inc.</li>
+<li><em>References</em>: &lt;<a href="msg00449.html">000801c1d3a6$a82874a0$0a00a8c0@femto</a>&gt;&lt;<a href="msg00475.html">j64rj4afqy.fsf@explicit.atdesk.com</a>&gt;&lt;<a href="msg00555.html">3CA21660.1080603@appsolutions.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) Emacs/21.1</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Anton van Straaten &lt;anton@appsolutions.com&gt; writes:
+
+&gt; &gt; Also, you are assuming that every access in C++ is unsafe, or that
+&gt; &gt; for every potentially unsafe access some validating abstraction has
+&gt; &gt; to be written.  Sometimes it comes in handy, but if you write code
+&gt; &gt; that depends on range
+&gt; &gt; checking, I'd claim that the program is seriously buggy.
+&gt; 
+&gt; Of course!  The point about protecting the integrity of a language's
+&gt; types is that it prevents problems from escalating from simple,
+&gt; reportable logic errors, into hard-to-detect bugs that may end up in
+&gt; production code, even unbeknownst to the developer.  In many
+&gt; circumstances, turning off runtime integrity checks for performance
+&gt; reasons may be perfectly acceptable.  Never being able to turn them
+&gt; on, and suffering hard-to-detect bugs as a result, is not.
+
+Such a feature would be a nice addition, and could be marketable.  A
+debug-mode automatic range checker.  They do have tools to do runtime
+memory debugging, to watch these things, but they're add-ons.  Borland
+does have CodeGuard, for example, which compiles some additional
+information into your application, to enable CG to detect buffer
+overruns, multiple deletes, range errors, leaks, and a few other types
+of problems.
+
+As long as this stuff is optional, it's all prefectly fine with me.  :)
+
+
+&gt; &gt; * the original bug remains in your code, which keeps on
+&gt; &gt; calculating the wrong value (which is now &quot;allowed&quot; by your
+&gt; &gt; program)
+
+&gt; I don't understand what you mean.  Type-safe languages generate an
+&gt; exception in the case of an error like this, so there's no sense in
+&gt; which this is &quot;allowed&quot;.  In fact, it's C++ that can &quot;allow&quot; this in
+&gt; the sense that memory corruption due to an error like this may not
+&gt; be detected until much later (too late).
+
+I meant that the bug is allowed in the sense that if you catch/handle
+the exception, your program continues to run.  (In C++ it keeps
+running too but usually will crash, which unambiguously brings the
+problem to your attention, even if it's mysterious.)
+
+But I agree with you that throwing an exception is a good way to catch
+the problem.  I think in either case, extensive testing is the only
+way to be sure a program works, regardless of how the language treats
+the error.
+
+Ideally, the bug is caught before the program is running in
+production.  With sufficient testing this will be the case.  Then the
+range checking is no longer necessary, but is a nice &quot;safety net&quot; just
+in case.  It's for those time-critical loops where if you know it's
+bug-free you might not want to keep checking ranges that you can be
+sure are valid.
+
+
+&gt; &gt; * now that the access has translated into an error, recovery code
+&gt; &gt; is written to handle the error.  This is misleading to people,
+&gt; &gt;   because they think that it's OK to go out of bounds in the first
+&gt; &gt;   place, and that if they do, all that is necessary is to handle the
+&gt; &gt;   error.
+&gt; 
+&gt; Sorry, but I think you're way off-base here.  If a programmer
+&gt; doesn't take the correct action in response to an error that's
+&gt; reported clearly and accurately by the language, that's the
+&gt; programmer's fault.  I'm saying that C++ doesn't report the error in
+&gt; the first place, and that can't reasonably be construed as a good
+&gt; thing.
+
+I do not argue with your point here, it is the programmers fault,
+100%.  Perhaps I'm jaded by the large number of bad programmers I've
+run into who do just consume exceptions and do nothing about it, not
+even log it or bring the problem to the user's (nor programmer's)
+attention.  
+
+
+&gt; The only way to justify these kinds of shortcoming is historically,
+&gt; and by the current state of software technology in general.  I can't
+&gt; see how it can reasonably be argued that the inability of a language
+&gt; to protect its types is a feature.  Being able to turn off runtime
+&gt; checks for performance reasons, once a program is debugged and
+&gt; tested, can be desirable, but the inability to automatically guard
+&gt; against this, if you want to, especially during development, is bad.
+&gt; In C++, The switch for the &quot;unsafe&quot; feature is permanently turned
+&gt; on.
+
+I can only partially agree.  If you use the bare-bones language, you
+have all the troubles you suggest.  But few people work at that level,
+except the &quot;C++ as a better C&quot; programmers.  You write a class to do
+some work, and you can add all the range checking you want to
+encapsulate/abstract whatever it is you're doing.
+
+Then you work in terms of your abstractions, and the problems you
+describe become much more rare.
+
+The real point of difference we have, I think, is where this logic
+belongs.  You think it's the language compiler's job to do the
+checking, and I think that it can rightfully be put in user code.  I'm
+sure to hold the unpopular position, especially in a Scheme group, but
+it has worked very well for me, and I like having the control over my
+code that I have.
+
+&gt; I'm not saying C++ is an unusable or useless language.  I've written
+&gt; hundreds of thousands of lines in it myself, shipped commercial
+&gt; products written in it, and I'm still using it.  I'm merely pointing
+&gt; out that aspects of it which many people take for granted as
+&gt; inevitable could be improved, and that the current behavior
+&gt; shouldn't be defended as being somehow fundamentally valid.
+
+Absolutely.  C++ is ugly, difficult, slow-to-compile, produces large
+binaries (template bloat), and has all sorts of issues.  It's far from
+the perfect language, but on the other hand, all the other language
+that come along trying to be &quot;just the good from C++ and none of the
+bad&quot; almost always end up less capable, or require huge libraries to
+compensate. 
+
+
+&gt;  Many C++ developers are very used to running bounds-checking tools
+&gt; and the like to compensate for its deficiencies.  They also
+&gt; regularly rely (even if inadvertently) on operating system memory
+&gt; protection to tell them when a range or pointer bug is present.
+
+This is true.
+
+&gt; This is accepted as a status quo, but it's unlikely to remain
+&gt; acceptable as mainstream technology improves.  (C++ is already
+&gt; taking market-share heat from Java over this issue).
+
+Perhaps, I don't follow Java.
+
+&gt; Sure, you can guard against these problems, and most competent
+&gt; developers don't tend to find them a burden.  You've found this to
+&gt; be the case. But if you've worked with teams of programmers using
+&gt; C++, you can't tell me you've never seen any of them spending time
+&gt; tracking down an access violation due to these kinds of issues.  One
+
+Of course we all have, but clearly some programmers cause this type of
+hunting far more often than others.  It may be related to the amount
+of attention to details that programmers in general have (or lack.)
+I'm amazed by how bad most C++ programmers I meet actually are.  Is it
+the language problem for being so difficult, or is it the industry's
+fault for tolerating underqualified programmers acting as if they were
+competant? 
+
+&gt; only has to look at commercial shrinkwrapped software to see this,
+&gt; where unclean crashes are a common occurrence.  If everything were
+
+... which is one of the reason I'm on Linux.  :)
+
+&gt; written in type-safe languages, software would be significantly more
+&gt; reliable.  What I'm talking about is an issue related to the costs -
+&gt; in both developer and user time, and cash - of using the language.
+
+For what it's worth, I've posted several times on the C++ groups I'm
+on that I'd rather program in Scheme.  It is a fun, safe, and easy
+language to use, and with a good interpreter/compiler it can be very
+fast as well.  For most applications it would be a great choice, I
+think, and as you say, it may be less expensive to use.  (I've never
+used Scheme for anything large, and have no idea how/if it breaks down
+under large projects...)
+
+&gt; I'm not suggesting that everything *can* be written in safe
+&gt; languages, as of today.  Theoretically, it's possible to write
+&gt; everything in a safe language and have it perform on par with the
+&gt; best compiled code out there.  Various examples of such languages
+&gt; exist.  But in practice today, mainstream and commercially accepted
+&gt; tools to do this aren't always available, so language selection is
+&gt; often driven by the realities of performance requirements.  Often,
+
+... and developer availability.  In the last three years of resumes
+I've seen, only one has listed Scheme, for example.  (Though many list
+C++ that shouldn't... :)
+
+&gt; such choices are quite valid or at least easily defended: the case
+&gt; of importing hundreds of millions of stock quotes sounds like one
+&gt; such case.  In many, *many* other cases, though, languages like C or
+&gt; C++ are used without good technical reasons, and their shortcomings
+&gt; are accepted when they don't have to be, and probably shouldn't be.
+
+I totally agree.  Still, I can write an extension that handles the
+time critical code and use Scheme for most of the rest.  So even then,
+when a concession needs to be made, it doesn't have to be a big one.
+
+&gt; &gt; C++ has changed a lot since then.
+&gt; 
+&gt; Yes, I know.  My comment was intended to indicate that I didn't just
+&gt; read &quot;Teach Yourself C++ in 21 Days&quot; and draw my conclusions from
+&gt; that.
+
+Sorry.  (Most C++ programmers I run into learned from brightly colored
+books, unfortunately.) 
+
+&gt;  I've avidly consumed every new book on advanced C++ techniques,
+&gt; absorbed new features as they come out, and worked with some of the
+&gt; most advanced frameworks.  But there's a sense in which this is all
+&gt; window dressing on an insufficiently robust base.  I don't like
+&gt; doing work that I know I shouldn't have to do, and C++ makes me do
+&gt; that.  Being aware of its shortcomings and the underlying technical
+&gt; factors allows for more appropriate choice of tools.
+
+I know what you mean, and have started digging into my scheme books
+again (I've been away from it for a few months) and really appreciate
+having such languages available.  They do allow things to be done in
+ways that are so much easier than in C++ that sometimes it's hard to
+believe.  (For example, networking and multi-threadding in mzscheme is
+incredibly easy, but in C++ it requires immense amounts of detail, or
+huge libraries like ACE.)  You give up some low-level control, but for
+something that doesn't need those details, it sure is a nice way to go.
+
+-- 
+Chris
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00449" href="msg00449.html">RE: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+<li><strong><a name="00475" href="msg00475.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Chris Uzdavinis &lt;chris@atdesk.com&gt;</li></ul></li>
+<li><strong><a name="00555" href="msg00555.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+<ul><li><em>From:</em> Anton van Straaten &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00565.html">[ShootOut] sieve.bat</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00567.html">RE: Parser tools: How to make the lexer context sensitive?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00555.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00450.html">Re: Strong Typing, Dynamic Languages, What to do?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00566"><strong>Date</strong></a></li>
+<li><a href="threads.html#00566"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

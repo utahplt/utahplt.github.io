@@ -1,0 +1,105 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown. -->
+<!--X-From-R13: "Quevf Rbhoyr" <RbhoyrQNnpp.pb.am> -->
+<!--X-Date: Wed, 6 Feb 2002 13:54:29 &#45;0700 (MST) -->
+<!--X-Message-Id: sc624ed7.068@mh_acc099 -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</title>
+<link rev="made" href="mailto:DoubleC@acc.co.nz">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00212.html">Date Prev</a>][<a href="msg00214.html">Date Next</a>][<a href="msg00241.html">Thread Prev</a>][<a href="msg00219.html">Thread Next</a>][<a href="maillist.html#00213">Date Index</a>][<a href="threads.html#00213">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</li>
+<li><em>From</em>: &quot;Chris Double&quot; &lt;<A HREF="mailto:DoubleC@acc.co.nz">DoubleC@acc.co.nz</A>&gt;</li>
+<li><em>Date</em>: Thu, 07 Feb 2002 09:54:21 +1300</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;Here is my plead to those who are actively developing MzScheme: please
+&gt;make MzScheme collect garbage before exit!
+
+You'll find that a lot of langauges with garbage collection do not guarantee that finalisers are called or that garbage is collected before the process exits. For example, both Functional Develoepr Dylan [1] and Java [2] do not guarantee that finalisers will be called.
+
+Which leads to the rule that garbage collection is used for managing memory, not for managing other resources. 
+
+Even when your object is finalised you can't guarantee when that will happen. An example. I've used a number of ODBC libraries for both Lisp and Dylan that rely on finalisation to free ODBC handles. Unfortunately when allocating a lot of ODBC statements you often run out of ODBC resources before any of them are finalised. Better is to provide an explicit means of freeing/closing resources.
+
+A common idiom in Common Lisp and Dylan is to do a 'with...' style macro:
+
+  with-open-file(fs = &quot;blah.txt&quot;)
+    do-something(fs);
+  end;
+
+The macros frees or closes the resources at the end of the scope,
+
+[1] <A  HREF="http://www.functionalobjects.com">http://www.functionalobjects.com</A> 
+[2] <A  HREF="http://www.javasoft.com">http://www.javasoft.com</A>
+
+Chris.
+<A  HREF="http://www.double.co.nz/dylan">http://www.double.co.nz/dylan</A>
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00219" href="msg00219.html">Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</a></strong>
+<ul><li><em>From:</em> Sebastian H Seidel &lt;Sebastian.H.Seidel@hno.med.uni-giessen.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00212.html">Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00214.html">Error with latest CVS Update</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00241.html">Re: mzc on NetBSD</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00219.html">Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00213"><strong>Date</strong></a></li>
+<li><a href="threads.html#00213"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

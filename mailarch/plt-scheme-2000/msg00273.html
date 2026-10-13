@@ -1,0 +1,128 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: MzScheme for Embedding -->
+<!--X-From-R13: Xvz Pynaql <wvzoNerq&#45;orna.pbz> -->
+<!--X-Date: Fri, 5 May 2000 14:24:54 &#45;0600 (MDT) -->
+<!--X-Message-Id: m3hfccg2y7.fsf@savonarola.red&#45;bean.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C67677E99C4@THRESHER -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: MzScheme for Embedding</title>
+<link rev="made" href="mailto:jimb@red-bean.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00272.html">Date Prev</a>][<a href="msg00274.html">Date Next</a>][<a href="msg00272.html">Thread Prev</a>][<a href="msg00276.html">Thread Next</a>][<a href="maillist.html#00273">Date Index</a>][<a href="threads.html#00273">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: MzScheme for Embedding</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Brent Fulgham &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Subject</em>: Re: MzScheme for Embedding</li>
+<li><em>From</em>: Jim Blandy &lt;<A HREF="mailto:jimb@red-bean.com">jimb@red-bean.com</A>&gt;</li>
+<li><em>Date</em>: 05 May 2000 15:24:48 -0500</li>
+<li><em>Cc</em>: PLT-Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: Brent Fulgham's message of &quot;Fri, 5 May 2000 11:08:04 -0700&quot;</li>
+<li><em>References</em>: &lt;<a href="msg00271.html">EDFD2A95EE7DD31187350090279C67677E99C4@THRESHER</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+&gt; I like a few things about MzScheme:
+&gt; 1.  It compiles to an interpreted bytecode.  This means I can
+&gt; cache the bytecodes in core for heavily used scripts, and save
+&gt; some of the &quot;compile&quot; time for future invocations.
+
+You should be careful about this assumption.  Guile does incrementally
+convert a direct representation of the source code to an internal form
+designed for fast interpretation.  However, Guile has other
+performance problems.  MzScheme may indeed be faster for you, but
+guessing which system is more suitable for your needs based on
+implementation details is not reliable.  You should run some
+experiments.
+
+&gt; I do have a couple of concerns about MzScheme:
+&gt; (A) The Guile-list has lots of complaints that the MzScheme
+&gt; module system is very un-schemelike (whatever that means).  Can
+&gt; anyone here shed light on what this means?
+
+For what it's worth, I disagree.  MzScheme units are first-class
+objects whose composition is entirely under the control of Scheme
+code.  It seems very Schemey to me.
+
+The biggest problem is that units can't export macros.  I understand
+the rationale for this, but that choice does mean that units don't
+meet a pretty widespread need.  I don't currently understand how
+macros are scoped in MzScheme.  It looks like they have a totally
+separate, kind of ad-hoc mechanism for dealing with that.
+
+&gt; 3)  No byte-code compilation, which means scheme code must be
+&gt; parsed each time it is run (less opportunity for smart compiler
+&gt; optimizations if they are &quot;expensive&quot;).
+
+As I say, run some tests, to be sure this works out for you.  I'm
+interested in the results, either way.
+
+You should also list Guile's lack of documentation.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00276" href="msg00276.html">Re: MzScheme for Embedding</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00271" href="msg00271.html">MzScheme for Embedding</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00272.html">Re: MzScheme for Embedding</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00274.html">RE: MzScheme for Embedding</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00272.html">Re: MzScheme for Embedding</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00276.html">Re: MzScheme for Embedding</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00273"><strong>Date</strong></a></li>
+<li><a href="threads.html#00273"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

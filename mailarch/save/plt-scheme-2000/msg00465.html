@@ -1,0 +1,153 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Development/Production versions (was RE: CVS) -->
+<!--X-From-R13: "Quevfgbcure P. Pebjar" <puevf.oebjarNfnoer.pbz> -->
+<!--X-Date: Fri, 18 Feb 2000 17:25:26 &#45;0700 (MST) -->
+<!--X-Message-Id: 38ADE1D1.F36DCE9@sabre.com -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Reference: 20000217201300.6891.qmail@web903.mail.yahoo.com -->
+<!--X-Reference: 200002180053.QAA10538@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Development/Production versions (was RE: CVS)</TITLE>
+<LINK REV="made" HREF="mailto:chris.browne@sabre.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00464.html">Date Prev</A>][<A HREF="msg00466.html">Date Next</A>][<A HREF="msg00471.html">Thread Prev</A>][<A HREF="msg00466.html">Thread Next</A>][<A HREF="maillist.html#00465">Date Index</A>][<A HREF="threads.html#00465">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Development/Production versions (was RE: CVS)</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></LI>
+<LI><em>Subject</em>: Re: Development/Production versions (was RE: CVS)</LI>
+<LI><em>From</em>: "Christopher B. Browne" &lt;<A HREF="mailto:chris.browne@sabre.com">chris.browne@sabre.com</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 18 Feb 2000 18:20:33 -0600</LI>
+<LI><em>CC</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A>, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Organization</em>: The SABRE Group</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00445.html">20000217201300.6891.qmail@web903.mail.yahoo.com</A>&gt; &lt;<A HREF="msg00455.html">200002180053.QAA10538@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Leo Razoumov wrote:
+&gt; &gt;&gt;&gt;&gt;&gt; "SK" == Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt; writes:
+&gt;     SK&gt; As I recall, Swig provides Guile bindings.  How about creating one for
+&gt;     SK&gt; MzScheme?  Takers?  Swig fans?  (I believe there's a major revamping
+&gt;     SK&gt; of Swig in progress, so this would be a good time to get involved.)
+&gt; 
+&gt;     SK&gt; 'shriram
+&gt; 
+&gt; How about having the wrapper generating engine written in Scheme? After all
+&gt; don't we believe that Scheme is the best language of all:-)
+
+There's a "g-wrap" system where you describe the bindings between C and
+Scheme in Scheme form.  This is extensively used with GnuCash to attach
+Scheme bindings to C functions and vice-versa to allow scripting in
+Guile.  g-wrap also supports RScheme, which I *think* has something to
+do with Rice?
+
+&lt;<A  HREF="http://www.cs.cmu.edu/~chrislee/Software/g-wrap/">http://www.cs.cmu.edu/~chrislee/Software/g-wrap/</A>&gt; is the home of
+g-wrap.
+
+Note that a slick part of g-wrap is that it generates HTML documentation
+as output; if you define some functions thus:
+(new-function
+ 'gnc:get-num-accounts
+ 'int "xaccGetNumAccounts" '((AccountGroup* g))
+ "Return the number of accounts, including subaccounts, in the account
+group")
+
+(new-function
+ 'gnc:group-get-num-accounts
+ 'int "xaccGroupGetNumAccounts" '((AccountGroup* g))
+ "Return the number of accounts in the indicated group only
+(children not counted).")
+
+(new-function
+ 'gnc:group-get-account
+ 'Account* "xaccGroupGetAccount" '((AccountGroup* g) (int n))
+ "Return account number n in account group g.")
+
+g-wrap will generate a web page with the names of the functions and
+arguments.
+-- 
+"One World. One Web. One Program."   -- MICROS~1 hype
+"Ein Volk, ein Reich, ein Fuehrer"   -- Nazi hype
+(One people, one country, one leader)
+chris.browne@sabre.com</PRE>
+<PRE>
+begin:vcard 
+n:Browne;Christopher
+tel;work:817-963-5621
+x-mozilla-html:FALSE
+url:<A  HREF="http://www.hex.net/~cbbrowne/">http://www.hex.net/~cbbrowne/</A>
+org:Sabre Inc;SHARP Project 
+version:2.1
+email;internet:chris.browne@sabre.com
+title:Consultant II
+adr;quoted-printable:;;4333 Amon Carter Blvd=0D=0AMD 3N2D41;DFW Airport;TX;75261-9616;USA
+x-mozilla-cpt:;0
+fn:Christopher Browne
+end:vcard
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00466" HREF="msg00466.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00445" HREF="msg00445.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> see signature &lt;slonika@yahoo.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00455" HREF="msg00455.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00464.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00466.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00471.html">Re: FFI (was Re: Development/Production versions (was RE: CVS))</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00466.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00465"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00465"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

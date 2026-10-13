@@ -1,0 +1,149 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: scsh in PLT Scheme? -->
+<!--X-From-R13: "@rvy I. Hna Rlxr" <ajiNarvyinaqlxr.bet> -->
+<!--X-Date: Tue, 26 Mar 2002 17:29:53 &#45;0700 (MST) -->
+<!--X-Message-Id: 15521.4752.423373.621592@winona.neilvandyke.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000001c1d507$aee69940$70730a81@NORTHEASDX5RFA -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: scsh in PLT Scheme?</title>
+<link rev="made" href="mailto:nwv@neilvandyke.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00519.html">Date Prev</a>][<a href="msg00521.html">Date Next</a>][<a href="msg00522.html">Thread Prev</a>][<a href="msg00521.html">Thread Next</a>][<a href="maillist.html#00520">Date Index</a>][<a href="threads.html#00520">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: scsh in PLT Scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:steck@ccs.neu.edu">steck@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: scsh in PLT Scheme?</li>
+<li><em>From</em>: &quot;Neil W. Van Dyke&quot; &lt;<A HREF="mailto:nwv@neilvandyke.org">nwv@neilvandyke.org</A>&gt;</li>
+<li><em>Date</em>: Tue, 26 Mar 2002 19:30:08 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00514.html">000001c1d507$aee69940$70730a81@NORTHEASDX5RFA</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00514.html">000001c1d507$aee69940$70730a81@NORTHEASDX5RFA</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Some Guile 1.6 socket/port features I've used recently (which probably
+had their origins in Scsh) that I don't think are currently in PLT 200:
+
+  1. Ability to bind a socket to a specific address.
+
+     This is especially useful for binding servers under early
+     development to only 127.0.0.1, rather than expose
+     non-yet-working-much-less-secure code to the Internet.
+
+     Of perhaps less relevance to PLT, being able to bind to specific
+     addresses is also necessary for multihoming Web services -- wherein
+     a physical network interface is associated with multiple IP
+     addresses (usually one for each Web site or hosting service
+     customer, so that everyone can be on port 80).
+
+  2. Block I/O, for low-level efficiency when doing things like
+     shuffling blocks of bytes verbatim between ports.  In Guile, these
+     are &quot;read-string!/partial&quot; and &quot;write-string!/partial&quot;.  My most
+     recent real-world example is in implementing an HTTP proxy.
+
+  3. Ability to make socket I/O be non-blocking.  In Guile, this is:
+     (fcntl port F_SETFL (logior O_NONBLOCK (fcntl port F_GETFL)))
+
+  4. Posix &quot;select&quot; or similar.  (I will cleverly avoid making run-time
+     efficiency claims here.)  Sometimes the desired behavior of a
+     system with many concurrent I/O activities reduces nicely to a set
+     of FSMs that are scheduled within a single-threaded event loop.
+     Losing the unnecessary complexity of multithreading sometimes makes
+     the behavior of these systems tremendously easier to understand.
+
+     If I end up teaching intro CS in a few years, I may want to teach
+     &quot;select&quot; as part of a unit on concurrency, both to contrast/compare
+     with multithreading abstractions, and also to plant the concept so
+     that students later recognize situations in which they've
+     essentially semaphored their multithreaded systems into a
+     single-threaded event loop.
+
+Aside on all the host OS process control features that are in many shell
+scripting languages: as your &quot;scripting&quot; language becomes more powerful,
+and you have better library support with direct bindings to the
+language, I think the cases in which you want to exec external processes
+becomes relatively few.  (In case there are any Unix newbies on this
+list: historically, the Unix &quot;software tools&quot; convention was to have
+extremely dumb shell script languages that were glue for composing
+behavior from a haphazard set of simple tools.  Even simple tasks such
+as adding two numbers required the exec of a heavyweight process for
+each computation.  Much of the need for process pipelines came from the
+fact that the output of these tools was often oriented towards display
+to humans rather than as input to other tools.  So you often had to
+construct a pipeline of several text-processing filter tools, each with
+its own heavyweight process, just to, in essence, supply the value of
+one function as a parameter to another function.)
+
+Neil
+
+-- 
+                                                        Neil W. Van Dyke
+                                             <A  HREF="http://www.neilvandyke.org/">http://www.neilvandyke.org/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00521" href="msg00521.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00514" href="msg00514.html">scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Paul Steckler&quot; &lt;steck@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00519.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00521.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00522.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00521.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00520"><strong>Date</strong></a></li>
+<li><a href="threads.html#00520"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

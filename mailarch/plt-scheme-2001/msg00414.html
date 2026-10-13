@@ -1,0 +1,120 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Java JNI &#38;&#38; MzScheme? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sat, 31 Mar 2001 15:52:08 &#45;0700 (MST) -->
+<!--X-Message-Id: 200103312252.f2VMpw906354@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 5.0.2.1.0.20010227183324.00a6f798@195.102.60.43 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Java JNI &amp;&amp; MzScheme?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00413.html">Date Prev</a>][<a href="msg00415.html">Date Next</a>][<a href="msg00350.html">Thread Prev</a>][<a href="msg00353.html">Thread Next</a>][<a href="maillist.html#00414">Date Index</a>][<a href="threads.html#00414">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Java JNI &amp;&amp; MzScheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Giorgio Scorzelli &lt;<A HREF="mailto:scr.giorgio@cogesic.it">scr.giorgio@cogesic.it</A>&gt;</li>
+<li><em>Subject</em>: Re: Java JNI &amp;&amp; MzScheme?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sat, 31 Mar 2001 15:52:03 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00350.html">5.0.2.1.0.20010227183324.00a6f798@195.102.60.43</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00350.html">5.0.2.1.0.20010227183324.00a6f798@195.102.60.43</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+This is a reply for a message that I lost track of long ago (so long
+ago that Giorgio might no longer care about an answer).
+
+Quoting Giorgio Scorzelli:
+&gt; I'm trying to create a Windows DLL that implements a NATIVE method of
+&gt; a Java class (see JNI documentation) and which should embed inside the
+&gt; well-known MzScheme interpreter.
+
+The main problem is that the JVM will likely execute multiple threads,
+and the threads will likely confuse MzScheme (or, more specifically,
+its GC).
+
+&gt; I execute in my DLL the following action :
+&gt; 
+&gt; JNIEXPORT jstring JNICALL Java_PlasmServer_Eval(JNIEnv *env, jclass obj, jstring cmd)
+&gt; {
+&gt; 	Scheme_Env* env=scheme_basic_env();//PROBLEM HERE!!!
+&gt; 	[...]
+&gt; }
+
+It might be enough to set the variable GC_use_registered_statics to 1
+before calling scheme_basic_env(). That &quot;magically&quot; avoids certain
+thread problems in Windows.
+
+Others have reported problems in embedding MzScheme into a
+multithreaded app, and I don't think we've discovered all the problems
+and solutions. For some platforms, the stack base is a problem; in
+version 199.x, GC_use_registered_statics has been replaced/extended by
+a scheme_set_stack_base() function that takes two arguments: a stack
+base or NULL (= auto-find stack), and a flag indicating whether to
+auto-find static variables.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00350" href="msg00350.html">Java JNI &amp;&amp; MzScheme?</a></strong>
+<ul><li><em>From:</em> Giorgio Scorzelli &lt;scr.giorgio@cogesic.it&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00413.html">Re: Looking for advice/opinions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00415.html">RE: PLT's intent to support SRFI's?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00350.html">Java JNI &amp;&amp; MzScheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00353.html">Bug Report Form Fixed</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00414"><strong>Date</strong></a></li>
+<li><a href="threads.html#00414"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

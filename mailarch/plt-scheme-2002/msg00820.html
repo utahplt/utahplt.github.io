@@ -1,0 +1,127 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: webserver and print&#45;struct -->
+<!--X-From-R13: Bnhy Uenhaxr <cgtNppf.arh.rqh> -->
+<!--X-Date: Thu, 2 May 2002 06:44:39 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020502124405.QTAI4412.rwcrmhc52.attbi.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 021a01c1f142$c8d19b00$0500000a@Lr30JS -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: webserver and print-struct</title>
+<link rev="made" href="mailto:ptg@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00819.html">Date Prev</a>][<a href="msg00821.html">Date Next</a>][<a href="msg00817.html">Thread Prev</a>][<a href="msg00829.html">Thread Next</a>][<a href="maillist.html#00820">Date Index</a>][<a href="threads.html#00820">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: webserver and print-struct</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Subject</em>: Re: webserver and print-struct</li>
+<li><em>From</em>: Paul Graunke &lt;<A HREF="mailto:ptg@ccs.neu.edu">ptg@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 2 May 2002 12:44:05 +0000</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00817.html">021a01c1f142$c8d19b00$0500000a@Lr30JS</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00817.html">021a01c1f142$c8d19b00$0500000a@Lr30JS</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Check help-desk for print-convert.  You might get it to do what you need
+with the right hooks installed (current-print-convert-hook [hook]).
+
+It may be easier to use map to produce an s-expression and then
+reparse it as long as you don't have many struct types.
+
+Paul
+
+At Wed, 1 May 2002 21:02:47 +0200, Jens_Axel_Søgaard wrote:
+&gt; Hi all
+&gt; 
+&gt; I have problems with the following function.
+&gt; I am writing a litle guest book using the PLT web-server.
+&gt; The entries in the book is internally represented by a list of
+&gt; structures. I want to save the structures and retrieve them later,
+&gt; therefore I use (print-struct #t) so that the structures are printed as
+&gt; vectors. When I read them I convert them. My problem is
+&gt; that the web-server apparently does not respect the parameter,
+&gt; i.e. does not print vectors but prints #&lt;struct..&gt; stuff in stead.
+&gt; 
+&gt; (define (save-book)
+&gt;   (let ([port (open-output-file filename 'replace)])
+&gt;     (print-struct #t)
+&gt;     (print book port)
+&gt;     (close-output-port port)))
+&gt; 
+&gt; Ideas?
+&gt; 
+&gt; --
+&gt; Jens Axel Søgaard
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+&gt; 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00829" href="msg00829.html">[plt-scheme] Re: webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00817" href="msg00817.html">webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Jens Axel Søgaard &lt;jensaxel@soegaard.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00819.html">DNS problems with utah.edu</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00821.html">No Subject</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00817.html">webserver and print-struct</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00829.html">[plt-scheme] Re: webserver and print-struct</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00820"><strong>Date</strong></a></li>
+<li><a href="threads.html#00820"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: SrPersist and sql&#45;c&#45;char question -->
+<!--X-From-R13: "Bnhy O. Egrpxyre" <fgrpxNpf.evpr.rqh> -->
+<!--X-Date: Fri, 9 Mar 2001 15:56:05 &#45;0700 (MST) -->
+<!--X-Message-Id: 000701c0a8ec$190fada0$6a032a80@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: NBBBLCLOKKHAGMJBNHDMCEDFFEAA.apeake@comac.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: SrPersist and sql-c-char question</title>
+<link rev="made" href="mailto:steck@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00367.html">Date Prev</a>][<a href="msg00369.html">Date Next</a>][<a href="msg00367.html">Thread Prev</a>][<a href="msg00370.html">Thread Next</a>][<a href="maillist.html#00368">Date Index</a>][<a href="threads.html#00368">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: SrPersist and sql-c-char question</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Alex Peake&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;, &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: RE: SrPersist and sql-c-char question</li>
+<li><em>From</em>: &quot;Paul A. Steckler&quot; &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 9 Mar 2001 16:55:55 -0600</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00367.html">NBBBLCLOKKHAGMJBNHDMCEDFFEAA.apeake@comac.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&gt;In learning about SrPersist, I tried the following test. It all works except
+&gt;for the strange display of the strings (from the buffers). Each string is 80
+&gt;characters long, filled with (apparently) null characters, or the contenets
+&gt;of the previous buffer after the first null. Is there some way to &quot;convert
+&gt;to scheme strings&quot; so the display properly?
+
+How large are the fields corresponding to the buffers in 
+the database?  The bind-col procedure passes the buffer 
+length to the ODBC driver.  I think if the length is 
+too long, you may get junk in the buffers.
+
+What does the actual output look like?
+
+Also, Francisco Solsona discovered a GC bug related to buffers.
+The scheme_malloc() call in addToBufferTable() in 
+srpersist.cxx should be scheme_malloc_uncollectable().
+I don't think that's the problem you're seeing, though.
+
+-- Paul
+
+ ----------------------------------------------------------------
+| Paul Steckler, Ph.D.       |    Rice University PLT            | 
+| steck@cs.rice.edu          |    DrScheme Project               |
+| Tel:  713/348-3814         |    <A  HREF="http://www.cs.rice.edu/~steck/">http://www.cs.rice.edu/~steck/</A> |
+| FAX:  713/348-5930         |    *** Ad astra per hackera ***   |
+ ---------------------------------------------------------------- 
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00367" href="msg00367.html">SrPersist and sql-c-char question</a></strong>
+<ul><li><em>From:</em> &quot;Alex Peake&quot; &lt;apeake@comac.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00367.html">SrPersist and sql-c-char question</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00369.html">FREE Biotech Stock Info!    758</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00367.html">SrPersist and sql-c-char question</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00370.html">Re: SrPersist and sql-c-char question</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00368"><strong>Date</strong></a></li>
+<li><a href="threads.html#00368"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

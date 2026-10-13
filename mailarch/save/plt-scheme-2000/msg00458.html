@@ -1,0 +1,129 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Development/Production versions (was RE: CVS) -->
+<!--X-From-R13: @bry Iryfu <abryjNqnv.rq.np.hx> -->
+<!--X-Date: Fri, 18 Feb 2000 02:51:52 &#45;0700 (MST) -->
+<!--X-Message-Id: 14509.4728.94215.676453@vulture.dai.ed.ac.uk -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20000217201300.6891.qmail@web903.mail.yahoo.com -->
+<!--X-Reference: 14508.38530.623435.975712@sun.cs.rice.edu -->
+<!--X-Reference: 200002180053.QAA10538@balu.qualcomm.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Development/Production versions (was RE: CVS)</TITLE>
+<LINK REV="made" HREF="mailto:noelw@dai.ed.ac.uk">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00457.html">Date Prev</A>][<A HREF="msg00459.html">Date Next</A>][<A HREF="msg00455.html">Thread Prev</A>][<A HREF="msg00478.html">Thread Next</A>][<A HREF="maillist.html#00458">Date Index</A>][<A HREF="threads.html#00458">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Development/Production versions (was RE: CVS)</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:lrazoumov@qualcomm.com">lrazoumov@qualcomm.com</A></LI>
+<LI><em>Subject</em>: Re: Development/Production versions (was RE: CVS)</LI>
+<LI><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 18 Feb 2000 09:51:47 +0000 (GMT)</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00455.html">200002180053.QAA10538@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00445.html">20000217201300.6891.qmail@web903.mail.yahoo.com</A>&gt;&lt;<A HREF="msg00454.html">14508.38530.623435.975712@sun.cs.rice.edu</A>&gt;&lt;<A HREF="msg00455.html">200002180053.QAA10538@balu.qualcomm.com</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Leo Razoumov writes:
+&gt; &gt;&gt;&gt;&gt;&gt; "SK" == Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt; writes:
+&gt;     SK&gt; As I recall, Swig provides Guile bindings.  How about creating one for 
+&gt;     SK&gt; MzScheme?  
+[snip]
+
+&gt; How about having the wrapper generating engine written in Scheme? After all
+&gt; don't we believe that Scheme is the best language of all:-)
+&gt; 
+&gt; -- Leo
+
+ Eli Barzilay was/is working on a FFI for MzScheme that allows one to
+easily call functions in C shared objects. It hasn't made it isn't the
+PLT repository yet.
+
+However, C++ is a different beast, because of two wonderfully
+stupid properties:
+- non-standard name mangling makes it very difficult to call C++
+shared objects
+- convoluted grammar is very difficult to parse
+
+Now SWIG includes a (mostly) working C++ parser, which is a huge
+bonus. Whilst one could reimplement a C++ parser in Scheme I feel
+there is much more benefit to be gained by using the work already done 
+in SWIG. Two incidentals: Swig 1.3a1 has just been released, and
+wxPython is built on Swig (and I occasionally scheme of getting
+MzScheme to work with wxWindows 2; apologies for the pun).
+
+SWIG is at <A  HREF="http://www.swig.org/">http://www.swig.org/</A>
+
+cya,
+Noel
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00478" HREF="msg00478.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00445" HREF="msg00445.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> see signature &lt;slonika@yahoo.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00454" HREF="msg00454.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00455" HREF="msg00455.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00457.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00459.html">Re: More questions about writing extensions.</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00455.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00478.html">Re: Development/Production versions (was RE: CVS)</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00458"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00458"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

@@ -1,0 +1,136 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: [Q] HOWTO redirect a i/o&#45;port in Unix?? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 12 Mar 2000 17:04:48 &#45;0700 (MST) -->
+<!--X-Message-Id: 20000313000446.CPYC14285.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200002270435.UAA20217@balu.qualcomm.com -->
+<!--X-Reference: 200002270457.WAA08093@africa.cs.rice.edu -->
+<!--X-Reference: 20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 14540.3932.744537.731539@mojave.cs.cornell.edu -->
+<!--X-Reference: 20000312215411.TMX14285.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Reference: 14540.9754.563674.302124@mojave.cs.cornell.edu -->
+<!--X-Reference: 20000312234636.CJBK14285.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: [Q] HOWTO redirect a i/o-port in Unix??</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00190.html">Date Prev</A>][<A HREF="msg00192.html">Date Next</A>][<A HREF="msg00190.html">Thread Prev</A>][<A HREF="msg00151.html">Thread Next</A>][<A HREF="maillist.html#00191">Date Index</A>][<A HREF="threads.html#00191">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: [Q] HOWTO redirect a i/o-port in Unix??</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: [Q] HOWTO redirect a i/o-port in Unix??</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Sun, 12 Mar 2000 16:04:46 -0800</LI>
+<LI><em>CC</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00190.html">20000312234636.CJBK14285.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00138.html">200002270435.UAA20217@balu.qualcomm.com</A>&gt;&lt;<A HREF="msg00139.html">200002270457.WAA08093@africa.cs.rice.edu</A>&gt;&lt;<A HREF="msg00142.html">20000227050821.EXZI21637.mail.rdc1.sfba.home.com@localhost</A>&gt;&lt;<A HREF="msg00185.html">14540.3932.744537.731539@mojave.cs.cornell.edu</A>&gt;&lt;<A HREF="msg00186.html">20000312215411.TMX14285.mail.rdc1.sfba.home.com@localhost</A>&gt;	&lt;<A HREF="msg00189.html">14540.9754.563674.302124@mojave.cs.cornell.edu</A>&gt;	&lt;<A HREF="msg00190.html">20000312234636.CJBK14285.mail.rdc1.sfba.home.com@localhost</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Matthew Flatt:
+&gt; That seems very strange, and not right. I'm looking into it.
+
+The problem is related to the fact that `process[*]' is implemented via
+fork() within MzScheme. The forked process inherits a copy of each file
+descriptor open by MzScheme at the time; most of them need to be
+closed, especially descriptors that are pipes to other processes.
+
+I can't explain why I never encountered this simple problem when using
+MzScheme to create pipelines before. Anyway, it will be fixed in the
+next release.
+
+A brute-force fix is to replace
+
+	/* Close unwanted descriptors */
+	MSC_IZE(close)(to_subprocess[0]);
+	MSC_IZE(close)(to_subprocess[1]);
+	MSC_IZE(close)(from_subprocess[0]);
+	MSC_IZE(close)(from_subprocess[1]);
+	MSC_IZE(close)(err_subprocess[0]);
+	MSC_IZE(close)(err_subprocess[1]);
+
+in port.c with
+
+	for (i = 3; i &lt; 256; i++)
+	  close(i);
+
+where 256 is replaced with the maximum number of file descriptors
+allowed per process on your system.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00138" HREF="msg00138.html">[Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Leo Razoumov  &lt;lrazoumov@qualcomm.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00139" HREF="msg00139.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00142" HREF="msg00142.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00185" HREF="msg00185.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00186" HREF="msg00186.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00189" HREF="msg00189.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Eli Barzilay &lt;eli@CS.Cornell.EDU&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00190" HREF="msg00190.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+<UL><LI><EM>From:</EM> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00190.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00192.html">refreshing drawings</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00190.html">Re: [Q] HOWTO redirect a i/o-port in Unix??</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00151.html">xml collection: how to insert arbirtrary xml code</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00191"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00191"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

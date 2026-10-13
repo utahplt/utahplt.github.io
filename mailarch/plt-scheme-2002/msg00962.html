@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: [plt&#45;scheme] Weird Interaction with X&#45;Windows Font Server? -->
+<!--X-From-R13: "Perag Thytunz" <oerag.shytunzNkcflfgrzf.pbz> -->
+<!--X-Date: Thu, 23 May 2002 13:28:41 &#45;0600 (MDT) -->
+<!--X-Message-Id: BE6EE24E3C118B4CAF54769CDA66F3617FA6CE@ivory.corp.xpsystems.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>[plt-scheme] Weird Interaction with X-Windows Font Server?</title>
+<link rev="made" href="mailto:brent.fulgham@xpsystems.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00961.html">Date Prev</a>][<a href="msg00963.html">Date Next</a>][<a href="msg00964.html">Thread Prev</a>][<a href="msg00965.html">Thread Next</a>][<a href="maillist.html#00962">Date Index</a>][<a href="threads.html#00962">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>[plt-scheme] Weird Interaction with X-Windows Font Server?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;PLT-Scheme&quot; &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: [plt-scheme] Weird Interaction with X-Windows Font Server?</li>
+<li><em>From</em>: &quot;Brent Fulgham&quot; &lt;<A HREF="mailto:brent.fulgham@xpsystems.com">brent.fulgham@xpsystems.com</A>&gt;</li>
+<li><em>Date</em>: Thu, 23 May 2002 12:27:50 -0700</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Thread-Index</em>: AcICj+0zvWDNmGdgT4Oqk7ic7uOB2Q==</li>
+<li><em>Thread-Topic</em>: Weird Interaction with X-Windows Font Server?</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I've just updated from Alpha12 to Alpha19, and now I find that DrScheme
+is quite slow to start under Linux.  Here's what I observe:
+
+1.  The splash screen comes up, and the status bar rapidly fills from
+left to right.
+
+2.  A long delay follows (around 2 - 3 minutes).
+
+3.  The new icons (HTDP, EOPL, etc.) are added to the splash screen.
+
+4.  DrScheme's window comes up.
+
+At this point, everything works fine.
+
+I've verified this does not happen under my Windows build of the same
+CVS revision.
+
+I traced (strace and ltrace) MrEd during the DrScheme startup to see
+if I could find any clues.  It seems to be a problem where DrScheme
+looks up all available fonts, which for some reason is causing the X
+Font Server to drop to a slow crawl.
+
+Once the font list has been read and sorted, it takes off again and
+everything is fine.
+
+Has anyone else seen this?  I'm wondering if I just have some kind of
+bad configuration of my X (though it's never been a problem before.)
+
+Thanks,
+
+-Brent
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00961.html">Re: [plt-scheme] 200alpha19</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00963.html">Re: [plt-scheme] The same macro problem</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00964.html">Re: [plt-scheme] The same macro problem</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00965.html">[plt-scheme] Apple Events and Mz?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00962"><strong>Date</strong></a></li>
+<li><a href="threads.html#00962"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: closing an application -->
+<!--X-From-R13: "[nhevmvb Treerven" <sreervenNfcyvg.vg> -->
+<!--X-Date: Fri, 2 Nov 2001 03:11:34 &#45;0700 (MST) -->
+<!--X-Message-Id: 002a01c16386$b48272e0$66424dd4@ferreira -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>closing an application</title>
+<link rev="made" href="mailto:ferreira@split.it">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01161.html">Date Prev</a>][<a href="msg01163.html">Date Next</a>][<a href="msg01170.html">Thread Prev</a>][<a href="msg01163.html">Thread Next</a>][<a href="maillist.html#01162">Date Index</a>][<a href="threads.html#01162">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>closing an application</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: closing an application</li>
+<li><em>From</em>: &quot;Maurizio Ferreira&quot; &lt;<A HREF="mailto:ferreira@split.it">ferreira@split.it</A>&gt;</li>
+<li><em>Date</em>: Fri, 2 Nov 2001 11:11:13 +0100</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<table width="100%"><tr><td bgcolor="#ffffff" style="background-color: #ffffff; ">
+
+
+<DIV><FONT face=Arial size=2>I tried to close a window with the following code 
+:</FONT></DIV>
+<DIV><FONT face=Arial size=2></FONT>&nbsp;</DIV>
+<DIV><FONT face=Arial size=2>(invoke-unit/sig<BR>&nbsp;(unit/sig 
+()<BR>&nbsp;&nbsp; (import mred^)<BR>&nbsp;&nbsp; <BR>&nbsp;&nbsp; (define f 
+(make-object (class frame% (title w h x 
+y)<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+(override [on-close 
+exit])<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+(sequence (super-init title #f w h x 
+y)))<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+"My first program" 300 200 350 
+150))<BR>&nbsp;&nbsp;&nbsp;<BR>&nbsp;&nbsp;&nbsp;(define m (make-object message% 
+"This is a message" f))<BR>&nbsp;&nbsp; <BR>&nbsp;&nbsp; (make-object button% 
+"Close me" f (lambda (b e) (send f show #f)))<BR>&nbsp;&nbsp; <BR>&nbsp;&nbsp; 
+(send f show #t)<BR>&nbsp;&nbsp; <BR>&nbsp;&nbsp; (yield (make-semaphore 
+0)))<BR>&nbsp;&nbsp; <BR>&nbsp;&nbsp; mred^ )</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT face=Arial size=2>The application hould close when clicking on the 
+"close me" button.</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT face=Arial size=2>The problem is that the window is hidden, but the 
+application does not stop.</FONT></DIV>
+<DIV><FONT face=Arial size=2>I tried also to send a 'close' message (send f 
+close)</FONT></DIV>
+<DIV><FONT face=Arial size=2>but this message is not understood.</FONT></DIV>
+<DIV>&nbsp;</DIV>
+<DIV><FONT face=Arial size=2>Any suggestion ?</FONT></DIV>
+<DIV><FONT face=Arial size=2></FONT>&nbsp;</DIV>
+<DIV><FONT face=Arial size=2>Maurizio Ferreira</FONT></DIV>
+<DIV>&nbsp;</DIV>
+</td></tr></table>
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01163" href="msg01163.html">Re: closing an application</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01161.html">Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01163.html">Re: closing an application</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01170.html">RE: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01163.html">Re: closing an application</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01162"><strong>Date</strong></a></li>
+<li><a href="threads.html#01162"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

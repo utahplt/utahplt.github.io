@@ -1,0 +1,49 @@
+;(require-library "functio.ss")
+;; 35.4.1
+;; address book
+
+(define ab (list))
+;;
+;
+;;MODEL:
+
+;; add : symbol number -> void 
+;; to add an entry to ab
+(define (add name phone) 
+  (set! ab (cons (list name phone) ab)))
+(add 'person1 8181234567)
+(add 'Charles 8182244002)
+
+;; lookup : symbol (listof (list symbol number)) -> number
+;; to lookup the phone number for name in ab
+(define (lookup name addb)
+  (assf (lambda(entry)
+          (symbol=? name (first entry)))
+        addb))
+(lookup 'person1 ab)
+
+;; remove : symbol -> void  
+;; to remove an entry from ab
+(define (remove name)
+  (set! ab (filter (lambda (x) (not(symbol=? name (first x))))ab)))
+;(remove 'person1)
+
+;;
+;
+;; CONTROL:
+(define lookup-cb
+  (draw-message (number->string(lookup (text-contents entry-text)))))
+
+;;
+;
+;; VIEW:
+
+(define title-msg (make-message "ADDRESS BOOK"))
+(define entry-text (make-text "Type name here:"))
+(define lookup-button (make-button "Look up name" lookup-cb))
+(define response-msg (make-message "##########"))
+(create-window
+ '((title-msg)
+   (entry-text response-msg)
+   (lookup-button)))
+   

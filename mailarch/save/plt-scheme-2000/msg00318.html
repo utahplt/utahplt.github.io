@@ -1,0 +1,130 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: cgi.ss, fastcgi.scm, and environment variables -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Wed, 7 Jun 2000 11:37:04 &#45;0600 (MDT) -->
+<!--X-Message-Id: m1og5dshhb.fsf@biblio08.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>cgi.ss, fastcgi.scm, and environment variables</TITLE>
+<LINK REV="made" HREF="mailto:solsona@acm.org">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00317.html">Date Prev</A>][<A HREF="msg00319.html">Date Next</A>][<A HREF="msg00326.html">Thread Prev</A>][<A HREF="msg00319.html">Thread Next</A>][<A HREF="maillist.html#00318">Date Index</A>][<A HREF="threads.html#00318">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>cgi.ss, fastcgi.scm, and environment variables</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: PLT &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Subject</em>: cgi.ss, fastcgi.scm, and environment variables</LI>
+<LI><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</LI>
+<LI><em>Date</em>: 07 Jun 2000 09:17:36 -0500</LI>
+<LI><em>Mail-Copies-To</em>: never</LI>
+<LI><em>Organization</em>: Universidad Nacional Autónoma de México</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>User-Agent</em>: Gnus/5.0807 (Gnus v5.8.7) XEmacs/21.1 (Bryce Canyon)</LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+        Dear all,
+
+        I'm using fastcgi.ss in conjunction with some of the libraries
+in the `net' collection (cgi for instance). And I noticed a problem
+with `getenv', which is used in `get-bindings/get':
+
+,--------------------
+| (define get-bindings/get
+|     (lambda ()
+|       (let ((p (open-input-string
+|        (getenv "QUERY_STRING"))))
+|    ...
+`--------------------
+
+because "QUERY_STRING" is defined but in the request environment
+returned by some of the fastcgi procedures, say
+`fcgi:accept-request-as-responder'. So I ended up doing something
+like:
+
+,--------------------
+| (define request-environment (make-parameter '()))
+|    
+| (define request-getenv
+|   (lambda (name)
+|     (let ((p (assoc name (request-environment))))
+|       (and p (cdr p)))))
+|    
+| ...
+|    
+|         (putenv "QUERY_STRING" (request-getenv "QUERY_STRING"))
+| ...
+`--------------------
+
+from here on `get-bindings/get' works just fine, since it finds
+QUERY_STRING on the environment. Is this the Right Way(TM) of solving
+the problem? It works for me, but I feel it's awkward.
+
+        And if I would've wanted to use `get-bindings' then I
+should have `putenv'ed not only QUERY_STRING but also REQUEST_METHOD. 
+
+        How are you guys solving this? Or isn't anybody else using
+both: fastcgi and cgi libraries? :-)
+
+TIA,
+Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00319" HREF="msg00319.html">cgi.ss, fastcgi.scm, and environment variables</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00317.html">SchemeQL beta version 0.01</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00319.html">cgi.ss, fastcgi.scm, and environment variables</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00326.html">Re: SchemeQL beta version 0.01</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00319.html">cgi.ss, fastcgi.scm, and environment variables</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00318"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00318"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

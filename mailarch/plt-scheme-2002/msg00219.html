@@ -1,0 +1,142 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown. -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Thu, 7 Feb 2002 11:04:15 &#45;0700 (MST) -->
+<!--X-Message-Id: iss.421c.3c62c18d.a6ca.1@merkur.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: sc624ed7.068@mh_acc099 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00218.html">Date Prev</a>][<a href="msg00220.html">Date Next</a>][<a href="msg00213.html">Thread Prev</a>][<a href="msg00214.html">Thread Next</a>][<a href="maillist.html#00219">Date Index</a>][<a href="threads.html#00219">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Chris Double&quot; &lt;<A HREF="mailto:DoubleC@acc.co.nz">DoubleC@acc.co.nz</A>&gt;</li>
+<li><em>Subject</em>: Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Thu, 07 Feb 2002 19:03:56 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00213.html">sc624ed7.068@mh_acc099</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+...
+&gt; garbage collection is used for managing memory, not for managing
+&gt; other resources
+... because: ...
+&gt; even when your object is finalised you can't guarantee when that
+&gt; will happen.
+
+This finally makes me understand and is so logical ... blindness must
+have struck me before!
+Besides, what triggers garbage-collection?
+
+
+&gt; Better is to provide an explicit means of freeing/closing resources.
+&gt; A common idiom in Common Lisp and Dylan is to do a 'with...' style
+&gt; macro:
+&gt;
+&gt;   with-open-file(fs = &quot;blah.txt&quot;)
+&gt;     do-something(fs);
+&gt;   end;
+&gt; 
+&gt; The macro frees or closes the resources at the end of the scope.
+
+I see: I should use a defmacro or a syntax-case-macro to transform
+something like this:
+
+(with-external-objects ((obj (make-external-object args)))
+  (operate-on-external-object obj)
+  ...)
+
+... into this:
+
+(let ((obj (make-external-object args)))
+  (operate-on-external-object obj)
+  ...
+  (clear-external-object obj))
+
+... or this:
+
+(let ((obj (make-external-object args)))
+  (dynamic-wind
+     (lambda () #f)
+     (lambda ()
+        (operate-on-external-object obj)
+         ...)
+     (lambda () (clear-external-object obj))))
+
+The second variant should clear the external object if a continuation
+is used to jump out of the scope of the 'with-...'-form. Though I'm
+not quite sure if this is absolutely 'continuation-proof', the
+external object will at least never remain un-freed.
+
+I will redo my program in this fashion and then it shall be simpler
+and more robust.
+
+Sebastian
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00213" href="msg00213.html">Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</a></strong>
+<ul><li><em>From:</em> &quot;Chris Double&quot; &lt;DoubleC@acc.co.nz&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00218.html">Re: Reasons, why Miss Scheme should collect her garbage before shutdown.</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00220.html">Re: Embedding MzScheme for Mac OS X</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00213.html">Re: Reasons, why Miss Scheme should collect her garbage beforeshutdown.</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00214.html">Error with latest CVS Update</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00219"><strong>Date</strong></a></li>
+<li><a href="threads.html#00219"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: I'm long, and off&#45;topic [was Re: GNU and MzScheme's Internal design] -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Mon, 19 Feb 2001 11:13:41 &#45;0700 (MST) -->
+<!--X-Message-Id: 86u25qo9g9.fsf@beta.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: EDFD2A95EE7DD31187350090279C67670177418F@thresher.corp.xpsystems.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>I'm long, and off-topic [was Re: GNU and MzScheme's Internal design]</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00322.html">Date Prev</a>][<a href="msg00324.html">Date Next</a>][<a href="msg00321.html">Thread Prev</a>][<a href="msg00324.html">Thread Next</a>][<a href="maillist.html#00323">Date Index</a>][<a href="threads.html#00323">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>I'm long, and off-topic [was Re: GNU and MzScheme's Internal design]</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: PLT &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: I'm long, and off-topic [was Re: GNU and MzScheme's Internal design]</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: 19 Feb 2001 12:14:07 -0600</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00321.html">EDFD2A95EE7DD31187350090279C67670177418F@thresher.corp.xpsystems.com</a>&gt; (Brent Fulgham's message of &quot;Mon, 19 Feb 2001 09:16:52 -0800&quot;)</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma de México</li>
+<li><em>References</em>: &lt;<a href="msg00321.html">EDFD2A95EE7DD31187350090279C67670177418F@thresher.corp.xpsystems.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090001 (Oort Gnus v0.01) XEmacs/21.1 (Channel Islands)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt; writes:
+
+[...]
+
+&gt; Could the mail-masters at PLT modify the rules such that the
+&gt; Reply-To: header is always set to PLT-Scheme mailing list?  That
+&gt; way we would only receive one copy of any mail, unless someone took
+&gt; the time to specifically CC us individually.  That might be a
+&gt; simpler solution.
+
+Please, don't!.  This is more a pain than a solution, since it is very
+common (at least I do it frequently) to &quot;take&quot; a conversation out of a
+list, and if you add one of those obnoxious &quot;Reply-To: list&quot; headers,
+care must be taken to avoid sending personal responses to the list,
+and, IMHO, that is something MUAs should take care of, not the user.
+
+The following excerpt is due Per Abrahamsen¹ (on the Gnus development
+list) that summarizes (nicer?) options to deal with the &quot;multiple
+copies&quot; issue:
+
+,--------------------
+| &gt; (<A  HREF="http://www.newsreaders.com/misc/mail-copies-to.html">http://www.newsreaders.com/misc/mail-copies-to.html</A>) says
+| &gt;                               
+| &gt;   If the header is not present the agent SHOULD NOT set the message to
+| &gt;   be both posted and mailed.  
+| &gt;                               
+| &gt; Please correct me if I interpret this wrong, or stop sending me
+| &gt; personal followups.           
+|                                 
+| The document is irrelevant, as the document in question only covers
+| the use of the header on Usenet, not email.  The situation for email
+| are very different than Usenet, both for cultural and technical
+| reasons.                        
+|                                 
+| However, while the issue is not covered by any standards, there is the
+| much more important question of politeness.  
+|                                 
+| Of course, in general it is silly to send multiple copies of the same
+| message by different paths to the same receiver.  Unfortunately, when
+| only using the common headers, there is no machanical way an agent can
+| determine whether the receivers of foo@bar.org is a subset of the
+| receivers of baz@foobar.net.  Or more specifically, without more
+| information there is no way Gnus can know that nagya@inf.elte.hu is a
+| member of the mailing list ding@gnus.org.  To be safe, the default
+| action have to be to send to both addresses.
+|                                 
+| There are several solutions to this problem.  Here are some of the
+| ones the sender can use:        
+|                                 
+| 1. He can setup Gnus to sort away duplicates.  This is the one I use,
+| and I haven't been bothered by duplicates since that.
+|                                 
+| 2. He can use &quot;mail-copies-to: nobody&quot;, in order to tell the receiver
+| that he already read one of the to or cc addresses, so it can ignore
+| the from address.               
+|                                 
+| 3. He can use &quot;mail-followup-to: list@address&quot;, to indicate which of
+| the adresses in question that is most appropriate for wide replies.
+|                                 
+| 4. He can try flaming on the list, and hope the receivers will make it
+| their problem.  I strongly discourage selecting this option.
+|                                 
+| The reciecer can also do something, even if he has fewer options.
+|                                 
+| 1. IF the list is closed, i.e. only subscribers send to it, and IF he
+| read it from a Gnus folder, and IF there are no crossmailed messages
+| (i.e. messages mailed to multiple lists), he can set the 'to-address'
+| group parameter.  I do this for some lists, e.g. ding, but not others
+| like auctex (which is open for non-subscribers) or xemacs-beta (which
+| has lots of crossmailings).     
+|                                 
+| 2. The can manually for each message try to guess who is on which
+| lists.  I do not recommend this, it is way more unreliable and takes a
+| lot more work for the receiver, than it would take for the sender to
+| solve the problem from his side.
+`--------------------
+
+Now, granted that some of the so called, *sender solutions*, are Gnus
+centered, I'm sure your MUA offer similar options you can tweak.
+
+HTH,
+--Francisco
+
+Footnotes: 
+¹  The full thread on the &quot;mail-{followup,copies}-to on this list&quot;,
+topic can be found at:
+
+<A  HREF="http://www.gnus.org/list-archives/ding/200102/threads.html">http://www.gnus.org/list-archives/ding/200102/threads.html</A>
+
+this excerpt is part of that thread.
+
+-- 
+No one is listening until you make a mistake.
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00321" href="msg00321.html">RE: GNU and MzScheme's Internal design</a></strong>
+<ul><li><em>From:</em> Brent Fulgham &lt;brent.fulgham@xpsystems.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00322.html">Re: reading external representation</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00324.html">RE: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00321.html">RE: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00324.html">RE: GNU and MzScheme's Internal design</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00323"><strong>Date</strong></a></li>
+<li><a href="threads.html#00323"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

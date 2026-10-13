@@ -1,0 +1,109 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Swig and MzScheme's _scheme_get_type_name -->
+<!--X-From-R13: @bry Iryfu <abryjryfuNlnubb.pbz> -->
+<!--X-Date: Wed, 20 Dec 2000 05:05:20 &#45;0700 (MST) -->
+<!--X-Message-Id: 20001220120516.40327.qmail@web11208.mail.yahoo.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Swig and MzScheme's _scheme_get_type_name</title>
+<link rev="made" href="mailto:noelwelsh@yahoo.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00800.html">Date Prev</a>][<a href="msg00802.html">Date Next</a>][<a href="msg00800.html">Thread Prev</a>][<a href="msg00792.html">Thread Next</a>][<a href="maillist.html#00801">Date Index</a>][<a href="threads.html#00801">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Swig and MzScheme's _scheme_get_type_name</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz-fernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Swig and MzScheme's _scheme_get_type_name</li>
+<li><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Date</em>: Wed, 20 Dec 2000 04:05:16 -0800 (PST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+--- Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;
+wrote:
+&gt; Scheme_Type pointrel_type = 0;
+
+You'll gain more karma if the type is made static, so
+it isn't exported from the file.  In the few
+extensions I've written, I've put the type
+initialisation in scheme_initialize &lt;sp&gt; so it's
+guaranteed to only occur once.  Then, the check in
+swig_make_c_pointer
+
+&gt; Scheme_Object *swig_make_c_pointer(void *c_pointer,
+&gt; char *type_name) {
+&gt;     swig_proxy *new_proxy;
+&gt;     new_proxy = (swig_proxy *)
+&gt; scheme_malloc(sizeof(swig_proxy));
+&gt;     if (0 == pointrel_type) pointrel_type =
+&gt; scheme_make_type(type_name);
+
+is unnecessary
+
+HTH
+
+Noel
+
+
+__________________________________________________
+Do You Yahoo!?
+Yahoo! Shopping - Thousands of Stores. Millions of Products.
+<A  HREF="http://shopping.yahoo.com/">http://shopping.yahoo.com/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00800.html">Re: Swig and MzScheme's _scheme_get_type_name</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00802.html">MzScheme Multi-processor Threading</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00800.html">Re: Swig and MzScheme's _scheme_get_type_name</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00792.html">minor readline bug?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00801"><strong>Date</strong></a></li>
+<li><a href="threads.html#00801"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

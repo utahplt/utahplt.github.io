@@ -1,0 +1,156 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Windows 2000 users -->
+<!--X-From-R13: [negva Pregbyvab <znegvaoregbyvabNlnubb.pbz> -->
+<!--X-Date: Mon, 26 Jun 2000 20:16:41 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000627021628.10019.qmail@web106.yahoomail.com -->
+<!--X-Content-Type: multipart/mixed -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Windows 2000 users</title>
+<link rev="made" href="mailto:martinbertolino@yahoo.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00338.html">Date Prev</a>][<a href="msg00340.html">Date Next</a>][<a href="msg00338.html">Thread Prev</a>][<a href="msg00340.html">Thread Next</a>][<a href="maillist.html#00339">Date Index</a>][<a href="threads.html#00339">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Windows 2000 users</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: RE: Windows 2000 users</li>
+<li><em>From</em>: Martin Bertolino &lt;<A HREF="mailto:martinbertolino@yahoo.com">martinbertolino@yahoo.com</A>&gt;</li>
+<li><em>Date</em>: Mon, 26 Jun 2000 19:16:28 -0700 (PDT)</li>
+<li><em>Reply-To</em>: <A HREF="mailto:tincho@atdial.net">tincho@atdial.net</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I have finished building all the projects described in
+the README file in plt/src/worksp under Windows 2000
+Professional. I'm still having some problems building
+MysterX, but it is mostly paths and the fact that I'm
+missing some files from the Platform SDK. I will try
+to change the MysterX makefiles to use relative paths
+rather than absolute so it can be built without path
+hacking.
+
+I have done some minimal testing and things seem to
+work ok. I got the games to run under MrEd and
+DrScheme. If someone can direct me in what other
+things I should test, or what automated tests I can
+run, I'll be willing to post the results.
+
+I created a makefile (attached) to be used with nmake
+that can be run from plt/src/worksp. It assumes
+building with DeveloperStudio 6, and that the tools
+are in the path. It works ok if the -a flag is
+specified (it has been a while since I created
+makefiles so I have some target/dependency problems).
+I will eventually integrate the building of MysterX
+too.
+
+I hope this helps
+
+Martin
+
+
+__________________________________________________
+Do You Yahoo!?
+Get Yahoo! Mail - Free email you can access from anywhere!
+<A  HREF="http://mail.yahoo.com/">http://mail.yahoo.com/</A></PRE>
+<PRE>
+#
+#	Build all the PLT targets
+#	Assumes Developer Studio 6 is installed and in the path
+#
+#	It could probably be nicer, but it is just automate a full build
+#	from the source. If you need better control, then use the projects
+#	from within developer studio.
+#
+
+all: devstudio-projects libraries mzcompile
+
+clean: devstudio-projects-clean
+
+#	build developer studio projects
+
+DEVSTUDIOFLAGS = /USEENV
+DEVSTUDIOCMD = msdev $(DEVSTUDIOFLAGS)
+
+devstudio-projects:
+	$(DEVSTUDIOCMD) mzscheme/mzscheme.dsw /MAKE &quot;mzscheme - Win32 Release&quot;
+	$(DEVSTUDIOCMD) mred/mred.dsw /MAKE &quot;mred - Win32 Release&quot;
+	$(DEVSTUDIOCMD) mzstart/mzstart.dsw /MAKE &quot;mzstart - Win32 Release&quot;
+	$(DEVSTUDIOCMD) mrstart/mrstart.dsw /MAKE &quot;mrstart - Win32 Release&quot;
+
+devstudio-projects-clean:
+	$(DEVSTUDIOCMD) mzscheme/mzscheme.dsw /MAKE &quot;mzscheme - Win32 Release&quot; /CLEAN
+	$(DEVSTUDIOCMD) mred/mred.dsw /MAKE &quot;mred - Win32 Release&quot; /CLEAN
+	$(DEVSTUDIOCMD) mzstart/mzstart.dsw /MAKE &quot;mzstart - Win32 Release&quot; /CLEAN
+	$(DEVSTUDIOCMD) mrstart/mrstart.dsw /MAKE &quot;mrstart - Win32 Release&quot; /CLEAN
+
+#	this seems tom assume we are sitting at plt/src/mzscheme/dynsrc
+libraries:
+	cd ..\mzscheme\dynsrc
+	mkmzdyn.bat
+	cd ..\..\worksp
+
+#	this seems to work from any directory
+mzcompile:
+	mzscheme.exe -mvqL- setup.ss compiler
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00340" href="msg00340.html">RE: Windows 2000 users</a></strong>
+<ul><li><em>From:</em> &quot;Paul A. Steckler&quot; &lt;steck@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00338.html">RE: Windows 2000 users</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00340.html">RE: Windows 2000 users</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00338.html">RE: Windows 2000 users</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00340.html">RE: Windows 2000 users</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00339"><strong>Date</strong></a></li>
+<li><a href="threads.html#00339"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

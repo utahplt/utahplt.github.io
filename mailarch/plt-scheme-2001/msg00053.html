@@ -1,0 +1,143 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: tail calls [was: Vanishing MrEd] -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Sat, 20 Jan 2001 22:47:39 &#45;0700 (MST) -->
+<!--X-Message-Id: 200101210547.AAA16746@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: E4C0D8267DAA6141B77F1A4EAAEB2B91BE3DA5@seapriv1 -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>tail calls [was: Vanishing MrEd]</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00052.html">Date Prev</a>][<a href="msg00054.html">Date Next</a>][<a href="msg00046.html">Thread Prev</a>][<a href="msg00059.html">Thread Next</a>][<a href="maillist.html#00053">Date Index</a>][<a href="threads.html#00053">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>tail calls [was: Vanishing MrEd]</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Greg Pettyjohn &lt;<A HREF="mailto:GregP@bsquare.com">GregP@bsquare.com</A>&gt;</li>
+<li><em>Subject</em>: tail calls [was: Vanishing MrEd]</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 21 Jan 2001 00:47:06 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>, <A HREF="mailto:shivers@cc.gatech.edu">shivers@cc.gatech.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00044.html">E4C0D8267DAA6141B77F1A4EAAEB2B91BE3DA5@seapriv1</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00044.html">E4C0D8267DAA6141B77F1A4EAAEB2B91BE3DA5@seapriv1</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Greg Pettyjohn wrote:
+
+&gt; Shriram once said in an email, that tail call optimization was &quot;the most
+&gt; profound advancement in compiler technology&quot;
+&gt; --- or something to that affect. (Please forgive, if I've misquoted, if it's
+&gt; important, I can dig and find the original mail.) 
+
+I claim I'm being profoundly misquoted (-:.  Let me elaborate.
+
+What I had tried to convey to Greg was that I thought Scheme's design
+had a certain &quot;just so&quot; flavor to it.  Two things, in particular, mesh
+together delectably: closures and tail calls.  Either one without the
+other would be much less effective.  Closures permit programmers to
+bundle up computations, and tail calls allow a seamless transition
+between computations, so they often work very closely together.
+
+While people make a bug fuss about continuations and somewhat less of
+one about closures, they often overlook the operation that makes these
+bits hang together, which is the tail call.  As evidence, I bet if you
+looked at survey-of-programming-language texts, few will even mention
+tail calls, and even fewer will explain why it matters (beyond the
+obvious, namely a means to implement loops).
+
+I was also trying to explain to Greg why the tail *call* was
+critical.  Too often people settle for tail recursion, or even assume
+this is the important special case.  In fact, I don't think tail
+recursion is very interesting at all.  Many times I'm happier writing
+simple tail recursion with a special-purpose looping construct.  The
+interprocedural tail call is the one I can't do without.  
+
+When people sell tail calls through tail recursion (presumably because
+they figure the average C/Java programmer will grasp this example more
+easily), they get a response like, &quot;Hey, I've used loops and never
+missed this -- who needs it?&quot;  The battle is lost before it has even
+been joined.  I therefore think it's important that, if you're going
+to try selling tail calls to someone from a loop-based programming
+community, you should avoid bringing tail straight-recursion up at
+all, or at least until the very end.  Otherwise you give one more
+person who knew nothing about this topic at all the impression that
+they understand it and are right to denigrate it.  (Arguably, the way
+it's been presented to them, they *are* right to denigrate it.)
+
+&gt;						    I can explain to people
+&gt; how the simpler version works --- i.e. how a simple tail call is replaced
+&gt; with a goto and hence avoids using extra stack opperations. Can someone
+&gt; explain why this is so profound?
+
+It's not the underlying semantics that is profound: it's the
+programming styles that it engenders, *especially* in the context of
+Scheme (or any other language with lexical closures).
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00059" href="msg00059.html">Re: tail calls [was: Vanishing MrEd]</a></strong>
+<ul><li><em>From:</em> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00044" href="msg00044.html">Vanishing MrEd</a></strong>
+<ul><li><em>From:</em> Greg Pettyjohn &lt;GregP@bsquare.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00052.html">Questions about &quot;mzstkchk.h&quot;</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00054.html">Re: Questions about &quot;mzstkchk.h&quot;</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00046.html">Re: Vanishing MrEd</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00059.html">Re: tail calls [was: Vanishing MrEd]</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00053"><strong>Date</strong></a></li>
+<li><a href="threads.html#00053"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

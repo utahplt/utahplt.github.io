@@ -1,0 +1,178 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: scsh in PLT Scheme? -->
+<!--X-From-R13: "Oyrk Brnxr" <ncrnxrNpbznp.pbz> -->
+<!--X-Date: Tue, 2 Apr 2002 22:40:19 &#45;0700 (MST) -->
+<!--X-Message-Id: NBBBLCLOKKHAGMJBNHDMEELAFKAA.apeake@comac.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 3CAA90DA.5070509@appsolutions.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: scsh in PLT Scheme?</title>
+<link rev="made" href="mailto:apeake@comac.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00678.html">Date Prev</a>][<a href="msg00680.html">Date Next</a>][<a href="msg00677.html">Thread Prev</a>][<a href="msg00671.html">Thread Next</a>][<a href="maillist.html#00679">Date Index</a>][<a href="threads.html#00679">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: scsh in PLT Scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Subject</em>: RE: scsh in PLT Scheme?</li>
+<li><em>From</em>: &quot;Alex Peake&quot; &lt;<A HREF="mailto:apeake@comac.com">apeake@comac.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 2 Apr 2002 21:39:30 -0800</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00677.html">3CAA90DA.5070509@appsolutions.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Some &quot;truisms&quot; (straight from the manual)
+
+It is always more efficient to filter data at the server than to send it to
+the client and filter it in the application.
+
+It may seem economical to request a default result set and fetch rows only
+as your application logic or your application user needs them, but this is
+false economy. Unfetched rows from a default result set can tie up your
+connection to the server, blocking other work in the same transaction.
+
+Some applications cannot buffer all the data they request from the server.
+For example, an application that queries a large table and allows the user
+to specify the selection criteria may return no rows or millions of rows.
+The user is unlikely to want to see millions of rows....
+..server cursors that allow an application to fetch a small subset or block
+of rows from an arbitrarily large result set....
+..However, the features of server cursors come at a cost. If all the
+results from a given query are going to be used in your application, a
+server cursor is always going to be more expensive than a default result
+set...
+
+
+I am not trying to say that the only way to fetch data is a careful query
+followed by downloading all results. Only that this is the default (or
+primary) method and should be so addresses in a scheme to access databases
+from Scheme.
+
+Alex
+
+
+&gt; -----Original Message-----
+&gt; From: Anton van Straaten [<A  HREF="mailto:anton@appsolutions.com">mailto:anton@appsolutions.com</A>]
+&gt; Sent: Tuesday, April 02, 2002 9:19 PM
+&gt; To: Alex Peake
+&gt; Cc: plt-scheme@fast.cs.utah.edu
+&gt; Subject: Re: scsh in PLT Scheme?
+&gt;
+&gt;
+&gt; &gt; Also, you should ask yourself &quot;what data
+&gt; &gt; do I need and why&quot;? Think about why your
+&gt; &gt; query asked for a large recordset.
+&gt;
+&gt; One of the points I was making is that sometimes, you'd have to
+&gt; extend this logic to the end user to make it work.  And that's
+&gt; not always valid - you're basically telling them &quot;no, you can't
+&gt; use the system the way you'd like to&quot;.  In heavily loaded
+&gt; environments, you might be forced to say this because of load and
+&gt; performance considerations, but in many other cases, it's
+&gt; perfectly doable, and the only thing standing in the way of such
+&gt; capabilities are developer sensibilities, which may often be
+&gt; misapplied.  Developers often want to micromanage how end users
+&gt; use a system, which can get in the way of usability.
+&gt;
+&gt; For example, database connections aren't noticeably wasteful in
+&gt; an environment where the database isn't overstressed.  Gearing
+&gt; APIs and architectures for the most large-scale environments can
+&gt; be actively hostile to smaller-scale development.
+&gt;
+&gt; &gt; What fits on the page is not necessarily correlated with what
+&gt; is downloaded.
+&gt; &gt; You can easily display subsets of what you have doanloaded.
+&gt;
+&gt; See my comment about the need for asynchronous download.  If you
+&gt; don't have that, then you have to wait for the entire set to
+&gt; download before display can begin.  This can be a problem at
+&gt; multiple levels.
+&gt;
+&gt; &gt; I would not advocate a single pattern of access. Just remember that the
+&gt; &gt; costs are mostly associated with keeping connections open, not with
+&gt; &gt; dowloading data.
+&gt;
+&gt; That's a bit contradictory: costs aren't all absolute, they can
+&gt; depend on access patterns and be relative to system resources.
+&gt; Downloading data can be a major concern over a slow link, but
+&gt; open connections aren't necessarily a concern for a departmental
+&gt; application as opposed to e.g. a public web site.
+&gt;
+&gt; In fact, with multi-CPU, multi-gigahertz servers with gigabytes
+&gt; of RAM being available for a few $1000, database performance is
+&gt; often much less of an issue than it once was, for many
+&gt; applications.  Big public web sites or large organizations are a
+&gt; highly visible exception to this, and to a large extent they're
+&gt; driving the conventional wisdom on these issues.  That &quot;wisdom&quot;
+&gt; may not be universally applicable, though.
+&gt;
+&gt; Anton
+&gt;
+&gt;
+&gt;
+&gt;
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00677" href="msg00677.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> Anton van Straaten &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00678.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00680.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00677.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00671.html">RE: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00679"><strong>Date</strong></a></li>
+<li><a href="threads.html#00679"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

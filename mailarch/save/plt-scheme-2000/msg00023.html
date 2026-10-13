@@ -1,0 +1,110 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Teachpack setup -->
+<!--X-From-R13: rzxnNpfb.pbz -->
+<!--X-Date: Sat, 15 Jan 2000 11:31:06 &#45;0700 (MST) -->
+<!--X-Message-Id: OFDC48FD1A.69EDBF67&#45;ON86256867.001FA607@cso.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Teachpack setup</TITLE>
+<LINK REV="made" HREF="mailto:emka@cso.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00022.html">Date Prev</A>][<A HREF="msg00024.html">Date Next</A>][<A HREF="msg00022.html">Thread Prev</A>][<A HREF="msg00024.html">Thread Next</A>][<A HREF="maillist.html#00023">Date Index</A>][<A HREF="threads.html#00023">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Teachpack setup</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: Teachpack setup</LI>
+<LI><em>From</em>: <A HREF="mailto:emka@cso.com">emka@cso.com</A></LI>
+<LI><em>Date</em>: Fri, 14 Jan 2000 23:55:34 -0600</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I trying to build what would seem to be a relatively simple teachpack.  I'm
+struggling to put all of the pieces together from the examples distributed
+with DrScheme and the HelpDesk documentation.  I wondered if someone might
+help me get my first one set up?
+
+What I would like to do is add the contents of the trace.ss and compat.ss
+libraries to the students standard environment.  In addition to this I
+would like to add the following definition:
+
+(define (atom? a) (or (symbol? a) (number? a) (string? a)))
+
+I was able to add only definition of atom? using the following simple
+teachpack:
+
+(unit/sig (atom?)
+  (import plt:userspace^)
+  (define (atom? a) (or (symbol? a)
+                        (number? a)
+                        (string? a))))
+
+I assume that to pull in and export both the trace and compat libraries I
+need to use  a compound signed unit but I'm not sure how to set it up.  I'd
+appreciate it if someone could give me a hand.
+
+Thanks,
+
+Eric
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00024" HREF="msg00024.html">Re: Teachpack setup</A></STRONG>
+<UL><LI><EM>From:</EM> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00022.html">testing done - sorry</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00024.html">Re: Teachpack setup</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00022.html">testing done - sorry</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00024.html">Re: Teachpack setup</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00023"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00023"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

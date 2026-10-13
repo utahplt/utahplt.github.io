@@ -1,0 +1,173 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: a new port of oleg's ssax xml parser to plt -->
+<!--X-From-R13: "@rvy I. Hna Rlxr" <ajiNarvyinaqlxr.bet> -->
+<!--X-Date: Thu, 28 Mar 2002 22:40:50 &#45;0700 (MST) -->
+<!--X-Message-Id: 15523.65120.102707.230824@winona.neilvandyke.org -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>a new port of oleg's ssax xml parser to plt</title>
+<link rev="made" href="mailto:nwv@neilvandyke.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00601.html">Date Prev</a>][<a href="msg00603.html">Date Next</a>][<a href="msg00600.html">Thread Prev</a>][<a href="msg00605.html">Thread Next</a>][<a href="maillist.html#00602">Date Index</a>][<a href="threads.html#00602">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>a new port of oleg's ssax xml parser to plt</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: a new port of oleg's ssax xml parser to plt</li>
+<li><em>From</em>: &quot;Neil W. Van Dyke&quot; &lt;<A HREF="mailto:nwv@neilvandyke.org">nwv@neilvandyke.org</A>&gt;</li>
+<li><em>Date</em>: Fri, 29 Mar 2002 00:40:48 -0500</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The tests seem to run OK, but I haven't yet used it in my own code.
+
+    <A  HREF="http://www.neilvandyke.org/ssax-plt/">http://www.neilvandyke.org/ssax-plt/</A>
+
+    <A  HREF="http://www.neilvandyke.org/ssax-plt/ssax-plt-20020328.tar.gz">http://www.neilvandyke.org/ssax-plt/ssax-plt-20020328.tar.gz</A>
+
+Neil
+
+---- Begin Excerpts From doc.txt ----
+
+The `ssax' collection is a version of Oleg Kiselyov's SSAX XML parsing
+framework that has been ported to PLT Scheme (MzScheme, DrScheme) version 200
+and packaged as PLT modules.  This collection is *not* a part of PLT Scheme,
+and is installed separately.
+
+[...]
+
+    For this port, we have attempted to minimize the changes to both the SSAX
+    source files and the presented API, but a few changes were necessary, or
+    seemed especially appropriate for the PLT port.
+
+    As a reference to the official SSAX, an unmodified copy of the official
+    SSAX directory tree is included in this collection under the subdirectory
+    &quot;official&quot;.  The CVS/RCS keyword expansions in files under &quot;official&quot; are
+    verbatim from the official SSAX CVS repository (which is accessible as
+    &quot;:pserver:anonymous@cvs.ssax.sourceforge.net:2401/cvsroot/ssax&quot;).
+
+    Modified versions of the SSAX source files appear in the top level of the
+    `ssax' collection directory.  The file names of modified files are
+    lower-case, and use the file name extension &quot;.ss&quot; rather than &quot;.scm&quot;.
+    Modifications are documented within the source files themselves using
+    comments that begin with the string &quot;[ssax-plt]&quot;.
+
+    Once the `ssax' collection is installed, SSAX is available as a module that
+    can be imported with:
+
+        (require (lib &quot;ssax.ss&quot; &quot;ssax&quot;))
+
+    One change this port makes to the SSAX API is that you should *not* define
+    the `parser-error' procedure directly.  Instead, `parser-error' is defined
+    as a procedure that applies its arguments to the value of the
+    `parse-error-param' parameter (see &quot;Parameter Utilities&quot; in &quot;PLT MzScheme:
+    Language Manual&quot;).  The parameter has a default value of a simple
+    error-reporting procedure, `parse-error-default'.
+    
+    Similarly, instead of defining `SSAX:warn' directly, you should set the
+    `SSAX:warn-param' parameter, the default of which is `SSAX:warn-default'.
+
+    Future versions of the `ssax' collection will add an `info.ss' file, move
+    some of the module files to beneath &quot;private/&quot;, add units and signatures,
+    etc.
+
+[...]
+
+    SSAX is the work of Oleg Kiselyov.  His main Web page on SSAX is
+    <A  HREF="http://pobox.com/~oleg/ftp/Scheme/xml.html">http://pobox.com/~oleg/ftp/Scheme/xml.html</A> , and the SourceForge page for
+    SSAX is <A  HREF="http://ssax.sourceforge.net/">http://ssax.sourceforge.net/</A> .
+
+    This port to PLT Scheme was done by Neil W. Van Dyke &lt;nwv@neilvandyke.org&gt;.
+    PLEASE REPORT BUGS WITH THIS PORT TO NEIL, rather than to Oleg Kiselyov
+    (unless you have reproduced your bug with the official SSAX, of course).
+    The latest version can be found at: <A  HREF="http://www.neilvandyke.org/ssax-plt/">http://www.neilvandyke.org/ssax-plt/</A>
+
+    SSAX has previously been ported to numerous Scheme dialects by Kirill
+    Lisovsky &lt;lisovsky@acm.org&gt;.  This port in fact uses a definition of
+    `let-values*' from Lisovsky's earlier port of SSAX to a version of PLT.
+    Lisovsky's SSAX ports can be found at: <A  HREF="http://pair.com/lisovsky/sxml/ssax/">http://pair.com/lisovsky/sxml/ssax/</A>
+
+[...]
+
+    Note: Release versions of the `ssax' collection are identified by date
+    rather than by a version number, to avoid confusion with the version
+    numbers of SSAX.
+
+    28-Mar-2002
+        First release.  Quality of the port/packaging should be considered
+        alpha.  Based on the latest SSAX file versions in SourceForge CVS as of
+        this date, since I could not find labels for the file versions that
+        made up SSAX release 4.9.  Feedback to nwv@neilvandyke.org appreciated.
+
+[...]
+
+---- End Excerpts From doc.txt ----
+
+-- 
+                                                        Neil W. Van Dyke
+                                             <A  HREF="http://www.neilvandyke.org/">http://www.neilvandyke.org/</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00605" href="msg00605.html">Re: a new port of oleg's ssax xml parser to plt</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+<li><strong><a name="00610" href="msg00610.html">Re: a new port of oleg's ssax xml parser to plt</a></strong>
+<ul><li><em>From:</em> Bruce Butterfield &lt;bab@entricom.com&gt;</li></ul></li>
+<li><strong><a name="00651" href="msg00651.html">Re: a new port of oleg's ssax xml parser to plt</a></strong>
+<ul><li><em>From:</em> sperber@informatik.uni-tuebingen.de (Michael Sperber [Mr.  Preprocessor])</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00601.html">Re: looking for web-server information</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00603.html">ShootOut Implementations</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00600.html">[ShootOut] Hash2.scm</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00605.html">Re: a new port of oleg's ssax xml parser to plt</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00602"><strong>Date</strong></a></li>
+<li><a href="threads.html#00602"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

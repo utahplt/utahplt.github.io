@@ -1,0 +1,132 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: define&#45;syntax -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Fri, 22 Dec 2000 19:18:03 &#45;0700 (MST) -->
+<!--X-Message-Id: 200012230217.VAA26416@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000501c06747$3d589b90$0100007f@cradle -->
+<!--X-Reference: 200012191548.IAA12113@fast.cs.utah.edu -->
+<!--X-Reference: 00b001c06c7a$590f9fe0$0100007f@cradle -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>define-syntax</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00809.html">Date Prev</a>][<a href="msg00811.html">Date Next</a>][<a href="msg00809.html">Thread Prev</a>][<a href="msg00791.html">Thread Next</a>][<a href="maillist.html#00810">Date Index</a>][<a href="threads.html#00810">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>define-syntax</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Ji-Yong D. Chung&quot; &lt;<A HREF="mailto:virtualcyber@erols.com">virtualcyber@erols.com</A>&gt;</li>
+<li><em>Subject</em>: define-syntax</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 22 Dec 2000 21:17:31 -0500 (EST)</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00809.html">00b001c06c7a$590f9fe0$0100007f@cradle</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00790.html">000501c06747$3d589b90$0100007f@cradle</a>&gt;&lt;<a href="msg00796.html">200012191548.IAA12113@fast.cs.utah.edu</a>&gt;&lt;<a href="msg00809.html">00b001c06c7a$590f9fe0$0100007f@cradle</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Ji-Yong D. Chung wrote:
+
+&gt; [...]
+&gt;     I was wondering of if you came across any system
+&gt; that attempts to rewrite expressions as the one above,
+&gt; using macros, to make it more efficient.
+&gt; [...]
+
+Macros, a la Scheme, are a poor tool for expressing general optimizer
+rules.  You need more control over rewriting than Scheme's mechanism
+provides.  You could do it with a more general expander such as
+McMicMac, but we haven't.
+
+&gt;     The macro will rewrite the lambda expression
+&gt; above (the inefficient one) as:
+&gt; [...]
+
+Scheme compilers that care about efficiency will usually recognize
+&quot;inefficient&quot; terms that may result from macro expansion as primitive
+syntax and implement it more efficiently.  For instance, it is common
+in Scheme systems to use the macro
+
+  (let ([vs es] ...) bs ...) =&gt; ((lambda (vs ...) bs ...) es ...)
+
+but LET can be implemented more directly as a stack push.  Rather than 
+first expand the macro, then unexpand it, some Scheme systems will
+instead recognize the pattern ((LAMBDA ...) ...) as a &quot;primitive&quot; and
+implement it by stack pushes.  Then, it no longer matters how this
+code came to be -- whether from LET, or from the user directly, or
+as the consequence of the composition of other macros -- it will
+always be treated suitably.
+
+These questions are, in general, hard to answer well.  A compiler, and 
+thus its optimizing sub-systems, is the result of trying to satisfy
+many, potentially conflicting constraints.  Do you want to minimize
+compile time?  Execution time?  Execution space?  Compile space?  Code 
+size?  Power consumption?  Etc, etc.  An optimizer for power usage,
+for instance, would not find Scheme's macros very useful at all.
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00790" href="msg00790.html">efficiency</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+<li><strong><a name="00796" href="msg00796.html">Re: efficiency</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00809" href="msg00809.html">define-syntax</a></strong>
+<ul><li><em>From:</em> &quot;Ji-Yong D. Chung&quot; &lt;virtualcyber@erols.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00809.html">define-syntax</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00811.html">Re: Distribution of MrEd-based apps</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00809.html">define-syntax</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00791.html">Swig and MzScheme's _scheme_get_type_name</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00810"><strong>Date</strong></a></li>
+<li><a href="threads.html#00810"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

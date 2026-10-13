@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Problem with extension for MzScheme -->
+<!--X-From-R13: "Zrba Vryyre" <yrba_uryyreNubgznvy.pbz> -->
+<!--X-Date: Tue, 20 Nov 2001 12:38:24 &#45;0700 (MST) -->
+<!--X-Message-Id: F225KSEgfo6dFCjRI1P00021c08@hotmail.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Problem with extension for MzScheme</title>
+<link rev="made" href="mailto:leon_heller@hotmail.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01226.html">Date Prev</a>][<a href="msg01228.html">Date Next</a>][<a href="msg01226.html">Thread Prev</a>][<a href="msg01228.html">Thread Next</a>][<a href="maillist.html#01227">Date Index</a>][<a href="threads.html#01227">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Problem with extension for MzScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Problem with extension for MzScheme</li>
+<li><em>From</em>: &quot;Leon Heller&quot; &lt;<A HREF="mailto:leon_heller@hotmail.com">leon_heller@hotmail.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 20 Nov 2001 19:37:51 +0000</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I'm trying to get the simple 'Hello World' extension example to work, using 
+Visual C++ 6.0 to create a Windoze dll.
+
+Here's the c++ code:
+
+// PLT Extensions.cpp : Defines the entry point for the DLL application.
+//
+
+#include &quot;stdafx.h&quot;
+#include &quot;escheme.h&quot;
+
+BOOL APIENTRY DllMain( HANDLE hModule,
+                       DWORD  ul_reason_for_call,
+                       LPVOID lpReserved
+					 )
+{
+
+    return TRUE;
+}
+
+// code from 'Writing MzScheme Extensions'
+
+
+Scheme_Object *scheme_initialize(Scheme_Env *env)
+{
+	return scheme_make_string(&quot;Hello World!&quot;);
+}
+
+Scheme_Object *scheme_reload(Scheme_Env *env)
+{
+	return scheme_initialize(env);	// Nothing special for reload
+}
+
+
+When I enter
+
+(load-extension &quot;c:\\hello.dll&quot;)
+
+I get the error message
+
+
+load-extension: &quot;c:\hello.dll&quot; is not an extension (The specified procedure 
+could not be found.; errno=127)
+&gt;
+
+The dll builds without any errors or warnings. Does anyone know what I'm 
+doing wrong?
+
+Leon
+--
+Leon Heller, G1HSM Tel: +44 1327 359058 Email:leon_heller@hotmail.com
+My web page: <A  HREF="http://www.geocities.com/leon_heller">http://www.geocities.com/leon_heller</A>
+My low-cost Altera Flex design kit: <A  HREF="http://www.leonheller.com">http://www.leonheller.com</A>
+
+
+_________________________________________________________________
+Get your FREE download of MSN Explorer at <A  HREF="http://explorer.msn.com/intl.asp">http://explorer.msn.com/intl.asp</A>
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01228" href="msg01228.html">Re: Problem with extension for MzScheme</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01226.html">Re: Menus in Dr.Scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01228.html">Re: Problem with extension for MzScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01226.html">Re: Menus in Dr.Scheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01228.html">Re: Problem with extension for MzScheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01227"><strong>Date</strong></a></li>
+<li><a href="threads.html#01227"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

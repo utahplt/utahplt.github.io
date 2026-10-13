@@ -1,0 +1,140 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: gush &#45;> plush -->
+<!--X-From-R13: Syv Pnemvynl <ryvNonemvynl.bet> -->
+<!--X-Date: Sun, 19 Nov 2000 12:43:24 &#45;0700 (MST) -->
+<!--X-Message-Id: 14872.11605.786856.492906@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20001118225653.A26846@sun.cs.rice.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: gush -&gt; plush</title>
+<link rev="made" href="mailto:eli@barzilay.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00744.html">Date Prev</a>][<a href="msg00746.html">Date Next</a>][<a href="msg00744.html">Thread Prev</a>][<a href="msg00746.html">Thread Next</a>][<a href="maillist.html#00745">Date Index</a>][<a href="threads.html#00745">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: gush -&gt; plush</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Paul Graunke &lt;<A HREF="mailto:ptg@cs.rice.edu">ptg@cs.rice.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: gush -&gt; plush</li>
+<li><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Date</em>: Sun, 19 Nov 2000 14:43:17 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00744.html">20001118225653.A26846@sun.cs.rice.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00744.html">20001118225653.A26846@sun.cs.rice.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Nov 18, Paul Graunke wrote:
+&gt; The gush project, which provided a simple unix shell running under
+&gt; guile, is in limbo now.  The only thing interesting about it is that
+&gt; scheme &quot;shell scripts&quot; are loaded into the same guile interpeter.
+&gt; Their OS like protections appear to be, &quot;Please don't poke me too
+&gt; hard.&quot;  Here's a first cut a replacing gush with a plt-scheme
+&gt; version, that hopefully does better on the protections.  It's just
+&gt; something I hacked together in a few hours this afternoon, so don't
+&gt; expect scsh.  It's more for interactive use with plain old scheme
+&gt; programs for more complex tasks.
+
+I think that there are three independent things here:
+
+1. There is the actual scripting support that means a lot of scsh
+   functionality imported into MzScheme.  I think that one change for
+   that would be to redesign the system functions so they will return
+   an actual process object that will allow much more control than the
+   current list of return values.
+
+2. For this gush-like thing there is the safe evaluation that is
+   needed.
+
+3. Some interactive shell support.
+
+Any of these three things will be useful by itself.  I have some hacks
+that does these things partially:
+
+1. I started doing this, but it seems like there are things on higher
+   priority so it's on hold for now.  Basically, I had a new function
+   in port.c that will fork and return a subprocess object, something
+   similar to process*/ports that returns a process.  Then there is
+   some Scheme source that uses this to implement the current
+   functions using the new one, and adds more scsh-like stuff: I have
+   support for starting processes either in the foreground or in the
+   background, piping, using symbols as paths etc.  One cute thing was
+   to find a way to have threads with return values and that get i/o
+   ports when they start, and the result was that you can use, in a
+   single pipeline, both system processes and Scheme threads.
+
+2. For this point I had once an implementation of a Scheme server
+   (actually a Swindle server, but there wasn't any Swindle-specific
+   code there) that allowed users to telnet into and get their own
+   REPL that the single server provides.  The safe execution is
+   provided by different evaluation threads and namespaces.
+
+3. Finally, for user-interaction, the telnet server thing would
+   respond to some telnet sequences, so if you would hit ^Z the
+   expression that was evaluating was pushed to the background etc.
+
+I'll try to see if there is these things still work.
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+                  <A  HREF="http://www.barzilay.org/">http://www.barzilay.org/</A>                 Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00744" href="msg00744.html">gush -&gt; plush</a></strong>
+<ul><li><em>From:</em> Paul Graunke &lt;ptg@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00744.html">gush -&gt; plush</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00746.html">[comp.lang.scheme] Game of Life</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00744.html">gush -&gt; plush</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00746.html">[comp.lang.scheme] Game of Life</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00745"><strong>Date</strong></a></li>
+<li><a href="threads.html#00745"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [plt&#45;scheme] Macros and scope -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.hpuvpntb.rqh> -->
+<!--X-Date: Tue, 14 May 2002 10:31:22 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20020514162934.CF8E61AA81@amber.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.40.0205141027260.29467&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [plt-scheme] Macros and scope</title>
+<link rev="made" href="mailto:robby@cs.uchicago.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00896.html">Date Prev</a>][<a href="msg00898.html">Date Next</a>][<a href="msg00896.html">Thread Prev</a>][<a href="msg00898.html">Thread Next</a>][<a href="maillist.html#00897">Date Index</a>][<a href="threads.html#00897">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [plt-scheme] Macros and scope</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Matt Jadud &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: [plt-scheme] Macros and scope</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.uchicago.edu">robby@cs.uchicago.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 14 May 2002 12:29:34 -0400 (EDT)</li>
+<li><em>Cc</em>: PLT Scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00896.html">Pine.GSO.4.40.0205141027260.29467-100000@velvetbelly.cs.indiana.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00896.html">Pine.GSO.4.40.0205141027260.29467-100000@velvetbelly.cs.indiana.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+There are actually two tricks that you need to solve this problem.
+First, since mzscheme doesn't allow redefinition of imports, you need
+to come up with a module that provides all of the mzscheme language,
+but without letrec:
+
+(module mzscheme-wo-letrec mzscheme
+  (provide (all-from-except mzscheme letrec)))
+
+Once you have that, you can use prefixing to give a funny name to the
+original letrec and define your new letrec in terms of the old one:
+
+(module m mzscheme-wo-letrec
+  (require (prefix orig: mzscheme))
+  (define-syntax (letrec stx)
+    (syntax-case stx ()
+      [(_ ((var val) ...) body ...)
+       (syntax (list (orig:letrec ((var val) ...) body ...)))]))
+  
+  (display (letrec ((x x)) x)))
+
+(require m)
+
+The new version of letrec always wraps a list around its value.
+
+Hope that helps,
+Robby
+
+At Tue, 14 May 2002 10:41:13 -0500 (EST), Matt Jadud wrote:
+&gt; 
+&gt; Hello,
+&gt; 
+&gt; 	I've encountered a Chezism that I'm not sure how to circumnavigate.
+&gt; 
+&gt; 	(define-syntax letrec
+&gt; 	  (lambda (x)
+&gt;             (import scheme)  ;;Right here.
+&gt; 	    (syntax-case x ()
+&gt; 	      [(_ ((var val) ...) body)
+&gt; 	      .... (syntax (foo (letrec ((var val) ...) body))) .... ])))
+&gt; 
+&gt;    In the Chez module system, you can &quot;(import scheme)&quot; when it becomes
+&gt; convenient to lexically refresh the namespace with clean, top-level bindings.
+&gt; In this case, this allows 'letrec' to be redefined to the outside world, but
+&gt; within the scope of the binding lambda, 'letrec' takes on the default Chez
+&gt; semantics.
+&gt; 
+&gt; 	In short, I need to redefine 'letrec', but not within the scope of the
+&gt; macro.
+&gt; 
+&gt; 	Hints or suggestions appreciated. I'll keep at the manual re Mz's
+&gt; modules, macro expansion, and namespaces.
+&gt; 
+&gt; 	Thanks,
+&gt; 	Matt
+&gt; 
+&gt; ________________________________________________________________________
+&gt; Matt Jadud                            <A  HREF="http://www.cs.indiana.edu/~mjadud/">http://www.cs.indiana.edu/~mjadud/</A>
+&gt; Current Temperature Outside Lindley Hall                 55.6 F / 13.1 C
+&gt; Canterbury Weather: High 57 F / 14 C, Low 46 F / 8 C, Sunny intervals
+&gt; 
+&gt; 
+&gt; 
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00896" href="msg00896.html">[plt-scheme] Macros and scope</a></strong>
+<ul><li><em>From:</em> Matt Jadud &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00896.html">[plt-scheme] Macros and scope</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00898.html">[plt-scheme] Modular Include</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00896.html">[plt-scheme] Macros and scope</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00898.html">[plt-scheme] Modular Include</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00897"><strong>Date</strong></a></li>
+<li><a href="threads.html#00897"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

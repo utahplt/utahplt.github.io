@@ -1,0 +1,157 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: scsh in PLT Scheme? -->
+<!--X-From-R13: Bngevpx Sxzna <cngNrxzna.pk> -->
+<!--X-Date: Tue, 2 Apr 2002 14:52:39 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020402215533.GB54872@pat.wirthlin.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.LNX.4.30.0203311704080.399&#45;100000@ant -->
+<!--X-Reference: NBBBLCLOKKHAGMJBNHDMGEJHFKAA.apeake@comac.com -->
+<!--X-Reference: 20020401041730.GB958@pacbell.net -->
+<!--X-Reference: 20020401185714.GA48023@pat.wirthlin.com -->
+<!--X-Reference: slrnaahv7n.247.markj+0111@cloaked.freeserve.co.uk -->
+<!--X-Reference: 20020402013009.GD351@zaphod.ekman.cx -->
+<!--X-Reference: 86zo0mzt5a.fsf@csc01.fciencias.unam.mx -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: scsh in PLT Scheme?</title>
+<link rev="made" href="mailto:pat@ekman.cx">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00661.html">Date Prev</a>][<a href="msg00663.html">Date Next</a>][<a href="msg00675.html">Thread Prev</a>][<a href="msg00527.html">Thread Next</a>][<a href="maillist.html#00662">Date Index</a>][<a href="threads.html#00662">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: scsh in PLT Scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Subject</em>: Re: scsh in PLT Scheme?</li>
+<li><em>From</em>: Patrick Ekman &lt;<A HREF="mailto:pat@ekman.cx">pat@ekman.cx</A>&gt;</li>
+<li><em>Date</em>: Tue, 2 Apr 2002 14:55:33 -0700</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00648.html">86zo0mzt5a.fsf@csc01.fciencias.unam.mx</a>&gt;</li>
+<li><em>Mail-Followup-To</em>: Francisco Solsona &lt;solsona@acm.org&gt;,plt-scheme@fast.cs.utah.edu</li>
+<li><em>References</em>: &lt;<a href="msg00622.html">Pine.LNX.4.30.0203311704080.399-100000@ant</a>&gt; &lt;<a href="msg00623.html">NBBBLCLOKKHAGMJBNHDMGEJHFKAA.apeake@comac.com</a>&gt; &lt;<a href="msg00625.html">20020401041730.GB958@pacbell.net</a>&gt; &lt;<a href="msg00625.html">20020401041730.GB958@pacbell.net</a>&gt; &lt;<a href="msg00630.html">20020401185714.GA48023@pat.wirthlin.com</a>&gt; &lt;<a href="msg00638.html">slrnaahv7n.247.markj+0111@cloaked.freeserve.co.uk</a>&gt; &lt;<a href="msg00644.html">20020402013009.GD351@zaphod.ekman.cx</a>&gt; &lt;<a href="msg00648.html">86zo0mzt5a.fsf@csc01.fciencias.unam.mx</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.3.28i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoth Francisco Solsona on Monday, April 01, 2002:
+&gt; What Unix flavor are you using?  I'm using iODBC + {psqlodbc | myodbc}
+&gt; together with SrPersist, pretty much out of the box.  This is FreeBSD
+&gt; CURRENT (a couple of weeks old), with everything installed via ports.
+
+This was last year.  Probably FreeBSD 4.3 or 4.4.  I have no idea why it
+wouldn't work--only that writing my own access library became much more
+appealing.
+
+&gt; I agree raw-ODBC is hideous, though.  Nevertheless, it's been a while
+&gt; since I don't use it directly.  The latest version of SchemeQL, which
+&gt; you can get from schematics.sourceforge.net, has a clear separation
+&gt; between SQL features, and ODBC details.  SchemeQL does not do
+&gt; everything you can do through ODBC, though.  Anyway, I'd love to see
+&gt; your interface, if it's *simple*, maybe SchemeQL could do the same
+&gt; job, and if it's complex enough, maybe SchemeQL could be extended to
+&gt; use it as a backend.
+
+Well, the interface is simple in that it's a relatively direct
+translation of the underlying C library (libpq).  The point was really
+just to get something to work.  There are almost certainly better
+approaches.  Although like Oleg's DB interface it does return data
+through a callback function--which is definitely not what the C library
+does.  At any rate, I would consider my code experimental at best.
+Right now if someone needs to connect to Postgres, I'd recommend spgsql.
+Had I known that library existed, I would have used it, rather than
+write my own.
+
+&gt; Future versions of SchemeQL will support different backends, I already
+&gt; have a a copy of `spgsql', for instance, but just haven't had time to
+&gt; sit down and write it.  All in all, I think ODBC is widely supported,
+&gt; and should not be overlooked.  I kinda like the idea that people, in
+&gt; the Windows* world, and other worlds, can use SchemeQL together with
+&gt; their favorite DBMS through ODBC painlessly (even though I haven't
+&gt; used, nor plan to use Win* for/in a long, long time. ;-)
+
+What I want to put together is a general interface for database
+connectivity in Scheme, much like Perl's DBI or Python's DB-API.  If
+it's a general enough interface to allow for different database
+connection methods, it should be general enough to write an ODBC wrapper
+as well.  (There's a DBD::ODBC module for Perl, for example)
+
+As far as integration with SchemeQL, I would prefer to have it use this
+interface as a back end.  Like I said in a previous message, I view
+SchemeQL as more of an SQL abstraction than a database connectivity
+abstraction (although it really is both).  Having them operate on
+different levels gives people the option of a nice high-level interface,
+without denying them the ability to get into the guts if they need to.
+
+--
+Pat Ekman
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00622" href="msg00622.html">RE: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> Kirill Lisovsky &lt;lisovsky@acm.org&gt;</li></ul></li>
+<li><strong><a name="00623" href="msg00623.html">RE: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Alex Peake&quot; &lt;apeake@comac.com&gt;</li></ul></li>
+<li><strong><a name="00625" href="msg00625.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> &quot;Brent A. Fulgham&quot; &lt;bfulgham@debian.org&gt;</li></ul></li>
+<li><strong><a name="00630" href="msg00630.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> Pat Ekman &lt;pat@ekman.cx&gt;</li></ul></li>
+<li><strong><a name="00638" href="msg00638.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> MJ Ray &lt;markj@cloaked.freeserve.co.uk&gt;</li></ul></li>
+<li><strong><a name="00644" href="msg00644.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> Patrick Ekman &lt;pat@ekman.cx&gt;</li></ul></li>
+<li><strong><a name="00648" href="msg00648.html">Re: scsh in PLT Scheme?</a></strong>
+<ul><li><em>From:</em> Francisco Solsona &lt;solsona@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00661.html">Re: v200 and SLIB</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00663.html">creating classes in an extension</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00675.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00527.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00662"><strong>Date</strong></a></li>
+<li><a href="threads.html#00662"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

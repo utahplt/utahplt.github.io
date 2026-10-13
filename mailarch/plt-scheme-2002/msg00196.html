@@ -1,0 +1,158 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: SOS. No garbage&#45;collection on exit! -->
+<!--X-From-R13: Eronfgvna V Ervqry <Eronfgvna.V.ErvqryNuab.zrq.hav&#45;tvrffra.qr> -->
+<!--X-Date: Mon, 4 Feb 2002 09:31:32 &#45;0700 (MST) -->
+<!--X-Message-Id: iss.41fb.3c5eb74b.79a69.1@merkur.hrz.uni&#45;giessen.de -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200202040327.g143RiD19375@wrath.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: SOS. No garbage-collection on exit!</title>
+<link rev="made" href="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00195.html">Date Prev</a>][<a href="msg00197.html">Date Next</a>][<a href="msg00195.html">Thread Prev</a>][<a href="msg00198.html">Thread Next</a>][<a href="maillist.html#00196">Date Index</a>][<a href="threads.html#00196">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: SOS. No garbage-collection on exit!</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matthew Flatt&quot; &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: SOS. No garbage-collection on exit!</li>
+<li><em>From</em>: Sebastian H Seidel &lt;<A HREF="mailto:Sebastian.H.Seidel@hno.med.uni-giessen.de">Sebastian.H.Seidel@hno.med.uni-giessen.de</A>&gt;</li>
+<li><em>Date</em>: Mon, 04 Feb 2002 17:31:05 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00191.html">200202040327.g143RiD19375@wrath.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: IMHO/0.98.2 (Webmail for Roxen)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hello Matthew,
+
+thank you very much for the swift response.
+
+-------------------
+&gt; Quoting Sebastian H Seidel:
+&gt; &gt; My finalizers are ignored. The current-custodian is not called.
+&gt; &gt; What can I do to free my data on exit?
+&gt; 
+&gt; In v200 (maybe earlier, I forget), you can call
+&gt; 
+&gt;   scheme_add_atexit_closer()
+&gt; 
+&gt; to install a procedure that is called at exit on all custodian-
+&gt; managed objects. 
+
+This procedure is what i need but it's not in v103.
+
+&gt; You don't need to bother with it merely to release
+&gt; memory, though.
+
+Not entirely true because the extension serves as a means for
+operating on matrices in the matlab-environment, from within MzScheme.
+Each Matlab-matrix is linked with a Scheme_Object. If the
+Scheme_Object is bound to a local variable, e.g. inside a let-form,
+the corresponding matlab-matrix will only be valid inside the
+let-form, too ... although that is not entirely true, because
+garbage-collection never happens instantly ... but I did have no
+better idea, do you?
+When MzScheme exits, I would like to clear the instances of all
+formerly globally defined variables out of the Matlab-environment and
+it would be sooo easy if there was an exit-hook! Simply calling
+(collect-garbage).
+
+&gt; &gt; PS: What happens to the other data? Is MzScheme slowly drowning my
+&gt; &gt; computer with unfreed data if only I happen to start and exit it
+&gt; &gt; often enough?
+&gt; 
+&gt; No modern OS fails to release the memory associated with a process
+&gt; that terminates --- where &quot;modern&quot; in this case can even be
+&gt; stretched to include Mac OS 7.
+&gt; For the more broken variants of Windows and Mac OS, there are some
+&gt; resources that really must be released explicitly. MzScheme/MrEd 
+&gt; uses something like scheme_add_atexit_closer() to release those 
+&gt; resources.
+&gt; 
+&gt; Matthew
+&gt; 
+
+Thanks, now I understand that garbage-collection on exit is not done
+simply because it is not necessary. For me it would make things easier
+but an exit-hook would be fine, too. Is there any specific reason for
+not providing one, save one that is restricted to work on
+custodian-bound data?
+
+Greetings,
+Sebastian
+
+PS: I would like to learn about the behaviour of the
+MzScheme-garbage-collector because I'm rather unsure how to interact
+with it. Many functions that have to do with garbage-collection are
+not at all clear to me ... all the time I'm angious not to do
+something wrong because the program might fail at a point where I'll
+not even be able to trace back the error. The program must be able to
+run for some days without failure and intervention on a &quot;more broken
+variant&quot; of operating system, namely Windows98. Alas ... where could I
+start reading?
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00198" href="msg00198.html">Re: SOS. No garbage-collection on exit!</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00191" href="msg00191.html">Re: SOS. No garbage-collection on exit!</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00195.html">Re: SOS. No garbage-collection on exit!</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00197.html">Re: Introductory material on hygienic macros in dr scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00195.html">Re: SOS. No garbage-collection on exit!</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00198.html">Re: SOS. No garbage-collection on exit!</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00196"><strong>Date</strong></a></li>
+<li><a href="threads.html#00196"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

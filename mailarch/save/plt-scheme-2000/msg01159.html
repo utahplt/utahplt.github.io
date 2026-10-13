@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: efficiency -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 19 Dec 2000 08:48:31 &#45;0700 (MST) -->
+<!--X-Message-Id: 200012191548.IAA12113@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 000501c06747$3d589b90$0100007f@cradle -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: efficiency</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg01158.html">Date Prev</A>][<A HREF="msg01160.html">Date Next</A>][<A HREF="msg01153.html">Thread Prev</A>][<A HREF="msg01172.html">Thread Next</A>][<A HREF="maillist.html#01159">Date Index</A>][<A HREF="threads.html#01159">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: efficiency</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "Ji-Yong D. Chung" &lt;<A HREF="mailto:virtualcyber@erols.com">virtualcyber@erols.com</A>&gt;</LI>
+<LI><em>Subject</em>: Re: efficiency</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 19 Dec 2000 08:48:23 -0700 (MST)</LI>
+<LI><em>CC</em>: &lt;<A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg01153.html">000501c06747$3d589b90$0100007f@cradle</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg01153.html">000501c06747$3d589b90$0100007f@cradle</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting "Ji-Yong D. Chung":
+&gt;     Does anyone have good understanding of its
+&gt; architecture and why MzScheme seems to be
+&gt; so much faster than MITScheme?
+
+As Shriram says, the interpreter is probably fast just because we've
+put most of our effort there.
+
+More technically, the reason might have to do with the way function
+application special-cases argument expressions that are constants,
+lexical variables, and global variables. The eval-apply loop has also
+been carefully optimized by hand. And most primitives are implemented
+directly in C, so a program that spends a lot of time in "large"
+primitives like `memq' and `list-ref' gets the equivalent of compiled,
+optimized code.
+
+But all of these architectural choices play against each other in a way
+that makes it difficult to compare alternaitves. We've simply spent
+time over the years working towards a local maximum for one particular
+set of choices.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01172" HREF="msg01172.html">define-syntax</A></STRONG>
+<UL><LI><EM>From:</EM> "Ji-Yong D. Chung" &lt;virtualcyber@erols.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="01153" HREF="msg01153.html">efficiency</A></STRONG>
+<UL><LI><EM>From:</EM> "Ji-Yong D. Chung" &lt;virtualcyber@erols.com&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg01158.html">mcmicmac &amp; zodiac</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg01160.html">Re: minor readline bug?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg01153.html">efficiency</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg01172.html">define-syntax</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#01159"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#01159"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

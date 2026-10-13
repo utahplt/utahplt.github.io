@@ -1,0 +1,109 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: webserver and print&#45;struct -->
+<!--X-From-R13: =?vfb&#45;8859&#45;1?C?Xraf_Okry_E=T8tnneq?= <wrafnkryNfbrtnneq.arg> -->
+<!--X-Date: Wed, 1 May 2002 13:08:01 &#45;0600 (MDT) -->
+<!--X-Message-Id: 021a01c1f142$c8d19b00$0500000a@Lr30JS -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>webserver and print-struct</title>
+<link rev="made" href="mailto:jensaxel@soegaard.net">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00816.html">Date Prev</a>][<a href="msg00818.html">Date Next</a>][<a href="msg00816.html">Thread Prev</a>][<a href="msg00820.html">Thread Next</a>][<a href="maillist.html#00817">Date Index</a>][<a href="threads.html#00817">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>webserver and print-struct</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: webserver and print-struct</li>
+<li><em>From</em>: Jens Axel Søgaard &lt;<A HREF="mailto:jensaxel@soegaard.net">jensaxel@soegaard.net</A>&gt;</li>
+<li><em>Date</em>: Wed, 1 May 2002 21:02:47 +0200</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi all
+
+I have problems with the following function.
+I am writing a litle guest book using the PLT web-server.
+The entries in the book is internally represented by a list of
+structures. I want to save the structures and retrieve them later,
+therefore I use (print-struct #t) so that the structures are printed as
+vectors. When I read them I convert them. My problem is
+that the web-server apparently does not respect the parameter,
+i.e. does not print vectors but prints #&lt;struct..&gt; stuff in stead.
+
+(define (save-book)
+  (let ([port (open-output-file filename 'replace)])
+    (print-struct #t)
+    (print book port)
+    (close-output-port port)))
+
+Ideas?
+
+--
+Jens Axel Søgaard
+
+
+
+
+
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00820" href="msg00820.html">Re: webserver and print-struct</a></strong>
+<ul><li><em>From:</em> Paul Graunke &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00816.html">PLAN-X: new deadline (May 31)</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00818.html">updated info on OS X drscheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00816.html">PLAN-X: new deadline (May 31)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00820.html">Re: webserver and print-struct</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00817"><strong>Date</strong></a></li>
+<li><a href="threads.html#00817"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

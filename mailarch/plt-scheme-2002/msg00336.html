@@ -1,0 +1,133 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: locales (was Re: 200alpha13) -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Thu, 7 Mar 2002 13:55:21 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203072055.NAA02775@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020307051122.79CD5BDC8@panacea.canonical.org -->
+<!--X-Reference: 200203071546.IAA24676@fast.cs.utah.edu -->
+<!--X-Reference: 15495.51185.103144.88360@mojave.cs.cornell.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>locales (was Re: 200alpha13)</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00335.html">Date Prev</a>][<a href="msg00337.html">Date Next</a>][<a href="msg00335.html">Thread Prev</a>][<a href="msg00327.html">Thread Next</a>][<a href="maillist.html#00336">Date Index</a>][<a href="threads.html#00336">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>locales (was Re: 200alpha13)</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Eli Barzilay &lt;<A HREF="mailto:eli@barzilay.org">eli@barzilay.org</A>&gt;</li>
+<li><em>Subject</em>: locales (was Re: 200alpha13)</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 7 Mar 2002 13:55:12 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00335.html">15495.51185.103144.88360@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00329.html">20020307051122.79CD5BDC8@panacea.canonical.org</a>&gt;&lt;<a href="msg00333.html">200203071546.IAA24676@fast.cs.utah.edu</a>&gt;	&lt;<a href="msg00335.html">15495.51185.103144.88360@mojave.cs.cornell.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Thu, 7 Mar 2002 15:05:05 -0500, Eli Barzilay wrote:
+&gt; 2. Each of these functions would do a system call to set the locale,
+
+No --- the nice thing about portable routines is we won't need to use
+platform-specific libraries. `string-ci&lt;?' will use a hardwired table
+of case conversions, as opposed to calling toupper().
+
+(You're right that it takes significant time to change locales.)
+
+&gt; 3. If the goal is avoiding using parameterize, 
+
+The goal as I see it is to keep the distance between reality and the
+programmer's expectation as small as possible. If a programmer isn't
+thinking about locales, probably the program shouldn't be affected by
+them.
+
+I'm less certain on this point for `char-locale-alphabetic?' than
+`string-locale&lt;?', though.
+
+&gt; 4. And the most important thing -- doing this will force either
+&gt;    writing programs that are hard-wired to using or not using locales,
+&gt;    or to pass around yet another argument (or use the parameter!) to
+&gt;    know what function to use.
+
+I don't see passing around yet another argument as solving any problem,
+because `string-locale&lt;?' will be the same as `string&lt;?' when the
+locale is disabled.
+
+It does mean that we need to look at existing uses of `string&lt;?' to
+determine whether they should be `string-locale&lt;?' instead (e.g., in
+the Unix file dialog).
+
+&gt; -- since locales are something relatively new, I think
+&gt; it is better to stay as close to the C model since that is not likely
+&gt; to change too much.
+
+In fact, adding new functions is closer to the C model. setlocale()
+does not affect strcmp(); there's a separate strcoll() function.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00329" href="msg00329.html">Re: 200alpha13</a></strong>
+<ul><li><em>From:</em> kragen@pobox.com (Kragen Sitaker)</li></ul></li>
+<li><strong><a name="00333" href="msg00333.html">Re: 200alpha13</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00335" href="msg00335.html">Re: 200alpha13</a></strong>
+<ul><li><em>From:</em> Eli Barzilay &lt;eli@barzilay.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00335.html">Re: 200alpha13</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00337.html">Re: locales</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00335.html">Re: 200alpha13</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00327.html">Parser Libraries and Newbie Disclaimer</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00336"><strong>Date</strong></a></li>
+<li><a href="threads.html#00336"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

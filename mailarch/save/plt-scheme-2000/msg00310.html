@@ -1,0 +1,143 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: wanted &#45;&#45; pre&#45;release compilation testers -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Mon, 29 May 2000 13:24:26 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000529192423.WHPL9942.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>wanted -- pre-release compilation testers</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00309.html">Date Prev</A>][<A HREF="msg00311.html">Date Next</A>][<A HREF="msg00309.html">Thread Prev</A>][<A HREF="msg00311.html">Thread Next</A>][<A HREF="maillist.html#00310">Date Index</A>][<A HREF="threads.html#00310">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>wanted -- pre-release compilation testers</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Subject</em>: wanted -- pre-release compilation testers</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Mon, 29 May 2000 12:24:23 -0700</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+The exp-tagged version of MzScheme and MrEd on the CVS server is now
+102/14. Hopefully, this is the final version of MzScheme and MrEd
+before the 102 release.
+
+==  HELP WANTED #1 (Unix):  ========================================
+
+The new `configure' script should make 102 much easier to compile than
+previous versions for flavors of Unix, but we need help testing
+`configure' as much as possible before finalizing the 102 release.
+
+To make it easier for you to help us, we've created a source code
+bundle that you can download via HTTP:
+
+    <A  HREF="http://www.cs.utah.edu/~mflatt/tmp/plt.src.x.tar.gz">http://www.cs.utah.edu/~mflatt/tmp/plt.src.x.tar.gz</A>
+
+Minimally useful test information is whether
+
+   gunzip -c plt.src.x.tar.gz | tar xf -
+   cd plt/src
+   ./configure
+   gnumake   [or equivalent]
+
+successfully builds MrEd to plt/src/mred/mred. Of additional interest
+is whether, after the above succeeds,
+
+   mzscheme/mzscheme
+   (load "../tests/mzscheme/quiet.ss")
+
+reports any errors. Finally, to check that DrScheme starts properly,
+
+   gnumake install
+   cd ..
+   ./install
+   bin/drscheme
+
+Please report success, problems, or suggestions (inlcuding results from
+the above tests, or anything else you notice) to mflatt@cs.utah.edu.
+
+Note: if you run bin/setup-plt after installing, there will be an error
+from the stepper collection; please ignore it.
+
+==  HELP WANTED #2 (Windows):  =====================================
+
+A source code bundle for Windows (to be compiled with MSVC) is also
+available:
+
+   <A  HREF="http://www.cs.utah.edu/~mflatt/tmp/pltsrcwin.zip">http://www.cs.utah.edu/~mflatt/tmp/pltsrcwin.zip</A>
+
+Since there's only one system and supported compiler in this case, we
+need less help testing this code, but if you extend or embed MzScheme,
+then we'd like to know how well this version works for you.
+
+Please report success or problems to mflatt@cs.utah.edu.
+
+Note: if you run "Setup PLT" after installing, there will be an error
+from the stepper collection; please ignore it.
+
+====================================================================
+
+We're mostly interested in MzScheme and MrEd testing at this point. If
+you'd like to help us test DrScheme (perhaps with pre-built binaries),
+we expect to be ready RSN.
+
+Thanks for your help,
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00309.html">Re: odbc and cgi</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00311.html">102 scheme source</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00309.html">Re: odbc and cgi</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00311.html">102 scheme source</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00310"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00310"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

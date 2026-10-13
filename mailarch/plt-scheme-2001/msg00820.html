@@ -1,0 +1,111 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: compiling files -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 21 Aug 2001 08:56:46 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200108211456.f7LEuc914998@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: F26203oHMwVN7miR9Od0000d88f@hotmail.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: compiling files</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00819.html">Date Prev</a>][<a href="msg00821.html">Date Next</a>][<a href="msg00818.html">Thread Prev</a>][<a href="msg00819.html">Thread Next</a>][<a href="maillist.html#00820">Date Index</a>][<a href="threads.html#00820">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: compiling files</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Immanuel Litzroth&quot; &lt;<A HREF="mailto:immanuel_litzroth@hotmail.com">immanuel_litzroth@hotmail.com</A>&gt;</li>
+<li><em>Subject</em>: Re: compiling files</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 21 Aug 2001 08:56:38 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00818.html">F26203oHMwVN7miR9Od0000d88f@hotmail.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00818.html">F26203oHMwVN7miR9Od0000d88f@hotmail.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Immanuel Litzroth&quot;:
+&gt; I have a file I want to compile to .zo format and it needs command-line 
+&gt; parsing. Am I correct in assuming that I need the require-library form 
+&gt; wrapped in a begin-elaboration-time form AND as a top-level form?
+
+Yes, that sounds right to me.
+
+&gt; In the previous mail I forgot to mention that I use the
+&gt; ++zof expand-require-library switch to mzc.
+
+If you duplicate the `require-library' line, I don't think you need the
+mzc switch. But I have trouble remembering or figuring out what is
+supposed to work, the best strategy to make it work, etc.
+
+We introduced `module' in version 200 (or 199.X) to clean up this mess:
+
+  (module ...
+    (require (lib &quot;cmdline.ss&quot;)) ; does the right thing at both compile time
+                                 ; and run time 
+    ...))
+
+
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00818" href="msg00818.html">compiling files</a></strong>
+<ul><li><em>From:</em> &quot;Immanuel Litzroth&quot; &lt;immanuel_litzroth@hotmail.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00819.html">compiling</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00821.html">No Subject</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00818.html">compiling files</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00819.html">compiling</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00820"><strong>Date</strong></a></li>
+<li><a href="threads.html#00820"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

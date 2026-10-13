@@ -1,0 +1,123 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Replacing the mzscheme module in a namespace -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Sun, 30 Sep 2001 20:23:59 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200110010223.f912NtT10283@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20010928163646.90121.qmail@web14309.mail.yahoo.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Replacing the mzscheme module in a namespace</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00939.html">Date Prev</a>][<a href="msg00941.html">Date Next</a>][<a href="msg00939.html">Thread Prev</a>][<a href="msg00941.html">Thread Next</a>][<a href="maillist.html#00940">Date Index</a>][<a href="threads.html#00940">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Replacing the mzscheme module in a namespace</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Ryan Culpepper &lt;<A HREF="mailto:ryan_sml@yahoo.com">ryan_sml@yahoo.com</A>&gt;</li>
+<li><em>Subject</em>: Re: Replacing the mzscheme module in a namespace</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Sun, 30 Sep 2001 20:23:56 -0600 (MDT)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00939.html">20010928163646.90121.qmail@web14309.mail.yahoo.com</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00939.html">20010928163646.90121.qmail@web14309.mail.yahoo.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Ryan Culpepper:
+&gt; Is it possible to create a new namespace with a user-defined module
+&gt; bound to the module name mzscheme? 
+
+Technically, yes.
+
+The problem is that the module would have to be implemented in terms of
+some primitive module, which would normally be `mzscheme' --- and
+`mzscheme' can't be renamed.
+
+As it turns out, `mzscheme' is a thin layer on some other modules
+(e.g., `#%kernel') which could serve as the foundation for a different
+`mzscheme'. But it would be messy, and those #% modules are
+intentionally unspecified.
+
+&gt; I can't find a way to attach a module named A in one namespace to
+&gt; another namespace under the name B.
+
+That's true -- there's no way to rename a module as it's attached to a
+different namespace.
+
+I think this limitation might not be necessary, but I'm not certain. It
+would certainly have complex implications for separate compilation. In
+any case, it runs against the spirit of the module system.
+
+&gt; I was also considering redefining the module syntax to rename
+&gt; mzscheme wherever it appeared in the initial module position:
+&gt;     (module A mzscheme ...) =&gt; (module A alt-mzscheme ...)
+
+Without knowing what you're trying to do, I'll point out that this
+violates the spirit of `module'. `module' is supposed to let a
+programmer declare exactly the language used to implement some code.
+
+Can you say more about your ultimate goal in re-defining `mzscheme'?
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00939" href="msg00939.html">Replacing the mzscheme module in a namespace</a></strong>
+<ul><li><em>From:</em> Ryan Culpepper &lt;ryan_sml@yahoo.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00939.html">Replacing the mzscheme module in a namespace</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00941.html">DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00939.html">Replacing the mzscheme module in a namespace</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00941.html">DrScheme as Emacs-like kitchen sink</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00940"><strong>Date</strong></a></li>
+<li><a href="threads.html#00940"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

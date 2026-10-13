@@ -1,0 +1,234 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: keyboard shortcut -->
+<!--X-From-R13: Dboreg Pehpr Tvaqyre <eboolNpf.evpr.rqh> -->
+<!--X-Date: Thu, 7 Sep 2000 08:03:41 &#45;0600 (MDT) -->
+<!--X-Message-Id: p04320404b5dd4f96a7f2@[128.42.2.124] -->
+<!--X-Content-Type: multipart/alternative -->
+<!--X-Reference: Pine.SOL.4.10.10009070601310.2351&#45;100000@meara -->
+<!--X-Reference: p04320401b5dd45ac535a@[128.42.2.124] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: keyboard shortcut</title>
+<link rev="made" href="mailto:robby@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00548.html">Date Prev</a>][<a href="msg00550.html">Date Next</a>][<a href="msg00548.html">Thread Prev</a>][<a href="msg00551.html">Thread Next</a>][<a href="maillist.html#00549">Date Index</a>][<a href="threads.html#00549">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: keyboard shortcut</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Kevin Michael Matulef &lt;<A HREF="mailto:kmmatule@cs.brown.edu">kmmatule@cs.brown.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: keyboard shortcut</li>
+<li><em>From</em>: Robert Bruce Findler &lt;<A HREF="mailto:robby@cs.rice.edu">robby@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Thu, 7 Sep 2000 09:03:35 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00548.html">p04320401b5dd45ac535a@[128.42.2.124]</a>&gt;</li>
+<li><em>Organization</em>: PLT, Rice University (http://www.cs.rice.edu/CS/PLT/)</li>
+<li><em>References</em>: &lt;<a href="msg00547.html">Pine.SOL.4.10.10009070601310.2351-100000@meara</a>&gt;&lt;<a href="msg00548.html">p04320401b5dd45ac535a@[128.42.2.124]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<ADDRESS>Title: <STRONG>Re: keyboard shortcut</STRONG></ADDRESS>
+
+
+<div>Well, I went ahead and added that keyboard shortcut to DrScheme
+for version 104 (but not yet released to CVS). If you are feeling
+adventurous, you can try to apply the diffs at the end of this email.
+But, beware, the line numbers are not exactly right, since the diffs
+are from a later version than 103. You should be able to tell from
+the context (and with a little Scheme know-how) where each diff
+applies, however.</div>
+<div><br></div>
+<div>Robby</div>
+<div><br></div>
+<div>At 8:53 AM -0500 9/7/00, Robert Bruce Findler wrote:</div>
+<blockquote type="cite" cite>At 6:05 AM -0400 9/7/00, Kevin Michael
+Matulef wrote:
+<blockquote type="cite" cite>Quick, easy question I hope:&nbsp;
+what's the keyboard shortcut for changing<br>
+focus from the definitions window to the interactions window in Dr
+Scheme?<br>
+It seems like this is a common enough task that there should be one,
+but I<br>
+couldn't seem to find it in the help desk...<br>
+<br>
+Please reply to me personally because I am not on the mailing
+list.</blockquote>
+</blockquote>
+<blockquote type="cite" cite><br></blockquote>
+<blockquote type="cite" cite>There is no such shortcut, sadly.
+Instead, what I do is hide either the definitions or interactions
+window, which puts the focus to the other one. Less than optimal, but
+works pretty well for me.</blockquote>
+<blockquote type="cite" cite><br></blockquote>
+<blockquote type="cite" cite>Robby</blockquote>
+<div><br></div>
+<div>These diffs are all from plt/collects/drscheme/</div>
+<div><br></div>
+<div><tt><font color="#A04000">Index: drsig.ss<br>
+=========================================<span
+></span>==========================<br>
+RCS file: /home/scheme/Archives/CVSRoot/plt/collec<span
+></span>ts/drscheme/drsig.ss,v<br>
+retrieving revision 1.105<br>
+diff -r1.105 drsig.ss<br>
+105c105,106<br>
+</font><font color="#FF0000">&lt;&nbsp;&nbsp; (text%<br>
+</font><font color="#A04000">---<br>
+</font><font color="#0000FF">&gt;&nbsp;&nbsp;
+(drs-bindings-keymap-mixin</font></tt></div>
+<div><tt><font color="#0000FF">&gt;&nbsp;&nbsp;&nbsp;
+text%</font></tt></div>
+<div><tt><font color="#A04000">Index: rep.ss<br>
+=========================================<span
+></span>==========================<br>
+RCS file: /home/scheme/Archives/CVSRoot/plt/collec<span
+></span>ts/drscheme/rep.ss,v<br>
+retrieving revision 1.270<br>
+diff -r1.270 rep.ss<br>
+26a27,53<br>
+</font><font color="#0000FF">&gt;&nbsp;&nbsp; (define
+drs-bindings-keymap (make-object mred:keymap%))<br>
+&gt;&nbsp;&nbsp; (send drs-bindings-keymap add-function<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&quot;toggle-focus-between-definitions-and-in<span
+></span>teractions&quot;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (lambda (obj
+evt)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(when (is-a? obj mred:editor&lt;%&gt;)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span>&nbsp;&nbsp; (let ([canvas (send obj get-canvas)])<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span>&nbsp;&nbsp;&nbsp;&nbsp; (when canvas<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (let ([frame (send
+canvas get-top-level-window)])<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (when (is-a?
+frame drscheme:unit:frame%)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(cond<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span>&nbsp;&nbsp; [(send (ivar frame definitions-canvas)
+has-focus?)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span>&nbsp;&nbsp;&nbsp; (send (ivar frame interactions-canvas)
+focus)]<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span>&nbsp;&nbsp; [else<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span>&nbsp;&nbsp;&nbsp; (send (ivar frame definitions-canvas)
+focus)]))))))))<br>
+&gt;&nbsp;&nbsp; (send drs-bindings-keymap map-function<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&quot;c:x;o&quot;<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&quot;toggle-focus-between-definitions-and-in<span
+></span>teractions&quot;)<br>
+&gt;&nbsp;&nbsp;<br>
+&gt;&nbsp;&nbsp; (define (drs-bindings-keymap-mixin editor%)<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; (class editor% args<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (rename [super-get-keymaps
+get-keymaps])<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (override<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; [get-keymaps<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (lambda
+()<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+></span>&nbsp; (cons drs-bindings-keymap (super-get-keymaps)))])<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (sequence (apply super-init
+args))))<br>
+&gt;&nbsp;&nbsp;<br>
+</font><font color="#A04000">2302c2329,2332<br>
+</font><font color="#FF0000">&lt;&nbsp;&nbsp; (define text%
+(make-text% (make-console-text% fw:scheme:text%))))<br>
+</font><font color="#A04000">---<br>
+</font><font color="#0000FF">&gt;&nbsp;&nbsp; (define text%<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp; (drs-bindings-keymap-mixin<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (make-text%<br>
+&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (make-console-text%
+fw:scheme:text%)))))<br>
+</font><font color="#A04000">Index: unit.ss<br>
+=========================================<span
+></span>==========================<br>
+RCS file: /home/scheme/Archives/CVSRoot/plt/collec<span
+></span>ts/drscheme/unit.ss,v<br>
+retrieving revision 1.176</font></tt></div>
+<div><tt><font color="#A04000">diff -r1.176 unit.ss</font></tt></div>
+<div><tt><font color="#A04000">260c260,261<br>
+</font><font color="#FF0000">&lt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+fw:text:info%)))<br>
+</font><font color="#A04000">---<br>
+</font><font color="#0000FF">&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(drscheme:rep:drs-bindings-keymap-mixin</font></tt></div>
+<div><tt><font
+color="#0000FF">&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+fw:text:info%))))</font></tt></div>
+
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00547" href="msg00547.html">keyboard shortcut</a></strong>
+<ul><li><em>From:</em> Kevin Michael Matulef &lt;kmmatule@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="00548" href="msg00548.html">Re: keyboard shortcut</a></strong>
+<ul><li><em>From:</em> Robert Bruce Findler &lt;robby@cs.rice.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00548.html">Re: keyboard shortcut</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00550.html">Re: Specialized input parsing for code/REPL in DrScheme?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00548.html">Re: keyboard shortcut</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00551.html">103d100</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00549"><strong>Date</strong></a></li>
+<li><a href="threads.html#00549"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

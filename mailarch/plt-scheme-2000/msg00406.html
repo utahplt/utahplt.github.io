@@ -1,0 +1,120 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: process* in MSDOS (Win 95) ? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 25 Jul 2000 16:31:09 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20000725223105.LRHG21972.mail.rdc1.sfba.home.com@localhost -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200007251851.MAA24233@fast.cs.utah.edu -->
+<!--X-Reference: 397DEAAF.4AF5@mastnet.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: process* in MSDOS (Win 95) ?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00405.html">Date Prev</a>][<a href="msg00407.html">Date Next</a>][<a href="msg00405.html">Thread Prev</a>][<a href="msg00408.html">Thread Next</a>][<a href="maillist.html#00406">Date Index</a>][<a href="threads.html#00406">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: process* in MSDOS (Win 95) ?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:jclonts@mastnet.net">jclonts@mastnet.net</A></li>
+<li><em>Subject</em>: Re: process* in MSDOS (Win 95) ?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Tue, 25 Jul 2000 15:31:05 -0700</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00405.html">397DEAAF.4AF5@mastnet.net</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00404.html">200007251851.MAA24233@fast.cs.utah.edu</a>&gt;	&lt;<a href="msg00405.html">397DEAAF.4AF5@mastnet.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting John Clonts:
+&gt; (define cmd &quot;d:\\djgpp\\johnsrc\\misc\\a.exe&quot;)
+&gt; (define ports (process* cmd))
+&gt; (define (status) ((list-ref ports 4) 'status))
+&gt; (define (readnext)(read (car ports)))
+&gt; 
+&gt; &gt; (status)
+&gt; done-ok
+&gt; &gt; (readnext)
+&gt; #&lt;eof&gt;
+&gt; 
+&gt; 
+&gt; (My a.exe writes &quot;hello\nworld&quot; to stdout).
+&gt; 
+&gt; Is this a limitation, bug, or am I misusing this facility in some way?
+
+It should have worked.
+
+a.exe flushes its output before exiting, right? (Of course, if it's a C
+program using stdout, then the C library would take care of that.)
+
+Otherwise, I'm out of ideas. Certainly it works for me in 102, and I'm
+farily certain it worked in 101.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00408" href="msg00408.html">Re: process* in MSDOS (Win 95) ?</a></strong>
+<ul><li><em>From:</em> John Clonts &lt;jclonts@mastnet.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00404" href="msg00404.html">I/O bugs</a></strong>
+<ul><li><em>From:</em> Matthew Flatt &lt;mflatt@cs.utah.edu&gt;</li></ul></li>
+<li><strong><a name="00405" href="msg00405.html">process* in MSDOS (Win 95) ?</a></strong>
+<ul><li><em>From:</em> John Clonts &lt;jclonts@mastnet.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00405.html">process* in MSDOS (Win 95) ?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00407.html">process* in MSDOS (Win 95) ?</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00405.html">process* in MSDOS (Win 95) ?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00408.html">Re: process* in MSDOS (Win 95) ?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00406"><strong>Date</strong></a></li>
+<li><a href="threads.html#00406"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

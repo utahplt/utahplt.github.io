@@ -1,0 +1,159 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: good books on scheme? -->
+<!--X-From-R13: [vpunry Pbtbzbyal <obtbNovtsbbg.pbz> -->
+<!--X-Date: Tue, 6 Feb 2001 08:55:43 &#45;0700 (MST) -->
+<!--X-Message-Id: 20010206095539.D16151@cs.utexas.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 26086.981457140@www19.gmx.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: good books on scheme?</title>
+<link rev="made" href="mailto:bogo@bigfoot.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00222.html">Date Prev</a>][<a href="msg00224.html">Date Next</a>][<a href="msg00222.html">Thread Prev</a>][<a href="msg00225.html">Thread Next</a>][<a href="maillist.html#00223">Date Index</a>][<a href="threads.html#00223">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: good books on scheme?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Tim Hanson &lt;<A HREF="mailto:tbhanson@gmx.de">tbhanson@gmx.de</A>&gt;</li>
+<li><em>Subject</em>: Re: good books on scheme?</li>
+<li><em>From</em>: Michael Bogomolny &lt;<A HREF="mailto:bogo@bigfoot.com">bogo@bigfoot.com</A>&gt;</li>
+<li><em>Date</em>: Tue, 6 Feb 2001 09:55:39 -0600</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00221.html">26086.981457140@www19.gmx.net</a>&gt;; from tbhanson@gmx.de on Tue, Feb 06, 2001 at 11:59:00AM +0100</li>
+<li><em>References</em>: &lt;<a href="msg00221.html">26086.981457140@www19.gmx.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.2.4i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+a lambda expression (i.e. a procedure definition) returns a *closure*,
+capturing the environment in which it was defined so that it can
+execute in that environment when called.
+
+example:
+(define (make-counter)
+  (let ((x 0))
+     (lambda () 
+        (set! x (add1 x))
+        x)))
+
+make-counter returns a procedure that, when called, increments the
+value of its local variable x each time. Several procedures can be
+defined using make-counter, but each one has access to its own local
+x.
+
+&gt; (define counter1 (make-counter))
+&gt; (define counter1 (make-counter))
+&gt; (counter1)
+1
+&gt; (counter1)
+2
+&gt; (counter2)
+1
+&gt; (counter1)
+3
+
+
+if you like &quot;The Little Schemer&quot; you should probably check out
+&quot;essentials of programming languages&quot; by Daniel Friedman, Mitchell Wand, and
+Christopher Haynes. A new edition was just released by MIT Press. I
+haven't had a chance to evaluate it yet, though, so I can't comment on
+it's quality.
+
+&gt;From a teaching perspective, Concrete Abstractions (Hailperin, Kaiser,
+Knight; Brooks/Cole Publishing Company) and Simply Scheme (Harvey and
+Wright; MIT Press) are both good books. However, they both fail the
+&quot;closure test&quot;. Interesting enough, Essentials of Programming
+Languages *does* have it listed, though.
+
+Also failing the &quot;closure test&quot; is the r5rs standards!
+
+-bogo
+
+
+On Feb 06, 2001 11:59, Tim Hanson wrote:
+| hi, I read SICP a number of years ago and was mostly delighted, in stark
+| contrast to a number of unimpressed reviewers cited in this space in the past
+| couple weeks! :)
+| 
+| my scheme skills, however, have atrophied considerably in the past few
+| years, during which time I've been paid to do more &quot;scripting&quot; using ksh, awk,
+| perl, and more recently MS's &quot;windows script host&quot; and &quot;active server pages.&quot;
+| 
+| i tried to follow a recent discussion which mentioned tail recursion and
+| closures. i remember tail recursion from SICP, but had forgotten what a closure
+| is and I didn't find it in the index of my old copy (nor in the index of &quot;the
+| little schemer&quot;, the only other book on scheme I have. ah, wait! the latter
+| has &quot;apply-closure&quot; and I find what I wanted to know: a closure is &quot;a
+| non-primitive function&quot;?)
+| 
+| i was going to ask: can folks recommend good books on scheme, including ones
+| that define &quot;closure.&quot; i guess I can still ask that and can also appeal to
+| the authors among you to include it in the index in your next editions! :)
+| 
+| cheers,
+| 
+| Tim Hanson
+| 
+| -- 
+| Sent through GMX FreeMail - <A  HREF="http://www.gmx.net">http://www.gmx.net</A>
+| 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00221" href="msg00221.html">good books on scheme?</a></strong>
+<ul><li><em>From:</em> Tim Hanson &lt;tbhanson@gmx.de&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00222.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00224.html">Re: programming languages as a core topic</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00222.html">Re: good books on scheme?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00225.html">RE: good books on scheme?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00223"><strong>Date</strong></a></li>
+<li><a href="threads.html#00223"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: [Q] How to do Simple Port&#45;Based Input&#45;Process&#45;Output? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Fri, 28 Dec 2001 05:59:11 &#45;0700 (MST) -->
+<!--X-Message-Id: 200112281259.fBSCx3n19775@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200112281239.FAA01807@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: [Q] How to do Simple Port-Based Input-Process-Output?</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01440.html">Date Prev</a>][<a href="msg01442.html">Date Next</a>][<a href="msg01440.html">Thread Prev</a>][<a href="msg01443.html">Thread Next</a>][<a href="maillist.html#01441">Date Index</a>][<a href="threads.html#01441">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: [Q] How to do Simple Port-Based Input-Process-Output?</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Dave Duchesneau&quot; &lt;<A HREF="mailto:daveduchesneau@scrutiny.com">daveduchesneau@scrutiny.com</A>&gt;</li>
+<li><em>Subject</em>: Re: [Q] How to do Simple Port-Based Input-Process-Output?</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 28 Dec 2001 05:59:04 -0700 (MST)</li>
+<li><em>CC</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01440.html">200112281239.FAA01807@fast.cs.utah.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01440.html">200112281239.FAA01807@fast.cs.utah.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting &quot;Dave Duchesneau&quot;:
+&gt; Assuming that I want to do the processing portion of the following 
+&gt; sequence in Scheme, is there a standard idiom for doing the I/O portion
+&gt; of sequence in Scheme also?
+
+I think you're looking for `tcp-listen', `tcp-accept', and
+`tcp-connect'. See the MzScheme manual for details.
+
+As an example, here's a simple server-running function:
+
+ (define (run-simple-server port-number session-proc)
+  (let ([l (tcp-listen port-number)])
+    (let loop ()
+      (let-values ([(in out) (tcp-accept l)])
+        ;; read from `in', write to `out'
+        (session-proc in out)
+        
+        (close-input-port in)
+        (close-output-port out)
+        (loop)))))
+
+And here's a use:
+
+ ;; A &quot;hello&quot; server on 40001
+ (run-simple-server 40001 (lambda (in out)
+                           (let ([name (read in)])
+                             (display &quot;Hello &quot; out)
+                             (display name out)
+                             (newline out))))
+                             
+
+In version 200, MzLib provides a more sophisticated `run-server'
+procedure that handles each session in its own thread (so multiple
+sessions can be active), gracefully deals with exceptions, prevents
+resource leaks, and supports session timeouts. The implementation is
+four times as long, included below.
+
+Matthew
+
+----------------------------------------
+
+  (define (run-server port-number handler connection-timeout)
+    (let ([l (tcp-listen port-number)]
+	  [can-break? (break-enabled)])
+      (dynamic-wind
+       void
+       (lambda ()
+         ;; loop to handle connections
+         (let loop ()
+           (with-handlers ([not-break-exn? void])
+             ;; Make a custodian for the next session:
+             (let ([c (make-custodian)])
+               (parameterize ([current-custodian c])
+                 ;; disable breaks during session set-up...
+                 (parameterize ([break-enabled #f])
+                   ;; ... but enable breaks while blocked on an accept:
+                   (let-values ([(r w) ((if can-break?
+                                            tcp-accept/enable-break
+                                            tcp-accept)
+                                        l)])
+                     ;; Handler thread:
+                     (let ([t (thread (lambda () 
+                                        (when can-break?
+                                          (break-enabled #t))
+                                        (handler r w)))])
+                       ;; Clean-up and timeout thread:
+                       (thread (lambda () 
+                                 (object-wait-multiple connection-timeout t)
+                                 (when (thread-running? t)
+                                   ;; Only happens if timeout is not #f
+                                   (break-thread t))
+                                 (object-wait-multiple connection-timeout t)
+                                 (custodian-shutdown-all c)))))))))
+           (loop)))
+       (lambda () (tcp-close l))))))
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01443" href="msg01443.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+<ul><li><em>From:</em> Shriram Krishnamurthi &lt;sk@cs.brown.edu&gt;</li></ul></li>
+<li><strong><a name="01446" href="msg01446.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+<ul><li><em>From:</em> &quot;Dave Duchesneau&quot; &lt;dave@scrutiny.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01440" href="msg01440.html">[Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+<ul><li><em>From:</em> &quot;Dave Duchesneau&quot; &lt;daveduchesneau@scrutiny.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01440.html">[Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01442.html">Re: module questions</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01440.html">[Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01443.html">Re: [Q] How to do Simple Port-Based Input-Process-Output?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01441"><strong>Date</strong></a></li>
+<li><a href="threads.html#01441"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

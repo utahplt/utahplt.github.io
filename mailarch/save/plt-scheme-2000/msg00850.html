@@ -1,0 +1,626 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Specialized input parsing for code/REPL in DrScheme? -->
+<!--X-From-R13: Bnhy Treaubhg <cqsreaubhgNxhegm&#45;sreaubhg.pbz> -->
+<!--X-Date: Fri, 11 Aug 2000 09:16:17 &#45;0600 (MDT) -->
+<!--X-Message-Id: 39941A13.6D8A8121@kurtz&#45;fernhout.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 399207D9.5F451CC@kurtz&#45;fernhout.com -->
+<!--X-Reference: 14738.52293.108392.678928@sun.cs.rice.edu -->
+<!--X-Reference: p0432040bb5b9409f540a@[128.42.178.240] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Specialized input parsing for code/REPL in DrScheme?</TITLE>
+<LINK REV="made" HREF="mailto:pdfernhout@kurtz-fernhout.com">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00849.html">Date Prev</A>][<A HREF="msg00851.html">Date Next</A>][<A HREF="msg00846.html">Thread Prev</A>][<A HREF="msg00853.html">Thread Next</A>][<A HREF="maillist.html#00850">Date Index</A>][<A HREF="threads.html#00850">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Specialized input parsing for code/REPL in DrScheme?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: John Clements &lt;<A HREF="mailto:clements@cs.rice.edu">clements@cs.rice.edu</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Specialized input parsing for code/REPL in DrScheme?</LI>
+<LI><em>From</em>: Paul Fernhout &lt;<A HREF="mailto:pdfernhout@kurtz%2Dfernhout.com">pdfernhout@kurtz-fernhout.com</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 11 Aug 2000 11:21:55 -0400</LI>
+<LI><em>CC</em>: <A HREF="mailto:shriram@cs.rice.edu">shriram@cs.rice.edu</A>, <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>Organization</em>: Kurtz-Fernhout Software</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00834.html">399207D9.5F451CC@kurtz-fernhout.com</A>&gt; &lt;<A HREF="msg00838.html">14738.52293.108392.678928@sun.cs.rice.edu</A>&gt; &lt;<A HREF="msg00846.html">p0432040bb5b9409f540a@[128.42.178.240]</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+John, Shriram-
+
+Thanks for the comment and interest in the indentational approach.
+
+Trying not to overstep Shriram's kind interest in the outcome, I would
+certainly love to see any comments related to actually getting DrScheme
+to support such a syntax, or comments based specifically on whether
+syntactically significant syntax is appropriate or inappropriate as an
+alternative or companion from TeachScheme! experience.
+
+However, while I would enjoy continuing to discuss the pros and cons of
+this approach, it is not my intent to bog the PLT-Scheme list down in a
+long discussion of why indentaional syntax might be a good or bad idea.
+There are 90+ comments or so on comp.lang.lisp if anyone is interested
+in a more in depth discussion of all the reasons Lisp developers might
+not want to use indentation (and my rebuttals on some of these points).
+
+The discussion is also available through dejaNews:
+<A  HREF="http://x66.deja.com/viewthread.xp?AN=656209628.4&amp;search=thread&amp;svcclass=dncurrent&amp;ST=PS&amp;CONTEXT=965870095.884932614&amp;HIT_CONTEXT=965870095.884932614&amp;HIT_NUM=1&amp;recnum=%3c3990E003.6EE78131@kurtz-fernhout.com%3e%234/4&amp;group=comp.lang.lisp&amp;frpage=viewthread.xp&amp;back=clarinet">http://x66.deja.com/viewthread.xp?AN=656209628.4&amp;search=thread&amp;svcclass=dncurrent&amp;ST=PS&amp;CONTEXT=965870095.884932614&amp;HIT_CONTEXT=965870095.884932614&amp;HIT_NUM=1&amp;recnum=%3c3990E003.6EE78131@kurtz-fernhout.com%3e%234/4&amp;group=comp.lang.lisp&amp;frpage=viewthread.xp&amp;back=clarinet</A>
+
+Anyway to address the specific points John and Shriram brought up, in a
+DrScheme context:
+
+John Clements wrote:
+&gt; At 10:41 -0500 2000-08-10, Shriram Krishnamurthi wrote:
+&gt; &gt;There have been lots of efforts to create "less parenthesized"
+&gt; &gt;Schemes.  (Rob Warnock, who should be on this list, made a valiant
+&gt; &gt;attempt not very long ago.)  Most die painful deaths.  I don't,
+&gt; &gt;however, know that anyone has gone down the indentation-is-significant
+&gt; &gt;route.  I'm certainly interested in seeing the results.
+
+Thanks, Shriram! 
+
+I actually am surprised no one seems to have tried a purely
+indentational approach with Lisp family languages, based on the
+comp.lang.lisp feedback. 
+
+Several people assumed (incorrectly, probably due to a lack of clarity
+on my part) that I was proposing creating an Algol-like syntax or
+assumed I want to change the deep structure of the language (perhaps
+differentiating between code and data) -- neither is the case. 
+
+I see this proposal more as just a new typographical convention for
+defining S-expressions. This is done in a way that may have less visual
+clutter from parentheses at the "edges" of lines. I'm still not sure
+whether this approach will work in practice, although so far no one has
+given me a specific example of an S-expression I can't encode. (Please
+send one if you find it.)
+
+Obviously, if you look at the comp.lang.lisp posts related to this
+thread, whether Lisp developers would want to use such a typographic
+convention is a subject of strong feelings (currently overwhelmingly
+negative). However, naturally the comp.lang.lisp group is in part
+self-selected to feel this way. What I mean by that is that people who
+don't like or can't get used to consistent use of parentheses would not
+stay Lisp developers for very long or be likely to hang around
+comp.lang.lisp. (I don't know what percentage of users that might be of
+the people who try to learn Lisp -- it might well be very tiny.
+Obviously TeachScheme! is meeting with great success.) It does seem
+clear that most if not all Lisp developers feel the parentheses clutter
+"melts away" sometime after sufficient familiarity, and the consistency
+provides great benefits, and they also feel that any parentheses
+managment difficulties are easily managed by a smart editor like emacs
+(or DrScheme!). 
+
+Thus, Lisp developers don't like people complaining about all the
+parentheses, and are even tired of saying "newbie, get over it". :-) And
+the truth is, I can't deny I am a Lisp newbie, in the sense that I've
+used Lisp syntax dialects for maybe a total of three or four
+person-months, spread out over perhaps twenty years (each time being for
+only a few weeks, including my current go round).
+
+It is a very different question though to ask, for example, if novices
+would feel the same way as experienced Lisp developers do, given a
+choice of the two alternatives. Another different question is whether
+such a convention might make Lisp family languages more attractive, for
+example, to Python developers. For the record, a couple of people who
+used both Python and Lisp said they wouldn't like indentational syntax
+in Lisp. There are of course deeper issues than parentheses when people
+consider using other languages if they know one or more already, and
+issues deeper still when someone learns to program for the first time.
+
+I think one key issue is, can one separate the other features of Lisp or
+Scheme (in practice) from the typographical convention of full
+parenthesization with redundant indentation, or is the ability to parse
+text that is properly parenthesized somehow extremely essential to the
+language's versatility (in such a way that an alternative could not as
+well be supported) and also essential to the user's enjoyable experience
+and long term productive use of the language? At the very least,
+removing some parentheses and keeping everything else the same might
+help create an experiment where the impact of parentheses as a
+structure-defining convention could be better understood.
+ 
+John Clements also wrote:
+&gt; I agree that this is an interesting project, and I'm quite sure that
+&gt; what you're describing could be done entirely in Scheme.
+
+Thanks, John! I'd love to do all the parsing in Scheme, and ideally then
+hook it into DrScheme smoothly.
+
+&gt; On the other hand, I'm really puzzled by the project itself.  
+
+OK. 
+
+It's not even quite a "project" yet. I'm still trying to determine how
+much work the implementation would be in DrScheme, and then after that,
+whether it is worth it to try it as an experiment for my own personal
+use. But in practice, I may just try a simple parser first, before
+worrying about the hookup.
+
+I think it would be a fun thing to try, but I've actually got a lot
+other things I want to work on (actually using DrScheme or such), so I'm
+leery of getting too bogged down in this parentheses/indentation issue
+too far (especially if I can't be certain that the approach would have a
+future). It's already taken a couple days of work just to keep up with
+the comp.lang.lisp discussion. Of course, if I've already invested that
+much time...
+
+&gt; Here are what I see as the benefits of such a parser:
+&gt; 
+&gt; 1) easier on the eyes (for the "parenthetically challenged").
+&gt; 
+&gt; 2) makes Scheme more terse.
+&gt; 
+&gt; 3) spares the "9" and "0" keys on your keyboard.
+
+And, one could also include:
+  
+  4) structure of the nested S-expressions is always transparent.
+
+&gt; Rebuttals to benefits:
+&gt; 
+&gt; 1) The eyes get used to the parentheses.
+&gt; 
+&gt; 2) Goodness, Scheme is already extremely terse.
+&gt; 
+&gt; 3) ... key remapping?
+
+And one could also include:
+
+  4) This convention might wreak havoc on the Lisp and Scheme
+communities (from new buggy editors, flame wars,
+parenthetically-dyslexic indentational S-expression developers, etc.)
+that could greatly outweigh whatever benefits it might provide. 
+
+Counter rebuttals:
+
+1) How long does it take for the eye to get used to lots of parentheses?
+Does everyone get used to them in the end? How intimidating are they at
+the start? From what I read on newsgroups and elsewhere, and personal
+experience, the visual clutter produced by using parentheses exclusively
+to define structure obviously is an "adoption barrier" for many users
+preventing them from even going down the road where they might get past
+this. The fact that it may be a common complaint is an issue, whether it
+is a justified complaint or not (which is a different issue). There is
+truth that the phrase "Lots of Infernal Stupid Parentheses" reflects
+many people's opinions on Lisp family languages (whether justified or
+not) which prevents them from trying Lisp or Scheme. Obviously, and in
+case your sponsors are on this list, :-) all languages have tradeoffs.
+So I find it quite acceptable for one to admit Lisp family languages
+have issues with managing lots of parentheses (which ultimately just
+reflect defining a nested structure, where defining structure itself is
+absolutely required as part of almost any programming task), and at the
+same time not find it inconsistent for one also to believe other
+benefits can outweigh the costs and initial discomforts related to only
+using parentheses (and braces, and brackets) to define structure, given
+that other languages (C++, Pascal, Smalltalk, Python, etc.) have their
+own costs which might outweigh that of Scheme's in various settings
+(especially educational ones).
+
+Speaking in terms of psycho-physiology, it is hard to tell the
+difference between, for example, two or three parens, thus "))" is
+difficult to distinguish between ")))", where it is easier to
+distinguish the difference between ")" and " " (a difference much more
+common when edge parentheses are removed using an indentational
+syntax).  If one did some sort of physiological studies on this issue,
+one might find out (guessing here) that something like "))))))"
+stimulates pretty much the same mental pathways at nearly the same
+frequency as ")))))))" (compared to either having a paren or not having
+a paren). Thus, a Lisp program for a novice is from a perceptual point
+of view filled with large chunks of high frequency "noise" that are not
+readily distinguishable (except by conscious effort, or eventually
+unconsciously only after significant experience leads to such items
+being unconsciously "chunked"). Again, as a disclaimer, just because I
+think Lisp or Scheme might have this weakness, this does not mean I
+think that the benefits of consistency don't outweigh this disadvantage
+greatly.
+
+2) Scheme is indeed terse, which is one reason I like it. But there is
+nothing wrong with making a great thing even better! 
+
+Of course other languages have unneeded characters as well to make
+parsing easier. For example, the required ":" in Python annoys me
+greatly, as do the unneeded "." operators.
+
+For example, I would prefer in Python:
+
+  for anObject in anArray
+    print anObject name()
+
+as opposed to what you really need to do of:
+
+  for anObject in anArray:
+    print anObject.name()
+
+With Scheme and this indentational syntax, I could in theory write:
+
+  for-in anObject anArray
+    print
+      send anObject name
+
+which I find elegant. Obviously, I'm biased.
+
+3) For a person who works in several environments (DrScheme, Netscape,
+VC++), key remapping can impose an additional cognitive load on each
+task. That is, in each task I will have to ask myself, for example, is
+this key a bracket or a paren?
+
+4) Obviously one wants to avoid flame wars at all costs, but maybe the
+smoke from all the carnage might attract more curious users to Lisp and
+Scheme from other newsgroups. :-) Realistically though, the commonality
+of the Lisp family syntax is a great unifier, (as is the large common
+base of debugged code related to parsing such syntax), and I think
+fracturing this commonality is the strongest argument against
+introducing a typographic variant unless it has very compelling
+advantages and can coexist with the existing typographic convention.
+
+&gt; Disadvantages:
+&gt; 
+&gt; 1) Currently, the tabbing, as a derived piece of information, serves
+&gt; as extremely valuable syntax-debugging info.  Who among us has not
+&gt; hit (TAB) in emacs and discovered a missing ), }, or what have you.
+&gt; Your scheme would remove that environmental feedback.
+
+True. However, you would rarely have a missing ")", so I think this
+point may be not that important. Actually, you would never have a
+missing ")", except related to embedded S-expressions using a more
+conventional syntax.  
+
+Example of an improperly structured expression missing a paren:
+
+  define (square x        ; this line is wrong and missing a paren
+    * x x
+
+instead of the correct:
+
+  define (square x)
+    * x x
+
+However, I would think these sort of "convenience paren" problems would
+be more apparent using an indentational syntax than is the case with the
+syntax Scheme uses now. 
+
+The current parser I'm considering would default to conventional Scheme
+parsing rules as soon as it sees a paren for the duration of the
+expression until a close paren (if this will work -- I'm not 100% sure
+it will be completely compatible). So, it is true it might make for an
+unexpected error message in the first unbalanced case, especially if you
+had another unbalanced paren ")" somewhere else in the code.  However,
+taking an idea from DrScheme, an indentational language level for
+novices might disallow parenthesized expressions that span more than one
+line, and thus at least contain the error and make it easy to provide a
+meaningful recovery suggestion.
+
+If one wanted to be a purist, this example requires no parens, and the
+problem you outlined could not appear:
+
+  define 
+    square x
+    * x x
+
+Obviously, the form could be improperly indented. However, then it would
+still be a valid set of S-expressions -- just not the one you probably
+want. 
+
+For example:
+
+  define 
+    square x
+  * x x
+
+defines two top level S-expressions:
+
+  (define (square x))
+
+and:
+
+  (* x x)
+
+This is valid, but probably not what is intended. DrScheme would
+probably catch the error as "x" referring to an undefined variable.
+
+&gt; 2) I'm really not sure it saves a lot of keystrokes. Let's say that
+&gt; you have an editor that by default begins a line in the same column
+&gt; as the prior one.  Let's further assume, for the programmer's
+&gt; convenience, that there are some kind of indent and unindent keys
+&gt; that jump left or right to line up with later columns (this saves the
+&gt; programmer having to hit the delet^H^H^H^H^Hbackspace key all the
+&gt; time).  What's the net effect? Well, you save exactly one keystroke
+&gt; on every line that would have ended with close-parens matching
+&gt; opening ones on the same line.  On the other hand, you incur one
+&gt; extra keystroke for every line which would have had open parens which
+&gt; were not closed.
+
+Keystoke counting is almsot a "red herring", and I'm sorry I mentioned
+it in my original proposal. I like the fact that I might enter less, but
+I would enter more keystrokes if I thought the result would be clearer.
+Fortunately, it turns out that unneeded keystokes are mostly always
+related to unneeded "syntactical sugar". In a way, I am arguing that
+"edge parentheses", that is, parentheses on the edges of lines in
+S-expressions, are "syntactical sugar" in Lisp and Scheme when
+indentation is significant. However, as true as it may be that the
+computer can understand a complete S-expression all in one line, a human
+can't. Thus "indentation" is actually not "syntactical sugar" as far as
+any sort of useability.
+
+Well, I haven't counted all the keystrokes.  I know in practice I do a
+lot of hand indenting as well a hand block structures. I guess I've just
+been through too many systems to learn the quirks anymore of any
+particular one. For example, I learned emacs around 1986, but then did
+other things and had to live with an editor on the SGI IRIS called "AME:
+A mouse Editor" that didn't do much, etc. In 1987, I was on a Symbolics
+for a few glorious weeks, but then onto Turbo C. Then after that, lots
+of other editors. Obviously, times have changed since then, but I'm
+still leery of investing heavily in learning editor key bindings
+(especially at the start). 
+
+So given that I type everything by hand (and assuming auto-indenting to
+the last line), it is quite a few less keystrokes less to not type edge
+parentheses -- I'd say an average of two per line. But the bigger issue
+is that it is a lot less mouse motion or cursoring to get to where I can
+type the extra parens on the end of a line for a complex expression
+after I inspect my work and see it is unbalanced. That is a big savings
+to me. So is the time spent inspecting my work looking for paren
+problems, which I no longer have to do to the same degree.
+
+Obviously, if I were experienced in using a good Lisp/Scheme aware
+editor (say if I learned the DrScheme key bindings), and I properly used
+it, the number of keystrokes saved might be minimal, as you point out.
+On comp.lang.lisp, numerous people pointed out the ease of doing
+S-expression management operations in emacs, and expressed concern about
+losing that ability in an indentational syntax.
+
+So then the question is, for novices who don't know editor key bindings,
+would an indentational approach save them a lot of typing and
+parentheses analysis time? I would think yes. Mind you, this may not be
+an important enough concern, given the elegance and consistency of the
+parentheses. It might actually be harder to teach the indentational
+style. I don't know one way or the other. Also, naturally, such novices
+might not then learn the keystroke concepts needed for using something
+like emacs effectively.
+
+Without violating student's privacy of course, it would be nice to have
+actual keystroke data from DrScheme to see how students are really using
+the editor. This could help answer questions like: do students use
+advanced keystrokes or do they format by hand? Or, when in the semester
+do they switch over to using more advanced editing features if they do?
+This empirical data would be especially useful in a research study
+comparing the keystrokes used in practice by novices to create
+S-expressions solely with parens (and indenting for readability), and
+S-expressions created using syntactically significant indentation.
+Obviously, there are endless problems with privacy and related fears
+created by keystroke monitoring, so this is a touchy subject that would
+have to undergo review and oversight if used in the classroom, as well
+as informed consent. Quite likely instructors might be able to answer
+these questions without instrumentation based on casual observation of
+students in a computer lab setting.
+
+&gt; In other words, you save a whole bunch of keystrokes if your program
+&gt; contains a long sequence of one-line expressions.  On the other hand,
+&gt; a more functional style of programming would be penalized by this
+&gt; parser. I'd like to think that my programs tend to fall into the
+&gt; latter category.
+
+This is an excellent point. I don't know Scheme well enough, and haven't
+used it long enough, to be writing code the way an experienced Scheme
+developer would. So, it is quite possible that indentational syntax
+might have less value to me if I did. I hadn't thought of this in quite
+this way (functional vs. procedural), and thanks for pointing this out.
+
+However, to understand whether there is really a difference, let's look
+at a more complex example, taken from Shriram Krishnamurthi's "An
+Introduction to Scheme" ACM article.
+  <A  HREF="http://www.acm.org/crossroads/xrds1-2/scheme.html">http://www.acm.org/crossroads/xrds1-2/scheme.html</A>
+
+Here is the longest expression in there, which at least uses a function
+as a parameter:
+
+  (define filter
+    (function (list-of-grades predicate?)
+      (if (empty? list-of-grades)
+        empty
+        (let ((first-grade (first list-of-grades)))
+          (if (predicate? first-grade)
+            (join first-grade (partition (rest list-of-grades)))
+            (partition (rest list-of-grades)))))))
+
+  (filter grades (function (grade) (&gt; grade 50)))
+
+Using indentational syntax, and leaving some parens for aesthetics, this
+would be:
+
+  define filter
+    function (list-of-grades predicate?)
+      if (empty? list-of-grades)
+        empty
+        let 
+          ...
+            first-grade (first list-of-grades)
+          if (predicate? first-grade)
+            join first-grade (partition (rest list-of-grades))
+            partition (rest list-of-grades)
+
+  filter grades (function (grade) (&gt; grade 50))
+
+A more purist approach of removing all parens would look produce:
+
+  define filter
+    function
+      list-of-grades predicate?
+      if  
+        empty? list-of-grades
+        empty
+        let 
+          ...
+            first-grade 
+              first list-of-grades
+          if 
+            predicate? first-grade
+            join 
+              first-grade
+              partition
+                rest list-of-grades
+            partition
+              rest list-of-grades
+
+  filter grades
+    function
+      grade
+      &gt; grade 50
+
+[Note that in the ACM paper, "function" is used instead of "lambada",
+plus some other exchanges.]
+
+If you have a better example that is more along functional lines you
+would like me to look at, please send it on.
+ 
+&gt; 3) In your parser, it's a lot harder to navigate with sexp-forward
+&gt; and sexp-back and sexp-cut keys.  Once you have these keys under your
+&gt; belt, it's hard to live without them.   For one thing, an edit
+&gt; sequence which contains nothing but these keys (+ paste) is
+&gt; guaranteed to take a balanced s-expression to a balanced
+&gt; s-expression. In order to supply these in your editor, the editor
+&gt; itself would have to do a whole lot of work.
+
+Obviously, I don't have a parser or an editor so I am not sure exactly
+what they could do. However, it would seem to me that one could easily
+navigate the same way in indented S-expressions. Forward just goes down
+to the next expression that starts at the same level of indentation.
+Backward goes up through the file to the same level of indentation.
+Jumping into an S-expression means moving indentationally to the right.
+Jumping out of an S-expression means moving indentationally to the left.
+Selecting an S-expression means selecting the current line and all lines
+below up to the first line that has indentation equal to or less than
+the current amount. This all should be easy to implement. The only big
+difficulty would actually be getting this to interoperate with legacy
+parenthesized expressions left in for aesthetic reasons.  
+ 
+&gt; In short, I guess I think it's a bad idea.  It's funny; the classic
+&gt; computer science mantra is "don't make the user do work that the
+&gt; computer could do for you", and yet in the syntax department, Scheme
+&gt; refutes that principle utterly.  However, I think it's the richer for
+&gt; it.
+&gt; 
+&gt; Anyhow, that's the way I (biased as heck) see it.
+&gt; 
+&gt; john clements
+
+Thanks for the comments. I myself am not sure that in practice this will
+be useful either.
+
+&gt; ps: How about this for an alternate editor idea: twist-up/down
+&gt; triangles that show or hide whole s-exp tree branches?  Frontier and
+&gt; the Mac OS (and just about every other file manager and outline
+&gt; editor on the planet) use this idea.  This could make it easier to
+&gt; navigate and edit large blocks of scheme code.
+
+That is a quite interesting idea. 
+
+It could also work in conjunction with the indentational approach.
+Actually, I realized, staring at ~90 threaded newsgroup postings in
+comp.lang.lisp on this thread in Netscape, arranged in a collapsible
+hierarchy without parentheses, how ironic it was that all the Lisp
+developers posting about the difficulty of perceiving nested structure
+in Lisp without parentheses were in all likelihood fluidly using a tree
+widget in the mailer to follow the discussion.
+
+Occam uses indentational syntax and was where I first encountered
+syntactically significant indentation (nice pun by the way Shriram!).
+The Occam editor I used supported folding -- however it wasn't
+implemented well in the version I use (around 1987). That is, you could
+fold something but it forgot the sub folds. Also, I remember there being
+another issue, perhaps it didn't handled comments as well as one would
+like? That is, if you fold a "SEQ" sequence expression, how do you know
+what it does if the comment is below? Ideally, you want to tag these
+expressions with their intent or other related documentation, and see
+some of that when something is folded (perhaps rather than the
+expression itself).
+
+So, of course the real issue then in the DrScheme context, how easy is
+it to add a hierarchical tree editor window to DrScheme? (Back to
+looking at the Tools manual I suppose.) Of course, people usually prefer
+to do freeform pastes in text, so the window might need to support both.
+An interesting challenge (thought I probably don't have time for that
+myself). 
+
+Of course, as I think of it, it might be that programming Scheme solely
+using a tree widget (supporting only sensible tree node cut and paste)
+might have an interesting feeling. Might be a useful learning tool for
+novices.
+
+Thanks again for the comments. 
+
+-Paul Fernhout
+Kurtz-Fernhout Software 
+=========================================================
+Developers of custom software and educational simulations
+Creators of the Garden with Insight(TM) garden simulator
+<A  HREF="http://www.kurtz-fernhout.com">http://www.kurtz-fernhout.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00853" HREF="msg00853.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paolo Amoroso &lt;amoroso@mclink.it&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00834" HREF="msg00834.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Paul Fernhout &lt;pdfernhout@kurtz-fernhout.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00838" HREF="msg00838.html">Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> Shriram Krishnamurthi &lt;shriram@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00846" HREF="msg00846.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+<UL><LI><EM>From:</EM> John Clements &lt;clements@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00849.html">Re: Documentation &amp; Help Desk suggestions</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00851.html">RE: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00846.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00853.html">Re: Specialized input parsing for code/REPL in DrScheme?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00850"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00850"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

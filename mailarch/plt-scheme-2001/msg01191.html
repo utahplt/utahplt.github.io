@@ -1,0 +1,135 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Problems with MacOS menu handling -->
+<!--X-From-R13: Xbua Qyrzragf <pyrzragfNoevapxreubss.bet> -->
+<!--X-Date: Thu, 8 Nov 2001 11:14:59 &#45;0700 (MST) -->
+<!--X-Message-Id: p05101000b8107bc3886e@[169.254.1.59] -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: a05100301b81004037ddc@[128.243.31.196] -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Problems with MacOS menu handling</title>
+<link rev="made" href="mailto:clements@brinckerhoff.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01190.html">Date Prev</a>][<a href="msg01192.html">Date Next</a>][<a href="msg01188.html">Thread Prev</a>][<a href="msg01190.html">Thread Next</a>][<a href="maillist.html#01191">Date Index</a>][<a href="threads.html#01191">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Problems with MacOS menu handling</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: Peter Lane &lt;<A HREF="mailto:pcl@psychology.nottingham.ac.uk">pcl@psychology.nottingham.ac.uk</A>&gt;, <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Re: Problems with MacOS menu handling</li>
+<li><em>From</em>: John Clements &lt;<A HREF="mailto:clements@brinckerhoff.org">clements@brinckerhoff.org</A>&gt;</li>
+<li><em>Date</em>: Thu, 8 Nov 2001 13:14:44 -0500</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01188.html">a05100301b81004037ddc@[128.243.31.196]</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg01188.html">a05100301b81004037ddc@[128.243.31.196]</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At 10:57 AM +0100 11/8/01, Peter Lane wrote:
+&gt;Dear list,
+&gt;
+&gt;I have some code for displaying a popup menu when the user 
+&gt;right-clicks within a canvas object.  This popup menu contains 
+&gt;simple selection choices ('save', 'close') and also a check box and 
+&gt;submenu. Although working as intended on the PC, the more complex 
+&gt;menu items don't transfer to the MacOS.  There are two problems.
+&gt;
+&gt;The first is with the checkable menu -- although the callback 
+&gt;procedure is called, the checkable item state is not changed by the 
+&gt;system.  Hence, the line (send e check ...) in the sample below:
+&gt;
+&gt;;; check item to determine whether the stages are displayed
+&gt;(make-object checkable-menu-item% &quot;Show stages&quot; my-popup
+&gt;    (lambda (e v)
+&gt;       ;; explicit change required on Mac only
+&gt;       (send e check (not (send e is-checked?)))
+&gt;       (set-show-stages! (send e is-checked?)) #f #f))
+&gt;
+&gt;Note, this problem also occurs if the checkable item is part of a 
+&gt;menu on the menu-bar.
+
+Can you submit a bug report on this?  This looks like a bug to me.
+
+&gt;The second problem is with the submenu -- although appearing on the 
+&gt;popup, the submenu does not appear.  The code I used is as below.
+&gt;
+&gt;;; create a sub-menu on popup for selecting type of automatic peaks
+&gt;(let ((peaks-menu (make-object menu% &quot;Show peaks&quot; my-popup #f)))
+&gt;    (make-object menu-item% &quot;No peaks&quot; peaks-menu
+&gt;       (lambda (e v) (clear-my-peaks)) #f #f)
+&gt;    (make-object menu-item% &quot;&gt;= 2 seconds&quot; peaks-menu
+&gt;       (lambda (e v) (set-my-peaks! (get-large-values (graph-points)))) #f #f)
+&gt;    (make-object menu-item% &quot;Local maxima&quot; peaks-menu
+&gt;       (lambda (e v) (set-my-peaks! (get-local-maxima (graph-points)))) #f #f))
+&gt;
+&gt;This problem is not present if the submenu is part of a menu on the menu-bar.
+&gt;
+&gt;I cannot see anything in the documentation specific to problems with 
+&gt;the MacOS interface to these functions.  Is this a bug, or do I need 
+&gt;to add something extra to the sub-menu code, like with the 
+&gt;checkable-menu-item?  I would guess the code handling selection of 
+&gt;these widgets is not being called on the Mac, although the callback 
+&gt;is -- the simple menu items work happily enough.
+
+This is a known bug.  I hope to have it fixed in version 200, though 
+nothing's certain at this point.
+
+john clements
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01188" href="msg01188.html">Problems with MacOS menu handling</a></strong>
+<ul><li><em>From:</em> Peter Lane &lt;pcl@psychology.nottingham.ac.uk&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01190.html">Full scheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01192.html">199d-final</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01188.html">Problems with MacOS menu handling</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01190.html">Full scheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01191"><strong>Date</strong></a></li>
+<li><a href="threads.html#01191"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

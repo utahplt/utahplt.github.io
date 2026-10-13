@@ -1,0 +1,141 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: srpersist -->
+<!--X-From-R13: Tenapvfpb Ebyfban <fbyfbanNnpz.bet> -->
+<!--X-Date: Mon, 8 Apr 2002 19:48:17 &#45;0600 (MDT) -->
+<!--X-Message-Id: 86d6x91w6p.fsf@csc01.fciencias.unam.mx -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.44.0204082102050.8853&#45;100000@denali.ccs.neu.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: srpersist</title>
+<link rev="made" href="mailto:solsona@acm.org">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00716.html">Date Prev</a>][<a href="msg00718.html">Date Next</a>][<a href="msg00716.html">Thread Prev</a>][<a href="msg00722.html">Thread Next</a>][<a href="maillist.html#00717">Date Index</a>][<a href="threads.html#00717">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: srpersist</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;<A HREF="mailto:dskippy@ccs.neu.edu">dskippy@ccs.neu.edu</A>&quot; &lt;<A HREF="mailto:dskippy@ccs.neu.edu">dskippy@ccs.neu.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: srpersist</li>
+<li><em>From</em>: Francisco Solsona &lt;<A HREF="mailto:solsona@acm.org">solsona@acm.org</A>&gt;</li>
+<li><em>Date</em>: Mon, 08 Apr 2002 20:45:50 -0500</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00716.html">Pine.GSO.4.44.0204082102050.8853-100000@denali.ccs.neu.edu</a>&gt; (&quot;dskippy@ccs.neu.edu&quot;'smessage of &quot;Mon, 8 Apr 2002 21:08:51 -0400 (EDT)&quot;)</li>
+<li><em>Mail-Copies-To</em>: nobody</li>
+<li><em>Organization</em>: Universidad Nacional Autónoma deMéxico</li>
+<li><em>References</em>: &lt;<a href="msg00716.html">Pine.GSO.4.44.0204082102050.8853-100000@denali.ccs.neu.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Gnus/5.090006 (Oort Gnus v0.06) XEmacs/21.1 (Cuyahoga Valley,i386--freebsd)</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+&quot;dskippy@ccs.neu.edu&quot; &lt;dskippy@ccs.neu.edu&gt; writes:
+
+&gt; INCDIR=/usr/local/include/mysql
+
+I'm pretty sure you also need to include `/usr/local/include', or the
+dir in which sql.h and friends live (you may use `locate sql.h' to
+find out).
+
+&gt; i looked at the line that includeds sql.h and the comments above it says
+&gt; something about microsoft ODBC. i'm not running ms odbc so thought these
+&gt; lines should be included inside the #ifdef WIN32 but they are not.
+
+No.  Any ODBC driver manager should provide those, and if you have
+installed one, they are somewhere in your file system.  SrPersist
+works like a charmed, the nasty part is getting the ODBC driver going.
+If the one you are using comes with a `make test', or a mechanism to
+ensure it is properly installed, and working, it won't hurt to give it
+a try.
+
+&gt; anyone know what gives?
+
+What flavor of Unix are you using? what ODBC driver? MyODBC, I
+suspect, what ODBC manager: iODBC, or unixODBC?
+
+Here's the start of a working Makefile for FreeBSD Current + MySQL
+3.23.47 + MyODBC 2.50.39 + iODBC 3.0.5 (everything out of the box,
+port installed):
+
+,--------------------
+| # change to ODBC version supported by driver manager                           
+| ODBCVER=0x0250                                                                 
+|                                                                                
+| # static library that implements driver manager                                
+| DRIVER_MGR_LIB=myodbc                                                          
+| DRIVER_MGR_LIB_AUX=iodbc                                                       
+|                                                                                
+| # installation directory                                                       
+| LIBDIR=/usr/local/lib                                                          
+|                                                                                
+| # driver manager include directory                                             
+| INCDIR=/usr/local/include                                                      
+|                                                                                
+| MZC=../../bin/mzc                                                              
+|                                                                                
+| CPP=gcc                                                                        
+| CPP_FLAGS=-DODBCVER=$(ODBCVER)  \                                              
+|         -DHAVE_CHAR -DHAVE_LPWSTR -DHAVE_WCHAR \                               
+|          -I. -I../../include -I/usr/local/include -I/usr/local/include/mysql -c
+`--------------------
+
+HTH,
+--Francisco
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00716" href="msg00716.html">srpersist</a></strong>
+<ul><li><em>From:</em> &quot;dskippy@ccs.neu.edu&quot; &lt;dskippy@ccs.neu.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00716.html">srpersist</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00718.html">Re: Shootout Stuff</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00716.html">srpersist</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00722.html">should definitions introduced by macros be gensymmed?</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00717"><strong>Date</strong></a></li>
+<li><a href="threads.html#00717"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

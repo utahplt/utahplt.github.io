@@ -1,0 +1,119 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: loading additional code -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNppf.arh.rqh> -->
+<!--X-Date: Sat, 5 Jan 2002 20:26:52 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020106032644.ADC27206FC@sualocin.ccs.neu.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020105204652.A99992@freebsd.hbz.pl -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: loading additional code</title>
+<link rev="made" href="mailto:matthias@ccs.neu.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00013.html">Date Prev</a>][<a href="msg00015.html">Date Next</a>][<a href="msg00019.html">Thread Prev</a>][<a href="msg00023.html">Thread Next</a>][<a href="maillist.html#00014">Date Index</a>][<a href="threads.html#00014">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: loading additional code</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:sopel@freebsd.hbz.pl">sopel@freebsd.hbz.pl</A></li>
+<li><em>Subject</em>: Re: loading additional code</li>
+<li><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A>&gt;</li>
+<li><em>Date</em>: Sat,  5 Jan 2002 22:26:44 -0500 (EST)</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-reply-to</em>: &lt;<a href="msg00010.html">20020105204652.A99992@freebsd.hbz.pl</a>&gt; (message from WojciechSobczuk on Sat, 5 Jan 2002 20:46:52 +0100)</li>
+<li><em>References</em>: &lt;<a href="msg00010.html">20020105204652.A99992@freebsd.hbz.pl</a>&gt;</li>
+<li><em>Reply-To</em>: <A HREF="mailto:matthias@ccs.neu.edu">matthias@ccs.neu.edu</A></li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Please take a look at: 
+
+ 1. our web server, included with the 200 distribution
+    Perhaps we can share work. We are happy to add code, too. 
+
+ 2. the Help Desk browser and how it generates content 
+    dynamically with Scheme tags. 
+
+ 3. the xml collection. We may pretty soon provide you with 
+    a way to write (I can do it already): 
+
+    ; in page.ss
+    (define (make-row tag) (lambda (x) `(,tag (td ,x))))
+    (define my-page (xml &quot;page.xml&quot;))
+
+    ; in page.xml: 
+    &lt;table&gt;
+      &lt;scheme&gt;((make-row 'th) &quot;hello world&quot;)&lt;/scheme&gt;
+      &lt;splice&gt;(map (make-row 'tr) '(a b c d ef))&lt;/splice&gt;
+    &lt;/table&gt;
+    
+    And yes, that Scheme can include more xml and so on. 
+
+Putting 1 and 3 together you may get pretty close to JSPs already. 
+
+Also, you really want to stick to solutions that don't break the standard
+-- just in case you ever move on or you want to distribute it to others who
+want to mesh your stuff with someone else's. It's easy to stay within xml 
+and yet to get an elegant Scheme integration. 
+
+-- Matthias
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00010" href="msg00010.html">loading additional code</a></strong>
+<ul><li><em>From:</em> Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00013.html">LL1</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00015.html">FFI again</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00019.html">SXML (was: Re: loading additional code)</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00023.html">Re: loading additional code</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00014"><strong>Date</strong></a></li>
+<li><a href="threads.html#00014"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

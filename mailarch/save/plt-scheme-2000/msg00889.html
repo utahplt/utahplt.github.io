@@ -1,0 +1,114 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: Customizing hash table printing? -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Tue, 29 Aug 2000 07:25:36 &#45;0600 (MDT) -->
+<!--X-Message-Id: 200008291325.HAA02697@fast.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87itslxv01.fsf@senstation.vvf.fi -->
+<!--X-Reference: 200008281623.KAA01867@fast.cs.utah.edu -->
+<!--X-Reference: 87lmxgwjyj.fsf@senstation.vvf.fi -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: Customizing hash table printing?</TITLE>
+<LINK REV="made" HREF="mailto:mflatt@cs.utah.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00888.html">Date Prev</A>][<A HREF="msg00890.html">Date Next</A>][<A HREF="msg00888.html">Thread Prev</A>][<A HREF="msg00890.html">Thread Next</A>][<A HREF="maillist.html#00889">Date Index</A>][<A HREF="threads.html#00889">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: Customizing hash table printing?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: Hannu Koivisto &lt;<A HREF="mailto:azure@iki.fi">azure@iki.fi</A>&gt;</LI>
+<LI><em>Subject</em>: Re: Customizing hash table printing?</LI>
+<LI><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</LI>
+<LI><em>Date</em>: Tue, 29 Aug 2000 07:25:31 -0600 (MDT)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00887.html">87lmxgwjyj.fsf@senstation.vvf.fi</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00884.html">87itslxv01.fsf@senstation.vvf.fi</A>&gt;&lt;<A HREF="msg00885.html">200008281623.KAA01867@fast.cs.utah.edu</A>&gt;	&lt;<A HREF="msg00887.html">87lmxgwjyj.fsf@senstation.vvf.fi</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Quoting Hannu Koivisto:
+&gt; I saw those sections and even tried that approach but because I
+&gt; couldn't get it to work [...]
+
+You're right that the default print handlers do not call back to the
+installed print handler for printing substructures. Part of the reason
+has to do with showing graph structures.
+
+You might try using the pretty-print library, "pretty.ss", because it
+does support hook procedures that apply to each subsctruture in the
+printed value. The `pretty-print-size-hook' and
+`pretty-print-print-hook' parameters allow you to supply an arbitrary
+string result for displaying a hash table.
+
+If you're not actually interested in the prettiness of the output, that
+should work fine. But, if you do want "pretty" output, the pretty-print
+library still odesn't provide enough parameters, yet: there's no hook
+that can break the output into multiple lines and also pretty-print
+nested structures.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00884" HREF="msg00884.html">Customizing hash table printing?</A></STRONG>
+<UL><LI><EM>From:</EM> Hannu Koivisto &lt;azure@iki.fi&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00885" HREF="msg00885.html">Re: Customizing hash table printing?</A></STRONG>
+<UL><LI><EM>From:</EM> Robert John Andersen &lt;robert_andersen@bridge-point.com&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00887" HREF="msg00887.html">Re: Customizing hash table printing?</A></STRONG>
+<UL><LI><EM>From:</EM> Hannu Koivisto &lt;azure@iki.fi&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00888.html">Re: Re: Customizing hash table printing?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00890.html">An Isapi mzscheme extension</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00888.html">Re: Re: Customizing hash table printing?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00890.html">An Isapi mzscheme extension</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00889"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00889"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

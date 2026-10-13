@@ -1,0 +1,23 @@
+
+1. c
+
+2. f
+
+3. a, b: An "ant" has no "x" or "y"
+
+   c: The template shouldn't extract "x" and "y" of 
+      "(ant-looc a)". Instead, it should call another
+      template to handle the "(ant-loc a)" posn.
+
+   d: "(ant-loc a)" is a "posn", not an "ant".
+
+   e: The "num" kind doesn't have a data definition, so it doesn't
+      need its own template. Worse, the "func-for-num" template calls
+      itself --- and even if "num" had a data definition, it couldn't
+      simply be "A num is a num".
+
+4. ; func-for-lob : list-of-bool -> ???
+   (define (func-for-lob l)
+     (cond
+      [(empty? l) ...]
+      [(cons? l) ... (first l) ... (func-for-lob (rest l)) ...]))

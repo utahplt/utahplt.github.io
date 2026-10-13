@@ -1,0 +1,121 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: DrScheme &#38; SRFIs Was: Possible bug w/ internal defines? -->
+<!--X-From-R13: [ngguvnf Tryyrvfra <zngguvnfNpf.evpr.rqh> -->
+<!--X-Date: Fri, 17 Mar 2000 10:35:44 &#45;0700 (MST) -->
+<!--X-Message-Id: 200003171735.LAA19209@africa.cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200003082252.XAA04319@sally.ifm.uni&#45;kiel.de -->
+<!--X-Reference: 200003082317.RAA14462@africa.cs.rice.edu -->
+<!--X-Reference: 14546.22552.668274.39233@quail.dai.ed.ac.uk -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: DrScheme &amp; SRFIs Was: Possible bug w/ internal defines?</TITLE>
+<LINK REV="made" HREF="mailto:matthias@cs.rice.edu">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00561.html">Date Prev</A>][<A HREF="msg00563.html">Date Next</A>][<A HREF="msg00561.html">Thread Prev</A>][<A HREF="msg00539.html">Thread Next</A>][<A HREF="maillist.html#00562">Date Index</A>][<A HREF="threads.html#00562">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: DrScheme &amp; SRFIs Was: Possible bug w/ internal defines?</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: <A HREF="mailto:noelw@dai.ed.ac.uk">noelw@dai.ed.ac.uk</A></LI>
+<LI><em>Subject</em>: Re: DrScheme &amp; SRFIs Was: Possible bug w/ internal defines?</LI>
+<LI><em>From</em>: Matthias Felleisen &lt;<A HREF="mailto:matthias@cs.rice.edu">matthias@cs.rice.edu</A>&gt;</LI>
+<LI><em>Date</em>: Fri, 17 Mar 2000 11:35:40 -0600 (CST)</LI>
+<LI><em>CC</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-reply-to</em>: &lt;<A HREF="msg00561.html">14546.22552.668274.39233@quail.dai.ed.ac.uk</A>&gt; (message from NoelWelsh on Fri, 17 Mar 2000 16:14:44 +0000 (GMT))</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00537.html">200003082252.XAA04319@sally.ifm.uni-kiel.de</A>&gt;&lt;<A HREF="msg00538.html">200003082317.RAA14462@africa.cs.rice.edu</A>&gt; &lt;<A HREF="msg00561.html">14546.22552.668274.39233@quail.dai.ed.ac.uk</A>&gt;</LI>
+<LI><em>Reply-to</em>: <A HREF="mailto:matthias@rice.edu">matthias@rice.edu</A></LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+
+Yes, Emacs has some advantages still and we all use it for certain jobs.
+ The next release will accommodate multiple-file projects. That still won't
+ give you the ability to view the same file in multiple buffers. But at
+ least it can do check-syntax and things like that properly. 
+
+As for testing, I wouldn't test in one big function. I would write a test
+ procedure for each function that accepts the inputs, the expected output,
+ and a unique id so I can signal something useful when things go wrong. I
+ would use writh-handler to cope with test cases for error situations. Then
+ your tests look like this at the bottom of the file: 
+
+ #| Tests: |#
+
+ (test-f 'test1 'a 0)
+ ...
+
+ You see #t for all good ones and an error message involving test&lt;i&gt; for all
+ bad ones. For that I find DrS to be more useful than Emacs. At the end I
+ move the "|#" to the end of the test cases and voila` I have a complete
+ component. Put into a unit now and export ... 
+
+We will eventually support those srfi's that are compatible with the
+ language and its spirit. I agree that Olin's stuff should go in as soon as
+ it is finalized. 
+
+-- Matthias
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00537" HREF="msg00537.html">Possible bug w/ internal defines?</A></STRONG>
+<UL><LI><EM>From:</EM> Wolfgang Hukriede &lt;whukriede@ifm.uni-kiel.de&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00538" HREF="msg00538.html">Re: Possible bug w/ internal defines?</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+<LI><STRONG><A NAME="00561" HREF="msg00561.html">DrScheme &amp; SRFIs Was: Possible bug w/ internal defines?</A></STRONG>
+<UL><LI><EM>From:</EM> Noel Welsh &lt;noelw@dai.ed.ac.uk&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00561.html">DrScheme &amp; SRFIs Was: Possible bug w/ internal defines?</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00563.html">Re: exceptions</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00561.html">DrScheme &amp; SRFIs Was: Possible bug w/ internal defines?</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00539.html">Re: Possible bug w/ internal defines?</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00562"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00562"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

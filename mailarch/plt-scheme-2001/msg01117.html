@@ -1,0 +1,160 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Document formatting in Scheme -->
+<!--X-From-R13: @bry Iryfu <abryjryfuNlnubb.pbz> -->
+<!--X-Date: Fri, 26 Oct 2001 07:23:58 &#45;0600 (MDT) -->
+<!--X-Message-Id: 20011026132355.62580.qmail@web11202.mail.yahoo.com -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Document formatting in Scheme</title>
+<link rev="made" href="mailto:noelwelsh@yahoo.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01116.html">Date Prev</a>][<a href="msg01118.html">Date Next</a>][<a href="msg01116.html">Thread Prev</a>][<a href="msg01118.html">Thread Next</a>][<a href="maillist.html#01117">Date Index</a>][<a href="threads.html#01117">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Document formatting in Scheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: plt-scheme &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: Document formatting in Scheme</li>
+<li><em>From</em>: Noel Welsh &lt;<A HREF="mailto:noelwelsh@yahoo.com">noelwelsh@yahoo.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 26 Oct 2001 06:23:55 -0700 (PDT)</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Hi all,
+
+Schematics was created to provide the tools I felt I
+needed to create high quality packages in PLT Scheme.
+This meant two things: a testing framework, and a
+document creation system (so I can make pretty manuals
+like the ones that come with PLT Scheme). I've got the
+first done (though I need to update it to v200) but
+the second has been a long time coming. It looks like
+I'm now in a position to resume work on it.
+
+One half of the problem is API documentation. For this
+I have half of a solution: scmdoc extracts comments
+from code and moshimoshi can be trivially modified to
+parse the human readable markup appropriate for API
+documentation.  I'm thinking of a system where
+doc-comments look something like:
+
+;;!
+;; Contract: (String) -&gt; Phone-Number
+;; (get-phone-number name) -&gt; phone-number
+;;
+;; Get the phone number for the given user
+
+I.e. quite similar to HTDP comments.  For this comment
+would be output some appropriate markup which would
+eventually become a nicely formated manual.
+
+The bits I don't have are:
+ - a markup language to write the rest of the
+documentation in
+ - a backend to convert whatever markup I use to the
+various formats people will want, starting with HTML
+and moving to LaTex, PDF etc. as the demand arises.
+
+It should be possible to express content in a fairly
+simple markup.  E.g:
+
+(manual	(title &quot;scmunit&quot;)
+		(introduction &quot;scmunit is a unit-testing framework
+for...&quot;)
+		(chapter 1 &quot;blah blah&quot;))
+
+and transform that into elaborate HTML etc. via some
+sort of style sheet.  The technique du jour to do all
+this would be XML and XSLT but I rather eat my shoe
+than deal with that bloated mess.  I don't mind the
+external representation being XML but I don't want to
+have to see it and I certainly don't want to deal with
+XSLT.  Now there are a number of existing packages
+that do part of what I want.  The ones I aware of are:
+  - The XML library in PLT Scheme: XML representation
+as sexpr
+  - SXML: as above but includes transformations
+  - tex2page: LaTex to HTML
+  - LAML: sexpr to HTML
+  - BRL: embedding Scheme in other documents (useful
+if the author is familiar with HTML/LaTex but not
+Scheme)
+
+So my question is: does anyone have any suggestions on
+directions to take?  Does anyone have an
+implementation I can work on?  This kind of stuff is
+generally useful for maintaining web pages and other
+documents so I'd surprised if others haven't worked on
+this.
+
+Thanks,
+Noel
+
+__________________________________________________
+Do You Yahoo!?
+Make a great connection at Yahoo! Personals.
+<A  HREF="http://personals.yahoo.com">http://personals.yahoo.com</A>
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01118" href="msg01118.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> &quot;Paul T. Graunke&quot; &lt;ptg@ccs.neu.edu&gt;</li></ul></li>
+<li><strong><a name="01125" href="msg01125.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> lisovsky@acm.org</li></ul></li>
+<li><strong><a name="01130" href="msg01130.html">Re: Document formatting in Scheme</a></strong>
+<ul><li><em>From:</em> Riku.Saikkonen@hut.fi (Riku Saikkonen)</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01116.html">R: Cannot generate a stand-alone program + other questions</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01118.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01116.html">R: Cannot generate a stand-alone program + other questions</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01118.html">Re: Document formatting in Scheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01117"><strong>Date</strong></a></li>
+<li><a href="threads.html#01117"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!-- MHonArc v2.4.0 -->
+<!--X-Subject: Re: (LONG) Scheme HTML design program &#45; my idea and request for comments -->
+<!--X-From-R13: Syv Pnemvynl <ryvNQE.Qbearyy.SRG> -->
+<!--X-Date: Sat, 6 May 2000 00:59:04 &#45;0600 (MDT) -->
+<!--X-Message-Id: 14611.49844.211889.987186@mojave.cs.cornell.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 200005060540.XAA13212@fast.cs.utah.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<HTML>
+<HEAD>
+<TITLE>Re: (LONG) Scheme HTML design program - my idea and request for comments</TITLE>
+<LINK REV="made" HREF="mailto:eli@CS.Cornell.EDU">
+</HEAD>
+<BODY>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<HR>
+[<A HREF="msg00641.html">Date Prev</A>][<A HREF="msg00643.html">Date Next</A>][<A HREF="msg00641.html">Thread Prev</A>][<A HREF="msg00643.html">Thread Next</A>][<A HREF="maillist.html#00642">Date Index</A>][<A HREF="threads.html#00642">Thread Index</A>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<H1>Re: (LONG) Scheme HTML design program - my idea and request for comments</H1>
+<HR>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<UL>
+<LI><em>To</em>: "Patrick Giagnocavo" &lt;<A HREF="mailto:a222@redrose.net">a222@redrose.net</A>&gt;</LI>
+<LI><em>Subject</em>: Re: (LONG) Scheme HTML design program - my idea and request for comments</LI>
+<LI><em>From</em>: Eli Barzilay &lt;<A HREF="mailto:eli@CS.Cornell.EDU">eli@CS.Cornell.EDU</A>&gt;</LI>
+<LI><em>Date</em>: Sat, 6 May 2000 02:59:00 -0400 (EDT)</LI>
+<LI><em>Cc</em>: <A HREF="mailto:plt%2Dscheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></LI>
+<LI><em>In-Reply-To</em>: &lt;<A HREF="msg00641.html">200005060540.XAA13212@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>References</em>: &lt;<A HREF="msg00641.html">200005060540.XAA13212@fast.cs.utah.edu</A>&gt;</LI>
+<LI><em>Sender</em>: <A HREF="mailto:owner%2Dplt%2Dscheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></LI>
+</UL>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<HR>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On May  6, Patrick Giagnocavo wrote:
+&gt; [...]
+&gt; I looked at
+&gt; [...]
+&gt; I decided on DrScheme because
+&gt; [...]
+&gt; No language flames, please!
+
+On this list there is probably no danger for that...
+
+
+&gt; Here is my idea:
+&gt; 
+&gt; Currently, for HTML sitebuilding, I use Frontier, which is a
+&gt; commercial program from UserLand software.  It runs on Windows and
+&gt; Mac.  They have a "freeware" version which is several revs behind
+&gt; the current commercial version, which is $899 per user.
+
+I hate these programs.  They might be useful for doing things like
+placing divs at certain places and making mapped images but nothing
+much else...
+
+
+&gt; You can download the freeware version for Mac and Windows at:
+&gt; 
+&gt; Humph; well, actually, they keep on moving their servers and their
+&gt; files around, so I can't find a working link right now.  I have some
+&gt; screen shots at the Web page on my server (see above).
+&gt; 
+&gt; Frontier has a reasonably simple language, but what makes it stand
+&gt; apart from other tools for HTML I have used is that it has some
+&gt; objects/datatypes that are really useful:
+
+My belief is that as soon as you use any language, you're in better
+shape because you have the ability to abstract and reuse stuff.  Of
+course, that could be added to html, but it is so bad that any time
+taken to rant is trivially useless...  So, a language is good, Scheme
+is better.
+
+
+&gt; 1.  A "wptext" type, which is any arbitrarily large kind of text
+&gt; file (though in frontier, everything is stored in its "object
+&gt; database").  This lets you type in text with any amount of HTML you
+&gt; want included in it.  HTML markup that is in the wptext is not
+&gt; munged or manhandled - so you can always type in "raw" code and know
+&gt; that it will work.
+
+Well, any implementation that uses text scripts will have this
+ability, just including srings.  But if you have a good thing to work
+with, you wouldn't use "raw" text.  For example, with my thing I can
+always type a literal "&lt;big&gt;&lt;tt&gt;&amp;lt;Foo!&amp;gt;&lt;/tt&gt;&lt;/big&gt;" but I'd much
+prefer (big: (tt: "&lt;Foo!&gt;")).  (Actually, you'd have to quote the
+former with my thing otherwise you'll get &amp;amp;s).
+
+
+&gt; 2.  An "outline" type, which is VERY USEFUL - in fact, all other
+&gt; objects in Frontier are under the Frontier.root outline (similar but
+&gt; not exactly the same as everything being derived from Object in some
+&gt; OOP implementations).  It is basically a tree or hierarchy
+&gt; structure, with nodes and leafs (leaves?).
+&gt; 
+&gt; The outline type is especially nice, since Frontier includes a set
+&gt; of "verbs" (=functions) that let you traverse the outline and
+&gt; manipulate it.
+
+Well, any language will give you a way to handle some recursive types
+and to define functions that use them.  IMO, Scheme is particularly
+good at this.
+
+
+&gt; 3.  A "glossary" which is really killer.  [...]
+&gt; At any time, in any page, you refer to it by putting the name in
+&gt; quotes.  For instance, if my glossary has
+&gt; 
+&gt; <A  HREF="http://www.cs.rice.edu/CS/PLT/packages/drscheme/index.html">http://www.cs.rice.edu/CS/PLT/packages/drscheme/index.html</A> and the
+&gt; associated text "DrScheme Home Page"
+&gt; 
+&gt; I can have a link automatically generated and inserted into any page
+&gt; by simply placing those exact words in quotes:
+&gt; [...]
+&gt; you dig?  This is a really great way to handle links - especially
+&gt; since it encourages conformity among several web pages, and avoids
+&gt; unclosed tags and spelling errors and of course tedious typing.
+
+Again, any language will give you that.  You can simply define a
+variable such as:
+
+  (define drscheme-home-page
+    (ref~: "<A  HREF="http://www.cs.rice.edu/CS/PLT/packages/drscheme/index.html">http://www.cs.rice.edu/CS/PLT/packages/drscheme/index.html</A>"
+           "DrScheme Home Page"))
+
+and then simply add a reference to it wherever you want.
+
+
+&gt; 4.  The ability to run scripts to generate the pages.  The ability
+&gt; to have "directives" or defines at the top of the file that set
+&gt; certain options for that page (eg #title above refers to the &lt;TITLE&gt;
+&gt; tags); these override sitewide defaults.  Of course, under Scheme
+&gt; you would have full access to *whatever* you wanted -including
+&gt; access to a database if using SrPersist.
+
+Yeah.  Doesn't it feel good to have such a great toy?  (You'll
+probably need to work a little to get this working).
+
+
+&gt; 5.  Similar to #3 you can reference any function or object or
+&gt; variable within a wptext by using {} .  So you could include part of
+&gt; another page, or the result from any other command, into that page.
+
+If you talk about mixing "normal" html text with Scheme code, like
+those php thing or similar server side junk languages, then I have a
+simple preprocessor at:
+
+  <A  HREF="http://www.cs.cornell.edu/eli/misc/preprocessor.scm">http://www.cs.cornell.edu/eli/misc/preprocessor.scm</A>
+
+that allows you to mix some language with text.  There are some
+examples using this with Scheme and other languages at:
+
+  <A  HREF="http://www.cs.cornell.edu/eli/misc/preprocessor-sample">http://www.cs.cornell.edu/eli/misc/preprocessor-sample</A>
+
+And an example with my html thing at:
+
+  <A  HREF="http://www.cs.cornell.edu/eli/misc/preprocessor-sample1">http://www.cs.cornell.edu/eli/misc/preprocessor-sample1</A>
+
+(It's better than standard things since it allows you to use different
+language and different levels of these meta-quotes.  Also, it not too
+stable, I've just discovered a bug while writing this so I'm changing
+it a little.)
+
+
+&gt; 6.  If you pay the money for the latest commercial version you get a
+&gt; Webserver that is integrated inside the Frontier program.  This lets
+&gt; you offer up dynamic web pages.
+
+So you could either wait for / implement a Scheme server, but I don't
+know how that will handle a lot of traffic, or you can integrate
+MzScheme into some server.  I have a friend that did this with IIS.
+
+
+&gt; 7.  In the future, I have this idea that dynamic pages could be
+&gt; "compiled" into scripts that run under different web server
+&gt; platforms, like Apache/PHP or AOLserver/TCL (www.aolserver.com).
+&gt; This would let people deploy on different servers and not be locked
+&gt; into a specific technology.
+
+You some meta-script that will write versions for all languages?  That
+shouldn't be too hard...
+
+-- 
+          ((lambda (x) (x x)) (lambda (x) (x x)))          Eli Barzilay:
+         <A  HREF="http://www.cs.cornell.edu/eli/meaning.html">http://www.cs.cornell.edu/eli/meaning.html</A>        Maze is Life!
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<HR>
+<UL><LI><STRONG>Follow-Ups</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00643" HREF="msg00643.html">Re: (LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+<UL><LI><EM>From:</EM> Matthias Felleisen &lt;matthias@cs.rice.edu&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<UL><LI><STRONG>References</STRONG>:
+<UL>
+<LI><STRONG><A NAME="00641" HREF="msg00641.html">(LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+<UL><LI><EM>From:</EM> "Patrick Giagnocavo" &lt;a222@redrose.net&gt;</LI></UL></LI>
+</UL></LI></UL>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<UL>
+<LI>Prev by Date:
+<STRONG><A HREF="msg00641.html">(LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+</LI>
+<LI>Next by Date:
+<STRONG><A HREF="msg00643.html">Re: (LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+</LI>
+<LI>Prev by thread:
+<STRONG><A HREF="msg00641.html">(LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+</LI>
+<LI>Next by thread:
+<STRONG><A HREF="msg00643.html">Re: (LONG) Scheme HTML design program - my idea and request for comments</A></STRONG>
+</LI>
+<LI>Index(es):
+<UL>
+<LI><A HREF="maillist.html#00642"><STRONG>Date</STRONG></A></LI>
+<LI><A HREF="threads.html#00642"><STRONG>Thread</STRONG></A></LI>
+</UL>
+</LI>
+</UL>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</BODY>
+</HTML>

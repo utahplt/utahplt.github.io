@@ -1,0 +1,144 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: RE: Implementing 2d&#45;put! and 2d&#45;get in DrScheme -->
+<!--X-From-R13: "Oagba ina Egenngra" <nagbaNnccfbyhgvbaf.pbz> -->
+<!--X-Date: Fri, 2 Nov 2001 13:21:22 &#45;0700 (MST) -->
+<!--X-Message-Id: 064801c163db$f8e6fdc0$0100a8c0@femto -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: B8082CC6.175C%slash@fingerlust.net -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>RE: Implementing 2d-put! and 2d-get in DrScheme</title>
+<link rev="made" href="mailto:anton@appsolutions.com">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg01166.html">Date Prev</a>][<a href="msg01168.html">Date Next</a>][<a href="msg01166.html">Thread Prev</a>][<a href="msg01169.html">Thread Next</a>][<a href="maillist.html#01167">Date Index</a>][<a href="threads.html#01167">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>RE: Implementing 2d-put! and 2d-get in DrScheme</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;John J Reilly&quot; &lt;<A HREF="mailto:slash@fingerlust.net">slash@fingerlust.net</A>&gt;</li>
+<li><em>Subject</em>: RE: Implementing 2d-put! and 2d-get in DrScheme</li>
+<li><em>From</em>: &quot;Anton van Straaten&quot; &lt;<A HREF="mailto:anton@appsolutions.com">anton@appsolutions.com</A>&gt;</li>
+<li><em>Date</em>: Fri, 2 Nov 2001 15:21:36 -0500</li>
+<li><em>Cc</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg01165.html">B8082CC6.175C%slash@fingerlust.net</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+You can get the basic functionality of prop2d.scm working under DrScheme as
+follows:
+
+1.  Remove the line which reads (declare (usual-integrations))
+
+2.  Add the following stubs:
+
+	; stubs for DrScheme
+	(define (object-hash x) x)
+	(define (object-unhash x) x)
+	(define (valid-hash-number? x) #t)
+
+3.  Change the definition of initialize-package! to look like this:
+
+	(define (initialize-package!)
+	  (set! system-properties '()))
+
+4.  Provide a value for the three defines that have no value and cause
+errors under DrScheme:
+
+	(define system-properties '())
+	(define delete-invalid-hash-numbers! '())
+	(define delete-invalid-y! '())
+
+This now works well enough that the following far-from-comprehensive test
+program gives the expected results:
+
+	(2D-put! 5 9 3)
+	(2D-put! 5 12 7)
+	(2D-get 5 9)
+	(2D-get 5 12)
+	(2D-get-alist-x 5)
+	(2D-get-alist-y 9)
+	(2D-put! 'foo 'gaga 'a)
+	(2D-put! 'foo 'googoo 'b)
+	(2D-get 'foo 'gaga)
+	(2D-get-alist-x 'foo)
+
+The code that has been stubbed out has to do with implementing weak
+references under MIT Scheme, using association lists.  If you don't require
+the weak reference functionality - i.e. if you don't care whether data
+builds up in this structure, or if you plan to remove unused elements
+yourself - then the stubs I've provided above should be perfectly adequate.
+You could even simplify the code a bit by removing the calls to the stubs.
+
+However, if you do need weak reference behavior, then your best bet would be
+to rewrite the routines using DrScheme weak hash tables (see
+make-hash-table-weak).  This would be fairly easy, and would involve less
+code than the MIT Scheme version, since you wouldn't have to handle the weak
+references yourself.
+
+Anton
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="01169" href="msg01169.html">RE: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+<ul><li><em>From:</em> &quot;Anton van Straaten&quot; &lt;anton@appsolutions.com&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="01165" href="msg01165.html">Re: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+<ul><li><em>From:</em> John J Reilly &lt;slash@fingerlust.net&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg01166.html">Re: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg01168.html">R: closing an application</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg01166.html">Re: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg01169.html">RE: Implementing 2d-put! and 2d-get in DrScheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#01167"><strong>Date</strong></a></li>
+<li><a href="threads.html#01167"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

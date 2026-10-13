@@ -1,0 +1,125 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Some doubts -->
+<!--X-From-R13: Euevenz Yevfuanzheguv <fxNpf.oebja.rqh> -->
+<!--X-Date: Mon, 18 Feb 2002 08:27:09 &#45;0700 (MST) -->
+<!--X-Message-Id: 200202181526.KAA29329@bosch.cs.brown.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 87wuxbtvjl.fsf@localhost.localdomain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Some doubts</title>
+<link rev="made" href="mailto:sk@cs.brown.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00272.html">Date Prev</a>][<a href="msg00274.html">Date Next</a>][<a href="msg00270.html">Thread Prev</a>][<a href="msg00267.html">Thread Next</a>][<a href="maillist.html#00273">Date Index</a>][<a href="threads.html#00273">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Some doubts</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>Subject</em>: Some doubts</li>
+<li><em>From</em>: Shriram Krishnamurthi &lt;<A HREF="mailto:sk@cs.brown.edu">sk@cs.brown.edu</A>&gt;</li>
+<li><em>Date</em>: Mon, 18 Feb 2002 10:26:36 -0500 (EST)</li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00266.html">87wuxbtvjl.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00266.html">87wuxbtvjl.fsf@localhost.localdomain</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+Paulo J. Matos wrote:
+
+&gt; 1 - In Common Lisp when I need to search for a function
+&gt; specification or a function that does something I go to
+&gt; the Hyperspec, what should I do when I have the same problem with
+&gt; Scheme?
+
+You should consult Help | Help Desk, which offers a search engine at
+the bottom of the window.
+
+&gt; 2 - How can I remove (without consing, i.e. destructively) an
+&gt; element from a list?
+
+The default REMOVE/REMV/... procedures built into PLT Scheme seem to
+be non-destructive, so I guess you're going to have to write this
+yourself.  Use SET-CDR! (the equivalent of RPLACD).
+
+&gt; 2.1 - Following the question above I should probably pass a
+&gt;   function to the remove function above (called delete in CL)
+&gt;   telling it how to compare the objects (maybe eq? by default in
+&gt;   Scheme). How can I pass that optional parameter...
+&gt; I do know that rest parameters are:
+&gt; (define foo (arg1 arg2 . restargs)
+&gt;         null)
+&gt; 
+&gt; But how about optional and key parameters?
+
+Search for OPT-LAMBDA.
+
+&gt; 3 - How can I print a hash-table for example in a different way
+&gt; than its default way defined by implementation? (without defining
+&gt; a function to do it explicitly... I would like to overload
+&gt; something as a print-object method or something...)
+
+Unlike CL, PLT Scheme doesn't provide this kind of facility as a
+primitive.  You can hook into the pretty-printer ... for instance, you 
+can set a new PRETTY-PRINT-HANDLER that chains to the old one for all
+values other than the new one you want to handle explicitly.
+
+Shriram
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00266" href="msg00266.html">Some doubts</a></strong>
+<ul><li><em>From:</em> pocm@rnl.ist.utl.pt (Paulo J. Matos)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00272.html">change to tools interface</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00274.html">PPDP 2002 - Call for papers --&gt; March 21</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00270.html">Re: Some doubts</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00267.html">parallel and serial port input/output</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00273"><strong>Date</strong></a></li>
+<li><a href="threads.html#00273"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

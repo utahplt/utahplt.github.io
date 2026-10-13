@@ -1,0 +1,125 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: MysterX changes -->
+<!--X-From-R13: "Bnhy O. Egrpxyre" <fgrpxNpf.evpr.rqh> -->
+<!--X-Date: Fri, 24 Mar 2000 15:22:18 &#45;0700 (MST) -->
+<!--X-Message-Id: 000001bf95df$65c49190$6a032a80@cs.rice.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>MysterX changes</title>
+<link rev="made" href="mailto:steck@cs.rice.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00214.html">Date Prev</a>][<a href="msg00216.html">Date Next</a>][<a href="msg00212.html">Thread Prev</a>][<a href="msg00216.html">Thread Next</a>][<a href="maillist.html#00215">Date Index</a>][<a href="threads.html#00215">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>MysterX changes</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &lt;<A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A>&gt;</li>
+<li><em>Subject</em>: MysterX changes</li>
+<li><em>From</em>: &quot;Paul A. Steckler&quot; &lt;<A HREF="mailto:steck@cs.rice.edu">steck@cs.rice.edu</A>&gt;</li>
+<li><em>Date</em>: Fri, 24 Mar 2000 16:22:10 -0600</li>
+<li><em>Importance</em>: Normal</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+I've just committed a bunch of changes to MysterX, now 
+available from the anonymous cvs server.
+
+In case you don't know, MysterX is a PLT Scheme extension
+that gives access to COM objects through Scheme.  Since 
+MysterX can display COM objects in a Dynamic HTML window,
+there is some support for Dynamic HTML.
+
+The changes are:
+
+	o nearly all the &quot;style&quot; methods for mx-element%
+	accept and return Schemely values, for 
+	those methods that accepted and returned strings
+
+	o the old string methods are still available
+	with &quot;-native&quot; names
+
+	o a MysterX window corresponds to a browser,
+	instead of a document; the new mx-browser% class
+	supports this abstraction; a browser contains
+	a document
+
+	o the mx-browser% class has navigate, go-forward, 
+	and go-back methods for simple automated Web surfing;
+	the register-navigate-handler method can call
+	a handler when navigation is complete
+
+	o the current-document method of mx-browser% obtains
+	the document currently contained in a browser; this
+	allows you to perform DHTML manipulations on arbitrary
+	Web pages
+
+	o the new find-element-by-id-or-name method of 
+	mx-document% retrieves elements without requiring
+	a tag name
+
+All these changes should be available in the next release.	
+Any feedback on the changes is welcome.
+
+-- Paul
+
+ ----------------------------------------------------------------
+| Paul Steckler              |     Rice University PLT           | 
+| steck@cs.rice.edu          |     DrScheme Project              |
+| Tel:  713/348-3814         |     <A  HREF="http://www.cs.rice.edu/~steck">http://www.cs.rice.edu/~steck</A> |
+| FAX:  713/348-5930         |     *** Ad astra per hackera ***  |
+ ---------------------------------------------------------------- 
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00214.html">Re: Sound &amp; Testing</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00216.html">[Q] units and macros in MzScheme</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00212.html">Re: Built in Tests</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00216.html">[Q] units and macros in MzScheme</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00215"><strong>Date</strong></a></li>
+<li><a href="threads.html#00215"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

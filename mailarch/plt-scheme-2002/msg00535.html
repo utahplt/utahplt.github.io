@@ -1,0 +1,139 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: Building PLTs -->
+<!--X-From-R13: [nggurj Tyngg <zsynggNpf.hgnu.rqh> -->
+<!--X-Date: Wed, 27 Mar 2002 06:45:58 &#45;0700 (MST) -->
+<!--X-Message-Id: 200203271345.g2RDjnL25164@wrath.cs.utah.edu -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: Pine.GSO.4.40.0203262104520.2916&#45;100000@velvetbelly.cs.indiana.edu -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: Building PLTs</title>
+<link rev="made" href="mailto:mflatt@cs.utah.edu">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00534.html">Date Prev</a>][<a href="msg00536.html">Date Next</a>][<a href="msg00536.html">Thread Prev</a>][<a href="msg00587.html">Thread Next</a>][<a href="maillist.html#00535">Date Index</a>][<a href="threads.html#00535">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: Building PLTs</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;Matt 'LEGO Guy' Jadud&quot; &lt;<A HREF="mailto:mjadud@cs.indiana.edu">mjadud@cs.indiana.edu</A>&gt;</li>
+<li><em>Subject</em>: Re: Building PLTs</li>
+<li><em>From</em>: Matthew Flatt &lt;<A HREF="mailto:mflatt@cs.utah.edu">mflatt@cs.utah.edu</A>&gt;</li>
+<li><em>Date</em>: Wed, 27 Mar 2002 06:45:49 -0700 (MST)</li>
+<li><em>CC</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00526.html">Pine.GSO.4.40.0203262104520.2916-100000@velvetbelly.cs.indiana.edu</a>&gt;</li>
+<li><em>References</em>: &lt;<a href="msg00526.html">Pine.GSO.4.40.0203262104520.2916-100000@velvetbelly.cs.indiana.edu</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+At Tue, 26 Mar 2002 21:13:05 -0500 (EST), &quot;Matt 'LEGO Guy' Jadud&quot; wrote:
+&gt; 	What is the right way to extract these from my filesystem, bundle
+&gt; them into a PLT, and know that someone else will then be able to install
+&gt; them safely?
+
+Generally, the answer is: mzc with --plt or --collection-plt.
+
+&gt; 	I have two files, one in each of two collections, that I'd like to
+&gt; bundle as a PLT. One would get dropped into the web-server collection, and
+&gt; one into the eopl collection.
+
+Put the files in place in your tree, then
+
+ % cd ....plt
+ % mzc --plt stuff.plt --at-plt
+       collects/web-server/stuff.ss collects/eopl/stuff.ss
+
+where each &quot;stuff&quot; is replaced by the right name.
+
+To ensure that Setup PLT is re-run on the &quot;web-server&quot; and &quot;eopl&quot;
+collections, you need two more flags:
+
+ % mzc --plt stuff.plt --at-plt ++setup web-server ++setup eopl
+       collects/web-server/stuff.ss collects/eopl/stuff.ss
+
+See also Chapter 6 in the mzc manual:
+
+  <A  HREF="http://download.plt-scheme.org/doc/200alpha12/html/mzc/mzc-Z-H-6.html">http://download.plt-scheme.org/doc/200alpha12/html/mzc/mzc-Z-H-6.html</A>
+
+
+Note that it's easier to bundle a whole collection, as opposed to files
+dstributed among existing collections. To bundle a &quot;stuff&quot; collection,
+it's just
+
+  mzc --collection-plt stuff.plt stuff
+
+In other words, the --at-plt and ++setup flags are implicit.
+
+&gt; 	Not knowing how to simply and reliably bundle PLT Scheme code for
+&gt; sharing with others has been a stumbling block for me time and again.
+
+It's been a problem for many people in 103, but I'm hoping that the
+&quot;--plt&quot; and &quot;--collection-plt&quot; interface to mzc in v200 helps.
+
+A GUI version of the interface should appear in DrScheme at some point.
+
+Matthew
+
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00587" href="msg00587.html">Documentation</a></strong>
+<ul><li><em>From:</em> Jerzy Karczmarczuk &lt;karczma@info.unicaen.fr&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00526" href="msg00526.html">Building PLTs</a></strong>
+<ul><li><em>From:</em> &quot;Matt 'LEGO Guy' Jadud&quot; &lt;mjadud@cs.indiana.edu&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00534.html">Re: scsh in PLT Scheme?</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00536.html">Re: Building PLTs</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00536.html">Re: Building PLTs</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00587.html">Documentation</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00535"><strong>Date</strong></a></li>
+<li><a href="threads.html#00535"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>

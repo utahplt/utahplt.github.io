@@ -1,0 +1,170 @@
+<!-- MHonArc v2.4.7 -->
+<!--X-Subject: Re: loading additional code -->
+<!--X-From-R13: Ibwpvrpu Ebopmhx <fbcryNserrofq.uom.cy> -->
+<!--X-Date: Sat, 5 Jan 2002 16:05:59 &#45;0700 (MST) -->
+<!--X-Message-Id: 20020106000441.A1480@freebsd.hbz.pl -->
+<!--X-Content-Type: text/plain -->
+<!--X-Reference: 20020105204652.A99992@freebsd.hbz.pl -->
+<!--X-Reference: 87u1u01khy.fsf@dedasys.com -->
+<!--X-Head-End-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML//EN">
+<html>
+<head>
+<title>Re: loading additional code</title>
+<link rev="made" href="mailto:sopel@freebsd.hbz.pl">
+</head>
+<body>
+<!--X-Body-Begin-->
+<!--X-User-Header-->
+<!--X-User-Header-End-->
+<!--X-TopPNI-->
+<hr>
+[<a href="msg00011.html">Date Prev</a>][<a href="msg00013.html">Date Next</a>][<a href="msg00011.html">Thread Prev</a>][<a href="msg00016.html">Thread Next</a>][<a href="maillist.html#00012">Date Index</a>][<a href="threads.html#00012">Thread Index</a>]
+<!--X-TopPNI-End-->
+<!--X-MsgBody-->
+<!--X-Subject-Header-Begin-->
+<h1>Re: loading additional code</h1>
+<hr>
+<!--X-Subject-Header-End-->
+<!--X-Head-of-Message-->
+<ul>
+<li><em>To</em>: &quot;David N. Welton&quot; &lt;<A HREF="mailto:davidw@dedasys.com">davidw@dedasys.com</A>&gt;</li>
+<li><em>Subject</em>: Re: loading additional code</li>
+<li><em>From</em>: Wojciech Sobczuk &lt;<A HREF="mailto:sopel@freebsd.hbz.pl">sopel@freebsd.hbz.pl</A>&gt;</li>
+<li><em>Date</em>: Sun, 6 Jan 2002 00:04:41 +0100</li>
+<li><em>Cc</em>: <A HREF="mailto:plt-scheme@fast.cs.utah.edu">plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>In-Reply-To</em>: &lt;<a href="msg00011.html">87u1u01khy.fsf@dedasys.com</a>&gt;; from davidw@dedasys.com on Sat, Jan 05, 2002 at 11:49:29PM +0100</li>
+<li><em>References</em>: &lt;<a href="msg00010.html">20020105204652.A99992@freebsd.hbz.pl</a>&gt; &lt;<a href="msg00011.html">87u1u01khy.fsf@dedasys.com</a>&gt;</li>
+<li><em>Sender</em>: <A HREF="mailto:owner-plt-scheme@fast.cs.utah.edu">owner-plt-scheme@fast.cs.utah.edu</A></li>
+<li><em>User-Agent</em>: Mutt/1.2.5i</li>
+</ul>
+<!--X-Head-of-Message-End-->
+<!--X-Head-Body-Sep-Begin-->
+<hr>
+<!--X-Head-Body-Sep-End-->
+<!--X-Body-of-Message-->
+<PRE>
+On Sat, Jan 05, 2002 at 11:49:29PM +0100, David N. Welton wrote:
+[..snip..]
+&gt; 
+&gt; &gt; i'm also planning to develop some kind of JSP equivalent for scheme.
+&gt; &gt; i don't think custom tags will be needed, because scheme is so
+&gt; &gt; readable and 'natural' that it can be seamlessly included in the
+&gt; &gt; HTML code like:
+&gt; 
+&gt; &gt; 	&lt;(reqparam &quot;foo&quot;)&gt;
+&gt; &gt; would display a request parameter &quot;foo&quot;, contrary to the long and dirty
+&gt; &gt; java code for the same:
+&gt; &gt; 	&lt;%= request.getParameter(&quot;foo&quot;) %&gt;
+&gt; 
+&gt; &lt;? ?&gt; are the correct markers to use for processing instructions in
+&gt; xml, possibly accompanied by an identifier like this:
+&gt; 
+&gt; &lt;?mzwebscheme 
+&gt; (display &quot;hello world&quot;)
+&gt; ?&gt;
+
+true!  but my main aim is - make it simple, developer friendly and quick to
+work in.  i'm tired of all this formalism which doesn't give anything.
+i'm the one parsing the document - why not use &lt;(.  java people didn't fear to
+use % instead of ?, why would i?
+if i use '(' - it will embed scheme really nicely into the page - because a
+programmer would have to write the '(' to start a piece of scheme code.
+
+&gt; 
+&gt; &gt; is this the right way to go?  or perhaps i should experiment with
+&gt; &gt; XML related code in <A  HREF="http://pobox.com/~oleg/ftp/">http://pobox.com/~oleg/ftp/</A> and go some other
+&gt; &gt; way?
+&gt; 
+&gt; You might consider doing some tooling around with the ports - making a
+&gt; special output port or something along those lines, so that you avoid
+&gt; having a web-specific output command.  I don't know much yet about
+&gt; mzscheme's internals, but maybe you 2could even replace the standard
+&gt; output with your web one for scripts that are run, so that you can run
+&gt; more or less standard bits of scheme.
+
+yes, i'll make a custom port and set it as default inside the interpreted
+page/script - that way whatever the programmer outputs - will go to the client.
+
+&gt; 
+&gt; Or instead of writing the whole thing from the ground up, you could
+&gt; bolt it onto Apache:-)
+
+well.. yes, but then it would be an OS inside an OS.  i've thought of this,
+but that would include C coding - and i'm writing this to learn Scheme (among
+other reasons).
+
+besides, i've had a look at a comparison between apache and a scheme server, and
+the scheme version was a bit slower (with static documents), it will probably
+be even faster with dynamic stuff.  why?  because i'm thinking all this out
+from bottom up, knowing what apache has problems with from the start.  so i don't
+repeat their mistakes.
+
+&gt; 
+&gt; You might also look at things like 'BRL' which do web/scheme (he uses
+&gt; Kawa though, if I'm not mistaken).
+
+browsing it's project page, and reading docs - looks nice.
+looks like this guy thought of the scheme JSP version before me :)  thanks for
+this resource.  n.b. he also ignores the &lt;? standard :)
+
+&gt; 
+&gt; Ciao,
+&gt; -- 
+&gt; David N. Welton
+&gt;    Consulting: <A  HREF="http://www.dedasys.com/">http://www.dedasys.com/</A>
+&gt; Free Software: <A  HREF="http://people.debian.org/~davidw/">http://people.debian.org/~davidw/</A>
+&gt;    Apache Tcl: <A  HREF="http://tcl.apache.org/">http://tcl.apache.org/</A>
+&gt;      Personal: <A  HREF="http://www.efn.org/~davidw/">http://www.efn.org/~davidw/</A>
+
+greetings,
+Wojtek
+
+</PRE>
+
+<!--X-Body-of-Message-End-->
+<!--X-MsgBody-End-->
+<!--X-Follow-Ups-->
+<hr>
+<ul><li><strong>Follow-Ups</strong>:
+<ul>
+<li><strong><a name="00016" href="msg00016.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> Kirill Lisovsky &lt;lisovsky@acm.org&gt;</li></ul></li>
+</ul></li></ul>
+<!--X-Follow-Ups-End-->
+<!--X-References-->
+<ul><li><strong>References</strong>:
+<ul>
+<li><strong><a name="00010" href="msg00010.html">loading additional code</a></strong>
+<ul><li><em>From:</em> Wojciech Sobczuk &lt;sopel@freebsd.hbz.pl&gt;</li></ul></li>
+<li><strong><a name="00011" href="msg00011.html">Re: loading additional code</a></strong>
+<ul><li><em>From:</em> davidw@dedasys.com (David N. Welton)</li></ul></li>
+</ul></li></ul>
+<!--X-References-End-->
+<!--X-BotPNI-->
+<ul>
+<li>Prev by Date:
+<strong><a href="msg00011.html">Re: loading additional code</a></strong>
+</li>
+<li>Next by Date:
+<strong><a href="msg00013.html">LL1</a></strong>
+</li>
+<li>Prev by thread:
+<strong><a href="msg00011.html">Re: loading additional code</a></strong>
+</li>
+<li>Next by thread:
+<strong><a href="msg00016.html">Re: loading additional code</a></strong>
+</li>
+<li>Index(es):
+<ul>
+<li><a href="maillist.html#00012"><strong>Date</strong></a></li>
+<li><a href="threads.html#00012"><strong>Thread</strong></a></li>
+</ul>
+</li>
+</ul>
+
+<!--X-BotPNI-End-->
+<!--X-User-Footer-->
+<!--X-User-Footer-End-->
+</body>
+</html>
