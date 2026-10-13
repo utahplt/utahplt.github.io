@@ -1,0 +1,138 @@
+/* Variables */
+body {
+    --body-background: #eceff4;
+    --body-background-alt: #e5e9f0;
+    --body-background-alt2: #d8dee9;
+    --body-code-color: #d8dee9;
+    --body-code-font-color: #3b4252;
+    --body-font-color: #1e2430;
+    --link-fg: #8c0519;
+    --link-icon-fg: #8c0519;
+}
+
+/* Fonts */
+
+@font-face {
+    font-family: 'CooperHewitt';
+    src: url('./fonts/CooperHewitt-Book.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: mycharter;
+    src: url('./fonts/charter_regular-webfont.woff2') format('woff2'),
+         url('./fonts/charter_regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    font-family: mycharter, serif;
+    font-size: 20px;
+}
+
+/* General styles */
+
+body {
+    max-width: 50rem;
+    padding: 0 1rem;
+    margin: auto;
+    background-color: var(--body-background);
+    color: var(--body-font-color);
+}
+
+a {
+    text-decoration: none;
+}
+
+p > a {
+    color: var(--link-fg) !important;
+}
+
+p > a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, h3 {
+    font-family: 'CooperHewitt', sans-serif;
+}
+
+h1, h2 {
+    margin-top: 3rem;
+}
+
+.people-list {
+    list-style: none;
+    padding: 0;
+}
+
+.people-list > li {
+    margin-top: 1rem;
+}
+
+.people-list a {
+    text-decoration: none;
+}
+
+.people-list .link-block {
+    padding: 0.5rem;
+}
+
+.people-list .link-block::before {
+    content: "〉";
+    /* font-weight: 800; */
+    font-family: "CooperHewitt";
+    font-size: 0.9rem;
+    margin-right: 0.8rem;
+    margin-left: 0.3rem;
+}
+
+.section-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+}
+
+.section-list > li {
+    margin-top: 1rem;
+}
+
+.section-list a {
+    text-decoration: none;
+}
+
+.section-list h3 + p {
+    margin-top: 0.5rem;
+}
+
+.section-list .link-block {
+    padding: 0.2rem 1rem 1rem 1rem;
+}
+
+.nolink-block {
+    padding: 0.2rem 1rem 1rem 1rem;
+    border-radius: 0.3rem;
+}
+
+.link-block {
+    background-color: var(--body-background-alt);
+    border-radius: 0.3rem;
+}
+
+.link-block:hover {
+    background-color: var(--body-background-alt2);
+}
+
+.link-block, h3::before {
+    content: "〉";
+    margin-right: 0.8rem;
+}
+
+/* Styles for individual elements */
+
+#plt-banner-logo {
+    max-height: 20rem;
+    margin: auto;
+    margin-bottom: -3rem;
+}
