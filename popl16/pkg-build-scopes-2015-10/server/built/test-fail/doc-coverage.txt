@@ -1,0 +1,84 @@
+The time is now Tuesday, October 6th, 2015 4:27:16pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto doc-coverage && bin/raco test --drdr --package doc-coverage'
+Resolving "doc-coverage" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/doc-coverage.zip
+Resolving "cover" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/cover.zip
+Resolving "custom-load" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/custom-load.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of doc-coverage:
+   cover
+ dependencies of cover:
+   custom-load
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/cover/cover
+raco setup: making: <pkgs>/cover/cover/private
+raco setup: making: <pkgs>/cover/cover/private/html
+raco setup: making: <pkgs>/cover/cover/private/html/assets
+raco setup: making: <pkgs>/cover/cover/scribblings
+raco setup: making: <pkgs>/cover/cover/tests
+raco setup: making: <pkgs>/cover/cover/tests/at-exp
+raco setup: making: <pkgs>/cover/cover/tests/basic
+raco setup: making: <pkgs>/cover/cover/tests/simple-multi
+raco setup: making: <pkgs>/cover/cover/tests/submods
+raco setup: making: <pkgs>/cover/cover/tests/syntax
+raco setup: making: <pkgs>/custom-load (custom-load)
+raco setup: making: <pkgs>/custom-load/private
+raco setup: making: <pkgs>/doc-coverage/doc-coverage (doc-coverage)
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/cover/cover/doc/cover
+raco setup: syncing: <pkgs>/custom-load/doc/custom-load
+raco setup: syncing: <pkgs>/doc-coverage/doc-coverage/doc/doc-coverage
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/doc-coverage.scrbl"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-count.rkt" test)
+export-count.rkt: raco test: non-empty stderr: #"--------------------\nFAILURE\nactual:     29\nexpected:   28\nname:       check-eqv?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-count.rkt> 16 2 482 50)\nexpression: (check-eqv? (module-num-exports (quote racket/match)) 28)\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nactual:     28\nexpected:   27\nname:       check-eqv?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-count.rkt> 17 2 535 61)\nexpression: (check-eqv? (module-num-documented-exports (quote racket/match)) 27)\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nactual:     28/29\nexpected:   27/28\nname:       check-eqv?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-count.rkt> 25 2 795 65)\nexpression: (check-eqv? (module-documentation-ratio (quote racket/match)) (/ 27 28))\n\nCheck failure\n--------------------\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-lists.rkt" test)
+export-lists.rkt: raco test: non-empty stderr: #"--------------------\nFAILURE\nactual:     (legacy-match-expander? match-...-nesting match-expander? prop:legacy-match-expander prop:match-expander syntax-local-match-introduce exn:misc:match? match-equality-test == define-match-expander define/match failure-cont match match* match*/derived match-define match-define-values match-lambda match-lambda* match-lambda** match-let match-let* match-let*-values match-let-values match-letrec match-letrec-values match/derived match/values struct*)\nexpected:   (legacy-match-expander? match-...-nesting match-expander? prop:legacy-match-expander prop:match-expander syntax-local-match-introduce exn:misc:match? match-equality-test match-define-values define-match-expander match define/match match*/derived match/derived match/values match-letrec match-define match-let*-values match-let-values match-let* match-let match-lambda** match-lambda match* failure-cont == struct* match-lambda*)\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-lists.rkt> 35 2 915 989)\nexpression: (check-equal? (module->all-exported-names (quote racket/match)) (quote (legacy-match-expander? match-...-nesting match-expander? prop:legacy-match-expander prop:match-expander syntax-local-match-introduce exn:misc:match? match-equality-test match-define-values define-match-expander match define/match match*/derived match/derived match/values match-letrec match-define match-let*-values match-let-values match-let* match-let match-lambda** match-lambda match* failure-cont == struct* match-lambda*)))\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nactual:     (legacy-match-expander? match-expander? prop:legacy-match-expander prop:match-expander syntax-local-match-introduce exn:misc:match? match-equality-test == define-match-expander define/match failure-cont match match* match*/derived match-define match-define-values match-lambda match-lambda* match-lambda** match-let match-let* match-let*-values match-let-values match-letrec match-letrec-values match/derived match/values struct*)\nexpected:   (legacy-match-expander? match-expander? prop:legacy-match-expander prop:match-expander syntax-local-match-introduce exn:misc:match? match-equality-test match-define-values define-match-expander match define/match match*/derived match/derived match/values match-letrec match-define match-let*-values match-let-values match-let* match-let match-lambda** match-lambda match* failure-cont == struct* match-lambda*)\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-lists.rkt> 70 2 2049 960)\nexpression: (check-equal? (module->documented-exported-names (quote racket/match)) (quote (legacy-match-expander? match-expander? prop:legacy-match-expander prop:match-expander syntax-local-match-introduce exn:misc:match? match-equality-test match-define-values define-match-expander match define/match match*/derived match/derived match/values match-letrec match-define match-let*-values match-let-values match-let* match-let match-lambda** match-lambda match* failure-cont == struct* match-lambda*)))\n\nCheck failure\n--------------------\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-tests.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/info.rkt"
+2/8 test failures
+  6 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-tests.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/doc-coverage.scrbl
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/main.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/info.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-count.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/doc-coverage/doc-coverage/export-lists.rkt
+The time is now Tuesday, October 6th, 2015 4:27:43pm

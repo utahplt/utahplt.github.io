@@ -1,0 +1,87 @@
+The time is now Wednesday, October 7th, 2015 2:23:14am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.117 '/usr/bin/env' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto socketcan'
+Resolving "socketcan" via http://localhost:18333/built/catalog/
+Resolving "socketcan" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/socketcan.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: pre-installing: <pkgs>/socketcan/socketcan (socketcan)
+make: making /home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/private/compiled/native/x86_64-linux-natipkg/3m/socketcan_ext.c because /home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/private/compiled/native/x86_64-linux-natipkg/3m/socketcan_ext.c does not exist
+make: failed to make /home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/private/compiled/native/x86_64-linux-natipkg/3m/socketcan_ext.c; process*: contract violation
+  expected: path-string?
+  given: #f
+  context...:
+   /home/racket/build-pkgs/racket/collects/racket/system.rkt:100:35
+   /home/racket/build-pkgs/racket/collects/racket/system.rkt:98:0xform-cpp: (#f -E -DMZ_PRECISE_GC -I./include -I/home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/private/ -I/home/racket/build-pkgs/racket/include -I/home/racket/build-pkgs/racket/include -DMZ_XFORM -DMZ_PRECISE_GC -DGC_STACK_CALLEE_RESTORE socketcan_ext.c)
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+: do-process*/ports
+   /home/racket/build-pkgs/racket/collects/compiler/private/xform.rkt:8:2: xform
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:88:24: for-loop
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:74:2: make-file
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:88:24: for-loop
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:74:2: make-file
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:70:0: core17
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/socketcan/scribblings
+raco setup: making: <pkgs>/socketcan/socketcan (socketcan)
+raco setup:  in <pkgs>/socketcan/socketcan
+/home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/main.rkt:4:9: cannot open module file
+  module path: #<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/private/socketcan_ext.rkt>
+  path: /home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/private/socketcan_ext.rkt
+  system error: No such file or directory; errno=2
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/main.rkt
+  context...:
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:346:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:561:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:553:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:518:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:633:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:713:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:169:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor23
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:988:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1061:8
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:70:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:17:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+raco setup: making: <pkgs>/socketcan/socketcan/private
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during early install for <pkgs>/socketcan/socketcan (socketcan)
+raco setup:   make: failed to make /home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/private/compiled/native/x86_64-linux-natipkg/3m/socketcan_ext.c; process*: contract violation
+raco setup:     expected: path-string?
+raco setup:     given: #f
+raco setup: error: during making for <pkgs>/socketcan/socketcan (socketcan)
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/main.rkt:4:9: cannot open module file
+raco setup:     module path: #<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/private/socketcan_ext.rkt>
+raco setup:     path: /home/racket/build-pkgs/user/.racket/snapshot/pkgs/socketcan/socketcan/private/socketcan_ext.rkt
+raco setup:     system error: No such file or directory; errno=2
+raco setup:     compiling: <pkgs>/socketcan/socketcan/main.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Wednesday, October 7th, 2015 2:23:18am

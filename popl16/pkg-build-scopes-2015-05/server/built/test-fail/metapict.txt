@@ -1,0 +1,98 @@
+The time is now Monday, May 18th, 2015 11:51:42am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto metapict && bin/raco test --drdr --package metapict'
+Resolving "metapict" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/metapict.zip
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/scope-snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/metapict/metapict
+raco setup: making: <pkgs>/metapict/metapict/debug
+raco setup: making: <pkgs>/metapict/metapict/debug-foo
+raco setup: making: <pkgs>/metapict/metapict/debug-foo/foo
+raco setup: making: <pkgs>/metapict/metapict/examples
+raco setup: making: <pkgs>/metapict/metapict/extras
+raco setup: making: <pkgs>/metapict/metapict/metapost-examples
+raco setup: making: <pkgs>/metapict/metapict/scribblings
+raco setup: making: <pkgs>/metapict/metapict/texts
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: syncing: <pkgs>/metapict/metapict/doc/metapict
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/info.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/angles.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/arrow.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/bez.rkt" test)
+bez.rkt: raco test: non-empty stderr: #"--------------------\nFAILURE\nname:       check-true\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/bez.rkt> 236 2 9271 62)\nexpression: (check-true (pt~ (bez-intersection-point bez3 bez4) (pt 1 1)))\nparams:     (#f)\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nname:       check-true\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/bez.rkt> 246 4 9638 42)\nexpression: (check-true (pt~ (pt t1 t2) (pt 1/2 1/2)))\nparams:     (#f)\n\nCheck failure\n--------------------\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/bitmap.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/box-and-pointer-diagram.rkt"
+box-and-pointer-diagram.rkt: raco test: non-empty stderr: #"grid: arity mismatch;\n the expected number of arguments does not match the given number\n  expected: a different number plus an optional argument with keyword #:step\n  given: 4\n  arguments...:\n   (pt -10 -10)\n   (pt 10 10)\n   (pt 0 0)\n   1\n  context...:\n   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/box-and-pointer-diagram.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/color.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/curve.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/dc-path-to-curve.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/dc-path.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/dc.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/debug.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/def.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/device.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/draw-bezier.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/draw.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/arbelos.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/asymptote-hobby-control.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/asymptote-venn-diagram.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/convex-hull.rkt" test)
+convex-hull.rkt: raco test: non-zero exit: 137
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/cuboid.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/exercises-angles-in-right-triangle.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/generate-exercises-to-pdf.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/geometry-exercises.rkt"
+geometry-exercises.rkt: raco test: non-empty stderr: #"open-output-file: cannot open output file\n  path: /Users/soegaard/Downloads/fig1.png\n  system error: No such file or directory; errno=2\n  context...:\n   /home/racket/build-pkgs/racket/collects/racket/private/kw-file.rkt:116:2: call-with-output-file*70\n   /home/racket/build-pkgs/racket/share/pkgs/draw-lib/racket/draw/private/bitmap.rkt:577:4: core331\n   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/geometry-exercises.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/glider.rkt"
+glider.rkt: raco test: non-empty stderr: #"grid: arity mismatch;\n the expected number of arguments does not match the given number\n  expected: a different number plus an optional argument with keyword #:step\n  given: 4\n  arguments...:\n   (pt 0 0)\n   (pt 3 3)\n   (pt 0 0)\n   1\n  context...:\n   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/glider.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/gradient-example.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/integral-left-sum.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/kmiecik-examples-from-tug-boat.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/metafont-book.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/metapost-examples.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/metapost-manual.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/missing-square-puzzle.rkt"
+missing-square-puzzle.rkt: raco test: non-empty stderr: #"grid: arity mismatch;\n the expected number of arguments does not match the given number\n  expected: a different number plus an optional argument with keyword #:step\n  given: 4\n  arguments...:\n   (pt -1 -1)\n   (pt 14 12)\n   (pt 0 0)\n   1\n  context...:\n   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/missing-square-puzzle.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/olympic-rings.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/pointilism.rkt"
+pointilism.rkt: raco test: non-empty stderr: #"open-input-file: cannot open input file\n  path: /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/moonlanding.jpg\n  system error: No such file or directory; errno=2\n  context...:\n   /home/racket/build-pkgs/racket/collects/racket/private/kw-file.rkt:102:2: call-with-input-file*61\n   /home/racket/build-pkgs/racket/share/pkgs/draw-lib/racket/draw/private/bitmap.rkt:156:2\n   /home/racket/build-pkgs/racket/collects/racket/private/class-internal.rkt:3549:0: continue-make-object\n   /home/racket/build-pkgs/racket/collects/racket/private/class-internal.rkt:3503:0: do-make-object\n   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/pointilism.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/pointilism2.rkt"
+pointilism2.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/polygonal-numbers.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/reuleaux-triangle.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/root-spiral.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/rotating-triangle.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/metapict/metapict/examples/sine-cosine-drawing.rkt"
+user break
+Timeout after 600 seconds

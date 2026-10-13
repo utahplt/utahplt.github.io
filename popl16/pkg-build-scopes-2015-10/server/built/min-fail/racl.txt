@@ -1,0 +1,128 @@
+The time is now Wednesday, October 7th, 2015 1:37:21am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.118 '/usr/bin/env' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto racl'
+Resolving "racl" via http://localhost:18333/built/catalog/
+Resolving "racl" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/racl.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: error loading installer: /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/private/install.rkt:8:9: module: identifier already imported from: (rename srfi/13 string-prefix...
+  at: string-prefix?
+  in: racket/string
+  context...:
+   /home/racket/build-pkgs/racket/collects/racket/private/more-scheme.rkt:163:2: select-handler/no-breaks
+   /home/racket/build-pkgs/racket/collects/setup/..:261:28
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:822:6: for-loop
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:70:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/racl (racl)
+raco setup:  in <pkgs>/racl
+/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/wrapper.rkt:310:0: include: can't open include file (/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/keys.rkt:6:9: cannot open module file
+  module path: #<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/wrapper.rkt>
+  path: /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/private/subnacl/sexpdefs.ss
+  system error: No such file or directory; errno=2)
+  at: #<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/private/subnacl/sexpdefs.ss>
+  in: (include "private/subnacl/sexpdefs.ss")
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/wrapper.rkt
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/keys.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/racket/private/more-scheme.rkt:163:2: select-handler/no-breaks
+   /home/racket/build-pkgs/racket/collects/racket/include.rkt:13:0
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:346:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:561:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:553:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:518:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:633:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:749:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:346:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:561:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:553:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:518:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:633:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:713:4
+   ...
+raco setup: making: <pkgs>/racl/examples
+raco setup:  in <pkgs>/racl/examples
+raco setup:  in <pkgs>/racl
+/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/wrapper.rkt:310:0: include: can't open include file (/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/main.rkt:3:9: cannot open module file
+  module path: #<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/wrapper.rkt>
+  path: /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/private/subnacl/sexpdefs.ss
+  system error: No such file or directory; errno=2)
+  at: #<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/private/subnacl/sexpdefs.ss>
+  in: (include "private/subnacl/sexpdefs.ss")
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/wrapper.rkt
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/main.rkt
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/session.rkt
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/tcp.rkt
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/examples/repl-client.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/racket/private/more-scheme.rkt:163:2: select-handler/no-breaks
+   /home/racket/build-pkgs/racket/collects/racket/include.rkt:13:0
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:346:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:561:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:553:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:518:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:633:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:749:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:346:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:561:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:553:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:518:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:633:2: do-check
+   ...
+raco setup: making: <pkgs>/racl/private
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during early install for <pkgs>/racl (racl)
+raco setup:   raco setup: error loading installer: /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/private/install.rkt:8:9: module: identifier already imported from: (rename srfi/13 string-prefix...
+raco setup:     at: string-prefix?
+raco setup:     in: racket/string
+raco setup: error: during making for <pkgs>/racl (racl)
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/wrapper.rkt:310:0: include: can't open include file (/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/keys.rkt:6:9: cannot open module file
+raco setup:     module path: #<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/wrapper.rkt>
+raco setup:     path: /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/private/subnacl/sexpdefs.ss
+raco setup:     system error: No such file or directory; errno=2)
+raco setup:     at: #<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/private/subnacl/sexpdefs.ss>
+raco setup:     in: (include "private/subnacl/sexpdefs.ss")
+raco setup:     compiling: <pkgs>/racl/wrapper.rkt
+raco setup: error: during making for <pkgs>/racl/examples
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/wrapper.rkt:310:0: include: can't open include file (/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/main.rkt:3:9: cannot open module file
+raco setup:     module path: #<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/wrapper.rkt>
+raco setup:     path: /home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/private/subnacl/sexpdefs.ss
+raco setup:     system error: No such file or directory; errno=2)
+raco setup:     at: #<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/racl/private/subnacl/sexpdefs.ss>
+raco setup:     in: (include "private/subnacl/sexpdefs.ss")
+raco setup:     compiling: <pkgs>/racl/wrapper.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Wednesday, October 7th, 2015 1:37:26am

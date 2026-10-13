@@ -1,0 +1,1098 @@
+Starting VirtualBox machine "ubuntu32"
+Waiting for VM "ubuntu32" to power on...
+VM "ubuntu32" has been successfully started.
+[2015-10-06T14:26:08] The time is now Tuesday, October 6th, 2015 2:26:08pm
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 192.168.56.102 '/bin/sh' '-c' 'echo hello'
+hello
+[2015-10-06T14:26:09] The time is now Tuesday, October 6th, 2015 2:26:09pm
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 192.168.56.102 '/bin/sh' '-c' 'if [ ! -d "build/plt" ] ; then git clone "http://192.168.56.1:9440/.git" "build/plt" ; fi'
+[2015-10-06T14:26:09] The time is now Tuesday, October 6th, 2015 2:26:09pm
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 192.168.56.102 '/bin/sh' '-c' 'cd "build/plt" ; git pull'
+Already up-to-date.
+[2015-10-06T14:26:10] The time is now Tuesday, October 6th, 2015 2:26:10pm
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 192.168.56.102 '/bin/sh' '-c' 'cd "build/plt" ; make -j 1 client SERVER=192.168.56.1 SERVER_PORT=9440 PKGS="main-distribution" DOC_SEARCH="http://www.cs.utah.edu/plt/popl16/doc/local-redirect/index.html" DIST_DESC="{1} Racket | {8} Unix | Source" DIST_NAME="Racket" DIST_BASE=racket DIST_DIR=racket DIST_SUFFIX="" DIST_CATALOGS_q='"'"'"http://www.cs.utah.edu/plt/popl16/catalog/" ""'"'"' SIGN_IDENTITY="" INSTALL_NAME="snapshot" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE="" SOURCE_MODE=--source VERSIONLESS_MODE="" PKG_SOURCE_MODE="--source --no-setup" MAC_PKG_MODE="" UPLOAD=http://192.168.56.1:9440/upload/ README=http://192.168.56.1:9440/"README-14441631671444163167959" JOB_OPTIONS="-j 1" CONFIGURE_ARGS_qq='"'"''"'"''
+if [ ! -d build/log ] ; then rm -rf build/user ; fi
+make base SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="main-distribution" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE=--source VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="--source --no-setup" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://192.168.56.1:9440/upload/" DIST_DESC="{1} Racket | {8} Unix | Source" README="http://192.168.56.1:9440/README-14441631671444163167959" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory `/home/racket/build/plt'
+mkdir -p build/config
+echo '#hash((links-search-files . ()))' > build/config/config.rktd
+mkdir -p racket/src/build
+make racket/src/build/Makefile
+make[2]: Entering directory `/home/racket/build/plt'
+make[2]: `racket/src/build/Makefile' is up to date.
+make[2]: Leaving directory `/home/racket/build/plt'
+cd racket/src/build; make reconfigure
+make[2]: Entering directory `/home/racket/build/plt/racket/src/build'
+make Makefile
+make[3]: Entering directory `/home/racket/build/plt/racket/src/build'
+make[3]: `Makefile' is up to date.
+make[3]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[2]: Leaving directory `/home/racket/build/plt/racket/src/build'
+cd racket/src/build; make SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`"
+make[2]: Entering directory `/home/racket/build/plt/racket/src/build'
+make 3m
+make[3]: Entering directory `/home/racket/build/plt/racket/src/build'
+make no-local-racket
+make[4]: Entering directory `/home/racket/build/plt/racket/src/build'
+:
+make[4]: Leaving directory `/home/racket/build/plt/racket/src/build'
+cd racket; make 3m
+make[4]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make cgc
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make cgc-core
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make common
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make g-c
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd sgc; make ../libmzgc.a 
+make[9]: Entering directory `/home/racket/build/plt/racket/src/build/racket/sgc'
+make[9]: `../libmzgc.a' is up to date.
+make[9]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/sgc'
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make foreign-stuff
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd ../foreign; make all
+make[9]: Entering directory `/home/racket/build/plt/racket/src/build/foreign'
+make foreign.o
+make[10]: Entering directory `/home/racket/build/plt/racket/src/build/foreign'
+make[10]: `foreign.o' is up to date.
+make[10]: Leaving directory `/home/racket/build/plt/racket/src/build/foreign'
+make libffi_ON
+make[10]: Entering directory `/home/racket/build/plt/racket/src/build/foreign'
+make libffi/libffi.la
+make[11]: Entering directory `/home/racket/build/plt/racket/src/build/foreign'
+make[11]: `libffi/libffi.la' is up to date.
+make[11]: Leaving directory `/home/racket/build/plt/racket/src/build/foreign'
+make[10]: Leaving directory `/home/racket/build/plt/racket/src/build/foreign'
+make[9]: Leaving directory `/home/racket/build/plt/racket/src/build/foreign'
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make dynlib
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd dynsrc; make dynlib 
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make ../mzdyn.o
+make[9]: Entering directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[9]: `../mzdyn.o' is up to date.
+make[9]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make ../starter
+make[9]: Entering directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[9]: `../starter' is up to date.
+make[9]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make mzlibrary
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd src; make all 
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/racket/src'
+make mzobjects
+make[9]: Entering directory `/home/racket/build/plt/racket/src/build/racket/src'
+make[9]: Nothing to be done for `mzobjects'.
+make[9]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/src'
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/src'
+make libracket.a
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make[8]: `libracket.a' is up to date.
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make racketcgc
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make[7]: `racketcgc' is up to date.
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make mzcomcgc
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+:
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make sysinfercgc
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+./racketcgc -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2  -pthread  -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  ../../racket/src/systype.c" "" "./racketcgc" "./racketcgc"
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+cd gc2; make all
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make check-sdep
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+../racketcgc -G /home/racket/build/plt/build/config -cqu ../../../racket/gc2/check-sdep.rkt
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make xsrc/precomp.h
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[6]: `xsrc/precomp.h' is up to date.
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make xobjects
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[6]: Nothing to be done for `xobjects'.
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make ../racket3m
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[6]: `../racket3m' is up to date.
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+cd dynsrc; make dynlib3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make ../mzdyn3m.o
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[6]: `../mzdyn3m.o' is up to date.
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+cd gc2; make ../racket3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[5]: `../racket3m' is up to date.
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+cd gc2; make ../mzcom3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[5]: `../mzcom3m' is up to date.
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make sysinfer3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+./racket3m -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2  -pthread  -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  ../../racket/src/systype.c" "" "./racket3m" "./racket3m"
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[4]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make gracket-3m
+make[4]: Entering directory `/home/racket/build/plt/racket/src/build'
+cd gracket; make 3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+make resources
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+:
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+cd gc2; make 3m
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/gracket/gc2'
+make ../gracket3m
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/gracket/gc2'
+make[7]: `../gracket3m' is up to date.
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket/gc2'
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket/gc2'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make[4]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[3]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[2]: Leaving directory `/home/racket/build/plt/racket/src/build'
+cd racket/src/build; make install SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`" PLT_SETUP_OPTIONS="-j 1 "
+make[2]: Entering directory `/home/racket/build/plt/racket/src/build'
+make install-3m
+make[3]: Entering directory `/home/racket/build/plt/racket/src/build'
+make install-3m-common
+make[4]: Entering directory `/home/racket/build/plt/racket/src/build'
+make install-common-first
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build'
+if [ "" != "" ]; then \
+          if [[ "" != /* ]]; then \
+            echo "expected an absolute path for DESTDIR; given: "; exit 1; \
+          fi; \
+        fi
+mkdir -p "/home/racket/build/plt/racket/bin" "/home/racket/build/plt/racket/collects" "/home/racket/build/plt/racket/doc" "/home/racket/build/plt/racket/lib" "/home/racket/build/plt/racket/include" "/home/racket/build/plt/racket/lib" "/home/racket/build/plt/racket/share" "/home/racket/build/plt/racket/etc" "/home/racket/build/plt/racket/share/applications" "/home/racket/build/plt/racket/man"
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build'
+cd racket; make install-3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make headers
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+./racketcgc -cqu ../../racket/mkincludes.rkt "/home/racket/build/plt/racket/include" "../../racket" .
+Making /home/racket/build/plt/racket/include
+Done.
+cd ..; cp racket/system.rktd "/home/racket/build/plt/racket/lib/system.rktd"
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make unix-install
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd ..; rm -f "/home/racket/build/plt/racket/bin/racketcgc"
+cd ..; rm -f "/home/racket/build/plt/racket/bin/racket"
+cd ..; cp racket/starter "/home/racket/build/plt/racket/lib/starter"
+cp ../../racket/dynsrc/starter-sh .
+cd ..; cp racket/starter-sh "/home/racket/build/plt/racket/lib/starter-sh"
+cd ..; strip "/home/racket/build/plt/racket/lib/starter"
+./racketcgc -cu "../../racket/collects-path.rkt" "/home/racket/build/plt/racket/lib/starter" ../collects ../etc
+cd ..; echo 'CC=gcc' > "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo 'CFLAGS=-Wall   -g -O2  -pthread' >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo 'OPTIONS= -DUSE_SENORA_GC' >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo 'MZOPTIONS= -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo "LDFLAGS= -pthread" >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo 'LIBS=-ldl -lm  -ldl -lm -rdynamic ' >> "/home/racket/build/plt/racket/lib/buildinfo"
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make unix-install-3m
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd ..; cp racket/racket3m "/home/racket/build/plt/racket/bin/racket"
+cd ..; strip "/home/racket/build/plt/racket/bin/racket"
+make unix-install-libs-3m
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd ..; cp racket/libracket3m.a "/home/racket/build/plt/racket/lib/libracket3m.a"
+cd ..; strip -S "/home/racket/build/plt/racket/lib/libracket3m.a"
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+cd ..; cp racket/mzdyn3m.o "/home/racket/build/plt/racket/lib/mzdyn3m.o"
+./racket3m -cu "../../racket/collects-path.rkt" "/home/racket/build/plt/racket/bin/racket" ../collects ../etc
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make unix-install-3m-final
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+:
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make install-gracket-3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build'
+cd gracket; make install-3m
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-wx_xt
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-common
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+:
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+cd ..; rm -f "/home/racket/build/plt/racket/lib/gracketcgc"
+cd ..; rm -f "/home/racket/build/plt/racket/lib/gracket"
+cd ..; echo 'MROPTIONS=' >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo "MRLIBS=" >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo "MRLDFLAGS=-pthread -L../racket" >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; mkdir -p "/home/racket/build/plt/racket/lib";
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-wx_xt-3m
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-no-lib-3m-wx_xt
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+echo "no dynamic libs"
+no dynamic libs
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+cd ..; cp gracket/gracket3m "/home/racket/build/plt/racket/lib/gracket"
+cd ..; strip "/home/racket/build/plt/racket/lib/gracket"
+../racket/racket3m -G /home/racket/build/plt/build/config -cu "../../gracket/../racket/collects-path.rkt" "/home/racket/build/plt/racket/lib/gracket" ../collects ../etc
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-wx_xt-3m-final
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+:
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make install-common-middle
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build'
+make no-run
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build'
+:
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make install-gracket-post-collects
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build'
+cd gracket; make install-post-collects
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-wx_xt-post-collects
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+:
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make lib-finish
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build'
+if [ "" = "" ]; then \
+	  echo "/home/racket/build/plt/racket/lib"; \
+	fi
+/home/racket/build/plt/racket/lib
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[4]: Leaving directory `/home/racket/build/plt/racket/src/build'
+racket/racket3m -X "/home/racket/build/plt/racket/collects" -G "/home/racket/build/plt/racket/etc" -G /home/racket/build/plt/build/config  --no-user-path -N "raco" -l- setup --no-user -j 1  
+raco setup: version: 6.2.900.17
+raco setup: platform: i386-linux [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build/plt/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build/plt/racket/collects
+raco setup: main pkgs: /home/racket/build/plt/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build/plt/racket/share/pkgs
+raco setup:   /home/racket/.racket/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup: main docs: /home/racket/build/plt/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <collects>/acks
+raco setup: making: <collects>/compiler
+raco setup: making: <collects>/compiler/private
+raco setup: making: <collects>/data
+raco setup: making: <collects>/data/private
+raco setup: making: <collects>/db
+raco setup: making: <collects>/db/private
+raco setup: making: <collects>/db/private/generic
+raco setup: making: <collects>/db/private/sqlite3
+raco setup: making: <collects>/dynext
+raco setup: making: <collects>/ffi
+raco setup: making: <collects>/ffi/unsafe
+raco setup: making: <collects>/ffi/unsafe/private
+raco setup: making: <collects>/file
+raco setup: making: <collects>/file/private
+raco setup: making: <collects>/info
+raco setup: making: <collects>/info-domain
+raco setup: making: <collects>/json
+raco setup: making: <collects>/launcher
+raco setup: making: <collects>/net
+raco setup: making: <collects>/openssl
+raco setup: making: <collects>/openssl/private
+raco setup: making: <collects>/pkg
+raco setup: making: <collects>/pkg/private
+raco setup: making: <collects>/planet
+raco setup: making: <collects>/planet/private
+raco setup: making: <collects>/racket
+raco setup: making: <collects>/racket/base
+raco setup: making: <collects>/racket/base/lang
+raco setup: making: <collects>/racket/contract
+raco setup: making: <collects>/racket/contract/private
+raco setup: making: <collects>/racket/gui
+raco setup: making: <collects>/racket/kernel
+raco setup: making: <collects>/racket/lang
+raco setup: making: <collects>/racket/load
+raco setup: making: <collects>/racket/load/lang
+raco setup: making: <collects>/racket/match
+raco setup: making: <collects>/racket/place
+raco setup: making: <collects>/racket/place/private
+raco setup: making: <collects>/racket/private
+raco setup: making: <collects>/racket/signature
+raco setup: making: <collects>/racket/signature/lang
+raco setup: making: <collects>/racket/unit
+raco setup: making: <collects>/racket/unit/lang
+raco setup: making: <collects>/racket/unsafe
+raco setup: making: <collects>/raco
+raco setup: making: <collects>/reader
+raco setup: making: <collects>/reader/lang
+raco setup: making: <collects>/realm
+raco setup: making: <collects>/s-exp
+raco setup: making: <collects>/s-exp/lang
+raco setup: making: <collects>/setup
+raco setup: making: <collects>/setup/commands
+raco setup: making: <collects>/setup/infotab
+raco setup: making: <collects>/setup/infotab/lang
+raco setup: making: <collects>/setup/private
+raco setup: making: <collects>/syntax
+raco setup: making: <collects>/syntax/parse
+raco setup: making: <collects>/syntax/parse/experimental
+raco setup: making: <collects>/syntax/parse/experimental/private
+raco setup: making: <collects>/syntax/parse/lib
+raco setup: making: <collects>/syntax/parse/private
+raco setup: making: <collects>/syntax/private
+raco setup: making: <collects>/syntax/private/util
+raco setup: making: <collects>/syntax/unsafe
+raco setup: making: <collects>/unstable
+raco setup: making: <collects>/version
+raco setup: making: <collects>/xml
+raco setup: making: <collects>/xml/private
+raco setup: --- creating launchers ---
+raco setup: launcher: <console-bin>/raco
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- checking package dependencies ---
+make install-common-last
+make[4]: Entering directory `/home/racket/build/plt/racket/src/build'
+make fix-paths
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build'
+if [ "" != "" ]; then \
+          if [ "" = "" ]; then \
+            racket/racketcgc -G /home/racket/build/plt/build/config -u \
+              "../../collects/setup/unixstyle-install.rkt" \
+              make-install-destdir-fix "../.." \
+              "/home/racket/build/plt/racket/bin" "/home/racket/build/plt/racket/collects" "/home/racket/build/plt/racket/doc" "/home/racket/build/plt/racket/lib" "/home/racket/build/plt/racket/include" "/home/racket/build/plt/racket/lib" "/home/racket/build/plt/racket/share" "/home/racket/build/plt/racket/etc" "/home/racket/build/plt/racket/share/applications" "/home/racket/build/plt/racket/man" "yes"; \
+          fi \
+        fi
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make preserve-raco-pkg-default-scope
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build'
+:
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build'
+cp "../COPYING-libscheme.txt" "../COPYING_LESSER.txt" "../COPYING.txt" "/home/racket/build/plt/racket/share"/
+make[4]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[3]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[2]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[1]: Leaving directory `/home/racket/build/plt'
+make distro-build-from-server SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="main-distribution" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE=--source VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="--source --no-setup" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://192.168.56.1:9440/upload/" DIST_DESC="{1} Racket | {8} Unix | Source" README="http://192.168.56.1:9440/README-14441631671444163167959" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory `/home/racket/build/plt'
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -N raco -l- raco pkg install --catalog http://192.168.56.1:9440/ --scope user --skip-installed --deps search-auto --pkgs -j 1 distro-build-client
+Resolving "distro-build-client" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/distro-build-client.zip
+00: Resolving "base" via http://192.168.56.1:9440/
+01: Resolving "ds-store-lib" via http://192.168.56.1:9440/
+Resolving "at-exp-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/base.zip
+Downloading http://192.168.56.1:9440/pkgs/ds-store-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/at-exp-lib.zip
+Resolving "racket-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/racket-lib.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of distro-build-client:
+   base
+   ds-store-lib
+   at-exp-lib
+ dependencies of base:
+   racket-lib
+raco setup: version: 6.2.900.17
+raco setup: platform: i386-linux [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build/plt/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build/plt/build/user/6.2.900.17/collects
+raco setup:   /home/racket/build/plt/racket/collects
+raco setup: main pkgs: /home/racket/build/plt/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build/plt/racket/share/pkgs
+raco setup:   /home/racket/build/plt/build/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build/plt/racket/share/links.rktd
+raco setup:   /home/racket/build/plt/build/user/6.2.900.17/links.rktd
+raco setup: main docs: /home/racket/build/plt/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build/plt/build/user/6.2.900.17/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/at-exp-lib/at-exp
+raco setup: making: <pkgs>/at-exp-lib/at-exp/lang
+raco setup: making: <pkgs>/at-exp-lib/scribble
+raco setup: making: <pkgs>/at-exp-lib/scribble/base
+raco setup: making: <pkgs>/distro-build-client
+raco setup: making: <pkgs>/distro-build-client/macosx-installer
+raco setup: making: <pkgs>/distro-build-client/unix-installer
+raco setup: making: <pkgs>/distro-build-client/windows-installer
+raco setup: making: <pkgs>/ds-store-lib
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+make[1]: Leaving directory `/home/racket/build/plt'
+make bundle-from-server SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="main-distribution" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE=--source VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="--source --no-setup" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://192.168.56.1:9440/upload/" DIST_DESC="{1} Racket | {8} Unix | Source" README="http://192.168.56.1:9440/README-14441631671444163167959" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory `/home/racket/build/plt'
+rm -rf bundle
+mkdir -p bundle/racket
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install bundle racket bundle/racket
+Copying bin -> /home/racket/build/plt/bundle/racket/bin
+Copying collects -> /home/racket/build/plt/bundle/racket/collects
+Copying doc -> /home/racket/build/plt/bundle/racket/doc
+Copying lib -> /home/racket/build/plt/bundle/racket/lib
+Copying include -> /home/racket/build/plt/bundle/racket/include
+Copying share/applications -> /home/racket/build/plt/bundle/racket/share/applications
+Copying share -> /home/racket/build/plt/bundle/racket/share
+Copying etc -> /home/racket/build/plt/bundle/racket/etc
+Copying man -> /home/racket/build/plt/bundle/racket/man
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/unpack-collects http://192.168.56.1:9440/
+[2015-10-06T14:24:07] The time is now Tuesday, October 6th, 2015 2:24:07pm
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://192.168.56.1:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 1 --source --no-setup racket-lib
+Resolving "racket-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/racket-lib.zip
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://192.168.56.1:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 1 --source --no-setup main-distribution
+Resolving "main-distribution" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/main-distribution.zip
+00: Resolving "2d" via http://192.168.56.1:9440/
+01: Resolving "algol60" via http://192.168.56.1:9440/
+02: Resolving "at-exp-lib" via http://192.168.56.1:9440/
+03: Resolving "compatibility" via http://192.168.56.1:9440/
+04: Resolving "contract-profile" via http://192.168.56.1:9440/
+05: Resolving "compiler" via http://192.168.56.1:9440/
+06: Resolving "data" via http://192.168.56.1:9440/
+07: Resolving "datalog" via http://192.168.56.1:9440/
+08: Resolving "db" via http://192.168.56.1:9440/
+09: Resolving "deinprogramm" via http://192.168.56.1:9440/
+10: Resolving "draw" via http://192.168.56.1:9440/
+11: Resolving "draw-doc" via http://192.168.56.1:9440/
+12: Resolving "draw-lib" via http://192.168.56.1:9440/
+13: Resolving "drracket" via http://192.168.56.1:9440/
+14: Resolving "drracket-tool" via http://192.168.56.1:9440/
+15: Resolving "eopl" via http://192.168.56.1:9440/
+16: Resolving "errortrace" via http://192.168.56.1:9440/
+17: Resolving "future-visualizer" via http://192.168.56.1:9440/
+18: Resolving "future-visualizer-typed" via http://192.168.56.1:9440/
+19: Resolving "frtime" via http://192.168.56.1:9440/
+20: Resolving "games" via http://192.168.56.1:9440/
+21: Resolving "gui" via http://192.168.56.1:9440/
+22: Resolving "htdp" via http://192.168.56.1:9440/
+23: Resolving "html" via http://192.168.56.1:9440/
+24: Resolving "icons" via http://192.168.56.1:9440/
+25: Resolving "images" via http://192.168.56.1:9440/
+26: Resolving "lazy" via http://192.168.56.1:9440/
+27: Resolving "macro-debugger" via http://192.168.56.1:9440/
+28: Resolving "macro-debugger-text-lib" via http://192.168.56.1:9440/
+29: Resolving "make" via http://192.168.56.1:9440/
+30: Resolving "math" via http://192.168.56.1:9440/
+31: Resolving "mysterx" via http://192.168.56.1:9440/
+00: Resolving "mzcom" via http://192.168.56.1:9440/
+10: Resolving "mzscheme" via http://192.168.56.1:9440/
+08: Resolving "net" via http://192.168.56.1:9440/
+06: Resolving "optimization-coach" via http://192.168.56.1:9440/
+04: Resolving "option-contract" via http://192.168.56.1:9440/
+30: Resolving "parser-tools" via http://192.168.56.1:9440/
+02: Resolving "pconvert-lib" via http://192.168.56.1:9440/
+28: Resolving "pict" via http://192.168.56.1:9440/
+08: Resolving "pict-snip" via http://192.168.56.1:9440/
+10: Resolving "picturing-programs" via http://192.168.56.1:9440/
+06: Resolving "plai" via http://192.168.56.1:9440/
+04: Resolving "planet" via http://192.168.56.1:9440/
+30: Resolving "plot" via http://192.168.56.1:9440/
+28: Resolving "preprocessor" via http://192.168.56.1:9440/
+02: Resolving "profile" via http://192.168.56.1:9440/
+10: Resolving "r5rs" via http://192.168.56.1:9440/
+08: Resolving "r6rs" via http://192.168.56.1:9440/
+06: Resolving "racket-doc" via http://192.168.56.1:9440/
+04: Resolving "distributed-places" via http://192.168.56.1:9440/
+28: Resolving "racket-index" via http://192.168.56.1:9440/
+30: Resolving "racklog" via http://192.168.56.1:9440/
+02: Resolving "rackunit" via http://192.168.56.1:9440/
+10: Resolving "readline" via http://192.168.56.1:9440/
+08: Resolving "realm" via http://192.168.56.1:9440/
+06: Resolving "redex" via http://192.168.56.1:9440/
+30: Resolving "sandbox-lib" via http://192.168.56.1:9440/
+04: Resolving "schemeunit" via http://192.168.56.1:9440/
+28: Resolving "scribble" via http://192.168.56.1:9440/
+02: Resolving "serialize-cstruct-lib" via http://192.168.56.1:9440/
+10: Resolving "sgl" via http://192.168.56.1:9440/
+08: Resolving "shell-completion" via http://192.168.56.1:9440/
+06: Resolving "slatex" via http://192.168.56.1:9440/
+30: Resolving "slideshow" via http://192.168.56.1:9440/
+04: Resolving "snip" via http://192.168.56.1:9440/
+28: Resolving "srfi" via http://192.168.56.1:9440/
+02: Resolving "string-constants" via http://192.168.56.1:9440/
+10: Resolving "swindle" via http://192.168.56.1:9440/
+08: Resolving "syntax-color" via http://192.168.56.1:9440/
+06: Resolving "trace" via http://192.168.56.1:9440/
+04: Resolving "typed-racket" via http://192.168.56.1:9440/
+30: Resolving "typed-racket-more" via http://192.168.56.1:9440/
+28: Resolving "unix-socket" via http://192.168.56.1:9440/
+02: Resolving "web-server" via http://192.168.56.1:9440/
+10: Resolving "wxme" via http://192.168.56.1:9440/
+08: Resolving "xrepl" via http://192.168.56.1:9440/
+Resolving "ds-store" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/2d.zip
+Downloading http://192.168.56.1:9440/pkgs/algol60.zip
+Downloading http://192.168.56.1:9440/pkgs/at-exp-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/compatibility.zip
+Downloading http://192.168.56.1:9440/pkgs/contract-profile.zip
+Downloading http://192.168.56.1:9440/pkgs/compiler.zip
+Downloading http://192.168.56.1:9440/pkgs/data.zip
+Downloading http://192.168.56.1:9440/pkgs/datalog.zip
+Downloading http://192.168.56.1:9440/pkgs/db.zip
+Downloading http://192.168.56.1:9440/pkgs/deinprogramm.zip
+Downloading http://192.168.56.1:9440/pkgs/draw.zip
+Downloading http://192.168.56.1:9440/pkgs/draw-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/draw-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/drracket.zip
+Downloading http://192.168.56.1:9440/pkgs/drracket-tool.zip
+Downloading http://192.168.56.1:9440/pkgs/eopl.zip
+Downloading http://192.168.56.1:9440/pkgs/errortrace.zip
+Downloading http://192.168.56.1:9440/pkgs/future-visualizer.zip
+Downloading http://192.168.56.1:9440/pkgs/future-visualizer-typed.zip
+Downloading http://192.168.56.1:9440/pkgs/frtime.zip
+Downloading http://192.168.56.1:9440/pkgs/games.zip
+Downloading http://192.168.56.1:9440/pkgs/gui.zip
+Downloading http://192.168.56.1:9440/pkgs/htdp.zip
+Downloading http://192.168.56.1:9440/pkgs/html.zip
+Downloading http://192.168.56.1:9440/pkgs/icons.zip
+Downloading http://192.168.56.1:9440/pkgs/images.zip
+Downloading http://192.168.56.1:9440/pkgs/lazy.zip
+Downloading http://192.168.56.1:9440/pkgs/macro-debugger.zip
+Downloading http://192.168.56.1:9440/pkgs/macro-debugger-text-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/make.zip
+Downloading http://192.168.56.1:9440/pkgs/math.zip
+Downloading http://192.168.56.1:9440/pkgs/mysterx.zip
+Downloading http://192.168.56.1:9440/pkgs/mzcom.zip
+Downloading http://192.168.56.1:9440/pkgs/mzscheme.zip
+Downloading http://192.168.56.1:9440/pkgs/net.zip
+Downloading http://192.168.56.1:9440/pkgs/optimization-coach.zip
+Downloading http://192.168.56.1:9440/pkgs/option-contract.zip
+Downloading http://192.168.56.1:9440/pkgs/parser-tools.zip
+Downloading http://192.168.56.1:9440/pkgs/pconvert-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/pict.zip
+Downloading http://192.168.56.1:9440/pkgs/pict-snip.zip
+Downloading http://192.168.56.1:9440/pkgs/picturing-programs.zip
+Downloading http://192.168.56.1:9440/pkgs/plai.zip
+Downloading http://192.168.56.1:9440/pkgs/planet.zip
+Downloading http://192.168.56.1:9440/pkgs/plot.zip
+Downloading http://192.168.56.1:9440/pkgs/preprocessor.zip
+Downloading http://192.168.56.1:9440/pkgs/profile.zip
+Downloading http://192.168.56.1:9440/pkgs/r5rs.zip
+Downloading http://192.168.56.1:9440/pkgs/r6rs.zip
+Downloading http://192.168.56.1:9440/pkgs/racket-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/distributed-places.zip
+Downloading http://192.168.56.1:9440/pkgs/racket-index.zip
+Downloading http://192.168.56.1:9440/pkgs/racklog.zip
+Downloading http://192.168.56.1:9440/pkgs/rackunit.zip
+Downloading http://192.168.56.1:9440/pkgs/readline.zip
+Downloading http://192.168.56.1:9440/pkgs/realm.zip
+Downloading http://192.168.56.1:9440/pkgs/redex.zip
+Downloading http://192.168.56.1:9440/pkgs/sandbox-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/schemeunit.zip
+Downloading http://192.168.56.1:9440/pkgs/scribble.zip
+Downloading http://192.168.56.1:9440/pkgs/serialize-cstruct-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/sgl.zip
+Downloading http://192.168.56.1:9440/pkgs/shell-completion.zip
+Downloading http://192.168.56.1:9440/pkgs/slatex.zip
+Downloading http://192.168.56.1:9440/pkgs/slideshow.zip
+Downloading http://192.168.56.1:9440/pkgs/snip.zip
+Downloading http://192.168.56.1:9440/pkgs/srfi.zip
+Downloading http://192.168.56.1:9440/pkgs/string-constants.zip
+Downloading http://192.168.56.1:9440/pkgs/swindle.zip
+Downloading http://192.168.56.1:9440/pkgs/syntax-color.zip
+Downloading http://192.168.56.1:9440/pkgs/trace.zip
+Downloading http://192.168.56.1:9440/pkgs/typed-racket.zip
+Downloading http://192.168.56.1:9440/pkgs/typed-racket-more.zip
+Downloading http://192.168.56.1:9440/pkgs/unix-socket.zip
+Downloading http://192.168.56.1:9440/pkgs/web-server.zip
+Downloading http://192.168.56.1:9440/pkgs/wxme.zip
+Downloading http://192.168.56.1:9440/pkgs/xrepl.zip
+Downloading http://192.168.56.1:9440/pkgs/ds-store.zip
+09: Resolving "2d-lib" via http://192.168.56.1:9440/
+Resolving "2d-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/2d-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/2d-doc.zip
+09: Resolving "base" via http://192.168.56.1:9440/
+23: Resolving "compatibility-lib" via http://192.168.56.1:9440/
+13: Resolving "drracket-plugin-lib" via http://192.168.56.1:9440/
+17: Resolving "errortrace-lib" via http://192.168.56.1:9440/
+25: Resolving "gui-lib" via http://192.168.56.1:9440/
+07: Resolving "parser-tools-lib" via http://192.168.56.1:9440/
+29: Resolving "string-constants-lib" via http://192.168.56.1:9440/
+14: Resolving "rackunit-lib" via http://192.168.56.1:9440/
+03: Resolving "scribble-doc" via http://192.168.56.1:9440/
+01: Resolving "scribble-lib" via http://192.168.56.1:9440/
+Resolving "drracket-tool-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/base.zip
+Downloading http://192.168.56.1:9440/pkgs/compatibility-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/drracket-plugin-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/errortrace-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/gui-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/parser-tools-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/string-constants-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/rackunit-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/scribble-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/scribble-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/drracket-tool-lib.zip
+Resolving "compatibility-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/compatibility-doc.zip
+29: Resolving "profile-lib" via http://192.168.56.1:9440/
+Resolving "math-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/profile-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/math-lib.zip
+Resolving "compiler-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/compiler-lib.zip
+29: Resolving "data-lib" via http://192.168.56.1:9440/
+13: Resolving "data-enumerate-lib" via http://192.168.56.1:9440/
+Resolving "data-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/data-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/data-enumerate-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/data-doc.zip
+13: Resolving "db-lib" via http://192.168.56.1:9440/
+Resolving "db-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/db-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/db-doc.zip
+13: Resolving "deinprogramm-signature" via http://192.168.56.1:9440/
+29: Resolving "htdp-lib" via http://192.168.56.1:9440/
+25: Resolving "scheme-lib" via http://192.168.56.1:9440/
+03: Resolving "wxme-lib" via http://192.168.56.1:9440/
+Resolving "htdp-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/deinprogramm-signature.zip
+Downloading http://192.168.56.1:9440/pkgs/htdp-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/scheme-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/wxme-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/htdp-doc.zip
+25: Resolving "gui-doc" via http://192.168.56.1:9440/
+29: Resolving "pict-doc" via http://192.168.56.1:9440/
+Resolving "pict-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/gui-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/pict-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/pict-lib.zip
+25: Resolving "planet-lib" via http://192.168.56.1:9440/
+29: Resolving "snip-lib" via http://192.168.56.1:9440/
+03: Resolving "typed-racket-lib" via http://192.168.56.1:9440/
+13: Resolving "html-lib" via http://192.168.56.1:9440/
+23: Resolving "images-lib" via http://192.168.56.1:9440/
+17: Resolving "net-lib" via http://192.168.56.1:9440/
+07: Resolving "tex-table" via http://192.168.56.1:9440/
+14: Resolving "gui-pkg-manager-lib" via http://192.168.56.1:9440/
+01: Resolving "drracket-tool-doc" via http://192.168.56.1:9440/
+09: Resolving "mzscheme-doc" via http://192.168.56.1:9440/
+11: Resolving "net-doc" via http://192.168.56.1:9440/
+12: Resolving "planet-doc" via http://192.168.56.1:9440/
+05: Resolving "string-constants-doc" via http://192.168.56.1:9440/
+00: Resolving "errortrace-doc" via http://192.168.56.1:9440/
+21: Resolving "profile-doc" via http://192.168.56.1:9440/
+Resolving "r5rs-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/planet-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/snip-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/typed-racket-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/html-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/images-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/net-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/tex-table.zip
+Downloading http://192.168.56.1:9440/pkgs/gui-pkg-manager-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/drracket-tool-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/mzscheme-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/net-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/planet-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/string-constants-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/errortrace-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/profile-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/r5rs-doc.zip
+Resolving "srfi-lite-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/srfi-lite-lib.zip
+Resolving "srfi-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/srfi-lib.zip
+Resolving "html-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/html-doc.zip
+21: Resolving "images-gui-lib" via http://192.168.56.1:9440/
+Resolving "images-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/images-gui-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/images-doc.zip
+Resolving "eli-tester" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/eli-tester.zip
+Resolving "class-iop-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/class-iop-lib.zip
+Resolving "cext-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/cext-lib.zip
+Resolving "math-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/math-doc.zip
+Resolving "mzscheme-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/mzscheme-lib.zip
+Resolving "source-syntax" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/source-syntax.zip
+21: Resolving "option-contract-lib" via http://192.168.56.1:9440/
+Resolving "option-contract-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/option-contract-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/option-contract-doc.zip
+Resolving "parser-tools-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/parser-tools-doc.zip
+21: Resolving "pict-snip-lib" via http://192.168.56.1:9440/
+Resolving "pict-snip-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/pict-snip-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/pict-snip-doc.zip
+21: Resolving "plai-doc" via http://192.168.56.1:9440/
+Resolving "plai-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/plai-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/plai-lib.zip
+21: Resolving "plot-lib" via http://192.168.56.1:9440/
+14: Resolving "plot-gui-lib" via http://192.168.56.1:9440/
+Resolving "plot-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/plot-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/plot-gui-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/plot-doc.zip
+Resolving "r5rs-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/r5rs-lib.zip
+14: Resolving "r6rs-lib" via http://192.168.56.1:9440/
+Resolving "r6rs-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/r6rs-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/r6rs-doc.zip
+14: Resolving "rackunit-doc" via http://192.168.56.1:9440/
+21: Resolving "typed-racket-doc" via http://192.168.56.1:9440/
+03: Resolving "web-server-doc" via http://192.168.56.1:9440/
+Resolving "slideshow-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/rackunit-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/typed-racket-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/web-server-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/slideshow-doc.zip
+21: Resolving "distributed-places-lib" via http://192.168.56.1:9440/
+Resolving "distributed-places-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/distributed-places-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/distributed-places-doc.zip
+21: Resolving "rackunit-gui" via http://192.168.56.1:9440/
+Resolving "rackunit-plugin-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/rackunit-gui.zip
+Downloading http://192.168.56.1:9440/pkgs/rackunit-plugin-lib.zip
+21: Resolving "readline-lib" via http://192.168.56.1:9440/
+Resolving "readline-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/readline-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/readline-doc.zip
+21: Resolving "redex-doc" via http://192.168.56.1:9440/
+03: Resolving "redex-examples" via http://192.168.56.1:9440/
+14: Resolving "redex-lib" via http://192.168.56.1:9440/
+Resolving "redex-gui-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/redex-doc.zip
+Downloading http://192.168.56.1:9440/pkgs/redex-examples.zip
+Downloading http://192.168.56.1:9440/pkgs/redex-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/redex-gui-lib.zip
+03: Resolving "slideshow-lib" via http://192.168.56.1:9440/
+14: Resolving "slideshow-exe" via http://192.168.56.1:9440/
+Resolving "slideshow-plugin" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/slideshow-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/slideshow-exe.zip
+Downloading http://192.168.56.1:9440/pkgs/slideshow-plugin.zip
+Resolving "srfi-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/srfi-doc.zip
+14: Resolving "syntax-color-lib" via http://192.168.56.1:9440/
+Resolving "syntax-color-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/syntax-color-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/syntax-color-doc.zip
+14: Resolving "unix-socket-lib" via http://192.168.56.1:9440/
+Resolving "unix-socket-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/unix-socket-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/unix-socket-doc.zip
+Resolving "web-server-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/web-server-lib.zip
+14: Resolving "xrepl-lib" via http://192.168.56.1:9440/
+Resolving "xrepl-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/xrepl-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/xrepl-doc.zip
+14: Resolving "ds-store-lib" via http://192.168.56.1:9440/
+Resolving "ds-store-doc" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/ds-store-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/ds-store-doc.zip
+Resolving "scribble-text-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/scribble-text-lib.zip
+Resolving "scribble-html-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/scribble-html-lib.zip
+Resolving "zo-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/zo-lib.zip
+Resolving "dynext-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/dynext-lib.zip
+Resolving "plot-compat" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/plot-compat.zip
+Resolving "typed-racket-compatibility" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/typed-racket-compatibility.zip
+Resolving "redex-benchmark" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/redex-benchmark.zip
+Resolving "redex-pict-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/redex-pict-lib.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of main-distribution:
+   2d
+   algol60
+   at-exp-lib
+   compatibility
+   contract-profile
+   compiler
+   data
+   datalog
+   db
+   deinprogramm
+   draw
+   draw-doc
+   draw-lib
+   drracket
+   drracket-tool
+   eopl
+   errortrace
+   future-visualizer
+   future-visualizer-typed
+   frtime
+   games
+   gui
+   htdp
+   html
+   icons
+   images
+   lazy
+   macro-debugger
+   macro-debugger-text-lib
+   make
+   math
+   mysterx
+   mzcom
+   mzscheme
+   net
+   optimization-coach
+   option-contract
+   parser-tools
+   pconvert-lib
+   pict
+   pict-snip
+   picturing-programs
+   plai
+   planet
+   plot
+   preprocessor
+   profile
+   r5rs
+   r6rs
+   racket-doc
+   distributed-places
+   racket-index
+   racklog
+   rackunit
+   readline
+   realm
+   redex
+   sandbox-lib
+   schemeunit
+   scribble
+   serialize-cstruct-lib
+   sgl
+   shell-completion
+   slatex
+   slideshow
+   snip
+   srfi
+   string-constants
+   swindle
+   syntax-color
+   trace
+   typed-racket
+   typed-racket-more
+   unix-socket
+   web-server
+   wxme
+   xrepl
+   ds-store
+ dependencies of 2d:
+   2d-lib
+   2d-doc
+ dependencies of algol60:
+   base
+   compatibility-lib
+   drracket-plugin-lib
+   errortrace-lib
+   gui-lib
+   parser-tools-lib
+   string-constants-lib
+   rackunit-lib
+   scribble-doc
+   scribble-lib
+   drracket-tool-lib
+   drracket-plugin-lib
+ dependencies of compatibility:
+   compatibility-doc
+ dependencies of contract-profile:
+   profile-lib
+   math-lib
+ dependencies of compiler:
+   compiler-lib
+ dependencies of data:
+   data-lib
+   data-enumerate-lib
+   data-doc
+ dependencies of db:
+   db-lib
+   db-doc
+ dependencies of deinprogramm:
+   deinprogramm-signature
+   htdp-lib
+   scheme-lib
+   wxme-lib
+   htdp-doc
+ dependencies of draw-doc:
+   gui-doc
+   pict-doc
+   pict-lib
+ dependencies of drracket:
+   planet-lib
+   snip-lib
+   typed-racket-lib
+   html-lib
+   images-lib
+   net-lib
+   tex-table
+   gui-pkg-manager-lib
+   drracket-tool-doc
+   mzscheme-doc
+   net-doc
+   planet-doc
+   string-constants-doc
+   errortrace-doc
+   profile-doc
+   r5rs-doc
+ dependencies of frtime:
+   srfi-lite-lib
+ dependencies of games:
+   srfi-lib
+ dependencies of html:
+   html-doc
+ dependencies of images:
+   images-gui-lib
+   images-doc
+ dependencies of lazy:
+   eli-tester
+ dependencies of macro-debugger:
+   class-iop-lib
+ dependencies of make:
+   cext-lib
+ dependencies of math:
+   math-doc
+ dependencies of mzscheme:
+   mzscheme-lib
+ dependencies of optimization-coach:
+   source-syntax
+ dependencies of option-contract:
+   option-contract-lib
+   option-contract-doc
+ dependencies of parser-tools:
+   parser-tools-doc
+ dependencies of pict-snip:
+   pict-snip-lib
+   pict-snip-doc
+ dependencies of plai:
+   plai-doc
+   plai-lib
+ dependencies of plot:
+   plot-lib
+   plot-gui-lib
+   plot-doc
+ dependencies of r5rs:
+   r5rs-lib
+ dependencies of r6rs:
+   r6rs-lib
+   r6rs-doc
+ dependencies of racket-doc:
+   rackunit-doc
+   typed-racket-doc
+   web-server-doc
+   slideshow-doc
+ dependencies of distributed-places:
+   distributed-places-lib
+   distributed-places-doc
+ dependencies of rackunit:
+   rackunit-gui
+   rackunit-plugin-lib
+ dependencies of readline:
+   readline-lib
+   readline-doc
+ dependencies of redex:
+   redex-doc
+   redex-examples
+   redex-lib
+   redex-gui-lib
+ dependencies of slideshow:
+   slideshow-lib
+   slideshow-exe
+   slideshow-plugin
+ dependencies of srfi:
+   srfi-doc
+ dependencies of syntax-color:
+   syntax-color-lib
+   syntax-color-doc
+ dependencies of unix-socket:
+   unix-socket-lib
+   unix-socket-doc
+ dependencies of web-server:
+   web-server-lib
+ dependencies of xrepl:
+   xrepl-lib
+   xrepl-doc
+ dependencies of ds-store:
+   ds-store-lib
+   ds-store-doc
+ dependencies of scribble-doc:
+   scribble-text-lib
+ dependencies of scribble-lib:
+   scribble-html-lib
+ dependencies of compiler-lib:
+   zo-lib
+ dependencies of cext-lib:
+   dynext-lib
+ dependencies of plot-doc:
+   plot-compat
+ dependencies of typed-racket-doc:
+   typed-racket-compatibility
+ dependencies of redex-doc:
+   redex-benchmark
+ dependencies of redex-gui-lib:
+   redex-pict-lib
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install post-adjust "--source" "--source --no-setup" racket bundle/racket
+Copying src -> /home/racket/build/plt/bundle/racket/src
+make[1]: Leaving directory `/home/racket/build/plt'
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/set-config bundle/racket/etc/config.rktd "snapshot" "20151006-f86c5df" "http://www.cs.utah.edu/plt/popl16/doc/local-redirect/index.html" "http://www.cs.utah.edu/plt/popl16/catalog/" ""
+make installer-from-bundle SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="main-distribution" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE=--source VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="--source --no-setup" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://192.168.56.1:9440/upload/" DIST_DESC="{1} Racket | {8} Unix | Source" README="http://192.168.56.1:9440/README-14441631671444163167959" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory `/home/racket/build/plt'
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l- distro-build/installer --readme "http://192.168.56.1:9440/README-14441631671444163167959" --upload "http://192.168.56.1:9440/upload/" --desc "{1} Racket | {8} Unix | Source"  --source   "Racket" racket racket "" ""
+[2015-10-06T14:27:27] The time is now Tuesday, October 6th, 2015 2:27:27pm
+Downloading http://192.168.56.1:9440/README-14441631671444163167959
+chmod -R g+w bundle/racket
+Tarring to #<path:/home/racket/build/plt/bundle/racket-6.2.900.17-src.tgz>
+Upload bundle/racket-6.2.900.17-src.tgz to http://192.168.56.1:9440/upload/
+[2015-10-06T14:27:47] The time is now Tuesday, October 6th, 2015 2:27:47pm
+make[1]: Leaving directory `/home/racket/build/plt'
+Stopping VirtualBox machine "ubuntu32"
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%

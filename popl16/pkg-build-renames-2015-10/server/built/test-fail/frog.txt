@@ -1,0 +1,148 @@
+The time is now Monday, September 14th, 2015 6:29:00am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto frog && bin/raco test --drdr --package frog'
+Resolving "frog" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/frog.zip
+Resolving "markdown" via http://localhost:18333/built/catalog/
+Resolving "rackjure" via http://localhost:18333/built/catalog/
+Resolving "find-parent-dir" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/markdown.zip
+Downloading http://localhost:18333/built/pkgs/rackjure.zip
+Downloading http://localhost:18333/built/pkgs/find-parent-dir.zip
+Resolving "parsack" via http://localhost:18333/built/catalog/
+Resolving "sexp-diff" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/parsack.zip
+Downloading http://localhost:18333/built/pkgs/sexp-diff.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of frog:
+   markdown
+   rackjure
+   find-parent-dir
+ dependencies of markdown:
+   parsack
+   sexp-diff
+raco setup: version: 6.2 [3m]
+raco setup: installation name: 6.2
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.2/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/find-parent-dir/find-parent-dir
+raco setup: making: <pkgs>/frog/example
+raco setup: making: <pkgs>/frog/example/_src
+raco setup: making: <pkgs>/frog/example/_src/posts
+raco setup: making: <pkgs>/frog/example/_src/subdir
+raco setup: making: <pkgs>/frog/example/css
+raco setup: making: <pkgs>/frog/example/fonts
+raco setup: making: <pkgs>/frog/example/img
+raco setup: making: <pkgs>/frog/example/js
+raco setup: making: <pkgs>/frog/frog
+raco setup: making: <pkgs>/markdown/markdown
+raco setup: making: <pkgs>/markdown/markdown/MarkdownTest_1.0.3
+raco setup: making: <pkgs>/markdown/markdown/test
+raco setup: making: <pkgs>/parsack/parsack (parsack)
+raco setup: making: <pkgs>/parsack/parsack/examples
+raco setup: making: <pkgs>/parsack/parsack/examples/tests
+raco setup: making: <pkgs>/parsack/parsack/tests
+raco setup: making: <pkgs>/rackjure/rackjure (rackjure)
+raco setup: making: <pkgs>/rackjure/rackjure/base
+raco setup: making: <pkgs>/rackjure/rackjure/base/lang
+raco setup: making: <pkgs>/rackjure/rackjure/lang
+raco setup: making: <pkgs>/sexp-diff/sexp-diff
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: syncing: <pkgs>/parsack/parsack/doc/parsack
+raco setup: syncing: <pkgs>/rackjure/rackjure/doc/rackjure
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: syncing: <pkgs>/sexp-diff/sexp-diff/doc/sexp-diff
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/example/_src/A-Non-Post-Scribble-Page.scrbl"
+A-Non-Post-Scribble-Page.scrbl: raco test: non-empty stderr: #"evaluator: terminated (out-of-memory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/sandbox-lib/racket/sandbox.rkt:1117:38\n   /home/racket/build-pkgs/racket/share/pkgs/sandbox-lib/racket/sandbox.rkt:887:2: user-eval\n   /home/racket/build-pkgs/racket/share/pkgs/scribble-lib/scribble/eval.rkt:408:0: do-plain-eval\n   /home/racket/build-pkgs/racket/share/pkgs/scribble-lib/scribble/eval.rkt:267:2\n   /home/racket/build-pkgs/racket/share/pkgs/scribble-lib/scribble/eval.rkt:559:0: do-titled-interaction\n   /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/example/_src/A-Non-Post-Scribble-Page.scrbl: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/example/_src/posts/2013-06-19-a-scribble-post.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/bodies-page.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/config.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/doc-uri.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/enhance-body.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/feeds.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/frog.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/html.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/new-post.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/non-posts.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/params.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/paths.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/post-struct.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/posts.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/pygments.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/read-scribble.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/scribble.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/serialize-posts.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/stale.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/tags.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/take.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/template.rkt"
+template.rkt: raco test: non-empty stderr: #"namespace-attach-module: unknown module (in the source namespace)\n  name: #<resolved-module-path:\"/home/racket/build-pkgs/racket/collects/racket/main.rkt\">\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/template.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/util.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/verbosity.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/watch-dir.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/widgets.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/xexpr-map.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/xexpr2text.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/info.rkt"
+2/115 test failures
+  29 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/paths.rkt
+  18 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/take.rkt
+  17 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/xexpr2text.rkt
+  12 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/feeds.rkt
+  12 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/posts.rkt
+  11 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/doc-uri.rkt
+   4 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/xexpr-map.rkt
+   3 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/enhance-body.rkt
+   2 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/non-posts.rkt
+   2 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/read-scribble.rkt
+   2 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/util.rkt
+   1 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/html.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/example/_src/posts/2013-06-19-a-scribble-post.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/bodies-page.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/config.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/frog.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/info.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/new-post.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/params.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/post-struct.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/pygments.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/scribble.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/serialize-posts.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/stale.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/tags.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/verbosity.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/watch-dir.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/widgets.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/info.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/example/_src/A-Non-Post-Scribble-Page.scrbl
+1  1 /home/racket/build-pkgs/user/.racket/6.2/pkgs/frog/frog/template.rkt
+The time is now Monday, September 14th, 2015 6:29:54am

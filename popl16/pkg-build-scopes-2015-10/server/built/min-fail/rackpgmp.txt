@@ -1,0 +1,27 @@
+The time is now Wednesday, October 7th, 2015 1:33:00am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.118 '/usr/bin/env' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto rackpgmp'
+Resolving "rackpgmp" via http://localhost:18333/built/catalog/
+Resolving "rackpgmp" via http://localhost:18333/archive/catalog/
+Downloading repository git://github.com/wilbowma/pgmp?path=rackpgmp
+tcp-connect: connection failed
+  detail: host not found
+  address: github.com
+  port number: 443
+  step: 1
+  system error: Name or service not known; errno=-2
+  context...:
+   /home/racket/build-pkgs/racket/collects/openssl/mzssl.rkt:1629:0: ssl-connect118
+   /home/racket/build-pkgs/racket/collects/openssl/..:259:25
+   /home/racket/build-pkgs/racket/collects/net/http-client.rkt:224:0
+   /home/racket/build-pkgs/racket/collects/racket/contract/private/arrow-val-first.rkt:324:3
+   /home/racket/build-pkgs/racket/collects/net/url.rkt:77:0: http://getpost-impure-port
+   /home/racket/build-pkgs/racket/collects/net/url.rkt:179:2: redirection-loop
+   /home/racket/build-pkgs/racket/collects/racket/contract/private/arrow-val-first.rkt:324:3
+   /home/racket/build-pkgs/racket/collects/net/git-checkout.rkt:204:0: initial-connect
+   /home/racket/build-pkgs/racket/collects/net/git-checkout.rkt:40:2: retry-loop
+   /home/racket/build-pkgs/racket/collects/pkg/private/download.rkt:100:2: download!
+   /home/racket/build-pkgs/racket/collects/file/cache.rkt:63:2: fetch-and-continue
+   /home/racket/build-pkgs/racket/collects/racket/contract/private/arrow-val-first.rkt:324:3
+   /home/racket/build-pkgs/racket/collects/pkg/private/download.rkt:92:0: download-repo!24
+   /home/racket/build-pkgs/racket/collects/pkg/private/stage.rkt:299:11
+The time is now Wednesday, October 7th, 2015 1:33:04am

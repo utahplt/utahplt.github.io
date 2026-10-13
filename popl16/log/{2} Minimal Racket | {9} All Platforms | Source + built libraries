@@ -1,0 +1,524 @@
+Starting VirtualBox machine "ubuntu32"
+Waiting for VM "ubuntu32" to power on...
+VM "ubuntu32" has been successfully started.
+[2015-10-06T02:11:03] The time is now Tuesday, October 6th, 2015 2:11:03am
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 192.168.56.102 '/bin/sh' '-c' 'echo hello'
+hello
+[2015-10-06T02:11:08] The time is now Tuesday, October 6th, 2015 2:11:08am
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 192.168.56.102 '/bin/sh' '-c' 'if [ ! -d "build/plt" ] ; then git clone "http://192.168.56.1:9440/.git" "build/plt" ; fi'
+[2015-10-06T02:11:08] The time is now Tuesday, October 6th, 2015 2:11:08am
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 192.168.56.102 '/bin/sh' '-c' 'cd "build/plt" ; git pull'
+Already up-to-date.
+[2015-10-06T02:11:08] The time is now Tuesday, October 6th, 2015 2:11:08am
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 192.168.56.102 '/bin/sh' '-c' 'cd "build/plt" ; make -j 1 client SERVER=192.168.56.1 SERVER_PORT=9440 PKGS="" DOC_SEARCH="http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" DIST_DESC="{2} Minimal Racket | {9} All Platforms | Source + built libraries" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX="builtpkgs" DIST_CATALOGS_q='"'"'"http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""'"'"' SIGN_IDENTITY="" INSTALL_NAME="snapshot" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE="" SOURCE_MODE=--source VERSIONLESS_MODE="" PKG_SOURCE_MODE="" MAC_PKG_MODE="" UPLOAD=http://192.168.56.1:9440/upload/ README=http://192.168.56.1:9440/"README-14441190631444119063285" JOB_OPTIONS="-j 1" CONFIGURE_ARGS_qq='"'"''"'"''
+if [ ! -d build/log ] ; then rm -rf build/user ; fi
+make base SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE=--source VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX=builtpkgs UPLOAD="http://192.168.56.1:9440/upload/" DIST_DESC="{2} Minimal Racket | {9} All Platforms | Source + built libraries" README="http://192.168.56.1:9440/README-14441190631444119063285" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory `/home/racket/build/plt'
+mkdir -p build/config
+echo '#hash((links-search-files . ()))' > build/config/config.rktd
+mkdir -p racket/src/build
+make racket/src/build/Makefile
+make[2]: Entering directory `/home/racket/build/plt'
+make[2]: `racket/src/build/Makefile' is up to date.
+make[2]: Leaving directory `/home/racket/build/plt'
+cd racket/src/build; make reconfigure
+make[2]: Entering directory `/home/racket/build/plt/racket/src/build'
+make Makefile
+make[3]: Entering directory `/home/racket/build/plt/racket/src/build'
+make[3]: `Makefile' is up to date.
+make[3]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[2]: Leaving directory `/home/racket/build/plt/racket/src/build'
+cd racket/src/build; make SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`"
+make[2]: Entering directory `/home/racket/build/plt/racket/src/build'
+make 3m
+make[3]: Entering directory `/home/racket/build/plt/racket/src/build'
+make no-local-racket
+make[4]: Entering directory `/home/racket/build/plt/racket/src/build'
+:
+make[4]: Leaving directory `/home/racket/build/plt/racket/src/build'
+cd racket; make 3m
+make[4]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make cgc
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make cgc-core
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make common
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make g-c
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd sgc; make ../libmzgc.a 
+make[9]: Entering directory `/home/racket/build/plt/racket/src/build/racket/sgc'
+make[9]: `../libmzgc.a' is up to date.
+make[9]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/sgc'
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make foreign-stuff
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd ../foreign; make all
+make[9]: Entering directory `/home/racket/build/plt/racket/src/build/foreign'
+make foreign.o
+make[10]: Entering directory `/home/racket/build/plt/racket/src/build/foreign'
+make[10]: `foreign.o' is up to date.
+make[10]: Leaving directory `/home/racket/build/plt/racket/src/build/foreign'
+make libffi_ON
+make[10]: Entering directory `/home/racket/build/plt/racket/src/build/foreign'
+make libffi/libffi.la
+make[11]: Entering directory `/home/racket/build/plt/racket/src/build/foreign'
+make[11]: `libffi/libffi.la' is up to date.
+make[11]: Leaving directory `/home/racket/build/plt/racket/src/build/foreign'
+make[10]: Leaving directory `/home/racket/build/plt/racket/src/build/foreign'
+make[9]: Leaving directory `/home/racket/build/plt/racket/src/build/foreign'
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make dynlib
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd dynsrc; make dynlib 
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make ../mzdyn.o
+make[9]: Entering directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[9]: `../mzdyn.o' is up to date.
+make[9]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make ../starter
+make[9]: Entering directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[9]: `../starter' is up to date.
+make[9]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make mzlibrary
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd src; make all 
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/racket/src'
+make mzobjects
+make[9]: Entering directory `/home/racket/build/plt/racket/src/build/racket/src'
+make[9]: Nothing to be done for `mzobjects'.
+make[9]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/src'
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/src'
+make libracket.a
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make[8]: `libracket.a' is up to date.
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make racketcgc
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make[7]: `racketcgc' is up to date.
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make mzcomcgc
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+:
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make sysinfercgc
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+./racketcgc -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2  -pthread  -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  ../../racket/src/systype.c" "" "./racketcgc" "./racketcgc"
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+cd gc2; make all
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make check-sdep
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+../racketcgc -G /home/racket/build/plt/build/config -cqu ../../../racket/gc2/check-sdep.rkt
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make xsrc/precomp.h
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[6]: `xsrc/precomp.h' is up to date.
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make xobjects
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[6]: Nothing to be done for `xobjects'.
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make ../racket3m
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[6]: `../racket3m' is up to date.
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+cd dynsrc; make dynlib3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make ../mzdyn3m.o
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[6]: `../mzdyn3m.o' is up to date.
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/dynsrc'
+cd gc2; make ../racket3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[5]: `../racket3m' is up to date.
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+cd gc2; make ../mzcom3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make[5]: `../mzcom3m' is up to date.
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket/gc2'
+make sysinfer3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+./racket3m -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2  -pthread  -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  ../../racket/src/systype.c" "" "./racket3m" "./racket3m"
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[4]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make gracket-3m
+make[4]: Entering directory `/home/racket/build/plt/racket/src/build'
+cd gracket; make 3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+make resources
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+:
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+cd gc2; make 3m
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/gracket/gc2'
+make ../gracket3m
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/gracket/gc2'
+make[7]: `../gracket3m' is up to date.
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket/gc2'
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket/gc2'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make[4]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[3]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[2]: Leaving directory `/home/racket/build/plt/racket/src/build'
+cd racket/src/build; make install SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`" PLT_SETUP_OPTIONS="-j 1 "
+make[2]: Entering directory `/home/racket/build/plt/racket/src/build'
+make install-3m
+make[3]: Entering directory `/home/racket/build/plt/racket/src/build'
+make install-3m-common
+make[4]: Entering directory `/home/racket/build/plt/racket/src/build'
+make install-common-first
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build'
+if [ "" != "" ]; then \
+          if [[ "" != /* ]]; then \
+            echo "expected an absolute path for DESTDIR; given: "; exit 1; \
+          fi; \
+        fi
+mkdir -p "/home/racket/build/plt/racket/bin" "/home/racket/build/plt/racket/collects" "/home/racket/build/plt/racket/doc" "/home/racket/build/plt/racket/lib" "/home/racket/build/plt/racket/include" "/home/racket/build/plt/racket/lib" "/home/racket/build/plt/racket/share" "/home/racket/build/plt/racket/etc" "/home/racket/build/plt/racket/share/applications" "/home/racket/build/plt/racket/man"
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build'
+cd racket; make install-3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+make headers
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+./racketcgc -cqu ../../racket/mkincludes.rkt "/home/racket/build/plt/racket/include" "../../racket" .
+Making /home/racket/build/plt/racket/include
+Done.
+cd ..; cp racket/system.rktd "/home/racket/build/plt/racket/lib/system.rktd"
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make unix-install
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd ..; rm -f "/home/racket/build/plt/racket/bin/racketcgc"
+cd ..; rm -f "/home/racket/build/plt/racket/bin/racket"
+cd ..; cp racket/starter "/home/racket/build/plt/racket/lib/starter"
+cp ../../racket/dynsrc/starter-sh .
+cd ..; cp racket/starter-sh "/home/racket/build/plt/racket/lib/starter-sh"
+cd ..; strip "/home/racket/build/plt/racket/lib/starter"
+./racketcgc -cu "../../racket/collects-path.rkt" "/home/racket/build/plt/racket/lib/starter" ../collects ../etc
+cd ..; echo 'CC=gcc' > "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo 'CFLAGS=-Wall   -g -O2  -pthread' >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo 'OPTIONS= -DUSE_SENORA_GC' >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo 'MZOPTIONS= -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo "LDFLAGS= -pthread" >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo 'LIBS=-ldl -lm  -ldl -lm -rdynamic ' >> "/home/racket/build/plt/racket/lib/buildinfo"
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make unix-install-3m
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd ..; cp racket/racket3m "/home/racket/build/plt/racket/bin/racket"
+cd ..; strip "/home/racket/build/plt/racket/bin/racket"
+make unix-install-libs-3m
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+cd ..; cp racket/libracket3m.a "/home/racket/build/plt/racket/lib/libracket3m.a"
+cd ..; strip -S "/home/racket/build/plt/racket/lib/libracket3m.a"
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+cd ..; cp racket/mzdyn3m.o "/home/racket/build/plt/racket/lib/mzdyn3m.o"
+./racket3m -cu "../../racket/collects-path.rkt" "/home/racket/build/plt/racket/bin/racket" ../collects ../etc
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make unix-install-3m-final
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/racket'
+:
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build/racket'
+make install-gracket-3m
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build'
+cd gracket; make install-3m
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-wx_xt
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-common
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+:
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+cd ..; rm -f "/home/racket/build/plt/racket/lib/gracketcgc"
+cd ..; rm -f "/home/racket/build/plt/racket/lib/gracket"
+cd ..; echo 'MROPTIONS=' >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo "MRLIBS=" >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; echo "MRLDFLAGS=-pthread -L../racket" >> "/home/racket/build/plt/racket/lib/buildinfo"
+cd ..; mkdir -p "/home/racket/build/plt/racket/lib";
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-wx_xt-3m
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-no-lib-3m-wx_xt
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+echo "no dynamic libs"
+no dynamic libs
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+cd ..; cp gracket/gracket3m "/home/racket/build/plt/racket/lib/gracket"
+cd ..; strip "/home/racket/build/plt/racket/lib/gracket"
+../racket/racket3m -G /home/racket/build/plt/build/config -cu "../../gracket/../racket/collects-path.rkt" "/home/racket/build/plt/racket/lib/gracket" ../collects ../etc
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-wx_xt-3m-final
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+:
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make install-common-middle
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build'
+make no-run
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build'
+:
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make install-gracket-post-collects
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build'
+cd gracket; make install-post-collects
+make[7]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+make install-wx_xt-post-collects
+make[8]: Entering directory `/home/racket/build/plt/racket/src/build/gracket'
+:
+make[8]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make[7]: Leaving directory `/home/racket/build/plt/racket/src/build/gracket'
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make lib-finish
+make[6]: Entering directory `/home/racket/build/plt/racket/src/build'
+if [ "" = "" ]; then \
+	  echo "/home/racket/build/plt/racket/lib"; \
+	fi
+/home/racket/build/plt/racket/lib
+make[6]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[4]: Leaving directory `/home/racket/build/plt/racket/src/build'
+racket/racket3m -X "/home/racket/build/plt/racket/collects" -G "/home/racket/build/plt/racket/etc" -G /home/racket/build/plt/build/config  --no-user-path -N "raco" -l- setup --no-user -j 1  
+raco setup: version: 6.2.900.17
+raco setup: platform: i386-linux [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build/plt/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build/plt/racket/collects
+raco setup: main pkgs: /home/racket/build/plt/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build/plt/racket/share/pkgs
+raco setup:   /home/racket/.racket/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup: main docs: /home/racket/build/plt/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <collects>/acks
+raco setup: making: <collects>/compiler
+raco setup: making: <collects>/compiler/private
+raco setup: making: <collects>/data
+raco setup: making: <collects>/data/private
+raco setup: making: <collects>/db
+raco setup: making: <collects>/db/private
+raco setup: making: <collects>/db/private/generic
+raco setup: making: <collects>/db/private/sqlite3
+raco setup: making: <collects>/dynext
+raco setup: making: <collects>/ffi
+raco setup: making: <collects>/ffi/unsafe
+raco setup: making: <collects>/ffi/unsafe/private
+raco setup: making: <collects>/file
+raco setup: making: <collects>/file/private
+raco setup: making: <collects>/info
+raco setup: making: <collects>/info-domain
+raco setup: making: <collects>/json
+raco setup: making: <collects>/launcher
+raco setup: making: <collects>/net
+raco setup: making: <collects>/openssl
+raco setup: making: <collects>/openssl/private
+raco setup: making: <collects>/pkg
+raco setup: making: <collects>/pkg/private
+raco setup: making: <collects>/planet
+raco setup: making: <collects>/planet/private
+raco setup: making: <collects>/racket
+raco setup: making: <collects>/racket/base
+raco setup: making: <collects>/racket/base/lang
+raco setup: making: <collects>/racket/contract
+raco setup: making: <collects>/racket/contract/private
+raco setup: making: <collects>/racket/gui
+raco setup: making: <collects>/racket/kernel
+raco setup: making: <collects>/racket/lang
+raco setup: making: <collects>/racket/load
+raco setup: making: <collects>/racket/load/lang
+raco setup: making: <collects>/racket/match
+raco setup: making: <collects>/racket/place
+raco setup: making: <collects>/racket/place/private
+raco setup: making: <collects>/racket/private
+raco setup: making: <collects>/racket/signature
+raco setup: making: <collects>/racket/signature/lang
+raco setup: making: <collects>/racket/unit
+raco setup: making: <collects>/racket/unit/lang
+raco setup: making: <collects>/racket/unsafe
+raco setup: making: <collects>/raco
+raco setup: making: <collects>/reader
+raco setup: making: <collects>/reader/lang
+raco setup: making: <collects>/realm
+raco setup: making: <collects>/s-exp
+raco setup: making: <collects>/s-exp/lang
+raco setup: making: <collects>/setup
+raco setup: making: <collects>/setup/commands
+raco setup: making: <collects>/setup/infotab
+raco setup: making: <collects>/setup/infotab/lang
+raco setup: making: <collects>/setup/private
+raco setup: making: <collects>/syntax
+raco setup: making: <collects>/syntax/parse
+raco setup: making: <collects>/syntax/parse/experimental
+raco setup: making: <collects>/syntax/parse/experimental/private
+raco setup: making: <collects>/syntax/parse/lib
+raco setup: making: <collects>/syntax/parse/private
+raco setup: making: <collects>/syntax/private
+raco setup: making: <collects>/syntax/private/util
+raco setup: making: <collects>/syntax/unsafe
+raco setup: making: <collects>/unstable
+raco setup: making: <collects>/version
+raco setup: making: <collects>/xml
+raco setup: making: <collects>/xml/private
+raco setup: --- creating launchers ---
+raco setup: launcher: <console-bin>/raco
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- checking package dependencies ---
+make install-common-last
+make[4]: Entering directory `/home/racket/build/plt/racket/src/build'
+make fix-paths
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build'
+if [ "" != "" ]; then \
+          if [ "" = "" ]; then \
+            racket/racketcgc -G /home/racket/build/plt/build/config -u \
+              "../../collects/setup/unixstyle-install.rkt" \
+              make-install-destdir-fix "../.." \
+              "/home/racket/build/plt/racket/bin" "/home/racket/build/plt/racket/collects" "/home/racket/build/plt/racket/doc" "/home/racket/build/plt/racket/lib" "/home/racket/build/plt/racket/include" "/home/racket/build/plt/racket/lib" "/home/racket/build/plt/racket/share" "/home/racket/build/plt/racket/etc" "/home/racket/build/plt/racket/share/applications" "/home/racket/build/plt/racket/man" "yes"; \
+          fi \
+        fi
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make preserve-raco-pkg-default-scope
+make[5]: Entering directory `/home/racket/build/plt/racket/src/build'
+:
+make[5]: Leaving directory `/home/racket/build/plt/racket/src/build'
+cp "../COPYING-libscheme.txt" "../COPYING_LESSER.txt" "../COPYING.txt" "/home/racket/build/plt/racket/share"/
+make[4]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[3]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[2]: Leaving directory `/home/racket/build/plt/racket/src/build'
+make[1]: Leaving directory `/home/racket/build/plt'
+make distro-build-from-server SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE=--source VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX=builtpkgs UPLOAD="http://192.168.56.1:9440/upload/" DIST_DESC="{2} Minimal Racket | {9} All Platforms | Source + built libraries" README="http://192.168.56.1:9440/README-14441190631444119063285" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory `/home/racket/build/plt'
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -N raco -l- raco pkg install --catalog http://192.168.56.1:9440/ --scope user --skip-installed --deps search-auto --pkgs -j 1 distro-build-client
+Resolving "distro-build-client" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/distro-build-client.zip
+00: Resolving "base" via http://192.168.56.1:9440/
+01: Resolving "ds-store-lib" via http://192.168.56.1:9440/
+Resolving "at-exp-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/base.zip
+Downloading http://192.168.56.1:9440/pkgs/ds-store-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/at-exp-lib.zip
+Resolving "racket-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/racket-lib.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of distro-build-client:
+   base
+   ds-store-lib
+   at-exp-lib
+ dependencies of base:
+   racket-lib
+raco setup: version: 6.2.900.17
+raco setup: platform: i386-linux [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build/plt/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build/plt/build/user/6.2.900.17/collects
+raco setup:   /home/racket/build/plt/racket/collects
+raco setup: main pkgs: /home/racket/build/plt/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build/plt/racket/share/pkgs
+raco setup:   /home/racket/build/plt/build/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build/plt/racket/share/links.rktd
+raco setup:   /home/racket/build/plt/build/user/6.2.900.17/links.rktd
+raco setup: main docs: /home/racket/build/plt/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build/plt/build/user/6.2.900.17/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/at-exp-lib/at-exp
+raco setup: making: <pkgs>/at-exp-lib/at-exp/lang
+raco setup:  in <pkgs>/at-exp-lib/at-exp/lang
+raco setup: making: <pkgs>/at-exp-lib/scribble
+raco setup: making: <pkgs>/at-exp-lib/scribble/base
+raco setup:  in <pkgs>/at-exp-lib/scribble/base
+raco setup: making: <pkgs>/distro-build-client
+raco setup:  in <pkgs>/distro-build-client
+raco setup: making: <pkgs>/distro-build-client/macosx-installer
+raco setup: making: <pkgs>/distro-build-client/unix-installer
+raco setup: making: <pkgs>/distro-build-client/windows-installer
+raco setup: making: <pkgs>/ds-store-lib
+raco setup:  in <pkgs>/ds-store-lib
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+make[1]: Leaving directory `/home/racket/build/plt'
+make bundle-from-server SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE=--source VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX=builtpkgs UPLOAD="http://192.168.56.1:9440/upload/" DIST_DESC="{2} Minimal Racket | {9} All Platforms | Source + built libraries" README="http://192.168.56.1:9440/README-14441190631444119063285" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory `/home/racket/build/plt'
+rm -rf bundle
+mkdir -p bundle/racket
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install bundle racket bundle/racket
+Copying bin -> /home/racket/build/plt/bundle/racket/bin
+Copying collects -> /home/racket/build/plt/bundle/racket/collects
+Copying doc -> /home/racket/build/plt/bundle/racket/doc
+Copying lib -> /home/racket/build/plt/bundle/racket/lib
+Copying include -> /home/racket/build/plt/bundle/racket/include
+Copying share/applications -> /home/racket/build/plt/bundle/racket/share/applications
+Copying share -> /home/racket/build/plt/bundle/racket/share
+Copying etc -> /home/racket/build/plt/bundle/racket/etc
+Copying man -> /home/racket/build/plt/bundle/racket/man
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/unpack-collects http://192.168.56.1:9440/
+[2015-10-06T02:10:21] The time is now Tuesday, October 6th, 2015 2:10:21am
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://192.168.56.1:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 1  racket-lib
+Resolving "racket-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/racket-lib.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: i386-linux [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build/plt/bundle/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build/plt/bundle/racket/collects
+raco setup: main pkgs: /home/racket/build/plt/bundle/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build/plt/bundle/racket/share/pkgs
+raco setup:   /home/racket/build/plt/bundle/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build/plt/bundle/racket/share/links.rktd
+raco setup:   /home/racket/build/plt/bundle/user/6.2.900.17/links.rktd
+raco setup: main docs: /home/racket/build/plt/bundle/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://192.168.56.1:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 1  
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install post-adjust "--source" "" racket bundle/racket
+Copying src -> /home/racket/build/plt/bundle/racket/src
+make[1]: Leaving directory `/home/racket/build/plt'
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/set-config bundle/racket/etc/config.rktd "snapshot" "20151006-f86c5df" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""
+make installer-from-bundle SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE=--source VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX=builtpkgs UPLOAD="http://192.168.56.1:9440/upload/" DIST_DESC="{2} Minimal Racket | {9} All Platforms | Source + built libraries" README="http://192.168.56.1:9440/README-14441190631444119063285" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory `/home/racket/build/plt'
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l- distro-build/installer --readme "http://192.168.56.1:9440/README-14441190631444119063285" --upload "http://192.168.56.1:9440/upload/" --desc "{2} Minimal Racket | {9} All Platforms | Source + built libraries"  --source   "Racket" min-racket racket "builtpkgs" ""
+[2015-10-06T02:10:23] The time is now Tuesday, October 6th, 2015 2:10:23am
+Downloading http://192.168.56.1:9440/README-14441190631444119063285
+chmod -R g+w bundle/racket
+Tarring to #<path:/home/racket/build/plt/bundle/min-racket-6.2.900.17-src-builtpkgs.tgz>
+Upload bundle/min-racket-6.2.900.17-src-builtpkgs.tgz to http://192.168.56.1:9440/upload/
+[2015-10-06T02:11:26] The time is now Tuesday, October 6th, 2015 2:11:26am
+make[1]: Leaving directory `/home/racket/build/plt'
+Stopping VirtualBox machine "ubuntu32"
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%

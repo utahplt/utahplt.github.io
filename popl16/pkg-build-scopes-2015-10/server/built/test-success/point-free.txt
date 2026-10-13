@@ -1,0 +1,94 @@
+The time is now Tuesday, October 6th, 2015 8:08:51pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto point-free && bin/raco test --drdr --package point-free'
+Resolving "point-free" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/point-free.zip
+00: Resolving "doc-coverage" via http://localhost:18333/built/catalog/
+Resolving "cover" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/doc-coverage.zip
+Downloading http://localhost:18333/built/pkgs/cover.zip
+Resolving "custom-load" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/custom-load.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of point-free:
+   doc-coverage
+   cover
+   doc-coverage
+ dependencies of cover:
+   custom-load
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/cover/cover
+raco setup: making: <pkgs>/cover/cover/private
+raco setup: making: <pkgs>/cover/cover/private/html
+raco setup: making: <pkgs>/cover/cover/private/html/assets
+raco setup: making: <pkgs>/cover/cover/scribblings
+raco setup: making: <pkgs>/cover/cover/tests
+raco setup: making: <pkgs>/cover/cover/tests/at-exp
+raco setup: making: <pkgs>/cover/cover/tests/basic
+raco setup: making: <pkgs>/cover/cover/tests/simple-multi
+raco setup: making: <pkgs>/cover/cover/tests/submods
+raco setup: making: <pkgs>/cover/cover/tests/syntax
+raco setup: making: <pkgs>/custom-load (custom-load)
+raco setup: making: <pkgs>/custom-load/private
+raco setup: making: <pkgs>/doc-coverage/doc-coverage (doc-coverage)
+raco setup: making: <pkgs>/point-free/point-free (point-free)
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/cover/cover/doc/cover
+raco setup: syncing: <pkgs>/custom-load/doc/custom-load
+raco setup: syncing: <pkgs>/doc-coverage/doc-coverage/doc/doc-coverage
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: syncing: <pkgs>/point-free/point-free/doc/point-free
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/info.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/arg-count-syntax.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/definition-forms.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/fixpoint.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/module-doc-test.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/parallel-composition.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/point-free.scrbl"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/thrush.rkt" test)
+  15 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/parallel-composition.rkt
+   5 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/fixpoint.rkt
+   5 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/thrush.rkt
+   4 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/arg-count-syntax.rkt
+   1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/module-doc-test.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/info.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/definition-forms.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/info.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/main.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/point-free/point-free/point-free.scrbl
+30 tests passed
+The time is now Tuesday, October 6th, 2015 8:09:07pm

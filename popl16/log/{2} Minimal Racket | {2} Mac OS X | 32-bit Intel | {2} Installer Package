@@ -1,0 +1,388 @@
+[2015-10-06T01:50:17] The time is now Tuesday, October 6th, 2015 1:50:17am
+/bin/sh -c if [ ! -d "/Users/racket/build/plt//build/mac32" ] ; then git clone "/Users/racket/build/plt/" "/Users/racket/build/plt//build/mac32" ; fi
+[2015-10-06T01:50:17] The time is now Tuesday, October 6th, 2015 1:50:17am
+/bin/sh -c cd "/Users/racket/build/plt//build/mac32" ; git pull
+Already up-to-date.
+[2015-10-06T01:50:17] The time is now Tuesday, October 6th, 2015 1:50:17am
+/bin/sh -c cd "/Users/racket/build/plt//build/mac32" ; make -j 2 client SERVER=localhost SERVER_PORT=9440 PKGS="" DOC_SEARCH="http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" DIST_DESC="{2} Minimal Racket | {2} Mac OS X | 32-bit Intel | {2} Installer Package" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX="" DIST_CATALOGS_q='"http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""' SIGN_IDENTITY="" INSTALL_NAME="snapshot" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE="" SOURCE_MODE="" VERSIONLESS_MODE="" PKG_SOURCE_MODE="" MAC_PKG_MODE=--mac-pkg UPLOAD=http://localhost:9440/upload/ README=http://localhost:9440/"README-14441178171444117817333" JOB_OPTIONS="-j 2" CONFIGURE_ARGS_qq='"--enable-sdk5=/Developer/SDKs/MacOSX10.5.sdk" "--disable-mac64"'
+make[6]: warning: -jN forced in submake: disabling jobserver mode.
+if [ ! -d build/log ] ; then rm -rf build/user ; fi
+/Applications/Xcode.app/Contents/Developer/usr/bin/make base SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE=--mac-pkg PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {2} Mac OS X | 32-bit Intel | {2} Installer Package" README="http://localhost:9440/README-14441178171444117817333" SIGN_IDENTITY="" JOB_OPTIONS="-j 2" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+mkdir -p build/config
+echo '#hash((links-search-files . ()))' > build/config/config.rktd
+mkdir -p racket/src/build
+/Applications/Xcode.app/Contents/Developer/usr/bin/make racket/src/build/Makefile
+make[8]: `racket/src/build/Makefile' is up to date.
+cd racket/src/build; /Applications/Xcode.app/Contents/Developer/usr/bin/make reconfigure
+/Applications/Xcode.app/Contents/Developer/usr/bin/make Makefile
+make[9]: `Makefile' is up to date.
+cd racket/src/build; /Applications/Xcode.app/Contents/Developer/usr/bin/make SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make 3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make no-local-racket
+:
+cd racket; /Applications/Xcode.app/Contents/Developer/usr/bin/make 3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make cgc
+/Applications/Xcode.app/Contents/Developer/usr/bin/make cgc-core
+/Applications/Xcode.app/Contents/Developer/usr/bin/make common
+/Applications/Xcode.app/Contents/Developer/usr/bin/make g-c
+cd sgc; /Applications/Xcode.app/Contents/Developer/usr/bin/make ../libmzgc.a 
+make[15]: `../libmzgc.a' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make foreign-stuff
+cd ../foreign; /Applications/Xcode.app/Contents/Developer/usr/bin/make all
+/Applications/Xcode.app/Contents/Developer/usr/bin/make foreign.o
+make[16]: `foreign.o' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make libffi_ON
+/Applications/Xcode.app/Contents/Developer/usr/bin/make libffi/libffi.la
+make[17]: `libffi/libffi.la' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make dynlib
+cd dynsrc; /Applications/Xcode.app/Contents/Developer/usr/bin/make dynlib 
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../mzdyn.o
+make[15]: `../mzdyn.o' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../starter
+make[15]: `../starter' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make mzlibrary
+cd src; /Applications/Xcode.app/Contents/Developer/usr/bin/make all 
+/Applications/Xcode.app/Contents/Developer/usr/bin/make mzobjects
+make[15]: Nothing to be done for `mzobjects'.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make libracket.a
+make[14]: `libracket.a' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make racketcgc
+make[13]: `racketcgc' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make mzcomcgc
+:
+/Applications/Xcode.app/Contents/Developer/usr/bin/make sysinfercgc
+./racketcgc -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT -m32 -pthread  -fno-common -DUSE_SENORA_GC    ../../racket/src/systype.c" "" "./racketcgc" "./racketcgc"
+cd gc2; /Applications/Xcode.app/Contents/Developer/usr/bin/make all
+/Applications/Xcode.app/Contents/Developer/usr/bin/make check-sdep
+../racketcgc -G /Users/racket/build/plt/build/mac32/build/config -cqu ../../../racket/gc2/check-sdep.rkt
+/Applications/Xcode.app/Contents/Developer/usr/bin/make xsrc/precomp.h
+make[12]: `xsrc/precomp.h' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make xobjects
+make[12]: Nothing to be done for `xobjects'.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../racket3m
+make[12]: `../racket3m' is up to date.
+cd dynsrc; /Applications/Xcode.app/Contents/Developer/usr/bin/make dynlib3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../mzdyn3m.o
+make[12]: `../mzdyn3m.o' is up to date.
+cd gc2; /Applications/Xcode.app/Contents/Developer/usr/bin/make ../racket3m
+make[11]: `../racket3m' is up to date.
+cd gc2; /Applications/Xcode.app/Contents/Developer/usr/bin/make ../mzcom3m
+make[11]: `../mzcom3m' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make sysinfer3m
+./racket3m -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT -m32 -pthread  -fno-common -DUSE_SENORA_GC    ../../racket/src/systype.c" "" "./racket3m" "./racket3m"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make gracket-3m
+cd gracket; /Applications/Xcode.app/Contents/Developer/usr/bin/make 3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make resources
+:
+cd gc2; /Applications/Xcode.app/Contents/Developer/usr/bin/make 3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../gracket3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../GRacket3m.app/Contents/MacOS/GRacket3m
+make[14]: `../GRacket3m.app/Contents/MacOS/GRacket3m' is up to date.
+cd racket/src/build; /Applications/Xcode.app/Contents/Developer/usr/bin/make install SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`" PLT_SETUP_OPTIONS="-j 2 "
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-3m-common
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-common-first
+if [ "" != "" ]; then \
+          if [[ "" != /* ]]; then \
+            echo "expected an absolute path for DESTDIR; given: "; exit 1; \
+          fi; \
+        fi
+mkdir -p "/Users/racket/build/plt/build/mac32/racket/bin" "/Users/racket/build/plt/build/mac32/racket/collects" "/Users/racket/build/plt/build/mac32/racket/doc" "/Users/racket/build/plt/build/mac32/racket/lib" "/Users/racket/build/plt/build/mac32/racket/include" "/Users/racket/build/plt/build/mac32/racket/lib" "/Users/racket/build/plt/build/mac32/racket/share" "/Users/racket/build/plt/build/mac32/racket/etc" "/Users/racket/build/plt/build/mac32/racket/share/applications" "/Users/racket/build/plt/build/mac32/racket/man"
+cd racket; /Applications/Xcode.app/Contents/Developer/usr/bin/make install-3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make headers
+./racketcgc -cqu ../../racket/mkincludes.rkt "/Users/racket/build/plt/build/mac32/racket/include" "../../racket" .
+Making /Users/racket/build/plt/build/mac32/racket/include
+Done.
+cd ..; cp racket/system.rktd "/Users/racket/build/plt/build/mac32/racket/lib/system.rktd"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make osx-install
+/Applications/Xcode.app/Contents/Developer/usr/bin/make unix-install
+cd ..; rm -f "/Users/racket/build/plt/build/mac32/racket/bin/racketcgc"
+cd ..; rm -f "/Users/racket/build/plt/build/mac32/racket/bin/racket"
+cd ..; cp racket/starter "/Users/racket/build/plt/build/mac32/racket/lib/starter"
+cp ../../racket/dynsrc/starter-sh .
+cd ..; cp racket/starter-sh "/Users/racket/build/plt/build/mac32/racket/lib/starter-sh"
+cd ..; strip "/Users/racket/build/plt/build/mac32/racket/lib/starter"
+./racketcgc -cu "../../racket/collects-path.rkt" "/Users/racket/build/plt/build/mac32/racket/lib/starter" ../collects ../etc
+cd ..; echo 'CC=gcc' > "/Users/racket/build/plt/build/mac32/racket/lib/buildinfo"
+cd ..; echo 'CFLAGS=-Wall   -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT -m32 -pthread' >> "/Users/racket/build/plt/build/mac32/racket/lib/buildinfo"
+cd ..; echo 'OPTIONS= -fno-common -DUSE_SENORA_GC' >> "/Users/racket/build/plt/build/mac32/racket/lib/buildinfo"
+cd ..; echo 'MZOPTIONS=' >> "/Users/racket/build/plt/build/mac32/racket/lib/buildinfo"
+cd ..; echo "LDFLAGS= -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -m32 -pthread" >> "/Users/racket/build/plt/build/mac32/racket/lib/buildinfo"
+cd ..; echo 'LIBS=-ldl -lm  -liconv ' >> "/Users/racket/build/plt/build/mac32/racket/lib/buildinfo"
+rm -f /Users/racket/build/plt/build/mac32/racket/lib/Racket.framework/Racket
+rm -rf /Users/racket/build/plt/build/mac32/racket/lib/Racket.framework/Versions/6.2.900.17
+rm -rf /Users/racket/build/plt/build/mac32/racket/lib/Racket.framework/Versions/6.2.900.17_3m
+if [ yes = yes ] ; then rm -rf /Users/racket/build/plt/build/mac32/racket/lib/Racket.framework ; fi
+mkdir -p /Users/racket/build/plt/build/mac32/racket/lib
+/Applications/Xcode.app/Contents/Developer/usr/bin/make osx-install-3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make unix-install-3m
+cd ..; cp racket/racket3m "/Users/racket/build/plt/build/mac32/racket/bin/racket"
+cd ..; strip "/Users/racket/build/plt/build/mac32/racket/bin/racket"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make unix-no-install-libs-3m
+:
+cd ..; cp racket/mzdyn3m.o "/Users/racket/build/plt/build/mac32/racket/lib/mzdyn3m.o"
+./racket3m -cu "../../racket/collects-path.rkt" "/Users/racket/build/plt/build/mac32/racket/bin/racket" ../collects ../etc
+mkdir -p "/Users/racket/build/plt/build/mac32/racket/lib/Racket.framework/Versions/6.2.900.17_3m"
+cp Racket.framework/Versions/6.2.900.17_3m/Racket /Users/racket/build/plt/build/mac32/racket/lib/Racket.framework/Versions/6.2.900.17_3m/
+/usr/bin/install_name_tool -change "@executable_path/Racket.framework/Versions/6.2.900.17_3m/Racket" ""@executable_path/../lib/"Racket.framework/Versions/6.2.900.17_3m/Racket" "/Users/racket/build/plt/build/mac32/racket/bin/racket"
+strip "/Users/racket/build/plt/build/mac32/racket/bin/racket"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make osx-install-3m-final
+/Applications/Xcode.app/Contents/Developer/usr/bin/make unix-install-3m-final
+:
+ln -s Versions/6.2.900.17_3m/Racket /Users/racket/build/plt/build/mac32/racket/lib/Racket.framework/
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-gracket-3m
+cd gracket; /Applications/Xcode.app/Contents/Developer/usr/bin/make install-3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-wx_mac
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-common
+:
+cd ..; rm -rf "/Users/racket/build/plt/build/mac32/racket/lib/GRacketCGC.app"
+cd ..; rm -rf "/Users/racket/build/plt/build/mac32/racket/lib/GRacket.app"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-wx_mac-3m
+cd ..; cp -r "gracket/GRacket3m.app" "/Users/racket/build/plt/build/mac32/racket/lib/GRacket.app"
+../racket/racket3m -G /Users/racket/build/plt/build/mac32/build/config -cqu "../../gracket/../mac/rename-app.rkt" "/Users/racket/build/plt/build/mac32/racket/lib/GRacket.app" "GRacket3m" "GRacket"
+/usr/bin/install_name_tool -change "@executable_path/../../../../racket/Racket.framework/Versions/6.2.900.17_3m/Racket" ""@executable_path/../../../"Racket.framework/Versions/6.2.900.17_3m/Racket" "/Users/racket/build/plt/build/mac32/racket/lib/GRacket.app/Contents/MacOS/GRacket"
+../racket/racket3m -G /Users/racket/build/plt/build/mac32/build/config -cu "../../gracket/../racket/collects-path.rkt" "/Users/racket/build/plt/build/mac32/racket/lib/GRacket.app/Contents/MacOS/GRacket" "../../../../collects" ../../../../etc
+strip "/Users/racket/build/plt/build/mac32/racket/lib/GRacket.app/Contents/MacOS/GRacket"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-wx_mac-3m-final
+:
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-common-middle
+/Applications/Xcode.app/Contents/Developer/usr/bin/make no-run
+:
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-gracket-post-collects
+cd gracket; /Applications/Xcode.app/Contents/Developer/usr/bin/make install-post-collects
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-wx_mac-post-collects
+cd ..; rm -rf /Users/racket/build/plt/build/mac32/racket/lib/Starter.app
+cd ..; cp -r gracket/Starter.app /Users/racket/build/plt/build/mac32/racket/lib/.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make lib-finish
+if [ "" = "" ]; then \
+	  echo "/Users/racket/build/plt/build/mac32/racket/lib"; \
+	fi
+/Users/racket/build/plt/build/mac32/racket/lib
+racket/racket3m -X "/Users/racket/build/plt/build/mac32/racket/collects" -G "/Users/racket/build/plt/build/mac32/racket/etc" -G /Users/racket/build/plt/build/mac32/build/config  --no-user-path -N "raco" -l- setup --no-user -j 2  
+raco setup: version: 6.2.900.17
+raco setup: platform: i386-macosx [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /Users/racket/build/plt/build/mac32/racket/collects
+raco setup: collects paths: 
+raco setup:   /Users/racket/build/plt/build/mac32/racket/collects
+raco setup: main pkgs: /Users/racket/build/plt/build/mac32/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /Users/racket/build/plt/build/mac32/racket/share/pkgs
+raco setup:   /Users/racket/Library/Racket/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup: main docs: /Users/racket/build/plt/build/mac32/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <collects>/racket
+raco setup: --- parallel build using 2 jobs ---
+raco setup: 1 making: <collects>/compiler
+raco setup: 0 making: <collects>/raco
+raco setup: 0 making: <collects>/racket
+raco setup: 1 making: <collects>/compiler/private
+raco setup: 1 making: <collects>/acks
+raco setup: 1 making: <collects>/data
+raco setup: 1 making: <collects>/data/private
+raco setup: 1 making: <collects>/db
+raco setup: 1 making: <collects>/db/private
+raco setup: 1 making: <collects>/db/private/generic
+raco setup: 1 making: <collects>/db/private/sqlite3
+raco setup: 1 making: <collects>/dynext
+raco setup: 1 making: <collects>/ffi
+raco setup: 1 making: <collects>/ffi/unsafe
+raco setup: 1 making: <collects>/ffi/unsafe/private
+raco setup: 1 making: <collects>/file
+raco setup: 0 making: <collects>/racket/base
+raco setup: 0 making: <collects>/racket/base/lang
+raco setup: 0 making: <collects>/racket/contract
+raco setup: 1 making: <collects>/file/private
+raco setup: 0 making: <collects>/racket/contract/private
+raco setup: 1 making: <collects>/info
+raco setup: 1 making: <collects>/info-domain
+raco setup: 1 making: <collects>/json
+raco setup: 1 making: <collects>/launcher
+raco setup: 1 making: <collects>/net
+raco setup: 1 making: <collects>/openssl
+raco setup: 1 making: <collects>/openssl/private
+raco setup: 0 making: <collects>/racket/gui
+raco setup: 0 making: <collects>/racket/kernel
+raco setup: 0 making: <collects>/racket/lang
+raco setup: 1 making: <collects>/pkg
+raco setup: 0 making: <collects>/racket/load
+raco setup: 0 making: <collects>/racket/load/lang
+raco setup: 0 making: <collects>/racket/match
+raco setup: 0 making: <collects>/racket/place
+raco setup: 0 making: <collects>/racket/place/private
+raco setup: 0 making: <collects>/racket/private
+raco setup: 1 making: <collects>/pkg/private
+raco setup: 1 making: <collects>/planet
+raco setup: 1 making: <collects>/planet/private
+raco setup: 0 making: <collects>/racket/signature
+raco setup: 0 making: <collects>/racket/signature/lang
+raco setup: 1 making: <collects>/reader
+raco setup: 1 making: <collects>/reader/lang
+raco setup: 0 making: <collects>/racket/unit
+raco setup: 1 making: <collects>/realm
+raco setup: 1 making: <collects>/s-exp
+raco setup: 1 making: <collects>/s-exp/lang
+raco setup: 0 making: <collects>/racket/unit/lang
+raco setup: 1 making: <collects>/setup
+raco setup: 0 making: <collects>/racket/unsafe
+raco setup: 0 making: <collects>/syntax
+raco setup: 1 making: <collects>/setup/commands
+raco setup: 1 making: <collects>/setup/infotab
+raco setup: 1 making: <collects>/setup/infotab/lang
+raco setup: 1 making: <collects>/setup/private
+raco setup: 1 making: <collects>/unstable
+raco setup: 1 making: <collects>/version
+raco setup: 1 making: <collects>/xml
+raco setup: 0 making: <collects>/syntax/parse
+raco setup: 1 making: <collects>/xml/private
+raco setup: 0 making: <collects>/syntax/parse/experimental
+raco setup: 0 making: <collects>/syntax/parse/experimental/private
+raco setup: 0 making: <collects>/syntax/parse/lib
+raco setup: 0 making: <collects>/syntax/parse/private
+raco setup: 0 making: <collects>/syntax/private
+raco setup: 0 making: <collects>/syntax/private/util
+raco setup: 0 making: <collects>/syntax/unsafe
+raco setup: --- creating launchers ---
+raco setup: launcher: <console-bin>/raco
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- checking package dependencies ---
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-common-last
+/Applications/Xcode.app/Contents/Developer/usr/bin/make fix-paths
+if [ "" != "" ]; then \
+          if [ "" = "" ]; then \
+            racket/racketcgc -G /Users/racket/build/plt/build/mac32/build/config -u \
+              "../../collects/setup/unixstyle-install.rkt" \
+              make-install-destdir-fix "../.." \
+              "/Users/racket/build/plt/build/mac32/racket/bin" "/Users/racket/build/plt/build/mac32/racket/collects" "/Users/racket/build/plt/build/mac32/racket/doc" "/Users/racket/build/plt/build/mac32/racket/lib" "/Users/racket/build/plt/build/mac32/racket/include" "/Users/racket/build/plt/build/mac32/racket/lib" "/Users/racket/build/plt/build/mac32/racket/share" "/Users/racket/build/plt/build/mac32/racket/etc" "/Users/racket/build/plt/build/mac32/racket/share/applications" "/Users/racket/build/plt/build/mac32/racket/man" "yes"; \
+          fi \
+        fi
+/Applications/Xcode.app/Contents/Developer/usr/bin/make preserve-raco-pkg-default-scope
+:
+cp "../COPYING-libscheme.txt" "../COPYING_LESSER.txt" "../COPYING.txt" "/Users/racket/build/plt/build/mac32/racket/share"/
+/Applications/Xcode.app/Contents/Developer/usr/bin/make distro-build-from-server SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE=--mac-pkg PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {2} Mac OS X | 32-bit Intel | {2} Installer Package" README="http://localhost:9440/README-14441178171444117817333" SIGN_IDENTITY="" JOB_OPTIONS="-j 2" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -N raco -l- raco pkg install --catalog http://localhost:9440/ --scope user --skip-installed --deps search-auto --pkgs -j 2 distro-build-client
+Resolving "distro-build-client" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/distro-build-client.zip
+00: Resolving "base" via http://localhost:9440/
+01: Resolving "ds-store-lib" via http://localhost:9440/
+Resolving "at-exp-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/base.zip
+Downloading http://localhost:9440/pkgs/ds-store-lib.zip
+Downloading http://localhost:9440/pkgs/at-exp-lib.zip
+Resolving "racket-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/racket-lib.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of distro-build-client:
+   base
+   ds-store-lib
+   at-exp-lib
+ dependencies of base:
+   racket-lib
+raco setup: version: 6.2.900.17
+raco setup: platform: i386-macosx [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /Users/racket/build/plt/build/mac32/racket/collects
+raco setup: collects paths: 
+raco setup:   /Users/racket/build/plt/build/mac32/build/user/6.2.900.17/collects
+raco setup:   /Users/racket/build/plt/build/mac32/racket/collects
+raco setup: main pkgs: /Users/racket/build/plt/build/mac32/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /Users/racket/build/plt/build/mac32/racket/share/pkgs
+raco setup:   /Users/racket/build/plt/build/mac32/build/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /Users/racket/build/plt/build/mac32/racket/share/links.rktd
+raco setup:   /Users/racket/build/plt/build/mac32/build/user/6.2.900.17/links.rktd
+raco setup: main docs: /Users/racket/build/plt/build/mac32/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /Users/racket/build/plt/build/mac32/build/user/6.2.900.17/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: --- parallel build using 2 jobs ---
+raco setup: 1 making: <pkgs>/at-exp-lib/at-exp
+raco setup: 1 making: <pkgs>/at-exp-lib/at-exp/lang
+raco setup: 0 making: <pkgs>/at-exp-lib/scribble
+raco setup: 0 making: <pkgs>/at-exp-lib/scribble/base
+raco setup: 0 making: <pkgs>/distro-build-client
+raco setup: 1 making: <pkgs>/ds-store-lib
+raco setup: 0 making: <pkgs>/distro-build-client/macosx-installer
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+/Applications/Xcode.app/Contents/Developer/usr/bin/make bundle-from-server SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE=--mac-pkg PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {2} Mac OS X | 32-bit Intel | {2} Installer Package" README="http://localhost:9440/README-14441178171444117817333" SIGN_IDENTITY="" JOB_OPTIONS="-j 2" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+rm -rf bundle
+mkdir -p bundle/racket
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install bundle racket bundle/racket
+Copying bin -> /Users/racket/build/plt/build/mac32/bundle/racket/bin
+Copying collects -> /Users/racket/build/plt/build/mac32/bundle/racket/collects
+Copying doc -> /Users/racket/build/plt/build/mac32/bundle/racket/doc
+Copying lib -> /Users/racket/build/plt/build/mac32/bundle/racket/lib
+Copying include -> /Users/racket/build/plt/build/mac32/bundle/racket/include
+Copying share/applications -> /Users/racket/build/plt/build/mac32/bundle/racket/share/applications
+Copying share -> /Users/racket/build/plt/build/mac32/bundle/racket/share
+Copying etc -> /Users/racket/build/plt/build/mac32/bundle/racket/etc
+Copying man -> /Users/racket/build/plt/build/mac32/bundle/racket/man
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/unpack-collects http://localhost:9440/
+[2015-10-06T01:50:25] The time is now Tuesday, October 6th, 2015 1:50:25am
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://localhost:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 2  racket-lib
+Resolving "racket-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/racket-lib.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: i386-macosx [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /Users/racket/build/plt/build/mac32/bundle/racket/collects
+raco setup: collects paths: 
+raco setup:   /Users/racket/build/plt/build/mac32/bundle/racket/collects
+raco setup: main pkgs: /Users/racket/build/plt/build/mac32/bundle/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /Users/racket/build/plt/build/mac32/bundle/racket/share/pkgs
+raco setup:   /Users/racket/build/plt/build/mac32/bundle/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /Users/racket/build/plt/build/mac32/bundle/racket/share/links.rktd
+raco setup:   /Users/racket/build/plt/build/mac32/bundle/user/6.2.900.17/links.rktd
+raco setup: main docs: /Users/racket/build/plt/build/mac32/bundle/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: --- parallel build using 2 jobs ---
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://localhost:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 2  
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install post-adjust "" "" racket bundle/racket
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/set-config bundle/racket/etc/config.rktd "snapshot" "20151006-f86c5df" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""
+/Applications/Xcode.app/Contents/Developer/usr/bin/make installer-from-bundle SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE=--mac-pkg PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {2} Mac OS X | 32-bit Intel | {2} Installer Package" README="http://localhost:9440/README-14441178171444117817333" SIGN_IDENTITY="" JOB_OPTIONS="-j 2" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l- distro-build/installer --readme "http://localhost:9440/README-14441178171444117817333" --upload "http://localhost:9440/upload/" --desc "{2} Minimal Racket | {2} Mac OS X | 32-bit Intel | {2} Installer Package"    --mac-pkg "Racket" min-racket racket "" ""
+[2015-10-06T01:50:27] The time is now Tuesday, October 6th, 2015 1:50:27am
+Downloading http://localhost:9440/README-14441178171444117817333
+Creating bundle/scripts
+Creating bundle/resources
+Copying bundle/racket
+/usr/bin/pkgbuild --root bundle/work --install-location /Applications/Racket v6.2.900.17 --scripts bundle/scripts --identifier org.racket-lang.Racket-v6.2.900.17 --version 6.2.900.17 bundle/racket.pkg
+pkgbuild: Inferring bundle components from contents of bundle/work
+pkgbuild: Adding component at lib/Starter.app
+pkgbuild: Adding component at lib/GRacket.app
+pkgbuild: Adding top-level postinstall script
+pkgbuild: Wrote package to bundle/racket.pkg
+/usr/bin/productbuild --synthesize --package bundle/racket.pkg bundle/racket.xml
+productbuild: Wrote synthesized distribution to bundle/racket.xml
+/usr/bin/productbuild --distribution bundle/racket.xml --package-path bundle/. --resources bundle/resources --identifier org.racket-lang.Racket-v6.2.900.17 --version 6.2.900.17 bundle/min-racket-6.2.900.17-i386-macosx.pkg
+productbuild: Wrote product to bundle/min-racket-6.2.900.17-i386-macosx.pkg
+Upload bundle/min-racket-6.2.900.17-i386-macosx.pkg to http://localhost:9440/upload/
+[2015-10-06T01:50:32] The time is now Tuesday, October 6th, 2015 1:50:32am

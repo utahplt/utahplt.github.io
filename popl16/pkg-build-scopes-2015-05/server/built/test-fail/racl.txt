@@ -1,0 +1,91 @@
+The time is now Monday, May 18th, 2015 1:25:52pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto racl && bin/raco test --drdr --package racl'
+Resolving "racl" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/racl.zip
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/scope-snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: pre-installing: <pkgs>/racl (racl)
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/racl (racl)
+raco setup:  in <pkgs>/racl
+raco setup: making: <pkgs>/racl/examples
+raco setup:  in <pkgs>/racl/examples
+raco setup: making: <pkgs>/racl/private
+raco setup: making: <pkgs>/racl/private/subnacl
+raco setup: making: <pkgs>/racl/private/subnacl/auth_hmacsha256
+raco setup: making: <pkgs>/racl/private/subnacl/auth_hmacsha512256
+raco setup: making: <pkgs>/racl/private/subnacl/box_curve25519xsalsa20poly1305
+raco setup: making: <pkgs>/racl/private/subnacl/core_hsalsa20
+raco setup: making: <pkgs>/racl/private/subnacl/core_salsa20
+raco setup: making: <pkgs>/racl/private/subnacl/core_salsa2012
+raco setup: making: <pkgs>/racl/private/subnacl/core_salsa208
+raco setup: making: <pkgs>/racl/private/subnacl/hash_sha256
+raco setup: making: <pkgs>/racl/private/subnacl/hash_sha512
+raco setup: making: <pkgs>/racl/private/subnacl/hashblocks_sha256
+raco setup: making: <pkgs>/racl/private/subnacl/hashblocks_sha512
+raco setup: making: <pkgs>/racl/private/subnacl/include
+raco setup: making: <pkgs>/racl/private/subnacl/onetimeauth_poly1305
+raco setup: making: <pkgs>/racl/private/subnacl/randombytes
+raco setup: making: <pkgs>/racl/private/subnacl/scalarmult_curve25519
+raco setup: making: <pkgs>/racl/private/subnacl/secretbox_xsalsa20poly1305
+raco setup: making: <pkgs>/racl/private/subnacl/sign_ed25519
+raco setup: making: <pkgs>/racl/private/subnacl/sign_edwards25519sha512batch
+raco setup: making: <pkgs>/racl/private/subnacl/stream_aes128ctr
+raco setup: making: <pkgs>/racl/private/subnacl/stream_salsa20
+raco setup: making: <pkgs>/racl/private/subnacl/stream_salsa2012
+raco setup: making: <pkgs>/racl/private/subnacl/stream_salsa208
+raco setup: making: <pkgs>/racl/private/subnacl/stream_xsalsa20
+raco setup: making: <pkgs>/racl/private/subnacl/verify_16
+raco setup: making: <pkgs>/racl/private/subnacl/verify_32
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/examples/repl-client.rkt"
+repl-client.rkt: raco test: non-empty stderr: #"tcp-connect: connection failed\n  address: localhost\n  port number: 2222\n  step: 6\n  system error: Connection refused; errno=111\n  context...:\n   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/tcp.rkt:27:0: encrypted-tcp-connect21\n   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/examples/repl-client.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/examples/repl-server.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/ffi-lib.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/keys.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/main.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/port.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/private/install.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/session.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/spki-sexp.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/tcp.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/test-main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/wrapper.rkt"
+1/98 test failures
+  48 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/spki-sexp.rkt
+  39 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/test-main.rkt
+   5 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/port.rkt
+   5 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/session.rkt
+   0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/examples/repl-server.rkt
+   0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/ffi-lib.rkt
+   0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/info.rkt
+   0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/keys.rkt
+   0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/main.rkt
+   0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/private/install.rkt
+   0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/tcp.rkt
+   0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/wrapper.rkt
+1  1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/racl/examples/repl-client.rkt
+The time is now Monday, May 18th, 2015 1:26:41pm

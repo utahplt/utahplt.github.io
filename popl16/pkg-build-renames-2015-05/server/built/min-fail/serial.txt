@@ -1,0 +1,103 @@
+The time is now Thursday, May 14th, 2015 12:45:58pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.118 '/usr/bin/env' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto serial'
+Resolving "serial" via http://localhost:18333/built/catalog/
+Resolving "serial" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/serial.zip
+Resolving "termios" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/termios.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of serial:
+   termios
+raco setup: version: 6.1.91.900 [3m]
+raco setup: installation name: 6.1.91.900
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.1.91.900/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: pre-installing: <pkgs>/serial
+make: making /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/private/compiled/native/x86_64-linux-natipkg/3m/defines.c because /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/private/compiled/native/x86_64-linux-natipkg/3m/defines.c does not exist
+make: failed to make /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/private/compiled/native/x86_64-linux-natipkg/3m/defines.c; process*: contract violation
+  expected: path-string?
+  given: #f
+  context...:
+   /home/racket/build-pkgs/racket/collects/racket/system.rkt:100:35
+   /home/racket/build-pkgs/racket/collects/racket/system.rkt:98:0: do-process*/ports
+   /home/racket/build-pkgs/racket/collects/compiler/private/xform.rkt:8:2: xform
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:88:24: for-loop
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:74:2: make-file
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:88:24: for-loop
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:74:2: make-file
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:70:0: core17
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:813:6: for-loop
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:16:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+xform-cpp: (#f -E -DMZ_PRECISE_GC -I./include -I/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/private/ -I/home/racket/build-pkgs/racket/include -I/home/racket/build-pkgs/racket/include -DMZ_XFORM -DMZ_PRECISE_GC -DGC_STACK_CALLEE_RESTORE defines.c)
+raco setup: pre-installing: <pkgs>/termios/termios (termios)
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/serial
+raco setup:  in <pkgs>/serial
+raco setup:  in <pkgs>/termios/termios
+/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/serial.rkt:7:9: cannot open module file
+  module path: #<path:/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/private/defines.rkt>
+  path: /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/private/defines.rkt
+  system error: No such file or directory; errno=2
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/serial.rkt
+   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/main.rkt
+  context...:
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:163:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   ...
+raco setup: making: <pkgs>/serial/private
+raco setup: making: <pkgs>/termios/termios (termios)
+raco setup: making: <pkgs>/termios/termios/private
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during early install for <pkgs>/serial
+raco setup:   make: failed to make /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/private/compiled/native/x86_64-linux-natipkg/3m/defines.c; process*: contract violation
+raco setup:     expected: path-string?
+raco setup:     given: #f
+raco setup: error: during making for <pkgs>/serial
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/serial.rkt:7:9: cannot open module file
+raco setup:     module path: #<path:/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/private/defines.rkt>
+raco setup:     path: /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/serial/private/defines.rkt
+raco setup:     system error: No such file or directory; errno=2
+raco setup:     compiling: <pkgs>/serial/serial.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Thursday, May 14th, 2015 12:46:04pm

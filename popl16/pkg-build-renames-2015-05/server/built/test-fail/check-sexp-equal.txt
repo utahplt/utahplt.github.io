@@ -1,0 +1,57 @@
+The time is now Thursday, May 14th, 2015 7:45:37am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto check-sexp-equal && bin/raco test --drdr --package check-sexp-equal'
+Resolving "check-sexp-equal" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/check-sexp-equal.zip
+Resolving "sexp-diff" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/sexp-diff.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of check-sexp-equal:
+   sexp-diff
+raco setup: version: 6.1.91.900 [3m]
+raco setup: installation name: 6.1.91.900
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.1.91.900/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/check-sexp-equal
+raco setup: making: <pkgs>/sexp-diff/sexp-diff
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/check-sexp-equal/doc/check-sexp-equal
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: syncing: <pkgs>/sexp-diff/sexp-diff/doc/sexp-diff
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/check-sexp-equal/check-sexp-equal.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/check-sexp-equal/info.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/check-sexp-equal/main.rkt" test)
+main.rkt: raco test: non-empty stderr: #"--------------------\nFAILURE\nactual:     (a (foo bar foo bar b c d e f (g h i j k l)) (m n o p q (r s t u v w x y z)))\nexpected:   (a (foo bar foo bar b c d e f (g h i j k l)) (m n o p q (r s t u v 0 x y z)))\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/check-sexp-equal/main.rkt> 22 4 713 18)\nexpression: (check-equal? a b)\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nname:       check-sexp-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/check-sexp-equal/main.rkt> 23 4 736 23)\nexpression: (check-sexp-equal? a b)\nparams:     ((a (foo bar foo bar b c d e f (g h i j k l)) (m n o p q (r s t u v w x y z))) (a (foo bar foo bar b c d e f (g h i j k l)) (m n o p q (r s t u v 0 x y z))))\n\nsexp-diff (#:new = actual, #:old = expected):\n\n'((a\n   (foo bar foo bar b c d e f (g h i j k l))\n   (m n o p q (r s t u v #:new w #:old 0 x y z))))\n--------------------\n"
+1/1 test failures
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/check-sexp-equal/check-sexp-equal.scrbl
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/check-sexp-equal/info.rkt
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/check-sexp-equal/main.rkt
+The time is now Thursday, May 14th, 2015 7:45:48am

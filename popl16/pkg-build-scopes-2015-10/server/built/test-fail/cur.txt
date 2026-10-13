@@ -1,0 +1,105 @@
+The time is now Tuesday, October 6th, 2015 8:24:39pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto cur && bin/raco test --drdr --package cur'
+Resolving "cur" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/cur.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/cur
+raco setup: making: <pkgs>/cur/curnel
+raco setup: making: <pkgs>/cur/examples
+raco setup: making: <pkgs>/cur/lang
+raco setup: making: <pkgs>/cur/scribblings
+raco setup: making: <pkgs>/cur/scribblings/stdlib
+raco setup: making: <pkgs>/cur/stdlib
+raco setup: making: <pkgs>/cur/stdlib/tactics
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/cur/doc/cur
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/cur.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/curnel/redex-core.rkt" test)
+redex-core.rkt: raco test: non-empty stderr: #"--------------------\nFAILURE\nname:       check-false\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/curnel/redex-core.rkt> 774 2 29922 67)\nexpression: (check-false (term (positive (\316\240 (x : (\316\240 (y : nat) nat)) nat) nat)))\nparams:     (#t)\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nname:       check-false\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/curnel/redex-core.rkt> 780 2 30272 81)\nexpression: (check-false (term (positive (\316\240 (x : (\316\240 (y : (\316\240 (x : nat) nat)) nat)) nat) nat)))\nparams:     (#t)\n\nCheck failure\n--------------------\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/curnel/redex-lang.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/examples/example.rkt"
+example.rkt: raco test: non-empty stderr: #"Known bug: examples.rkt way out of date\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/examples/example.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/examples/proofs-for-free.rkt"
+proofs-for-free.rkt: raco test: non-empty stderr: #"Known bug: proofs-for-free.rkt way out of date\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/examples/proofs-for-free.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/examples/stlc.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/lang/reader.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/oll.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/cur.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/curnel.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/defs.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/oll.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/reflection.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/stdlib/sugar.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/stdlib/tactics.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/stdlib.scrbl"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/bool.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/maybe.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/nat.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/prop.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/sugar.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/tactics/base.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/tactics/sartactics.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/tactics/standard.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/typeclass.rkt" test)
+3/47 test failures
+  14 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/nat.rkt
+  10 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/bool.rkt
+   5 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/sugar.rkt
+   4 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/examples/stlc.rkt
+   4 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/prop.rkt
+   4 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/typeclass.rkt
+   2 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/oll.rkt
+   1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/maybe.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/cur.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/curnel/redex-lang.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/info.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/lang/reader.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/cur.scrbl
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/curnel.scrbl
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/defs.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/oll.scrbl
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/reflection.scrbl
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/stdlib/sugar.scrbl
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/stdlib/tactics.scrbl
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/scribblings/stdlib.scrbl
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/tactics/base.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/tactics/sartactics.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/stdlib/tactics/standard.rkt
+1  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/curnel/redex-core.rkt
+1  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/examples/example.rkt
+1  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/cur/examples/proofs-for-free.rkt
+The time is now Tuesday, October 6th, 2015 8:26:08pm

@@ -1,0 +1,51 @@
+The time is now Monday, May 18th, 2015 11:17:30am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto lang-slide && bin/raco test --drdr --package lang-slide'
+Resolving "lang-slide" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/lang-slide.zip
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/lang-slide/lang-slide
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/draw-plain.rkt"
+draw-plain.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/find.rkt"
+find.rkt: raco test: non-empty stderr: #"unknown language \"lang-utils.rkt\" 2\nunknown language \"plai/gc2/collector\" 4\nunknown language \"plai/collector\" 3\nunknown language \"plai/mutator\" 44\nunknown language \"datalog\" 13\nunknown language \"plai\" 5\nunknown language \"framework/private/decode\" 3\nunknown language \"wrapper.rkt\" 146\nunknown language \"plai/gc2/mutator\" 48\nran out of orange for typed/scheme/base\nunknown language \"env-lang.rkt\" 2\nunknown language \"eopl\" 170\nunknown language \"datalog/sexp\" 14\nunknown language \"wrap.rkt\" 44\nunknown language \"info\" 293\nran out of blue for #%kernel\nunknown language \"string-constant-lang.rkt\" 7\nunknown language \"racklog\" 7\nran out of orange for typed-racket/base-env/extra-env-lang\nunknown language \"one off language\" 35\n/bin/sh: 1: /usr/bin/twopi: not found\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/hudak-quote.rkt"
+hudak-quote.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/main.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/main.rkt"
+main.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/mk-img.rkt"
+mk-img.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/main.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/orig-colors.rkt"
+5/5 test failures
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/orig-colors.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/draw-plain.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/find.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/hudak-quote.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/main.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/lang-slide/lang-slide/mk-img.rkt
+The time is now Monday, May 18th, 2015 11:18:19am

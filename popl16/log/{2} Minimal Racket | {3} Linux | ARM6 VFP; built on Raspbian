@@ -1,0 +1,1075 @@
+[2015-10-06T01:41:43] The time is now Tuesday, October 6th, 2015 1:41:43am
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 pi@shanghai.cs.utah.edu '/bin/sh' '-c' 'if [ ! -d "build/plt" ] ; then git clone "http://localhost:9440/.git" "build/plt" ; fi'
+[2015-10-06T01:41:45] The time is now Tuesday, October 6th, 2015 1:41:45am
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 pi@shanghai.cs.utah.edu '/bin/sh' '-c' 'cd "build/plt" ; git pull'
+From http://localhost:9440/
+   b92eac8..f86c5df  master     -> origin/master
+Updating b92eac8..f86c5df
+Fast-forward
+ README.txt                                         |    2 +-
+ pkgs/at-exp-lib/LICENSE.txt                        |    2 +-
+ pkgs/base/LICENSE.txt                              |    2 +-
+ pkgs/racket-doc/LICENSE.txt                        |    2 +-
+ pkgs/racket-doc/openssl/openssl.scrbl              |   60 ++++++++++++++++-
+ .../racket-doc/scribblings/reference/numbers.scrbl |   28 +++++++-
+ pkgs/racket-doc/scribblings/reference/os-lib.scrbl |   18 ++++++
+ pkgs/racket-doc/scribblings/reference/os.scrbl     |    1 +
+ .../scribblings/reference/syntax-model.scrbl       |    7 ++
+ pkgs/racket-doc/syntax/scribblings/define.scrbl    |    4 +-
+ pkgs/racket-doc/syntax/scribblings/name.scrbl      |   12 +++-
+ pkgs/racket-index/LICENSE.txt                      |    2 +-
+ pkgs/racket-index/scribblings/main/license.scrbl   |    2 +-
+ pkgs/racket-lib/LICENSE.txt                        |    2 +-
+ pkgs/racket-test-core/LICENSE.txt                  |    2 +-
+ pkgs/racket-test-core/tests/racket/basic.rktl      |    2 +
+ pkgs/racket-test-core/tests/racket/name.rktl       |   21 +++++-
+ pkgs/racket-test/LICENSE.txt                       |    2 +-
+ racket/collects/racket/os.rkt                      |   68 ++++++++++++++++++++
+ racket/collects/racket/private/name.rkt            |   18 ++++--
+ racket/collects/racket/private/string.rkt          |    4 +-
+ racket/collects/racket/private/unix-rand.rkt       |   15 +++++
+ racket/collects/racket/private/windows-rand.rkt    |   22 +++++++
+ racket/collects/racket/random.rkt                  |   14 ++++
+ racket/src/native-libs/install.rkt                 |    2 +-
+ racket/src/racket/dynsrc/mzdyn.c                   |    2 +-
+ racket/src/racket/include/escheme.h                |    2 +-
+ racket/src/racket/include/scheme.h                 |    2 +-
+ racket/src/racket/main.c                           |    2 +-
+ racket/src/racket/sgc/sgc.c                        |    2 +-
+ racket/src/racket/src/bignum.c                     |    2 +-
+ racket/src/racket/src/bool.c                       |    2 +-
+ racket/src/racket/src/builtin.c                    |    2 +-
+ racket/src/racket/src/char.c                       |    2 +-
+ racket/src/racket/src/compenv.c                    |    2 +-
+ racket/src/racket/src/compile.c                    |   41 +++++++++++-
+ racket/src/racket/src/complex.c                    |    2 +-
+ racket/src/racket/src/dynext.c                     |    2 +-
+ racket/src/racket/src/env.c                        |    2 +-
+ racket/src/racket/src/error.c                      |    2 +-
+ racket/src/racket/src/eval.c                       |    2 +-
+ racket/src/racket/src/file.c                       |    2 +-
+ racket/src/racket/src/fun.c                        |    2 +-
+ racket/src/racket/src/future.c                     |    2 +-
+ racket/src/racket/src/hash.c                       |    2 +-
+ racket/src/racket/src/jit.c                        |    2 +-
+ racket/src/racket/src/jitalloc.c                   |    2 +-
+ racket/src/racket/src/jitarith.c                   |    2 +-
+ racket/src/racket/src/jitcall.c                    |    2 +-
+ racket/src/racket/src/jitcommon.c                  |    2 +-
+ racket/src/racket/src/jitinline.c                  |    2 +-
+ racket/src/racket/src/jitprep.c                    |    2 +-
+ racket/src/racket/src/jitstack.c                   |    2 +-
+ racket/src/racket/src/jitstate.c                   |    2 +-
+ racket/src/racket/src/letrec_check.c               |    2 +-
+ racket/src/racket/src/list.c                       |    2 +-
+ racket/src/racket/src/marshal.c                    |    2 +-
+ racket/src/racket/src/module.c                     |    2 +-
+ racket/src/racket/src/mzrt.c                       |    2 +-
+ racket/src/racket/src/mzsj86.c                     |    2 +-
+ racket/src/racket/src/network.c                    |    2 +-
+ racket/src/racket/src/numarith.c                   |    2 +-
+ racket/src/racket/src/number.c                     |    2 +-
+ racket/src/racket/src/numcomp.c                    |    2 +-
+ racket/src/racket/src/nummacs.h                    |    2 +-
+ racket/src/racket/src/numstr.c                     |    2 +-
+ racket/src/racket/src/optimize.c                   |    2 +-
+ racket/src/racket/src/place.c                      |    2 +-
+ racket/src/racket/src/port.c                       |    2 +-
+ racket/src/racket/src/portfun.c                    |    2 +-
+ racket/src/racket/src/print.c                      |    2 +-
+ racket/src/racket/src/rational.c                   |    2 +-
+ racket/src/racket/src/read.c                       |    2 +-
+ racket/src/racket/src/regexp.c                     |    2 +-
+ racket/src/racket/src/resolve.c                    |    2 +-
+ racket/src/racket/src/salloc.c                     |    2 +-
+ racket/src/racket/src/schemef.h                    |    2 +-
+ racket/src/racket/src/schemex.h                    |    2 +-
+ racket/src/racket/src/schpriv.h                    |    2 +-
+ racket/src/racket/src/sema.c                       |    2 +-
+ racket/src/racket/src/setjmpup.c                   |    2 +-
+ racket/src/racket/src/sfs.c                        |    2 +-
+ racket/src/racket/src/string.c                     |    2 +-
+ racket/src/racket/src/struct.c                     |    2 +-
+ racket/src/racket/src/symbol.c                     |    2 +-
+ racket/src/racket/src/syntax.c                     |    2 +-
+ racket/src/racket/src/thread.c                     |    2 +-
+ racket/src/racket/src/type.c                       |    2 +-
+ racket/src/racket/src/validate.c                   |    2 +-
+ racket/src/racket/src/vector.c                     |    2 +-
+ racket/src/worksp/gracket/gracket.rc               |    2 +-
+ racket/src/worksp/mzcom/mzcom.rc                   |    2 +-
+ racket/src/worksp/racket/racket.rc                 |    2 +-
+ racket/src/worksp/starters/start.rc                |    2 +-
+ 94 files changed, 397 insertions(+), 94 deletions(-)
+ create mode 100644 pkgs/racket-doc/scribblings/reference/os-lib.scrbl
+ create mode 100644 racket/collects/racket/os.rkt
+ create mode 100644 racket/collects/racket/private/unix-rand.rkt
+ create mode 100644 racket/collects/racket/private/windows-rand.rkt
+ create mode 100644 racket/collects/racket/random.rkt
+[2015-10-06T01:41:57] The time is now Tuesday, October 6th, 2015 1:41:57am
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 pi@shanghai.cs.utah.edu '/bin/sh' '-c' 'cd "build/plt" ; make -j 1 client SERVER=localhost SERVER_PORT=9440 PKGS="" DOC_SEARCH="http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" DIST_DESC="{2} Minimal Racket | {3} Linux | ARM6 VFP; built on Raspbian" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX="" DIST_CATALOGS_q='"'"'"http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""'"'"' SIGN_IDENTITY="" INSTALL_NAME="snapshot" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE="" SOURCE_MODE="" VERSIONLESS_MODE="" PKG_SOURCE_MODE="" MAC_PKG_MODE="" UPLOAD=http://localhost:9440/upload/ README=http://localhost:9440/"README-14441173031444117303675" JOB_OPTIONS="-j 1" CONFIGURE_ARGS_qq='"'"''"'"''
+if [ ! -d build/log ] ; then rm -rf build/user ; fi
+make base SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {3} Linux | ARM6 VFP; built on Raspbian" README="http://localhost:9440/README-14441173031444117303675" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory '/home/pi/build/plt'
+mkdir -p build/config
+echo '#hash((links-search-files . ()))' > build/config/config.rktd
+mkdir -p racket/src/build
+make racket/src/build/Makefile
+make[2]: Entering directory '/home/pi/build/plt'
+make[2]: 'racket/src/build/Makefile' is up to date.
+make[2]: Leaving directory '/home/pi/build/plt'
+cd racket/src/build; make reconfigure
+make[2]: Entering directory '/home/pi/build/plt/racket/src/build'
+make Makefile
+make[3]: Entering directory '/home/pi/build/plt/racket/src/build'
+make[3]: 'Makefile' is up to date.
+make[3]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make[2]: Leaving directory '/home/pi/build/plt/racket/src/build'
+cd racket/src/build; make SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`"
+make[2]: Entering directory '/home/pi/build/plt/racket/src/build'
+make 3m
+make[3]: Entering directory '/home/pi/build/plt/racket/src/build'
+make no-local-racket
+make[4]: Entering directory '/home/pi/build/plt/racket/src/build'
+:
+make[4]: Leaving directory '/home/pi/build/plt/racket/src/build'
+cd racket; make 3m
+make[4]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+make cgc
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+make cgc-core
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+make common
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+make g-c
+make[8]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+cd sgc; make ../libmzgc.a 
+make[9]: Entering directory '/home/pi/build/plt/racket/src/build/racket/sgc'
+gcc -Wall  -g -O2   -DUSE_SENORA_GC -DSGC_EXPORTS -I.. -c ../../../racket/sgc/sgc.c -o sgc.o
+make gcobjects
+make[10]: Entering directory '/home/pi/build/plt/racket/src/build/racket/sgc'
+make[10]: Nothing to be done for 'gcobjects'.
+make[10]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/sgc'
+../../../racket/sgc/../../utils/nicear ar ruv ../libmzgc.a sgc.o
+r - sgc.o
+ranlib ../libmzgc.a
+make[9]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/sgc'
+make[8]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make foreign-stuff
+make[8]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+cd ../foreign; make all
+make[9]: Entering directory '/home/pi/build/plt/racket/src/build/foreign'
+make foreign.o
+make[10]: Entering directory '/home/pi/build/plt/racket/src/build/foreign'
+gcc -Wall  -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -I./../racket -I../../foreign/../racket/include -I../../foreign/../racket/src -Ilibffi/include -c ../../foreign/foreign.c -o foreign.o
+make[10]: Leaving directory '/home/pi/build/plt/racket/src/build/foreign'
+make libffi_ON
+make[10]: Entering directory '/home/pi/build/plt/racket/src/build/foreign'
+make libffi/libffi.la
+make[11]: Entering directory '/home/pi/build/plt/racket/src/build/foreign'
+make[11]: 'libffi/libffi.la' is up to date.
+make[11]: Leaving directory '/home/pi/build/plt/racket/src/build/foreign'
+make[10]: Leaving directory '/home/pi/build/plt/racket/src/build/foreign'
+make[9]: Leaving directory '/home/pi/build/plt/racket/src/build/foreign'
+make[8]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make dynlib
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+cd dynsrc; make dynlib 
+make[8]: Entering directory '/home/pi/build/plt/racket/src/build/racket/dynsrc'
+make ../mzdyn.o
+make[9]: Entering directory '/home/pi/build/plt/racket/src/build/racket/dynsrc'
+gcc -fPIC -Wall -g -O2  -I./.. -I../../../racket/dynsrc/../include -I../../../racket/dynsrc/../src  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/dynsrc/mzdyn.c -o ../mzdyn.o
+make[9]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/dynsrc'
+make ../starter
+make[9]: Entering directory '/home/pi/build/plt/racket/src/build/racket/dynsrc'
+make[9]: '../starter' is up to date.
+make[9]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/dynsrc'
+make[8]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/dynsrc'
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make mzlibrary
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+cd src; make all 
+make[8]: Entering directory '/home/pi/build/plt/racket/src/build/racket/src'
+make mzobjects
+make[9]: Entering directory '/home/pi/build/plt/racket/src/build/racket/src'
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/salloc.c -o salloc.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/bignum.c -o bignum.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/bool.c -o bool.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/builtin.c -o builtin.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/char.c -o char.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/compenv.c -o compenv.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/compile.c -o compile.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/complex.c -o complex.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/dynext.c -o dynext.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/env.c -o env.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/error.c -o error.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/eval.c -o eval.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/file.c -o file.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/fun.c -o fun.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/future.c -o future.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/hash.c -o hash.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/jit.c -o jit.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/jitalloc.c -o jitalloc.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/jitarith.c -o jitarith.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/jitcall.c -o jitcall.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/jitcommon.c -o jitcommon.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/jitinline.c -o jitinline.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/jitprep.c -o jitprep.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/jitstack.c -o jitstack.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/jitstate.c -o jitstate.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/letrec_check.c -o letrec_check.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/list.c -o list.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/marshal.c -o marshal.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/module.c -o module.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/mzrt.c -o mzrt.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/network.c -o network.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/numarith.c -o numarith.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/number.c -o number.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/numcomp.c -o numcomp.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/numstr.c -o numstr.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/optimize.c -o optimize.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/place.c -o place.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/port.c -o port.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/portfun.c -o portfun.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/print.c -o print.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/rational.c -o rational.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/read.c -o read.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/regexp.c -o regexp.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/resolve.c -o resolve.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/sema.c -o sema.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/setjmpup.c -o setjmpup.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/sfs.c -o sfs.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/string.c -I. -o string.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/struct.c -o struct.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/symbol.c -o symbol.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/syntax.c -o syntax.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/thread.c -o thread.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/type.c -o type.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/validate.c -o validate.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -c ../../../racket/src/vector.c -o vector.o
+make[9]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/src'
+make[8]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/src'
+make libracket.a
+make[8]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+../../racket/../utils/nicear ar ruv libracket.a src/*.o ../foreign/foreign.o ../foreign/libffi/src/*.o ../foreign/libffi/src/*/*.o 
+r - src/bignum.o
+r - src/bool.o
+r - src/builtin.o
+r - src/char.o
+r - src/compenv.o
+r - src/compile.o
+r - src/complex.o
+r - src/dynext.o
+r - src/env.o
+r - src/error.o
+r - src/eval.o
+r - src/file.o
+r - src/fun.o
+r - src/future.o
+r - src/hash.o
+r - src/jit.o
+r - src/jitalloc.o
+r - src/jitarith.o
+r - src/jitcall.o
+r - src/jitcommon.o
+r - src/jitinline.o
+r - src/jitprep.o
+r - src/jitstack.o
+r - src/jitstate.o
+r - src/letrec_check.o
+r - src/list.o
+r - src/marshal.o
+r - src/module.o
+r - src/mzrt.o
+r - src/network.o
+r - src/numarith.o
+r - src/number.o
+r - src/numcomp.o
+r - src/numstr.o
+r - src/optimize.o
+r - src/place.o
+r - src/port.o
+r - src/portfun.o
+r - src/print.o
+r - src/rational.o
+r - src/read.o
+r - src/regexp.o
+r - src/resolve.o
+r - src/salloc.o
+r - src/sema.o
+r - src/setjmpup.o
+r - src/sfs.o
+r - src/string.o
+r - src/struct.o
+r - src/symbol.o
+r - src/syntax.o
+r - src/thread.o
+r - src/type.o
+r - src/validate.o
+r - src/vector.o
+r - ../foreign/foreign.o
+ranlib libracket.a
+make[8]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make racketcgc
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+gcc -I. -I../../racket/include -Wall   -g -O2   -DUSE_SENORA_GC  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DINITIAL_COLLECTS_DIRECTORY='"'"`cd ../../racket/../../collects; pwd`"'"' -DINITIAL_CONFIG_DIRECTORY='"'"`cd ../../racket/../..; pwd`/etc"'"' -c ../../racket/main.c -o main.o
+gcc -o racketcgc main.o  libracket.a libmzgc.a  -ldl -lm  -ldl -lm -rdynamic 
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make mzcomcgc
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+:
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make sysinfercgc
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+./racketcgc -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  ../../racket/src/systype.c" "" "./racketcgc" "./racketcgc"
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+cd gc2; make all
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+make check-sdep
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/check-sdep.rkt
+changed-dependency: ../../../racket/gc2/../src/letrec_check.c
+ removing xsrc/letrec_check.c
+changed-dependency: ../../../racket/gc2/../src/jitprep.c
+ removing xsrc/jitprep.c
+changed-dependency: ../../../racket/gc2/../src/module.c
+ removing xsrc/module.c
+changed-dependency: ../../../racket/gc2/../src/string.c
+ removing xsrc/string.c
+changed-dependency: ../../../racket/gc2/../src/compile.c
+ removing xsrc/compile.c
+changed-dependency: ../../../racket/gc2/../src/compenv.c
+ removing xsrc/compenv.c
+changed-dependency: ../../../racket/gc2/../src/char.c
+ removing xsrc/char.c
+changed-dependency: ../../../racket/gc2/../src/file.c
+ removing xsrc/file.c
+changed-dependency: ../../../racket/gc2/../src/portfun.c
+ removing xsrc/portfun.c
+changed-dependency: ../../../racket/gc2/../src/symbol.c
+ removing xsrc/symbol.c
+changed-dependency: ../../../racket/gc2/../src/thread.c
+ removing xsrc/thread.c
+changed-dependency: ../../../racket/gc2/../src/resolve.c
+ removing xsrc/resolve.c
+changed-dependency: ../../../racket/gc2/../src/optimize.c
+ removing xsrc/optimize.c
+changed-dependency: ../../../racket/gc2/../src/place.c
+ removing xsrc/place.c
+changed-dependency: ../../../racket/gc2/../src/dynext.c
+ removing xsrc/dynext.c
+changed-dependency: ../../../racket/gc2/../src/read.c
+ removing xsrc/read.c
+changed-dependency: ../../../racket/gc2/../src/sfs.c
+ removing xsrc/sfs.c
+changed-dependency: ../../../racket/gc2/../src/syntax.c
+ removing xsrc/syntax.c
+changed-dependency: ../../../racket/gc2/../src/env.c
+ removing xsrc/env.c
+changed-dependency: ../../../racket/gc2/../include/../src/schemef.h
+ removing xsrc/foreign.c
+changed-dependency: ../../../racket/gc2/../src/type.c
+ removing xsrc/type.c
+changed-dependency: ../../../racket/gc2/../src/jitinline.c
+ removing xsrc/jitinline.c
+changed-dependency: ../../../racket/gc2/../main.c
+ removing xsrc/main.c
+changed-dependency: ../../../racket/gc2/../src/salloc.c
+ removing xsrc/salloc.c
+changed-dependency: ../../../racket/gc2/../src/jitalloc.c
+ removing xsrc/jitalloc.c
+changed-dependency: ../../../racket/gc2/../src/struct.c
+ removing xsrc/struct.c
+changed-dependency: ../../../racket/gc2/../src/jitstate.c
+ removing xsrc/jitstate.c
+changed-dependency: ../../../racket/gc2/../src/error.c
+ removing xsrc/error.c
+changed-dependency: ../../../racket/gc2/../src/numarith.c
+ removing xsrc/numarith.c
+changed-dependency: ../../../racket/gc2/../src/validate.c
+ removing xsrc/validate.c
+changed-dependency: ../../../racket/gc2/../src/complex.c
+ removing xsrc/complex.c
+changed-dependency: ../../../racket/gc2/../src/port.c
+ removing xsrc/port.c
+changed-dependency: ../../../racket/gc2/../src/jitstack.c
+ removing xsrc/jitstack.c
+changed-dependency: ../../../racket/gc2/../src/hash.c
+ removing xsrc/hash.c
+changed-dependency: ../../../racket/gc2/../src/jitcommon.c
+ removing xsrc/jitcommon.c
+changed-dependency: ../../../racket/gc2/../src/jitcall.c
+ removing xsrc/jitcall.c
+changed-dependency: ../../../racket/gc2/../src/list.c
+ removing xsrc/list.c
+changed-dependency: ../../../racket/gc2/../src/number.c
+ removing xsrc/number.c
+changed-dependency: ../../../racket/gc2/../src/numcomp.c
+ removing xsrc/numcomp.c
+changed-dependency: ../../../racket/gc2/../src/bignum.c
+ removing xsrc/bignum.c
+changed-dependency: ../../../racket/gc2/../src/setjmpup.c
+ removing xsrc/setjmpup.c
+changed-dependency: ../../../racket/gc2/../src/numstr.c
+ removing xsrc/numstr.c
+changed-dependency: ../../../racket/gc2/../src/future.c
+ removing xsrc/future.c
+changed-dependency: ../../../racket/gc2/../src/marshal.c
+ removing xsrc/marshal.c
+changed-dependency: ../../../racket/gc2/../src/fun.c
+ removing xsrc/fun.c
+changed-dependency: ../../../racket/gc2/../src/schpriv.h
+ removing xsrc/precomp.h
+changed-dependency: ../../../racket/gc2/../src/vector.c
+ removing xsrc/vector.c
+changed-dependency: ../../../racket/gc2/../src/rational.c
+ removing xsrc/rational.c
+changed-dependency: ../../../racket/gc2/../src/regexp.c
+ removing xsrc/regexp.c
+changed-dependency: ../../../racket/gc2/../src/sema.c
+ removing xsrc/sema.c
+changed-dependency: ../../../racket/gc2/../src/jitarith.c
+ removing xsrc/jitarith.c
+changed-dependency: ../../../racket/gc2/../src/bool.c
+ removing xsrc/bool.c
+changed-dependency: ../../../racket/gc2/../src/jit.c
+ removing xsrc/jit.c
+changed-dependency: ../../../racket/gc2/../src/print.c
+ removing xsrc/print.c
+changed-dependency: ../../../racket/gc2/../src/network.c
+ removing xsrc/network.c
+changed-dependency: ../../../racket/gc2/../src/eval.c
+ removing xsrc/eval.c
+changed-dependency: ../../../racket/gc2/../src/builtin.c
+ removing xsrc/builtin.c
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+make xsrc/precomp.h
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+env XFORM_PRECOMP=yes ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/precomp.h ../../../racket/gc2/precomp.c
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+make xobjects
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/salloc.c ../../../racket/gc2/../src/salloc.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/salloc.c -o salloc.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/bignum.c ../../../racket/gc2/../src/bignum.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/bignum.c -o bignum.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/bool.c ../../../racket/gc2/../src/bool.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/bool.c -o bool.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/builtin.c ../../../racket/gc2/../src/builtin.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/builtin.c -o builtin.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/char.c ../../../racket/gc2/../src/char.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/char.c -o char.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/compenv.c ../../../racket/gc2/../src/compenv.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/compenv.c -o compenv.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/compile.c ../../../racket/gc2/../src/compile.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/compile.c -o compile.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/complex.c ../../../racket/gc2/../src/complex.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/complex.c -o complex.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/dynext.c ../../../racket/gc2/../src/dynext.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/dynext.c -o dynext.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/env.c ../../../racket/gc2/../src/env.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/env.c -o env.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/error.c ../../../racket/gc2/../src/error.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/error.c -o error.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/eval.c ../../../racket/gc2/../src/eval.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/eval.c -o eval.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/file.c ../../../racket/gc2/../src/file.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/file.c -o file.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/fun.c ../../../racket/gc2/../src/fun.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/fun.c -o fun.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/future.c ../../../racket/gc2/../src/future.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/future.c -o future.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/hash.c ../../../racket/gc2/../src/hash.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/hash.c -o hash.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/jit.c ../../../racket/gc2/../src/jit.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/jit.c -o jit.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/jitalloc.c ../../../racket/gc2/../src/jitalloc.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/jitalloc.c -o jitalloc.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/jitarith.c ../../../racket/gc2/../src/jitarith.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/jitarith.c -o jitarith.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/jitcall.c ../../../racket/gc2/../src/jitcall.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/jitcall.c -o jitcall.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/jitcommon.c ../../../racket/gc2/../src/jitcommon.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/jitcommon.c -o jitcommon.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/jitinline.c ../../../racket/gc2/../src/jitinline.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/jitinline.c -o jitinline.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/jitprep.c ../../../racket/gc2/../src/jitprep.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/jitprep.c -o jitprep.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/jitstack.c ../../../racket/gc2/../src/jitstack.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/jitstack.c -o jitstack.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/jitstate.c ../../../racket/gc2/../src/jitstate.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/jitstate.c -o jitstate.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/letrec_check.c ../../../racket/gc2/../src/letrec_check.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/letrec_check.c -o letrec_check.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/list.c ../../../racket/gc2/../src/list.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/list.c -o list.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/marshal.c ../../../racket/gc2/../src/marshal.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/marshal.c -o marshal.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/module.c ../../../racket/gc2/../src/module.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/module.c -o module.o
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -DMZ_PRECISE_GC -c ../../../racket/gc2/../src/mzrt.c -o mzrt.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/network.c ../../../racket/gc2/../src/network.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/network.c -o network.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/numarith.c ../../../racket/gc2/../src/numarith.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/numarith.c -o numarith.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/number.c ../../../racket/gc2/../src/number.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/number.c -o number.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/numcomp.c ../../../racket/gc2/../src/numcomp.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/numcomp.c -o numcomp.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/numstr.c ../../../racket/gc2/../src/numstr.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/numstr.c -o numstr.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/optimize.c ../../../racket/gc2/../src/optimize.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/optimize.c -o optimize.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/place.c ../../../racket/gc2/../src/place.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/place.c -o place.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/port.c ../../../racket/gc2/../src/port.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/port.c -o port.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/portfun.c ../../../racket/gc2/../src/portfun.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/portfun.c -o portfun.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/print.c ../../../racket/gc2/../src/print.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/print.c -o print.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/rational.c ../../../racket/gc2/../src/rational.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/rational.c -o rational.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/read.c ../../../racket/gc2/../src/read.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/read.c -o read.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/regexp.c ../../../racket/gc2/../src/regexp.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/regexp.c -o regexp.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/resolve.c ../../../racket/gc2/../src/resolve.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/resolve.c -o resolve.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/sema.c ../../../racket/gc2/../src/sema.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/sema.c -o sema.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/setjmpup.c ../../../racket/gc2/../src/setjmpup.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/setjmpup.c -o setjmpup.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/sfs.c ../../../racket/gc2/../src/sfs.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/sfs.c -o sfs.o
+../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I../src -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/string.c ../../../racket/gc2/../src/string.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/string.c -o string.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/struct.c ../../../racket/gc2/../src/struct.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/struct.c -o struct.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/symbol.c ../../../racket/gc2/../src/symbol.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/symbol.c -o symbol.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/syntax.c ../../../racket/gc2/../src/syntax.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/syntax.c -o syntax.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/thread.c ../../../racket/gc2/../src/thread.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/thread.c -o thread.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/type.c ../../../racket/gc2/../src/type.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/type.c -o type.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/validate.c ../../../racket/gc2/../src/validate.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/validate.c -o validate.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/vector.c ../../../racket/gc2/../src/vector.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/vector.c -o vector.o
+../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -I../../foreign/libffi/include -I../../../racket/gc2/../src/../../racket/src"  --keep-lines -o xsrc/foreign.c ../../../racket/gc2/../src/../../foreign/foreign.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/foreign.c -o foreign.o
+../racketcgc -G /home/pi/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 "  --keep-lines -o xsrc/main.c +D INITIAL_COLLECTS_DIRECTORY='"'"`cd ../../../racket/gc2/../../../collects; pwd`"'"' +D INITIAL_CONFIG_DIRECTORY='"'"`cd ../../../racket/gc2/../../..; pwd`/etc"'"' ../../../racket/gc2/../main.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -c xsrc/main.c -o main.o
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+make ../racket3m
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -I./.. -c ../../../racket/gc2/gc2.c -o gc2.o
+../../../racket/gc2/../../utils/nicear ar ruv ../libracket3m.a salloc.o bignum.o bool.o builtin.o char.o compenv.o compile.o complex.o dynext.o env.o error.o eval.o file.o fun.o future.o hash.o jit.o jitalloc.o jitarith.o jitcall.o jitcommon.o jitinline.o jitprep.o jitstack.o jitstate.o letrec_check.o list.o marshal.o module.o mzrt.o network.o numarith.o number.o numcomp.o numstr.o optimize.o place.o port.o portfun.o print.o rational.o read.o regexp.o resolve.o sema.o setjmpup.o sfs.o string.o struct.o symbol.o syntax.o thread.o type.o validate.o vector.o foreign.o ../src/gmp.o  ../src/unwind.o ../../foreign/libffi/src/*.o ../../foreign/libffi/src/*/*.o gc2.o
+r - salloc.o
+r - bignum.o
+r - bool.o
+r - builtin.o
+r - char.o
+r - compenv.o
+r - compile.o
+r - complex.o
+r - dynext.o
+r - env.o
+r - error.o
+r - eval.o
+r - file.o
+r - fun.o
+r - future.o
+r - hash.o
+r - jit.o
+r - jitalloc.o
+r - jitarith.o
+r - jitcall.o
+r - jitcommon.o
+r - jitinline.o
+r - jitprep.o
+r - jitstack.o
+r - jitstate.o
+r - letrec_check.o
+r - list.o
+r - marshal.o
+r - module.o
+r - mzrt.o
+r - network.o
+r - numarith.o
+r - number.o
+r - numcomp.o
+r - numstr.o
+r - optimize.o
+r - place.o
+r - port.o
+r - portfun.o
+r - print.o
+r - rational.o
+r - read.o
+r - regexp.o
+r - resolve.o
+r - sema.o
+r - setjmpup.o
+r - sfs.o
+r - string.o
+r - struct.o
+r - symbol.o
+r - syntax.o
+r - thread.o
+r - type.o
+r - validate.o
+r - vector.o
+r - foreign.o
+r - gc2.o
+ranlib ../libracket3m.a
+cd ..; gcc -o racket3m  gc2/main.o libracket3m.a  -ldl -lm  -ldl -lm -rdynamic 
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+cd dynsrc; make dynlib3m
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build/racket/dynsrc'
+make ../mzdyn3m.o
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket/dynsrc'
+gcc -fPIC -Wall -g -O2  -I./.. -I../../../racket/dynsrc/../include -I../../../racket/dynsrc/../src  -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DMZ_PRECISE_GC -c ../../../racket/dynsrc/mzdyn.c -o ../mzdyn3m.o
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/dynsrc'
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/dynsrc'
+cd gc2; make ../racket3m
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+make[5]: '../racket3m' is up to date.
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+cd gc2; make ../mzcom3m
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+make[5]: '../mzcom3m' is up to date.
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build/racket/gc2'
+make sysinfer3m
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+./racket3m -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2   -DUSE_SENORA_GC   -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  ../../racket/src/systype.c" "" "./racket3m" "./racket3m"
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make[4]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make gracket-3m
+make[4]: Entering directory '/home/pi/build/plt/racket/src/build'
+cd gracket; make 3m
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build/gracket'
+make resources
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/gracket'
+:
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket'
+cd gc2; make 3m
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/gracket/gc2'
+make ../gracket3m
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/gracket/gc2'
+../../racket/racket3m -G /home/pi/build/plt/build/config -cqu ../../../gracket/gc2/../../racket/gc2/xform.rkt --setup ../../racket/gc2 --cpp "gcc -E -I../../../gracket/gc2/../../racket/gc2 -I./../../racket/ -I../../../gracket/gc2/../../racket/include/ -DUSE_SENORA_GC   -g -O2  -Dwx_xt -MMD"  --keep-lines -o xsrc/grmain.c +D INITIAL_COLLECTS_DIRECTORY='"'"`cd ../../../gracket/gc2/../../../collects; pwd`"'"' +D INITIAL_CONFIG_DIRECTORY='"'"`cd ../../../gracket/gc2/../../..; pwd`/etc"'"' ../../../gracket/gc2/../grmain.c
+gcc -I../../../gracket/gc2/../../racket/sgc -I./../../racket/ -I../../../gracket/gc2/../../racket/include/ -DUSE_SENORA_GC   -Dwx_xt  -Wall  -Wall   -g -O2   -DGC2_JUST_MACROS -include ../../../gracket/gc2/../../racket/gc2/gc2.h -c -DUSE_SENORA_GC   -o grmain.o xsrc/grmain.c
+gcc  -L../../racket -o ../gracket3m grmain.o ../../racket/libracket3m.a  -ldl -lm  -ldl -lm -rdynamic 
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket/gc2'
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket/gc2'
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket'
+make[4]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make[3]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make[2]: Leaving directory '/home/pi/build/plt/racket/src/build'
+cd racket/src/build; make install SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`" PLT_SETUP_OPTIONS="-j 1 "
+make[2]: Entering directory '/home/pi/build/plt/racket/src/build'
+make install-3m
+make[3]: Entering directory '/home/pi/build/plt/racket/src/build'
+make install-3m-common
+make[4]: Entering directory '/home/pi/build/plt/racket/src/build'
+make install-common-first
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build'
+if [ "" != "" ]; then \
+          if [[ "" != /* ]]; then \
+            echo "expected an absolute path for DESTDIR; given: "; exit 1; \
+          fi; \
+        fi
+mkdir -p "/home/pi/build/plt/racket/bin" "/home/pi/build/plt/racket/collects" "/home/pi/build/plt/racket/doc" "/home/pi/build/plt/racket/lib" "/home/pi/build/plt/racket/include" "/home/pi/build/plt/racket/lib" "/home/pi/build/plt/racket/share" "/home/pi/build/plt/racket/etc" "/home/pi/build/plt/racket/share/applications" "/home/pi/build/plt/racket/man"
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build'
+cd racket; make install-3m
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+make headers
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+./racketcgc -cqu ../../racket/mkincludes.rkt "/home/pi/build/plt/racket/include" "../../racket" .
+Making /home/pi/build/plt/racket/include
+Done.
+cd ..; cp racket/system.rktd "/home/pi/build/plt/racket/lib/system.rktd"
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make unix-install
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+cd ..; rm -f "/home/pi/build/plt/racket/bin/racketcgc"
+cd ..; rm -f "/home/pi/build/plt/racket/bin/racket"
+cd ..; cp racket/starter "/home/pi/build/plt/racket/lib/starter"
+cp ../../racket/dynsrc/starter-sh .
+cd ..; cp racket/starter-sh "/home/pi/build/plt/racket/lib/starter-sh"
+cd ..; strip "/home/pi/build/plt/racket/lib/starter"
+./racketcgc -cu "../../racket/collects-path.rkt" "/home/pi/build/plt/racket/lib/starter" ../collects ../etc
+cd ..; echo 'CC=gcc' > "/home/pi/build/plt/racket/lib/buildinfo"
+cd ..; echo 'CFLAGS=-Wall   -g -O2 ' >> "/home/pi/build/plt/racket/lib/buildinfo"
+cd ..; echo 'OPTIONS= -DUSE_SENORA_GC' >> "/home/pi/build/plt/racket/lib/buildinfo"
+cd ..; echo 'MZOPTIONS= -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64' >> "/home/pi/build/plt/racket/lib/buildinfo"
+cd ..; echo "LDFLAGS=" >> "/home/pi/build/plt/racket/lib/buildinfo"
+cd ..; echo 'LIBS=-ldl -lm  -ldl -lm -rdynamic ' >> "/home/pi/build/plt/racket/lib/buildinfo"
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make unix-install-3m
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+cd ..; cp racket/racket3m "/home/pi/build/plt/racket/bin/racket"
+cd ..; strip "/home/pi/build/plt/racket/bin/racket"
+make unix-install-libs-3m
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+cd ..; cp racket/libracket3m.a "/home/pi/build/plt/racket/lib/libracket3m.a"
+cd ..; strip -S "/home/pi/build/plt/racket/lib/libracket3m.a"
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+cd ..; cp racket/mzdyn3m.o "/home/pi/build/plt/racket/lib/mzdyn3m.o"
+./racket3m -cu "../../racket/collects-path.rkt" "/home/pi/build/plt/racket/bin/racket" ../collects ../etc
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make unix-install-3m-final
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/racket'
+:
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build/racket'
+make install-gracket-3m
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build'
+cd gracket; make install-3m
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build/gracket'
+make install-wx_xt
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/gracket'
+make install-common
+make[8]: Entering directory '/home/pi/build/plt/racket/src/build/gracket'
+:
+make[8]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket'
+cd ..; rm -f "/home/pi/build/plt/racket/lib/gracketcgc"
+cd ..; rm -f "/home/pi/build/plt/racket/lib/gracket"
+cd ..; echo 'MROPTIONS=' >> "/home/pi/build/plt/racket/lib/buildinfo"
+cd ..; echo "MRLIBS=" >> "/home/pi/build/plt/racket/lib/buildinfo"
+cd ..; echo "MRLDFLAGS= -L../racket" >> "/home/pi/build/plt/racket/lib/buildinfo"
+cd ..; mkdir -p "/home/pi/build/plt/racket/lib";
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket'
+make install-wx_xt-3m
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/gracket'
+make install-no-lib-3m-wx_xt
+make[8]: Entering directory '/home/pi/build/plt/racket/src/build/gracket'
+echo "no dynamic libs"
+no dynamic libs
+make[8]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket'
+cd ..; cp gracket/gracket3m "/home/pi/build/plt/racket/lib/gracket"
+cd ..; strip "/home/pi/build/plt/racket/lib/gracket"
+../racket/racket3m -G /home/pi/build/plt/build/config -cu "../../gracket/../racket/collects-path.rkt" "/home/pi/build/plt/racket/lib/gracket" ../collects ../etc
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket'
+make install-wx_xt-3m-final
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/gracket'
+:
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket'
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket'
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make install-common-middle
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build'
+make no-run
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build'
+:
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make install-gracket-post-collects
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build'
+cd gracket; make install-post-collects
+make[7]: Entering directory '/home/pi/build/plt/racket/src/build/gracket'
+make install-wx_xt-post-collects
+make[8]: Entering directory '/home/pi/build/plt/racket/src/build/gracket'
+:
+make[8]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket'
+make[7]: Leaving directory '/home/pi/build/plt/racket/src/build/gracket'
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make lib-finish
+make[6]: Entering directory '/home/pi/build/plt/racket/src/build'
+if [ "" = "" ]; then \
+  echo "/home/pi/build/plt/racket/lib"; \
+fi
+/home/pi/build/plt/racket/lib
+make[6]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make[4]: Leaving directory '/home/pi/build/plt/racket/src/build'
+racket/racket3m -X "/home/pi/build/plt/racket/collects" -G "/home/pi/build/plt/racket/etc" -G /home/pi/build/plt/build/config  --no-user-path -N "raco" -l- setup --no-user -j 1  
+raco setup: bootstrapping from source...
+raco setup: version: 6.2.900.17
+raco setup: platform: arm-linux [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /home/pi/build/plt/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/pi/build/plt/racket/collects
+raco setup: main pkgs: /home/pi/build/plt/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/pi/build/plt/racket/share/pkgs
+raco setup:   /home/pi/.racket/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup: main docs: /home/pi/build/plt/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <collects>/acks
+raco setup:  in <collects>/acks
+raco setup: making: <collects>/compiler
+raco setup:  in <collects>/compiler
+raco setup:  in <collects>/dynext
+raco setup: making: <collects>/compiler/private
+raco setup:  in <collects>/compiler/private
+raco setup: making: <collects>/data
+raco setup:  in <collects>/data
+raco setup: making: <collects>/data/private
+raco setup: making: <collects>/db
+raco setup: making: <collects>/db/private
+raco setup: making: <collects>/db/private/generic
+raco setup: making: <collects>/db/private/sqlite3
+raco setup: making: <collects>/dynext
+raco setup: making: <collects>/ffi
+raco setup:  in <collects>/ffi/unsafe/private
+raco setup:  in <collects>/ffi
+raco setup:  in <collects>/ffi/unsafe
+raco setup:  in <collects>/racket
+raco setup: making: <collects>/ffi/unsafe
+raco setup:  in <collects>/ffi/unsafe
+raco setup: making: <collects>/ffi/unsafe/private
+raco setup: making: <collects>/file
+raco setup:  in <collects>/file
+raco setup: making: <collects>/file/private
+raco setup: making: <collects>/info
+raco setup: making: <collects>/info-domain
+raco setup: making: <collects>/json
+raco setup: making: <collects>/launcher
+raco setup:  in <collects>/launcher
+raco setup: making: <collects>/net
+raco setup: making: <collects>/openssl
+raco setup:  in <collects>/openssl
+raco setup: making: <collects>/openssl/private
+raco setup:  in <collects>/openssl/private
+raco setup: making: <collects>/pkg
+raco setup:  in <collects>/planet/private
+raco setup:  in <collects>/pkg
+raco setup:  in <collects>/setup
+raco setup: making: <collects>/pkg/private
+raco setup: making: <collects>/planet
+raco setup: making: <collects>/planet/private
+raco setup: making: <collects>/racket
+raco setup:  in <collects>/racket
+raco setup:  in <collects>/syntax
+raco setup:  in <collects>/racket/private
+raco setup: making: <collects>/racket/base
+raco setup: making: <collects>/racket/base/lang
+raco setup:  in <collects>/racket/base/lang
+raco setup: making: <collects>/racket/contract
+raco setup: making: <collects>/racket/contract/private
+raco setup:  in <collects>/racket/contract/private
+raco setup: making: <collects>/racket/gui
+raco setup:  in <collects>/racket/gui
+raco setup: making: <collects>/racket/kernel
+raco setup:  in <collects>/racket/kernel
+raco setup: making: <collects>/racket/lang
+raco setup:  in <collects>/racket/lang
+raco setup: making: <collects>/racket/load
+raco setup: making: <collects>/racket/load/lang
+raco setup:  in <collects>/racket/load/lang
+raco setup: making: <collects>/racket/match
+raco setup:  in <collects>/racket/match
+raco setup: making: <collects>/racket/place
+raco setup: making: <collects>/racket/place/private
+raco setup:  in <collects>/racket/place/private
+raco setup: making: <collects>/racket/private
+raco setup: making: <collects>/racket/signature
+raco setup:  in <collects>/racket/signature
+raco setup: making: <collects>/racket/signature/lang
+raco setup:  in <collects>/racket/signature/lang
+raco setup: making: <collects>/racket/unit
+raco setup:  in <collects>/racket/unit
+raco setup: making: <collects>/racket/unit/lang
+raco setup:  in <collects>/racket/unit/lang
+raco setup: making: <collects>/racket/unsafe
+raco setup: making: <collects>/raco
+raco setup:  in <collects>/raco
+raco setup: making: <collects>/reader
+raco setup: making: <collects>/reader/lang
+raco setup:  in <collects>/reader/lang
+raco setup: making: <collects>/realm
+raco setup: making: <collects>/s-exp
+raco setup: making: <collects>/s-exp/lang
+raco setup: making: <collects>/setup
+raco setup:  in <collects>/setup
+raco setup: making: <collects>/setup/commands
+raco setup:  in <collects>/setup/commands
+raco setup: making: <collects>/setup/infotab
+raco setup: making: <collects>/setup/infotab/lang
+raco setup: making: <collects>/setup/private
+raco setup: making: <collects>/syntax
+raco setup:  in <collects>/syntax
+raco setup:  in <collects>/syntax/private
+raco setup: making: <collects>/syntax/parse
+raco setup:  in <collects>/syntax/parse
+raco setup:  in <collects>/syntax/parse/private
+raco setup: making: <collects>/syntax/parse/experimental
+raco setup:  in <collects>/syntax/parse/experimental
+raco setup: making: <collects>/syntax/parse/experimental/private
+raco setup: making: <collects>/syntax/parse/lib
+raco setup: making: <collects>/syntax/parse/private
+raco setup: making: <collects>/syntax/private
+raco setup: making: <collects>/syntax/private/util
+raco setup:  in <collects>/syntax/private/util
+raco setup: making: <collects>/syntax/unsafe
+raco setup:  in <collects>/syntax/unsafe
+raco setup: making: <collects>/version
+raco setup:  in <collects>/version
+raco setup: making: <collects>/xml
+raco setup:  in <collects>/xml
+raco setup: making: <collects>/xml/private
+raco setup: --- creating launchers ---
+raco setup: launcher: <console-bin>/raco
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- checking package dependencies ---
+make install-common-last
+make[4]: Entering directory '/home/pi/build/plt/racket/src/build'
+make fix-paths
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build'
+if [ "" != "" ]; then \
+          if [ "" = "" ]; then \
+            racket/racketcgc -G /home/pi/build/plt/build/config -u \
+              "../../collects/setup/unixstyle-install.rkt" \
+              make-install-destdir-fix "../.." \
+              "/home/pi/build/plt/racket/bin" "/home/pi/build/plt/racket/collects" "/home/pi/build/plt/racket/doc" "/home/pi/build/plt/racket/lib" "/home/pi/build/plt/racket/include" "/home/pi/build/plt/racket/lib" "/home/pi/build/plt/racket/share" "/home/pi/build/plt/racket/etc" "/home/pi/build/plt/racket/share/applications" "/home/pi/build/plt/racket/man" "yes"; \
+          fi \
+        fi
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make preserve-raco-pkg-default-scope
+make[5]: Entering directory '/home/pi/build/plt/racket/src/build'
+:
+make[5]: Leaving directory '/home/pi/build/plt/racket/src/build'
+cp "../COPYING-libscheme.txt" "../COPYING_LESSER.txt" "../COPYING.txt" "/home/pi/build/plt/racket/share"/
+make[4]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make[3]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make[2]: Leaving directory '/home/pi/build/plt/racket/src/build'
+make[1]: Leaving directory '/home/pi/build/plt'
+make distro-build-from-server SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {3} Linux | ARM6 VFP; built on Raspbian" README="http://localhost:9440/README-14441173031444117303675" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory '/home/pi/build/plt'
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -N raco -l- raco pkg install --catalog http://localhost:9440/ --scope user --skip-installed --deps search-auto --pkgs -j 1 distro-build-client
+Resolving "distro-build-client" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/distro-build-client.zip
+00: Resolving "base" via http://localhost:9440/
+01: Resolving "ds-store-lib" via http://localhost:9440/
+Resolving "at-exp-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/base.zip
+Downloading http://localhost:9440/pkgs/ds-store-lib.zip
+Downloading http://localhost:9440/pkgs/at-exp-lib.zip
+Resolving "racket-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/racket-lib.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of distro-build-client:
+   base
+   ds-store-lib
+   at-exp-lib
+ dependencies of base:
+   racket-lib
+raco setup: version: 6.2.900.17
+raco setup: platform: arm-linux [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /home/pi/build/plt/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/pi/build/plt/build/user/6.2.900.17/collects
+raco setup:   /home/pi/build/plt/racket/collects
+raco setup: main pkgs: /home/pi/build/plt/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/pi/build/plt/racket/share/pkgs
+raco setup:   /home/pi/build/plt/build/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /home/pi/build/plt/racket/share/links.rktd
+raco setup:   /home/pi/build/plt/build/user/6.2.900.17/links.rktd
+raco setup: main docs: /home/pi/build/plt/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/pi/build/plt/build/user/6.2.900.17/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/at-exp-lib/at-exp
+raco setup: making: <pkgs>/at-exp-lib/at-exp/lang
+raco setup:  in <pkgs>/at-exp-lib/at-exp/lang
+raco setup:  in <pkgs>/at-exp-lib/scribble
+raco setup: making: <pkgs>/at-exp-lib/scribble
+raco setup: making: <pkgs>/at-exp-lib/scribble/base
+raco setup:  in <pkgs>/at-exp-lib/scribble/base
+raco setup: making: <pkgs>/distro-build-client
+raco setup:  in <pkgs>/distro-build-client
+raco setup:  in <pkgs>/ds-store-lib
+raco setup: making: <pkgs>/distro-build-client/macosx-installer
+raco setup: making: <pkgs>/distro-build-client/unix-installer
+raco setup: making: <pkgs>/distro-build-client/windows-installer
+raco setup: making: <pkgs>/ds-store-lib
+raco setup:  in <pkgs>/ds-store-lib
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+make[1]: Leaving directory '/home/pi/build/plt'
+make bundle-from-server SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {3} Linux | ARM6 VFP; built on Raspbian" README="http://localhost:9440/README-14441173031444117303675" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory '/home/pi/build/plt'
+rm -rf bundle
+mkdir -p bundle/racket
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install bundle racket bundle/racket
+Copying bin -> /home/pi/build/plt/bundle/racket/bin
+Copying collects -> /home/pi/build/plt/bundle/racket/collects
+Copying doc -> /home/pi/build/plt/bundle/racket/doc
+Copying lib -> /home/pi/build/plt/bundle/racket/lib
+Copying include -> /home/pi/build/plt/bundle/racket/include
+Copying share/applications -> /home/pi/build/plt/bundle/racket/share/applications
+Copying share -> /home/pi/build/plt/bundle/racket/share
+Copying etc -> /home/pi/build/plt/bundle/racket/etc
+Copying man -> /home/pi/build/plt/bundle/racket/man
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/unpack-collects http://localhost:9440/
+[2015-10-06T08:08:54] The time is now Tuesday, October 6th, 2015 8:08:54am
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://localhost:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 1  racket-lib
+Resolving "racket-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/racket-lib.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: arm-linux [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /home/pi/build/plt/bundle/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/pi/build/plt/bundle/racket/collects
+raco setup: main pkgs: /home/pi/build/plt/bundle/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/pi/build/plt/bundle/racket/share/pkgs
+raco setup:   /home/pi/build/plt/bundle/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /home/pi/build/plt/bundle/racket/share/links.rktd
+raco setup:   /home/pi/build/plt/bundle/user/6.2.900.17/links.rktd
+raco setup: main docs: /home/pi/build/plt/bundle/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://localhost:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 1  
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install post-adjust "" "" racket bundle/racket
+make[1]: Leaving directory '/home/pi/build/plt'
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/set-config bundle/racket/etc/config.rktd "snapshot" "20151006-f86c5df" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""
+make installer-from-bundle SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {3} Linux | ARM6 VFP; built on Raspbian" README="http://localhost:9440/README-14441173031444117303675" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+make[1]: Entering directory '/home/pi/build/plt'
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l- distro-build/installer --readme "http://localhost:9440/README-14441173031444117303675" --upload "http://localhost:9440/upload/" --desc "{2} Minimal Racket | {3} Linux | ARM6 VFP; built on Raspbian"     "Racket" min-racket racket "" ""
+[2015-10-06T08:09:50] The time is now Tuesday, October 6th, 2015 8:09:50am
+Downloading http://localhost:9440/README-14441173031444117303675
+chmod -R g+w bundle/racket
+Tarring to #<path:/var/tmp/14441189921444118992536.tgz>
+du -hs bundle/racket
+cksum /var/tmp/14441189921444118992536.tgz
+chmod +x bundle/min-racket-6.2.900.17-arm-linux.sh
+Upload bundle/min-racket-6.2.900.17-arm-linux.sh to http://localhost:9440/upload/
+[2015-10-06T08:13:43] The time is now Tuesday, October 6th, 2015 8:13:43am
+make[1]: Leaving directory '/home/pi/build/plt'

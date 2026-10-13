@@ -1,0 +1,108 @@
+The time is now Thursday, May 14th, 2015 12:31:14pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto rwind && bin/raco test --drdr --package rwind'
+Resolving "rwind" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/rwind.zip
+Resolving "x11" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/x11.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of rwind:
+   x11
+raco setup: version: 6.1.91.900 [3m]
+raco setup: installation name: 6.1.91.900
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.1.91.900/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/rwind
+raco setup: making: <pkgs>/rwind/policy
+raco setup: making: <pkgs>/rwind/private
+raco setup: making: <pkgs>/rwind/themes
+raco setup: making: <pkgs>/rwind/themes/Simple
+raco setup: making: <pkgs>/rwind/user-files
+raco setup: making: <pkgs>/x11/x11 (X11)
+raco setup: making: <pkgs>/x11/x11/test
+raco setup: making: <pkgs>/x11/xlambda
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/base.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/client.rkt"
+client.rkt: raco test: non-empty stderr: #"tcp-connect: connection failed\n  address: localhost\n  port number: 54321\n  step: 6\n  system error: Connection refused; errno=111\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/client.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/client2.rkt"
+client2.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/client2.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/color.rkt"
+color.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/color.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/configure.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt"
+display.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/doc-string.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/events.rkt"
+events.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/keymap.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/events.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/info.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/keymap.rkt" test)
+keymap.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/keymap.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/keymap.rkt test): [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/base.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/simple.rkt"
+simple.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/simple.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/tiling.rkt"
+tiling.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/simple.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/tiling.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/private/try-layout.rkt"
+try-layout.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/simple.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/tiling.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/private/try-layout.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/rwind.rkt"
+rwind.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/color.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/rwind.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/server-sync.rkt"
+server-sync.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/server-sync.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/server.rkt"
+server.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/server.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/user-files/config-simple.rkt"
+config-simple.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/keymap.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/user-files/config-simple.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/user.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/util.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt" test)
+window.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt test): [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/workspace.rkt"
+workspace.rkt: raco test: non-empty stderr: #"_enum: key is not a symbol\n  symbols: '(2)\n  key: 2\n  value: 3\n  context...:\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:832:2: loop\n   /home/racket/build-pkgs/racket/collects/ffi/unsafe.rkt:821:0: unpack63\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/x11/x11/x11.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/workspace.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+15/31 test failures
+  16 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/util.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/base.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/configure.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/doc-string.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/info.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/main.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/base.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/user.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/client.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/client2.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/color.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/display.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/events.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/keymap.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/simple.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/policy/tiling.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/private/try-layout.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/rwind.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/server-sync.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/server.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/user-files/config-simple.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/window.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rwind/workspace.rkt
+The time is now Thursday, May 14th, 2015 12:31:50pm

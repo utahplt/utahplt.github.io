@@ -1,0 +1,97 @@
+The time is now Tuesday, October 6th, 2015 11:47:05pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto minipascal && bin/raco test --drdr --package minipascal'
+Resolving "minipascal" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/minipascal.zip
+Resolving "ragg" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/ragg.zip
+Resolving "python-tokenizer" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/python-tokenizer.zip
+Resolving "while-loop" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/while-loop.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of minipascal:
+   ragg
+ dependencies of ragg:
+   python-tokenizer
+ dependencies of python-tokenizer:
+   while-loop
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/minipascal/minipascal
+raco setup: making: <pkgs>/minipascal/minipascal/lang
+raco setup: making: <pkgs>/python-tokenizer/python-tokenizer (python-tokenizer: a translation of Python's @tt{tokenize.py} library for Racket)
+raco setup: making: <pkgs>/ragg/ragg (ragg)
+raco setup: making: <pkgs>/ragg/ragg/cfg-parser
+raco setup: making: <pkgs>/ragg/ragg/codegen
+raco setup: making: <pkgs>/ragg/ragg/codegen/lang
+raco setup: making: <pkgs>/ragg/ragg/examples
+raco setup: making: <pkgs>/ragg/ragg/examples/simple-line-drawing
+raco setup: making: <pkgs>/ragg/ragg/examples/simple-line-drawing/examples
+raco setup: making: <pkgs>/ragg/ragg/examples/simple-line-drawing/lang
+raco setup: making: <pkgs>/ragg/ragg/lang
+raco setup: making: <pkgs>/ragg/ragg/private
+raco setup: making: <pkgs>/ragg/ragg/rules
+raco setup: making: <pkgs>/ragg/ragg/test
+raco setup: making: <pkgs>/while-loop/dyoo-while-loop (while-loop: While loops for Racket)
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/while-loop/dyoo-while-loop/doc/dyoo-while-loop
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: syncing: <pkgs>/python-tokenizer/python-tokenizer/doc/python-tokenizer
+raco setup: syncing: <pkgs>/ragg/ragg/doc/ragg
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/compiler-fpc.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/compiler-simple.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/compiler.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/lang/reader.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/mini-pascal-grammar.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/mini-pascal-lexer.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/runtime.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/semantics-simple.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/semantics.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/types.rkt"
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/compiler-fpc.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/compiler-simple.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/compiler.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/lang/reader.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/mini-pascal-grammar.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/mini-pascal-lexer.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/runtime.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/semantics-simple.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/semantics.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minipascal/minipascal/types.rkt
+The time is now Tuesday, October 6th, 2015 11:47:19pm

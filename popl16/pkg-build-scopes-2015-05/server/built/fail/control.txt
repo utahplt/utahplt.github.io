@@ -1,0 +1,122 @@
+The time is now Monday, May 18th, 2015 8:42:55am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto control'
+Resolving "control" via http://localhost:18333/built/catalog/
+Resolving "control" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/control.zip
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/scope-snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/control/control (Control)
+raco setup:  in <pkgs>/control/control
+/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/control/control/tagged-begin.rkt:239:8: go: identifier's binding is ambiguous
+  context...:
+   #(17203 module) #(17204 module tagged-begin 0) #(19438 module)
+   #(19439 module (tagged-begin test) 0) #(19914 local) #(19915 intdef)
+   #(19921 local) #(19922 intdef) #(19924 local) #(19932 intdef) #(19934 local)
+   #(19936 local) #(19937 intdef) #(19941 local) #(19942 intdef) #(19944 local)
+   #(19952 intdef) #(19954 local) #(19956 local) #(19957 intdef)
+  matching binding...:
+   local go1659
+   #(17203 module) #(17204 module tagged-begin 0) #(19921 local)
+  matching binding...:
+   local go1664
+   #(17203 module) #(17204 module tagged-begin 0) #(19937 intdef) #(19941 local)
+  in: go
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/control/control/tagged-begin.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/control/control/main.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/../racket/private/map.rkt:53:19: loop
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:977:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1045:8
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:17:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/control/control/scribblings/control-manual.scrbl
+/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/control/control/tagged-begin.rkt:239:8: go: identifier's binding is ambiguous
+  context...:
+   #(28181 module) #(28182 module tagged-begin 0) #(30372 module)
+   #(30373 module (tagged-begin test) 0) #(30848 local) #(30849 intdef)
+   #(30855 local) #(30856 intdef) #(30858 local) #(30866 intdef) #(30868 local)
+   #(30870 local) #(30871 intdef) #(30875 local) #(30876 intdef) #(30878 local)
+   #(30886 intdef) #(30888 local) #(30890 local) #(30891 intdef)
+  matching binding...:
+   local go2009
+   #(28181 module) #(28182 module tagged-begin 0) #(30871 intdef) #(30875 local)
+  matching binding...:
+   local go2004
+   #(28181 module) #(28182 module tagged-begin 0) #(30855 local)
+  in: go
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during making for <pkgs>/control/control (Control)
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/control/control/tagged-begin.rkt:239:8: go: identifier's binding is ambiguous
+raco setup:     context...:
+raco setup:      #(17203 module) #(17204 module tagged-begin 0) #(19438 module)
+raco setup:      #(19439 module (tagged-begin test) 0) #(19914 local) #(19915 intdef)
+raco setup:      #(19921 local) #(19922 intdef) #(19924 local) #(19932 intdef) #(19934 local)
+raco setup:      #(19936 local) #(19937 intdef) #(19941 local) #(19942 intdef) #(19944 local)
+raco setup:      #(19952 intdef) #(19954 local) #(19956 local) #(19957 intdef)
+raco setup:     matching binding...:
+raco setup:      local go1659
+raco setup:      #(17203 module) #(17204 module tagged-begin 0) #(19921 local)
+raco setup:     matching binding...:
+raco setup:      local go1664
+raco setup:      #(17203 module) #(17204 module tagged-begin 0) #(19937 intdef) #(19941 local)
+raco setup:     in: go
+raco setup:     compiling: <pkgs>/control/control/tagged-begin.rkt
+raco setup: error: during building docs for <pkgs>/control/control/scribblings/control-manual.scrbl
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/control/control/tagged-begin.rkt:239:8: go: identifier's binding is ambiguous
+raco setup:     context...:
+raco setup:      #(28181 module) #(28182 module tagged-begin 0) #(30372 module)
+raco setup:      #(30373 module (tagged-begin test) 0) #(30848 local) #(30849 intdef)
+raco setup:      #(30855 local) #(30856 intdef) #(30858 local) #(30866 intdef) #(30868 local)
+raco setup:      #(30870 local) #(30871 intdef) #(30875 local) #(30876 intdef) #(30878 local)
+raco setup:      #(30886 intdef) #(30888 local) #(30890 local) #(30891 intdef)
+raco setup:     matching binding...:
+raco setup:      local go2009
+raco setup:      #(28181 module) #(28182 module tagged-begin 0) #(30871 intdef) #(30875 local)
+raco setup:     matching binding...:
+raco setup:      local go2004
+raco setup:      #(28181 module) #(28182 module tagged-begin 0) #(30855 local)
+raco setup:     in: go
+raco pkg install: packages installed, although setup reported errors
+The time is now Monday, May 18th, 2015 8:43:30am

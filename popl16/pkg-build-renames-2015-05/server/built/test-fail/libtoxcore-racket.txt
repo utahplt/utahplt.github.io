@@ -1,0 +1,79 @@
+The time is now Sunday, May 17th, 2015 10:20:11am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto libtoxcore-racket && bin/raco test --drdr --package libtoxcore-racket'
+Resolving "libtoxcore-racket" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/libtoxcore-racket.zip
+raco setup: version: 6.1.91.900 [3m]
+raco setup: installation name: 6.1.91.900
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.1.91.900/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/libtoxcore-racket (libtoxcore-racket)
+raco setup: making: <pkgs>/libtoxcore-racket/test
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/libtoxcore-racket/doc/libtoxcore-racket
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/av.rkt"
+av.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libtoxav.so\" (libtoxav.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/av.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/dns.rkt"
+dns.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libtoxdns.so\" (libtoxdns.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/dns.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/av.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/common.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/constants.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/examples.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/functions.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/libtoxcore-racket.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/license.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/encrypt.rkt"
+encrypt.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libtoxencryptsave.so\" (libtoxencryptsave.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/encrypt.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/enums.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/functions.rkt"
+functions.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libtoxcore.so\" (libtoxcore.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/functions.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/main.rkt"
+main.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libtoxcore.so\" (libtoxcore.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/functions.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/main.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/test/test.rkt"
+test.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libtoxcore.so\" (libtoxcore.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/functions.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/main.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/test/test.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+6/6 test failures
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/av.scrbl
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/common.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/constants.scrbl
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/examples.scrbl
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/functions.scrbl
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/libtoxcore-racket.scrbl
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/doc/license.scrbl
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/enums.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/info.rkt
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/av.rkt
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/dns.rkt
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/encrypt.rkt
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/functions.rkt
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/main.rkt
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/libtoxcore-racket/test/test.rkt
+The time is now Sunday, May 17th, 2015 10:20:28am

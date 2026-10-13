@@ -1,0 +1,115 @@
+The time is now Monday, June 29th, 2015 3:39:40pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto graph && bin/raco test --drdr --package graph'
+Resolving "graph" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/graph.zip
+raco setup: version: 6.2 [3m]
+raco setup: installation name: 6.2
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.2/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/graph/graph
+raco setup: making: <pkgs>/graph/graph/tests
+raco setup: making: <pkgs>/graph/queue
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/graph/graph/doc/graph
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/adjlist-utils.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/gen-graph.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-allpairs-shortestpaths.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-basic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-coloring.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-graphviz.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-maxflow.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-minspantree.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-singlesource-shortestpaths.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-matrix.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-property.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-unweighted.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-weighted.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/hash-utils.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/boost-examples.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-allpairs-shortestpaths-tests.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-basic-tests.rkt"
+graph-fns-basic-tests.rkt: raco test: non-empty stderr: #"--------------------\nFAILURE\nactual:     #hash((v . r) (r . s) (s . #f) (w . s) (t . w) (x . w) (u . t) (y . x))\nexpected:   #hash((v . r) (r . s) (s . #f) (w . s) (t . w) (x . w) (u . x) (y . x))\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-basic-tests.rkt> 39 0 1314 102)\nexpression: (check-equal? \317\20022.3 (make-hash (quote ((t . w) (y . x) (u . x) (s . #f) (v . r) (x . w) (w . s) (r . s)))))\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nactual:     (s w x u)\nexpected:   (s w t u)\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-basic-tests.rkt> 46 0 1595 60)\nexpression: (check-equal? (quote (s w x u)) (fewest-vertices-path g22.3 (quote s) (quote u)))\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nactual:     #hash((v . r) (r . s) (s . #f) (w . s) (t . w) (x . w) (u . t) (y . x))\nexpected:   #hash((v . r) (r . s) (s . #f) (w . s) (t . w) (x . w) (u . x) (y . x))\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-basic-tests.rkt> 60 0 2117 103)\nexpression: (check-equal? \317\20022.3b (make-hash (quote ((t . w) (y . x) (u . x) (s . #f) (v . r) (x . w) (w . s) (r . s)))))\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nactual:     (s w x u)\nexpected:   (s w t u)\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-basic-tests.rkt> 67 0 2402 61)\nexpression: (check-equal? (quote (s w x u)) (fewest-vertices-path g22.3b (quote s) (quote u)))\n\nCheck failure\n--------------------\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-coloring-tests.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-maxflow-tests.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-minspantree-tests.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-singlesource-shortestpaths-tests.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graphviz.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/run-all-tests.rkt"
+run-all-tests.rkt: raco test: non-empty stderr: #"--------------------\nFAILURE\nactual:     #hash((r . s) (s . #f) (w . s) (t . w) (x . w) (u . t) (y . x) (v . r))\nexpected:   #hash((r . s) (s . #f) (w . s) (t . w) (x . w) (u . x) (y . x) (v . r))\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-basic-tests.rkt> 39 0 1314 102)\nexpression: (check-equal? \317\20022.3 (make-hash (quote ((t . w) (y . x) (u . x) (s . #f) (v . r) (x . w) (w . s) (r . s)))))\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nactual:     (s w x u)\nexpected:   (s w t u)\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-basic-tests.rkt> 46 0 1595 60)\nexpression: (check-equal? (quote (s w x u)) (fewest-vertices-path g22.3 (quote s) (quote u)))\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nactual:     #hash((r . s) (s . #f) (w . s) (t . w) (x . w) (u . t) (y . x) (v . r))\nexpected:   #hash((r . s) (s . #f) (w . s) (t . w) (x . w) (u . x) (y . x) (v . r))\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-basic-tests.rkt> 60 0 2117 103)\nexpression: (check-equal? \317\20022.3b (make-hash (quote ((t . w) (y . x) (u . x) (s . #f) (v . r) (x . w) (w . s) (r . s)))))\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nactual:     (s w x u)\nexpected:   (s w t u)\nname:       check-equal?\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-basic-tests.rkt> 67 0 2402 61)\nexpression: (check-equal? (quote (s w x u)) (fewest-vertices-path g22.3b (quote s) (quote u)))\n\nCheck failure\n--------------------\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/test-utils.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/timing-test-scc.rkt"
+timing-test-scc.rkt: raco test: non-empty stderr: #"--------------------\nFAILURE\nname:       check-true\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/timing-test-scc.rkt> 117 2 4151 36)\nexpression: (check-true (< real SCC-TIME-LIMIT))\nparams:     (#f)\n\nCheck failure\n--------------------\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/timing-tests.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/utils.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/queue/fifo.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/queue/gen-queue.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/queue/priority.rkt"
+3/512 test failures
+  241 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/timing-tests.rkt
+  108 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-allpairs-shortestpaths-tests.rkt
+   55 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/boost-examples.rkt
+   37 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-maxflow-tests.rkt
+   35 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-coloring-tests.rkt
+   24 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-singlesource-shortestpaths-tests.rkt
+    6 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-minspantree-tests.rkt
+    3 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graphviz.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/adjlist-utils.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/gen-graph.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-allpairs-shortestpaths.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-basic.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-coloring.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-graphviz.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-maxflow.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-minspantree.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-fns-singlesource-shortestpaths.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-matrix.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-property.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-unweighted.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph-weighted.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/graph.scrbl
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/hash-utils.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/info.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/main.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/test-utils.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/utils.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/info.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/queue/fifo.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/queue/gen-queue.rkt
+    0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/queue/priority.rkt
+1   1 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/graph-fns-basic-tests.rkt
+1   1 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/run-all-tests.rkt
+1   1 /home/racket/build-pkgs/user/.racket/6.2/pkgs/graph/graph/tests/timing-test-scc.rkt
+The time is now Monday, June 29th, 2015 3:45:24pm

@@ -1,0 +1,27 @@
+The time is now Monday, May 18th, 2015 7:28:54am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto 3d-model'
+Warning: remote port forwarding failed for listen port 18333
+Resolving "3d-model" via http://localhost:18333/built/catalog/
+tcp-connect: connection failed
+  address: localhost
+  port number: 18333
+  step: 6
+  system error: Connection refused; errno=111
+  context...:
+   /home/racket/build-pkgs/racket/collects/net/http-client.rkt:220:0
+   /home/racket/build-pkgs/racket/collects/net/url.rkt:130:0: http://getpost-impure-port
+   /home/racket/build-pkgs/racket/collects/net/url.rkt:264:2: redirection-loop
+   /home/racket/build-pkgs/racket/collects/pkg/private/catalog.rkt:213:6
+   /home/racket/build-pkgs/racket/collects/pkg/private/catalog.rkt:188:0: read-from-server
+   /home/racket/build-pkgs/racket/collects/pkg/private/catalog.rkt:138:4: for-loop
+   /home/racket/build-pkgs/racket/collects/pkg/private/catalog.rkt:130:0: package-catalog-lookup
+   /home/racket/build-pkgs/racket/collects/pkg/private/catalog.rkt:179:0: package-catalog-lookup-source
+   /home/racket/build-pkgs/racket/collects/pkg/private/clone-path.rkt:356:0: desc->repo
+   /home/racket/build-pkgs/racket/collects/pkg/private/clone-path.rkt:45:0: adjust-to-normalize-repos
+   /home/racket/build-pkgs/racket/collects/pkg/private/install.rkt:804:0: pkg-install134
+   /home/racket/build-pkgs/racket/collects/racket/file.rkt:368:8
+   /home/racket/build-pkgs/racket/collects/racket/file.rkt:357:0: call-with-file-lock40
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:201:16
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+The time is now Monday, May 18th, 2015 7:28:56am

@@ -1,0 +1,74 @@
+The time is now Wednesday, October 7th, 2015 12:10:37am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto openmpi && bin/raco test --drdr --package openmpi'
+Resolving "openmpi" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/openmpi.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/openmpi/mpi (OpenMPI)
+raco setup: making: <pkgs>/openmpi/mpi/ffi
+raco setup: making: <pkgs>/openmpi/tests
+raco setup: making: <pkgs>/openmpi/tests/mpi
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: syncing: <pkgs>/openmpi/mpi/doc/mpi
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/constants.rkt"
+constants.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libmpi.so\" (libmpi.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/lib.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/constants.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/lib.rkt"
+lib.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libmpi.so\" (libmpi.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/lib.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/mpi.rkt"
+mpi.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libmpi.so\" (libmpi.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/lib.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/mpi.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/parsec.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/types.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi.rkt"
+ffi.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libmpi.so\" (libmpi.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/lib.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/mpi.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/main.rkt"
+main.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libmpi.so\" (libmpi.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/lib.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/mpi.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/main.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/mpi.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/tests/mpi/master_server.rkt"
+master_server.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libmpi.so\" (libmpi.so: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/lib.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/mpi.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/main.rkt: [traversing imports]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/tests/mpi/master_server.rkt: [traversing imports]\n"
+6/6 test failures
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/parsec.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/types.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/mpi.scrbl
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/constants.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/lib.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi/mpi.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/ffi.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/mpi/main.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/openmpi/tests/mpi/master_server.rkt
+The time is now Wednesday, October 7th, 2015 12:10:50am

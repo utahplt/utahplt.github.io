@@ -1,0 +1,110 @@
+The time is now Monday, May 18th, 2015 1:54:19pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto semver'
+Resolving "semver" via http://localhost:18333/built/catalog/
+Resolving "semver" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/semver.zip
+Resolving "alexis-util" via http://localhost:18333/built/catalog/
+Resolving "alexis-util" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/alexis-util.zip
+Resolving "cover" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/cover.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of semver:
+   alexis-util
+ dependencies of alexis-util:
+   cover
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/scope-snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/alexis-util/alexis
+raco setup:  in <pkgs>/alexis-util/alexis
+raco setup:  in <pkgs>/alexis-util/alexis/scribblings
+raco setup:  in <pkgs>/alexis-util/alexis/util
+raco setup:  in <pkgs>/alexis-util/typed/alexis/util
+raco setup: making: <pkgs>/alexis-util/alexis/private
+raco setup: making: <pkgs>/alexis-util/alexis/private/test
+raco setup:  in <pkgs>/alexis-util/alexis/private/test
+/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/alexis-util/alexis/private/test/struct.rkt:5:2: module: provided identifier not defined or imported for phase 0
+  at: point-y-set
+  in: (#%module-begin (do-wrapping-module-begin print-result (module configure-runtime (quote #%kernel) (#%require racket/runtime-config) (configure #f))) (do-wrapping-module-begin print-result (require alexis/util/struct)) (do-wrapping-module-begin print-res...
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/alexis-util/alexis/private/test/struct.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:163:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:977:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1045:8
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:17:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+raco setup: making: <pkgs>/alexis-util/alexis/scribblings
+raco setup: making: <pkgs>/alexis-util/alexis/util
+raco setup: making: <pkgs>/alexis-util/typed
+raco setup: making: <pkgs>/alexis-util/typed/alexis
+raco setup:  in <pkgs>/alexis-util/typed/alexis
+raco setup: making: <pkgs>/alexis-util/typed/alexis/util
+raco setup: making: <pkgs>/cover (cover)
+raco setup: making: <pkgs>/cover/private
+raco setup: making: <pkgs>/cover/private/html
+raco setup: making: <pkgs>/cover/private/html/assets
+raco setup: making: <pkgs>/cover/scribblings
+raco setup: making: <pkgs>/cover/tests
+raco setup: making: <pkgs>/cover/tests/at-exp
+raco setup: making: <pkgs>/cover/tests/basic
+raco setup: making: <pkgs>/cover/tests/simple-multi
+raco setup: making: <pkgs>/cover/tests/submods
+raco setup: making: <pkgs>/cover/tests/syntax
+raco setup: making: <pkgs>/semver/semver
+raco setup:  in <pkgs>/semver/semver
+raco setup:  in <pkgs>/semver/semver/scribblings
+raco setup: making: <pkgs>/semver/semver/scribblings
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/alexis-util/alexis/scribblings/alexis-util.scrbl
+raco setup: syncing: <pkgs>/cover/doc/cover
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/semver/semver/scribblings/semver.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/alexis-util/alexis/scribblings/alexis-util.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/semver/semver/scribblings/semver.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during making for <pkgs>/alexis-util/alexis/private/test
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/alexis-util/alexis/private/test/struct.rkt:5:2: module: provided identifier not defined or imported for phase 0
+raco setup:     at: point-y-set
+raco setup:     in: (#%module-begin (do-wrapping-module-begin print-result (module configure-runtime (quote #%kernel) (#%require racket/runtime-config) (configure #f))) (do-wrapping-module-begin print-result (require alexis/util/struct)) (do-wrapping-module-begin print-res...
+raco setup:     compiling: <pkgs>/alexis-util/alexis/private/test/struct.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Monday, May 18th, 2015 1:56:14pm

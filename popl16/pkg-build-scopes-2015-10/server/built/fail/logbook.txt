@@ -1,0 +1,117 @@
+The time is now Tuesday, October 6th, 2015 11:17:08pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto logbook'
+Resolving "logbook" via http://localhost:18333/built/catalog/
+Resolving "logbook" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/logbook.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/logbook/logbook
+raco setup:  in <pkgs>/logbook/logbook
+/home/racket/build-pkgs/user/.racket/snapshot/pkgs/logbook/logbook/store.rkt:3:25: require: PLaneT could not download the package "jaymccarthy/sqlite": tcp-connect: connection failed
+  detail: host not found
+  address: planet.racket-lang.org
+  port number: 80
+  step: 1
+  system error: Name or service not known; errno=-2
+  in: (planet jaymccarthy/sqlite)
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/logbook/logbook/store.rkt
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/logbook/logbook/main.rkt
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/logbook/logbook/export.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/planet/private/resolver.rkt:339:0: planet-resolve
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:79:13: t
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:657:5
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   /home/racket/build-pkgs/racket/collects/racket/private/stxloc.rkt:21:17: try-next
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:243:2
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:346:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:561:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:553:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:518:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:633:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:749:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:346:0: compile-zo*
+   ...
+raco setup: making: <pkgs>/logbook/logbook/private
+raco setup:  in <pkgs>/logbook/logbook/private
+/home/racket/build-pkgs/user/.racket/snapshot/pkgs/logbook/logbook/private/raco-logbook.rkt:11:9: require: PLaneT could not download the package "neil/csv": tcp-connect: connection failed
+  detail: host not found
+  address: planet.racket-lang.org
+  port number: 80
+  step: 1
+  system error: Name or service not known; errno=-2
+  in: (planet neil/csv)
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/logbook/logbook/private/raco-logbook.rkt
+   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/logbook/logbook/private/raco-logbook-launcher.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/planet/private/resolver.rkt:339:0: planet-resolve
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:346:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:346:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:561:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:553:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:518:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:633:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:713:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:169:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor23
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:988:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1061:8
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:70:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:17:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   ...
+raco setup: making: <pkgs>/logbook/logbook/private/htdocs
+raco setup: making: <pkgs>/logbook/logbook/private/htdocs/conf
+raco setup: making: <pkgs>/logbook/logbook/private/templates
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during making for <pkgs>/logbook/logbook
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/logbook/logbook/store.rkt:3:25: require: PLaneT could not download the package "jaymccarthy/sqlite": tcp-connect: connection failed
+raco setup:     detail: host not found
+raco setup:     address: planet.racket-lang.org
+raco setup:     port number: 80
+raco setup:     step: 1
+raco setup:     system error: Name or service not known; errno=-2
+raco setup:     in: (planet jaymccarthy/sqlite)
+raco setup:     compiling: <pkgs>/logbook/logbook/store.rkt
+raco setup: error: during making for <pkgs>/logbook/logbook/private
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/logbook/logbook/private/raco-logbook.rkt:11:9: require: PLaneT could not download the package "neil/csv": tcp-connect: connection failed
+raco setup:     detail: host not found
+raco setup:     address: planet.racket-lang.org
+raco setup:     port number: 80
+raco setup:     step: 1
+raco setup:     system error: Name or service not known; errno=-2
+raco setup:     in: (planet neil/csv)
+raco setup:     compiling: <pkgs>/logbook/logbook/private/raco-logbook.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Tuesday, October 6th, 2015 11:17:11pm

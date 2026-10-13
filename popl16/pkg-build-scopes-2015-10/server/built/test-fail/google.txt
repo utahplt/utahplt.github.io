@@ -1,0 +1,57 @@
+The time is now Tuesday, October 6th, 2015 10:12:57pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto google && bin/raco test --drdr --package google'
+Resolving "google" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/google.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/google/google
+raco setup: making: <pkgs>/google/google/oauth
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/example.rkt"
+example.rkt: raco test: non-empty stderr: #"file-size: file not found\n  path: /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/client_secret.json\n  context...:\n   /home/racket/build-pkgs/racket/collects/racket/file.rkt:700:0: file->string109\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/oauth.rkt:52:0: file->client\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/example.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/drive.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/exn.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/generic-api.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/json-utils.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/oauth/cli.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/oauth.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/profile.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/simple-token-store.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/info.rkt"
+1/21 test failures
+  20 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/drive.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/exn.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/generic-api.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/json-utils.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/main.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/oauth/cli.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/oauth.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/profile.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/google/simple-token-store.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/info.rkt
+1  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/google/example.rkt
+The time is now Tuesday, October 6th, 2015 10:13:06pm

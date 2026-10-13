@@ -1,0 +1,1502 @@
+[2015-10-06T04:23:23] The time is now Tuesday, October 6th, 2015 4:23:23am
+/bin/sh -c if [ ! -d "/Users/racket/build/plt//build/mac64" ] ; then git clone "/Users/racket/build/plt/" "/Users/racket/build/plt//build/mac64" ; fi
+[2015-10-06T04:23:23] The time is now Tuesday, October 6th, 2015 4:23:23am
+/bin/sh -c cd "/Users/racket/build/plt//build/mac64" ; git pull
+Already up-to-date.
+[2015-10-06T04:23:29] The time is now Tuesday, October 6th, 2015 4:23:29am
+/bin/sh -c cd "/Users/racket/build/plt//build/mac64" ; make -j 2 client SERVER=localhost SERVER_PORT=9440 PKGS="gui gui-pkg-manager" DOC_SEARCH="http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" DIST_DESC="{3} Minimal Racket+GUI+Docs | {2} Mac OS X | 64-bit Intel" DIST_NAME="Racket" DIST_BASE=gui DIST_DIR=racket DIST_SUFFIX="" DIST_CATALOGS_q='"http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""' SIGN_IDENTITY="" INSTALL_NAME="snapshot" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE="" SOURCE_MODE="" VERSIONLESS_MODE="" PKG_SOURCE_MODE="" MAC_PKG_MODE="" UPLOAD=http://localhost:9440/upload/ README=http://localhost:9440/"README-14441270031444127003766" JOB_OPTIONS="-j 2" CONFIGURE_ARGS_qq='"--enable-sdk6=/Developer/SDKs/MacOSX10.6.sdk"'
+make[6]: warning: -jN forced in submake: disabling jobserver mode.
+if [ ! -d build/log ] ; then rm -rf build/user ; fi
+/Applications/Xcode.app/Contents/Developer/usr/bin/make base SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="gui gui-pkg-manager" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=gui DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{3} Minimal Racket+GUI+Docs | {2} Mac OS X | 64-bit Intel" README="http://localhost:9440/README-14441270031444127003766" SIGN_IDENTITY="" JOB_OPTIONS="-j 2" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+mkdir -p build/config
+echo '#hash((links-search-files . ()))' > build/config/config.rktd
+mkdir -p racket/src/build
+/Applications/Xcode.app/Contents/Developer/usr/bin/make racket/src/build/Makefile
+make[8]: `racket/src/build/Makefile' is up to date.
+cd racket/src/build; /Applications/Xcode.app/Contents/Developer/usr/bin/make reconfigure
+/Applications/Xcode.app/Contents/Developer/usr/bin/make Makefile
+make[9]: `Makefile' is up to date.
+cd racket/src/build; /Applications/Xcode.app/Contents/Developer/usr/bin/make SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make 3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make no-local-racket
+:
+cd racket; /Applications/Xcode.app/Contents/Developer/usr/bin/make 3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make cgc
+/Applications/Xcode.app/Contents/Developer/usr/bin/make cgc-core
+/Applications/Xcode.app/Contents/Developer/usr/bin/make common
+/Applications/Xcode.app/Contents/Developer/usr/bin/make g-c
+cd sgc; /Applications/Xcode.app/Contents/Developer/usr/bin/make ../libmzgc.a 
+make[15]: `../libmzgc.a' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make foreign-stuff
+cd ../foreign; /Applications/Xcode.app/Contents/Developer/usr/bin/make all
+/Applications/Xcode.app/Contents/Developer/usr/bin/make foreign.o
+make[16]: `foreign.o' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make libffi_ON
+/Applications/Xcode.app/Contents/Developer/usr/bin/make libffi/libffi.la
+make[17]: `libffi/libffi.la' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make dynlib
+cd dynsrc; /Applications/Xcode.app/Contents/Developer/usr/bin/make dynlib 
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../mzdyn.o
+make[15]: `../mzdyn.o' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../starter
+make[15]: `../starter' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make mzlibrary
+cd src; /Applications/Xcode.app/Contents/Developer/usr/bin/make all 
+/Applications/Xcode.app/Contents/Developer/usr/bin/make mzobjects
+make[15]: Nothing to be done for `mzobjects'.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make libracket.a
+make[14]: `libracket.a' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make racketcgc
+make[13]: `racketcgc' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make mzcomcgc
+:
+/Applications/Xcode.app/Contents/Developer/usr/bin/make sysinfercgc
+./racketcgc -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2  -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -DOS_X -D_DARWIN_UNLIMITED_SELECT -pthread  -fno-common -DUSE_SENORA_GC    ../../racket/src/systype.c" "" "./racketcgc" "./racketcgc"
+cd gc2; /Applications/Xcode.app/Contents/Developer/usr/bin/make all
+/Applications/Xcode.app/Contents/Developer/usr/bin/make check-sdep
+../racketcgc -G /Users/racket/build/plt/build/mac64/build/config -cqu ../../../racket/gc2/check-sdep.rkt
+/Applications/Xcode.app/Contents/Developer/usr/bin/make xsrc/precomp.h
+make[12]: `xsrc/precomp.h' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make xobjects
+make[12]: Nothing to be done for `xobjects'.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../racket3m
+make[12]: `../racket3m' is up to date.
+cd dynsrc; /Applications/Xcode.app/Contents/Developer/usr/bin/make dynlib3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../mzdyn3m.o
+make[12]: `../mzdyn3m.o' is up to date.
+cd gc2; /Applications/Xcode.app/Contents/Developer/usr/bin/make ../racket3m
+make[11]: `../racket3m' is up to date.
+cd gc2; /Applications/Xcode.app/Contents/Developer/usr/bin/make ../mzcom3m
+make[11]: `../mzcom3m' is up to date.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make sysinfer3m
+./racket3m -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2  -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -DOS_X -D_DARWIN_UNLIMITED_SELECT -pthread  -fno-common -DUSE_SENORA_GC    ../../racket/src/systype.c" "" "./racket3m" "./racket3m"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make gracket-3m
+cd gracket; /Applications/Xcode.app/Contents/Developer/usr/bin/make 3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make resources
+:
+cd gc2; /Applications/Xcode.app/Contents/Developer/usr/bin/make 3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../gracket3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make ../GRacket3m.app/Contents/MacOS/GRacket3m
+make[14]: `../GRacket3m.app/Contents/MacOS/GRacket3m' is up to date.
+cd racket/src/build; /Applications/Xcode.app/Contents/Developer/usr/bin/make install SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`" PLT_SETUP_OPTIONS="-j 2 "
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-3m-common
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-common-first
+if [ "" != "" ]; then \
+          if [[ "" != /* ]]; then \
+            echo "expected an absolute path for DESTDIR; given: "; exit 1; \
+          fi; \
+        fi
+mkdir -p "/Users/racket/build/plt/build/mac64/racket/bin" "/Users/racket/build/plt/build/mac64/racket/collects" "/Users/racket/build/plt/build/mac64/racket/doc" "/Users/racket/build/plt/build/mac64/racket/lib" "/Users/racket/build/plt/build/mac64/racket/include" "/Users/racket/build/plt/build/mac64/racket/lib" "/Users/racket/build/plt/build/mac64/racket/share" "/Users/racket/build/plt/build/mac64/racket/etc" "/Users/racket/build/plt/build/mac64/racket/share/applications" "/Users/racket/build/plt/build/mac64/racket/man"
+cd racket; /Applications/Xcode.app/Contents/Developer/usr/bin/make install-3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make headers
+./racketcgc -cqu ../../racket/mkincludes.rkt "/Users/racket/build/plt/build/mac64/racket/include" "../../racket" .
+Making /Users/racket/build/plt/build/mac64/racket/include
+Done.
+cd ..; cp racket/system.rktd "/Users/racket/build/plt/build/mac64/racket/lib/system.rktd"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make osx-install
+/Applications/Xcode.app/Contents/Developer/usr/bin/make unix-install
+cd ..; rm -f "/Users/racket/build/plt/build/mac64/racket/bin/racketcgc"
+cd ..; rm -f "/Users/racket/build/plt/build/mac64/racket/bin/racket"
+cd ..; cp racket/starter "/Users/racket/build/plt/build/mac64/racket/lib/starter"
+cp ../../racket/dynsrc/starter-sh .
+cd ..; cp racket/starter-sh "/Users/racket/build/plt/build/mac64/racket/lib/starter-sh"
+cd ..; strip "/Users/racket/build/plt/build/mac64/racket/lib/starter"
+./racketcgc -cu "../../racket/collects-path.rkt" "/Users/racket/build/plt/build/mac64/racket/lib/starter" ../collects ../etc
+cd ..; echo 'CC=gcc' > "/Users/racket/build/plt/build/mac64/racket/lib/buildinfo"
+cd ..; echo 'CFLAGS=-Wall   -g -O2  -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -DOS_X -D_DARWIN_UNLIMITED_SELECT -pthread' >> "/Users/racket/build/plt/build/mac64/racket/lib/buildinfo"
+cd ..; echo 'OPTIONS= -fno-common -DUSE_SENORA_GC' >> "/Users/racket/build/plt/build/mac64/racket/lib/buildinfo"
+cd ..; echo 'MZOPTIONS=' >> "/Users/racket/build/plt/build/mac64/racket/lib/buildinfo"
+cd ..; echo "LDFLAGS= -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -pthread" >> "/Users/racket/build/plt/build/mac64/racket/lib/buildinfo"
+cd ..; echo 'LIBS=-ldl -lm  -liconv ' >> "/Users/racket/build/plt/build/mac64/racket/lib/buildinfo"
+rm -f /Users/racket/build/plt/build/mac64/racket/lib/Racket.framework/Racket
+rm -rf /Users/racket/build/plt/build/mac64/racket/lib/Racket.framework/Versions/6.2.900.17
+rm -rf /Users/racket/build/plt/build/mac64/racket/lib/Racket.framework/Versions/6.2.900.17_3m
+if [ yes = yes ] ; then rm -rf /Users/racket/build/plt/build/mac64/racket/lib/Racket.framework ; fi
+mkdir -p /Users/racket/build/plt/build/mac64/racket/lib
+/Applications/Xcode.app/Contents/Developer/usr/bin/make osx-install-3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make unix-install-3m
+cd ..; cp racket/racket3m "/Users/racket/build/plt/build/mac64/racket/bin/racket"
+cd ..; strip "/Users/racket/build/plt/build/mac64/racket/bin/racket"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make unix-no-install-libs-3m
+:
+cd ..; cp racket/mzdyn3m.o "/Users/racket/build/plt/build/mac64/racket/lib/mzdyn3m.o"
+./racket3m -cu "../../racket/collects-path.rkt" "/Users/racket/build/plt/build/mac64/racket/bin/racket" ../collects ../etc
+mkdir -p "/Users/racket/build/plt/build/mac64/racket/lib/Racket.framework/Versions/6.2.900.17_3m"
+cp Racket.framework/Versions/6.2.900.17_3m/Racket /Users/racket/build/plt/build/mac64/racket/lib/Racket.framework/Versions/6.2.900.17_3m/
+/usr/bin/install_name_tool -change "@executable_path/Racket.framework/Versions/6.2.900.17_3m/Racket" ""@executable_path/../lib/"Racket.framework/Versions/6.2.900.17_3m/Racket" "/Users/racket/build/plt/build/mac64/racket/bin/racket"
+strip "/Users/racket/build/plt/build/mac64/racket/bin/racket"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make osx-install-3m-final
+/Applications/Xcode.app/Contents/Developer/usr/bin/make unix-install-3m-final
+:
+ln -s Versions/6.2.900.17_3m/Racket /Users/racket/build/plt/build/mac64/racket/lib/Racket.framework/
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-gracket-3m
+cd gracket; /Applications/Xcode.app/Contents/Developer/usr/bin/make install-3m
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-wx_mac
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-common
+:
+cd ..; rm -rf "/Users/racket/build/plt/build/mac64/racket/lib/GRacketCGC.app"
+cd ..; rm -rf "/Users/racket/build/plt/build/mac64/racket/lib/GRacket.app"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-wx_mac-3m
+cd ..; cp -r "gracket/GRacket3m.app" "/Users/racket/build/plt/build/mac64/racket/lib/GRacket.app"
+../racket/racket3m -G /Users/racket/build/plt/build/mac64/build/config -cqu "../../gracket/../mac/rename-app.rkt" "/Users/racket/build/plt/build/mac64/racket/lib/GRacket.app" "GRacket3m" "GRacket"
+/usr/bin/install_name_tool -change "@executable_path/../../../../racket/Racket.framework/Versions/6.2.900.17_3m/Racket" ""@executable_path/../../../"Racket.framework/Versions/6.2.900.17_3m/Racket" "/Users/racket/build/plt/build/mac64/racket/lib/GRacket.app/Contents/MacOS/GRacket"
+../racket/racket3m -G /Users/racket/build/plt/build/mac64/build/config -cu "../../gracket/../racket/collects-path.rkt" "/Users/racket/build/plt/build/mac64/racket/lib/GRacket.app/Contents/MacOS/GRacket" "../../../../collects" ../../../../etc
+strip "/Users/racket/build/plt/build/mac64/racket/lib/GRacket.app/Contents/MacOS/GRacket"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-wx_mac-3m-final
+:
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-common-middle
+/Applications/Xcode.app/Contents/Developer/usr/bin/make no-run
+:
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-gracket-post-collects
+cd gracket; /Applications/Xcode.app/Contents/Developer/usr/bin/make install-post-collects
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-wx_mac-post-collects
+cd ..; rm -rf /Users/racket/build/plt/build/mac64/racket/lib/Starter.app
+cd ..; cp -r gracket/Starter.app /Users/racket/build/plt/build/mac64/racket/lib/.
+/Applications/Xcode.app/Contents/Developer/usr/bin/make lib-finish
+if [ "" = "" ]; then \
+	  echo "/Users/racket/build/plt/build/mac64/racket/lib"; \
+	fi
+/Users/racket/build/plt/build/mac64/racket/lib
+racket/racket3m -X "/Users/racket/build/plt/build/mac64/racket/collects" -G "/Users/racket/build/plt/build/mac64/racket/etc" -G /Users/racket/build/plt/build/mac64/build/config  --no-user-path -N "raco" -l- setup --no-user -j 2  
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-macosx [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /Users/racket/build/plt/build/mac64/racket/collects
+raco setup: collects paths: 
+raco setup:   /Users/racket/build/plt/build/mac64/racket/collects
+raco setup: main pkgs: /Users/racket/build/plt/build/mac64/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /Users/racket/build/plt/build/mac64/racket/share/pkgs
+raco setup:   /Users/racket/Library/Racket/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup: main docs: /Users/racket/build/plt/build/mac64/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <collects>/racket
+raco setup: --- parallel build using 2 jobs ---
+raco setup: 1 making: <collects>/compiler
+raco setup: 0 making: <collects>/raco
+raco setup: 0 making: <collects>/racket
+raco setup: 1 making: <collects>/compiler/private
+raco setup: 0 making: <collects>/racket/base
+raco setup: 0 making: <collects>/racket/base/lang
+raco setup: 0 making: <collects>/racket/contract
+raco setup: 0 making: <collects>/racket/contract/private
+raco setup: 1 making: <collects>/acks
+raco setup: 1 making: <collects>/data
+raco setup: 1 making: <collects>/data/private
+raco setup: 1 making: <collects>/db
+raco setup: 1 making: <collects>/db/private
+raco setup: 1 making: <collects>/db/private/generic
+raco setup: 0 making: <collects>/racket/gui
+raco setup: 0 making: <collects>/racket/kernel
+raco setup: 0 making: <collects>/racket/lang
+raco setup: 0 making: <collects>/racket/load
+raco setup: 0 making: <collects>/racket/load/lang
+raco setup: 0 making: <collects>/racket/match
+raco setup: 1 making: <collects>/db/private/sqlite3
+raco setup: 1 making: <collects>/dynext
+raco setup: 1 making: <collects>/ffi
+raco setup: 0 making: <collects>/racket/place
+raco setup: 0 making: <collects>/racket/place/private
+raco setup: 0 making: <collects>/racket/private
+raco setup: 1 making: <collects>/ffi/unsafe
+raco setup: 1 making: <collects>/ffi/unsafe/private
+raco setup: 1 making: <collects>/file
+raco setup: 1 making: <collects>/file/private
+raco setup: 1 making: <collects>/info
+raco setup: 1 making: <collects>/info-domain
+raco setup: 1 making: <collects>/json
+raco setup: 1 making: <collects>/launcher
+raco setup: 1 making: <collects>/net
+raco setup: 0 making: <collects>/racket/signature
+raco setup: 0 making: <collects>/racket/signature/lang
+raco setup: 0 making: <collects>/racket/unit
+raco setup: 0 making: <collects>/racket/unit/lang
+raco setup: 0 making: <collects>/racket/unsafe
+raco setup: 0 making: <collects>/openssl
+raco setup: 1 making: <collects>/pkg
+raco setup: 0 making: <collects>/openssl/private
+raco setup: 0 making: <collects>/planet
+raco setup: 0 making: <collects>/planet/private
+raco setup: 0 making: <collects>/reader
+raco setup: 0 making: <collects>/reader/lang
+raco setup: 0 making: <collects>/realm
+raco setup: 0 making: <collects>/s-exp
+raco setup: 0 making: <collects>/s-exp/lang
+raco setup: 0 making: <collects>/setup
+raco setup: 1 making: <collects>/pkg/private
+raco setup: 1 making: <collects>/syntax
+raco setup: 0 making: <collects>/setup/commands
+raco setup: 0 making: <collects>/setup/infotab
+raco setup: 0 making: <collects>/setup/infotab/lang
+raco setup: 0 making: <collects>/setup/private
+raco setup: 0 making: <collects>/unstable
+raco setup: 0 making: <collects>/version
+raco setup: 0 making: <collects>/xml
+raco setup: 0 making: <collects>/xml/private
+raco setup: 1 making: <collects>/syntax/parse
+raco setup: 1 making: <collects>/syntax/parse/experimental
+raco setup: 1 making: <collects>/syntax/parse/experimental/private
+raco setup: 1 making: <collects>/syntax/parse/lib
+raco setup: 1 making: <collects>/syntax/parse/private
+raco setup: 1 making: <collects>/syntax/private
+raco setup: 1 making: <collects>/syntax/private/util
+raco setup: 1 making: <collects>/syntax/unsafe
+raco setup: --- creating launchers ---
+raco setup: launcher: <console-bin>/raco
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- checking package dependencies ---
+/Applications/Xcode.app/Contents/Developer/usr/bin/make install-common-last
+/Applications/Xcode.app/Contents/Developer/usr/bin/make fix-paths
+if [ "" != "" ]; then \
+          if [ "" = "" ]; then \
+            racket/racketcgc -G /Users/racket/build/plt/build/mac64/build/config -u \
+              "../../collects/setup/unixstyle-install.rkt" \
+              make-install-destdir-fix "../.." \
+              "/Users/racket/build/plt/build/mac64/racket/bin" "/Users/racket/build/plt/build/mac64/racket/collects" "/Users/racket/build/plt/build/mac64/racket/doc" "/Users/racket/build/plt/build/mac64/racket/lib" "/Users/racket/build/plt/build/mac64/racket/include" "/Users/racket/build/plt/build/mac64/racket/lib" "/Users/racket/build/plt/build/mac64/racket/share" "/Users/racket/build/plt/build/mac64/racket/etc" "/Users/racket/build/plt/build/mac64/racket/share/applications" "/Users/racket/build/plt/build/mac64/racket/man" "yes"; \
+          fi \
+        fi
+/Applications/Xcode.app/Contents/Developer/usr/bin/make preserve-raco-pkg-default-scope
+:
+cp "../COPYING-libscheme.txt" "../COPYING_LESSER.txt" "../COPYING.txt" "/Users/racket/build/plt/build/mac64/racket/share"/
+/Applications/Xcode.app/Contents/Developer/usr/bin/make distro-build-from-server SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="gui gui-pkg-manager" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=gui DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{3} Minimal Racket+GUI+Docs | {2} Mac OS X | 64-bit Intel" README="http://localhost:9440/README-14441270031444127003766" SIGN_IDENTITY="" JOB_OPTIONS="-j 2" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -N raco -l- raco pkg install --catalog http://localhost:9440/ --scope user --skip-installed --deps search-auto --pkgs -j 2 distro-build-client
+Resolving "distro-build-client" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/distro-build-client.zip
+00: Resolving "base" via http://localhost:9440/
+01: Resolving "ds-store-lib" via http://localhost:9440/
+Resolving "at-exp-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/base.zip
+Downloading http://localhost:9440/pkgs/ds-store-lib.zip
+Downloading http://localhost:9440/pkgs/at-exp-lib.zip
+Resolving "racket-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/racket-lib.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of distro-build-client:
+   base
+   ds-store-lib
+   at-exp-lib
+ dependencies of base:
+   racket-lib
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-macosx [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /Users/racket/build/plt/build/mac64/racket/collects
+raco setup: collects paths: 
+raco setup:   /Users/racket/build/plt/build/mac64/build/user/6.2.900.17/collects
+raco setup:   /Users/racket/build/plt/build/mac64/racket/collects
+raco setup: main pkgs: /Users/racket/build/plt/build/mac64/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /Users/racket/build/plt/build/mac64/racket/share/pkgs
+raco setup:   /Users/racket/build/plt/build/mac64/build/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /Users/racket/build/plt/build/mac64/racket/share/links.rktd
+raco setup:   /Users/racket/build/plt/build/mac64/build/user/6.2.900.17/links.rktd
+raco setup: main docs: /Users/racket/build/plt/build/mac64/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /Users/racket/build/plt/build/mac64/build/user/6.2.900.17/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: --- parallel build using 2 jobs ---
+raco setup: 1 making: <pkgs>/at-exp-lib/at-exp
+raco setup: 1 making: <pkgs>/at-exp-lib/at-exp/lang
+raco setup: 0 making: <pkgs>/at-exp-lib/scribble
+raco setup: 0 making: <pkgs>/at-exp-lib/scribble/base
+raco setup: 0 making: <pkgs>/distro-build-client
+raco setup: 1 making: <pkgs>/ds-store-lib
+raco setup: 0 making: <pkgs>/distro-build-client/macosx-installer
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+/Applications/Xcode.app/Contents/Developer/usr/bin/make bundle-from-server SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="gui gui-pkg-manager" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=gui DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{3} Minimal Racket+GUI+Docs | {2} Mac OS X | 64-bit Intel" README="http://localhost:9440/README-14441270031444127003766" SIGN_IDENTITY="" JOB_OPTIONS="-j 2" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+rm -rf bundle
+mkdir -p bundle/racket
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install bundle racket bundle/racket
+Copying bin -> /Users/racket/build/plt/build/mac64/bundle/racket/bin
+Copying collects -> /Users/racket/build/plt/build/mac64/bundle/racket/collects
+Copying doc -> /Users/racket/build/plt/build/mac64/bundle/racket/doc
+Copying lib -> /Users/racket/build/plt/build/mac64/bundle/racket/lib
+Copying include -> /Users/racket/build/plt/build/mac64/bundle/racket/include
+Copying share/applications -> /Users/racket/build/plt/build/mac64/bundle/racket/share/applications
+Copying share -> /Users/racket/build/plt/build/mac64/bundle/racket/share
+Copying etc -> /Users/racket/build/plt/build/mac64/bundle/racket/etc
+Copying man -> /Users/racket/build/plt/build/mac64/bundle/racket/man
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/unpack-collects http://localhost:9440/
+[2015-10-06T04:24:16] The time is now Tuesday, October 6th, 2015 4:24:16am
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://localhost:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 2  racket-lib
+Resolving "racket-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/racket-lib.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-macosx [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /Users/racket/build/plt/build/mac64/bundle/racket/collects
+raco setup: collects paths: 
+raco setup:   /Users/racket/build/plt/build/mac64/bundle/racket/collects
+raco setup: main pkgs: /Users/racket/build/plt/build/mac64/bundle/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /Users/racket/build/plt/build/mac64/bundle/racket/share/pkgs
+raco setup:   /Users/racket/build/plt/build/mac64/bundle/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /Users/racket/build/plt/build/mac64/bundle/racket/share/links.rktd
+raco setup:   /Users/racket/build/plt/build/mac64/bundle/user/6.2.900.17/links.rktd
+raco setup: main docs: /Users/racket/build/plt/build/mac64/bundle/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: --- parallel build using 2 jobs ---
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://localhost:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 2  gui gui-pkg-manager
+00: Resolving "gui" via http://localhost:9440/
+Resolving "gui-pkg-manager" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/gui.zip
+Downloading http://localhost:9440/pkgs/gui-pkg-manager.zip
+00: Resolving "gui-lib" via http://localhost:9440/
+Resolving "gui-doc" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/gui-lib.zip
+Downloading http://localhost:9440/pkgs/gui-doc.zip
+00: Resolving "gui-pkg-manager-lib" via http://localhost:9440/
+01: Resolving "gui-pkg-manager-doc" via http://localhost:9440/
+Resolving "base" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/gui-pkg-manager-lib.zip
+Downloading http://localhost:9440/pkgs/gui-pkg-manager-doc.zip
+Downloading http://localhost:9440/pkgs/base.zip
+01: Resolving "srfi-lite-lib" via http://localhost:9440/
+00: Resolving "data-lib" via http://localhost:9440/
+02: Resolving "syntax-color-lib" via http://localhost:9440/
+03: Resolving "draw-lib" via http://localhost:9440/
+04: Resolving "snip-lib" via http://localhost:9440/
+05: Resolving "wxme-lib" via http://localhost:9440/
+06: Resolving "pict-lib" via http://localhost:9440/
+08: Resolving "scribble-lib" via http://localhost:9440/
+09: Resolving "string-constants-lib" via http://localhost:9440/
+07: Resolving "scheme-lib" via http://localhost:9440/
+10: Resolving "option-contract-lib" via http://localhost:9440/
+11: Resolving "2d-lib" via http://localhost:9440/
+12: Resolving "compatibility-lib" via http://localhost:9440/
+13: Resolving "tex-table" via http://localhost:9440/
+14: Resolving "gui-x86_64-macosx" via http://localhost:9440/
+15: Resolving "at-exp-lib" via http://localhost:9440/
+Resolving "rackunit-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/srfi-lite-lib.zip
+Downloading http://localhost:9440/pkgs/data-lib.zip
+Downloading http://localhost:9440/pkgs/syntax-color-lib.zip
+Downloading http://localhost:9440/pkgs/draw-lib.zip
+Downloading http://localhost:9440/pkgs/snip-lib.zip
+Downloading http://localhost:9440/pkgs/wxme-lib.zip
+Downloading http://localhost:9440/pkgs/pict-lib.zip
+Downloading http://localhost:9440/pkgs/scheme-lib.zip
+Downloading http://localhost:9440/pkgs/scribble-lib.zip
+Downloading http://localhost:9440/pkgs/string-constants-lib.zip
+Downloading http://localhost:9440/pkgs/option-contract-lib.zip
+Downloading http://localhost:9440/pkgs/2d-lib.zip
+Downloading http://localhost:9440/pkgs/compatibility-lib.zip
+Downloading http://localhost:9440/pkgs/tex-table.zip
+Downloading http://localhost:9440/pkgs/gui-x86_64-macosx.zip
+Downloading http://localhost:9440/pkgs/at-exp-lib.zip
+Downloading http://localhost:9440/pkgs/rackunit-lib.zip
+14: Resolving "syntax-color-doc" via http://localhost:9440/
+03: Resolving "draw-doc" via http://localhost:9440/
+08: Resolving "racket-doc" via http://localhost:9440/
+Resolving "string-constants-doc" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/syntax-color-doc.zip
+Downloading http://localhost:9440/pkgs/draw-doc.zip
+Downloading http://localhost:9440/pkgs/racket-doc.zip
+Downloading http://localhost:9440/pkgs/string-constants-doc.zip
+Resolving "parser-tools-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/parser-tools-lib.zip
+Resolving "draw-x86_64-macosx-2" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/draw-x86_64-macosx-2.zip
+08: Resolving "scribble-text-lib" via http://localhost:9440/
+03: Resolving "scribble-html-lib" via http://localhost:9440/
+14: Resolving "planet-lib" via http://localhost:9440/
+00: Resolving "net-lib" via http://localhost:9440/
+15: Resolving "sandbox-lib" via http://localhost:9440/
+Resolving "typed-racket-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/scribble-text-lib.zip
+Downloading http://localhost:9440/pkgs/scribble-html-lib.zip
+Downloading http://localhost:9440/pkgs/planet-lib.zip
+Downloading http://localhost:9440/pkgs/net-lib.zip
+Downloading http://localhost:9440/pkgs/sandbox-lib.zip
+Downloading http://localhost:9440/pkgs/typed-racket-lib.zip
+Resolving "scribble-doc" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/scribble-doc.zip
+Resolving "pict-doc" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/pict-doc.zip
+14: Resolving "racket-index" via http://localhost:9440/
+15: Resolving "rackunit-doc" via http://localhost:9440/
+03: Resolving "compatibility" via http://localhost:9440/
+00: Resolving "errortrace-doc" via http://localhost:9440/
+08: Resolving "typed-racket-doc" via http://localhost:9440/
+12: Resolving "draw" via http://localhost:9440/
+13: Resolving "pict" via http://localhost:9440/
+05: Resolving "web-server-doc" via http://localhost:9440/
+07: Resolving "parser-tools-doc" via http://localhost:9440/
+04: Resolving "slideshow-doc" via http://localhost:9440/
+06: Resolving "r5rs-doc" via http://localhost:9440/
+09: Resolving "r6rs-doc" via http://localhost:9440/
+10: Resolving "xrepl" via http://localhost:9440/
+11: Resolving "readline" via http://localhost:9440/
+02: Resolving "syntax-color" via http://localhost:9440/
+16: Resolving "distributed-places" via http://localhost:9440/
+17: Resolving "serialize-cstruct-lib" via http://localhost:9440/
+01: Resolving "future-visualizer" via http://localhost:9440/
+18: Resolving "cext-lib" via http://localhost:9440/
+19: Resolving "data-doc" via http://localhost:9440/
+20: Resolving "net-doc" via http://localhost:9440/
+21: Resolving "planet-doc" via http://localhost:9440/
+22: Resolving "mzscheme-doc" via http://localhost:9440/
+Resolving "compiler-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/racket-index.zip
+Downloading http://localhost:9440/pkgs/rackunit-doc.zip
+Downloading http://localhost:9440/pkgs/compatibility.zip
+Downloading http://localhost:9440/pkgs/errortrace-doc.zip
+Downloading http://localhost:9440/pkgs/typed-racket-doc.zip
+Downloading http://localhost:9440/pkgs/web-server-doc.zip
+Downloading http://localhost:9440/pkgs/draw.zip
+Downloading http://localhost:9440/pkgs/pict.zip
+Downloading http://localhost:9440/pkgs/parser-tools-doc.zip
+Downloading http://localhost:9440/pkgs/slideshow-doc.zip
+Downloading http://localhost:9440/pkgs/r5rs-doc.zip
+Downloading http://localhost:9440/pkgs/r6rs-doc.zip
+Downloading http://localhost:9440/pkgs/xrepl.zip
+Downloading http://localhost:9440/pkgs/readline.zip
+Downloading http://localhost:9440/pkgs/syntax-color.zip
+Downloading http://localhost:9440/pkgs/future-visualizer.zip
+Downloading http://localhost:9440/pkgs/distributed-places.zip
+Downloading http://localhost:9440/pkgs/serialize-cstruct-lib.zip
+Downloading http://localhost:9440/pkgs/cext-lib.zip
+Downloading http://localhost:9440/pkgs/data-doc.zip
+Downloading http://localhost:9440/pkgs/net-doc.zip
+Downloading http://localhost:9440/pkgs/planet-doc.zip
+Downloading http://localhost:9440/pkgs/mzscheme-doc.zip
+Downloading http://localhost:9440/pkgs/compiler-lib.zip
+Resolving "errortrace-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/errortrace-lib.zip
+15: Resolving "pconvert-lib" via http://localhost:9440/
+Resolving "source-syntax" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/pconvert-lib.zip
+Downloading http://localhost:9440/pkgs/source-syntax.zip
+Resolving "slideshow-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/slideshow-lib.zip
+Resolving "rackunit-gui" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/rackunit-gui.zip
+Resolving "compatibility-doc" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/compatibility-doc.zip
+15: Resolving "srfi-doc" via http://localhost:9440/
+07: Resolving "r6rs-lib" via http://localhost:9440/
+02: Resolving "typed-racket-compatibility" via http://localhost:9440/
+Resolving "typed-racket-more" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/srfi-doc.zip
+Downloading http://localhost:9440/pkgs/r6rs-lib.zip
+Downloading http://localhost:9440/pkgs/typed-racket-compatibility.zip
+Downloading http://localhost:9440/pkgs/typed-racket-more.zip
+07: Resolving "db-doc" via http://localhost:9440/
+02: Resolving "db-lib" via http://localhost:9440/
+Resolving "web-server-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/db-doc.zip
+Downloading http://localhost:9440/pkgs/db-lib.zip
+Downloading http://localhost:9440/pkgs/web-server-lib.zip
+Resolving "r5rs-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/r5rs-lib.zip
+02: Resolving "xrepl-lib" via http://localhost:9440/
+Resolving "xrepl-doc" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/xrepl-lib.zip
+Downloading http://localhost:9440/pkgs/xrepl-doc.zip
+02: Resolving "readline-lib" via http://localhost:9440/
+Resolving "readline-doc" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/readline-lib.zip
+Downloading http://localhost:9440/pkgs/readline-doc.zip
+02: Resolving "distributed-places-lib" via http://localhost:9440/
+Resolving "distributed-places-doc" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/distributed-places-lib.zip
+Downloading http://localhost:9440/pkgs/distributed-places-doc.zip
+Resolving "dynext-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/dynext-lib.zip
+02: Resolving "data-enumerate-lib" via http://localhost:9440/
+07: Resolving "plot-lib" via http://localhost:9440/
+15: Resolving "math-doc" via http://localhost:9440/
+Resolving "math-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/data-enumerate-lib.zip
+Downloading http://localhost:9440/pkgs/plot-lib.zip
+Downloading http://localhost:9440/pkgs/math-doc.zip
+Downloading http://localhost:9440/pkgs/math-lib.zip
+Resolving "zo-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/zo-lib.zip
+Resolving "class-iop-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/class-iop-lib.zip
+Resolving "srfi-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/srfi-lib.zip
+Resolving "unix-socket-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/unix-socket-lib.zip
+15: Resolving "macro-debugger" via http://localhost:9440/
+07: Resolving "profile-doc" via http://localhost:9440/
+02: Resolving "macro-debugger-text-lib" via http://localhost:9440/
+Resolving "profile-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/macro-debugger.zip
+Downloading http://localhost:9440/pkgs/profile-doc.zip
+Downloading http://localhost:9440/pkgs/macro-debugger-text-lib.zip
+Downloading http://localhost:9440/pkgs/profile-lib.zip
+07: Resolving "plot-doc" via http://localhost:9440/
+Resolving "plot-gui-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/plot-doc.zip
+Downloading http://localhost:9440/pkgs/plot-gui-lib.zip
+Resolving "math-x86_64-macosx" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/math-x86_64-macosx.zip
+07: Resolving "images-lib" via http://localhost:9440/
+Resolving "images-gui-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/images-lib.zip
+Downloading http://localhost:9440/pkgs/images-gui-lib.zip
+Resolving "plot-compat" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/plot-compat.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of gui:
+   gui-lib
+   gui-doc
+ dependencies of gui-pkg-manager:
+   gui-pkg-manager-lib
+   gui-pkg-manager-doc
+   base
+ dependencies of gui-lib:
+   srfi-lite-lib
+   data-lib
+   syntax-color-lib
+   draw-lib
+   snip-lib
+   wxme-lib
+   pict-lib
+   scheme-lib
+   scribble-lib
+   string-constants-lib
+   option-contract-lib
+   2d-lib
+   compatibility-lib
+   tex-table
+   gui-x86_64-macosx
+   at-exp-lib
+   rackunit-lib
+ dependencies of gui-doc:
+   syntax-color-doc
+   draw-doc
+   racket-doc
+   string-constants-doc
+ dependencies of syntax-color-lib:
+   parser-tools-lib
+ dependencies of draw-lib:
+   draw-x86_64-macosx-2
+ dependencies of scribble-lib:
+   scribble-text-lib
+   scribble-html-lib
+   planet-lib
+   net-lib
+   sandbox-lib
+   typed-racket-lib
+ dependencies of syntax-color-doc:
+   scribble-doc
+ dependencies of draw-doc:
+   pict-doc
+ dependencies of racket-doc:
+   racket-index
+   rackunit-doc
+   compatibility
+   errortrace-doc
+   typed-racket-doc
+   web-server-doc
+   draw
+   pict
+   parser-tools-doc
+   slideshow-doc
+   r5rs-doc
+   r6rs-doc
+   xrepl
+   readline
+   syntax-color
+   future-visualizer
+   distributed-places
+   serialize-cstruct-lib
+   cext-lib
+   data-doc
+   net-doc
+   planet-doc
+   mzscheme-doc
+   compiler-lib
+ dependencies of sandbox-lib:
+   errortrace-lib
+ dependencies of typed-racket-lib:
+   pconvert-lib
+   source-syntax
+ dependencies of scribble-doc:
+   slideshow-lib
+ dependencies of rackunit-doc:
+   rackunit-gui
+ dependencies of compatibility:
+   compatibility-doc
+ dependencies of typed-racket-doc:
+   srfi-doc
+   r6rs-lib
+   typed-racket-compatibility
+   typed-racket-more
+ dependencies of web-server-doc:
+   db-doc
+   db-lib
+   web-server-lib
+ dependencies of r5rs-doc:
+   r5rs-lib
+ dependencies of xrepl:
+   xrepl-lib
+   xrepl-doc
+ dependencies of readline:
+   readline-lib
+   readline-doc
+ dependencies of distributed-places:
+   distributed-places-lib
+   distributed-places-doc
+ dependencies of cext-lib:
+   dynext-lib
+ dependencies of data-doc:
+   data-enumerate-lib
+   plot-lib
+   math-doc
+   math-lib
+ dependencies of compiler-lib:
+   zo-lib
+ dependencies of rackunit-gui:
+   class-iop-lib
+ dependencies of srfi-doc:
+   srfi-lib
+ dependencies of db-lib:
+   unix-socket-lib
+ dependencies of xrepl-doc:
+   macro-debugger
+   profile-doc
+   macro-debugger-text-lib
+   profile-lib
+ dependencies of math-doc:
+   plot-doc
+   plot-gui-lib
+ dependencies of math-lib:
+   math-x86_64-macosx
+ dependencies of macro-debugger:
+   images-lib
+   images-gui-lib
+ dependencies of plot-doc:
+   plot-compat
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-macosx [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /Users/racket/build/plt/build/mac64/bundle/racket/collects
+raco setup: collects paths: 
+raco setup:   /Users/racket/build/plt/build/mac64/bundle/racket/collects
+raco setup: main pkgs: /Users/racket/build/plt/build/mac64/bundle/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /Users/racket/build/plt/build/mac64/bundle/racket/share/pkgs
+raco setup:   /Users/racket/build/plt/build/mac64/bundle/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /Users/racket/build/plt/build/mac64/bundle/racket/share/links.rktd
+raco setup:   /Users/racket/build/plt/build/mac64/bundle/user/6.2.900.17/links.rktd
+raco setup: main docs: /Users/racket/build/plt/build/mac64/bundle/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /Users/racket/build/plt/build/mac64/bundle/racket/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: installing: foreign library <lib>/libjpeg.9.dylib
+raco setup: installing: foreign library <lib>/libpng16.16.dylib
+raco setup: installing: foreign library <lib>/libpixman-1.0.dylib
+raco setup: installing: foreign library <lib>/libcairo.2.dylib
+raco setup: installing: foreign library <lib>/libfreetype.6.dylib
+raco setup: installing: foreign library <lib>/libfontconfig.1.dylib
+raco setup: installing: foreign library <lib>/libexpat.1.dylib
+raco setup: installing: foreign library <lib>/libpangoft2-1.0.0.dylib
+raco setup: installing: foreign library <lib>/libpangocairo-1.0.0.dylib
+raco setup: installing: foreign library <lib>/libpango-1.0.0.dylib
+raco setup: installing: foreign library <lib>/libharfbuzz.0.dylib
+raco setup: installing: foreign library <lib>/libintl.8.dylib
+raco setup: installing: foreign library <lib>/libgobject-2.0.0.dylib
+raco setup: installing: foreign library <lib>/libglib-2.0.0.dylib
+raco setup: installing: foreign library <lib>/libgthread-2.0.0.dylib
+raco setup: installing: foreign library <lib>/libgmodule-2.0.0.dylib
+raco setup: installing: foreign library <lib>/libgio-2.0.0.dylib
+raco setup: installing: foreign library <lib>/libffi.6.dylib
+raco setup: installing: foreign library <lib>/PSMTabBarControl.framework
+raco setup: installing: foreign library <lib>/libmpfr.4.dylib
+raco setup: installing: foreign library <lib>/libgmp.10.dylib
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: --- parallel build using 2 jobs ---
+raco setup: 1 making: <collects>/compiler
+raco setup: 0 making: <pkgs>/cext-lib/compiler
+raco setup: 0 making: <pkgs>/cext-lib/compiler/commands
+raco setup: 0 making: <pkgs>/compiler-lib/compiler
+raco setup: 1 making: <collects>/compiler/private
+raco setup: 1 making: <pkgs>/zo-lib/compiler
+raco setup: 0 making: <pkgs>/compiler-lib/compiler/commands
+raco setup: 1 making: <collects>/racket
+raco setup: 0 making: <pkgs>/compiler-lib/compiler/demodularizer
+raco setup: 1 making: <collects>/racket/base
+raco setup: 1 making: <collects>/racket/base/lang
+raco setup: 1 making: <collects>/racket/contract
+raco setup: 0 making: <pkgs>/class-iop-lib/racket
+raco setup: 0 making: <pkgs>/class-iop-lib/racket/class
+raco setup: 0 making: <pkgs>/class-iop-lib/racket/class/private
+raco setup: 1 making: <collects>/racket/contract/private
+raco setup: 0 making: <pkgs>/compatibility-lib/racket
+raco setup: 0 making: <pkgs>/distributed-places-lib/racket
+raco setup: 0 making: <pkgs>/distributed-places-lib/racket/place
+raco setup: 0 making: <pkgs>/distributed-places-lib/racket/place/distributed
+raco setup: 0 making: <pkgs>/draw-lib/racket
+raco setup: 0 making: <pkgs>/draw-lib/racket/draw
+raco setup: 1 making: <collects>/racket/gui
+raco setup: 1 making: <collects>/racket/kernel
+raco setup: 1 making: <collects>/racket/lang
+raco setup: 1 making: <collects>/racket/load
+raco setup: 1 making: <collects>/racket/load/lang
+raco setup: 1 making: <collects>/racket/match
+raco setup: 1 making: <collects>/racket/place
+raco setup: 1 making: <collects>/racket/place/private
+raco setup: 1 making: <collects>/racket/private
+raco setup: 0 making: <pkgs>/draw-lib/racket/draw/private
+raco setup: 0 making: <pkgs>/draw-lib/racket/draw/unsafe
+raco setup: 0 making: <pkgs>/draw-x86_64-macosx-2/racket
+raco setup: 0 making: <pkgs>/draw-x86_64-macosx-2/racket/draw
+raco setup: 0 making: <pkgs>/gui-lib/racket
+raco setup: 0 making: <pkgs>/gui-lib/racket/gui
+raco setup: 1 making: <collects>/racket/signature
+raco setup: 1 making: <collects>/racket/signature/lang
+raco setup: 1 making: <collects>/racket/unit
+raco setup: 1 making: <collects>/racket/unit/lang
+raco setup: 1 making: <collects>/racket/unsafe
+raco setup: 1 making: <pkgs>/gui-x86_64-macosx/racket
+raco setup: 1 making: <pkgs>/gui-x86_64-macosx/racket/gui
+raco setup: 1 making: <pkgs>/option-contract-lib/racket
+raco setup: 1 making: <pkgs>/option-contract-lib/racket/contract
+raco setup: 1 making: <pkgs>/sandbox-lib/racket
+raco setup: 1 making: <pkgs>/sandbox-lib/racket/private
+raco setup: 1 making: <pkgs>/snip-lib/racket
+raco setup: 1 making: <pkgs>/snip-lib/racket/snip
+raco setup: 1 making: <pkgs>/snip-lib/racket/snip/private
+raco setup: 0 making: <pkgs>/gui-lib/racket/gui/lang
+raco setup: 0 making: <pkgs>/unix-socket-lib/racket
+raco setup: 1 making: <collects>/data
+raco setup: 0 making: <collects>/db
+raco setup: 0 making: <collects>/db/private
+raco setup: 0 making: <collects>/db/private/generic
+raco setup: 1 making: <collects>/data/private
+raco setup: 1 making: <collects>/dynext
+raco setup: 0 making: <collects>/db/private/sqlite3
+raco setup: 1 making: <collects>/dynext/private
+raco setup: 0 making: <collects>/ffi
+raco setup: 1 making: <collects>/file
+raco setup: 0 making: <collects>/ffi/unsafe
+raco setup: 1 making: <collects>/file/private
+raco setup: 1 making: <collects>/json
+raco setup: 1 making: <collects>/launcher
+raco setup: 0 making: <collects>/ffi/unsafe/private
+raco setup: 0 making: <collects>/net
+raco setup: 1 making: <collects>/openssl
+raco setup: 0 making: <collects>/pkg
+raco setup: 1 making: <collects>/openssl/private
+raco setup: 1 making: <collects>/planet
+raco setup: 1 making: <collects>/planet/private
+raco setup: 1 making: <collects>/rackunit
+raco setup: 1 making: <collects>/scheme
+raco setup: 1 making: <collects>/scheme/base
+raco setup: 1 making: <collects>/scheme/base/lang
+raco setup: 1 making: <collects>/scheme/exists
+raco setup: 1 making: <collects>/scheme/exists/lang
+raco setup: 1 making: <collects>/scheme/gui
+raco setup: 1 making: <collects>/scheme/lang
+raco setup: 1 making: <collects>/scheme/load
+raco setup: 1 making: <collects>/scheme/load/lang
+raco setup: 1 making: <collects>/scheme/private
+raco setup: 1 making: <collects>/scheme/private/provider
+raco setup: 1 making: <collects>/scheme/private/provider/lang
+raco setup: 1 making: <collects>/scheme/signature
+raco setup: 1 making: <collects>/scheme/signature/lang
+raco setup: 1 making: <collects>/scheme/unit
+raco setup: 1 making: <collects>/scheme/unit/lang
+raco setup: 1 making: <collects>/scheme/unsafe
+raco setup: 1 making: <collects>/setup
+raco setup: 0 making: <collects>/pkg/private
+raco setup: 0 making: <collects>/srfi
+raco setup: 0 making: <collects>/srfi/1
+raco setup: 0 making: <collects>/srfi/13
+raco setup: 0 making: <collects>/srfi/14
+raco setup: 0 making: <collects>/srfi/19
+raco setup: 0 making: <collects>/srfi/29
+raco setup: 0 making: <collects>/srfi/8
+raco setup: 0 making: <collects>/syntax
+raco setup: 1 making: <collects>/setup/commands
+raco setup: 1 making: <collects>/setup/infotab
+raco setup: 1 making: <collects>/setup/infotab/lang
+raco setup: 1 making: <collects>/setup/private
+raco setup: 1 making: <collects>/version
+raco setup: 1 making: <collects>/xml
+raco setup: 1 making: <collects>/xml/private
+raco setup: 0 making: <collects>/syntax/parse
+raco setup: 1 making: <pkgs>/2d-lib
+raco setup: 0 making: <collects>/syntax/parse/experimental
+raco setup: 0 making: <collects>/syntax/parse/experimental/private
+raco setup: 0 making: <collects>/syntax/parse/lib
+raco setup: 1 making: <pkgs>/2d-lib/lang
+raco setup: 0 making: <collects>/syntax/parse/private
+raco setup: 1 making: <pkgs>/2d-lib/private
+raco setup: 1 making: <pkgs>/at-exp-lib/at-exp
+raco setup: 1 making: <pkgs>/at-exp-lib/at-exp/lang
+raco setup: 0 making: <collects>/syntax/private
+raco setup: 1 making: <pkgs>/at-exp-lib/scribble
+raco setup: 1 making: <pkgs>/at-exp-lib/scribble/base
+raco setup: 1 making: <pkgs>/compatibility-doc/mzlib
+raco setup: 1 making: <pkgs>/compatibility-doc/mzlib/scribblings
+raco setup: 0 making: <collects>/syntax/private/util
+raco setup: 0 making: <collects>/syntax/unsafe
+raco setup: 0 making: <pkgs>/compatibility-lib/compatibility
+raco setup: 0 making: <pkgs>/compatibility-lib/lazy
+raco setup: 0 making: <pkgs>/compatibility-lib/mzlib
+raco setup: 0 making: <pkgs>/compatibility-lib/mzlib/private
+raco setup: 0 making: <pkgs>/compatibility-lib/mzscheme
+raco setup: 0 making: <pkgs>/compatibility-lib/mzscheme/lang
+raco setup: 0 making: <pkgs>/compatibility-lib/mzscheme/private
+raco setup: 0 making: <pkgs>/compatibility-lib/net
+raco setup: 1 making: <pkgs>/compatibility-lib/scheme
+raco setup: 1 making: <pkgs>/compiler-lib/launcher
+raco setup: 1 making: <pkgs>/compiler-lib/setup
+raco setup: 0 making: <pkgs>/data-doc/data
+raco setup: 0 making: <pkgs>/data-doc/data/scribblings
+raco setup: 1 making: <pkgs>/data-enumerate-lib/data
+raco setup: 1 making: <pkgs>/data-enumerate-lib/data/enumerate
+raco setup: 1 making: <pkgs>/data-enumerate-lib/data/enumerate/lib
+raco setup: 1 making: <pkgs>/data-enumerate-lib/data/enumerate/private
+raco setup: 1 making: <pkgs>/data-lib/data
+raco setup: 1 making: <pkgs>/db-doc/db
+raco setup: 1 making: <pkgs>/db-doc/db/scribblings
+raco setup: 1 making: <pkgs>/db-lib/db
+raco setup: 1 making: <pkgs>/db-lib/db/private
+raco setup: 1 making: <pkgs>/db-lib/db/private/generic
+raco setup: 1 making: <pkgs>/db-lib/db/private/mysql
+raco setup: 1 making: <pkgs>/db-lib/db/private/odbc
+raco setup: 1 making: <pkgs>/db-lib/db/private/postgresql
+raco setup: 1 making: <pkgs>/db-lib/db/private/sqlite3
+raco setup: 1 making: <pkgs>/db-lib/db/util
+raco setup: 1 making: <pkgs>/db-lib/db/util/private
+raco setup: 1 making: <pkgs>/distributed-places-doc/scribblings
+raco setup: 1 making: <pkgs>/distributed-places-doc/scribblings/distributed-places
+raco setup: 1 making: <pkgs>/draw-doc/scribblings
+raco setup: 1 making: <pkgs>/draw-doc/scribblings/draw
+raco setup: 1 making: <pkgs>/draw-lib/file
+raco setup: 1 making: <pkgs>/draw-lib/file/private
+raco setup: 1 making: <pkgs>/draw-lib/net
+raco setup: 1 making: <pkgs>/dynext-lib/dynext
+raco setup: 1 making: <pkgs>/dynext-lib/dynext/private
+raco setup: 1 making: <pkgs>/errortrace-doc/errortrace
+raco setup: 1 making: <pkgs>/errortrace-doc/errortrace/scribblings
+raco setup: 1 making: <pkgs>/errortrace-lib/errortrace
+raco setup: 1 making: <pkgs>/errortrace-lib/errortrace/lang
+raco setup: 1 making: <pkgs>/errortrace-lib/errortrace/private
+raco setup: 1 making: <pkgs>/future-visualizer/future-visualizer
+raco setup: 1 making: <pkgs>/future-visualizer/future-visualizer/private
+raco setup: 1 making: <pkgs>/future-visualizer/future-visualizer/scribblings
+raco setup: 1 making: <pkgs>/future-visualizer/future-visualizer/tests
+raco setup: 0 making: <pkgs>/gui-doc/embedded-gui
+raco setup: 0 making: <pkgs>/gui-doc/embedded-gui/scribblings
+raco setup: 1 making: <pkgs>/gui-doc/mrlib
+raco setup: 1 making: <pkgs>/gui-doc/mrlib/scribblings
+raco setup: 1 making: <pkgs>/gui-doc/mrlib/scribblings/aligned-pasteboard
+raco setup: 1 making: <pkgs>/gui-doc/mrlib/scribblings/graph
+raco setup: 1 making: <pkgs>/gui-doc/mrlib/scribblings/hierlist
+raco setup: 1 making: <pkgs>/gui-doc/scribblings
+raco setup: 1 making: <pkgs>/gui-doc/scribblings/framework
+raco setup: 0 making: <pkgs>/gui-lib/embedded-gui
+raco setup: 1 making: <pkgs>/gui-doc/scribblings/gui
+raco setup: 0 making: <pkgs>/gui-lib/embedded-gui/private
+raco setup: 0 making: <pkgs>/gui-lib/framework
+raco setup: 1 making: <pkgs>/gui-doc/scribblings/gui/image
+raco setup: 0 making: <pkgs>/gui-lib/framework/private
+raco setup: 0 making: <pkgs>/gui-lib/hierlist
+raco setup: 0 making: <pkgs>/gui-lib/icons
+raco setup: 0 making: <pkgs>/gui-lib/mred
+raco setup: 0 making: <pkgs>/gui-lib/mred/lang
+raco setup: 1 making: <pkgs>/gui-lib/mrlib
+raco setup: 0 making: <pkgs>/gui-lib/mred/private
+raco setup: 1 making: <pkgs>/gui-lib/mrlib/hierlist
+raco setup: 1 making: <pkgs>/gui-lib/mrlib/private
+raco setup: 1 making: <pkgs>/gui-lib/mrlib/private/aligned-pasteboard
+raco setup: 1 making: <pkgs>/gui-lib/scheme
+raco setup: 1 making: <pkgs>/gui-lib/scheme/gui
+raco setup: 1 making: <pkgs>/gui-lib/scheme/gui/lang
+raco setup: 0 making: <pkgs>/gui-lib/mred/private/wx
+raco setup: 0 making: <pkgs>/gui-lib/mred/private/wx/cocoa
+raco setup: 1 making: <pkgs>/gui-lib/scribble
+raco setup: 1 making: <pkgs>/gui-lib/scribble/private
+raco setup: 1 making: <pkgs>/gui-pkg-manager-doc/pkg
+raco setup: 0 making: <pkgs>/gui-lib/mred/private/wx/common
+raco setup: 0 making: <pkgs>/gui-lib/mred/private/wx/gtk
+raco setup: 1 making: <pkgs>/gui-pkg-manager-doc/pkg/gui
+raco setup: 0 making: <pkgs>/gui-lib/mred/private/wx/win32
+raco setup: 0 making: <pkgs>/gui-lib/mred/private/wxme
+raco setup: 0 making: <pkgs>/gui-pkg-manager-lib/pkg
+raco setup: 0 making: <pkgs>/gui-pkg-manager-lib/pkg/gui
+raco setup: 0 making: <pkgs>/gui-pkg-manager-lib/pkg/gui/private
+raco setup: 0 making: <pkgs>/gui-pkg-manager/pkg
+raco setup: 0 making: <pkgs>/gui-pkg-manager/pkg/gui
+raco setup: 1 making: <pkgs>/gui-pkg-manager-doc/pkg/gui/scribblings
+raco setup: 1 making: <pkgs>/images-gui-lib/images
+raco setup: 1 making: <pkgs>/images-lib/images
+raco setup: 1 making: <pkgs>/images-lib/images/icons
+raco setup: 1 making: <pkgs>/images-lib/images/private
+raco setup: 1 making: <pkgs>/images-lib/images/private/latent-contract
+raco setup: 1 making: <pkgs>/macro-debugger-text-lib/macro-debugger
+raco setup: 1 making: <pkgs>/macro-debugger-text-lib/macro-debugger/analysis
+raco setup: 1 making: <pkgs>/macro-debugger-text-lib/macro-debugger/analysis/private
+raco setup: 1 making: <pkgs>/macro-debugger-text-lib/macro-debugger/model
+raco setup: 1 making: <pkgs>/macro-debugger-text-lib/macro-debugger/syntax-browser
+raco setup: 1 making: <pkgs>/macro-debugger-text-lib/macro-debugger/util
+raco setup: 1 making: <pkgs>/macro-debugger-text-lib/macro-debugger/view
+raco setup: 1 making: <pkgs>/macro-debugger/macro-debugger
+raco setup: 1 making: <pkgs>/macro-debugger/macro-debugger/model
+raco setup: 1 making: <pkgs>/macro-debugger/macro-debugger/syntax-browser
+raco setup: 1 making: <pkgs>/macro-debugger/macro-debugger/tests
+raco setup: 1 making: <pkgs>/macro-debugger/macro-debugger/util
+raco setup: 1 making: <pkgs>/macro-debugger/macro-debugger/view
+raco setup: 1 making: <pkgs>/macro-debugger/tests
+raco setup: 1 making: <pkgs>/macro-debugger/tests/macro-debugger
+raco setup: 1 making: <pkgs>/macro-debugger/tests/macro-debugger/check-requires
+raco setup: 1 making: <pkgs>/macro-debugger/tests/macro-debugger/tests
+raco setup: 1 making: <pkgs>/math-doc/math
+raco setup: 1 making: <pkgs>/math-doc/math/scribblings
+raco setup: 1 making: <pkgs>/math-lib/math
+raco setup: 1 making: <pkgs>/math-lib/math/private
+raco setup: 1 making: <pkgs>/math-lib/math/private/array
+raco setup: 1 making: <pkgs>/math-lib/math/private/base
+raco setup: 1 making: <pkgs>/math-lib/math/private/bigfloat
+raco setup: 1 making: <pkgs>/math-lib/math/private/distributions
+raco setup: 1 making: <pkgs>/math-lib/math/private/distributions/impl
+raco setup: 1 making: <pkgs>/math-lib/math/private/flonum
+raco setup: 1 making: <pkgs>/math-lib/math/private/flonum/expansion
+raco setup: 1 making: <pkgs>/math-lib/math/private/functions
+raco setup: 1 making: <pkgs>/math-lib/math/private/functions/incomplete-gamma
+raco setup: 1 making: <pkgs>/math-lib/math/private/matrix
+raco setup: 1 making: <pkgs>/math-lib/math/private/number-theory
+raco setup: 1 making: <pkgs>/math-lib/math/private/polynomial
+raco setup: 1 making: <pkgs>/math-lib/math/private/statistics
+raco setup: 1 making: <pkgs>/math-lib/math/private/utils
+raco setup: 1 making: <pkgs>/math-lib/math/private/vector
+raco setup: 1 making: <pkgs>/math-x86_64-macosx/math
+raco setup: 1 making: <pkgs>/mzscheme-doc/mzscheme
+raco setup: 1 making: <pkgs>/net-doc/net
+raco setup: 1 making: <pkgs>/net-doc/net/scribblings
+raco setup: 1 making: <pkgs>/net-lib/net
+raco setup: 1 making: <pkgs>/net-lib/net/private
+raco setup: 1 making: <pkgs>/parser-tools-doc/parser-tools
+raco setup: 1 making: <pkgs>/parser-tools-lib/parser-tools
+raco setup: 1 making: <pkgs>/parser-tools-lib/parser-tools/examples
+raco setup: 1 making: <pkgs>/parser-tools-lib/parser-tools/private-lex
+raco setup: 1 making: <pkgs>/parser-tools-lib/parser-tools/private-yacc
+raco setup: 1 making: <pkgs>/pconvert-lib/mzlib
+raco setup: 1 making: <pkgs>/pict-doc/pict
+raco setup: 1 making: <pkgs>/pict-doc/pict/scribblings
+raco setup: 1 making: <pkgs>/pict-lib/pict
+raco setup: 1 making: <pkgs>/pict-lib/pict/private
+raco setup: 1 making: <pkgs>/pict-lib/texpict
+raco setup: 1 making: <pkgs>/planet-doc/planet (PLaneT)
+raco setup: 1 making: <pkgs>/planet-doc/planet/private
+raco setup: 1 making: <pkgs>/planet-lib/planet (PLaneT)
+raco setup: 1 making: <pkgs>/planet-lib/planet/lang
+raco setup: 1 making: <pkgs>/planet-lib/planet/private
+raco setup: 1 making: <pkgs>/plot-compat/plot
+raco setup: 1 making: <pkgs>/plot-compat/plot/private
+raco setup: 1 making: <pkgs>/plot-doc/plot
+raco setup: 1 making: <pkgs>/plot-doc/plot/scribblings
+raco setup: 1 making: <pkgs>/plot-gui-lib/plot
+raco setup: 1 making: <pkgs>/plot-gui-lib/plot/private
+raco setup: 1 making: <pkgs>/plot-gui-lib/plot/private/gui
+raco setup: 1 making: <pkgs>/plot-lib/plot
+raco setup: 1 making: <pkgs>/plot-lib/plot/private
+raco setup: 1 making: <pkgs>/plot-lib/plot/private/common
+raco setup: 1 making: <pkgs>/plot-lib/plot/private/deprecated
+raco setup: 1 making: <pkgs>/plot-lib/plot/private/no-gui
+raco setup: 1 making: <pkgs>/plot-lib/plot/private/plot2d
+raco setup: 1 making: <pkgs>/plot-lib/plot/private/plot3d
+raco setup: 1 making: <pkgs>/plot-lib/plot/typed
+raco setup: 1 making: <pkgs>/profile-doc/profile
+raco setup: 1 making: <pkgs>/profile-doc/profile/scribblings
+raco setup: 1 making: <pkgs>/profile-lib
+raco setup: 1 making: <pkgs>/r5rs-doc/r5rs
+raco setup: 1 making: <pkgs>/r5rs-doc/r5rs/scribblings
+raco setup: 1 making: <pkgs>/r5rs-doc/r5rs/scribblings/r5rs-std
+raco setup: 1 making: <pkgs>/r5rs-lib/r5rs
+raco setup: 1 making: <pkgs>/r5rs-lib/r5rs/lang
+raco setup: 1 making: <pkgs>/r5rs-lib/r5rs/private
+raco setup: 1 making: <pkgs>/r6rs-doc/r6rs
+raco setup: 1 making: <pkgs>/r6rs-doc/r6rs/scribblings
+raco setup: 1 making: <pkgs>/r6rs-doc/r6rs/scribblings/r6rs-lib-std
+raco setup: 1 making: <pkgs>/r6rs-doc/r6rs/scribblings/r6rs-std
+raco setup: 1 making: <pkgs>/r6rs-doc/r6rs/tests
+raco setup: 1 making: <pkgs>/r6rs-lib/r6rs
+raco setup: 1 making: <pkgs>/r6rs-lib/r6rs/lang
+raco setup: 1 making: <pkgs>/r6rs-lib/r6rs/private
+raco setup: 1 making: <pkgs>/r6rs-lib/rnrs
+raco setup: 1 making: <pkgs>/r6rs-lib/rnrs/arithmetic
+raco setup: 1 making: <pkgs>/r6rs-lib/rnrs/io
+raco setup: 1 making: <pkgs>/r6rs-lib/rnrs/records
+raco setup: 1 making: <pkgs>/racket-doc/compatibility
+raco setup: 1 making: <pkgs>/racket-doc/compatibility/scribblings
+raco setup: 1 making: <pkgs>/racket-doc/dynext
+raco setup: 1 making: <pkgs>/racket-doc/ffi
+raco setup: 1 making: <pkgs>/racket-doc/ffi/examples
+raco setup: 1 making: <pkgs>/racket-doc/file
+raco setup: 1 making: <pkgs>/racket-doc/file/scribblings
+raco setup: 1 making: <pkgs>/racket-doc/help
+raco setup: 1 making: <pkgs>/racket-doc/json
+raco setup: 1 making: <pkgs>/racket-doc/openssl
+raco setup: 1 making: <pkgs>/racket-doc/pkg
+raco setup: 1 making: <pkgs>/racket-doc/pkg/scribblings
+raco setup: 1 making: <pkgs>/racket-doc/scribblings (Documentation Sources)
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/foreign
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/getting-started
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/guide
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/guide/contracts
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/guide/contracts/examples
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/inside
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/more
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/raco
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/reference
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/scheme
+raco setup: 1 making: <pkgs>/racket-doc/scribblings/style
+raco setup: 1 making: <pkgs>/racket-doc/syntax
+raco setup: 1 making: <pkgs>/racket-doc/syntax/scribblings
+raco setup: 1 making: <pkgs>/racket-doc/syntax/scribblings/parse
+raco setup: 1 making: <pkgs>/racket-doc/version
+raco setup: 1 making: <pkgs>/racket-doc/xml
+raco setup: 1 making: <pkgs>/racket-index/rackunit
+raco setup: 1 making: <pkgs>/racket-index/scribblings
+raco setup: 1 making: <pkgs>/racket-index/scribblings/main
+raco setup: 1 making: <pkgs>/racket-index/scribblings/main/private
+raco setup: 1 making: <pkgs>/racket-index/scribblings/main/user
+raco setup: 1 making: <pkgs>/racket-index/setup
+raco setup: 1 making: <pkgs>/racket-index/setup/private
+raco setup: 1 making: <pkgs>/rackunit-doc/rackunit
+raco setup: 1 making: <pkgs>/rackunit-doc/rackunit/scribblings
+raco setup: 1 making: <pkgs>/rackunit-gui/rackunit
+raco setup: 1 making: <pkgs>/rackunit-gui/rackunit/private
+raco setup: 1 making: <pkgs>/rackunit-gui/rackunit/private/gui
+raco setup: 1 making: <pkgs>/rackunit-lib/rackunit
+raco setup: 1 making: <pkgs>/rackunit-lib/rackunit/private
+raco setup: 1 making: <pkgs>/readline-doc/readline
+raco setup: 1 making: <pkgs>/readline-lib/readline
+raco setup: 1 making: <pkgs>/sandbox-lib/scheme
+raco setup: 1 making: <pkgs>/scheme-lib/scheme
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/base
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/base/lang
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/exists
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/exists/lang
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/gui
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/lang
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/load
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/load/lang
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/private
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/private/provider
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/private/provider/lang
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/signature
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/signature/lang
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/unit
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/unit/lang
+raco setup: 1 making: <pkgs>/scheme-lib/scheme/unsafe
+raco setup: 1 making: <pkgs>/scribble-doc/scribblings
+raco setup: 1 making: <pkgs>/scribble-doc/scribblings/scribble
+raco setup: 1 making: <pkgs>/scribble-doc/scriblib
+raco setup: 1 making: <pkgs>/scribble-doc/scriblib/scribblings
+raco setup: 1 making: <pkgs>/scribble-html-lib/scribble
+raco setup: 1 making: <pkgs>/scribble-html-lib/scribble/html
+raco setup: 1 making: <pkgs>/scribble-html-lib/scribble/html/lang
+raco setup: 1 making: <pkgs>/scribble-lib/help
+raco setup: 1 making: <pkgs>/scribble-lib/scribble
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/base
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/base/lang
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/book
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/book/lang
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/jfp
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/jfp/lang
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/lncs
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/lncs/lang
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/lp
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/lp/lang
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/manual
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/manual/lang
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/private
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/report
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/report/lang
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/sigplan
+raco setup: 1 making: <pkgs>/scribble-lib/scribble/sigplan/lang
+raco setup: 1 making: <pkgs>/scribble-lib/scriblib
+raco setup: 1 making: <pkgs>/scribble-lib/scriblib/private
+raco setup: 1 making: <pkgs>/scribble-text-lib/scribble
+raco setup: 1 making: <pkgs>/scribble-text-lib/scribble/text
+raco setup: 1 making: <pkgs>/scribble-text-lib/scribble/text/lang
+raco setup: 1 making: <pkgs>/serialize-cstruct-lib/ffi
+raco setup: 1 making: <pkgs>/slideshow-doc/scribblings
+raco setup: 1 making: <pkgs>/slideshow-doc/scribblings/quick
+raco setup: 1 making: <pkgs>/slideshow-doc/scribblings/quick/images
+raco setup: 1 making: <pkgs>/slideshow-doc/scribblings/slideshow
+raco setup: 1 making: <pkgs>/slideshow-lib/slideshow
+raco setup: 1 making: <pkgs>/slideshow-lib/slideshow/lang
+raco setup: 1 making: <pkgs>/slideshow-lib/slideshow/private
+raco setup: 1 making: <pkgs>/slideshow-lib/texpict
+raco setup: 1 making: <pkgs>/source-syntax
+raco setup: 1 making: <pkgs>/srfi-doc/srfi
+raco setup: 1 making: <pkgs>/srfi-doc/srfi/scribblings
+raco setup: 1 making: <pkgs>/srfi-doc/srfi/scribblings/srfi-std
+raco setup: 1 making: <pkgs>/srfi-doc/srfi/scribblings/srfi-std/srfi-41
+raco setup: 1 making: <pkgs>/srfi-doc/srfi/scribblings/srfi-std/srfi-67
+raco setup: 1 making: <pkgs>/srfi-lib/srfi
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a1
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a11
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a13
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a14
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a16
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a17
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a18
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a19
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a2
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a23
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a25
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a26
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a27
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a28
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a29
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a31
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a38
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a39
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a41
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a42
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a43
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a45
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a48
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a5
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a54
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a57
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a59
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a6
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a60
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a61
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a63
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a64
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a66
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a67
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a69
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a71
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a74
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a78
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a8
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a86
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a87
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a9
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/%3a98
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/17
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/2
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/25
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/26
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/27
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/31
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/32
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/34
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/35
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/38
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/40
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/41
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/42
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/42ref
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/43
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/45
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/48
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/5
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/54
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/57
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/59
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/60
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/61
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/63
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/64
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/67
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/69
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/7
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/71
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/74
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/78
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/86
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/87
+raco setup: 1 making: <pkgs>/srfi-lib/srfi/9
+raco setup: 1 making: <pkgs>/srfi-lite-lib/srfi
+raco setup: 1 making: <pkgs>/srfi-lite-lib/srfi/1
+raco setup: 1 making: <pkgs>/srfi-lite-lib/srfi/13
+raco setup: 1 making: <pkgs>/srfi-lite-lib/srfi/14
+raco setup: 1 making: <pkgs>/srfi-lite-lib/srfi/19
+raco setup: 1 making: <pkgs>/srfi-lite-lib/srfi/29
+raco setup: 1 making: <pkgs>/srfi-lite-lib/srfi/29/bundles
+raco setup: 1 making: <pkgs>/srfi-lite-lib/srfi/29/bundles/es
+raco setup: 1 making: <pkgs>/srfi-lite-lib/srfi/8
+raco setup: 1 making: <pkgs>/string-constants-doc/string-constants
+raco setup: 1 making: <pkgs>/string-constants-lib/string-constants
+raco setup: 1 making: <pkgs>/string-constants-lib/string-constants/private
+raco setup: 1 making: <pkgs>/syntax-color-doc/syntax-color
+raco setup: 1 making: <pkgs>/syntax-color-lib/syntax-color
+raco setup: 1 making: <pkgs>/tex-table
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed/scheme
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed/scheme/base
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed/scheme/base/lang
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed/scheme/base/no-check
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed/scheme/base/no-check/lang
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed/scheme/lang
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed/scheme/no-check
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed/scheme/no-check/lang
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed-scheme
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed-scheme/lang
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed-scheme/no-check
+raco setup: 1 making: <pkgs>/typed-racket-compatibility/typed-scheme/no-check/lang
+raco setup: 1 making: <pkgs>/typed-racket-doc/typed-racket
+raco setup: 1 making: <pkgs>/typed-racket-doc/typed-racket/scribblings
+raco setup: 1 making: <pkgs>/typed-racket-doc/typed-racket/scribblings/guide
+raco setup: 1 making: <pkgs>/typed-racket-doc/typed-racket/scribblings/reference
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed/file
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed/private
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed/racket
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed/racket/base
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed/racket/base/lang
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed/racket/base/no-check
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed/racket/base/no-check/lang
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed/racket/lang
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed/racket/no-check
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed/racket/no-check/lang
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/base-env
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/env
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/infer
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/minimal
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/minimal/lang
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/optimizer
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/private
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/rep
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/static-contracts
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/static-contracts/combinators
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/typecheck
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/typecheck/tc-app
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/types
+raco setup: 1 making: <pkgs>/typed-racket-lib/typed-racket/utils
+raco setup: 1 making: <pkgs>/typed-racket-more/typed
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/file
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/framework
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/mred
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/mrlib
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/net
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/openssl
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/private
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/racket
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/racket/gui
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/racket/private
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/rackunit
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/srfi
+raco setup: 1 making: <pkgs>/typed-racket-more/typed/syntax
+raco setup: 1 making: <pkgs>/web-server-doc/web-server
+raco setup: 1 making: <pkgs>/web-server-doc/web-server/scribblings
+raco setup: 1 making: <pkgs>/web-server-doc/web-server/scribblings/tutorial
+raco setup: 1 making: <pkgs>/web-server-doc/web-server/scribblings/tutorial/images
+raco setup: 1 making: <pkgs>/web-server-lib/web-server
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/base
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/base/lang
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/compat
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/compat/0
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/compat/0/http
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/compat/0/servlet
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/configuration
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/default-web-root
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/default-web-root/conf
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/default-web-root/htdocs
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/default-web-root/htdocs/lang-servlets
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/default-web-root/htdocs/servlets
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/default-web-root/htdocs/servlets/examples
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/dispatch
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/dispatchers
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/formlets
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/http
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/insta
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/insta/lang
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/lang
+raco setup: 0 making: <pkgs>/wxme-lib/wxme
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/managers
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/page
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/private
+raco setup: 0 making: <pkgs>/wxme-lib/wxme/private
+raco setup: 0 making: <pkgs>/xrepl-doc/xrepl (eXtended REPL)
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/servlet
+raco setup: 1 making: <pkgs>/web-server-lib/web-server/stuffers
+raco setup: 1 making: <pkgs>/xrepl-lib/xrepl (eXtended REPL)
+raco setup: --- creating launchers ---
+raco setup: launcher: <gui-bin>/Racket Package Manager.app
+raco setup: launcher: <gui-bin>/bin/racket-package-manager [script-3m]
+raco setup: launcher: <console-bin>/plt-r5rs
+raco setup: launcher: <console-bin>/plt-r6rs
+raco setup: launcher: <console-bin>/scribble
+raco setup: launcher: <console-bin>/plt-web-server
+raco setup: --- installing man pages ---
+raco setup: installing: man page <man>/man1/mred.1
+raco setup: installing: man page <man>/man1/gracket.1
+raco setup: installing: man page <man>/man1/plt-help.1
+raco setup: --- building documentation ---
+raco setup: installing: /Users/racket/build/plt/build/mac64/bundle/racket/doc/scribble.css
+raco setup: installing: /Users/racket/build/plt/build/mac64/bundle/racket/doc/scribble-style.css
+raco setup: installing: /Users/racket/build/plt/build/mac64/bundle/racket/doc/racket.css
+raco setup: installing: /Users/racket/build/plt/build/mac64/bundle/racket/doc/manual-style.css
+raco setup: installing: /Users/racket/build/plt/build/mac64/bundle/racket/doc/manual-racket.css
+raco setup: installing: /Users/racket/build/plt/build/mac64/bundle/racket/doc/manual-racket.js
+raco setup: installing: /Users/racket/build/plt/build/mac64/bundle/racket/doc/manual-fonts.css
+raco setup: installing: /Users/racket/build/plt/build/mac64/bundle/racket/doc/scribble-common.js
+raco setup: installing: /Users/racket/build/plt/build/mac64/bundle/racket/doc/doc-site.css
+raco setup: installing: /Users/racket/build/plt/build/mac64/bundle/racket/doc/doc-site.js
+raco setup: moving: <pkgs>/racket-doc/scribblings/reference/doc/reference
+raco setup: moving: <pkgs>/racket-doc/scribblings/guide/doc/guide
+raco setup: moving: <pkgs>/racket-index/scribblings/main/doc/acks
+raco setup: moving: <pkgs>/racket-doc/compatibility/doc/compatibility
+raco setup: moving: <pkgs>/web-server-doc/web-server/doc/continue
+raco setup: moving: <pkgs>/data-doc/data/doc/data
+raco setup: moving: <pkgs>/db-doc/db/doc/db
+raco setup: moving: <pkgs>/scribble-doc/scribblings/scribble/doc/demo-m1
+raco setup: moving: <pkgs>/scribble-doc/scribblings/scribble/doc/demo-m2
+raco setup: moving: <pkgs>/scribble-doc/scribblings/scribble/doc/demo-manual-m1
+raco setup: moving: <pkgs>/scribble-doc/scribblings/scribble/doc/demo-manual-m2
+raco setup: moving: <pkgs>/scribble-doc/scribblings/scribble/doc/demo-manual-s1
+raco setup: moving: <pkgs>/scribble-doc/scribblings/scribble/doc/demo-manual-s2
+raco setup: moving: <pkgs>/scribble-doc/scribblings/scribble/doc/demo-s1
+raco setup: moving: <pkgs>/scribble-doc/scribblings/scribble/doc/demo-s2
+raco setup: moving: <pkgs>/distributed-places-doc/scribblings/distributed-places/doc/distributed-places
+raco setup: moving: <pkgs>/draw-doc/scribblings/draw/doc/draw
+raco setup: moving: <pkgs>/racket-doc/dynext/doc/dynext
+raco setup: moving: <pkgs>/gui-doc/embedded-gui/doc/embedded-gui
+raco setup: moving: <pkgs>/errortrace-doc/errortrace/scribblings/doc/errortrace
+raco setup: moving: <pkgs>/racket-doc/file/scribblings/doc/file
+raco setup: moving: <pkgs>/racket-doc/scribblings/foreign/doc/foreign
+raco setup: moving: <pkgs>/gui-doc/scribblings/framework/doc/framework
+raco setup: moving: <pkgs>/future-visualizer/future-visualizer/doc/future-visualizer
+raco setup: moving: <pkgs>/racket-doc/scribblings/getting-started/doc/getting-started
+raco setup: moving: <pkgs>/gui-doc/scribblings/gui/doc/gui
+raco setup: moving: <pkgs>/gui-pkg-manager-doc/pkg/doc/gui-pkg-manager
+error moving documentation: bundle/racket/doc/gui-pkg-manager/provides.sxref::0: read (compiled): wrong version for compiled code
+  compiled version: 6.1.1.8
+  expected version: 6.2.900.17
+raco setup: moving: <pkgs>/racket-doc/help/doc/help
+raco setup: moving: <pkgs>/racket-doc/scribblings/inside/doc/inside
+raco setup: moving: <pkgs>/racket-doc/json/doc/json
+raco setup: moving: <pkgs>/racket-index/scribblings/main/doc/license
+raco setup: moving: <pkgs>/macro-debugger/macro-debugger/doc/macro-debugger
+raco setup: moving: <pkgs>/math-doc/math/doc/math
+raco setup: moving: <pkgs>/racket-doc/scribblings/more/doc/more
+raco setup: moving: <pkgs>/gui-doc/mrlib/scribblings/doc/mrlib
+raco setup: moving: <pkgs>/compatibility-doc/mzlib/scribblings/doc/mzlib
+raco setup: moving: <pkgs>/mzscheme-doc/mzscheme/doc/mzscheme
+raco setup: moving: <pkgs>/net-doc/net/scribblings/doc/net
+raco setup: moving: <pkgs>/racket-doc/openssl/doc/openssl
+raco setup: moving: <pkgs>/parser-tools-doc/parser-tools/doc/parser-tools
+raco setup: moving: <pkgs>/pict-doc/pict/doc/pict
+raco setup: moving: <pkgs>/racket-doc/pkg/doc/pkg
+raco setup: moving: <pkgs>/planet-doc/planet/doc/planet
+raco setup: moving: <pkgs>/plot-doc/plot/doc/plot
+raco setup: moving: <pkgs>/profile-doc/profile/scribblings/doc/profile
+raco setup: moving: <pkgs>/slideshow-doc/scribblings/quick/doc/quick
+raco setup: moving: <pkgs>/r5rs-doc/r5rs/doc/r5rs
+raco setup: moving: <pkgs>/r6rs-doc/r6rs/scribblings/doc/r6rs
+raco setup: moving: <pkgs>/rackunit-doc/rackunit/doc/rackunit
+raco setup: moving: <pkgs>/racket-doc/scribblings/raco/doc/raco
+raco setup: moving: <pkgs>/readline-doc/readline/doc/readline
+raco setup: moving: <pkgs>/racket-index/scribblings/main/doc/release
+raco setup: moving: <pkgs>/racket-doc/scribblings/scheme/doc/scheme
+raco setup: moving: <pkgs>/scribble-doc/scribblings/scribble/doc/scribble
+raco setup: moving: <pkgs>/scribble-doc/scribblings/scribble/doc/scribble-pp
+raco setup: moving: <pkgs>/scribble-doc/scriblib/scribblings/doc/scriblib
+raco setup: moving: <pkgs>/slideshow-doc/scribblings/slideshow/doc/slideshow
+raco setup: moving: <pkgs>/srfi-doc/srfi/scribblings/doc/srfi
+raco setup: moving: <pkgs>/string-constants-doc/string-constants/doc/string-constants
+raco setup: moving: <pkgs>/racket-doc/scribblings/style/doc/style
+raco setup: moving: <pkgs>/racket-doc/syntax/doc/syntax
+raco setup: moving: <pkgs>/syntax-color-doc/syntax-color/doc/syntax-color
+raco setup: moving: <pkgs>/typed-racket-doc/typed-racket/doc/ts-guide
+raco setup: moving: <pkgs>/typed-racket-doc/typed-racket/doc/ts-reference
+raco setup: moving: <pkgs>/racket-doc/version/doc/version
+raco setup: moving: <pkgs>/web-server-doc/web-server/doc/web-server
+raco setup: moving: <pkgs>/web-server-doc/web-server/doc/web-server-internal
+raco setup: moving: <pkgs>/net-doc/net/scribblings/doc/win32-ssl
+raco setup: moving: <pkgs>/racket-doc/xml/doc/xml
+raco setup: moving: <pkgs>/xrepl-doc/xrepl/doc/xrepl
+raco setup: moving: <pkgs>/racket-index/scribblings/main/doc/local-redirect
+raco setup: moving: <pkgs>/racket-index/scribblings/main/doc/search
+raco setup: 1 running: <pkgs>/gui-pkg-manager-doc/pkg/gui/scribblings/gui-pkg-manager.scrbl
+raco setup: 0 running: <pkgs>/racket-index/scribblings/main/start.scrbl
+raco setup: 1 rendering: <pkgs>/gui-pkg-manager-doc/pkg/gui/scribblings/gui-pkg-manager.scrbl
+raco setup: 0 rendering: <pkgs>/racket-index/scribblings/main/release.scrbl
+raco setup: 0 rendering: <pkgs>/racket-index/scribblings/main/start.scrbl
+raco setup: 1 rendering: <pkgs>/racket-index/scribblings/main/local-redirect.scrbl
+raco setup: 0 rendering: <pkgs>/racket-index/scribblings/main/search.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: post-installing: <pkgs>/gui-lib/mred
+raco setup: post-installing: <pkgs>/gui-lib/racket/gui
+raco setup: post-installing: <pkgs>/racket-doc/help
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install post-adjust "" "" racket bundle/racket
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/set-config bundle/racket/etc/config.rktd "snapshot" "20151006-f86c5df" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""
+/Applications/Xcode.app/Contents/Developer/usr/bin/make installer-from-bundle SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="gui gui-pkg-manager" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=gui DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{3} Minimal Racket+GUI+Docs | {2} Mac OS X | 64-bit Intel" README="http://localhost:9440/README-14441270031444127003766" SIGN_IDENTITY="" JOB_OPTIONS="-j 2" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l- distro-build/installer --readme "http://localhost:9440/README-14441270031444127003766" --upload "http://localhost:9440/upload/" --desc "{3} Minimal Racket+GUI+Docs | {2} Mac OS X | 64-bit Intel"     "Racket" gui racket "" ""
+[2015-10-06T04:25:59] The time is now Tuesday, October 6th, 2015 4:25:59am
+Downloading http://localhost:9440/README-14441270031444127003766
+Copying bundle/racket
+/usr/bin/hdiutil create -format UDRW -ov -mode 755 -volname Racket v6.2.900.17 -srcfolder . /var/folders/3x/9n_xpc2x4gzdgp280sg908q00000gn/T/14441271591444127159326.dmg
+created: /var/folders/3x/9n_xpc2x4gzdgp280sg908q00000gn/T/14441271591444127159326.dmg
+/usr/bin/hdiutil attach -readwrite -noverify -noautoopen -mountpoint /Volumes/Racket v6.2.900.17 /var/folders/3x/9n_xpc2x4gzdgp280sg908q00000gn/T/14441271591444127159326.dmg
+/dev/disk2          	GUID_partition_scheme          	
+/dev/disk2s1        	Apple_HFS                      	/Volumes/Racket v6.2.900.17
+/usr/bin/hdiutil detach /Volumes/Racket v6.2.900.17
+"disk2" unmounted.
+"disk2" ejected.
+/usr/bin/hdiutil convert -format UDBZ -imagekey zlib-level=9 -ov /var/folders/3x/9n_xpc2x4gzdgp280sg908q00000gn/T/14441271591444127159326.dmg -o bundle/gui-6.2.900.17-x86_64-macosx.dmg
+Preparing imaging engine…
+Reading Protective Master Boot Record (MBR : 0)…
+   (CRC32 $9BF79C7C: Protective Master Boot Record (MBR : 0))
+Reading GPT Header (Primary GPT Header : 1)…
+   (CRC32 $9D4F55B1: GPT Header (Primary GPT Header : 1))
+Reading GPT Partition Data (Primary GPT Table : 2)…
+   (CRC32 $75073631: GPT Partition Data (Primary GPT Table : 2))
+Reading  (Apple_Free : 3)…
+   (CRC32 $00000000:  (Apple_Free : 3))
+Reading disk image (Apple_HFS : 4)…
+   (CRC32 $9F863958: disk image (Apple_HFS : 4))
+Reading GPT Partition Data (Backup GPT Table : 5)…
+   (CRC32 $75073631: GPT Partition Data (Backup GPT Table : 5))
+Reading GPT Header (Backup GPT Header : 6)…
+   (CRC32 $CB4A5BB9: GPT Header (Backup GPT Header : 6))
+Adding resources…
+Elapsed Time: 11.377s
+File size: 74495807 bytes, Checksum: CRC32 $8AB8167F
+Sectors processed: 923097, 764780 compressed
+Speed: 32.8Mbytes/sec
+Savings: 84.2%
+created: /Users/racket/build/plt/build/mac64/bundle/gui-6.2.900.17-x86_64-macosx.dmg
+Upload bundle/gui-6.2.900.17-x86_64-macosx.dmg to http://localhost:9440/upload/
+[2015-10-06T04:27:54] The time is now Tuesday, October 6th, 2015 4:27:54am

@@ -1,0 +1,1076 @@
+[2015-10-06T01:41:43] The time is now Tuesday, October 6th, 2015 1:41:43am
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 mflatt@katan.cs.utah.edu '/bin/sh' '-c' 'if [ ! -d "build/plt" ] ; then git clone "http://localhost:9440/.git" "build/plt" ; fi'
+[2015-10-06T01:41:48] The time is now Tuesday, October 6th, 2015 1:41:48am
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 mflatt@katan.cs.utah.edu '/bin/sh' '-c' 'cd "build/plt" ; git pull'
+From http://localhost:9440/
+   b92eac8..f86c5df  master     -> origin/master
+Merge made by the 'recursive' strategy.
+ README.txt                                         |  2 +-
+ pkgs/at-exp-lib/LICENSE.txt                        |  2 +-
+ pkgs/base/LICENSE.txt                              |  2 +-
+ pkgs/racket-doc/LICENSE.txt                        |  2 +-
+ pkgs/racket-doc/openssl/openssl.scrbl              | 60 ++++++++++++++++++-
+ .../racket-doc/scribblings/reference/numbers.scrbl | 28 ++++++++-
+ pkgs/racket-doc/scribblings/reference/os-lib.scrbl | 18 ++++++
+ pkgs/racket-doc/scribblings/reference/os.scrbl     |  1 +
+ .../scribblings/reference/syntax-model.scrbl       |  7 +++
+ pkgs/racket-doc/syntax/scribblings/define.scrbl    |  4 +-
+ pkgs/racket-doc/syntax/scribblings/name.scrbl      | 12 +++-
+ pkgs/racket-index/LICENSE.txt                      |  2 +-
+ pkgs/racket-index/scribblings/main/license.scrbl   |  2 +-
+ pkgs/racket-lib/LICENSE.txt                        |  2 +-
+ pkgs/racket-test-core/LICENSE.txt                  |  2 +-
+ pkgs/racket-test-core/tests/racket/basic.rktl      |  2 +
+ pkgs/racket-test-core/tests/racket/name.rktl       | 21 ++++++-
+ pkgs/racket-test/LICENSE.txt                       |  2 +-
+ racket/collects/racket/os.rkt                      | 68 ++++++++++++++++++++++
+ racket/collects/racket/private/name.rkt            | 18 ++++--
+ racket/collects/racket/private/string.rkt          |  4 +-
+ racket/collects/racket/private/unix-rand.rkt       | 15 +++++
+ racket/collects/racket/private/windows-rand.rkt    | 22 +++++++
+ racket/collects/racket/random.rkt                  | 14 +++++
+ racket/src/native-libs/install.rkt                 |  2 +-
+ racket/src/racket/dynsrc/mzdyn.c                   |  2 +-
+ racket/src/racket/include/escheme.h                |  2 +-
+ racket/src/racket/include/scheme.h                 |  2 +-
+ racket/src/racket/main.c                           |  2 +-
+ racket/src/racket/sgc/sgc.c                        |  2 +-
+ racket/src/racket/src/bignum.c                     |  2 +-
+ racket/src/racket/src/bool.c                       |  2 +-
+ racket/src/racket/src/builtin.c                    |  2 +-
+ racket/src/racket/src/char.c                       |  2 +-
+ racket/src/racket/src/compenv.c                    |  2 +-
+ racket/src/racket/src/compile.c                    | 41 ++++++++++++-
+ racket/src/racket/src/complex.c                    |  2 +-
+ racket/src/racket/src/dynext.c                     |  2 +-
+ racket/src/racket/src/env.c                        |  2 +-
+ racket/src/racket/src/error.c                      |  2 +-
+ racket/src/racket/src/eval.c                       |  2 +-
+ racket/src/racket/src/file.c                       |  2 +-
+ racket/src/racket/src/fun.c                        |  2 +-
+ racket/src/racket/src/future.c                     |  2 +-
+ racket/src/racket/src/hash.c                       |  2 +-
+ racket/src/racket/src/jit.c                        |  2 +-
+ racket/src/racket/src/jitalloc.c                   |  2 +-
+ racket/src/racket/src/jitarith.c                   |  2 +-
+ racket/src/racket/src/jitcall.c                    |  2 +-
+ racket/src/racket/src/jitcommon.c                  |  2 +-
+ racket/src/racket/src/jitinline.c                  |  2 +-
+ racket/src/racket/src/jitprep.c                    |  2 +-
+ racket/src/racket/src/jitstack.c                   |  2 +-
+ racket/src/racket/src/jitstate.c                   |  2 +-
+ racket/src/racket/src/letrec_check.c               |  2 +-
+ racket/src/racket/src/list.c                       |  2 +-
+ racket/src/racket/src/marshal.c                    |  2 +-
+ racket/src/racket/src/module.c                     |  2 +-
+ racket/src/racket/src/mzrt.c                       |  2 +-
+ racket/src/racket/src/mzsj86.c                     |  2 +-
+ racket/src/racket/src/network.c                    |  2 +-
+ racket/src/racket/src/numarith.c                   |  2 +-
+ racket/src/racket/src/number.c                     |  2 +-
+ racket/src/racket/src/numcomp.c                    |  2 +-
+ racket/src/racket/src/nummacs.h                    |  2 +-
+ racket/src/racket/src/numstr.c                     |  2 +-
+ racket/src/racket/src/optimize.c                   |  2 +-
+ racket/src/racket/src/place.c                      |  2 +-
+ racket/src/racket/src/port.c                       |  2 +-
+ racket/src/racket/src/portfun.c                    |  2 +-
+ racket/src/racket/src/print.c                      |  2 +-
+ racket/src/racket/src/rational.c                   |  2 +-
+ racket/src/racket/src/read.c                       |  2 +-
+ racket/src/racket/src/regexp.c                     |  2 +-
+ racket/src/racket/src/resolve.c                    |  2 +-
+ racket/src/racket/src/salloc.c                     |  2 +-
+ racket/src/racket/src/schemef.h                    |  2 +-
+ racket/src/racket/src/schemex.h                    |  2 +-
+ racket/src/racket/src/schpriv.h                    |  2 +-
+ racket/src/racket/src/sema.c                       |  2 +-
+ racket/src/racket/src/setjmpup.c                   |  2 +-
+ racket/src/racket/src/sfs.c                        |  2 +-
+ racket/src/racket/src/string.c                     |  2 +-
+ racket/src/racket/src/struct.c                     |  2 +-
+ racket/src/racket/src/symbol.c                     |  2 +-
+ racket/src/racket/src/syntax.c                     |  2 +-
+ racket/src/racket/src/thread.c                     |  2 +-
+ racket/src/racket/src/type.c                       |  2 +-
+ racket/src/racket/src/validate.c                   |  2 +-
+ racket/src/racket/src/vector.c                     |  2 +-
+ racket/src/worksp/gracket/gracket.rc               |  2 +-
+ racket/src/worksp/mzcom/mzcom.rc                   |  2 +-
+ racket/src/worksp/racket/racket.rc                 |  2 +-
+ racket/src/worksp/starters/start.rc                |  2 +-
+ 94 files changed, 397 insertions(+), 94 deletions(-)
+ create mode 100644 pkgs/racket-doc/scribblings/reference/os-lib.scrbl
+ create mode 100644 racket/collects/racket/os.rkt
+ create mode 100644 racket/collects/racket/private/unix-rand.rkt
+ create mode 100644 racket/collects/racket/private/windows-rand.rkt
+ create mode 100644 racket/collects/racket/random.rkt
+[2015-10-06T01:42:16] The time is now Tuesday, October 6th, 2015 1:42:16am
+/usr/bin/ssh -p 22 -R 9440:localhost:9440 mflatt@katan.cs.utah.edu '/bin/sh' '-c' 'cd "build/plt" ; make -j 1 client SERVER=localhost SERVER_PORT=9440 PKGS="" DOC_SEARCH="http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" DIST_DESC="{2} Minimal Racket | {2} Mac OS X | PowerPC" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX="" DIST_CATALOGS_q='"'"'"http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""'"'"' SIGN_IDENTITY="" INSTALL_NAME="snapshot" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE="" SOURCE_MODE="" VERSIONLESS_MODE="" PKG_SOURCE_MODE="" MAC_PKG_MODE="" UPLOAD=http://localhost:9440/upload/ README=http://localhost:9440/"README-14441173031444117303681" JOB_OPTIONS="-j 1" CONFIGURE_ARGS_qq='"'"'"--enable-sdk5=/Developer/SDKs/MacOSX10.5.sdk"'"'"''
+if [ ! -d build/log ] ; then rm -rf build/user ; fi
+make base SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {2} Mac OS X | PowerPC" README="http://localhost:9440/README-14441173031444117303681" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+mkdir -p build/config
+echo '#hash((links-search-files . ()))' > build/config/config.rktd
+mkdir -p racket/src/build
+make racket/src/build/Makefile
+make[2]: `racket/src/build/Makefile' is up to date.
+cd racket/src/build; make reconfigure
+make Makefile
+make[3]: `Makefile' is up to date.
+cd racket/src/build; make SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`"
+make 3m
+make no-local-racket
+:
+cd racket; make 3m
+make cgc
+make cgc-core
+make common
+make g-c
+cd sgc; make ../libmzgc.a 
+gcc -Wall  -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC -DSGC_EXPORTS -I.. -c ../../../racket/sgc/sgc.c -o sgc.o
+make gcobjects
+make[10]: Nothing to be done for `gcobjects'.
+../../../racket/sgc/../../utils/nicear ar ruv ../libmzgc.a sgc.o
+r - sgc.o
+ranlib ../libmzgc.a
+make foreign-stuff
+cd ../foreign; make all
+make foreign.o
+gcc -Wall  -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC -I./../racket -I../../foreign/../racket/include -I../../foreign/../racket/src -Ilibffi/include -c ../../foreign/foreign.c -o foreign.o
+make libffi_ON
+make libffi/libffi.la
+make[11]: `libffi/libffi.la' is up to date.
+make dynlib
+cd dynsrc; make dynlib 
+make ../mzdyn.o
+gcc  -Wall -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT -I./.. -I../../../racket/dynsrc/../include -I../../../racket/dynsrc/../src  -c ../../../racket/dynsrc/mzdyn.c -o ../mzdyn.o
+make ../starter
+make[9]: `../starter' is up to date.
+make mzlibrary
+cd src; make all 
+make mzobjects
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/salloc.c -o salloc.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/bignum.c -o bignum.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/bool.c -o bool.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/builtin.c -o builtin.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/char.c -o char.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/compenv.c -o compenv.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/compile.c -o compile.o
+../../../racket/src/compile.c: In function 'scheme_check_top_identifier_bound':
+../../../racket/src/compile.c:5538: warning: 'symbol' may be used uninitialized in this function
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/complex.c -o complex.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/dynext.c -o dynext.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/env.c -o env.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/error.c -o error.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/eval.c -o eval.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/file.c -o file.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/fun.c -o fun.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/future.c -o future.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/hash.c -o hash.o
+../../../racket/src/hash.c: In function 'do_hash':
+../../../racket/src/hash.c:208: warning: 'h2' may be used uninitialized in this function
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/jit.c -o jit.o
+In file included from ../../../racket/src/jit.c:29:
+../../../racket/src/jit.h:33: warning: ignoring #pragma GCC diagnostic
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/jitalloc.c -o jitalloc.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/jitarith.c -o jitarith.o
+In file included from ../../../racket/src/jitalloc.c:28:
+../../../racket/src/jit.h:33: warning: ignoring #pragma GCC diagnostic
+In file included from ../../../racket/src/jitarith.c:28:
+../../../racket/src/jit.h:33: warning: ignoring #pragma GCC diagnostic
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/jitcall.c -o jitcall.o
+In file included from ../../../racket/src/jitcall.c:28:
+../../../racket/src/jit.h:33: warning: ignoring #pragma GCC diagnostic
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/jitcommon.c -o jitcommon.o
+In file included from ../../../racket/src/jitcommon.c:28:
+../../../racket/src/jit.h:33: warning: ignoring #pragma GCC diagnostic
+../../../racket/src/jitcommon.c: In function 'common3':
+../../../racket/src/jitcommon.c:1360: warning: statement with no effect
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/jitinline.c -o jitinline.o
+In file included from ../../../racket/src/jitinline.c:28:
+../../../racket/src/jit.h:33: warning: ignoring #pragma GCC diagnostic
+../../../racket/src/jitinline.c: In function 'scheme_generate_inlined_binary':
+../../../racket/src/jitinline.c:2894: warning: value computed is not used
+../../../racket/src/jitinline.c:2900: warning: value computed is not used
+../../../racket/src/jitinline.c: In function 'scheme_generate_inlined_nary':
+../../../racket/src/jitinline.c:4805: warning: statement with no effect
+../../../racket/src/jitinline.c:4813: warning: statement with no effect
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/jitprep.c -o jitprep.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/jitstack.c -o jitstack.o
+In file included from ../../../racket/src/jitstack.c:30:
+../../../racket/src/jit.h:33: warning: ignoring #pragma GCC diagnostic
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/jitstate.c -o jitstate.o
+In file included from ../../../racket/src/jitstate.c:27:
+../../../racket/src/jit.h:33: warning: ignoring #pragma GCC diagnostic
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/letrec_check.c -o letrec_check.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/list.c -o list.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/marshal.c -o marshal.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/module.c -o module.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/mzrt.c -o mzrt.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/network.c -o network.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/numarith.c -o numarith.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/number.c -o number.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/numcomp.c -o numcomp.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/numstr.c -o numstr.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/optimize.c -o optimize.o
+../../../racket/src/optimize.c: In function 'begin0_optimize':
+../../../racket/src/optimize.c:5007: warning: 'prev_size' may be used uninitialized in this function
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/place.c -o place.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/port.c -o port.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/portfun.c -o portfun.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/print.c -o print.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/rational.c -o rational.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/read.c -o read.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/regexp.c -o regexp.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/resolve.c -o resolve.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/sema.c -o sema.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/setjmpup.c -o setjmpup.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/sfs.c -o sfs.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/string.c -I. -o string.o
+In file included from ../../../racket/src/string.c:63:
+../../../racket/src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:586: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:586: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:586: warning: integer constant is too large for 'long' type
+../../../racket/src/schustr.inc:586: warning: integer constant is too large for 'long' type
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/struct.c -o struct.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/symbol.c -o symbol.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/syntax.c -o syntax.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/thread.c -o thread.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/type.c -o type.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/validate.c -o validate.o
+gcc -Wall  -I./.. -I../../../racket/src/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -c ../../../racket/src/vector.c -o vector.o
+make libracket.a
+../../racket/../utils/nicear ar ruv libracket.a src/*.o ../foreign/foreign.o ../foreign/libffi/src/*.o ../foreign/libffi/src/*/*.o 
+r - src/bignum.o
+r - src/bool.o
+r - src/builtin.o
+r - src/char.o
+r - src/compenv.o
+r - src/compile.o
+r - src/complex.o
+r - src/dynext.o
+r - src/env.o
+r - src/error.o
+r - src/eval.o
+r - src/file.o
+r - src/fun.o
+r - src/future.o
+r - src/hash.o
+r - src/jit.o
+r - src/jitalloc.o
+r - src/jitarith.o
+r - src/jitcall.o
+r - src/jitcommon.o
+r - src/jitinline.o
+r - src/jitprep.o
+r - src/jitstack.o
+r - src/jitstate.o
+r - src/letrec_check.o
+r - src/list.o
+r - src/marshal.o
+r - src/module.o
+r - src/mzrt.o
+r - src/network.o
+r - src/numarith.o
+r - src/number.o
+r - src/numcomp.o
+r - src/numstr.o
+r - src/optimize.o
+r - src/place.o
+r - src/port.o
+r - src/portfun.o
+r - src/print.o
+r - src/rational.o
+r - src/read.o
+r - src/regexp.o
+r - src/resolve.o
+r - src/salloc.o
+r - src/sema.o
+r - src/setjmpup.o
+r - src/sfs.o
+r - src/string.o
+r - src/struct.o
+r - src/symbol.o
+r - src/syntax.o
+r - src/thread.o
+r - src/type.o
+r - src/validate.o
+r - src/vector.o
+r - ../foreign/foreign.o
+ranlib libracket.a
+make racketcgc
+mkdir -p  Racket.framework/Versions/6.2.900.17
+ranlib: file: libracket.a(unwind.o) has no symbols
+ranlib: file: libracket.a(unwind.o) has no symbols
+gcc -o Racket.framework/Versions/6.2.900.17/Racket  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -framework CoreFoundation -dynamiclib -all_load  libracket.a libmzgc.a -ldl -lm  -liconv 
+rm -f Racket.framework/Racket
+ln -s Versions/6.2.900.17/Racket Racket.framework/Racket
+gcc -I. -I../../racket/include -Wall   -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC  -DINITIAL_COLLECTS_DIRECTORY='"'"`cd ../../racket/../../collects; pwd`"'"' -DINITIAL_CONFIG_DIRECTORY='"'"`cd ../../racket/../..; pwd`/etc"'"' -c ../../racket/main.c -o main.o
+gcc -o racketcgc   -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 main.o -Wl,-headerpad_max_install_names -F. -framework Racket -ldl -lm  -liconv 
+/usr/bin/install_name_tool -change "Racket.framework/Versions/6.2.900.17/Racket" "@executable_path/Racket.framework/Versions/6.2.900.17/Racket" "racketcgc"
+make mzcomcgc
+In file included from ../../racket/main.c:185:
+../../racket/cmdline.inc:5: warning: ignoring #pragma GCC diagnostic
+:
+make sysinfercgc
+./racketcgc -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    ../../racket/src/systype.c" "" "./racketcgc" "./racketcgc"
+cd gc2; make all
+make check-sdep
+../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/check-sdep.rkt
+changed-dependency: ../../../racket/gc2/../src/bignum.c
+ removing xsrc/bignum.c
+changed-dependency: ../../../racket/gc2/../src/bool.c
+ removing xsrc/bool.c
+changed-dependency: ../../../racket/gc2/../src/builtin.c
+ removing xsrc/builtin.c
+changed-dependency: ../../../racket/gc2/../src/char.c
+ removing xsrc/char.c
+changed-dependency: ../../../racket/gc2/../src/compenv.c
+ removing xsrc/compenv.c
+changed-dependency: ../../../racket/gc2/../src/compile.c
+ removing xsrc/compile.c
+changed-dependency: ../../../racket/gc2/../src/complex.c
+ removing xsrc/complex.c
+changed-dependency: ../../../racket/gc2/../src/dynext.c
+ removing xsrc/dynext.c
+changed-dependency: ../../../racket/gc2/../src/env.c
+ removing xsrc/env.c
+changed-dependency: ../../../racket/gc2/../src/error.c
+ removing xsrc/error.c
+changed-dependency: ../../../racket/gc2/../src/eval.c
+ removing xsrc/eval.c
+changed-dependency: ../../../racket/gc2/../src/file.c
+ removing xsrc/file.c
+changed-dependency: ../../../racket/gc2/../include/scheme.h
+ removing xsrc/foreign.c
+changed-dependency: ../../../racket/gc2/../src/fun.c
+ removing xsrc/fun.c
+changed-dependency: ../../../racket/gc2/../src/future.c
+ removing xsrc/future.c
+changed-dependency: ../../../racket/gc2/../src/hash.c
+ removing xsrc/hash.c
+changed-dependency: ../../../racket/gc2/../src/jit.c
+ removing xsrc/jit.c
+changed-dependency: ../../../racket/gc2/../src/jitalloc.c
+ removing xsrc/jitalloc.c
+changed-dependency: ../../../racket/gc2/../src/jitarith.c
+ removing xsrc/jitarith.c
+changed-dependency: ../../../racket/gc2/../src/jitcall.c
+ removing xsrc/jitcall.c
+changed-dependency: ../../../racket/gc2/../src/jitcommon.c
+ removing xsrc/jitcommon.c
+changed-dependency: ../../../racket/gc2/../src/jitinline.c
+ removing xsrc/jitinline.c
+changed-dependency: ../../../racket/gc2/../src/jitprep.c
+ removing xsrc/jitprep.c
+changed-dependency: ../../../racket/gc2/../src/jitstack.c
+ removing xsrc/jitstack.c
+changed-dependency: ../../../racket/gc2/../src/jitstate.c
+ removing xsrc/jitstate.c
+changed-dependency: ../../../racket/gc2/../src/letrec_check.c
+ removing xsrc/letrec_check.c
+changed-dependency: ../../../racket/gc2/../src/list.c
+ removing xsrc/list.c
+changed-dependency: ../../../racket/gc2/../main.c
+ removing xsrc/main.c
+changed-dependency: ../../../racket/gc2/../src/marshal.c
+ removing xsrc/marshal.c
+changed-dependency: ../../../racket/gc2/../src/module.c
+ removing xsrc/module.c
+changed-dependency: ../../../racket/gc2/../src/network.c
+ removing xsrc/network.c
+changed-dependency: ../../../racket/gc2/../src/numarith.c
+ removing xsrc/numarith.c
+changed-dependency: ../../../racket/gc2/../src/number.c
+ removing xsrc/number.c
+changed-dependency: ../../../racket/gc2/../src/numcomp.c
+ removing xsrc/numcomp.c
+changed-dependency: ../../../racket/gc2/../src/numstr.c
+ removing xsrc/numstr.c
+changed-dependency: ../../../racket/gc2/../src/optimize.c
+ removing xsrc/optimize.c
+changed-dependency: ../../../racket/gc2/../src/place.c
+ removing xsrc/place.c
+changed-dependency: ../../../racket/gc2/../src/port.c
+ removing xsrc/port.c
+changed-dependency: ../../../racket/gc2/../src/portfun.c
+ removing xsrc/portfun.c
+changed-dependency: ../../../racket/gc2/../include/scheme.h
+ removing xsrc/precomp.h
+changed-dependency: ../../../racket/gc2/../src/print.c
+ removing xsrc/print.c
+changed-dependency: ../../../racket/gc2/../src/rational.c
+ removing xsrc/rational.c
+changed-dependency: ../../../racket/gc2/../src/read.c
+ removing xsrc/read.c
+changed-dependency: ../../../racket/gc2/../src/regexp.c
+ removing xsrc/regexp.c
+changed-dependency: ../../../racket/gc2/../src/resolve.c
+ removing xsrc/resolve.c
+changed-dependency: ../../../racket/gc2/../src/salloc.c
+ removing xsrc/salloc.c
+changed-dependency: ../../../racket/gc2/../src/sema.c
+ removing xsrc/sema.c
+changed-dependency: ../../../racket/gc2/../src/setjmpup.c
+ removing xsrc/setjmpup.c
+changed-dependency: ../../../racket/gc2/../src/sfs.c
+ removing xsrc/sfs.c
+changed-dependency: ../../../racket/gc2/../include/scheme.h
+ removing xsrc/string.c
+changed-dependency: ../../../racket/gc2/../src/struct.c
+ removing xsrc/struct.c
+changed-dependency: ../../../racket/gc2/../src/symbol.c
+ removing xsrc/symbol.c
+changed-dependency: ../../../racket/gc2/../src/syntax.c
+ removing xsrc/syntax.c
+changed-dependency: ../../../racket/gc2/../src/thread.c
+ removing xsrc/thread.c
+changed-dependency: ../../../racket/gc2/../src/type.c
+ removing xsrc/type.c
+changed-dependency: ../../../racket/gc2/../src/validate.c
+ removing xsrc/validate.c
+changed-dependency: ../../../racket/gc2/../src/vector.c
+ removing xsrc/vector.c
+make xsrc/precomp.h
+env XFORM_PRECOMP=yes ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/precomp.h ../../../racket/gc2/precomp.c
+make xobjects
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/salloc.c ../../../racket/gc2/../src/salloc.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/salloc.c -o salloc.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/bignum.c ../../../racket/gc2/../src/bignum.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/bignum.c -o bignum.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/bool.c ../../../racket/gc2/../src/bool.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/bool.c -o bool.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/builtin.c ../../../racket/gc2/../src/builtin.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/builtin.c -o builtin.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/char.c ../../../racket/gc2/../src/char.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/char.c -o char.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/compenv.c ../../../racket/gc2/../src/compenv.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/compenv.c -o compenv.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/compile.c ../../../racket/gc2/../src/compile.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/compile.c -o compile.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/complex.c ../../../racket/gc2/../src/complex.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/complex.c -o complex.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/dynext.c ../../../racket/gc2/../src/dynext.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/dynext.c -o dynext.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/env.c ../../../racket/gc2/../src/env.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/env.c -o env.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/error.c ../../../racket/gc2/../src/error.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/error.c -o error.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/eval.c ../../../racket/gc2/../src/eval.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/eval.c -o eval.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/file.c ../../../racket/gc2/../src/file.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/file.c -o file.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/fun.c ../../../racket/gc2/../src/fun.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/fun.c -o fun.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/future.c ../../../racket/gc2/../src/future.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/future.c -o future.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/hash.c ../../../racket/gc2/../src/hash.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/hash.c -o hash.o
+../../../racket/gc2/../src/hash.c: In function 'do_hash':
+../../../racket/gc2/../src/hash.c:208: warning: 'h2' may be used uninitialized in this function
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/jit.c ../../../racket/gc2/../src/jit.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/jit.c -o jit.o
+xsrc/jit.c:3: warning: ignoring #pragma GCC diagnostic
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/jitalloc.c ../../../racket/gc2/../src/jitalloc.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/jitalloc.c -o jitalloc.o
+xsrc/jitalloc.c:3: warning: ignoring #pragma GCC diagnostic
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/jitarith.c ../../../racket/gc2/../src/jitarith.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/jitarith.c -o jitarith.o
+xsrc/jitarith.c:3: warning: ignoring #pragma GCC diagnostic
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/jitcall.c ../../../racket/gc2/../src/jitcall.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/jitcall.c -o jitcall.o
+xsrc/jitcall.c:3: warning: ignoring #pragma GCC diagnostic
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/jitcommon.c ../../../racket/gc2/../src/jitcommon.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/jitcommon.c -o jitcommon.o
+../../../racket/gc2/../src/future.h:289: warning: ignoring #pragma GCC diagnostic
+../../../racket/gc2/../src/jitcommon.c: In function 'common3':
+../../../racket/gc2/../src/jitcommon.c:1360: warning: statement with no effect
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/jitinline.c ../../../racket/gc2/../src/jitinline.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/jitinline.c -o jitinline.o
+../../../racket/gc2/../src/future.h:283: warning: ignoring #pragma GCC diagnostic
+../../../racket/gc2/../src/jitinline.c: In function 'scheme_generate_inlined_binary':
+../../../racket/gc2/../src/jitinline.c:2894: warning: value computed is not used
+../../../racket/gc2/../src/jitinline.c:2900: warning: value computed is not used
+../../../racket/gc2/../src/jitinline.c: In function 'scheme_generate_inlined_nary':
+../../../racket/gc2/../src/jitinline.c:4805: warning: statement with no effect
+../../../racket/gc2/../src/jitinline.c:4813: warning: statement with no effect
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/jitprep.c ../../../racket/gc2/../src/jitprep.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/jitprep.c -o jitprep.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/jitstack.c ../../../racket/gc2/../src/jitstack.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/jitstack.c -o jitstack.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/jitstate.c ../../../racket/gc2/../src/jitstate.c
+xsrc/jitstack.c:3: warning: ignoring #pragma GCC diagnostic
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/jitstate.c -o jitstate.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/letrec_check.c ../../../racket/gc2/../src/letrec_check.c
+xsrc/jitstate.c:3: warning: ignoring #pragma GCC diagnostic
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/letrec_check.c -o letrec_check.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/list.c ../../../racket/gc2/../src/list.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/list.c -o list.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/marshal.c ../../../racket/gc2/../src/marshal.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/marshal.c -o marshal.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/module.c ../../../racket/gc2/../src/module.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/module.c -o module.o
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -DMZ_PRECISE_GC -c ../../../racket/gc2/../src/mzrt.c -o mzrt.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/network.c ../../../racket/gc2/../src/network.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/network.c -o network.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/numarith.c ../../../racket/gc2/../src/numarith.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/numarith.c -o numarith.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/number.c ../../../racket/gc2/../src/number.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/number.c -o number.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/numcomp.c ../../../racket/gc2/../src/numcomp.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/numcomp.c -o numcomp.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/numstr.c ../../../racket/gc2/../src/numstr.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/numstr.c -o numstr.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/optimize.c ../../../racket/gc2/../src/optimize.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/optimize.c -o optimize.o
+../../../racket/gc2/../src/optimize.c: In function 'begin0_optimize':
+../../../racket/gc2/../src/optimize.c:5007: warning: 'prev_size' may be used uninitialized in this function
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/place.c ../../../racket/gc2/../src/place.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/place.c -o place.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/port.c ../../../racket/gc2/../src/port.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/port.c -o port.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/portfun.c ../../../racket/gc2/../src/portfun.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/portfun.c -o portfun.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/print.c ../../../racket/gc2/../src/print.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/print.c -o print.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/rational.c ../../../racket/gc2/../src/rational.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/rational.c -o rational.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/read.c ../../../racket/gc2/../src/read.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/read.c -o read.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/regexp.c ../../../racket/gc2/../src/regexp.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/regexp.c -o regexp.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/resolve.c ../../../racket/gc2/../src/resolve.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/resolve.c -o resolve.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/sema.c ../../../racket/gc2/../src/sema.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/sema.c -o sema.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/setjmpup.c ../../../racket/gc2/../src/setjmpup.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/setjmpup.c -o setjmpup.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/sfs.c ../../../racket/gc2/../src/sfs.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/sfs.c -o sfs.o
+../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I../src -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/string.c ../../../racket/gc2/../src/string.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/string.c -o string.o
+../../../racket/gc2/../src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:585: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:586: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:586: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:586: warning: integer constant is too large for 'long' type
+../../../racket/gc2/../src/schustr.inc:586: warning: integer constant is too large for 'long' type
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/struct.c ../../../racket/gc2/../src/struct.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/struct.c -o struct.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/symbol.c ../../../racket/gc2/../src/symbol.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/symbol.c -o symbol.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/syntax.c ../../../racket/gc2/../src/syntax.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/syntax.c -o syntax.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/thread.c ../../../racket/gc2/../src/thread.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/thread.c -o thread.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/type.c ../../../racket/gc2/../src/type.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/type.c -o type.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/validate.c ../../../racket/gc2/../src/validate.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/validate.c -o validate.o
+env XFORM_USE_PRECOMP=xsrc/precomp.h ../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/vector.c ../../../racket/gc2/../src/vector.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/vector.c -o vector.o
+../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -I../../foreign/libffi/include -I../../../racket/gc2/../src/../../racket/src"  --keep-lines -o xsrc/foreign.c ../../../racket/gc2/../src/../../foreign/foreign.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/foreign.c -o foreign.o
+../racketcgc -G /Users/mflatt/build/plt/build/config -cqu ../../../racket/gc2/xform.rkt --setup . --depends --cpp "gcc -E -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC   "  --keep-lines -o xsrc/main.c +D INITIAL_COLLECTS_DIRECTORY='"'"`cd ../../../racket/gc2/../../../collects; pwd`"'"' +D INITIAL_CONFIG_DIRECTORY='"'"`cd ../../../racket/gc2/../../..; pwd`/etc"'"' ../../../racket/gc2/../main.c
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -c xsrc/main.c -o main.o
+../../../racket/gc2/../main.c:134: warning: ignoring #pragma GCC diagnostic
+make ../racket3m
+gcc -Wall  -I./.. -I../../../racket/gc2/../include -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    -I./.. -c ../../../racket/gc2/gc2.c -o gc2.o
+../../../racket/gc2/../../utils/nicear ar ruv ../libracket3m.a salloc.o bignum.o bool.o builtin.o char.o compenv.o compile.o complex.o dynext.o env.o error.o eval.o file.o fun.o future.o hash.o jit.o jitalloc.o jitarith.o jitcall.o jitcommon.o jitinline.o jitprep.o jitstack.o jitstate.o letrec_check.o list.o marshal.o module.o mzrt.o network.o numarith.o number.o numcomp.o numstr.o optimize.o place.o port.o portfun.o print.o rational.o read.o regexp.o resolve.o sema.o setjmpup.o sfs.o string.o struct.o symbol.o syntax.o thread.o type.o validate.o vector.o foreign.o ../src/gmp.o  ../src/unwind.o ../../foreign/libffi/src/*.o ../../foreign/libffi/src/*/*.o gc2.o
+ranlib: file: ../libracket3m.a(unwind.o) has no symbols
+r - salloc.o
+r - bignum.o
+r - bool.o
+r - builtin.o
+r - char.o
+r - compenv.o
+r - compile.o
+r - complex.o
+r - dynext.o
+r - env.o
+r - error.o
+r - eval.o
+r - file.o
+r - fun.o
+r - future.o
+r - hash.o
+r - jit.o
+r - jitalloc.o
+r - jitarith.o
+r - jitcall.o
+r - jitcommon.o
+r - jitinline.o
+r - jitprep.o
+r - jitstack.o
+r - jitstate.o
+r - letrec_check.o
+r - list.o
+r - marshal.o
+r - module.o
+r - mzrt.o
+r - network.o
+r - numarith.o
+r - number.o
+r - numcomp.o
+r - numstr.o
+r - optimize.o
+r - place.o
+r - port.o
+r - portfun.o
+r - print.o
+r - rational.o
+r - read.o
+r - regexp.o
+r - resolve.o
+r - sema.o
+r - setjmpup.o
+r - sfs.o
+r - string.o
+r - struct.o
+r - symbol.o
+r - syntax.o
+r - thread.o
+r - type.o
+r - validate.o
+r - vector.o
+r - foreign.o
+r - gc2.o
+ranlib ../libracket3m.a
+ranlib: file: ../libracket3m.a(unwind.o) has no symbols
+mkdir -p "Racket.framework/Versions/6.2.900.17_3m"
+gcc -o Racket.framework/Versions/6.2.900.17_3m/Racket -framework CoreFoundation -dynamiclib -all_load ../libracket3m.a  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -ldl -lm  -liconv 
+rm -f Racket.framework/Racket
+ln -s Versions/6.2.900.17_3m/Racket Racket.framework/Racket	
+gcc -o ../racket3m   -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 main.o -Wl,-headerpad_max_install_names -F. -framework Racket
+mkdir -p "../Racket.framework/Versions/6.2.900.17_3m"
+cp "Racket.framework/Versions/6.2.900.17_3m/Racket" "../Racket.framework/Versions/6.2.900.17_3m/Racket"
+/usr/bin/install_name_tool -change "Racket.framework/Versions/6.2.900.17_3m/Racket" "@executable_path/Racket.framework/Versions/6.2.900.17_3m/Racket" "../racket3m"
+cd dynsrc; make dynlib3m
+make ../mzdyn3m.o
+gcc  -Wall -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT -I./.. -I../../../racket/dynsrc/../include -I../../../racket/dynsrc/../src  -DMZ_PRECISE_GC -c ../../../racket/dynsrc/mzdyn.c -o ../mzdyn3m.o
+cd gc2; make ../racket3m
+make[5]: `../racket3m' is up to date.
+cd gc2; make ../mzcom3m
+make[5]: `../mzcom3m' is up to date.
+make sysinfer3m
+./racket3m -cqu ../../racket/mksystem.rkt system.rktd "gcc -E -I. -I../../racket/include -I../../racket/src -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -fno-common -DUSE_SENORA_GC    ../../racket/src/systype.c" "" "./racket3m" "./racket3m"
+make gracket-3m
+cd gracket; make 3m
+make resources
+:
+cd gc2; make 3m
+make ../gracket3m
+make ../GRacket3m.app/Contents/MacOS/GRacket3m
+../../racket/racket3m -G /Users/mflatt/build/plt/build/config -cqu ../../../gracket/gc2/../../racket/gc2/xform.rkt --setup ../../racket/gc2 --cpp "gcc -E -I../../../gracket/gc2/../../racket/gc2 -I./../../racket/ -I../../../gracket/gc2/../../racket/include/ -fno-common -DUSE_SENORA_GC   -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT -Dwx_mac -DOS_X -MMD -DWX_CARBON"  --keep-lines -o xsrc/grmain.c +D INITIAL_COLLECTS_DIRECTORY='"'"`cd ../../../gracket/gc2/../../../collects; pwd`"'"' +D INITIAL_CONFIG_DIRECTORY='"'"`cd ../../../gracket/gc2/../../..; pwd`/etc"'"' ../../../gracket/gc2/../grmain.c
+gcc -I../../../gracket/gc2/../../racket/sgc -I./../../racket/ -I../../../gracket/gc2/../../racket/include/ -fno-common -DUSE_SENORA_GC   -Dwx_mac  -Wall  -Wall   -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT  -DGC2_JUST_MACROS -include ../../../gracket/gc2/../../racket/gc2/gc2.h -c -fno-common -DUSE_SENORA_GC   -o grmain.o xsrc/grmain.c
+../../../gracket/gc2/../../racket/main.c:134: warning: ignoring #pragma GCC diagnostic
+gcc -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -o ../GRacket3m.app/Contents/MacOS/GRacket3m grmain.o -Wl,-headerpad_max_install_names -F../../racket/gc2 -framework Racket -framework CoreFoundation
+/usr/bin/install_name_tool -change "Racket.framework/Versions/6.2.900.17_3m/Racket" "@executable_path/../../../../racket/Racket.framework/Versions/6.2.900.17_3m/Racket" "../GRacket3m.app/Contents/MacOS/GRacket3m"
+cd racket/src/build; make install SELF_RACKET_FLAGS="-G `cd ../../../build/config; pwd`" PLT_SETUP_OPTIONS="-j 1 "
+make install-3m
+make install-3m-common
+make install-common-first
+if [ "" != "" ]; then \
+          if [[ "" != /* ]]; then \
+            echo "expected an absolute path for DESTDIR; given: "; exit 1; \
+          fi; \
+        fi
+mkdir -p "/Users/mflatt/build/plt/racket/bin" "/Users/mflatt/build/plt/racket/collects" "/Users/mflatt/build/plt/racket/doc" "/Users/mflatt/build/plt/racket/lib" "/Users/mflatt/build/plt/racket/include" "/Users/mflatt/build/plt/racket/lib" "/Users/mflatt/build/plt/racket/share" "/Users/mflatt/build/plt/racket/etc" "/Users/mflatt/build/plt/racket/share/applications" "/Users/mflatt/build/plt/racket/man"
+cd racket; make install-3m
+make headers
+./racketcgc -cqu ../../racket/mkincludes.rkt "/Users/mflatt/build/plt/racket/include" "../../racket" .
+Making /Users/mflatt/build/plt/racket/include
+Done.
+cd ..; cp racket/system.rktd "/Users/mflatt/build/plt/racket/lib/system.rktd"
+make osx-install
+make unix-install
+cd ..; rm -f "/Users/mflatt/build/plt/racket/bin/racketcgc"
+cd ..; rm -f "/Users/mflatt/build/plt/racket/bin/racket"
+cd ..; cp racket/starter "/Users/mflatt/build/plt/racket/lib/starter"
+cp ../../racket/dynsrc/starter-sh .
+cd ..; cp racket/starter-sh "/Users/mflatt/build/plt/racket/lib/starter-sh"
+cd ..; strip "/Users/mflatt/build/plt/racket/lib/starter"
+./racketcgc -cu "../../racket/collects-path.rkt" "/Users/mflatt/build/plt/racket/lib/starter" ../collects ../etc
+cd ..; echo 'CC=gcc' > "/Users/mflatt/build/plt/racket/lib/buildinfo"
+cd ..; echo 'CFLAGS=-Wall   -g -O2  -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5 -DOS_X -D_DARWIN_UNLIMITED_SELECT' >> "/Users/mflatt/build/plt/racket/lib/buildinfo"
+cd ..; echo 'OPTIONS= -fno-common -DUSE_SENORA_GC' >> "/Users/mflatt/build/plt/racket/lib/buildinfo"
+cd ..; echo 'MZOPTIONS=' >> "/Users/mflatt/build/plt/racket/lib/buildinfo"
+cd ..; echo "LDFLAGS= -isysroot /Developer/SDKs/MacOSX10.5.sdk -mmacosx-version-min=10.5" >> "/Users/mflatt/build/plt/racket/lib/buildinfo"
+cd ..; echo 'LIBS=-ldl -lm  -liconv ' >> "/Users/mflatt/build/plt/racket/lib/buildinfo"
+rm -f /Users/mflatt/build/plt/racket/lib/Racket.framework/Racket
+rm -rf /Users/mflatt/build/plt/racket/lib/Racket.framework/Versions/6.2.900.17
+rm -rf /Users/mflatt/build/plt/racket/lib/Racket.framework/Versions/6.2.900.17_3m
+if [ yes = yes ] ; then rm -rf /Users/mflatt/build/plt/racket/lib/Racket.framework ; fi
+mkdir -p /Users/mflatt/build/plt/racket/lib
+make osx-install-3m
+make unix-install-3m
+cd ..; cp racket/racket3m "/Users/mflatt/build/plt/racket/bin/racket"
+cd ..; strip "/Users/mflatt/build/plt/racket/bin/racket"
+make unix-no-install-libs-3m
+:
+cd ..; cp racket/mzdyn3m.o "/Users/mflatt/build/plt/racket/lib/mzdyn3m.o"
+./racket3m -cu "../../racket/collects-path.rkt" "/Users/mflatt/build/plt/racket/bin/racket" ../collects ../etc
+mkdir -p "/Users/mflatt/build/plt/racket/lib/Racket.framework/Versions/6.2.900.17_3m"
+cp Racket.framework/Versions/6.2.900.17_3m/Racket /Users/mflatt/build/plt/racket/lib/Racket.framework/Versions/6.2.900.17_3m/
+/usr/bin/install_name_tool -change "@executable_path/Racket.framework/Versions/6.2.900.17_3m/Racket" ""@executable_path/../lib/"Racket.framework/Versions/6.2.900.17_3m/Racket" "/Users/mflatt/build/plt/racket/bin/racket"
+strip "/Users/mflatt/build/plt/racket/bin/racket"
+make osx-install-3m-final
+make unix-install-3m-final
+:
+ln -s Versions/6.2.900.17_3m/Racket /Users/mflatt/build/plt/racket/lib/Racket.framework/
+make install-gracket-3m
+cd gracket; make install-3m
+make install-wx_mac
+make install-common
+:
+cd ..; rm -rf "/Users/mflatt/build/plt/racket/lib/GRacketCGC.app"
+cd ..; rm -rf "/Users/mflatt/build/plt/racket/lib/GRacket.app"
+make install-wx_mac-3m
+cd ..; cp -r "gracket/GRacket3m.app" "/Users/mflatt/build/plt/racket/lib/GRacket.app"
+../racket/racket3m -G /Users/mflatt/build/plt/build/config -cqu "../../gracket/../mac/rename-app.rkt" "/Users/mflatt/build/plt/racket/lib/GRacket.app" "GRacket3m" "GRacket"
+/usr/bin/install_name_tool -change "@executable_path/../../../../racket/Racket.framework/Versions/6.2.900.17_3m/Racket" ""@executable_path/../../../"Racket.framework/Versions/6.2.900.17_3m/Racket" "/Users/mflatt/build/plt/racket/lib/GRacket.app/Contents/MacOS/GRacket"
+../racket/racket3m -G /Users/mflatt/build/plt/build/config -cu "../../gracket/../racket/collects-path.rkt" "/Users/mflatt/build/plt/racket/lib/GRacket.app/Contents/MacOS/GRacket" "../../../../collects" ../../../../etc
+strip "/Users/mflatt/build/plt/racket/lib/GRacket.app/Contents/MacOS/GRacket"
+make install-wx_mac-3m-final
+:
+make install-common-middle
+make no-run
+:
+make install-gracket-post-collects
+cd gracket; make install-post-collects
+make install-wx_mac-post-collects
+cd ..; rm -rf /Users/mflatt/build/plt/racket/lib/Starter.app
+cd ..; cp -r gracket/Starter.app /Users/mflatt/build/plt/racket/lib/.
+make lib-finish
+if [ "" = "" ]; then \
+	  echo "/Users/mflatt/build/plt/racket/lib"; \
+	fi
+/Users/mflatt/build/plt/racket/lib
+racket/racket3m -X "/Users/mflatt/build/plt/racket/collects" -G "/Users/mflatt/build/plt/racket/etc" -G /Users/mflatt/build/plt/build/config  --no-user-path -N "raco" -l- setup --no-user -j 1  
+raco setup: bootstrapping from source...
+raco setup: version: 6.2.900.17
+raco setup: platform: ppc-macosx [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /Users/mflatt/build/plt/racket/collects
+raco setup: collects paths: 
+raco setup:   /Users/mflatt/build/plt/racket/collects
+raco setup: main pkgs: /Users/mflatt/build/plt/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /Users/mflatt/build/plt/racket/share/pkgs
+raco setup:   /Users/mflatt/Library/Racket/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup: main docs: /Users/mflatt/build/plt/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <collects>/acks
+raco setup:  in <collects>/acks
+raco setup: making: <collects>/compiler
+raco setup:  in <collects>/compiler
+raco setup:  in <collects>/dynext
+raco setup: making: <collects>/compiler/private
+raco setup:  in <collects>/compiler/private
+raco setup: making: <collects>/data
+raco setup:  in <collects>/data
+raco setup: making: <collects>/data/private
+raco setup: making: <collects>/db
+raco setup: making: <collects>/db/private
+raco setup: making: <collects>/db/private/generic
+raco setup: making: <collects>/db/private/sqlite3
+raco setup: making: <collects>/dynext
+raco setup: making: <collects>/ffi
+raco setup:  in <collects>/ffi/unsafe/private
+raco setup:  in <collects>/ffi
+raco setup:  in <collects>/ffi/unsafe
+raco setup:  in <collects>/racket
+raco setup: making: <collects>/ffi/unsafe
+raco setup:  in <collects>/ffi/unsafe
+raco setup: making: <collects>/ffi/unsafe/private
+raco setup: making: <collects>/file
+raco setup:  in <collects>/file
+raco setup: making: <collects>/file/private
+raco setup: making: <collects>/info
+raco setup: making: <collects>/info-domain
+raco setup: making: <collects>/json
+raco setup: making: <collects>/launcher
+raco setup:  in <collects>/launcher
+raco setup: making: <collects>/net
+raco setup: making: <collects>/openssl
+raco setup:  in <collects>/openssl
+raco setup: making: <collects>/openssl/private
+raco setup:  in <collects>/openssl/private
+raco setup: making: <collects>/pkg
+raco setup:  in <collects>/planet/private
+raco setup:  in <collects>/pkg
+raco setup:  in <collects>/setup
+raco setup: making: <collects>/pkg/private
+raco setup: making: <collects>/planet
+raco setup: making: <collects>/planet/private
+raco setup: making: <collects>/racket
+raco setup:  in <collects>/racket
+raco setup:  in <collects>/syntax
+raco setup:  in <collects>/racket/private
+raco setup: making: <collects>/racket/base
+raco setup: making: <collects>/racket/base/lang
+raco setup:  in <collects>/racket/base/lang
+raco setup: making: <collects>/racket/contract
+raco setup: making: <collects>/racket/contract/private
+raco setup:  in <collects>/racket/contract/private
+raco setup: making: <collects>/racket/gui
+raco setup:  in <collects>/racket/gui
+raco setup: making: <collects>/racket/kernel
+raco setup:  in <collects>/racket/kernel
+raco setup: making: <collects>/racket/lang
+raco setup:  in <collects>/racket/lang
+raco setup: making: <collects>/racket/load
+raco setup: making: <collects>/racket/load/lang
+raco setup:  in <collects>/racket/load/lang
+raco setup: making: <collects>/racket/match
+raco setup:  in <collects>/racket/match
+raco setup: making: <collects>/racket/place
+raco setup: making: <collects>/racket/place/private
+raco setup:  in <collects>/racket/place/private
+raco setup: making: <collects>/racket/private
+raco setup: making: <collects>/racket/signature
+raco setup:  in <collects>/racket/signature
+raco setup: making: <collects>/racket/signature/lang
+raco setup:  in <collects>/racket/signature/lang
+raco setup: making: <collects>/racket/unit
+raco setup:  in <collects>/racket/unit
+raco setup: making: <collects>/racket/unit/lang
+raco setup:  in <collects>/racket/unit/lang
+raco setup: making: <collects>/racket/unsafe
+raco setup: making: <collects>/raco
+raco setup:  in <collects>/raco
+raco setup: making: <collects>/reader
+raco setup: making: <collects>/reader/lang
+raco setup:  in <collects>/reader/lang
+raco setup: making: <collects>/realm
+raco setup: making: <collects>/s-exp
+raco setup: making: <collects>/s-exp/lang
+raco setup: making: <collects>/setup
+raco setup:  in <collects>/setup
+raco setup: making: <collects>/setup/commands
+raco setup:  in <collects>/setup/commands
+raco setup: making: <collects>/setup/infotab
+raco setup: making: <collects>/setup/infotab/lang
+raco setup: making: <collects>/setup/private
+raco setup: making: <collects>/syntax
+raco setup:  in <collects>/syntax
+raco setup:  in <collects>/syntax/private
+raco setup: making: <collects>/syntax/parse
+raco setup:  in <collects>/syntax/parse
+raco setup:  in <collects>/syntax/parse/private
+raco setup: making: <collects>/syntax/parse/experimental
+raco setup:  in <collects>/syntax/parse/experimental
+raco setup: making: <collects>/syntax/parse/experimental/private
+raco setup: making: <collects>/syntax/parse/lib
+raco setup: making: <collects>/syntax/parse/private
+raco setup: making: <collects>/syntax/private
+raco setup: making: <collects>/syntax/private/util
+raco setup:  in <collects>/syntax/private/util
+raco setup: making: <collects>/syntax/unsafe
+raco setup:  in <collects>/syntax/unsafe
+raco setup: making: <collects>/unstable
+raco setup: making: <collects>/version
+raco setup:  in <collects>/version
+raco setup: making: <collects>/xml
+raco setup:  in <collects>/xml
+raco setup: making: <collects>/xml/private
+raco setup: --- creating launchers ---
+raco setup: launcher: <console-bin>/raco
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- checking package dependencies ---
+make install-common-last
+make fix-paths
+if [ "" != "" ]; then \
+          if [ "" = "" ]; then \
+            racket/racketcgc -G /Users/mflatt/build/plt/build/config -u \
+              "../../collects/setup/unixstyle-install.rkt" \
+              make-install-destdir-fix "../.." \
+              "/Users/mflatt/build/plt/racket/bin" "/Users/mflatt/build/plt/racket/collects" "/Users/mflatt/build/plt/racket/doc" "/Users/mflatt/build/plt/racket/lib" "/Users/mflatt/build/plt/racket/include" "/Users/mflatt/build/plt/racket/lib" "/Users/mflatt/build/plt/racket/share" "/Users/mflatt/build/plt/racket/etc" "/Users/mflatt/build/plt/racket/share/applications" "/Users/mflatt/build/plt/racket/man" "yes"; \
+          fi \
+        fi
+make preserve-raco-pkg-default-scope
+:
+cp "../COPYING-libscheme.txt" "../COPYING_LESSER.txt" "../COPYING.txt" "/Users/mflatt/build/plt/racket/share"/
+make distro-build-from-server SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {2} Mac OS X | PowerPC" README="http://localhost:9440/README-14441173031444117303681" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -N raco -l- raco pkg install --catalog http://localhost:9440/ --scope user --skip-installed --deps search-auto --pkgs -j 1 distro-build-client
+Resolving "distro-build-client" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/distro-build-client.zip
+00: Resolving "base" via http://localhost:9440/
+01: Resolving "ds-store-lib" via http://localhost:9440/
+Resolving "at-exp-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/base.zip
+Downloading http://localhost:9440/pkgs/ds-store-lib.zip
+Downloading http://localhost:9440/pkgs/at-exp-lib.zip
+Resolving "racket-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/racket-lib.zip
+Resolving "db-ppc-macosx" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/db-ppc-macosx.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of distro-build-client:
+   base
+   ds-store-lib
+   at-exp-lib
+ dependencies of base:
+   racket-lib
+ dependencies of racket-lib:
+   db-ppc-macosx
+raco setup: version: 6.2.900.17
+raco setup: platform: ppc-macosx [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /Users/mflatt/build/plt/racket/collects
+raco setup: collects paths: 
+raco setup:   /Users/mflatt/build/plt/build/user/6.2.900.17/collects
+raco setup:   /Users/mflatt/build/plt/racket/collects
+raco setup: main pkgs: /Users/mflatt/build/plt/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /Users/mflatt/build/plt/racket/share/pkgs
+raco setup:   /Users/mflatt/build/plt/build/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /Users/mflatt/build/plt/racket/share/links.rktd
+raco setup:   /Users/mflatt/build/plt/build/user/6.2.900.17/links.rktd
+raco setup: main docs: /Users/mflatt/build/plt/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /Users/mflatt/build/plt/build/user/6.2.900.17/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: installing: foreign library /Users/mflatt/build/plt/build/user/6.2.900.17/lib/libsqlite3.0.dylib
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/at-exp-lib/at-exp
+raco setup: making: <pkgs>/at-exp-lib/at-exp/lang
+raco setup:  in <pkgs>/at-exp-lib/at-exp/lang
+raco setup: making: <pkgs>/at-exp-lib/scribble
+raco setup: making: <pkgs>/at-exp-lib/scribble/base
+raco setup:  in <pkgs>/at-exp-lib/scribble/base
+raco setup: making: <pkgs>/db-ppc-macosx/db
+raco setup:  in <pkgs>/db-ppc-macosx/db
+raco setup: making: <pkgs>/distro-build-client
+raco setup:  in <pkgs>/distro-build-client
+raco setup: making: <pkgs>/distro-build-client/macosx-installer
+raco setup: making: <pkgs>/distro-build-client/unix-installer
+raco setup: making: <pkgs>/distro-build-client/windows-installer
+raco setup: making: <pkgs>/ds-store-lib
+raco setup:  in <pkgs>/ds-store-lib
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+make bundle-from-server SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {2} Mac OS X | PowerPC" README="http://localhost:9440/README-14441173031444117303681" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+rm -rf bundle
+mkdir -p bundle/racket
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install bundle racket bundle/racket
+Copying bin -> /Users/mflatt/build/plt/bundle/racket/bin
+Copying collects -> /Users/mflatt/build/plt/bundle/racket/collects
+Copying doc -> /Users/mflatt/build/plt/bundle/racket/doc
+Copying lib -> /Users/mflatt/build/plt/bundle/racket/lib
+Copying include -> /Users/mflatt/build/plt/bundle/racket/include
+Copying share/applications -> /Users/mflatt/build/plt/bundle/racket/share/applications
+Copying share -> /Users/mflatt/build/plt/bundle/racket/share
+Copying etc -> /Users/mflatt/build/plt/bundle/racket/etc
+Copying man -> /Users/mflatt/build/plt/bundle/racket/man
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/unpack-collects http://localhost:9440/
+[2015-10-06T02:14:48] The time is now Tuesday, October 6th, 2015 2:14:48am
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://localhost:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 1  racket-lib
+Resolving "racket-lib" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/racket-lib.zip
+Resolving "db-ppc-macosx" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/db-ppc-macosx.zip
+Resolving "base" via http://localhost:9440/
+Downloading http://localhost:9440/pkgs/base.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of racket-lib:
+   db-ppc-macosx
+ dependencies of db-ppc-macosx:
+   base
+raco setup: version: 6.2.900.17
+raco setup: platform: ppc-macosx [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: /Users/mflatt/build/plt/bundle/racket/collects
+raco setup: collects paths: 
+raco setup:   /Users/mflatt/build/plt/bundle/racket/collects
+raco setup: main pkgs: /Users/mflatt/build/plt/bundle/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /Users/mflatt/build/plt/bundle/racket/share/pkgs
+raco setup:   /Users/mflatt/build/plt/bundle/user/6.2.900.17/pkgs
+raco setup: links files: 
+raco setup:   /Users/mflatt/build/plt/bundle/racket/share/links.rktd
+raco setup:   /Users/mflatt/build/plt/bundle/user/6.2.900.17/links.rktd
+raco setup: main docs: /Users/mflatt/build/plt/bundle/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /Users/mflatt/build/plt/bundle/racket/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: installing: foreign library <lib>/libsqlite3.0.dylib
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <collects>/db
+raco setup: making: <collects>/db/private
+raco setup: making: <collects>/db/private/generic
+raco setup: making: <collects>/db/private/sqlite3
+raco setup: making: <pkgs>/db-ppc-macosx/db
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+racket/bin/racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://localhost:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 1  
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install post-adjust "" "" racket bundle/racket
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l distro-build/set-config bundle/racket/etc/config.rktd "snapshot" "20151006-f86c5df" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""
+make installer-from-bundle SERVER=localhost SERVER_PORT=9440 SERVER_HOSTS="localhost" PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE= SOURCE_MODE= VERSIONLESS_MODE= MAC_PKG_MODE= PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://localhost:9440/upload/" DIST_DESC="{2} Minimal Racket | {2} Mac OS X | PowerPC" README="http://localhost:9440/README-14441173031444117303681" SIGN_IDENTITY="" JOB_OPTIONS="-j 1" SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+racket/bin/racket -G build/user/config -X racket/collects -A build/user -l- distro-build/installer --readme "http://localhost:9440/README-14441173031444117303681" --upload "http://localhost:9440/upload/" --desc "{2} Minimal Racket | {2} Mac OS X | PowerPC"     "Racket" min-racket racket "" ""
+[2015-10-06T02:15:43] The time is now Tuesday, October 6th, 2015 2:15:43am
+Downloading http://localhost:9440/README-14441173031444117303681
+Copying bundle/racket
+/usr/bin/hdiutil create -format UDRW -ov -mode 755 -volname Racket v6.2.900.17 -srcfolder . /var/tmp/14441193431444119343478.dmg
+created: /var/tmp/14441193431444119343478.dmg
+/usr/bin/hdiutil attach -readwrite -noverify -noautoopen -mountpoint /Volumes/Racket v6.2.900.17 /var/tmp/14441193431444119343478.dmg
+/dev/disk1          	Apple_partition_scheme         	
+/dev/disk1s1        	Apple_partition_map            	
+/dev/disk1s2        	Apple_HFS                      	/Volumes/Racket v6.2.900.17
+/usr/bin/hdiutil detach /Volumes/Racket v6.2.900.17
+"disk1" unmounted.
+"disk1" ejected.
+/usr/bin/hdiutil convert -format UDBZ -imagekey zlib-level=9 -ov /var/tmp/14441193431444119343478.dmg -o bundle/min-racket-6.2.900.17-ppc-macosx.dmg
+Preparing imaging engine…
+Reading Driver Descriptor Map (DDM : 0)…
+   (CRC32 $22B232B3: Driver Descriptor Map (DDM : 0))
+Reading Apple (Apple_partition_map : 1)…
+   (CRC32 $43631799: Apple (Apple_partition_map : 1))
+Reading disk image (Apple_HFS : 2)…
+   (CRC32 $42B82E71: disk image (Apple_HFS : 2))
+Reading  (Apple_Free : 3)…
+   (CRC32 $00000000:  (Apple_Free : 3))
+Adding resources…
+Elapsed Time: 30.582s
+File size: 7323824 bytes, Checksum: CRC32 $AA5A43FC
+Sectors processed: 96682, 74305 compressed
+Speed: 1.2Mbytes/sec
+Savings: 85.2%
+created: /Users/mflatt/build/plt/bundle/min-racket-6.2.900.17-ppc-macosx.dmg
+Upload bundle/min-racket-6.2.900.17-ppc-macosx.dmg to http://localhost:9440/upload/
+[2015-10-06T02:17:28] The time is now Tuesday, October 6th, 2015 2:17:28am

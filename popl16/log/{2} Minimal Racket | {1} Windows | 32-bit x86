@@ -1,0 +1,1828 @@
+Starting VirtualBox machine "win7"
+Waiting for VM "win7" to power on...
+VM "win7" has been successfully started.
+[2015-10-06T02:21:17] The time is now Tuesday, October 6th, 2015 2:21:17am
+/usr/bin/ssh -p 2022 -R 9440:localhost:9440 192.168.56.103 cmd /c echo hello
+Warning: remote port forwarding failed for listen port 9440
+hello
+[2015-10-06T02:21:22] The time is now Tuesday, October 6th, 2015 2:21:22am
+/usr/bin/ssh -p 2022 -R 9440:localhost:9440 192.168.56.103 cmd /c IF NOT EXIST "c:\Users\Dr Racket\build32" git clone "http://192.168.56.1:9440/.git" "c:\Users\Dr Racket\build32"
+Warning: remote port forwarding failed for listen port 9440
+[2015-10-06T02:21:22] The time is now Tuesday, October 6th, 2015 2:21:22am
+/usr/bin/ssh -p 2022 -R 9440:localhost:9440 192.168.56.103 cmd /c cd "c:\Users\Dr Racket\build32" && git pull
+Warning: remote port forwarding failed for listen port 9440
+From http://192.168.56.1:9440/
+   b92eac8..f86c5df  master     -> origin/master
+Updating b92eac8..f86c5df
+Fast-forward
+ README.txt                                         |  2 +-
+ pkgs/at-exp-lib/LICENSE.txt                        |  2 +-
+ pkgs/base/LICENSE.txt                              |  2 +-
+ pkgs/racket-doc/LICENSE.txt                        |  2 +-
+ pkgs/racket-doc/openssl/openssl.scrbl              | 60 ++++++++++++++++++-
+ .../racket-doc/scribblings/reference/numbers.scrbl | 28 ++++++++-
+ pkgs/racket-doc/scribblings/reference/os-lib.scrbl | 18 ++++++
+ pkgs/racket-doc/scribblings/reference/os.scrbl     |  1 +
+ .../scribblings/reference/syntax-model.scrbl       |  7 +++
+ pkgs/racket-doc/syntax/scribblings/define.scrbl    |  4 +-
+ pkgs/racket-doc/syntax/scribblings/name.scrbl      | 12 +++-
+ pkgs/racket-index/LICENSE.txt                      |  2 +-
+ pkgs/racket-index/scribblings/main/license.scrbl   |  2 +-
+ pkgs/racket-lib/LICENSE.txt                        |  2 +-
+ pkgs/racket-test-core/LICENSE.txt                  |  2 +-
+ pkgs/racket-test-core/tests/racket/basic.rktl      |  2 +
+ pkgs/racket-test-core/tests/racket/name.rktl       | 21 ++++++-
+ pkgs/racket-test/LICENSE.txt                       |  2 +-
+ racket/collects/racket/os.rkt                      | 68 ++++++++++++++++++++++
+ racket/collects/racket/private/name.rkt            | 18 ++++--
+ racket/collects/racket/private/string.rkt          |  4 +-
+ racket/collects/racket/private/unix-rand.rkt       | 15 +++++
+ racket/collects/racket/private/windows-rand.rkt    | 22 +++++++
+ racket/collects/racket/random.rkt                  | 14 +++++
+ racket/src/native-libs/install.rkt                 |  2 +-
+ racket/src/racket/dynsrc/mzdyn.c                   |  2 +-
+ racket/src/racket/include/escheme.h                |  2 +-
+ racket/src/racket/include/scheme.h                 |  2 +-
+ racket/src/racket/main.c                           |  2 +-
+ racket/src/racket/sgc/sgc.c                        |  2 +-
+ racket/src/racket/src/bignum.c                     |  2 +-
+ racket/src/racket/src/bool.c                       |  2 +-
+ racket/src/racket/src/builtin.c                    |  2 +-
+ racket/src/racket/src/char.c                       |  2 +-
+ racket/src/racket/src/compenv.c                    |  2 +-
+ racket/src/racket/src/compile.c                    | 41 ++++++++++++-
+ racket/src/racket/src/complex.c                    |  2 +-
+ racket/src/racket/src/dynext.c                     |  2 +-
+ racket/src/racket/src/env.c                        |  2 +-
+ racket/src/racket/src/error.c                      |  2 +-
+ racket/src/racket/src/eval.c                       |  2 +-
+ racket/src/racket/src/file.c                       |  2 +-
+ racket/src/racket/src/fun.c                        |  2 +-
+ racket/src/racket/src/future.c                     |  2 +-
+ racket/src/racket/src/hash.c                       |  2 +-
+ racket/src/racket/src/jit.c                        |  2 +-
+ racket/src/racket/src/jitalloc.c                   |  2 +-
+ racket/src/racket/src/jitarith.c                   |  2 +-
+ racket/src/racket/src/jitcall.c                    |  2 +-
+ racket/src/racket/src/jitcommon.c                  |  2 +-
+ racket/src/racket/src/jitinline.c                  |  2 +-
+ racket/src/racket/src/jitprep.c                    |  2 +-
+ racket/src/racket/src/jitstack.c                   |  2 +-
+ racket/src/racket/src/jitstate.c                   |  2 +-
+ racket/src/racket/src/letrec_check.c               |  2 +-
+ racket/src/racket/src/list.c                       |  2 +-
+ racket/src/racket/src/marshal.c                    |  2 +-
+ racket/src/racket/src/module.c                     |  2 +-
+ racket/src/racket/src/mzrt.c                       |  2 +-
+ racket/src/racket/src/mzsj86.c                     |  2 +-
+ racket/src/racket/src/network.c                    |  2 +-
+ racket/src/racket/src/numarith.c                   |  2 +-
+ racket/src/racket/src/number.c                     |  2 +-
+ racket/src/racket/src/numcomp.c                    |  2 +-
+ racket/src/racket/src/nummacs.h                    |  2 +-
+ racket/src/racket/src/numstr.c                     |  2 +-
+ racket/src/racket/src/optimize.c                   |  2 +-
+ racket/src/racket/src/place.c                      |  2 +-
+ racket/src/racket/src/port.c                       |  2 +-
+ racket/src/racket/src/portfun.c                    |  2 +-
+ racket/src/racket/src/print.c                      |  2 +-
+ racket/src/racket/src/rational.c                   |  2 +-
+ racket/src/racket/src/read.c                       |  2 +-
+ racket/src/racket/src/regexp.c                     |  2 +-
+ racket/src/racket/src/resolve.c                    |  2 +-
+ racket/src/racket/src/salloc.c                     |  2 +-
+ racket/src/racket/src/schemef.h                    |  2 +-
+ racket/src/racket/src/schemex.h                    |  2 +-
+ racket/src/racket/src/schpriv.h                    |  2 +-
+ racket/src/racket/src/sema.c                       |  2 +-
+ racket/src/racket/src/setjmpup.c                   |  2 +-
+ racket/src/racket/src/sfs.c                        |  2 +-
+ racket/src/racket/src/string.c                     |  2 +-
+ racket/src/racket/src/struct.c                     |  2 +-
+ racket/src/racket/src/symbol.c                     |  2 +-
+ racket/src/racket/src/syntax.c                     |  2 +-
+ racket/src/racket/src/thread.c                     |  2 +-
+ racket/src/racket/src/type.c                       |  2 +-
+ racket/src/racket/src/validate.c                   |  2 +-
+ racket/src/racket/src/vector.c                     |  2 +-
+ racket/src/worksp/gracket/gracket.rc               |  2 +-
+ racket/src/worksp/mzcom/mzcom.rc                   |  2 +-
+ racket/src/worksp/racket/racket.rc                 |  2 +-
+ racket/src/worksp/starters/start.rc                |  2 +-
+ 94 files changed, 397 insertions(+), 94 deletions(-)
+ create mode 100644 pkgs/racket-doc/scribblings/reference/os-lib.scrbl
+ create mode 100644 racket/collects/racket/os.rkt
+ create mode 100644 racket/collects/racket/private/unix-rand.rkt
+ create mode 100644 racket/collects/racket/private/windows-rand.rkt
+ create mode 100644 racket/collects/racket/random.rkt
+[2015-10-06T02:21:52] The time is now Tuesday, October 6th, 2015 2:21:52am
+/usr/bin/ssh -p 2022 -R 9440:localhost:9440 192.168.56.103 cmd /c cd "c:\Users\Dr Racket\build32" && racket\src\worksp\msvcprep.bat x86 && nmake win32-client JOB_OPTIONS="-j 2" SERVER=192.168.56.1 SERVER_PORT=9440 PKGS="" DOC_SEARCH="http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" DIST_DESC="{2} Minimal Racket | {1} Windows | 32-bit x86" DIST_NAME="Racket" DIST_BASE=min-racket DIST_DIR=racket DIST_SUFFIX="" DIST_CATALOGS_q="\"http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/\" \"\"" SIGN_IDENTITY="" INSTALL_NAME="snapshot" BUILD_STAMP="20151006-f86c5df" RELEASE_MODE="" SOURCE_MODE="" VERSIONLESS_MODE="" PKG_SOURCE_MODE="" MAC_PKG_MODE="" UPLOAD=http://192.168.56.1:9440/upload/ README=http://192.168.56.1:9440/"README-14441196771444119677664"
+Warning: remote port forwarding failed for listen port 9440
+
+c:\Users\Dr Racket\build32>REM  Find Visual Studio [Express] in one of the usual places. 
+
+c:\Users\Dr Racket\build32>REM  Expects something like "x86", "amd64", or "x86_amd64" as an argument. 
+
+c:\Users\Dr Racket\build32>set VCMODE=x86 
+
+c:\Users\Dr Racket\build32>set VCVARBAT=C:\Program Files\Microsoft Visual Studio 12.0\vc\vcvarsall.bat 
+
+c:\Users\Dr Racket\build32>if not exist "C:\Program Files\Microsoft Visual Studio 12.0\vc\vcvarsall.bat" set VCVARBAT=C:\Program Files (x86)\Microsoft Visual Studio 12.0\vc\vcvarsall.bat 
+
+c:\Users\Dr Racket\build32>if not exist "C:\Program Files (x86)\Microsoft Visual Studio 12.0\vc\vcvarsall.bat" set VCVARBAT=C:\Program Files\Microsoft Visual Studio 11.0\vc\vcvarsall.bat 
+
+c:\Users\Dr Racket\build32>if not exist "C:\Program Files\Microsoft Visual Studio 11.0\vc\vcvarsall.bat" set VCVARBAT=C:\Program Files (x86)\Microsoft Visual Studio 11.0\vc\vcvarsall.bat 
+
+c:\Users\Dr Racket\build32>if not exist "C:\Program Files (x86)\Microsoft Visual Studio 11.0\vc\vcvarsall.bat" set VCVARBAT=C:\Program Files\Microsoft Visual Studio 10.0\vc\vcvarsall.bat 
+
+c:\Users\Dr Racket\build32>if not exist "C:\Program Files\Microsoft Visual Studio 10.0\vc\vcvarsall.bat" set VCVARBAT=C:\Program Files (x86)\Microsoft Visual Studio 10.0\vc\vcvarsall.bat 
+
+c:\Users\Dr Racket\build32>if not exist "C:\Program Files (x86)\Microsoft Visual Studio 10.0\vc\vcvarsall.bat" set VCVARBAT=C:\Program Files\Microsoft Visual Studio 9.0\vc\vcvarsall.bat 
+
+c:\Users\Dr Racket\build32>if not exist "C:\Program Files\Microsoft Visual Studio 9.0\vc\vcvarsall.bat" set VCVARBAT=C:\Program Files (x86)\Microsoft Visual Studio 9.0\vc\vcvarsall.bat 
+
+c:\Users\Dr Racket\build32>"C:\Program Files (x86)\Microsoft Visual Studio 9.0\vc\vcvarsall.bat" x86 
+Setting environment for using Microsoft Visual Studio 2008 x86 tools.
+
+Microsoft (R) Program Maintenance Utility Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	IF EXIST build\user cmd /c del /f /s /q build\user
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\links.rktd
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\libeay32.dll
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\libiconv-2.dll
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\libs.rktd
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\longdouble.dll
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\myssink.dll
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\sqlite3.dll
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\ssleay32.dll
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\pkgs.rktd
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\_LOCKpkgs.rktd
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\LICENSE.txt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\at-exp\lang\language-info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\at-exp\lang\reader.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\at-exp\lang\runtime-config.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\at-exp\lang\compiled\language-info_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\at-exp\lang\compiled\language-info_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\at-exp\lang\compiled\reader_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\at-exp\lang\compiled\reader_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\at-exp\lang\compiled\runtime-config_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\at-exp\lang\compiled\runtime-config_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\scribble\reader.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\scribble\base\reader.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\scribble\base\compiled\reader_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\scribble\base\compiled\reader_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\scribble\compiled\reader_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\at-exp-lib\scribble\compiled\reader_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\base\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\base\LICENSE.txt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\com-win32-i386\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\com-win32-i386\LICENSE.txt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\com-win32-i386\com\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\com-win32-i386\com\compiled\info_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\com-win32-i386\com\compiled\info_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\db-win32-i386\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\db-win32-i386\LICENSE.txt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\db-win32-i386\db\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\db-win32-i386\db\compiled\info_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\db-win32-i386\db\compiled\info_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\display-time.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\installer-dmg.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\installer-exe.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\installer-pkg.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\installer-sh.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\installer-tgz.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\installer.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\LICENSE.txt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\set-config.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\unpack-collects.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\display-time_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\display-time_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\info_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\info_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer-dmg_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer-dmg_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer-exe_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer-exe_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer-pkg_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer-pkg_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer-sh_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer-sh_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer-tgz_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer-tgz_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\installer_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\set-config_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\set-config_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\unpack-collects_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\compiled\unpack-collects_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\macosx-installer\pkg-bg.png
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\macosx-installer\racket-rising.png
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\unix-installer\installer-header
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\windows-installer\header-r.bmp
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\windows-installer\header.bmp
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\windows-installer\installer.ico
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\windows-installer\uninstaller.ico
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\distro-build-client\windows-installer\welcome.bmp
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\ds-store-lib\alias.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\ds-store-lib\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\ds-store-lib\LICENSE.txt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\ds-store-lib\main.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\ds-store-lib\compiled\alias_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\ds-store-lib\compiled\alias_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\ds-store-lib\compiled\info_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\ds-store-lib\compiled\info_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\ds-store-lib\compiled\main_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\ds-store-lib\compiled\main_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\racket-lib\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\racket-lib\LICENSE.txt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\racket-win32-i386-2\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\racket-win32-i386-2\LICENSE.txt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\racket-win32-i386-2\racket\info.rkt
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\racket-win32-i386-2\racket\compiled\info_rkt.dep
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\pkgs\racket-win32-i386-2\racket\compiled\info_rkt.zo
+Deleted file - c:\Users\Dr Racket\build32\build\user\6.2.900.17\share\info-cache.rktd
+Deleted file - c:\Users\Dr Racket\build32\build\user\download-cache\cache.rktd
+Deleted file - c:\Users\Dr Racket\build32\build\user\download-cache\cached14440744571444074457967
+Deleted file - c:\Users\Dr Racket\build32\build\user\download-cache\cached14440744581444074458624
+Deleted file - c:\Users\Dr Racket\build32\build\user\download-cache\cached14440744581444074458670
+Deleted file - c:\Users\Dr Racket\build32\build\user\download-cache\cached14440744591444074459045
+Deleted file - c:\Users\Dr Racket\build32\build\user\download-cache\cached14440744591444074459311
+Deleted file - c:\Users\Dr Racket\build32\build\user\download-cache\cached14440744591444074459827
+Deleted file - c:\Users\Dr Racket\build32\build\user\download-cache\cached14440744631444074463874
+Deleted file - c:\Users\Dr Racket\build32\build\user\download-cache\cached14440744641444074464733
+Deleted file - c:\Users\Dr Racket\build32\build\user\download-cache\_LOCKcache.rktd
+	"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN\nmake.exe" win32-base SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost"  PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df"  RELEASE_MODE= SOURCE_MODE=  VERSIONLESS_MODE= MAC_PKG_MODE=  PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket  DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://192.168.56.1:9440/upload/"  DIST_DESC="{2} Minimal Racket | {1} Windows | 32-bit x86" README="http://192.168.56.1:9440/README-14441196771444119677664" SIGN_IDENTITY="" JOB_OPTIONS="-j 2"  SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+
+Microsoft (R) Program Maintenance Utility Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN\nmake.exe" win32-remove-setup-dlls
+
+Microsoft (R) Program Maintenance Utility Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	IF EXIST racket\lib\longdouble.dll cmd /c del racket\lib\longdouble.dll
+	IF EXIST racket\lib\libiconv-2.dll cmd /c del racket\lib\libiconv-2.dll
+	IF EXIST racket\lib\iconv.dll cmd /c del racket\lib\iconv.dll
+	IF EXIST racket\lib\libeay32.dll cmd /c del racket\lib\libeay32.dll
+	IF EXIST racket\lib\ssleay32.dll cmd /c del racket\lib\ssleay32.dll
+	IF NOT EXIST build\config cmd /c mkdir build\config
+	cmd /c echo #hash((links-search-files . ())) > build\config\config.rktd
+	cmd /c racket\src\worksp\build-at racket\src\worksp ..\..\..\build\config -j 2 
+
+c:\Users\Dr Racket\build32>cd racket\src\worksp 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>set BUILD_CONFIG=..\..\..\build\config 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>set PLT_SETUP_OPTIONS=--no-foreign-libs 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if "-j" == "" goto sudone 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>set PLT_SETUP_OPTIONS=--no-foreign-libs -j 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>shift
+
+c:\Users\Dr Racket\build32\racket\src\worksp>goto suloop 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if "2" == "" goto sudone 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>set PLT_SETUP_OPTIONS=--no-foreign-libs -j 2 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>shift
+
+c:\Users\Dr Racket\build32\racket\src\worksp>goto suloop 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if "" == "" goto sudone 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>build
+
+c:\Users\Dr Racket\build32\racket\src\worksp>setlocal
+
+c:\Users\Dr Racket\build32\racket\src\worksp>cl rbuildmode.c 
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+rbuildmode.c
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:rbuildmode.exe 
+rbuildmode.obj 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>rbuildmode.exe
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if errorlevel 1 (set BUILDMODE=win32 )  else (set BUILDMODE=x64 ) 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>cl checkvs9.c 
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+checkvs9.c
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:checkvs9.exe 
+checkvs9.obj 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>checkvs9.exe
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if errorlevel 1 (set PLTSLNVER=9 ) 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>cl genvsx.c 
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+genvsx.c
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/out:genvsx.exe 
+genvsx.obj 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>genvsx.exe
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if errorlevel 1 (set PLTSLNVER=X ) 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if not exist ..\..\etc mkdir ..\..\etc 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if not exist ..\..\doc mkdir ..\..\doc 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if not exist ..\..\share mkdir ..\..\share 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if not defined BUILD_CONFIG set BUILD_CONFIG=..\..\etc 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>cd racket 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\racket>msbuild racket9.sln /p:Configuration=Release /p:Platform=win32 
+Microsoft (R) Build Engine Version 3.5.30729.5420
+[Microsoft .NET Framework, Version 2.0.50727.5420]
+Copyright (C) Microsoft Corporation 2007. All rights reserved.
+
+Build started 10/6/2015 2:21:55 AM.
+Project "c:\Users\Dr Racket\build32\racket\src\worksp\racket\racket9.sln" on node 0 (default targets).
+  Building solution configuration "Release|win32".
+libmzgc:
+  The project "libmzgc" is not selected for building in solution configuration "Release|Win32".
+..\..\racket\src\thread.c(1869): warning C4113: 'void (__cdecl *)()' differs in parameter lists from 'Scheme_At_Exit_Callback_Proc'
+..\..\racket\src\thread.c(1874): warning C4113: 'void (__cdecl *)()' differs in parameter lists from 'void (__cdecl *)(void)'
+..\..\racket\src\thread.c(4931): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\thread.c(4986): warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+..\..\racket\src\thread.c(8003): warning C4101: 'pwd' : unreferenced local variable
+..\..\racket\src\thread.c(8824): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\thread.c(8848): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\thread.c(8848): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\thread.c(8848): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\thread.c(8848): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\syntax.c(1205): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(1211): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(1792): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(1800): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(2409): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(2415): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(2425): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(2647): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(3140): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(3162): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(3207): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(3450): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(3468): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(3520): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(3547): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(3655): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(4617): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(4788): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(5258): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(5281): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(5360): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(5447): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(5728): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(5732): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(7746): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(7753): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(7955): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(7961): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(7985): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(7992): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(8008): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\syntax.c(8015): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\symbol.c(709): warning C4018: '<' : signed/unsigned mismatch
+..\..\racket\src\resolve.c(2385): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\resolve.c(2385): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\regexp.c(3071): warning C4244: '=' : conversion from 'short' to 'char', possible loss of data
+..\..\racket\src\read.c(4884): warning C4018: '>=' : signed/unsigned mismatch
+c:\users\dr racket\build32\racket\src\racket\src\ratfloat.inc(137): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\port.c(1675): warning C4013: 'GC_set_collect_start_callback' undefined; assuming extern returning int
+..\..\racket\src\port.c(1676): warning C4013: 'GC_set_collect_end_callback' undefined; assuming extern returning int
+..\..\racket\src\optimize.c(4107): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\optimize.c(4112): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\optimize.c(4136): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\optimize.c(4152): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\number.c(414): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(415): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(2380): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(2409): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(2448): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(2450): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(2581): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'intptr_t' to 'float', possible loss of data
+..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'intptr_t' to 'float', possible loss of data
+..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\numarith.c(772): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\numarith.c(857): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\numarith.c(859): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+..\..\racket\src\mzsj86.c(59): warning C4028: formal parameter 1 different from declaration
+..\..\racket\src\mzsj86.c(75): warning C4028: formal parameter 1 different from declaration
+c:\users\dr racket\build32\racket\src\racket\src\../sgc/sgc.h(44): warning C4273: 'GC_malloc' : inconsistent dll linkage
+c:\users\dr racket\build32\racket\src\racket\src\../sgc/sgc.h(45): warning C4273: 'GC_malloc_atomic' : inconsistent dll linkage
+c:\users\dr racket\build32\racket\src\racket\src\../sgc/sgc.h(46): warning C4273: 'GC_malloc_stubborn' : inconsistent dll linkage
+c:\users\dr racket\build32\racket\src\racket\src\../sgc/sgc.h(47): warning C4273: 'GC_malloc_uncollectable' : inconsistent dll linkage
+..\..\racket\src\module.c(4792): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\module.c(4792): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\module.c(6518): warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+..\..\racket\src\module.c(6927): warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+..\..\racket\src\module.c(7519): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\module.c(7519): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\module.c(7837): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\list.c(2744): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\list.c(2773): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+..\..\racket\src\hash.c(1578): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\hash.c(1578): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\hash.c(2086): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\hash.c(2086): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\hash.c(2997): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\hash.c(2997): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+..\..\racket\src\gmp\gmp.c(435): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(655): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(3280): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(3280): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(3449): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(3449): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(3478): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(3478): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(3668): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(3668): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(3697): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4405): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4405): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4463): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4463): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4501): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4510): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4522): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4634): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4642): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4688): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4804): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4815): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4876): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4914): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4933): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(4976): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+..\..\racket\src\gmp\gmp.c(5716): warning C4018: '>' : signed/unsigned mismatch
+..\..\racket\src\fun.c(1284): warning C4113: 'void *(__cdecl *)()' differs in parameter lists from 'void *(__cdecl *)(void)'
+..\..\racket\src\fun.c(9445): warning C4101: 'ft' : unreferenced local variable
+..\..\foreign\foreign.c(362): warning C4101: 'lib2' : unreferenced local variable
+..\..\foreign\foreign.c(3541): warning C4113: 'VoidFun' differs in parameter lists from 'void (__cdecl *)(void)'
+..\..\foreign\foreign.c(3696): warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+..\..\racket\src\eval.c(620): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+..\..\racket\src\env.c(1661): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+c:\users\dr racket\build32\racket\src\racket\src\bgnfloat.inc(38): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+c:\users\dr racket\build32\racket\src\racket\src\bgnfloat.inc(92): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+c:\users\dr racket\build32\racket\src\racket\src\bgnfloat.inc(99): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+c:\users\dr racket\build32\racket\src\racket\src\bgnfloat.inc(104): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+c:\users\dr racket\build32\racket\src\racket\src\bgnfloat.inc(115): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  Deleting file "c:\Users\Dr Racket\build32\racket\src\worksp\racket\..\libracket\libracket.tmp_Release_Win32.vcproj".
+c:\users\dr racket\build32\racket\src\racket\cmdline.inc(5): warning C4068: unknown pragma
+c:\users\dr racket\build32\racket\src\racket\cmdline.inc(289): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
+LINK : warning LNK4068: /MACHINE not specified; defaulting to X86
+  Deleting file "c:\Users\Dr Racket\build32\racket\src\worksp\racket\racket.tmp_Release_Win32.vcproj".
+Done Building Project "c:\Users\Dr Racket\build32\racket\src\worksp\racket\racket9.sln" (default targets).
+
+Build succeeded.
+
+"c:\Users\Dr Racket\build32\racket\src\worksp\racket\racket9.sln" (default target) (1) ->
+(libracket target) -> 
+  ..\..\racket\src\thread.c(1869): warning C4113: 'void (__cdecl *)()' differs in parameter lists from 'Scheme_At_Exit_Callback_Proc'
+  ..\..\racket\src\thread.c(1874): warning C4113: 'void (__cdecl *)()' differs in parameter lists from 'void (__cdecl *)(void)'
+  ..\..\racket\src\thread.c(4931): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\thread.c(4986): warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+  ..\..\racket\src\thread.c(8003): warning C4101: 'pwd' : unreferenced local variable
+  ..\..\racket\src\thread.c(8824): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\thread.c(8848): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\thread.c(8848): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\thread.c(8848): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\thread.c(8848): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\syntax.c(1205): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(1211): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(1792): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(1800): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(2409): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(2415): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(2425): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(2647): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(3140): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(3162): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(3207): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(3450): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(3468): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(3520): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(3547): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(3655): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(4617): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(4788): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(5258): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(5281): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(5360): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(5447): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(5728): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(5732): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(7746): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(7753): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(7955): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(7961): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(7985): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(7992): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(8008): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\syntax.c(8015): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\symbol.c(709): warning C4018: '<' : signed/unsigned mismatch
+  ..\..\racket\src\resolve.c(2385): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\resolve.c(2385): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\regexp.c(3071): warning C4244: '=' : conversion from 'short' to 'char', possible loss of data
+  ..\..\racket\src\read.c(4884): warning C4018: '>=' : signed/unsigned mismatch
+  c:\users\dr racket\build32\racket\src\racket\src\ratfloat.inc(137): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\port.c(1675): warning C4013: 'GC_set_collect_start_callback' undefined; assuming extern returning int
+  ..\..\racket\src\port.c(1676): warning C4013: 'GC_set_collect_end_callback' undefined; assuming extern returning int
+  ..\..\racket\src\optimize.c(4107): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\optimize.c(4112): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\optimize.c(4136): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\optimize.c(4152): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\number.c(414): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(415): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(2380): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(2409): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(2448): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(2450): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(2581): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'intptr_t' to 'float', possible loss of data
+  ..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'intptr_t' to 'float', possible loss of data
+  ..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\number.c(3499): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\numarith.c(772): warning C4244: 'function' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\numarith.c(857): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\numarith.c(859): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  ..\..\racket\src\mzsj86.c(59): warning C4028: formal parameter 1 different from declaration
+  ..\..\racket\src\mzsj86.c(75): warning C4028: formal parameter 1 different from declaration
+  c:\users\dr racket\build32\racket\src\racket\src\../sgc/sgc.h(44): warning C4273: 'GC_malloc' : inconsistent dll linkage
+  c:\users\dr racket\build32\racket\src\racket\src\../sgc/sgc.h(45): warning C4273: 'GC_malloc_atomic' : inconsistent dll linkage
+  c:\users\dr racket\build32\racket\src\racket\src\../sgc/sgc.h(46): warning C4273: 'GC_malloc_stubborn' : inconsistent dll linkage
+  c:\users\dr racket\build32\racket\src\racket\src\../sgc/sgc.h(47): warning C4273: 'GC_malloc_uncollectable' : inconsistent dll linkage
+  ..\..\racket\src\module.c(4792): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\module.c(4792): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\module.c(6518): warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+  ..\..\racket\src\module.c(6927): warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+  ..\..\racket\src\module.c(7519): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\module.c(7519): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\module.c(7837): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\list.c(2744): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\list.c(2773): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4819): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\jitinline.c(4835): warning C4293: '<<' : shift count negative or too big, undefined behavior
+  ..\..\racket\src\hash.c(1578): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\hash.c(1578): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\hash.c(2086): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\hash.c(2086): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\hash.c(2997): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\hash.c(2997): warning C4244: '=' : conversion from 'mzlonglong' to 'int', possible loss of data
+  ..\..\racket\src\gmp\gmp.c(435): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(655): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(3280): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(3280): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(3449): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(3449): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(3478): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(3478): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(3668): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(3668): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(3697): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4405): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4405): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4463): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4463): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4501): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4510): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4522): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4634): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4642): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4688): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4804): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4815): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4876): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4914): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4933): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(4976): warning C4146: unary minus operator applied to unsigned type, result still unsigned
+  ..\..\racket\src\gmp\gmp.c(5716): warning C4018: '>' : signed/unsigned mismatch
+  ..\..\racket\src\fun.c(1284): warning C4113: 'void *(__cdecl *)()' differs in parameter lists from 'void *(__cdecl *)(void)'
+  ..\..\racket\src\fun.c(9445): warning C4101: 'ft' : unreferenced local variable
+  ..\..\foreign\foreign.c(362): warning C4101: 'lib2' : unreferenced local variable
+  ..\..\foreign\foreign.c(3541): warning C4113: 'VoidFun' differs in parameter lists from 'void (__cdecl *)(void)'
+  ..\..\foreign\foreign.c(3696): warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+  ..\..\racket\src\eval.c(620): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  ..\..\racket\src\env.c(1661): warning C4244: '=' : conversion from 'mzlonglong' to 'intptr_t', possible loss of data
+  c:\users\dr racket\build32\racket\src\racket\src\bgnfloat.inc(38): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+  c:\users\dr racket\build32\racket\src\racket\src\bgnfloat.inc(92): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  c:\users\dr racket\build32\racket\src\racket\src\bgnfloat.inc(99): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  c:\users\dr racket\build32\racket\src\racket\src\bgnfloat.inc(104): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+  c:\users\dr racket\build32\racket\src\racket\src\bgnfloat.inc(115): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+
+
+"c:\Users\Dr Racket\build32\racket\src\worksp\racket\racket9.sln" (default target) (1) ->
+(Racket target) -> 
+  c:\users\dr racket\build32\racket\src\racket\cmdline.inc(5): warning C4068: unknown pragma
+  c:\users\dr racket\build32\racket\src\racket\cmdline.inc(289): warning C4996: 'strdup': The POSIX name for this item is deprecated. Instead, use the ISO C++ conformant name: _strdup. See online help for details.
+  LINK : warning LNK4068: /MACHINE not specified; defaulting to X86
+
+    169 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:30.20
+
+c:\Users\Dr Racket\build32\racket\src\worksp\racket>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\racket>cd ..\gracket 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\gracket>msbuild gracket9.sln /p:Configuration=Release /p:Platform=win32 
+Microsoft (R) Build Engine Version 3.5.30729.5420
+[Microsoft .NET Framework, Version 2.0.50727.5420]
+Copyright (C) Microsoft Corporation 2007. All rights reserved.
+
+Build started 10/6/2015 2:22:26 AM.
+Project "c:\Users\Dr Racket\build32\racket\src\worksp\gracket\gracket9.sln" on node 0 (default targets).
+  Building solution configuration "Release|win32".
+libmzgc:
+  The project "libmzgc" is not selected for building in solution configuration "Release|Win32".
+libracket:
+  Deleting file "c:\Users\Dr Racket\build32\racket\src\worksp\gracket\..\libracket\libracket.tmp_Release_Win32.vcproj".
+c:\users\dr racket\build32\racket\src\racket\cmdline.inc(5): warning C4068: unknown pragma
+c:\users\dr racket\build32\racket\src\racket\cmdline.inc(289): warning C4013: 'strdup' undefined; assuming extern returning int
+c:\users\dr racket\build32\racket\src\racket\cmdline.inc(289): warning C4047: 'return' : 'char *' differs in levels of indirection from 'int'
+  Deleting file "c:\Users\Dr Racket\build32\racket\src\worksp\gracket\gracket.tmp_Release_Win32.vcproj".
+Done Building Project "c:\Users\Dr Racket\build32\racket\src\worksp\gracket\gracket9.sln" (default targets).
+
+Build succeeded.
+
+"c:\Users\Dr Racket\build32\racket\src\worksp\gracket\gracket9.sln" (default target) (1) ->
+(GRacket target) -> 
+  c:\users\dr racket\build32\racket\src\racket\cmdline.inc(5): warning C4068: unknown pragma
+  c:\users\dr racket\build32\racket\src\racket\cmdline.inc(289): warning C4013: 'strdup' undefined; assuming extern returning int
+  c:\users\dr racket\build32\racket\src\racket\cmdline.inc(289): warning C4047: 'return' : 'char *' differs in levels of indirection from 'int'
+
+    3 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.76
+
+c:\Users\Dr Racket\build32\racket\src\worksp\gracket>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\gracket>cd .. 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>cd gc2 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\gc2>..\..\..\racketcgc -G ..\..\..\..\build\config -cu make.rkt 
+precomp.c
+salloc.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/salloc.c /Fdxsrc/ /Foxsrc/salloc.obj
+salloc.c
+xsrc/salloc.c(19) : warning C4113: 'void (__cdecl *)()' differs in parameter lists from 'void (__cdecl *)(void)'
+bignum.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/bignum.c /Fdxsrc/ /Foxsrc/bignum.obj
+bignum.c
+bool.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/bool.c /Fdxsrc/ /Foxsrc/bool.obj
+bool.c
+builtin.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/builtin.c /Fdxsrc/ /Foxsrc/builtin.obj
+builtin.c
+char.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/char.c /Fdxsrc/ /Foxsrc/char.obj
+char.c
+compenv.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/compenv.c /Fdxsrc/ /Foxsrc/compenv.obj
+compenv.c
+compile.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/compile.c /Fdxsrc/ /Foxsrc/compile.obj
+compile.c
+complex.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/complex.c /Fdxsrc/ /Foxsrc/complex.obj
+complex.c
+dynext.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/dynext.c /Fdxsrc/ /Foxsrc/dynext.obj
+dynext.c
+env.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/env.c /Fdxsrc/ /Foxsrc/env.obj
+env.c
+error.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/error.c /Fdxsrc/ /Foxsrc/error.obj
+error.c
+xsrc/error.c(2098) : warning C4090: 'function' : different 'const' qualifiers
+xsrc/error.c(2103) : warning C4090: 'function' : different 'const' qualifiers
+eval.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/eval.c /Fdxsrc/ /Foxsrc/eval.obj
+eval.c
+file.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/file.c /Fdxsrc/ /Foxsrc/file.obj
+file.c
+future.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/future.c /Fdxsrc/ /Foxsrc/future.obj
+future.c
+xsrc/future.c(4291) : warning C4090: 'function' : different 'const' qualifiers
+xsrc/future.c(4296) : warning C4090: 'function' : different 'const' qualifiers
+xsrc/future.c(4323) : warning C4090: 'function' : different 'const' qualifiers
+xsrc/future.c(4328) : warning C4090: 'function' : different 'const' qualifiers
+fun.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/fun.c /Fdxsrc/ /Foxsrc/fun.obj
+fun.c
+xsrc/fun.c(848) : warning C4113: 'void *(__cdecl *)()' differs in parameter lists from 'void *(__cdecl *)(void)'
+hash.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/hash.c /Fdxsrc/ /Foxsrc/hash.obj
+hash.c
+jit.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/jit.c /Fdxsrc/ /Foxsrc/jit.obj
+jit.c
+jitalloc.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/jitalloc.c /Fdxsrc/ /Foxsrc/jitalloc.obj
+jitalloc.c
+jitarith.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/jitarith.c /Fdxsrc/ /Foxsrc/jitarith.obj
+jitarith.c
+jitcall.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/jitcall.c /Fdxsrc/ /Foxsrc/jitcall.obj
+jitcall.c
+jitcommon.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/jitcommon.c /Fdxsrc/ /Foxsrc/jitcommon.obj
+jitcommon.c
+jitinline.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/jitinline.c /Fdxsrc/ /Foxsrc/jitinline.obj
+jitinline.c
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6429) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+xsrc/jitinline.c(6455) : warning C4293: '<<' : shift count negative or too big, undefined behavior
+jitprep.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/jitprep.c /Fdxsrc/ /Foxsrc/jitprep.obj
+jitprep.c
+jitstack.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/jitstack.c /Fdxsrc/ /Foxsrc/jitstack.obj
+jitstack.c
+jitstate.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/jitstate.c /Fdxsrc/ /Foxsrc/jitstate.obj
+jitstate.c
+letrec_check.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/letrec_check.c /Fdxsrc/ /Foxsrc/letrec_check.obj
+letrec_check.c
+list.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/list.c /Fdxsrc/ /Foxsrc/list.obj
+list.c
+marshal.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/marshal.c /Fdxsrc/ /Foxsrc/marshal.obj
+marshal.c
+module.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/module.c /Fdxsrc/ /Foxsrc/module.obj
+module.c
+xsrc/module.c(7120) : warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+xsrc/module.c(7620) : warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+mzrt.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/mzrt.c /Fdxsrc/ /Foxsrc/mzrt.obj
+mzrt.c
+network.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/network.c /Fdxsrc/ /Foxsrc/network.obj
+network.c
+numarith.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/numarith.c /Fdxsrc/ /Foxsrc/numarith.obj
+numarith.c
+number.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/number.c /Fdxsrc/ /Foxsrc/number.obj
+number.c
+numcomp.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/numcomp.c /Fdxsrc/ /Foxsrc/numcomp.obj
+numcomp.c
+numstr.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/numstr.c /Fdxsrc/ /Foxsrc/numstr.obj
+numstr.c
+optimize.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/optimize.c /Fdxsrc/ /Foxsrc/optimize.obj
+optimize.c
+place.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/place.c /Fdxsrc/ /Foxsrc/place.obj
+place.c
+port.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/port.c /Fdxsrc/ /Foxsrc/port.obj
+port.c
+portfun.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/portfun.c /Fdxsrc/ /Foxsrc/portfun.obj
+portfun.c
+print.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/print.c /Fdxsrc/ /Foxsrc/print.obj
+print.c
+rational.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/rational.c /Fdxsrc/ /Foxsrc/rational.obj
+rational.c
+read.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/read.c /Fdxsrc/ /Foxsrc/read.obj
+read.c
+regexp.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/regexp.c /Fdxsrc/ /Foxsrc/regexp.obj
+regexp.c
+resolve.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/resolve.c /Fdxsrc/ /Foxsrc/resolve.obj
+resolve.c
+sema.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/sema.c /Fdxsrc/ /Foxsrc/sema.obj
+sema.c
+setjmpup.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/setjmpup.c /Fdxsrc/ /Foxsrc/setjmpup.obj
+setjmpup.c
+sfs.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/sfs.c /Fdxsrc/ /Foxsrc/sfs.obj
+sfs.c
+string.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/string.c /Fdxsrc/ /Foxsrc/string.obj
+string.c
+struct.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/struct.c /Fdxsrc/ /Foxsrc/struct.obj
+struct.c
+symbol.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/symbol.c /Fdxsrc/ /Foxsrc/symbol.obj
+symbol.c
+syntax.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/syntax.c /Fdxsrc/ /Foxsrc/syntax.obj
+syntax.c
+thread.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/thread.c /Fdxsrc/ /Foxsrc/thread.obj
+thread.c
+xsrc/thread.c(1936) : warning C4113: 'void (__cdecl *)()' differs in parameter lists from 'Scheme_At_Exit_Callback_Proc'
+xsrc/thread.c(1939) : warning C4113: 'void (__cdecl *)()' differs in parameter lists from 'void (__cdecl *)(void)'
+xsrc/thread.c(4755) : warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+type.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/type.c /Fdxsrc/ /Foxsrc/type.obj
+type.c
+xsrc/type.c(759) : warning C4090: 'function' : different 'const' qualifiers
+xsrc/type.c(774) : warning C4090: 'function' : different 'const' qualifiers
+xsrc/type.c(792) : warning C4090: 'function' : different 'const' qualifiers
+xsrc/type.c(801) : warning C4090: 'function' : different 'const' qualifiers
+validate.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/validate.c /Fdxsrc/ /Foxsrc/validate.obj
+validate.c
+vector.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /Fpmz.pch /MT /Zi /GS- /O2 /Oy- /c xsrc/vector.c /Fdxsrc/ /Foxsrc/vector.obj
+vector.c
+main.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /MT /Zi /GS- /O2 /Oy- /c xsrc/main.c /Fdxsrc/ /Foxsrc/main.obj
+main.c
+xsrc/main.c(1256) : warning C4068: unknown pragma
+foreign.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /MT /Zi /GS- /O2 /Oy- /c xsrc/foreign.c /Fdxsrc/ /Foxsrc/foreign.obj
+foreign.c
+xsrc/foreign.c(27144) : warning C4113: 'VoidFun' differs in parameter lists from 'void (__cdecl *)(void)'
+xsrc/foreign.c(27290) : warning C4113: 'Scheme_Object *(__cdecl *)()' differs in parameter lists from 'Scheme_Object *(__cdecl *)(void)'
+cl.exe /D GC2_AS_EXPORT /I ../../racket/include /I ..  /MT /Zi /GS- /O2 /Oy- /c ../../racket/gc2/gc2.c /Fdxsrc/ /Foxsrc/gc2.obj
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+gc2.c
+c:\users\dr racket\build32\racket\src\racket\gc2\newgc.c(2031) : warning C4715: 'marked' : not all control paths return a value
+c:\users\dr racket\build32\racket\src\racket\gc2\newgc.c(2771) : warning C4715: 'page_mmu_type' : not all control paths return a value
+cl.exe /I ../../racket/include /I ..  /MT /Zi /GS- /O2 /Oy- /c ../../racket/src/mzsj86.c /Fdxsrc/ /Foxsrc/mzsj86.obj
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+mzsj86.c
+../../racket/src/mzsj86.c(59) : warning C4028: formal parameter 1 different from declaration
+../../racket/src/mzsj86.c(75) : warning C4028: formal parameter 1 different from declaration
+cl.exe /LD /DLL /MT /Zi /Fe../../../lib/libracket3mxxxxxxx.dll xsrc/gc2.obj xsrc/mzsj86.obj xsrc/foreign.obj ../libracket/win32/srelease//gmp.obj ../racket/release//libffi.lib xsrc/salloc.obj xsrc/bignum.obj xsrc/bool.obj xsrc/builtin.obj xsrc/char.obj xsrc/compenv.obj xsrc/compile.obj xsrc/complex.obj xsrc/dynext.obj xsrc/env.obj xsrc/error.obj xsrc/eval.obj xsrc/file.obj xsrc/future.obj xsrc/fun.obj xsrc/hash.obj xsrc/jit.obj xsrc/jitalloc.obj xsrc/jitarith.obj xsrc/jitcall.obj xsrc/jitcommon.obj xsrc/jitinline.obj xsrc/jitprep.obj xsrc/jitstack.obj xsrc/jitstate.obj xsrc/letrec_check.obj xsrc/list.obj xsrc/marshal.obj xsrc/module.obj xsrc/mzrt.obj xsrc/network.obj xsrc/numarith.obj xsrc/number.obj xsrc/numcomp.obj xsrc/numstr.obj xsrc/optimize.obj xsrc/place.obj xsrc/port.obj xsrc/portfun.obj xsrc/print.obj xsrc/rational.obj xsrc/read.obj xsrc/regexp.obj xsrc/resolve.obj xsrc/sema.obj xsrc/setjmpup.obj xsrc/sfs.obj xsrc/string.obj xsrc/struct.obj xsrc/symbol.obj xsrc/syntax.obj xsrc/thread.obj xsrc/type.obj xsrc/validate.obj xsrc/vector.obj  kernel32.lib user32.lib ws2_32.lib shell32.lib advapi32.lib /link  /IMPLIB:../../../lib/msvc/libracket3mxxxxxxx.lib
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/dll 
+/implib:../../../lib/libracket3mxxxxxxx.lib 
+/debug 
+/out:../../../lib/libracket3mxxxxxxx.dll 
+/IMPLIB:../../../lib/msvc/libracket3mxxxxxxx.lib 
+xsrc/gc2.obj 
+xsrc/mzsj86.obj 
+xsrc/foreign.obj 
+../libracket/win32/srelease//gmp.obj 
+../racket/release//libffi.lib 
+xsrc/salloc.obj 
+xsrc/bignum.obj 
+xsrc/bool.obj 
+xsrc/builtin.obj 
+xsrc/char.obj 
+xsrc/compenv.obj 
+xsrc/compile.obj 
+xsrc/complex.obj 
+xsrc/dynext.obj 
+xsrc/env.obj 
+xsrc/error.obj 
+xsrc/eval.obj 
+xsrc/file.obj 
+xsrc/future.obj 
+xsrc/fun.obj 
+xsrc/hash.obj 
+xsrc/jit.obj 
+xsrc/jitalloc.obj 
+xsrc/jitarith.obj 
+xsrc/jitcall.obj 
+xsrc/jitcommon.obj 
+xsrc/jitinline.obj 
+xsrc/jitprep.obj 
+xsrc/jitstack.obj 
+xsrc/jitstate.obj 
+xsrc/letrec_check.obj 
+xsrc/list.obj 
+xsrc/marshal.obj 
+xsrc/module.obj 
+xsrc/mzrt.obj 
+xsrc/network.obj 
+xsrc/numarith.obj 
+xsrc/number.obj 
+xsrc/numcomp.obj 
+xsrc/numstr.obj 
+xsrc/optimize.obj 
+xsrc/place.obj 
+xsrc/port.obj 
+xsrc/portfun.obj 
+xsrc/print.obj 
+xsrc/rational.obj 
+xsrc/read.obj 
+xsrc/regexp.obj 
+xsrc/resolve.obj 
+xsrc/sema.obj 
+xsrc/setjmpup.obj 
+xsrc/sfs.obj 
+xsrc/string.obj 
+xsrc/struct.obj 
+xsrc/symbol.obj 
+xsrc/syntax.obj 
+xsrc/thread.obj 
+xsrc/type.obj 
+xsrc/validate.obj 
+xsrc/vector.obj 
+kernel32.lib 
+user32.lib 
+ws2_32.lib 
+shell32.lib 
+advapi32.lib 
+libffi.lib(prep_cif.obj) : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/dll 
+/implib:../../../lib/libracket3mxxxxxxx.lib 
+/debug 
+/out:../../../lib/libracket3mxxxxxxx.dll 
+/IMPLIB:../../../lib/msvc/libracket3mxxxxxxx.lib 
+xsrc/gc2.obj 
+xsrc/mzsj86.obj 
+xsrc/foreign.obj 
+../libracket/win32/srelease//gmp.obj 
+../racket/release//libffi.lib 
+xsrc/salloc.obj 
+xsrc/bignum.obj 
+xsrc/bool.obj 
+xsrc/builtin.obj 
+xsrc/char.obj 
+xsrc/compenv.obj 
+xsrc/compile.obj 
+xsrc/complex.obj 
+xsrc/dynext.obj 
+xsrc/env.obj 
+xsrc/error.obj 
+xsrc/eval.obj 
+xsrc/file.obj 
+xsrc/future.obj 
+xsrc/fun.obj 
+xsrc/hash.obj 
+xsrc/jit.obj 
+xsrc/jitalloc.obj 
+xsrc/jitarith.obj 
+xsrc/jitcall.obj 
+xsrc/jitcommon.obj 
+xsrc/jitinline.obj 
+xsrc/jitprep.obj 
+xsrc/jitstack.obj 
+xsrc/jitstate.obj 
+xsrc/letrec_check.obj 
+xsrc/list.obj 
+xsrc/marshal.obj 
+xsrc/module.obj 
+xsrc/mzrt.obj 
+xsrc/network.obj 
+xsrc/numarith.obj 
+xsrc/number.obj 
+xsrc/numcomp.obj 
+xsrc/numstr.obj 
+xsrc/optimize.obj 
+xsrc/place.obj 
+xsrc/port.obj 
+xsrc/portfun.obj 
+xsrc/print.obj 
+xsrc/rational.obj 
+xsrc/read.obj 
+xsrc/regexp.obj 
+xsrc/resolve.obj 
+xsrc/sema.obj 
+xsrc/setjmpup.obj 
+xsrc/sfs.obj 
+xsrc/string.obj 
+xsrc/struct.obj 
+xsrc/symbol.obj 
+xsrc/syntax.obj 
+xsrc/thread.obj 
+xsrc/type.obj 
+xsrc/validate.obj 
+xsrc/vector.obj 
+kernel32.lib 
+user32.lib 
+ws2_32.lib 
+shell32.lib 
+advapi32.lib 
+   Creating library ../../../lib/msvc/libracket3mxxxxxxx.lib and object ../../../lib/msvc/libracket3mxxxxxxx.exp
+Generating code
+Finished generating code
+rc /l 0x409 /foracket.res ../racket/racket.rc
+Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+cl.exe  /MT /Zi /Fe../../../Racket.exe racket.res xsrc/main.obj ../../../lib/msvc/libracket3mxxxxxxx.lib delayimp.lib  kernel32.lib user32.lib ws2_32.lib shell32.lib advapi32.lib /link  /DELAYLOAD:libracket3mxxxxxxx.dll  /STACK:8388608
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/debug 
+/out:../../../Racket.exe 
+/DELAYLOAD:libracket3mxxxxxxx.dll 
+/STACK:8388608 
+racket.res 
+xsrc/main.obj 
+../../../lib/msvc/libracket3mxxxxxxx.lib 
+delayimp.lib 
+kernel32.lib 
+user32.lib 
+ws2_32.lib 
+shell32.lib 
+advapi32.lib 
+LINK : ../../../Racket.exe not found or not built by the last incremental link; performing full link
+LINK : warning LNK4068: /MACHINE not specified; defaulting to X86
+mt.exe -manifest ../racket/racket.manifest -outputresource:../../../Racket.exe;1
+Microsoft (R) Manifest Tool version 5.2.3790.2075
+Copyright (c) Microsoft Corporation 2005. 
+All rights reserved.
+grmain.c
+cl.exe  /D _CRT_SECURE_NO_DEPRECATE /D _USE_DECLSPECS_FOR_SAL=0 /D _USE_ATTRIBUTES_FOR_SAL=0 /nologo  /MT /Zi /GS- /O2 /Oy- /c xsrc/grmain.c /Fdxsrc/ /Foxsrc/grmain.obj
+grmain.c
+xsrc/grmain.c(1284) : warning C4068: unknown pragma
+rc /l 0x409 /fogracket.res ../gracket/gracket.rc
+Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+cl.exe  /MT /Zi /Fe../../../lib/GRacket.exe gracket.res xsrc/grmain.obj ../../../lib/msvc/libracket3mxxxxxxx.lib advapi32.lib delayimp.lib  kernel32.lib user32.lib ws2_32.lib shell32.lib advapi32.lib /link  /DELAYLOAD:libracket3mxxxxxxx.dll  /subsystem:windows /STACK:8388608
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+Microsoft (R) Incremental Linker Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+/debug 
+/out:../../../lib/GRacket.exe 
+/DELAYLOAD:libracket3mxxxxxxx.dll 
+/subsystem:windows 
+/STACK:8388608 
+gracket.res 
+xsrc/grmain.obj 
+../../../lib/msvc/libracket3mxxxxxxx.lib 
+advapi32.lib 
+delayimp.lib 
+kernel32.lib 
+user32.lib 
+ws2_32.lib 
+shell32.lib 
+advapi32.lib 
+LINK : ../../../lib/GRacket.exe not found or not built by the last incremental link; performing full link
+LINK : warning LNK4068: /MACHINE not specified; defaulting to X86
+mt.exe -manifest ../gracket/gracket.manifest -outputresource:../../../lib/GRacket.exe;1
+Microsoft (R) Manifest Tool version 5.2.3790.2075
+Copyright (c) Microsoft Corporation 2005. 
+All rights reserved.
+cl.exe /MT /O2 /DMZ_PRECISE_GC /I../../racket/include /I.. /c ../../racket/dynsrc/mzdyn.c /Fomzdyn3m.obj
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+mzdyn.c
+lib.exe -def:../../racket/dynsrc/mzdyn.def -out:mzdyn3m.lib
+Microsoft (R) Library Manager Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+LINK : warning LNK4068: /MACHINE not specified; defaulting to X86
+   Creating library mzdyn3m.lib and object mzdyn3m.exp
+#t
+#t
+#t
+#t
+#t
+#t
+Updating ../../../lib/msvc/mzdyn3m.exp
+Updating ../../../lib/msvc/mzdyn3m.obj
+
+c:\Users\Dr Racket\build32\racket\src\worksp\gc2>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\gc2>cd .. 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>cd mzstart 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzstart>msbuild mzstart9.sln /p:Configuration=Release /p:Platform=win32 
+Microsoft (R) Build Engine Version 3.5.30729.5420
+[Microsoft .NET Framework, Version 2.0.50727.5420]
+Copyright (C) Microsoft Corporation 2007. All rights reserved.
+
+Build started 10/6/2015 2:25:25 AM.
+Project "c:\Users\Dr Racket\build32\racket\src\worksp\mzstart\mzstart9.sln" on node 0 (default targets).
+  Building solution configuration "Release|win32".
+Done Building Project "c:\Users\Dr Racket\build32\racket\src\worksp\mzstart\mzstart9.sln" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.21
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzstart>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzstart>cd ..\mrstart 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mrstart>msbuild mrstart9.sln /p:Configuration=Release /p:Platform=win32 
+Microsoft (R) Build Engine Version 3.5.30729.5420
+[Microsoft .NET Framework, Version 2.0.50727.5420]
+Copyright (C) Microsoft Corporation 2007. All rights reserved.
+
+Build started 10/6/2015 2:25:26 AM.
+Project "c:\Users\Dr Racket\build32\racket\src\worksp\mrstart\mrstart9.sln" on node 0 (default targets).
+  Building solution configuration "Release|win32".
+Done Building Project "c:\Users\Dr Racket\build32\racket\src\worksp\mrstart\mrstart9.sln" (default targets).
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.04
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mrstart>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mrstart>cd .. 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>cd mzcom 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzcom>msbuild mzcom9.sln /p:Configuration=Release /p:Platform=win32 
+Microsoft (R) Build Engine Version 3.5.30729.5420
+[Microsoft .NET Framework, Version 2.0.50727.5420]
+Copyright (C) Microsoft Corporation 2007. All rights reserved.
+
+Build started 10/6/2015 2:25:27 AM.
+Project "c:\Users\Dr Racket\build32\racket\src\worksp\mzcom\mzcom9.sln" on node 0 (default targets).
+  Building solution configuration "Release|win32".
+libmzgc:
+  The project "libmzgc" is not selected for building in solution configuration "Release|Win32".
+libracket:
+  Deleting file "c:\Users\Dr Racket\build32\racket\src\worksp\mzcom\..\libracket\libracket.tmp_Release_Win32.vcproj".
+c:\Users\Dr Racket\build32\racket\src\racket\include\scheme.h(393): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\Users\Dr Racket\build32\racket\src\racket\include\scheme.h(399): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\Users\Dr Racket\build32\racket\src\racket\include\scheme.h(409): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\Users\Dr Racket\build32\racket\src\racket\include\scheme.h(416): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\Users\Dr Racket\build32\racket\src\racket\include\scheme.h(809): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  Deleting file "c:\Users\Dr Racket\build32\racket\src\worksp\mzcom\MzCOM.tmp_Release_Win32.vcproj".
+Done Building Project "c:\Users\Dr Racket\build32\racket\src\worksp\mzcom\mzcom9.sln" (default targets).
+
+Build succeeded.
+
+"c:\Users\Dr Racket\build32\racket\src\worksp\mzcom\mzcom9.sln" (default target) (1) ->
+(MzCOM target) -> 
+  c:\Users\Dr Racket\build32\racket\src\racket\include\scheme.h(393): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\Users\Dr Racket\build32\racket\src\racket\include\scheme.h(399): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\Users\Dr Racket\build32\racket\src\racket\include\scheme.h(409): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\Users\Dr Racket\build32\racket\src\racket\include\scheme.h(416): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\Users\Dr Racket\build32\racket\src\racket\include\scheme.h(809): warning C4200: nonstandard extension used : zero-sized array in struct/union
+
+    5 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:02.56
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzcom>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzcom>cd .. 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>cd mzcom 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzcom>..\..\..\racket -G ..\..\..\..\build\config -cu xform.rkt 
+Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+mzobj.cxx
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzcom>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzcom>cd .. 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>cd mzcom 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzcom>msbuild mzcom9.sln /p:Configuration=3m /p:Platform=win32 
+Microsoft (R) Build Engine Version 3.5.30729.5420
+[Microsoft .NET Framework, Version 2.0.50727.5420]
+Copyright (C) Microsoft Corporation 2007. All rights reserved.
+
+Build started 10/6/2015 2:25:33 AM.
+Project "c:\Users\Dr Racket\build32\racket\src\worksp\mzcom\mzcom9.sln" on node 0 (default targets).
+  Building solution configuration "3m|win32".
+libmzgc:
+  The project "libmzgc" is not selected for building in solution configuration "3m|Win32".
+sgc:
+  The project "sgc" is not selected for building in solution configuration "3m|Win32".
+libracket:
+  The project "libracket" is not selected for building in solution configuration "3m|Win32".
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(827): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(833): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(839): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(845): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(894): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(2076): warning C4164: '_enable' : intrinsic function not declared
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(2079): warning C4164: '_disable' : intrinsic function not declared
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(4468): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(4474): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(17477): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(18386): warning C4200: nonstandard extension used : zero-sized array in struct/union
+c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(18436): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  Deleting file "c:\Users\Dr Racket\build32\racket\src\worksp\mzcom\MzCOM.tmp_3m_Win32.vcproj".
+Done Building Project "c:\Users\Dr Racket\build32\racket\src\worksp\mzcom\mzcom9.sln" (default targets).
+
+Build succeeded.
+
+"c:\Users\Dr Racket\build32\racket\src\worksp\mzcom\mzcom9.sln" (default target) (1) ->
+(MzCOM target) -> 
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(827): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(833): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(839): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(845): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(894): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(2076): warning C4164: '_enable' : intrinsic function not declared
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(2079): warning C4164: '_disable' : intrinsic function not declared
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(4468): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(4474): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(17477): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(18386): warning C4200: nonstandard extension used : zero-sized array in struct/union
+  c:\users\dr racket\build32\racket\src\mzcom\mzobj3m.cxx(18436): warning C4200: nonstandard extension used : zero-sized array in struct/union
+
+    12 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:01.62
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzcom>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp\mzcom>cd .. 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>copy ..\COPYING-libscheme.txt ..\..\share\ 
+        1 file(s) copied.
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>copy ..\COPYING_LESSER.txt ..\..\share\ 
+        1 file(s) copied.
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>copy ..\COPYING.txt ..\..\share\ 
+        1 file(s) copied.
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if errorlevel 1 exit /B 1 
+
+c:\Users\Dr Racket\build32\racket\src\worksp>..\..\racket -G ..\..\..\build\config -N "raco"  -l- setup --no-foreign-libs -j 2 
+raco setup: bootstrapping from source...
+raco setup: version: 6.2.900.17
+raco setup: platform: win32\i386 [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m, cgc
+raco setup: main collects: c:\Users\Dr Racket\build32\racket\collects
+raco setup: collects paths: 
+raco setup:   C:\Users\Dr Racket\AppData\Roaming\Racket\6.2.900.17\collects
+raco setup:   c:\Users\Dr Racket\build32\racket\collects
+raco setup: main pkgs: c:\Users\Dr Racket\build32\racket\share\pkgs
+raco setup: pkgs paths: 
+raco setup:   c:\Users\Dr Racket\build32\racket\share\pkgs
+raco setup:   C:\Users\Dr Racket\AppData\Roaming\Racket\6.2.900.17\pkgs
+raco setup: links files: 
+raco setup:   C:\Users\Dr Racket\AppData\Roaming\Racket\6.2.900.17\links.rktd
+raco setup: main docs: c:\Users\Dr Racket\build32\racket\doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- compiling collections ---
+raco setup: making: <collects>/racket
+raco setup:  in <collects>/racket
+raco setup:  in <collects>/syntax
+raco setup:  in <collects>/racket/private
+raco setup:  in <collects>/ffi/unsafe
+raco setup:  in <collects>/ffi
+raco setup: --- parallel build using 2 jobs ---
+raco setup: 1 making: <collects>/compiler
+raco setup: 0 making: <collects>/raco
+raco setup: 0 making: <collects>/racket
+raco setup: 0 making: <collects>/racket/base
+raco setup: 0 making: <collects>/racket/base/lang
+raco setup: 0 making: <collects>/racket/contract
+raco setup: 0 making: <collects>/racket/contract/private
+raco setup: 1 making: <collects>/compiler/private
+raco setup: 0 making: <collects>/racket/gui
+raco setup: 0 making: <collects>/racket/kernel
+raco setup: 0 making: <collects>/racket/lang
+raco setup: 0 making: <collects>/racket/load
+raco setup: 0 making: <collects>/racket/load/lang
+raco setup: 0 making: <collects>/racket/match
+raco setup: 1 making: <collects>/acks
+raco setup: 1 making: <collects>/data
+raco setup: 0 making: <collects>/racket/place
+raco setup: 0 making: <collects>/racket/place/private
+raco setup: 0 making: <collects>/racket/private
+raco setup: 0 making: <collects>/racket/signature
+raco setup: 0 making: <collects>/racket/signature/lang
+raco setup: 1 making: <collects>/data/private
+raco setup: 1 making: <collects>/db
+raco setup: 1 making: <collects>/db/private
+raco setup: 1 making: <collects>/db/private/generic
+raco setup: 1 making: <collects>/db/private/sqlite3
+raco setup: 1 making: <collects>/dynext
+raco setup: 1 making: <collects>/ffi
+raco setup: 0 making: <collects>/racket/unit
+raco setup: 0 making: <collects>/racket/unit/lang
+raco setup: 0 making: <collects>/racket/unsafe
+raco setup: 0 making: <collects>/file
+raco setup: 0 making: <collects>/file/private
+raco setup: 0 making: <collects>/info
+raco setup: 0 making: <collects>/info-domain
+raco setup: 0 making: <collects>/json
+raco setup: 0 making: <collects>/launcher
+raco setup: 0 making: <collects>/net
+raco setup: 0 making: <collects>/openssl
+raco setup: 0 making: <collects>/openssl/private
+raco setup: 0 making: <collects>/pkg
+raco setup: 1 making: <collects>/ffi/unsafe
+raco setup: 1 making: <collects>/ffi/unsafe/private
+raco setup: 1 making: <collects>/planet
+raco setup: 1 making: <collects>/planet/private
+raco setup: 1 making: <collects>/reader
+raco setup: 1 making: <collects>/reader/lang
+raco setup: 1 making: <collects>/realm
+raco setup: 1 making: <collects>/s-exp
+raco setup: 1 making: <collects>/s-exp/lang
+raco setup: 1 making: <collects>/setup
+raco setup: 1 making: <collects>/setup/commands
+raco setup: 1 making: <collects>/setup/infotab
+raco setup: 1 making: <collects>/setup/infotab/lang
+raco setup: 1 making: <collects>/setup/private
+raco setup: 1 making: <collects>/syntax
+raco setup: 0 making: <collects>/pkg/private
+raco setup: 0 making: <collects>/unstable
+raco setup: 0 making: <collects>/version
+raco setup: 0 making: <collects>/xml
+raco setup: 0 making: <collects>/xml/private
+raco setup: 1 making: <collects>/syntax/parse
+raco setup: 1 making: <collects>/syntax/parse/experimental
+raco setup: 1 making: <collects>/syntax/parse/experimental/private
+raco setup: 1 making: <collects>/syntax/parse/lib
+raco setup: 1 making: <collects>/syntax/parse/private
+raco setup: 1 making: <collects>/syntax/private
+raco setup: 1 making: <collects>/syntax/private/util
+raco setup: 1 making: <collects>/syntax/unsafe
+raco setup: --- creating launchers ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- checking package dependencies ---
+
+c:\Users\Dr Racket\build32\racket\src\worksp>if errorlevel 1 exit /B 1 
+	"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN\nmake.exe" win32-distro-build-from-server SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost"  PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df"  RELEASE_MODE= SOURCE_MODE=  VERSIONLESS_MODE= MAC_PKG_MODE=  PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket  DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://192.168.56.1:9440/upload/"  DIST_DESC="{2} Minimal Racket | {1} Windows | 32-bit x86" README="http://192.168.56.1:9440/README-14441196771444119677664" SIGN_IDENTITY="" JOB_OPTIONS="-j 2"  SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+
+Microsoft (R) Program Maintenance Utility Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	racket\racket -G build/user/config -X racket/collects -A build/user -N raco -l- raco pkg install --catalog http://192.168.56.1:9440/ --scope user --skip-installed --deps search-auto --pkgs -j 2 distro-build-client
+Resolving "distro-build-client" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/distro-build-client.zip
+00: Resolving "base" via http://192.168.56.1:9440/
+01: Resolving "ds-store-lib" via http://192.168.56.1:9440/
+Resolving "at-exp-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/base.zip
+Downloading http://192.168.56.1:9440/pkgs/ds-store-lib.zip
+Downloading http://192.168.56.1:9440/pkgs/at-exp-lib.zip
+Resolving "racket-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/racket-lib.zip
+01: Resolving "racket-win32-i386-2" via http://192.168.56.1:9440/
+00: Resolving "db-win32-i386" via http://192.168.56.1:9440/
+Resolving "com-win32-i386" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/racket-win32-i386-2.zip
+Downloading http://192.168.56.1:9440/pkgs/db-win32-i386.zip
+Downloading http://192.168.56.1:9440/pkgs/com-win32-i386.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of distro-build-client:
+   base
+   ds-store-lib
+   at-exp-lib
+ dependencies of base:
+   racket-lib
+ dependencies of racket-lib:
+   racket-win32-i386-2
+   db-win32-i386
+   com-win32-i386
+raco setup: version: 6.2.900.17
+raco setup: platform: win32\i386 [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m, cgc
+raco setup: main collects: c:\Users\Dr Racket\build32\racket\collects
+raco setup: collects paths: 
+raco setup:   c:\Users\Dr Racket\build32\build\user\6.2.900.17\collects
+raco setup:   c:\Users\Dr Racket\build32\racket\collects
+raco setup: main pkgs: c:\Users\Dr Racket\build32\racket\share\pkgs
+raco setup: pkgs paths: 
+raco setup:   c:\Users\Dr Racket\build32\racket\share\pkgs
+raco setup:   c:\Users\Dr Racket\build32\build/user\6.2.900.17\pkgs
+raco setup: links files: 
+raco setup:   c:\Users\Dr Racket\build32\racket\share\links.rktd
+raco setup:   c:\Users\Dr Racket\build32\build/user\6.2.900.17\links.rktd
+raco setup: main docs: c:\Users\Dr Racket\build32\racket\doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: c:\Users\Dr Racket\build32\build\user\6.2.900.17\share\info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: installing: foreign library c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\myssink.dll
+raco setup: installing: foreign library c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\sqlite3.dll
+raco setup: installing: foreign library c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\longdouble.dll
+raco setup: installing: foreign library c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\ssleay32.dll
+raco setup: installing: foreign library c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\libeay32.dll
+raco setup: installing: foreign library c:\Users\Dr Racket\build32\build\user\6.2.900.17\lib\libiconv-2.dll
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: --- parallel build using 2 jobs ---
+raco setup: 1 making: <pkgs>/racket-win32-i386-2/racket
+raco setup: 0 making: <pkgs>/at-exp-lib/at-exp
+raco setup: 0 making: <pkgs>/at-exp-lib/at-exp/lang
+raco setup: 1 making: <pkgs>/at-exp-lib/scribble
+raco setup: 1 making: <pkgs>/at-exp-lib/scribble/base
+raco setup: 1 making: <pkgs>/com-win32-i386/com
+raco setup: 1 making: <pkgs>/db-win32-i386/db
+raco setup: 1 making: <pkgs>/distro-build-client
+raco setup: 0 making: <pkgs>/ds-store-lib
+raco setup: 1 making: <pkgs>/distro-build-client/macosx-installer
+raco setup: --- creating launchers ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+	"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN\nmake.exe" win32-bundle-from-server SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost"  PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df"  RELEASE_MODE= SOURCE_MODE=  VERSIONLESS_MODE= MAC_PKG_MODE=  PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket  DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://192.168.56.1:9440/upload/"  DIST_DESC="{2} Minimal Racket | {1} Windows | 32-bit x86" README="http://192.168.56.1:9440/README-14441196771444119677664" SIGN_IDENTITY="" JOB_OPTIONS="-j 2"  SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+
+Microsoft (R) Program Maintenance Utility Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN\nmake.exe" win32-bundle SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost"  PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df"  RELEASE_MODE= SOURCE_MODE=  VERSIONLESS_MODE= MAC_PKG_MODE=  PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket  DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://192.168.56.1:9440/upload/"  DIST_DESC="{2} Minimal Racket | {1} Windows | 32-bit x86" README="http://192.168.56.1:9440/README-14441196771444119677664" SIGN_IDENTITY="" JOB_OPTIONS="-j 2"  SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+
+Microsoft (R) Program Maintenance Utility Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	IF EXIST bundle cmd /c rmdir /S /Q bundle
+	cmd /c mkdir bundle\racket
+	racket\racket -G build/user/config -X racket/collects -A build/user -l setup/unixstyle-install bundle racket bundle\racket
+Copying collects -> c:\Users\Dr Racket\build32\bundle\racket\collects
+Copying doc -> c:\Users\Dr Racket\build32\bundle\racket\doc
+Copying lib -> c:\Users\Dr Racket\build32\bundle\racket\lib
+Copying include -> c:\Users\Dr Racket\build32\bundle\racket\include
+Copying share/applications -> c:\Users\Dr Racket\build32\bundle\racket\share/applications
+  missing source path "share/applications", skipping...
+Copying share -> c:\Users\Dr Racket\build32\bundle\racket\share
+Copying etc -> c:\Users\Dr Racket\build32\bundle\racket\etc
+	racket\racket -G build/user/config -X racket/collects -A build/user -l setup/winstrip bundle\racket
+Deleting bundle\racket\RacketCGC.exe
+Deleting bundle\racket\racoCGC.exe
+Deleting bundle\racket\lib\GRacket.ilk
+Deleting bundle\racket\lib\GRacket.pdb
+Deleting bundle\racket\lib\GRacketCGC.exe
+Deleting bundle\racket\lib\GRacketCGC.pdb
+Deleting bundle\racket\lib\libmzgcxxxxxxx.dll
+Deleting bundle\racket\lib\libmzgcxxxxxxx.pdb
+Deleting bundle\racket\lib\libracket3mxxxxxxx.ilk
+Deleting bundle\racket\lib\libracket3mxxxxxxx.pdb
+Deleting bundle\racket\lib\libracketxxxxxxx.dll
+Deleting bundle\racket\lib\libracketxxxxxxx.ilk
+Deleting bundle\racket\lib\libracketxxxxxxx.pdb
+Deleting bundle\racket\lib\MrStart.pdb
+Deleting bundle\racket\lib\msvc\libmzgcxxxxxxx.exp
+Deleting bundle\racket\lib\msvc\libmzgcxxxxxxx.lib
+Deleting bundle\racket\lib\msvc\libracketxxxxxxx.exp
+Deleting bundle\racket\lib\msvc\libracketxxxxxxx.lib
+Deleting bundle\racket\lib\msvc\mzdyn.exp
+Deleting bundle\racket\lib\msvc\mzdyn.obj
+Deleting bundle\racket\lib\MzCOM.pdb
+Deleting bundle\racket\lib\MzCOMCGC.exe
+Deleting bundle\racket\lib\MzCOMCGC.pdb
+Deleting bundle\racket\lib\MzStart.pdb
+	racket\racket -G build/user/config -X racket/collects -A build/user -l setup/winvers-change bundle\racket
+Changing: c:\Users\Dr Racket\build32\bundle\racket\Racket.exe
+Changing: c:\Users\Dr Racket\build32\bundle\racket\lib\GRacket.exe
+Changing: c:\Users\Dr Racket\build32\bundle\racket\lib\MzCOM.exe
+Renaming: c:\Users\Dr Racket\build32\bundle\racket\lib\libracket3mxxxxxxx.dll -> libracket3m_9yy8mp.dll
+Changing: c:\Users\Dr Racket\build32\bundle\racket\lib\libracket3m_9yy8mp.dll
+Renaming: c:\Users\Dr Racket\build32\bundle\racket\lib\msvc\libracket3mxxxxxxx.exp -> libracket3m_9yy8mp.exp
+Changing: c:\Users\Dr Racket\build32\bundle\racket\lib\msvc\libracket3m_9yy8mp.exp
+Renaming: c:\Users\Dr Racket\build32\bundle\racket\lib\msvc\libracket3mxxxxxxx.lib -> libracket3m_9yy8mp.lib
+Changing: c:\Users\Dr Racket\build32\bundle\racket\lib\msvc\libracket3m_9yy8mp.lib
+	racket\racket -G build/user/config -X racket/collects -A build/user -l distro-build/unpack-collects http://192.168.56.1:9440/
+[2015-10-06T02:29:00] The time is now Tuesday, October 6th, 2015 2:29:00am
+	racket\racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://192.168.56.1:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 2  racket-lib
+Resolving "racket-lib" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/racket-lib.zip
+00: Resolving "racket-win32-i386-2" via http://192.168.56.1:9440/
+01: Resolving "db-win32-i386" via http://192.168.56.1:9440/
+Resolving "com-win32-i386" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/racket-win32-i386-2.zip
+Downloading http://192.168.56.1:9440/pkgs/db-win32-i386.zip
+Downloading http://192.168.56.1:9440/pkgs/com-win32-i386.zip
+Resolving "base" via http://192.168.56.1:9440/
+Downloading http://192.168.56.1:9440/pkgs/base.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of racket-lib:
+   racket-win32-i386-2
+   db-win32-i386
+   com-win32-i386
+ dependencies of racket-win32-i386-2:
+   base
+raco setup: version: 6.2.900.17
+raco setup: platform: win32\i386 [3m]
+raco setup: installation name: 6.2.900.17
+raco setup: variants: 3m
+raco setup: main collects: c:\Users\Dr Racket\build32\bundle\racket\collects
+raco setup: collects paths: 
+raco setup:   c:\Users\Dr Racket\build32\bundle\racket\collects
+raco setup: main pkgs: c:\Users\Dr Racket\build32\bundle\racket\share\pkgs
+raco setup: pkgs paths: 
+raco setup:   c:\Users\Dr Racket\build32\bundle\racket\share\pkgs
+raco setup:   c:\Users\Dr Racket\build32\bundle/user\6.2.900.17\pkgs
+raco setup: links files: 
+raco setup:   c:\Users\Dr Racket\build32\bundle\racket\share\links.rktd
+raco setup:   c:\Users\Dr Racket\build32\bundle/user\6.2.900.17\links.rktd
+raco setup: main docs: c:\Users\Dr Racket\build32\bundle\racket\doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: c:\Users\Dr Racket\build32\bundle\racket\share\info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: installing: foreign library <lib>/myssink.dll
+raco setup: installing: foreign library <lib>/sqlite3.dll
+raco setup: installing: foreign library <lib>/longdouble.dll
+raco setup: installing: foreign library <lib>/ssleay32.dll
+raco setup: installing: foreign library <lib>/libeay32.dll
+raco setup: installing: foreign library <lib>/libiconv-2.dll
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: --- parallel build using 2 jobs ---
+raco setup: 1 making: <collects>/racket
+raco setup: 0 making: <pkgs>/racket-win32-i386-2/racket
+raco setup: 0 making: <collects>/db
+raco setup: 0 making: <collects>/db/private
+raco setup: 0 making: <collects>/db/private/generic
+raco setup: 0 making: <collects>/db/private/sqlite3
+raco setup: 0 making: <pkgs>/com-win32-i386/com
+raco setup: 0 making: <pkgs>/db-win32-i386/db
+raco setup: 1 making: <collects>/racket/base
+raco setup: 1 making: <collects>/racket/base/lang
+raco setup: 1 making: <collects>/racket/contract
+raco setup: 1 making: <collects>/racket/contract/private
+raco setup: 1 making: <collects>/racket/gui
+raco setup: 1 making: <collects>/racket/kernel
+raco setup: 1 making: <collects>/racket/lang
+raco setup: 1 making: <collects>/racket/load
+raco setup: 1 making: <collects>/racket/load/lang
+raco setup: 1 making: <collects>/racket/match
+raco setup: 1 making: <collects>/racket/place
+raco setup: 1 making: <collects>/racket/place/private
+raco setup: 1 making: <collects>/racket/private
+raco setup: 1 making: <collects>/racket/signature
+raco setup: 1 making: <collects>/racket/signature/lang
+raco setup: 1 making: <collects>/racket/unit
+raco setup: 1 making: <collects>/racket/unit/lang
+raco setup: 1 making: <collects>/racket/unsafe
+raco setup: --- creating launchers ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+	racket\racket -G bundle/racket/config -X bundle/racket/collects -A bundle/user -l raco pkg install --catalog http://192.168.56.1:9440/ --scope installation --skip-installed --deps search-auto --pkgs -j 2  
+	racket\racket -G build/user/config -X racket/collects -A build/user -l distro-build/set-config bundle/racket/etc/config.rktd "snapshot" "20151006-f86c5df" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/doc/local-redirect/index.html" "http://www.cs.utah.edu/plt/snapshots/20151006-f86c5df/catalog/" ""
+	"C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\BIN\nmake.exe" win32-installer-from-bundle SERVER=192.168.56.1 SERVER_PORT=9440 SERVER_HOSTS="localhost"  PKGS="" PLAIN_RACKET="racket/bin/racket" BUILD_STAMP="20151006-f86c5df"  RELEASE_MODE= SOURCE_MODE=  VERSIONLESS_MODE= MAC_PKG_MODE=  PKG_SOURCE_MODE="" INSTALL_NAME="snapshot" DIST_NAME="Racket" DIST_BASE=min-racket  DIST_DIR=racket DIST_SUFFIX= UPLOAD="http://192.168.56.1:9440/upload/"  DIST_DESC="{2} Minimal Racket | {1} Windows | 32-bit x86" README="http://192.168.56.1:9440/README-14441196771444119677664" SIGN_IDENTITY="" JOB_OPTIONS="-j 2"  SERVER_CATALOG_PATH= SERVER_COLLECTS_PATH=
+
+Microsoft (R) Program Maintenance Utility Version 9.00.21022.08
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+	racket\racket -G build/user/config -X racket/collects -A build/user -l- distro-build/installer --readme "http://192.168.56.1:9440/README-14441196771444119677664" --upload "http://192.168.56.1:9440/upload/" --desc "{2} Minimal Racket | {1} Windows | 32-bit x86"      "Racket" min-racket racket ""  ""
+MakeNSIS v2.46 - Copyright 1995-2009 Contributors
+See the file COPYING for license details.
+Credits can be found in the Users Manual.
+
+Processing plugin dlls: "c:\Program Files (x86)\NSIS\Plugins\*.dll"
+ - AdvSplash::show
+ - Banner::destroy
+ - Banner::getWindow
+ - Banner::show
+ - BgImage::AddImage
+ - BgImage::AddText
+ - BgImage::Clear
+ - BgImage::Destroy
+ - BgImage::Redraw
+ - BgImage::SetBg
+ - BgImage::SetReturn
+ - BgImage::Sound
+ - Dialer::AttemptConnect
+ - Dialer::AutodialHangup
+ - Dialer::AutodialOnline
+ - Dialer::AutodialUnattended
+ - Dialer::GetConnectedState
+ - InstallOptions::dialog
+ - InstallOptions::initDialog
+ - InstallOptions::show
+ - LangDLL::LangDialog
+ - Math::Script
+ - NSISdl::download
+ - NSISdl::download_quiet
+ - Splash::show
+ - StartMenu::Init
+ - StartMenu::Select
+ - StartMenu::Show
+ - System::Alloc
+ - System::Call
+ - System::Copy
+ - System::Free
+ - System::Get
+ - System::Int64Op
+ - System::Store
+ - TypeLib::GetLibVersion
+ - TypeLib::Register
+ - TypeLib::UnRegister
+ - UserInfo::GetAccountType
+ - UserInfo::GetName
+ - UserInfo::GetOriginalAccountType
+ - VPatch::GetFileCRC32
+ - VPatch::GetFileMD5
+ - VPatch::vpatchfile
+ - nsDialogs::Create
+ - nsDialogs::CreateControl
+ - nsDialogs::CreateItem
+ - nsDialogs::CreateTimer
+ - nsDialogs::GetUserData
+ - nsDialogs::KillTimer
+ - nsDialogs::OnBack
+ - nsDialogs::OnChange
+ - nsDialogs::OnClick
+ - nsDialogs::OnNotify
+ - nsDialogs::SelectFileDialog
+ - nsDialogs::SelectFolderDialog
+ - nsDialogs::SetRTL
+ - nsDialogs::SetUserData
+ - nsDialogs::Show
+ - nsExec::Exec
+ - nsExec::ExecToLog
+ - nsExec::ExecToStack
+
+
+Processed 1 file, writing output:
+
+Output: "c:\Users\Dr Racket\build32\bundle\min-racket-6.2.900.17-i386-win32.exe"
+Install: 6 pages (384 bytes), 1 section (1048 bytes), 4562 instructions (127736 bytes), 1787 strings (31788 bytes), 1 language table (306 bytes).
+Uninstall: 3 pages (192 bytes), 
+1 section (1048 bytes), 124 instructions (3472 bytes), 134 strings (2319 bytes), 1 language table (258 bytes).
+Datablock optimizer saved 275702 bytes (~1.0%).
+
+Using lzma (compress whole) compression.
+
+EXE header size:               59392 / 34816 bytes
+Install code:                          (161662 bytes)
+Install data:                          (27054744 bytes)
+Uninstall code+data:                   (101469 bytes)
+Compressed data:             6702789 / 27317875 bytes
+CRC (0x5E285EA1):                  4 / 4 bytes
+
+Total size:                  6762185 / 27352695 bytes (24.7%)
+[2015-10-06T02:29:23] The time is now Tuesday, October 6th, 2015 2:29:23am
+Downloading http://192.168.56.1:9440/README-14441196771444119677664
+Upload bundle/min-racket-6.2.900.17-i386-win32.exe to http://192.168.56.1:9440/upload/
+[2015-10-06T02:29:44] The time is now Tuesday, October 6th, 2015 2:29:44am
+Stopping VirtualBox machine "win7"
+0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%

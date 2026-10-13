@@ -1,0 +1,78 @@
+The time is now Monday, May 18th, 2015 2:29:57pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto towers && bin/raco test --drdr --package towers'
+Resolving "towers" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/towers.zip
+Resolving "bazaar" via http://localhost:18333/built/catalog/
+Resolving "towers-lib" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/bazaar.zip
+Downloading http://localhost:18333/built/pkgs/towers-lib.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of towers:
+   bazaar
+   towers-lib
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/scope-snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/bazaar
+raco setup: making: <pkgs>/bazaar/draw
+raco setup: making: <pkgs>/bazaar/gui
+raco setup: making: <pkgs>/bazaar/net
+raco setup: making: <pkgs>/bazaar/scribble
+raco setup: making: <pkgs>/bazaar/slideshow
+raco setup: making: <pkgs>/bazaar/slideshow/examples
+raco setup: making: <pkgs>/towers
+raco setup: making: <pkgs>/towers-lib
+raco setup: making: <pkgs>/towers/img
+raco setup: making: <pkgs>/towers/img/replay
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/base.rkt"
+base.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/controller.rkt"
+controller.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/main.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/frame.rkt"
+frame.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/graphics.rkt"
+graphics.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/platform.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/racket/gui/base.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/gui.rkt"
+gui.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/main.rkt"
+main.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/platform.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/racket/gui/base.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/player-alpha-beta-gui.rkt"
+player-alpha-beta-gui.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/replay.rkt"
+replay.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/mred.rkt: [traversing imports]\n"
+8/8 test failures
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/info.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/base.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/controller.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/frame.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/graphics.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/gui.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/main.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/player-alpha-beta-gui.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/towers/replay.rkt
+The time is now Monday, May 18th, 2015 2:30:51pm

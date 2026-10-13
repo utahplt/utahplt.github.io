@@ -1,0 +1,188 @@
+The time is now Tuesday, October 6th, 2015 11:35:08pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto medic && bin/raco test --drdr --package medic'
+Resolving "medic" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/medic.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/medic
+raco setup: making: <pkgs>/medic/demos
+raco setup: making: <pkgs>/medic/demos/aggregate
+raco setup: making: <pkgs>/medic/demos/count-length
+raco setup: making: <pkgs>/medic/demos/demo1
+raco setup: making: <pkgs>/medic/demos/demo2
+raco setup: making: <pkgs>/medic/demos/demo3
+raco setup: making: <pkgs>/medic/demos/demo4
+raco setup: making: <pkgs>/medic/demos/demo5
+raco setup: making: <pkgs>/medic/demos/doubly-linked-list
+raco setup: making: <pkgs>/medic/demos/factorial
+raco setup: making: <pkgs>/medic/demos/find-path
+raco setup: making: <pkgs>/medic/demos/same
+raco setup: making: <pkgs>/medic/demos/timeline-event
+raco setup: making: <pkgs>/medic/scribblings
+raco setup: making: <pkgs>/medic/trace-browser
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: syncing: <pkgs>/medic/doc/medic
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/aggregate/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(10954 module) #(10955 module fact-iter 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(9562 module) #(9563 module fact-iter 0) #(10954 module)\n   #(10955 module fact-iter 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(10954 module) #(10955 module fact-iter 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt:54:0: debug\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/aggregate/debug.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/aggregate/fact-iter-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/aggregate/fact-iter.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/count-length/count-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/count-length/count.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/count-length/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(10956 module) #(10957 module count 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(9562 module) #(9563 module count 0) #(10956 module) #(10957 module count 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(10956 module) #(10957 module count 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt:54:0: debug\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/count-length/debug.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo1/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(10978 module) #(10979 module src1 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(9563 module) #(9564 module src1 0) #(10978 module) #(10979 module src1 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(10978 module) #(10979 module src1 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt:54:0: debug\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo1/debug.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo1/src1-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo1/src1.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo2/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(10987 module) #(10988 module src2 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(9563 module) #(9564 module src2 0) #(10987 module) #(10988 module src2 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(10987 module) #(10988 module src2 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt:54:0: debug\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo2/debug.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo2/src2-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo2/src2.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo3/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(10975 module) #(10976 module src3 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(9562 module) #(9563 module src3 0) #(10975 module) #(10976 module src3 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(10975 module) #(10976 module src3 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt:54:0: debug\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo3/debug.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo3/src3-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo3/src3.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo4/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(10949 module) #(10950 module src4 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(9562 module) #(9563 module src4 0) #(10949 module) #(10950 module src4 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(10949 module) #(10950 module src4 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt:54:0: debug\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo4/debug.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo4/src4-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo4/src4.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo5/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(12555 module) #(12556 module f 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(11171 module) #(11172 module f 0) #(12555 module) #(12556 module f 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(12555 module) #(12556 module f 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/load-annotator.rkt:76:10\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo5/f.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo5/src5-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo5/src5.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/doubly-linked-list/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"expr-syntax-object-iterator: unknown expr: (#%expression (#%app < i (quote 0)))\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:410:4: expression-iterator69\n   try-next\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:410:4: expression-iterator69\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:424:6: let/rec-values-annotator\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:410:4: expression-iterator69\n   try-next\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:410:4: expression-iterator69\n   loop\n   try-next\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:410:4: expression-iterator69\n   loop\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:424:6: let/rec-values-annotator\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:410:4: expression-iterator69\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:424:6: let/rec-values-annotator\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:410:4: expression-iterator69\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt:424:6: let/rec-values-annotator\n   ...\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/doubly-linked-list/doubly-linked-list-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/doubly-linked-list/doubly-linked-list.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/factorial/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(10954 module) #(10955 module fact 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(9562 module) #(9563 module fact 0) #(10954 module) #(10955 module fact 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(10954 module) #(10955 module fact 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt:54:0: debug\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/factorial/debug.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/factorial/fact-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/factorial/fact.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/find-path/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(10985 module) #(10986 module find-path 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(9563 module) #(9564 module find-path 0) #(10985 module)\n   #(10986 module find-path 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(10985 module) #(10986 module find-path 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt:54:0: debug\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/find-path/debug.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/find-path/find-path-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/find-path/find-path.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/same/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(10998 module) #(10999 module same 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(9563 module) #(9564 module same 0) #(10998 module) #(10999 module same 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(10998 module) #(10999 module same 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt:54:0: debug\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/same/debug.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/same/same-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/same/same.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/timeline-event/debug.rkt"
+debug.rkt: raco test: non-empty stderr: #"#%require: unbound identifier;\n also, no #%app syntax transformer is bound\n  context...:\n   #(11106 module) #(11107 module se 0)\n  other binding...:\n   #<module-path-index:(racket)>\n   #(9563 module) #(9564 module se 0) #(11106 module) #(11107 module se 0)\n  other binding...:\n   #<module-path-index:(racket/base)>\n   #(-769228711115233983 module) #(-769228711115233982 module annotator 0)\n   #(11106 module) #(11107 module se 0)\n  at: #%require\n  in: (#%require medic/trace)\n  context...:\n   standard-module-name-resolver\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt:54:0: debug\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/timeline-event/debug.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/timeline-event/event-medic.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/timeline-event/se.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/load-annotator.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/medic-structs.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/scribblings/demo.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/scribblings/language.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/scribblings/medic.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/syntax-traversal.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/aggregate-editor.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/browser.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/graph-pasteboard.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/log-text.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/quadtree.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/scrub-slider.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/time-frame.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/time-slider.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/timeline-canvas.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/tooltip.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-util.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace.rkt"
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/core.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/aggregate/fact-iter-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/aggregate/fact-iter.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/count-length/count-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/count-length/count.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo1/src1-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo1/src1.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo2/src2-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo2/src2.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo3/src3-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo3/src3.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo4/src4-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo4/src4.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo5/f.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo5/src5-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo5/src5.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/doubly-linked-list/doubly-linked-list-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/doubly-linked-list/doubly-linked-list.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/factorial/fact-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/factorial/fact.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/find-path/find-path-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/find-path/find-path.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/same/same-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/same/same.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/timeline-event/event-medic.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/timeline-event/se.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/insert.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/load-annotator.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/main.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/medic-structs.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/scribblings/demo.scrbl
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/scribblings/language.scrbl
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/scribblings/medic.scrbl
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/syntax-traversal.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/aggregate-editor.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/browser.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/graph-pasteboard.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/log-text.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/quadtree.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/scrub-slider.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/time-frame.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/time-slider.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/timeline-canvas.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-browser/tooltip.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace-util.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/trace.rkt
+12/12 test failures
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/aggregate/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/count-length/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo1/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo2/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo3/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo4/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/demo5/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/doubly-linked-list/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/factorial/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/find-path/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/same/debug.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/medic/demos/timeline-event/debug.rkt
+The time is now Tuesday, October 6th, 2015 11:36:38pm

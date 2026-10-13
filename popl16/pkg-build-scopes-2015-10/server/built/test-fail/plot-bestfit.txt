@@ -1,0 +1,45 @@
+The time is now Wednesday, October 7th, 2015 12:46:39am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto plot-bestfit && bin/raco test --drdr --package plot-bestfit'
+Resolving "plot-bestfit" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/plot-bestfit.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/plot-bestfit (bestfit)
+raco setup: making: <pkgs>/plot-bestfit/examples
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/examples/exp.rkt"
+exp.rkt: raco test: non-empty stderr: #"map: all lists must have same size; arguments were: #<procedure:...bestfit/main.rkt:40:27> '(1 2 3 4 5) '(1 2 3 4 5) '()\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/main.rkt:35:0: graph/gen\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/examples/exp.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/examples/linear.rkt"
+linear.rkt: raco test: non-empty stderr: #"result arity mismatch;\n expected number of values not received\n  expected: 1\n  received: 3\n  values...:\n   (renderer2d (vector (ivl 0 10) (ivl 0 10)) #f #<procedure:default-ticks-fun> #<...\n   (renderer2d (vector (ivl #f #f) (ivl #f #f)) #<procedure:...se-env/prims.rkt:74...\n   (renderer2d (vector (ivl 1 10) (ivl 0.0 10.1)) #f #<procedure:default-ticks-fun...\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/examples/linear.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/main.rkt"
+2/2 test failures
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/main.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/examples/exp.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/plot-bestfit/examples/linear.rkt
+The time is now Wednesday, October 7th, 2015 12:47:19am

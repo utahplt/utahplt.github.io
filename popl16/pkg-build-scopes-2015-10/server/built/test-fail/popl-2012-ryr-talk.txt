@@ -1,0 +1,66 @@
+The time is now Wednesday, October 7th, 2015 1:09:33am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto popl-2012-ryr-talk && bin/raco test --drdr --package popl-2012-ryr-talk'
+Resolving "popl-2012-ryr-talk" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/popl-2012-ryr-talk.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/popl-2012-ryr-talk
+raco setup: making: <pkgs>/popl-2012-ryr-talk/fable
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/amb-test.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/amb.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/color.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/fable/fable.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/fable-words.rkt"
+fable-words.rkt: raco test: timeout after 90 seconds
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/lifecycle.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/main.rkt"
+main.rkt: raco test: non-empty stderr: #"title.rkt: none of the fonts (\"Optima, ExtraBlack\" (bold . \" Optima\") (bold . \"Optima\") (bold . \" Optima, Regular\") (bold . \"Optima, Regular\")) are available\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/title.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/main.rkt: [traversing imports]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/study.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/subst-test.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/subst.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/title.rkt"
+title.rkt: raco test: non-empty stderr: #"title.rkt: none of the fonts (\"Optima, ExtraBlack\" (bold . \" Optima\") (bold . \"Optima\") (bold . \" Optima, Regular\") (bold . \"Optima, Regular\")) are available\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/title.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/typeset-amb.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/util.rkt"
+3/3 test failures
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/amb-test.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/amb.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/color.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/fable/fable.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/lifecycle.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/study.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/subst-test.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/subst.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/typeset-amb.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/util.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/fable-words.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/main.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/popl-2012-ryr-talk/title.rkt
+The time is now Wednesday, October 7th, 2015 1:11:51am

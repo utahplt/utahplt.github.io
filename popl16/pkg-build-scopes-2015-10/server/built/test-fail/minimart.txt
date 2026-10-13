@@ -1,0 +1,93 @@
+The time is now Tuesday, October 6th, 2015 11:45:16pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto minimart && bin/raco test --drdr --package minimart'
+Resolving "minimart" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/minimart.zip
+Resolving "rfc6455" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/rfc6455.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of minimart:
+   rfc6455
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/minimart/minimart
+raco setup: making: <pkgs>/minimart/minimart/broker
+raco setup: making: <pkgs>/minimart/minimart/drivers
+raco setup: making: <pkgs>/minimart/minimart/examples
+raco setup: making: <pkgs>/minimart/minimart/lang
+raco setup: making: <pkgs>/minimart/minimart/trace
+raco setup: making: <pkgs>/rfc6455/net
+raco setup: making: <pkgs>/rfc6455/net/rfc6455
+raco setup: making: <pkgs>/rfc6455/net/rfc6455/examples
+raco setup: making: <pkgs>/rfc6455/net/rfc6455/hybi00
+raco setup: making: <pkgs>/rfc6455/net/rfc6455/private
+raco setup: making: <pkgs>/rfc6455/net/rfc6455/rfc6455
+raco setup: making: <pkgs>/rfc6455/net/rfc6455/scribblings
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: syncing: <pkgs>/rfc6455/net/rfc6455/doc/rfc6455
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/actor.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/broker/client.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/broker/protocol.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/broker/server.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/canonicalize.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/deduplicator.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/demand-matcher.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/drivers/tcp.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/drivers/timer.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/drivers/udp.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/drivers/websocket.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/broker-client-ping.rkt"
+broker-client-ping.rkt: raco test: timeout after 90 seconds
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/broker-client-pong.rkt"
+broker-client-pong.rkt: raco test: timeout after 90 seconds
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/broker.rkt"
+broker.rkt: raco test: timeout after 90 seconds
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/chat-actor.rkt"
+chat-actor.rkt: raco test: timeout after 90 seconds
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/chat-client-actor.rkt"
+chat-client-actor.rkt: raco test: non-empty stderr: #"tcp-connect: connection failed\n  address: localhost\n  port number: 5999\n  step: 6\n  system error: Connection refused; errno=111\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/drivers/tcp.rkt:103:0: spawn-tcp-connection\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/demand-matcher.rkt:125:33\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/demand-matcher.rkt:69:0: demand-matcher-update\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/demand-matcher.rkt:98:0: demand-matcher-handle-event\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:226:2: deliver\n   .../more-scheme.rkt:261:28\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:470:5: for-loop\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:370:0: dispatch-pending-events\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:191:0: transition-bind\n   /home/racket/build-pkgs/racket/collects/racket/private/list.rkt:229:4: foldl\n   .../more-scheme.rkt:261:28\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:297:0: deliver-event\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/ground.rkt:62:2: await-interrupt\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/chat-client-actor.rkt: [running body]\n\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/chat-client-userland.rkt"
+chat-client-userland.rkt: raco test: non-empty stderr: #"tcp-connect: connection failed\n  address: localhost\n  port number: 5999\n  step: 6\n  system error: Connection refused; errno=111\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/drivers/tcp.rkt:103:0: spawn-tcp-connection\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/demand-matcher.rkt:125:33\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/demand-matcher.rkt:69:0: demand-matcher-update\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/demand-matcher.rkt:98:0: demand-matcher-handle-event\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:226:2: deliver\n   .../more-scheme.rkt:261:28\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:470:5: for-loop\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:370:0: dispatch-pending-events\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:191:0: transition-bind\n   /home/racket/build-pkgs/racket/collects/racket/private/list.rkt:229:4: foldl\n   .../more-scheme.rkt:261:28\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:297:0: deliver-event\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/ground.rkt:62:2: await-interrupt\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/chat-client-userland.rkt: [running body]\n\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/chat-client.rkt"
+chat-client.rkt: raco test: non-empty stderr: #"tcp-connect: connection failed\n  address: localhost\n  port number: 5999\n  step: 6\n  system error: Connection refused; errno=111\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/drivers/tcp.rkt:103:0: spawn-tcp-connection\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/demand-matcher.rkt:125:33\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/demand-matcher.rkt:69:0: demand-matcher-update\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/demand-matcher.rkt:98:0: demand-matcher-handle-event\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:226:2: deliver\n   .../more-scheme.rkt:261:28\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:470:5: for-loop\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:370:0: dispatch-pending-events\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:191:0: transition-bind\n   /home/racket/build-pkgs/racket/collects/racket/private/list.rkt:229:4: foldl\n   .../more-scheme.rkt:261:28\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/core.rkt:297:0: deliver-event\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/ground.rkt:62:2: await-interrupt\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/chat-client.rkt: [running body]\n\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/chat-userland.rkt"
+chat-userland.rkt: raco test: timeout after 90 seconds
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/chat-userland2.rkt"
+chat-userland2.rkt: raco test: timeout after 90 seconds
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/minimart/minimart/examples/chat.rkt"
+user break
+Timeout after 600 seconds

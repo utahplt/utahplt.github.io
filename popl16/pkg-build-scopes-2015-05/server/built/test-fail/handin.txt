@@ -1,0 +1,140 @@
+The time is now Monday, May 18th, 2015 10:51:04am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto handin && bin/raco test --drdr --package handin'
+Resolving "handin" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/handin.zip
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/scope-snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/handin/handin-client (Course)
+raco setup: making: <pkgs>/handin/handin-server
+raco setup: making: <pkgs>/handin/handin-server/overridden-collects
+raco setup: making: <pkgs>/handin/handin-server/overridden-collects/teachpack
+raco setup: making: <pkgs>/handin/handin-server/overridden-collects/teachpack/htdp
+raco setup: making: <pkgs>/handin/handin-server/private
+raco setup: making: <pkgs>/handin/handin-server/scribblings
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/handin/handin-server/scribblings/doc/handin-server
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/client-gui.rkt"
+client-gui.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/client.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/handin-multi.rkt"
+handin-multi.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/this-collection.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/updater.rkt"
+updater.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/platform.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/kernel.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/mred.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/checker.rkt"
+checker.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/grading-utils.rkt"
+grading-utils.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/main.rkt"
+main.rkt: raco test: non-empty stderr: #"WARNING: users file missing on startup: /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/users.rktd\nffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/platform.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/kernel.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/overridden-collects/teachpack/htdp/guess.rkt"
+guess.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/platform.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/racket/gui/base.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/overridden-collects/teachpack/htdp/master.rkt"
+master.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/platform.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/racket/gui/base.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/config.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/hooker.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/lock.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/logger.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/md5.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/reloadable.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/run-status.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/run-servlet.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/sandbox.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/checker-utils.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/checker.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/client-customization.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/common.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/grading-utils.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/handin-server.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/hook-dummy.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/multifile.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/other-utils.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/quick-start.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/sandbox.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/server-client.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/server-setup.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/updater.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/utils.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/wheres-the-collection.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/utils.rkt"
+utils.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/mred.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/web-status-server.rkt"
+web-status-server.rkt: raco test: non-empty stderr: #"WARNING: users file missing on startup: /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/users.rktd\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/info.rkt"
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/client.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/this-collection.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/config.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/hooker.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/lock.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/logger.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/md5.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/reloadable.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/private/run-status.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/run-servlet.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/sandbox.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/checker-utils.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/checker.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/client-customization.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/common.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/grading-utils.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/handin-server.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/hook-dummy.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/multifile.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/other-utils.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/quick-start.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/sandbox.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/server-client.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/server-setup.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/updater.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/utils.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/scribblings/wheres-the-collection.scrbl
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/info.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/client-gui.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/handin-multi.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-client/updater.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/checker.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/grading-utils.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/main.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/overridden-collects/teachpack/htdp/guess.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/overridden-collects/teachpack/htdp/master.rkt
+10/10 test failures
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/utils.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/handin/handin-server/web-status-server.rkt
+The time is now Monday, May 18th, 2015 10:52:04am

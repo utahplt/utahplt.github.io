@@ -1,0 +1,101 @@
+The time is now Thursday, May 14th, 2015 8:26:46am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.117 '/usr/bin/env' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto dlm-read'
+Resolving "dlm-read" via http://localhost:18333/built/catalog/
+Resolving "dlm-read" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/dlm-read.zip
+raco setup: version: 6.1.91.900 [3m]
+raco setup: installation name: 6.1.91.900
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.1.91.900/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/dlm-read
+raco setup:  in <pkgs>/dlm-read
+/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/dlm-read/main.rkt:4:9: require: PLaneT could not download the package "neil/csv:1": tcp-connect: connection failed
+  detail: host not found
+  address: planet.racket-lang.org
+  port number: 80
+  step: 1
+  system error: Name or service not known; errno=-2
+  in: (planet neil/csv:1:=7)
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/dlm-read/main.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/planet/private/resolver.rkt:339:0: planet-resolve
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:163:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:977:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1045:8
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:16:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+   ...
+raco setup: making: <pkgs>/dlm-read/examples
+raco setup: making: <pkgs>/dlm-read/scribblings
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/dlm-read/scribblings/dlm-read.scrbl
+/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/dlm-read/main.rkt:4:9: require: PLaneT could not download the package "neil/csv:1": tcp-connect: connection failed
+  detail: host not found
+  address: planet.racket-lang.org
+  port number: 80
+  step: 1
+  system error: Name or service not known; errno=-2
+  in: (planet neil/csv:1:=7)
+  context...:
+   /home/racket/build-pkgs/racket/collects/planet/private/resolver.rkt:339:0: planet-resolve
+   standard-module-name-resolver
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during making for <pkgs>/dlm-read
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/dlm-read/main.rkt:4:9: require: PLaneT could not download the package "neil/csv:1": tcp-connect: connection failed
+raco setup:     detail: host not found
+raco setup:     address: planet.racket-lang.org
+raco setup:     port number: 80
+raco setup:     step: 1
+raco setup:     system error: Name or service not known; errno=-2
+raco setup:     in: (planet neil/csv:1:=7)
+raco setup:     compiling: <pkgs>/dlm-read/main.rkt
+raco setup: error: during building docs for <pkgs>/dlm-read/scribblings/dlm-read.scrbl
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/dlm-read/main.rkt:4:9: require: PLaneT could not download the package "neil/csv:1": tcp-connect: connection failed
+raco setup:     detail: host not found
+raco setup:     address: planet.racket-lang.org
+raco setup:     port number: 80
+raco setup:     step: 1
+raco setup:     system error: Name or service not known; errno=-2
+raco setup:     in: (planet neil/csv:1:=7)
+raco pkg install: packages installed, although setup reported errors
+The time is now Thursday, May 14th, 2015 8:26:56am

@@ -1,0 +1,76 @@
+The time is now Monday, May 18th, 2015 12:06:00pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto molis-hai'
+Resolving "molis-hai" via http://localhost:18333/built/catalog/
+Resolving "molis-hai" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/molis-hai.zip
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/scope-snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/molis-hai/molis-hai (Molis Hai)
+raco setup:  in <pkgs>/molis-hai/molis-hai
+...d-pkgs/user/.racket/scope-snapshot/pkgs/molis-hai/molis-hai/extract-crime-and-punishment-text.rkt:3:9: require: PLaneT could not download the package "neil/html-parsing": tcp-connect: connection failed
+  detail: host not found
+  address: planet.racket-lang.org
+  port number: 80
+  step: 1
+  system error: Name or service not known; errno=-2
+  in: (planet neil/html-parsing)
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/molis-hai/molis-hai/extract-crime-and-punishment-text.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/planet/private/resolver.rkt:339:0: planet-resolve
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/../racket/private/map.rkt:53:19: loop
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:977:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1045:8
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:17:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+   ...
+raco setup: making: <pkgs>/molis-hai/molis-hai/js-model
+raco setup:  in <pkgs>/molis-hai/molis-hai/js-model
+raco setup: making: <pkgs>/molis-hai/molis-hai/js-model/css
+raco setup: making: <pkgs>/molis-hai/molis-hai/js-model/js
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during making for <pkgs>/molis-hai/molis-hai (Molis Hai)
+raco setup:   ...d-pkgs/user/.racket/scope-snapshot/pkgs/molis-hai/molis-hai/extract-crime-and-punishment-text.rkt:3:9: require: PLaneT could not download the package "neil/html-parsing": tcp-connect: connection failed
+raco setup:     detail: host not found
+raco setup:     address: planet.racket-lang.org
+raco setup:     port number: 80
+raco setup:     step: 1
+raco setup:     system error: Name or service not known; errno=-2
+raco setup:     in: (planet neil/html-parsing)
+raco setup:     compiling: <pkgs>/molis-hai/molis-hai/extract-crime-and-punishment-text.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Monday, May 18th, 2015 12:06:47pm

@@ -1,0 +1,91 @@
+The time is now Monday, May 18th, 2015 12:55:44pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto plt-services && bin/raco test --drdr --package plt-services'
+Resolving "plt-services" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/plt-services.zip
+Resolving "honu" via http://localhost:18333/built/catalog/
+Resolving "gui-pkg-manager" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/honu.zip
+Downloading http://localhost:18333/built/pkgs/gui-pkg-manager.zip
+Resolving "gui-pkg-manager-doc" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/gui-pkg-manager-doc.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of plt-services:
+   honu
+   gui-pkg-manager
+ dependencies of gui-pkg-manager:
+   gui-pkg-manager-doc
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/scope-snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: installing: shared file /home/racket/build-pkgs/user/.racket/scope-snapshot/share/honu.vim
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/gui-pkg-manager-doc/pkg
+raco setup: making: <pkgs>/gui-pkg-manager-doc/pkg/gui
+raco setup: making: <pkgs>/gui-pkg-manager-doc/pkg/gui/scribblings
+raco setup: making: <pkgs>/gui-pkg-manager-lib/pkg/gui
+raco setup: making: <pkgs>/gui-pkg-manager-lib/pkg/gui/private
+raco setup: making: <pkgs>/gui-pkg-manager/pkg
+raco setup: making: <pkgs>/gui-pkg-manager/pkg/gui
+raco setup: making: <pkgs>/honu
+raco setup: making: <pkgs>/honu/contrib
+raco setup: making: <pkgs>/honu/core
+raco setup: making: <pkgs>/honu/core/lang
+raco setup: making: <pkgs>/honu/core/private
+raco setup: making: <pkgs>/honu/lang
+raco setup: making: <pkgs>/honu/private
+raco setup: making: <pkgs>/honu/private/lang
+raco setup: making: <pkgs>/honu/scribblings
+raco setup: making: <pkgs>/honu/tests
+raco setup: making: <pkgs>/plt-services/meta (Infrastructure code)
+raco setup: making: <pkgs>/plt-services/meta/announcements
+raco setup: making: <pkgs>/plt-services/meta/drdr
+raco setup: making: <pkgs>/plt-services/meta/images
+raco setup: making: <pkgs>/plt-services/meta/images/taking-screenshots
+raco setup: making: <pkgs>/plt-services/meta/tests
+raco setup: --- creating launchers ---
+raco setup: launcher: /home/racket/build-pkgs/user/.racket/scope-snapshot/bin/racket-package-manager
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/gui-pkg-manager-doc/pkg/doc/gui-pkg-manager
+raco setup: syncing: <pkgs>/honu/scribblings/doc/honu
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/plt-services/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/plt-services/meta/images/taking-screenshots/widget.rkt"
+widget.rkt: raco test: non-empty stderr: #"ffi-lib: couldn't open \"libgdk-x11-2.0.so.0\" (libgdk-x11-2.0.so.0: cannot open shared object file: No such file or directory)\n  context...:\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/utils.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/init.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/gtk/platform.rkt: [traversing imports]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/mred/private/wx/platform.rkt: [running body]\n   /home/racket/build-pkgs/racket/share/pkgs/gui-lib/racket/gui/base.rkt: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/plt-services/meta/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/plt-services/meta/pkg-index/basic/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/plt-services/meta/pkg-index/info.rkt"
+1/1 test failures
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/plt-services/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/plt-services/meta/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/plt-services/meta/pkg-index/basic/main.rkt
+  0 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/plt-services/meta/pkg-index/info.rkt
+1 1 /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/plt-services/meta/images/taking-screenshots/widget.rkt
+The time is now Monday, May 18th, 2015 12:56:41pm

@@ -1,0 +1,72 @@
+The time is now Tuesday, October 6th, 2015 9:47:23pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto fra && bin/raco test --drdr --package fra'
+Resolving "fra" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/fra.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/fra/fra (Functional Relation Algebra)
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/fra/fra/doc/fra
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/database.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/fra.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/ivector.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/optimize-tests.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/optimize.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/prop.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/query.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/relation.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/schema.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt"
+test.rkt: raco test: non-empty stderr: #"test: 8/15 test failures:\n/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt:72:2: test failure in (execute-query (query-projection (quote (Age Weight)) (query-relation (quote Person))))\n  expected: (relation '(Age Weight) (set (tuple (vec '#(34 80))) (tuple (vec '#(28 64))) (tuple (vec '#(29 70))) (tuple (vec '#(54 54)))))\n       got: error: q:projection-schema: contract violation\n  expected: q:projection?\n  given: Person\n  in: the 1st argument of\n      (-> q:projection? (listof symbol?))\n  contract from: <pkgs>/fra/fra/query.rkt\n  blaming: <pkgs>/fra/fra/optimize.rkt\n   (assuming the contr...\n/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt:100:2: test failure in (execute-query (query-projection (quote (Name EmpId DeptName Manager)) (query-natural-join (query-relation (quote Employee)) (query-relation (quote Dept)))))\n  expected: (relation '(Name EmpId DeptName Manager) (set (tuple (vec '#(\"Harry\" 3415 \"Finance\" \"George\"))) (tuple (vec '#(\"Sally\" 2241 \"Sales\" \"Harriet\"))) (tuple (vec '#(\"George\" 3401 \"Finance\" \"George\"))) (tuple (vec '#(\"Harriet\" 2202 \"Sales\" \"Harriet\")))))\n       got: error: q:projection-schema: contract violation\n  expected: q:projection?\n  given: \317\203_[equal?((DeptName DeptName16))]((\317\201_[(DeptName/DeptName16)](Employee) \342\234\225 Dept))\n  in: the 1st argument of\n      (-> q:projection? (listof symbol?))\n  contract from: <pkgs>/fr...\n/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt:110:2: test failure in (execute-query (query-projection (quote (CarModel CarPrice BoatModel BoatPrice)) (query-theta-join (Proposition (>= CarPrice BoatPrice)) (query-relation (quote Cars)) (query-relation (quote Boats)))))\n  expected: (relation '(CarModel CarPrice BoatModel BoatPrice) (set (tuple (vec '#(\"A\" 20 \"A\" 10))) (tuple (vec '#(\"B\" 30 \"A\" 10))) (tuple (vec '#(\"C\" 50 \"A\" 10))) (tuple (vec '#(\"C\" 50 \"B\" 40)))))\n       got: error: q:projection-schema: contract violation\n  expected: q:projection?\n  given: \317\203_[>=((CarPrice BoatPrice))]((Cars \342\234\225 Boats))\n  in: the 1st argument of\n      (-> q:projection? (listof symbol?))\n  contract from: <pkgs>/fra/fra/query.rkt\n  blaming: <pkgs>/fr...\n/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt:129:2: test failure in (execute-query (query-projection (quote (Name EmpId DeptName)) (query-anti-join (query-relation (quote Employee)) (query-relation (quote Dept)))))\n  expected: (relation '(Name EmpId DeptName) (set))\n       got: error: q:projection-schema: contract violation\n  expected: q:projection?\n  given: (Employee - \317\200_(Name EmpId DeptName)(\317\200_(Manager DeptName EmpId Name)(\317\203_[equal?((DeptName DeptName18))]((\317\201_[(DeptName/DeptName18)](Employee) \342\234\225 Dept)))))\n  in: the 1st argumen...\n/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt:134:2: test failure in (execute-query (query-division (query-relation (quote Students2)) (query-relation (quote Tasks2))))\n  expected: (relation '(Student) (set (tuple (vec '#(Fred))) (tuple (vec '#(Sara)))))\n       got: error: q:projection-schema: contract violation\n  expected: q:projection?\n  given: Students2\n  in: the 1st argument of\n      (-> q:projection? (listof symbol?))\n  contract from: <pkgs>/fra/fra/query.rkt\n  blaming: <pkgs>/fra/fra/optimize.rkt\n   (assuming the co...\n/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt:141:2: test failure in (execute-query (query-projection (quote (Name EmpId DeptName Manager)) (query-left-outer-join (query-relation (quote Employee2)) (query-relation (quote Dept2)))))\n  expected: (relation '(Name EmpId DeptName Manager) (set (tuple (vec '#(Harry 3415 Finance #0=#s(the-NULL)))) (tuple (vec '#(Sally 2241 Sales Harriet))) (tuple (vec '#(George 3401 Finance #0#))) (tuple (vec '#(Harriet 2202 Sales Harriet))) (tuple (vec '#(Tim 1123 ...\n       got: error: q:projection-schema: contract violation\n  expected: q:projection?\n  given: (\317\200_(Manager DeptName EmpId Name)(\317\203_[equal?((DeptName DeptName19))]((\317\201_[(DeptName/DeptName19)](Employee2) \342\234\225 Dept2))) \342\210\252 \317\200_(Manager DeptName EmpId Name)(((Employee2 - \317\200_(Na...\n/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt:152:2: test failure in (execute-query (query-projection (quote (Name EmpId DeptName Manager)) (query-right-outer-join (query-relation (quote Employee2)) (query-relation (quote Dept2)))))\n  expected: (relation '(Name EmpId DeptName Manager) (set (tuple (vec '#(Sally 2241 Sales Harriet))) (tuple (vec '#(Harriet 2202 Sales Harriet))) (tuple (vec '#(#0=#s(the-NULL) #0# Production Charles)))))\n       got: error: q:projection-schema: contract violation\n  expected: q:projection?\n  given: (\317\200_(Manager DeptName EmpId Name)(\317\203_[equal?((DeptName DeptName20))]((\317\201_[(DeptName/DeptName20)](Employee2) \342\234\225 Dept2))) \342\210\252 \317\200_(Manager DeptName EmpId Name)(((Dept2 - \317\200_(DeptNa...\n/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt:161:2: test failure in (execute-query (query-projection (quote (Name EmpId DeptName Manager)) (query-outer-join (query-relation (quote Employee2)) (query-relation (quote Dept2)))))\n  expected: (relation '(Name EmpId DeptName Manager) (set (tuple (vec '#(Sally 2241 Sales Harriet))) (tuple (vec '#(Harriet 2202 Sales Harriet))) (tuple (vec '#(#0=#s(the-NULL) #0# Production Charles))) (tuple (vec '#(Harry 3415 Finance #0#))) (tuple (vec '#(George...\n       got: error: q:projection-schema: contract violation\n  expected: q:projection?\n  given: ((\317\200_(Manager DeptName EmpId Name)(\317\203_[equal?((DeptName DeptName21))]((\317\201_[(DeptName/DeptName21)](Employee2) \342\234\225 Dept2))) \342\210\252 \317\200_(Manager DeptName EmpId Name)(((Employee2 - \317\200_(N...\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt: [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/tuple.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/info.rkt"
+1/24 test failures
+  23 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/optimize-tests.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/database.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/fra.scrbl
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/info.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/ivector.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/main.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/optimize.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/prop.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/query.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/relation.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/schema.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/tuple.rkt
+   0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/info.rkt
+1  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/fra/fra/test.rkt
+The time is now Tuesday, October 6th, 2015 9:47:39pm

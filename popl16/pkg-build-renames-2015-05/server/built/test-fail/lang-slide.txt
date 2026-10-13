@@ -1,0 +1,48 @@
+The time is now Thursday, May 14th, 2015 10:20:09am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto lang-slide && bin/raco test --drdr --package lang-slide'
+Resolving "lang-slide" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/lang-slide.zip
+raco setup: version: 6.1.91.900 [3m]
+raco setup: installation name: 6.1.91.900
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/lang-slide/lang-slide
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/draw-plain.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/find.rkt"
+find.rkt: raco test: non-empty stderr: #"unknown language \"lang-utils.rkt\" 2\nunknown language \"plai/gc2/collector\" 4\nunknown language \"plai/collector\" 3\nunknown language \"plai/mutator\" 44\nunknown language \"datalog\" 13\nunknown language \"plai\" 5\nunknown language \"framework/private/decode\" 4\nunknown language \"wrapper.rkt\" 146\nunknown language \"plai/gc2/mutator\" 48\nunknown language \"plt-pretty-big-text.rkt\" 2\nran out of orange for typed/scheme/base\nunknown language \"env-lang.rkt\" 2\nunknown language \"eopl\" 170\nunknown language \"datalog/sexp\" 14\nunknown language \"wrap.rkt\" 44\nran out of pink for r5rs/main\nunknown language \"info\" 304\nran out of blue for #%kernel\nunknown language \"string-constant-lang.rkt\" 7\nunknown language \"racklog\" 7\nran out of orange for typed-racket/base-env/extra-env-lang\nunknown language \"one off language\" 33\n/bin/sh: 1: /usr/bin/twopi: not found\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/hudak-quote.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/mk-img.rkt"
+mk-img.rkt: raco test: non-empty stderr: #"/: division by zero\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/draw-plain.rkt:73:0: draw-graph\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/main.rkt:106:0: langs-in-tree\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/main.rkt:78:0: langs-pict6\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/mk-img.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/orig-colors.rkt"
+2/2 test failures
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/draw-plain.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/hudak-quote.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/main.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/orig-colors.rkt
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/find.rkt
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lang-slide/lang-slide/mk-img.rkt
+The time is now Thursday, May 14th, 2015 10:21:20am

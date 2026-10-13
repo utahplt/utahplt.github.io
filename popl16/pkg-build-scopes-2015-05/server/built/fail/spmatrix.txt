@@ -1,0 +1,93 @@
+The time is now Monday, May 18th, 2015 2:15:31pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto spmatrix'
+Resolving "spmatrix" via http://localhost:18333/built/catalog/
+Resolving "spmatrix" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/spmatrix.zip
+Resolving "spvector" via http://localhost:18333/built/catalog/
+Resolving "spvector" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/spvector.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of spmatrix:
+   spvector
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/scope-snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/data-test/tests/data
+raco setup: making: <pkgs>/spmatrix/data
+raco setup:  in <pkgs>/spmatrix/data
+raco setup:  in <pkgs>/spvector/data
+raco setup: making: <pkgs>/spmatrix/data/spmatrix (Semi-persistent Matrices)
+raco setup:  in <pkgs>/spmatrix/data/spmatrix
+raco setup: making: <pkgs>/spmatrix/tests
+raco setup: making: <pkgs>/spmatrix/tests/data
+raco setup:  in <pkgs>/spmatrix/tests/data
+raco setup: making: <pkgs>/spvector/data
+raco setup: making: <pkgs>/spvector/data/spvector (Semi-persistent Vectors)
+raco setup:  in <pkgs>/spvector/data/spvector
+raco setup: making: <pkgs>/spvector/tests
+raco setup: making: <pkgs>/spvector/tests/data
+raco setup:  in <pkgs>/spvector/tests/data
+accumulate-package: bad syntax
+  in: (accumulate-package #f #f #f (package-begin (define v1 (make-spvector #f #f #f)) (spvector-set v1 1 #t)) #f () ((define v1 (make-spvector #f #f #f)) (spvector-set v1 1 #t)))
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/spvector/tests/data/spvector.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:163:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:977:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1046:10: for-loop
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:17:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/spmatrix/data/spmatrix/spmatrix.scrbl
+raco setup: running: <pkgs>/spvector/data/spvector/spvector.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/spmatrix/data/spmatrix/spmatrix.scrbl
+raco setup: rendering: <pkgs>/spvector/data/spvector/spvector.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during making for <pkgs>/spvector/tests/data
+raco setup:   accumulate-package: bad syntax
+raco setup:     in: (accumulate-package #f #f #f (package-begin (define v1 (make-spvector #f #f #f)) (spvector-set v1 1 #t)) #f () ((define v1 (make-spvector #f #f #f)) (spvector-set v1 1 #t)))
+raco setup:     compiling: <pkgs>/spvector/tests/data/spvector.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Monday, May 18th, 2015 2:15:55pm

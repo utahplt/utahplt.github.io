@@ -1,0 +1,205 @@
+The time is now Wednesday, July 15th, 2015 6:09:25am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.118 '/usr/bin/env' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto gut'
+Resolving "gut" via http://localhost:18333/built/catalog/
+Resolving "gut" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/gut.zip
+Resolving "grip" via http://localhost:18333/built/catalog/
+Resolving "grommet" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/grip.zip
+Downloading http://localhost:18333/built/pkgs/grommet.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of gut:
+   grip
+   grommet
+raco setup: version: 6.2 [3m]
+raco setup: installation name: 6.2
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.2/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/grip/attic
+raco setup: making: <pkgs>/grip/grip (grip)
+raco setup: making: <pkgs>/grip/grip/control
+raco setup: making: <pkgs>/grip/grip/data
+raco setup: making: <pkgs>/grip/grip/data/datetime
+raco setup: making: <pkgs>/grip/grip/r6rslib
+raco setup: making: <pkgs>/grip/grip/r6rslib/arithmetic
+raco setup: making: <pkgs>/grip/grip/r6rslib/io
+raco setup: making: <pkgs>/grip/grip/r6rslib/io/private
+raco setup: making: <pkgs>/grip/grip/scribblings
+raco setup: making: <pkgs>/grip/grip/scribblings/control
+raco setup: making: <pkgs>/grip/grip/scribblings/system
+raco setup: making: <pkgs>/grip/grip/system
+raco setup: making: <pkgs>/grommet/grommet (crypto)
+raco setup: making: <pkgs>/grommet/grommet/crypto
+raco setup: making: <pkgs>/grommet/grommet/crypto/hash
+raco setup: making: <pkgs>/grommet/grommet/crypto/private
+raco setup: making: <pkgs>/grommet/grommet/scribblings
+raco setup: making: <pkgs>/gut/gut (gut)
+raco setup:  in <pkgs>/gut/gut
+raco setup:  in <pkgs>/gut/gut/scribblings
+raco setup: making: <pkgs>/gut/gut/format
+raco setup: making: <pkgs>/gut/gut/format/html
+raco setup:  in <pkgs>/gut/gut/format/html
+raco setup: making: <pkgs>/gut/gut/format/json
+raco setup:  in <pkgs>/gut/gut/format/json
+/home/racket/build-pkgs/user/.racket/6.2/pkgs/gut/gut/format/json/json.rkt:12:1: require: PLaneT could not download the package "neil/json-parsing:1": tcp-connect: connection failed
+  detail: host not found
+  address: planet.racket-lang.org
+  port number: 80
+  step: 1
+  system error: Name or service not known; errno=-2
+  in: (planet neil/json-parsing:1)
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/6.2/pkgs/gut/gut/format/json/json.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/planet/private/resolver.rkt:339:0: planet-resolve
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:79:13: t
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:431:5
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   try-next
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:243:2
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:163:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:983:2: compile-cc
+   ...
+raco setup: making: <pkgs>/gut/gut/format/rss
+raco setup: making: <pkgs>/gut/gut/format/rss/rss20
+raco setup:  in <pkgs>/gut/gut/format/rss/rss20
+raco setup:  in <pkgs>/gut/gut/uri/url
+raco setup:  in <pkgs>/gut/gut/uri
+raco setup:  in <pkgs>/gut/gut/http
+raco setup:  in <pkgs>/gut/gut/format/xml
+/home/racket/build-pkgs/user/.racket/6.2/pkgs/gut/gut/format/xml/sxml.rkt:34:1: require: PLaneT could not download the package "neil/htmlprag:1": tcp-connect: connection failed
+  detail: host not found
+  address: planet.racket-lang.org
+  port number: 80
+  step: 1
+  system error: Name or service not known; errno=-2
+  in: (planet neil/htmlprag:1:7)
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/6.2/pkgs/gut/gut/format/xml/sxml.rkt
+   /home/racket/build-pkgs/user/.racket/6.2/pkgs/gut/gut/format/rss/rss20/rss.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/planet/private/resolver.rkt:339:0: planet-resolve
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:79:13: t
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:431:5
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   try-next
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:243:2
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/typed-racket.rkt:24:4
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   ...
+raco setup: making: <pkgs>/gut/gut/format/xml
+raco setup:  in <pkgs>/gut/gut/format/xml
+/home/racket/build-pkgs/user/.racket/6.2/pkgs/gut/gut/format/xml/sxml.rkt:34:1: require: PLaneT could not download the package "neil/htmlprag:1": tcp-connect: connection failed
+  detail: host not found
+  address: planet.racket-lang.org
+  port number: 80
+  step: 1
+  system error: Name or service not known; errno=-2
+  in: (planet neil/htmlprag:1:7)
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/6.2/pkgs/gut/gut/format/xml/sxml.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/planet/private/resolver.rkt:339:0: planet-resolve
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:79:13: t
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:431:5
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   try-next
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:243:2
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+raco setup: making: <pkgs>/gut/gut/http (http)
+raco setup:  in <pkgs>/gut/gut/http
+raco setup:  in <pkgs>/gut/gut/http/scribblings
+raco setup: making: <pkgs>/gut/gut/http/scribblings
+raco setup: making: <pkgs>/gut/gut/oauth
+raco setup:  in <pkgs>/gut/gut/oauth
+raco setup: making: <pkgs>/gut/gut/scribblings
+raco setup: making: <pkgs>/gut/gut/uri
+raco setup: making: <pkgs>/gut/gut/uri/scribblings
+raco setup: making: <pkgs>/gut/gut/uri/url
+raco setup: making: <pkgs>/gut/gut/uuid
+raco setup:  in <pkgs>/gut/gut/uuid
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/grip/grip/doc/grip
+raco setup: syncing: <pkgs>/grommet/grommet/doc/grommet
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/gut/gut/scribblings/manual.scrbl
+raco setup: running: <pkgs>/gut/gut/http/scribblings/manual.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/gut/gut/scribblings/manual.scrbl
+raco setup: rendering: <pkgs>/gut/gut/http/scribblings/manual.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during making for <pkgs>/gut/gut/format/json
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs/gut/gut/format/json/json.rkt:12:1: require: PLaneT could not download the package "neil/json-parsing:1": tcp-connect: connection failed
+raco setup:     detail: host not found
+raco setup:     address: planet.racket-lang.org
+raco setup:     port number: 80
+raco setup:     step: 1
+raco setup:     system error: Name or service not known; errno=-2
+raco setup:     in: (planet neil/json-parsing:1)
+raco setup:     compiling: <pkgs>/gut/gut/format/json/json.rkt
+raco setup: error: during making for <pkgs>/gut/gut/format/rss/rss20
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs/gut/gut/format/xml/sxml.rkt:34:1: require: PLaneT could not download the package "neil/htmlprag:1": tcp-connect: connection failed
+raco setup:     detail: host not found
+raco setup:     address: planet.racket-lang.org
+raco setup:     port number: 80
+raco setup:     step: 1
+raco setup:     system error: Name or service not known; errno=-2
+raco setup:     in: (planet neil/htmlprag:1:7)
+raco setup:     compiling: <pkgs>/gut/gut/format/xml/sxml.rkt
+raco setup: error: during making for <pkgs>/gut/gut/format/xml
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs/gut/gut/format/xml/sxml.rkt:34:1: require: PLaneT could not download the package "neil/htmlprag:1": tcp-connect: connection failed
+raco setup:     detail: host not found
+raco setup:     address: planet.racket-lang.org
+raco setup:     port number: 80
+raco setup:     step: 1
+raco setup:     system error: Name or service not known; errno=-2
+raco setup:     in: (planet neil/htmlprag:1:7)
+raco setup:     compiling: <pkgs>/gut/gut/format/xml/sxml.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Wednesday, July 15th, 2015 6:10:14am

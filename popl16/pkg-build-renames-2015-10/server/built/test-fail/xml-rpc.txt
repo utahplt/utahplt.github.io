@@ -1,0 +1,87 @@
+The time is now Monday, June 29th, 2015 8:51:24pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto xml-rpc && bin/raco test --drdr --package xml-rpc'
+Resolving "xml-rpc" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/xml-rpc.zip
+raco setup: version: 6.2 [3m]
+raco setup: installation name: 6.2
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.2/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/net-test/tests/net
+raco setup: making: <pkgs>/net-test/tests/net/stress
+raco setup: making: <pkgs>/xml-rpc/net
+raco setup: making: <pkgs>/xml-rpc/net/xml-rpc (xml-rpc)
+raco setup: making: <pkgs>/xml-rpc/tests
+raco setup: making: <pkgs>/xml-rpc/tests/net
+raco setup: making: <pkgs>/xml-rpc/tests/net/xml-rpc
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: syncing: <pkgs>/xml-rpc/net/xml-rpc/doc/xml-rpc
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/base.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/client.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/core.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/protocol.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/serialise.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/server-core.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/server.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/xml-rpc.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/xml-rpc.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/all-xml-rpc-tests.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/core-test.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/protocol-test.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/run-tests.rkt"
+run-tests.rkt: raco test: non-empty stderr: #"tcp-connect: connection failed\n  detail: host not found\n  address: betty.userland.com\n  port number: 80\n  step: 1\n  system error: Name or service not known; errno=-2\n  context...:\n   /home/racket/build-pkgs/racket/collects/net/http-client.rkt:220:0\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:130:0: http://getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:194:0: getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/racket/contract/private/arrow-val-first.rkt:229:25\ntcp-connect: connection failed\n  detail: host not found\n  address: betty.userland.com\n  port number: 80\n  step: 1\n  system error: Name or service not known; errno=-2\n  context...:\n   /home/racket/build-pkgs/racket/collects/net/http-client.rkt:220:0\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:130:0: http://getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:194:0: getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/racket/contract/private/arrow-val-first.rkt:229:25\ntcp-connect: connection failed\n  detail: host not found\n  address: betty.userland.com\n  port number: 80\n  step: 1\n  system error: Name or service not known; errno=-2\n  context...:\n   /home/racket/build-pkgs/racket/collects/net/http-client.rkt:220:0\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:130:0: http://getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:194:0: getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/racket/contract/private/arrow-val-first.rkt:229:25\n   /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/core.rkt:12:4\ntcp-connect: connection failed\n  detail: host not found\n  address: betty.userland.com\n  port number: 80\n  step: 1\n  system error: Name or service not known; errno=-2\n  context...:\n   /home/racket/build-pkgs/racket/collects/net/http-client.rkt:220:0\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:130:0: http://getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:194:0: getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/racket/contract/private/arrow-val-first.rkt:229:25\n   /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/core.rkt:12:4\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/serialise-test.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/server-test.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/util.rkt"
+1/1 test failures
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/base.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/client.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/core.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/protocol.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/serialise.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/server-core.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/server.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/xml-rpc.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc/xml-rpc.scrbl
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/net/xml-rpc.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/all-xml-rpc-tests.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/core-test.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/protocol-test.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/serialise-test.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/server-test.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/util.rkt
+1 1 /home/racket/build-pkgs/user/.racket/6.2/pkgs/xml-rpc/tests/net/xml-rpc/run-tests.rkt
+The time is now Monday, June 29th, 2015 8:52:15pm

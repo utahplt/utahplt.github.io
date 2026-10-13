@@ -1,0 +1,57 @@
+The time is now Thursday, May 14th, 2015 10:32:09am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto lipics && bin/raco test --drdr --package lipics'
+Resolving "lipics" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/lipics.zip
+raco setup: version: 6.1.91.900 [3m]
+raco setup: installation name: 6.1.91.900
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.1.91.900/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/lipics
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/lipics/doc/lipics
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/download.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/example-abstract.scrbl"
+example-abstract.scrbl: raco test: non-empty stderr: #"tcp-connect: connection failed\n  detail: host not found\n  address: drops.dagstuhl.de\n  port number: 80\n  step: 1\n  system error: Name or service not known; errno=-2\n  context...:\n   /home/racket/build-pkgs/racket/collects/net/http-client.rkt:220:0\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:130:0: http://getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:228:0: getpost-pure-port\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:413:4: call/input-url\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/download.rkt:26:0: download-lipics-files\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/main.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/example-abstract.scrbl: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/example.scrbl"
+example.scrbl: raco test: non-empty stderr: #"tcp-connect: connection failed\n  detail: host not found\n  address: drops.dagstuhl.de\n  port number: 80\n  step: 1\n  system error: Name or service not known; errno=-2\n  context...:\n   /home/racket/build-pkgs/racket/collects/net/http-client.rkt:220:0\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:130:0: http://getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:228:0: getpost-pure-port\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:413:4: call/input-url\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/download.rkt:26:0: download-lipics-files\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/main.rkt: [running body]\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/example.scrbl: [traversing imports]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/lipics.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/main.rkt"
+main.rkt: raco test: non-empty stderr: #"tcp-connect: connection failed\n  detail: host not found\n  address: drops.dagstuhl.de\n  port number: 80\n  step: 1\n  system error: Name or service not known; errno=-2\n  context...:\n   /home/racket/build-pkgs/racket/collects/net/http-client.rkt:220:0\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:130:0: http://getpost-impure-port\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:228:0: getpost-pure-port\n   /home/racket/build-pkgs/racket/collects/net/url.rkt:413:4: call/input-url\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/download.rkt:26:0: download-lipics-files\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/main.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+3/3 test failures
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/download.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/lipics.scrbl
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/example-abstract.scrbl
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/example.scrbl
+1 1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/lipics/main.rkt
+The time is now Thursday, May 14th, 2015 10:32:35am

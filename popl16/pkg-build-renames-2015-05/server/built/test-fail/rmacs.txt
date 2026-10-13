@@ -1,0 +1,101 @@
+The time is now Thursday, May 14th, 2015 12:24:00pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto rmacs && bin/raco test --drdr --package rmacs'
+Resolving "rmacs" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/rmacs.zip
+Resolving "ansi" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/ansi.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of rmacs:
+   ansi
+raco setup: version: 6.1.91.900 [3m]
+raco setup: installation name: 6.1.91.900
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.1.91.900/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: pre-installing: <pkgs>/ansi/ansi (ansi)
+compile-extension: (/usr/bin/gcc -c -O2 -fPIC -DMZ_PRECISE_GC -I/home/racket/build-pkgs/racket/include /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/ansi/ansi/private/tty-raw-extension.c -o /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/ansi/ansi/private/compiled/native/x86_64-linux-natipkg/3m/tty-raw-extension.o)
+link-extension: (/usr/bin/gcc -fPIC -shared /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/ansi/ansi/private/compiled/native/x86_64-linux-natipkg/3m/tty-raw-extension.o /home/racket/build-pkgs/racket/lib/mzdyn3m.o -o /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/ansi/ansi/private/compiled/native/x86_64-linux-natipkg/3m/tty-raw-extension.so)
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/ansi/ansi (ansi)
+raco setup:  in <pkgs>/ansi/ansi
+raco setup: making: <pkgs>/ansi/ansi/private
+raco setup: making: <pkgs>/rmacs/rmacs (editor)
+raco setup:  in <pkgs>/rmacs/rmacs
+raco setup: making: <pkgs>/rmacs/rmacs/mode
+raco setup: --- creating launchers ---
+raco setup: launcher: /home/racket/build-pkgs/user/.racket/6.1.91.900/bin/rmacs
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/api.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/buffer.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/circular-list.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/diff.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/display.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/editor.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/file.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/history.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/info.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/keys.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/lists.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/local.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/minibuf.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/mode/fundamental.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/mode.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/render.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/ring.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/rope.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/search.rkt" test)
+search.rkt: raco test: non-empty stderr: #"application: procedure does not accept keyword arguments\n  procedure: find-in-rope\n  arguments...:\n   \"\\n\"\n   (rope '#s(strand \"It is a truth universally acknowledged, that a single man in possession of a good fortune must be in want of a wife.\\n\\n\" 0 118) #f (rope '#s(strand \"However little known the feelings or views of such a man may be on his first entering...\n   #:forward? #f\n  context...:\n   /home/racket/build-pkgs/racket/collects/racket/private/kw.rkt:1296:14\n   (submod /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/search.rkt test): [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/strings.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/syntax.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/topsort.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/window.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/wrap.rkt"
+1/6245 test failures
+  6152 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/rope.rkt
+    56 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/circular-list.rkt
+    14 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/keys.rkt
+    10 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/diff.rkt
+     6 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/topsort.rkt
+     5 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/strings.rkt
+     1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/lists.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/info.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/api.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/buffer.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/display.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/editor.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/file.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/history.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/info.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/local.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/main.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/minibuf.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/mode/fundamental.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/mode.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/render.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/ring.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/syntax.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/window.rkt
+     0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/wrap.rkt
+1    1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/rmacs/rmacs/search.rkt
+The time is now Thursday, May 14th, 2015 12:24:11pm

@@ -1,0 +1,100 @@
+The time is now Tuesday, October 6th, 2015 11:43:27pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto rfc6455 && bin/raco test --drdr --package rfc6455'
+Resolving "rfc6455" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/rfc6455.zip
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/rfc6455/net
+raco setup: making: <pkgs>/rfc6455/net/rfc6455
+raco setup: making: <pkgs>/rfc6455/net/rfc6455/examples
+raco setup: making: <pkgs>/rfc6455/net/rfc6455/hybi00
+raco setup: making: <pkgs>/rfc6455/net/rfc6455/private
+raco setup: making: <pkgs>/rfc6455/net/rfc6455/rfc6455
+raco setup: making: <pkgs>/rfc6455/net/rfc6455/scribblings
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: syncing: <pkgs>/rfc6455/net/rfc6455/doc/rfc6455
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/client.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/conn-api.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/dispatcher.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/examples/client.rkt"
+client.rkt: raco test: non-empty stderr: #"tcp-connect: connection failed\n  address: localhost\n  port number: 8081\n  step: 6\n  system error: Connection refused; errno=111\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/http.rkt:63:0: simple-outbound-request\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/client.rkt:31:0: rfc6455-connect\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/examples/client.rkt:11:0: do-connection\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/examples/client.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/examples/test-server.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/examples/test-service-mapper.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/http.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/hybi00/client.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/hybi00/conn.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/hybi00/dispatcher.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/hybi00/handshake.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/private/connection-manager.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/client.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/conn.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/dispatcher.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/frame.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/handshake.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/scribblings/rfc6455.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/server.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/service-mapper.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/timeout.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/url.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455.rkt"
+1/11 test failures
+  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/client.rkt
+  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/dispatcher.rkt
+  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/examples/test-server.rkt
+  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/examples/test-service-mapper.rkt
+  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/client.rkt
+  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/dispatcher.rkt
+  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/handshake.rkt
+  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/server.rkt
+  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/service-mapper.rkt
+  1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/conn-api.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/http.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/hybi00/client.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/hybi00/conn.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/hybi00/dispatcher.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/hybi00/handshake.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/private/connection-manager.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/conn.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/rfc6455/frame.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/scribblings/rfc6455.scrbl
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/timeout.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/url.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/rfc6455/net/rfc6455/examples/client.rkt
+The time is now Tuesday, October 6th, 2015 11:43:49pm

@@ -1,0 +1,82 @@
+The time is now Tuesday, October 6th, 2015 11:20:27pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto lux-charterm && bin/raco test --drdr --package lux-charterm'
+Resolving "lux-charterm" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/lux-charterm.zip
+Resolving "lux" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/lux.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of lux-charterm:
+   lux
+raco setup: version: 6.2.900.17
+raco setup: platform: x86_64-linux-natipkg [3m]
+raco setup: installation name: snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/lux
+raco setup: making: <pkgs>/lux-charterm/charterm
+raco setup: making: <pkgs>/lux-charterm/lux
+raco setup: making: <pkgs>/lux-charterm/lux/chaos
+raco setup: making: <pkgs>/lux-charterm/lux/examples
+raco setup: making: <pkgs>/lux/chaos
+raco setup: making: <pkgs>/lux/chaos/gui
+raco setup: making: <pkgs>/lux/examples
+raco setup: making: <pkgs>/lux/scribblings
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/lux-charterm/charterm/doc/charterm
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: syncing: <pkgs>/lux/doc/lux
+raco setup: syncing: <pkgs>/lux-charterm/lux/chaos/doc/lux-charterm
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/charterm.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/charterm.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/demo.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/test-charterm.rkt"
+test-charterm.rkt: raco test: non-empty stderr: #"/bin/stty: /dev/tty: No such device or address\nopen-charterm: stty \"/dev/tty\" failed\n  context...:\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/charterm.rkt:944:0: open-charterm16\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/charterm.rkt:1067:11\n   /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/test-charterm.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/lux/chaos/charterm.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/lux/chaos/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/lux/chaos/lux-charterm.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/lux/examples/charterm.rkt"
+1/1 test failures
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/charterm.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/charterm.scrbl
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/demo.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/main.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/lux/chaos/charterm.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/lux/chaos/info.rkt
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/lux/chaos/lux-charterm.scrbl
+  0 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/lux/examples/charterm.rkt
+1 1 /home/racket/build-pkgs/user/.racket/snapshot/pkgs/lux-charterm/charterm/test-charterm.rkt
+The time is now Tuesday, October 6th, 2015 11:20:41pm

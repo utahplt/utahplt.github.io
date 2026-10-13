@@ -1,0 +1,63 @@
+The time is now Monday, May 18th, 2015 1:52:51pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto semilit'
+Resolving "semilit" via http://localhost:18333/built/catalog/
+Resolving "semilit" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/semilit.zip
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/semilit/semilit
+raco setup:  in <pkgs>/semilit/semilit
+<pkgs>/datalog/stx.rkt: datalog-stmt: expected the identifier `?'; expected the identifier `~'; or expected the identifier `!'
+  at: !
+  in: (datalog-stmt (! (parent john douglas)))
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/semilit/semilit/ancestor.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/unstable/error.rkt:65:0: raise-syntax-error*46
+   /home/racket/build-pkgs/racket/collects/syntax/parse/private/runtime-report.rkt:31:0
+   /home/racket/build-pkgs/racket/collects/syntax/modcode.rkt:212:0: get-module-code79
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:163:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:977:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1045:8
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:17:0: setup
+   ...
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during making for <pkgs>/semilit/semilit
+raco setup:   <pkgs>/datalog/stx.rkt: datalog-stmt: expected the identifier `?'; expected the identifier `~'; or expected the identifier `!'
+raco setup:     at: !
+raco setup:     in: (datalog-stmt (! (parent john douglas)))
+raco setup:     compiling: <pkgs>/semilit/semilit/ancestor.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Monday, May 18th, 2015 1:53:51pm

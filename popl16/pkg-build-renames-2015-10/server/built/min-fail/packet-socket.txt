@@ -1,0 +1,91 @@
+The time is now Monday, June 29th, 2015 5:40:18pm
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.117 '/usr/bin/env' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto packet-socket'
+Resolving "packet-socket" via http://localhost:18333/built/catalog/
+Resolving "packet-socket" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/packet-socket.zip
+raco setup: version: 6.2 [3m]
+raco setup: installation name: 6.2
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.2/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: pre-installing: <pkgs>/packet-socket/packet-socket (packet-socket)
+make: making /home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/private/compiled/native/x86_64-linux-natipkg/3m/packet-socket-extension.c because /home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/private/compiled/native/x86_64-linux-natipkg/3m/packet-socket-extension.c does not exist
+make: failed to make /home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/private/compiled/native/x86_64-linux-natipkg/3m/packet-socket-extension.c; process*: contract violation
+  expected: path-string?
+  given: #f
+  context...:
+   /home/racket/build-pkgs/racket/collects/racket/system.rkt:100:35
+   /home/racket/build-pkgs/racket/collects/racket/system.rkt:98:0: xform-cpp: (#f -E -DMZ_PRECISE_GC -I./include -I/home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/private/ -I/home/racket/build-pkgs/racket/include -I/home/racket/build-pkgs/racket/include -DMZ_XFORM -DMZ_PRECISE_GC -DGC_STACK_CALLEE_RESTORE packet-socket-extension.c)
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/packet-socket/packet-socket (packet-socket)
+do-process*/ports
+   /home/racket/build-pkgs/racket/collects/compiler/private/xform.rkt:8:2: xform
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:88:24: for-loop
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:74:2: make-file
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:88:24: for-loop
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:74:2: make-file
+   /home/racket/build-pkgs/racket/share/pkgs/make/make-unit.rkt:70:0: core17
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:819:6: for-loop
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:16:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+raco setup:  in <pkgs>/packet-socket/packet-socket
+/home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/main.rkt:14:9: cannot open module file
+  module path: #<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/private/packet-socket-extension.rkt>
+  path: /home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/private/packet-socket-extension.rkt
+  system error: No such file or directory; errno=2
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/main.rkt
+  context...:
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:163:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:983:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1051:8
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:16:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+raco setup: making: <pkgs>/packet-socket/packet-socket/private
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during early install for <pkgs>/packet-socket/packet-socket (packet-socket)
+raco setup:   make: failed to make /home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/private/compiled/native/x86_64-linux-natipkg/3m/packet-socket-extension.c; process*: contract violation
+raco setup:     expected: path-string?
+raco setup:     given: #f
+raco setup: error: during making for <pkgs>/packet-socket/packet-socket (packet-socket)
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/main.rkt:14:9: cannot open module file
+raco setup:     module path: #<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/private/packet-socket-extension.rkt>
+raco setup:     path: /home/racket/build-pkgs/user/.racket/6.2/pkgs/packet-socket/packet-socket/private/packet-socket-extension.rkt
+raco setup:     system error: No such file or directory; errno=2
+raco setup:     compiling: <pkgs>/packet-socket/packet-socket/main.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Monday, June 29th, 2015 5:40:21pm

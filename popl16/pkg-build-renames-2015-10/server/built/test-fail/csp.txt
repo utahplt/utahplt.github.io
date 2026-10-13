@@ -1,0 +1,88 @@
+The time is now Saturday, August 29th, 2015 6:16:54am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto csp && bin/raco test --drdr --package csp'
+Resolving "csp" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/csp.zip
+Resolving "sugar" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/sugar.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of csp:
+   sugar
+raco setup: version: 6.2 [3m]
+raco setup: installation name: 6.2
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.2/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/csp
+raco setup: making: <pkgs>/csp/python-constraint
+raco setup: making: <pkgs>/csp/python-constraint/examples
+raco setup: making: <pkgs>/csp/python-constraint/examples/abc
+raco setup: making: <pkgs>/csp/python-constraint/examples/coins
+raco setup: making: <pkgs>/csp/python-constraint/examples/crosswords
+raco setup: making: <pkgs>/csp/python-constraint/examples/einstein
+raco setup: making: <pkgs>/csp/python-constraint/examples/queens
+raco setup: making: <pkgs>/csp/python-constraint/examples/rooks
+raco setup: making: <pkgs>/csp/python-constraint/examples/studentdesks
+raco setup: making: <pkgs>/csp/python-constraint/examples/sudoku
+raco setup: making: <pkgs>/csp/python-constraint/examples/wordmath
+raco setup: making: <pkgs>/csp/python-constraint/examples/xsum
+raco setup: making: <pkgs>/csp/python-constraint/trials
+raco setup: making: <pkgs>/sugar/sugar
+raco setup: making: <pkgs>/sugar/sugar/scribblings
+raco setup: making: <pkgs>/sugar/typed
+raco setup: making: <pkgs>/sugar/typed/sugar
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: syncing: <pkgs>/sugar/sugar/doc/sugar
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/constraint.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/domain.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/helper.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/main.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/problem.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/solver.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/test-classes.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/test-einstein.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/test-problems.rkt"
+test-problems.rkt: raco test: non-empty stderr: #"--------------------\nFAILURE\nname:       check-hash-items\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/test-classes.rkt> 49 0 1617 69)\nexpression: (check-hash-items (send problem get-solution) #hash((b . 2) (a . 1)))\nparams:     (#hash((b . 1) (a . 2)) #hash((b . 2) (a . 1)))\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nname:       check-hash-items\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/test-classes.rkt> 53 0 1828 69)\nexpression: (check-hash-items (send problem get-solution) #hash((b . 2) (a . 1)))\nparams:     (#hash((b . 1) (a . 2)) #hash((b . 2) (a . 1)))\n\nCheck failure\n--------------------\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/variable.rkt"
+1/27 test failures
+  16 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/test-classes.rkt
+  10 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/helper.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/constraint.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/domain.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/info.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/main.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/problem.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/solver.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/test-einstein.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/variable.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.2/pkgs/csp/test-problems.rkt
+The time is now Saturday, August 29th, 2015 6:17:11am

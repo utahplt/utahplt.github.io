@@ -1,0 +1,461 @@
+The time is now Monday, May 18th, 2015 11:43:37am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.107 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto measures-with-dimensions'
+Resolving "measures-with-dimensions" via http://localhost:18333/built/catalog/
+Resolving "measures-with-dimensions" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/measures-with-dimensions.zip
+Resolving "rackjure" via http://localhost:18333/built/catalog/
+Resolving "rackjure" via http://localhost:18333/archive/catalog/
+Resolving "predicates" via http://localhost:18333/built/catalog/
+Resolving "colon-match" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/archive/pkgs/rackjure.zip
+Downloading http://localhost:18333/built/pkgs/predicates.zip
+Downloading http://localhost:18333/built/pkgs/colon-match.zip
+Resolving "cover" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/cover.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of measures-with-dimensions:
+   rackjure
+   predicates
+   colon-match
+ dependencies of predicates:
+   cover
+raco setup: version: 6.2.900.3 [3m]
+raco setup: installation name: scope-snapshot
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/scope-snapshot/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/scope-snapshot/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/colon-match/colon-match
+raco setup: making: <pkgs>/colon-match/colon-match/docs
+raco setup: making: <pkgs>/cover (cover)
+raco setup: making: <pkgs>/cover/private
+raco setup: making: <pkgs>/cover/private/html
+raco setup: making: <pkgs>/cover/private/html/assets
+raco setup: making: <pkgs>/cover/scribblings
+raco setup: making: <pkgs>/cover/tests
+raco setup: making: <pkgs>/cover/tests/at-exp
+raco setup: making: <pkgs>/cover/tests/basic
+raco setup: making: <pkgs>/cover/tests/simple-multi
+raco setup: making: <pkgs>/cover/tests/submods
+raco setup: making: <pkgs>/cover/tests/syntax
+raco setup: making: <pkgs>/measures-with-dimensions/measures-with-dimensions
+raco setup:  in <pkgs>/measures-with-dimensions/measures-with-dimensions
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/chemistry
+...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+ also, no #%app syntax transformer is bound
+  context...:
+   #(53200 module) #(53201 module (unit-struct untyped) 0)
+  other binding...:
+   #<module-path-index:(racket/base)>
+   #(32161 module) #(32164 module untyped-utils 0) #(47528 macro) #(53200 module)
+   #(53201 module (unit-struct untyped) 0)
+  at: require
+  in: (require "dimension-struct.rkt")
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-operations.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/chemistry/element-struct.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/chemistry.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/measures-with-dimensions/chemistry.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   ...
+raco setup: making: <pkgs>/measures-with-dimensions/typed
+raco setup:  in <pkgs>/measures-with-dimensions/typed
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions
+raco setup:  in <pkgs>/rackjure/rackjure
+...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+ also, no #%app syntax transformer is bound
+  context...:
+   #(123549 module) #(123550 module (unit-struct untyped) 0)
+  other binding...:
+   #<module-path-index:(racket/base)>
+   #(32161 module) #(32164 module untyped-utils 0) #(117930 macro) #(123549 module)
+   #(123550 module (unit-struct untyped) 0)
+  at: require
+  in: (require "dimension-struct.rkt")
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:163:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:977:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1046:10: for-loop
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   ...
+raco setup: making: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/chemistry
+...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+ also, no #%app syntax transformer is bound
+  context...:
+   #(138185 module) #(138186 module (unit-struct untyped) 0)
+  other binding...:
+   #<module-path-index:(racket/base)>
+   #(32161 module) #(32164 module untyped-utils 0) #(132566 macro) #(138185 module)
+   #(138186 module (unit-struct untyped) 0)
+  at: require
+  in: (require "dimension-struct.rkt")
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-operations.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/chemistry/element-struct.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/chemistry.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/syntax/modcode.rkt:212:0: get-module-code79
+   ...
+raco setup: making: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/chemistry
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/chemistry
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions
+...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+ also, no #%app syntax transformer is bound
+  context...:
+   #(152823 module) #(152824 module (unit-struct untyped) 0)
+  other binding...:
+   #<module-path-index:(racket/base)>
+   #(32161 module) #(32164 module untyped-utils 0) #(147204 macro) #(152823 module)
+   #(152824 module (unit-struct untyped) 0)
+  at: require
+  in: (require "dimension-struct.rkt")
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-operations.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/chemistry/element-struct.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/chemistry/compound-struct.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   ...
+raco setup: making: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/docs
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/docs
+raco setup: making: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/docs/chemistry
+raco setup: making: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/docs/short
+raco setup: making: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/old
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/old
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions
+raco setup:  in <pkgs>/measures-with-dimensions/measures-with-dimensions
+raco setup:  in <pkgs>/measures-with-dimensions/typed
+...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+ also, no #%app syntax transformer is bound
+  context...:
+   #(177270 module) #(177271 module (unit-struct untyped) 0)
+  other binding...:
+   #<module-path-index:(racket/base)>
+   #(32161 module) #(32164 module untyped-utils 0) #(171651 macro) #(177270 module)
+   #(177271 module (unit-struct untyped) 0)
+  at: require
+  in: (require "dimension-struct.rkt")
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/measures-with-dimensions/main.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/old/main.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   ...
+raco setup: making: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/short
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/short
+raco setup:  in <pkgs>/measures-with-dimensions/typed/measures-with-dimensions
+...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+ also, no #%app syntax transformer is bound
+  context...:
+   #(190116 module) #(190117 module (unit-struct untyped) 0)
+  other binding...:
+   #<module-path-index:(racket/base)>
+   #(32161 module) #(32164 module untyped-utils 0) #(184497 macro) #(190116 module)
+   #(190117 module (unit-struct untyped) 0)
+  at: require
+  in: (require "dimension-struct.rkt")
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/units.rkt
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/short/SI.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:744:4: compilation-manager-load-handler
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:163:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:977:2: compile-cc
+   ...
+raco setup: making: <pkgs>/predicates/predicates (predicates)
+raco setup: making: <pkgs>/rackjure/rackjure (rackjure)
+raco setup:  in <pkgs>/rackjure/rackjure
+raco setup:  in <pkgs>/rackjure/rackjure/lang
+lambda: identifier's binding is ambiguous
+  context...:
+   #(214717 macro) #(214718 module) #(214721 module lambda-reader 0)
+   #(215859 module) #(215860 module test 0) #(216993 module)
+   #(216994 module (test test) 0) #(217703 local) #(217704 intdef)
+  matching binding...:
+   #<module-path-index:(racket/base)>
+   #(214718 module) #(214721 module lambda-reader 0)
+  matching binding...:
+   #<module-path-index:(rackjure)>
+   #(215859 module) #(215860 module test 0)
+  in: lambda
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/scope-snapshot/pkgs/rackjure/rackjure/test.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/../racket/private/map.rkt:53:19: loop
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:977:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1046:10: for-loop
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:17:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+raco setup: making: <pkgs>/rackjure/rackjure/base
+raco setup: making: <pkgs>/rackjure/rackjure/base/lang
+raco setup:  in <pkgs>/rackjure/rackjure/base/lang
+raco setup: making: <pkgs>/rackjure/rackjure/lang
+raco setup:  in <pkgs>/rackjure/rackjure/lang
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: syncing: <pkgs>/colon-match/colon-match/doc/colon-match
+raco setup: syncing: <pkgs>/cover/doc/cover
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: running: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/docs/measures-with-dimensions.scrbl
+...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+ also, no #%app syntax transformer is bound
+  context...:
+   #(247929 module) #(247930 module (unit-struct untyped) 0)
+  other binding...:
+   #<module-path-index:(racket/base)>
+   #(32161 module) #(32164 module untyped-utils 0) #(242310 macro) #(247929 module)
+   #(247930 module (unit-struct untyped) 0)
+  at: require
+  in: (require "dimension-struct.rkt")
+  context...:
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/tc-setup.rkt:39:0: tc-setup
+   /home/racket/build-pkgs/racket/share/pkgs/typed-racket-lib/typed-racket/typed-racket.rkt:24:4
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:549:22
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:545:5
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   /home/racket/build-pkgs/racket/collects/racket/require-transform.rkt:266:2: expand-import
+   try-next
+   try-next
+   /home/racket/build-pkgs/racket/collects/racket/private/reqprov.rkt:243:2
+   /home/racket/build-pkgs/racket/collects/syntax/wrap-modbeg.rkt:46:4
+   standard-module-name-resolver
+   ...
+raco setup: syncing: <pkgs>/predicates/predicates/doc/predicates
+raco setup: running: <pkgs>/rackjure/rackjure/rackjure.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/rackjure/rackjure/rackjure.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during making for <pkgs>/measures-with-dimensions/measures-with-dimensions
+raco setup:   ...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+raco setup:    also, no #%app syntax transformer is bound
+raco setup:     context...:
+raco setup:      #(53200 module) #(53201 module (unit-struct untyped) 0)
+raco setup:     other binding...:
+raco setup:      #<module-path-index:(racket/base)>
+raco setup:      #(32161 module) #(32164 module untyped-utils 0) #(47528 macro) #(53200 module)
+raco setup:      #(53201 module (unit-struct untyped) 0)
+raco setup:     at: require
+raco setup:     in: (require "dimension-struct.rkt")
+raco setup:     compiling: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+raco setup: error: during making for <pkgs>/measures-with-dimensions/typed
+raco setup:   ...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+raco setup:    also, no #%app syntax transformer is bound
+raco setup:     context...:
+raco setup:      #(123549 module) #(123550 module (unit-struct untyped) 0)
+raco setup:     other binding...:
+raco setup:      #<module-path-index:(racket/base)>
+raco setup:      #(32161 module) #(32164 module untyped-utils 0) #(117930 macro) #(123549 module)
+raco setup:      #(123550 module (unit-struct untyped) 0)
+raco setup:     at: require
+raco setup:     in: (require "dimension-struct.rkt")
+raco setup:     compiling: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+raco setup: error: during making for <pkgs>/measures-with-dimensions/typed/measures-with-dimensions
+raco setup:   ...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+raco setup:    also, no #%app syntax transformer is bound
+raco setup:     context...:
+raco setup:      #(138185 module) #(138186 module (unit-struct untyped) 0)
+raco setup:     other binding...:
+raco setup:      #<module-path-index:(racket/base)>
+raco setup:      #(32161 module) #(32164 module untyped-utils 0) #(132566 macro) #(138185 module)
+raco setup:      #(138186 module (unit-struct untyped) 0)
+raco setup:     at: require
+raco setup:     in: (require "dimension-struct.rkt")
+raco setup:     compiling: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+raco setup: error: during making for <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/chemistry
+raco setup:   ...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+raco setup:    also, no #%app syntax transformer is bound
+raco setup:     context...:
+raco setup:      #(152823 module) #(152824 module (unit-struct untyped) 0)
+raco setup:     other binding...:
+raco setup:      #<module-path-index:(racket/base)>
+raco setup:      #(32161 module) #(32164 module untyped-utils 0) #(147204 macro) #(152823 module)
+raco setup:      #(152824 module (unit-struct untyped) 0)
+raco setup:     at: require
+raco setup:     in: (require "dimension-struct.rkt")
+raco setup:     compiling: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+raco setup: error: during making for <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/old
+raco setup:   ...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+raco setup:    also, no #%app syntax transformer is bound
+raco setup:     context...:
+raco setup:      #(177270 module) #(177271 module (unit-struct untyped) 0)
+raco setup:     other binding...:
+raco setup:      #<module-path-index:(racket/base)>
+raco setup:      #(32161 module) #(32164 module untyped-utils 0) #(171651 macro) #(177270 module)
+raco setup:      #(177271 module (unit-struct untyped) 0)
+raco setup:     at: require
+raco setup:     in: (require "dimension-struct.rkt")
+raco setup:     compiling: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+raco setup: error: during making for <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/short
+raco setup:   ...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+raco setup:    also, no #%app syntax transformer is bound
+raco setup:     context...:
+raco setup:      #(190116 module) #(190117 module (unit-struct untyped) 0)
+raco setup:     other binding...:
+raco setup:      #<module-path-index:(racket/base)>
+raco setup:      #(32161 module) #(32164 module untyped-utils 0) #(184497 macro) #(190116 module)
+raco setup:      #(190117 module (unit-struct untyped) 0)
+raco setup:     at: require
+raco setup:     in: (require "dimension-struct.rkt")
+raco setup:     compiling: <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt
+raco setup: error: during making for <pkgs>/rackjure/rackjure (rackjure)
+raco setup:   lambda: identifier's binding is ambiguous
+raco setup:     context...:
+raco setup:      #(214717 macro) #(214718 module) #(214721 module lambda-reader 0)
+raco setup:      #(215859 module) #(215860 module test 0) #(216993 module)
+raco setup:      #(216994 module (test test) 0) #(217703 local) #(217704 intdef)
+raco setup:     matching binding...:
+raco setup:      #<module-path-index:(racket/base)>
+raco setup:      #(214718 module) #(214721 module lambda-reader 0)
+raco setup:     matching binding...:
+raco setup:      #<module-path-index:(rackjure)>
+raco setup:      #(215859 module) #(215860 module test 0)
+raco setup:     in: lambda
+raco setup:     compiling: <pkgs>/rackjure/rackjure/test.rkt
+raco setup: error: during building docs for <pkgs>/measures-with-dimensions/typed/measures-with-dimensions/docs/measures-with-dimensions.scrbl
+raco setup:   ...acket/scope-snapshot/pkgs/measures-with-dimensions/typed/measures-with-dimensions/unit-struct.rkt:100:11: require: unbound identifier;
+raco setup:    also, no #%app syntax transformer is bound
+raco setup:     context...:
+raco setup:      #(247929 module) #(247930 module (unit-struct untyped) 0)
+raco setup:     other binding...:
+raco setup:      #<module-path-index:(racket/base)>
+raco setup:      #(32161 module) #(32164 module untyped-utils 0) #(242310 macro) #(247929 module)
+raco setup:      #(247930 module (unit-struct untyped) 0)
+raco setup:     at: require
+raco setup:     in: (require "dimension-struct.rkt")
+raco pkg install: packages installed, although setup reported errors
+The time is now Monday, May 18th, 2015 11:45:34am

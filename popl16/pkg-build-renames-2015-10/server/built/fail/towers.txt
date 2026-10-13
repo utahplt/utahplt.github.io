@@ -1,0 +1,105 @@
+The time is now Wednesday, September 23rd, 2015 6:57:26am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto towers'
+Resolving "towers" via http://localhost:18333/built/catalog/
+Resolving "towers" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/archive/pkgs/towers.zip
+Resolving "bazaar" via http://localhost:18333/built/catalog/
+Resolving "towers-lib" via http://localhost:18333/built/catalog/
+Resolving "towers-lib" via http://localhost:18333/archive/catalog/
+Downloading http://localhost:18333/built/pkgs/bazaar.zip
+Downloading http://localhost:18333/archive/pkgs/towers-lib.zip
+The following uninstalled packages were listed as dependencies
+and they were automatically installed:
+ dependencies of towers:
+   bazaar
+   towers-lib
+raco setup: version: 6.2 [3m]
+raco setup: installation name: 6.2
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.2/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/bazaar
+raco setup: making: <pkgs>/bazaar/draw
+raco setup: making: <pkgs>/bazaar/gui
+raco setup: making: <pkgs>/bazaar/gui/examples
+raco setup: making: <pkgs>/bazaar/net
+raco setup: making: <pkgs>/bazaar/scribble
+raco setup: making: <pkgs>/bazaar/slideshow
+raco setup: making: <pkgs>/bazaar/slideshow/examples
+raco setup: making: <pkgs>/towers
+raco setup:  in <pkgs>/towers
+raco setup:  in <pkgs>/towers-lib
+/home/racket/build-pkgs/user/.racket/6.2/pkgs/towers-lib/player-ai1.rkt:241:18: debug-var: unbound identifier in module
+  in: debug-var
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/6.2/pkgs/towers-lib/player-ai1.rkt
+   /home/racket/build-pkgs/user/.racket/6.2/pkgs/towers/controller.rkt
+  context...:
+   standard-module-name-resolver
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:341:0: compile-zo*
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:556:26
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:548:42
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:513:0: maybe-compile-zo
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:163:4: worker
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:983:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1052:10: for-loop
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:16:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+raco setup: making: <pkgs>/towers-lib
+raco setup:  in <pkgs>/towers-lib
+/home/racket/build-pkgs/user/.racket/6.2/pkgs/towers-lib/player-ai1.rkt:241:18: debug-var: unbound identifier in module
+  in: debug-var
+  compilation context...:
+   /home/racket/build-pkgs/user/.racket/6.2/pkgs/towers-lib/player-ai1.rkt
+  context...:
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:628:2: do-check
+   /home/racket/build-pkgs/racket/collects/compiler/cm.rkt:708:4
+   /home/racket/build-pkgs/racket/collects/compiler/../racket/private/map.rkt:53:19: loop
+   /home/racket/build-pkgs/racket/collects/compiler/compiler.rkt:92:2: compile-directory-visitor21
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:983:2: compile-cc
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:1052:10: for-loop
+   /home/racket/build-pkgs/racket/collects/setup/setup-core.rkt:69:0: setup-core
+   /home/racket/build-pkgs/racket/collects/setup/setup.rkt:65:3
+   /home/racket/build-pkgs/racket/collects/pkg/main.rkt:16:0: setup
+   (submod /home/racket/build-pkgs/racket/collects/pkg/main.rkt main): [running body]
+   /home/racket/build-pkgs/racket/collects/pkg/raco.rkt: [traversing imports]
+raco setup: making: <pkgs>/towers/img
+raco setup: making: <pkgs>/towers/img/replay
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco setup: --- summary of errors ---
+raco setup: error: during making for <pkgs>/towers
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs/towers-lib/player-ai1.rkt:241:18: debug-var: unbound identifier in module
+raco setup:     in: debug-var
+raco setup:     compiling: <pkgs>/towers-lib/player-ai1.rkt
+raco setup: error: during making for <pkgs>/towers-lib
+raco setup:   /home/racket/build-pkgs/user/.racket/6.2/pkgs/towers-lib/player-ai1.rkt:241:18: debug-var: unbound identifier in module
+raco setup:     in: debug-var
+raco setup:     compiling: <pkgs>/towers-lib/player-ai1.rkt
+raco pkg install: packages installed, although setup reported errors
+The time is now Wednesday, September 23rd, 2015 6:57:36am

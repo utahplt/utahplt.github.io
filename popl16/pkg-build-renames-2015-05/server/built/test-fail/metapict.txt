@@ -1,0 +1,271 @@
+The time is now Thursday, May 14th, 2015 10:52:08am
+/usr/bin/ssh -R 18333:localhost:18333 racket@192.168.56.108 '/usr/bin/env' 'DISPLAY=:1' 'PLT_PKG_BUILD_SERVICE=1' 'PLTUSERHOME=/home/racket/build-pkgs/user' '/bin/sh' '-c' 'cd "/home/racket/build-pkgs"/racket && bin/raco pkg install -u --auto metapict && bin/raco test --drdr --package metapict'
+Resolving "metapict" via http://localhost:18333/built/catalog/
+Downloading http://localhost:18333/built/pkgs/metapict.zip
+raco setup: version: 6.1.91.900 [3m]
+raco setup: installation name: 6.1.91.900
+raco setup: variants: 3m
+raco setup: main collects: /home/racket/build-pkgs/racket/collects
+raco setup: collects paths: 
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects
+raco setup:   /home/racket/build-pkgs/racket/collects
+raco setup: main pkgs: /home/racket/build-pkgs/racket/share/pkgs
+raco setup: pkgs paths: 
+raco setup:   /home/racket/build-pkgs/racket/share/pkgs
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs
+raco setup: links files: 
+raco setup:   /home/racket/build-pkgs/racket/share/links.rktd
+raco setup:   /home/racket/build-pkgs/user/.racket/6.1.91.900/links.rktd
+raco setup: main docs: /home/racket/build-pkgs/racket/doc
+raco setup: --- updating info-domain tables ---
+raco setup: updating: /home/racket/build-pkgs/user/.racket/6.1.91.900/share/info-cache.rktd
+raco setup: --- pre-installing collections ---
+raco setup: --- installing foreign libraries ---
+raco setup: --- installing shared files ---
+raco setup: --- compiling collections ---
+raco setup: making: <pkgs>/metapict/metapict
+raco setup: making: <pkgs>/metapict/metapict/debug
+raco setup: making: <pkgs>/metapict/metapict/debug-foo
+raco setup: making: <pkgs>/metapict/metapict/debug-foo/foo
+raco setup: making: <pkgs>/metapict/metapict/examples
+raco setup: making: <pkgs>/metapict/metapict/extras
+raco setup: making: <pkgs>/metapict/metapict/metapost-examples
+raco setup: making: <pkgs>/metapict/metapict/scribblings
+raco setup: making: <pkgs>/metapict/metapict/texts
+raco setup: --- creating launchers ---
+raco setup: --- installing man pages ---
+raco setup: --- building documentation ---
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: syncing: <pkgs>/metapict/metapict/doc/metapict
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: running: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/local-redirect.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/release.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/search.scrbl
+raco setup: rendering: <pkgs>/racket-index/scribblings/main/user/start.scrbl
+raco setup: --- installing collections ---
+raco setup: --- post-installing collections ---
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/info.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/angles.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/arrow.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/bez.rkt" test)
+bez.rkt: raco test: non-empty stderr: #"--------------------\nFAILURE\nname:       check-true\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/bez.rkt> 236 2 9271 62)\nexpression: (check-true (pt~ (bez-intersection-point bez3 bez4) (pt 1 1)))\nparams:     (#f)\n\nCheck failure\n--------------------\n--------------------\nFAILURE\nname:       check-true\nlocation:   (#<path:/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/bez.rkt> 246 4 9638 42)\nexpression: (check-true (pt~ (pt t1 t2) (pt 1/2 1/2)))\nparams:     (#f)\n\nCheck failure\n--------------------\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/bitmap.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/box-and-pointer-diagram.rkt"
+box-and-pointer-diagram.rkt: raco test: non-empty stderr: #"grid: arity mismatch;\n the expected number of arguments does not match the given number\n  expected: a different number plus an optional argument with keyword #:step\n  given: 4\n  arguments...:\n   (pt -10 -10)\n   (pt 10 10)\n   (pt 0 0)\n   1\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/box-and-pointer-diagram.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/color.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/curve.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/dc-path-to-curve.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/dc-path.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/dc.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/debug.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/def.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/device.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/draw-bezier.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/draw.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/arbelos.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/asymptote-hobby-control.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/asymptote-venn-diagram.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/convex-hull.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/cuboid.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/exercises-angles-in-right-triangle.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/generate-exercises-to-pdf.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/geometry-exercises.rkt"
+geometry-exercises.rkt: raco test: non-empty stderr: #"open-output-file: cannot open output file\n  path: /Users/soegaard/Downloads/fig1.png\n  system error: No such file or directory; errno=2\n  context...:\n   /home/racket/build-pkgs/racket/collects/racket/private/kw-file.rkt:116:2: call-with-output-file*70\n   /home/racket/build-pkgs/racket/share/pkgs/draw-lib/racket/draw/private/bitmap.rkt:577:4: core688\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/geometry-exercises.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/glider.rkt"
+glider.rkt: raco test: non-empty stderr: #"grid: arity mismatch;\n the expected number of arguments does not match the given number\n  expected: a different number plus an optional argument with keyword #:step\n  given: 4\n  arguments...:\n   (pt 0 0)\n   (pt 3 3)\n   (pt 0 0)\n   1\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/glider.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/gradient-example.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/integral-left-sum.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/kmiecik-examples-from-tug-boat.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/metafont-book.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/metapost-examples.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/metapost-manual.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/missing-square-puzzle.rkt"
+missing-square-puzzle.rkt: raco test: non-empty stderr: #"grid: arity mismatch;\n the expected number of arguments does not match the given number\n  expected: a different number plus an optional argument with keyword #:step\n  given: 4\n  arguments...:\n   (pt -1 -1)\n   (pt 14 12)\n   (pt 0 0)\n   1\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/missing-square-puzzle.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/olympic-rings.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/pointilism.rkt"
+pointilism.rkt: raco test: non-empty stderr: #"open-input-file: cannot open input file\n  path: /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/moonlanding.jpg\n  system error: No such file or directory; errno=2\n  context...:\n   /home/racket/build-pkgs/racket/collects/racket/private/kw-file.rkt:102:2: call-with-input-file*61\n   /home/racket/build-pkgs/racket/share/pkgs/draw-lib/racket/draw/private/bitmap.rkt:156:2\n   /home/racket/build-pkgs/racket/collects/racket/private/class-internal.rkt:3415:0: continue-make-object\n   /home/racket/build-pkgs/racket/collects/racket/private/class-internal.rkt:3375:0: do-make-object\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/pointilism.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/pointilism2.rkt"
+pointilism2.rkt: raco test: non-empty stderr: #"open-input-file: cannot open input file\n  path: /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/moonlanding.jpg\n  system error: No such file or directory; errno=2\n  context...:\n   /home/racket/build-pkgs/racket/collects/racket/private/kw-file.rkt:102:2: call-with-input-file*61\n   /home/racket/build-pkgs/racket/share/pkgs/draw-lib/racket/draw/private/bitmap.rkt:156:2\n   /home/racket/build-pkgs/racket/collects/racket/private/class-internal.rkt:3415:0: continue-make-object\n   /home/racket/build-pkgs/racket/collects/racket/private/class-internal.rkt:3375:0: do-make-object\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/pointilism2.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/polygonal-numbers.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/reuleaux-triangle.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/root-spiral.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/rotating-triangle.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/sine-cosine-drawing.rkt"
+sine-cosine-drawing.rkt: raco test: non-empty stderr: #"grid: arity mismatch;\n the expected number of arguments does not match the given number\n  expected: a different number plus an optional argument with keyword #:step\n  given: 4\n  arguments...:\n   (pt -1.4 -1.4)\n   (pt 1.4 1.4)\n   (pt 0 0)\n   0.5\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/sine-cosine-drawing.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/state-machine.rkt"
+state-machine.rkt: raco test: non-empty stderr: #"draw-arrow: arity mismatch;\n the expected number of arguments does not match the given number\n  expected: 1 plus optional arguments with keywords #:fill-head, #:fill-tail, #:flank-indentation, #:head, #:head-angle, #:length, #:length-ratio, #:tail, and #:tail-indentation\n  given: 2\n  arguments...:\n   (pt -0.5 0)\n   (pt -0.2 0)\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/state-machine.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/triangle-sss.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/truncated-cone.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/vector-diagrams.rkt"
+vector-diagrams.rkt: raco test: non-empty stderr: #"open-output-file: cannot open output file\n  path: /Users/soegaard/Downloads/fig.png\n  system error: No such file or directory; errno=2\n  context...:\n   /home/racket/build-pkgs/racket/collects/racket/private/kw-file.rkt:116:2: call-with-output-file*70\n   /home/racket/build-pkgs/racket/share/pkgs/draw-lib/racket/draw/private/bitmap.rkt:577:4: core688\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/vector-diagrams.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/exp/font-root-test.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/exp/framed-table.rkt"
+framed-table.rkt: raco test: non-empty stderr: #"t: contract violation\n  expected: string?\n  given: #<pict>\n  in: the 1st argument of\n      (-> string? pict?)\n  contract from: \n      <pkgs>/slideshow-lib/slideshow/slide.rkt\n  blaming: <pkgs>/metapict/metapict/exp/framed-table.rkt\n   (assuming the contract is correct)\n  at: <pkgs>/slideshow-lib/slideshow/slide.rkt:98.21\n  context...:\n   /home/racket/build-pkgs/racket/collects/racket/contract/private/blame.rkt:143:0: raise-blame-error16\n   /home/racket/build-pkgs/racket/collects/racket/contract/private/arrow-val-first.rkt:265:18\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/exp/framed-table.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/exp/render-math-using-picts.rkt" test)
+render-math-using-picts.rkt: raco test: non-empty stderr: #"render-math-using-picts.rkt:36:6: a-dc: unbound identifier in module\n  in: a-dc\n  context...:\n   standard-module-name-resolver\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/exp/tex/render-tex-formula.rkt" test)
+render-tex-formula.rkt: raco test: non-empty stderr: #"default-load-handler: expected a `module' declaration\n  found: something else\n  in: #<path:/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/exp/tex/render-tex-formula.rkt>\n  context...:\n   standard-module-name-resolver\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/extras/flags.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/extras/function-tables.rkt"
+function-tables.rkt: raco test: non-empty stderr: #"open-output-file: cannot open output file\n  path: /Users/soegaard/Downloads/fig.png\n  system error: No such file or directory; errno=2\n  context...:\n   /home/racket/build-pkgs/racket/collects/racket/private/kw-file.rkt:116:2: call-with-output-file*70\n   /home/racket/build-pkgs/racket/share/pkgs/draw-lib/racket/draw/private/bitmap.rkt:577:4: core688\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/extras/function-tables.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/geometry.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/graph.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/grid.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/info.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/label.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/line.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/list3-sequence.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/main.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/mat.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/match-case-lambda.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/metapict.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/node.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/parameters.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/path.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/pen-and-brush.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/pict-lite.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/pict.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/polygons.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/pt-vec.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/save-pdf.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/bez.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/colors.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/construction-of-bezier-curve.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/coordinates.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/curve.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/curves.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/draw-and-fill.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/examples.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/examples5.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/guide.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/guide.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/metapict.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/moonlanding.rkt"
+moonlanding.rkt: raco test: non-empty stderr: #"grid: arity mismatch;\n the expected number of arguments does not match the given number\n  expected: a different number plus an optional argument with keyword #:step\n  given: 4\n  arguments...:\n   (pt 0 0)\n   (pt 81.0048828125 19.599609375)\n   (pt 0 0)\n   20\n  context...:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/moonlanding.rkt: [running body]\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/pict.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/pt.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/reference.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/representation.scrbl"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/utils.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/shapes.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/snake.rkt"
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/structs.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/grammar-expressions.rkt" test)
+grammar-expressions.rkt: raco test: non-empty stderr: #"standard-module-name-resolver: collection not found\n  for module path: (submod ragg reader)\n  collection: \"ragg\"\n  in collection directories:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects\n   /home/racket/build-pkgs/racket/collects\n   ... [194 additional linked and package directories]\n  context...:\n   show-collection-err\n   standard-module-name-resolver\n   standard-module-name-resolver\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/grammar.rkt" test)
+grammar.rkt: raco test: non-empty stderr: #"standard-module-name-resolver: collection not found\n  for module path: (submod ragg reader)\n  collection: \"ragg\"\n  in collection directories:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects\n   /home/racket/build-pkgs/racket/collects\n   ... [194 additional linked and package directories]\n  context...:\n   show-collection-err\n   standard-module-name-resolver\n   standard-module-name-resolver\n   (submod /home/racket/build-pkgs/racket/share/pkgs/compiler-lib/compiler/commands/test.rkt process): [running body]\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/lexer.rkt" test)
+lexer.rkt: raco test: non-empty stderr: #"lexer.rkt:4:9: collection not found\n  for module path: ragg/support\n  collection: \"ragg\"\n  in collection directories:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects\n   /home/racket/build-pkgs/racket/collects\n   ... [194 additional linked and package directories]\n  context...:\n   show-collection-err\n   standard-module-name-resolver\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/linear-equations.rkt" test)
+raco test: "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/tagged-pict.rkt"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/test-grammar-and-lexer.rkt" test)
+test-grammar-and-lexer.rkt: raco test: non-empty stderr: #"standard-module-name-resolver: collection not found\n  for module path: (submod ragg reader)\n  collection: \"ragg\"\n  in collection directories:\n   /home/racket/build-pkgs/user/.racket/6.1.91.900/collects\n   /home/racket/build-pkgs/racket/collects\n   ... [194 additional linked and package directories]\n  context...:\n   show-collection-err\n   standard-module-name-resolver\n   standard-module-name-resolver\n"
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/trans.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/tree.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/trig.rkt" test)
+raco test: (submod "/home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/window.rkt" test)
+  64 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/path.rkt
+  32 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/pt-vec.rkt
+  28 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/trans.rkt
+  27 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/linear-equations.rkt
+  18 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/convex-hull.rkt
+  15 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/angles.rkt
+  10 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/color.rkt
+   7 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/geometry.rkt
+   6 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/window.rkt
+   5 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/curve.rkt
+   5 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/trig.rkt
+   4 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/mat.rkt
+   3 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/line.rkt
+   1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/def.rkt
+   1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/list3-sequence.rkt
+   1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/pen-and-brush.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/info.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/arrow.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/bitmap.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/dc-path-to-curve.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/dc-path.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/dc.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/debug.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/device.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/draw-bezier.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/draw.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/arbelos.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/asymptote-hobby-control.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/asymptote-venn-diagram.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/cuboid.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/exercises-angles-in-right-triangle.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/generate-exercises-to-pdf.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/gradient-example.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/integral-left-sum.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/kmiecik-examples-from-tug-boat.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/metafont-book.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/metapost-examples.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/metapost-manual.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/olympic-rings.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/polygonal-numbers.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/reuleaux-triangle.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/root-spiral.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/rotating-triangle.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/triangle-sss.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/truncated-cone.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/exp/font-root-test.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/extras/flags.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/graph.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/grid.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/info.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/label.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/main.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/match-case-lambda.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/metapict.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/node.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/parameters.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/pict-lite.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/pict.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/polygons.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/save-pdf.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/bez.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/colors.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/construction-of-bezier-curve.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/coordinates.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/curve.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/curves.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/draw-and-fill.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/examples.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/examples5.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/guide.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/guide.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/metapict.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/pict.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/pt.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/reference.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/representation.scrbl
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/utils.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/shapes.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/snake.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/structs.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/tagged-pict.rkt
+   0 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/tree.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/bez.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/box-and-pointer-diagram.rkt
+19/246 test failures
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/geometry-exercises.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/glider.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/missing-square-puzzle.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/pointilism.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/pointilism2.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/sine-cosine-drawing.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/state-machine.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/examples/vector-diagrams.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/exp/framed-table.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/exp/render-math-using-picts.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/exp/tex/render-tex-formula.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/extras/function-tables.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/scribblings/moonlanding.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/grammar-expressions.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/grammar.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/lexer.rkt
+1  1 /home/racket/build-pkgs/user/.racket/6.1.91.900/pkgs/metapict/metapict/todo/test-grammar-and-lexer.rkt
+The time is now Thursday, May 14th, 2015 10:54:24am
